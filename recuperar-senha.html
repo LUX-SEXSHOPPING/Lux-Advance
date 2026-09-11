@@ -1,71 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 
   <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1"
+    content="width=device-width, initial-scale=1.0"
   >
 
-  <title>LUX — Recuperar senha</title>
+  <title>Recuperar Senha — LUX</title>
 
-  <link
-    rel="stylesheet"
-    href="app.css"
-  >
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="login.css">
 
-  <link
-    rel="stylesheet"
-    href="login.css"
-  >
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
 
 </head>
 
-
 <body>
 
-  <main class="login-wrap">
-
-    <a
-      class="voltar"
-      href="login.html"
-    >
-      ← Voltar para o login
-    </a>
-
+  <main class="login-page">
 
     <section class="login-card">
 
-      <div class="marca">
-        LUX
+      <div class="login-brand">
+
+        <div class="login-logo">
+          LUX
+        </div>
+
+        <div class="login-subtitle">
+          Sensualidade & Sofisticação
+        </div>
+
       </div>
 
 
-      <p class="sub">
-        Recuperação de senha
+      <h1>
+        Recuperar senha
+      </h1>
+
+
+      <p class="login-description">
+
+        Digite o e-mail cadastrado.
+        Enviaremos um link para você
+        criar uma nova senha.
+
       </p>
-
-
-      <p
-        style="
-          color:#b9afb4;
-          line-height:1.6;
-          text-align:center;
-        "
-      >
-        Informe o e-mail utilizado no seu cadastro.
-        Enviaremos um link para você criar uma nova senha.
-      </p>
-
-
-      <div
-        id="mensagem"
-        class="mensagem"
-        hidden
-      ></div>
 
 
       <form id="recuperacaoForm">
@@ -74,133 +59,151 @@
           E-mail
         </label>
 
-
         <input
-          id="email"
           type="email"
+          id="email"
+          placeholder="Digite seu e-mail"
           autocomplete="email"
           required
-          placeholder="seu@email.com"
         >
 
 
         <button
-          class="btn primary"
           type="submit"
-          id="btnEnviar"
+          class="btn-primary"
+          id="btnRecuperar"
         >
-          Enviar link de recuperação
+
+          Enviar link
+
         </button>
 
       </form>
 
 
-      <p class="senha-link">
+      <div
+        id="mensagem"
+        class="login-message"
+      ></div>
+
+
+      <div class="login-links">
 
         <a href="login.html">
-          Voltar para entrar
+          Voltar para o login
         </a>
 
-      </p>
+      </div>
 
     </section>
 
   </main>
 
 
-  <!-- SUPABASE -->
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-  <!-- CONFIGURAÇÃO -->
-
-  <script src="config.js"></script>
-
-
-  <!-- AUTENTICAÇÃO -->
-
-  <script src="auth.js"></script>
-
-
   <script>
 
-    document
-      .getElementById("recuperacaoForm")
-      .addEventListener(
-        "submit",
-        async function(e) {
+    const formulario =
+      document.getElementById(
+        "recuperacaoForm"
+      );
 
-          e.preventDefault();
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
 
-
-          const mensagem =
-            document.getElementById(
-              "mensagem"
-            );
-
-          const botao =
-            document.getElementById(
-              "btnEnviar"
-            );
-
-          const email =
-            document
-              .getElementById("email")
-              .value
-              .trim();
+    const botao =
+      document.getElementById(
+        "btnRecuperar"
+      );
 
 
-          mensagem.hidden = false;
+    formulario.addEventListener(
+      "submit",
+      async function(event) {
 
-          mensagem.className =
-            "mensagem";
+        event.preventDefault();
+
+
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
+
+        mensagem.textContent = "";
+        mensagem.className =
+          "login-message";
+
+
+        if (!email) {
 
           mensagem.textContent =
-            "Enviando link de recuperação...";
+            "Digite seu e-mail.";
 
-          botao.disabled = true;
+          return;
+
+        }
 
 
-          try {
+        botao.disabled = true;
+        botao.textContent =
+          "Enviando...";
 
-            await solicitarRecuperacaoSenha(
+
+        try {
+
+          const resultado =
+            await window.solicitarRecuperacaoSenha(
               email
             );
 
 
-            mensagem.className =
-              "mensagem success";
+          if (!resultado.success) {
 
-
-            mensagem.textContent =
-              "Se este e-mail estiver cadastrado, você receberá um link para criar uma nova senha. Verifique também a pasta de spam.";
-
-
-            document
-              .getElementById("email")
-              .disabled = true;
-
-
-          } catch (erro) {
-
-            mensagem.className =
-              "mensagem error";
-
-
-            mensagem.textContent =
-              erro.message;
-
-
-            botao.disabled = false;
+            throw new Error(
+              resultado.error
+            );
 
           }
 
+
+          mensagem.className =
+            "login-message success";
+
+          mensagem.innerHTML =
+            "Solicitação enviada!<br><br>" +
+            "Verifique sua caixa de entrada e também a pasta de spam.";
+
+
+          botao.textContent =
+            "Link enviado";
+
+
+        } catch (erro) {
+
+          console.error(erro);
+
+          mensagem.className =
+            "login-message error";
+
+          mensagem.textContent =
+            erro.message ||
+            "Não foi possível enviar o link.";
+
+          botao.disabled = false;
+
+          botao.textContent =
+            "Enviar link";
+
         }
-      );
+
+      }
+
+    );
 
   </script>
 
 </body>
-
 </html>

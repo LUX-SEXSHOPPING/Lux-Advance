@@ -1,1 +1,156 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LUX — Entrar</title><link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/login.css"></head><body><main class="login-wrap"><a class="voltar" href="index.html">← Voltar ao LUX</a><section class="login-card"><div class="marca">LUX</div><p class="sub">Acesso exclusivo</p><p style="color:#b9afb4">Entre como usuário ou modelo. Cada conta recebe uma área própria.</p><div id="mensagem" class="mensagem" hidden></div><form id="loginForm"><label>E-mail</label><input id="email" type="email" autocomplete="email" required placeholder="seu@email.com"><label>Senha</label><input id="senha" type="password" autocomplete="current-password" required placeholder="Sua senha"><button class="btn primary" type="submit">Entrar</button></form><p style="text-align:right;margin:10px 0 18px"><a href="recuperar-senha.html" style="color:#e6c86e">Esqueci minha senha</a></p><div class="separador"><span>CRIAR CONTA</span></div><div class="cadastros"><a href="cadastro-usuario.html">Criar conta de usuário</a><a href="cadastro-modelo.html">Cadastrar como modelo</a></div></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/config.js"></script><script src="js/auth.js"></script><script>(async()=>{const u=await usuarioAtual();if(u){try{const t=await getTipoUsuario(u.id);location.href=t==='modelo'?'modelo/painel.html':t==='admin'?'admin/painel.html':'usuario/painel.html';}catch(e){}}})();document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const m=document.getElementById('mensagem');m.hidden=false;m.textContent='Entrando...';try{const u=await login(email.value.trim(),senha.value);const t=await getTipoUsuario(u.id);location.href=t==='modelo'?'modelo/painel.html':t==='admin'?'admin/painel.html':'usuario/painel.html';}catch(err){m.textContent=err.message;m.className='mensagem error';}});</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LUX — Entrar</title>
+
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+  <main class="login-wrap">
+
+    <a class="voltar" href="index.html">
+      ← Voltar ao LUX
+    </a>
+
+    <section class="login-card">
+
+      <div class="marca">LUX</div>
+
+      <p class="sub">Acesso exclusivo</p>
+
+      <p style="color:#b9afb4">
+        Entre como usuário ou modelo.
+        Cada conta recebe uma área própria.
+      </p>
+
+      <div id="mensagem" class="mensagem" hidden></div>
+
+      <form id="loginForm">
+
+        <label for="email">E-mail</label>
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder="seu@email.com"
+        >
+
+        <label for="senha">Senha</label>
+
+        <input
+          id="senha"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="Sua senha"
+        >
+
+        <button class="btn primary" type="submit">
+          Entrar
+        </button>
+
+      </form>
+
+      <p class="senha-link">
+        <a href="redefinir-senha.html">
+          Esqueci minha senha
+        </a>
+      </p>
+
+      <div class="separador">
+        <span>CRIAR CONTA</span>
+      </div>
+
+      <div class="cadastros">
+
+        <a href="cadastro-usuario.html">
+          Criar conta de usuário
+        </a>
+
+        <a href="cadastro-modelo.html">
+          Cadastrar como modelo
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+
+    (async () => {
+
+      const u = await usuarioAtual();
+
+      if (u) {
+
+        try {
+
+          const t = await getTipoUsuario(u.id);
+
+          location.href =
+            t === 'modelo'
+              ? 'modelo/painel.html'
+              : t === 'admin'
+              ? 'admin/painel.html'
+              : 'usuario/painel.html';
+
+        } catch (e) {}
+
+      }
+
+    })();
+
+
+    document
+      .getElementById('loginForm')
+      .addEventListener('submit', async e => {
+
+        e.preventDefault();
+
+        const m = document.getElementById('mensagem');
+
+        m.hidden = false;
+        m.textContent = 'Entrando...';
+
+        try {
+
+          const u = await login(
+            document.getElementById('email').value.trim(),
+            document.getElementById('senha').value
+          );
+
+          const t = await getTipoUsuario(u.id);
+
+          location.href =
+            t === 'modelo'
+              ? 'modelo/painel.html'
+              : t === 'admin'
+              ? 'admin/painel.html'
+              : 'usuario/painel.html';
+
+        } catch (err) {
+
+          m.textContent = err.message;
+          m.className = 'mensagem error';
+
+        }
+
+      });
+
+  </script>
+
+</body>
+</html>

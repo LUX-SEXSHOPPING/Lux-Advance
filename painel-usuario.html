@@ -19,6 +19,7 @@
 
 </head>
 
+
 <body>
 
   <header class="topbar">
@@ -29,6 +30,7 @@
     >
       LUX
     </a>
+
 
     <button
       class="btn ghost"
@@ -49,6 +51,7 @@
         ÁREA EXCLUSIVA
       </div>
 
+
       <h1
         class="title"
         id="titulo"
@@ -56,11 +59,12 @@
         Minha conta
       </h1>
 
+
       <p
         class="subtitle"
         id="subtitulo"
       >
-        Carregando suas informações...
+        Carregando sua conta...
       </p>
 
     </section>
@@ -87,14 +91,17 @@
             PERFIL
           </span>
 
+
           <h2 id="nomeUsuario">
             Usuário
           </h2>
+
 
           <p
             id="emailUsuario"
             style="color:var(--muted)"
           ></p>
+
 
           <p
             id="statusUsuario"
@@ -114,9 +121,11 @@
             LUX
           </span>
 
+
           <h2>
             Bem-vindo
           </h2>
+
 
           <p
             style="
@@ -129,6 +138,7 @@
             acompanhe as novidades.
           </p>
 
+
           <div class="actions">
 
             <a
@@ -137,6 +147,7 @@
             >
               Ver modelos
             </a>
+
 
             <a
               class="btn"
@@ -163,32 +174,32 @@
   </footer>
 
 
-  <!-- SUPABASE -->
+  <!-- =====================================================
+       SUPABASE
+       ===================================================== -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- CONFIGURAÇÃO -->
-
   <script src="config.js"></script>
-
-  <!-- AUTENTICAÇÃO -->
 
   <script src="auth.js"></script>
 
 
   <script>
 
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
+
+
+    /* =====================================================
+       CARREGAR PAINEL
+       ===================================================== */
+
     async function iniciarPainel() {
 
-      const mensagem =
-        document.getElementById("mensagem");
-
       try {
-
-        /*
-         * Aguarda o carregamento da sessão
-         * antes de decidir se o usuário está logado.
-         */
 
         const supabase =
           window.luxSupabase;
@@ -204,50 +215,53 @@
 
 
         /*
-         * Primeiro verifica a sessão atual.
+         * Aguarda o Supabase restaurar
+         * a sessão do navegador.
          */
 
-        let resultadoSessao =
-          await supabase.auth.getSession();
+        let session = null;
 
 
-        let session =
-          resultadoSessao &&
-          resultadoSessao.data
-            ? resultadoSessao.data.session
-            : null;
+        for (
+          let tentativa = 0;
+          tentativa < 10;
+          tentativa++
+        ) {
 
-
-        /*
-         * Pequena espera para o Supabase
-         * restaurar a sessão no navegador.
-         */
-
-        if (!session) {
-
-          await new Promise(
-            function(resolve) {
-              setTimeout(resolve, 800);
-            }
-          );
-
-
-          resultadoSessao =
-            await supabase.auth.getSession();
+          const {
+            data
+          } =
+            await supabase.auth
+              .getSession();
 
 
           session =
-            resultadoSessao &&
-            resultadoSessao.data
-              ? resultadoSessao.data.session
-              : null;
+            data?.session || null;
+
+
+          if (session) {
+            break;
+          }
+
+
+          await new Promise(
+            function(resolve) {
+
+              setTimeout(
+                resolve,
+                300
+              );
+
+            }
+          );
 
         }
 
 
         /*
-         * Se realmente não existe sessão,
-         * aí sim volta para o login.
+         * Só manda para o login se,
+         * depois das tentativas,
+         * realmente não houver sessão.
          */
 
         if (!session) {
@@ -266,11 +280,41 @@
 
 
         /*
-         * Busca o perfil no banco.
+         * Busca o perfil.
          */
 
-        const perfil =
-          await getPerfil(user.id);
+        let perfil = null;
+
+
+        for (
+          let tentativa = 0;
+          tentativa < 5;
+          tentativa++
+        ) {
+
+          perfil =
+            await getPerfil(
+              user.id
+            );
+
+
+          if (perfil) {
+            break;
+          }
+
+
+          await new Promise(
+            function(resolve) {
+
+              setTimeout(
+                resolve,
+                500
+              );
+
+            }
+          );
+
+        }
 
 
         if (!perfil) {
@@ -281,7 +325,7 @@
             "notice error";
 
           mensagem.textContent =
-            "Sua conta foi autenticada, mas o perfil ainda está sendo criado. Aguarde alguns segundos e atualize a página.";
+            "Sua conta foi autenticada, mas o perfil ainda está sendo criado. Atualize a página em alguns segundos.";
 
           document
             .getElementById("subtitulo")
@@ -294,7 +338,8 @@
 
 
         /*
-         * Se for modelo, vai para painel de modelo.
+         * Se a conta não for de usuário,
+         * encaminha para o painel correto.
          */
 
         if (
@@ -310,11 +355,6 @@
         }
 
 
-        /*
-         * Se for administrador,
-         * vai para painel administrativo.
-         */
-
         if (
           perfil.tipo === "admin"
         ) {
@@ -329,7 +369,7 @@
 
 
         /*
-         * Somente usuários chegam aqui.
+         * Confirma que é usuário.
          */
 
         if (
@@ -344,11 +384,13 @@
 
 
         /*
-         * Preenche os dados.
+         * Preenche o painel.
          */
 
         document
-          .getElementById("nomeUsuario")
+          .getElementById(
+            "nomeUsuario"
+          )
           .textContent =
           perfil.nome ||
           user.user_metadata?.nome ||
@@ -356,14 +398,18 @@
 
 
         document
-          .getElementById("emailUsuario")
+          .getElementById(
+            "emailUsuario"
+          )
           .textContent =
           user.email ||
           "";
 
 
         document
-          .getElementById("statusUsuario")
+          .getElementById(
+            "statusUsuario"
+          )
           .textContent =
           "Status: " +
           (
@@ -373,7 +419,9 @@
 
 
         document
-          .getElementById("titulo")
+          .getElementById(
+            "titulo"
+          )
           .textContent =
           "Olá, " +
           (
@@ -384,25 +432,24 @@
 
 
         document
-          .getElementById("subtitulo")
+          .getElementById(
+            "subtitulo"
+          )
           .textContent =
           "Esta é sua área exclusiva na LUX.";
 
 
-        /*
-         * Mostra o conteúdo somente depois
-         * de confirmar que está tudo certo.
-         */
-
         document
-          .getElementById("conteudo")
+          .getElementById(
+            "conteudo"
+          )
           .hidden = false;
 
 
       } catch (erro) {
 
         console.error(
-          "Erro no painel do usuário:",
+          "Erro no painel:",
           erro
         );
 
@@ -421,12 +468,14 @@
     }
 
 
-    /*
-     * Botão sair
-     */
+    /* =====================================================
+       SAIR
+       ===================================================== */
 
     document
-      .getElementById("btnSair")
+      .getElementById(
+        "btnSair"
+      )
       .addEventListener(
         "click",
         async function() {
@@ -437,9 +486,9 @@
       );
 
 
-    /*
-     * Inicia o painel
-     */
+    /* =====================================================
+       INICIAR
+       ===================================================== */
 
     iniciarPainel();
 

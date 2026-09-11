@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>LUX — Entrar</title>
 
-  <link rel="stylesheet" href="css/app.css">
-  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
@@ -21,9 +22,11 @@
 
       <div class="marca">LUX</div>
 
-      <p class="sub">Acesso exclusivo</p>
+      <p class="sub">
+        Acesso exclusivo
+      </p>
 
-      <p style="color:#b9afb4">
+      <p class="descricao-login">
         Entre como usuário ou modelo.
         Cada conta recebe uma área própria.
       </p>
@@ -32,7 +35,9 @@
 
       <form id="loginForm">
 
-        <label for="email">E-mail</label>
+        <label for="email">
+          E-mail
+        </label>
 
         <input
           id="email"
@@ -42,7 +47,9 @@
           placeholder="seu@email.com"
         >
 
-        <label for="senha">Senha</label>
+        <label for="senha">
+          Senha
+        </label>
 
         <input
           id="senha"
@@ -52,14 +59,17 @@
           placeholder="Sua senha"
         >
 
-        <button class="btn primary" type="submit">
+        <button
+          class="btn primary"
+          type="submit"
+        >
           Entrar
         </button>
 
       </form>
 
       <p class="senha-link">
-        <a href="redefinir-senha.html">
+        <a href="recuperar-senha.html">
           Esqueci minha senha
         </a>
       </p>
@@ -84,71 +94,136 @@
 
   </main>
 
+
+  <!-- SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/config.js"></script>
-  <script src="js/auth.js"></script>
+
+  <!-- CONFIGURAÇÃO -->
+  <script src="config.js"></script>
+
+  <!-- AUTENTICAÇÃO -->
+  <script src="auth.js"></script>
+
 
   <script>
 
+    /*
+     * Se o usuário já estiver conectado,
+     * direciona automaticamente para sua área.
+     */
+
     (async () => {
 
-      const u = await usuarioAtual();
+      try {
 
-      if (u) {
+        const u = await usuarioAtual();
 
-        try {
+        if (!u) return;
 
-          const t = await getTipoUsuario(u.id);
+        const t = await getTipoUsuario(u.id);
 
-          location.href =
-            t === 'modelo'
-              ? 'modelo/painel.html'
-              : t === 'admin'
-              ? 'admin/painel.html'
-              : 'usuario/painel.html';
+        if (t === "modelo") {
 
-        } catch (e) {}
+          location.href = "painel-modelo.html";
+
+        } else if (t === "admin") {
+
+          location.href = "painel.html";
+
+        } else {
+
+          location.href = "painel-usuario.html";
+
+        }
+
+      } catch (e) {
+
+        console.log(
+          "Nenhuma sessão ativa."
+        );
 
       }
 
     })();
 
 
+    /*
+     * LOGIN
+     */
+
     document
-      .getElementById('loginForm')
-      .addEventListener('submit', async e => {
+      .getElementById("loginForm")
+      .addEventListener(
+        "submit",
+        async function(e) {
 
-        e.preventDefault();
+          e.preventDefault();
 
-        const m = document.getElementById('mensagem');
+          const mensagem =
+            document.getElementById("mensagem");
 
-        m.hidden = false;
-        m.textContent = 'Entrando...';
+          const email =
+            document
+              .getElementById("email")
+              .value
+              .trim();
 
-        try {
+          const senha =
+            document
+              .getElementById("senha")
+              .value;
 
-          const u = await login(
-            document.getElementById('email').value.trim(),
-            document.getElementById('senha').value
-          );
 
-          const t = await getTipoUsuario(u.id);
+          mensagem.hidden = false;
+          mensagem.className = "mensagem";
+          mensagem.textContent = "Entrando...";
 
-          location.href =
-            t === 'modelo'
-              ? 'modelo/painel.html'
-              : t === 'admin'
-              ? 'admin/painel.html'
-              : 'usuario/painel.html';
 
-        } catch (err) {
+          try {
 
-          m.textContent = err.message;
-          m.className = 'mensagem error';
+            const usuario =
+              await login(
+                email,
+                senha
+              );
+
+            const tipo =
+              await getTipoUsuario(
+                usuario.id
+              );
+
+
+            if (tipo === "modelo") {
+
+              location.href =
+                "painel-modelo.html";
+
+            } else if (tipo === "admin") {
+
+              location.href =
+                "painel.html";
+
+            } else {
+
+              location.href =
+                "painel-usuario.html";
+
+            }
+
+
+          } catch (erro) {
+
+            mensagem.hidden = false;
+            mensagem.className =
+              "mensagem error";
+
+            mensagem.textContent =
+              erro.message;
+
+          }
 
         }
-
-      });
+      );
 
   </script>
 

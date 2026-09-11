@@ -26,19 +26,27 @@ if (!window.supabase) {
    CLIENTE SUPABASE
    ========================================================= */
 
-const luxSupabase =
-  (
-    window.supabase &&
-    LUX_SUPABASE_URL.startsWith("https://") &&
-    LUX_SUPABASE_ANON_KEY.startsWith("sb_publishable_")
-  )
+if (
+  window.supabase &&
+  LUX_SUPABASE_URL.startsWith("https://") &&
+  LUX_SUPABASE_ANON_KEY.startsWith("sb_publishable_")
+) {
 
-    ? window.supabase.createClient(
-        LUX_SUPABASE_URL,
-        LUX_SUPABASE_ANON_KEY
-      )
+  window.luxSupabase =
+    window.supabase.createClient(
+      LUX_SUPABASE_URL,
+      LUX_SUPABASE_ANON_KEY
+    );
 
-    : null;
+} else {
+
+  window.luxSupabase = null;
+
+  console.error(
+    "Não foi possível inicializar o Supabase."
+  );
+
+}
 
 
 /* =========================================================

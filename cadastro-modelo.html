@@ -1,1 +1,439 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LUX — Cadastro de Modelo</title><link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/login.css"></head><body><main class="login-wrap"><a class="voltar" href="login.html">← Voltar</a><section class="login-card" style="max-width:760px"><div class="marca">LUX</div><p class="sub">Cadastro completo de modelo</p><div class="notice">O cadastro é enviado para análise. O perfil só aparece publicamente depois da aprovação da administração. Você precisa ter 18 anos ou mais.</div><div id="mensagem" class="mensagem" hidden></div><form id="cadastro"><div class="form-grid"><div class="field"><label>Nome de exibição *</label><input id="nome" required maxlength="80"></div><div class="field"><label>E-mail de acesso *</label><input id="email" type="email" required></div><div class="field"><label>Senha *</label><input id="senha" type="password" minlength="8" required></div><div class="field"><label>Idade *</label><input id="idade" type="number" min="18" max="99" required></div><div class="field"><label>Cidade</label><input id="cidade" maxlength="80"></div><div class="field"><label>País</label><input id="pais" value="Brasil" maxlength="60"></div><div class="field"><label>Cor do cabelo</label><select id="cabelo"><option value="">Selecione</option><option>Preto</option><option>Castanho</option><option>Loiro</option><option>Ruivo</option><option>Colorido</option><option>Outro</option></select></div><div class="field"><label>Cor dos olhos</label><select id="olhos"><option value="">Selecione</option><option>Castanhos</option><option>Pretos</option><option>Azuis</option><option>Verdes</option><option>Mel</option><option>Cinza</option><option>Outro</option></select></div><div class="field"><label>Altura (cm)</label><input id="altura" type="number" min="100" max="230"></div><div class="field"><label>Idiomas</label><input id="idiomas" placeholder="Português, Inglês..."></div><div class="field full"><label>Descrição / apresentação</label><textarea id="descricao" maxlength="800" placeholder="Escreva uma apresentação profissional."></textarea></div><div class="field full"><label>URL da foto de perfil (opcional)</label><input id="foto" type="url" placeholder="https://..."></div><div class="field full"><label><input id="aceite18" type="checkbox" required> Confirmo que tenho 18 anos ou mais e que as informações fornecidas são verdadeiras.</label></div></div><button class="btn primary" type="submit">Enviar cadastro para análise</button></form></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/config.js"></script><script src="js/auth.js"></script><script>document.getElementById('cadastro').addEventListener('submit',async e=>{e.preventDefault();const m=document.getElementById('mensagem');m.hidden=false;m.className='mensagem';m.textContent='Criando conta e enviando os dados para análise...';try{const db=requireClient();const {data,error}=await db.auth.signUp({email:email.value.trim(),password:senha.value,options:{data:{tipo:'modelo',nome:nome.value.trim(),idade:Number(idade.value),cidade:cidade.value.trim(),pais:pais.value.trim()||'Brasil',cor_cabelo:cabelo.value,cor_olhos:olhos.value,altura_cm:altura.value?Number(altura.value):null,idiomas:idiomas.value.trim(),descricao:descricao.value.trim(),foto_url:foto.value.trim(),maioridade_confirmada:aceite18.checked}}});if(error)throw new Error(friendlyAuthError(error));m.className='mensagem success';m.textContent=data.session?'Cadastro criado. Seu perfil está pendente de análise.':'Cadastro criado. Confirme seu e-mail e depois entre para acompanhar seu perfil. A administração fará a verificação antes da publicação.';e.target.reset();}catch(err){m.className='mensagem error';m.textContent=err.message||'Erro no cadastro.';}});</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LUX — Cadastro de Modelo</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700;1,800&display=swap" as="style">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700;1,800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --dourado: #c9a227;
+      --dourado-claro: #f0d878;
+      --champanhe: #f5e6c8;
+      --texto-claro: #efe7dd;
+      --texto-suave: #cbbfaf;
+      --vinho: #6e0f2e;
+      --fundo: #0c0809;
+      --painel: rgba(255, 255, 255, .045);
+      --borda-dourada: rgba(201, 162, 39, .28);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      color: var(--texto-claro);
+      min-height: 100vh;
+      background: 
+        radial-gradient(900px 520px at 82% -12%, rgba(110, 15, 46, .38), transparent 60%),
+        radial-gradient(760px 420px at 8% 112%, rgba(201, 162, 39, .14), transparent 62%),
+        var(--fundo);
+      padding: 20px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(115deg, transparent 42%, rgba(201, 162, 39, .05) 48%, transparent 54%),
+        linear-gradient(-115deg, transparent 62%, rgba(110, 15, 46, .09) 70%, transparent 78%);
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url('logo3.png') center/contain no-repeat;
+      opacity: 0.1;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .conteudo {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .voltar {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--dourado-claro);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-size: 14px;
+      transition: all .3s;
+    }
+
+    .voltar:hover {
+      color: var(--dourado);
+      transform: translateX(-4px);
+    }
+
+    .cadastro-card {
+      background: linear-gradient(135deg, rgba(12, 8, 9, .95), rgba(20, 15, 18, .95));
+      border: 1px solid var(--borda-dourada);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(201, 162, 39, .15);
+    }
+
+    .cadastro-header {
+      text-align: center;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--borda-dourada);
+      padding-bottom: 20px;
+    }
+
+    .cadastro-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 800;
+      font-style: italic;
+      color: var(--champanhe);
+      margin-bottom: 8px;
+    }
+
+    .cadastro-subtitle {
+      font-size: 13px;
+      color: var(--dourado-claro);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dourado-claro);
+      margin-bottom: 8px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid var(--borda-dourada);
+      color: var(--texto-claro);
+      font-size: 14px;
+      transition: all .3s;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      background: rgba(255, 255, 255, .1);
+      border-color: rgba(201, 162, 39, .6);
+      box-shadow: 0 0 12px rgba(201, 162, 39, .2);
+    }
+
+    input::placeholder {
+      color: var(--texto-suave);
+    }
+
+    .grade-2colunas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+      .grade-2colunas {
+        grid-template-columns: 1fr;
+      }
+
+      .cadastro-card {
+        padding: 25px;
+      }
+    }
+
+    .info-box {
+      background: rgba(201, 162, 39, .1);
+      border-left: 3px solid var(--dourado-claro);
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--texto-suave);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 13px 20px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      transition: all .3s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f0d878, #c9a227 60%, #8a6d14);
+      color: #1a1206;
+      box-shadow: 0 8px 24px rgba(201, 162, 39, .3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(201, 162, 39, .45);
+    }
+
+    .erro {
+      display: none;
+      background: rgba(200, 70, 70, .15);
+      border: 1px solid rgba(200, 70, 70, .4);
+      color: #ff8a8a;
+      padding: 12px 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    .erro.show {
+      display: block;
+    }
+
+    .sucesso {
+      display: none;
+      background: rgba(100, 200, 100, .15);
+      border: 1px solid rgba(100, 200, 100, .4);
+      color: #8aff8a;
+      padding: 12px 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    .sucesso.show {
+      display: block;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      color: var(--dourado-claro);
+      font-size: 12px;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(201, 162, 39, .3);
+      border-top-color: var(--dourado-claro);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin-right: 6px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="conteudo">
+    <a href="index.html" class="voltar">
+      <i class="fas fa-chevron-left"></i> Voltar
+    </a>
+
+    <div class="cadastro-card">
+      <div class="cadastro-header">
+        <h1 class="cadastro-title">Cadastro Modelo</h1>
+        <p class="cadastro-subtitle">Crie sua conta exclusiva</p>
+      </div>
+
+      <div id="erro" class="erro"></div>
+      <div id="sucesso" class="sucesso"></div>
+
+      <div class="info-box">
+        <i class="fas fa-info-circle"></i> Preencha seus dados para criar uma conta modelo. Você receberá um email de confirmação.
+      </div>
+
+      <form id="formCadastro">
+        <div class="grade-2colunas">
+          <div class="form-group">
+            <label for="nome"><i class="fas fa-user"></i> Nome Completo</label>
+            <input type="text" id="nome" placeholder="Seu nome" required>
+          </div>
+          <div class="form-group">
+            <label for="idade"><i class="fas fa-birthday-cake"></i> Idade</label>
+            <input type="number" id="idade" min="18" placeholder="18" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email"><i class="fas fa-envelope"></i> E-mail</label>
+          <input type="email" id="email" placeholder="seu@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="senha"><i class="fas fa-lock"></i> Senha</label>
+          <input type="password" id="senha" placeholder="Mínimo 6 caracteres" required>
+        </div>
+
+        <div class="form-group">
+          <label for="senhaConfirm"><i class="fas fa-lock"></i> Confirmar Senha</label>
+          <input type="password" id="senhaConfirm" placeholder="Repita a senha" required>
+        </div>
+
+        <div class="grade-2colunas">
+          <div class="form-group">
+            <label for="altura"><i class="fas fa-ruler-vertical"></i> Altura</label>
+            <input type="text" id="altura" placeholder="Ex: 1.65m" required>
+          </div>
+          <div class="form-group">
+            <label for="cidade"><i class="fas fa-map-pin"></i> Cidade</label>
+            <input type="text" id="cidade" placeholder="Sua cidade" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bio"><i class="fas fa-pen"></i> Sobre Você</label>
+          <textarea id="bio" placeholder="Descreva-se brevemente..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-user-check"></i> Criar Conta
+        </button>
+
+        <div class="loading" id="loading">
+          <span class="spinner"></span> Criando sua conta...
+        </div>
+      </form>
+
+      <p style="text-align: center; margin-top: 20px; font-size: 12px; color: var(--texto-suave);">
+        Já tem conta? <a href="login.html" style="color: var(--dourado-claro); text-decoration: none; font-weight: 600;">Faça login</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="auth.js"></script>
+  
+  <script>
+    const formCadastro = document.getElementById('formCadastro');
+    const erroDiv = document.getElementById('erro');
+    const sucessoDiv = document.getElementById('sucesso');
+    const loadingDiv = document.getElementById('loading');
+
+    formCadastro.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const senha = document.getElementById('senha').value;
+      const senhaConfirm = document.getElementById('senhaConfirm').value;
+      const idade = document.getElementById('idade').value;
+      const altura = document.getElementById('altura').value.trim();
+      const cidade = document.getElementById('cidade').value.trim();
+      const bio = document.getElementById('bio').value.trim();
+
+      // Validações
+      if (!nome || !email || !senha || !senhaConfirm || !idade || !altura || !cidade || !bio) {
+        mostrarErro('Por favor, preencha todos os campos.');
+        return;
+      }
+
+      if (senha.length < 6) {
+        mostrarErro('A senha deve ter no mínimo 6 caracteres.');
+        return;
+      }
+
+      if (senha !== senhaConfirm) {
+        mostrarErro('As senhas não conferem.');
+        return;
+      }
+
+      if (idade < 18) {
+        mostrarErro('Você deve ter no mínimo 18 anos.');
+        return;
+      }
+
+      // Limpa mensagens anteriores
+      erroDiv.classList.remove('show');
+      sucessoDiv.classList.remove('show');
+      loadingDiv.style.display = 'block';
+      formCadastro.style.opacity = '0.6';
+      formCadastro.style.pointerEvents = 'none';
+
+      try {
+        // Cadastra o usuário como modelo
+        const usuario = await cadastrar('modelo', nome, email, senha);
+        
+        // Mostra mensagem de sucesso
+        sucessoDiv.textContent = '✅ Conta criada com sucesso! Verifique seu email para confirmar.';
+        sucessoDiv.classList.add('show');
+        loadingDiv.style.display = 'none';
+
+        // Aguarda um pouco e redireciona
+        setTimeout(() => {
+          location.href = 'login.html';
+        }, 2000);
+
+      } catch (erro) {
+        mostrarErro(erro.message);
+        loadingDiv.style.display = 'none';
+        formCadastro.style.opacity = '1';
+        formCadastro.style.pointerEvents = 'auto';
+      }
+    });
+
+    function mostrarErro(msg) {
+      erroDiv.textContent = msg;
+      erroDiv.classList.add('show');
+      loadingDiv.style.display = 'none';
+      formCadastro.style.opacity = '1';
+      formCadastro.style.pointerEvents = 'auto';
+    }
+
+    // Limpar erro ao digitar
+    document.querySelectorAll('input, textarea').forEach(campo => {
+      campo.addEventListener('input', () => {
+        if (erroDiv.classList.contains('show')) {
+          erroDiv.classList.remove('show');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,311 +1,263 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modelos Masculinos — LUX</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --dourado: #c9a227;
-            --dourado-claro: #e6c86e;
-            --dourado-escuro: #a67c00;
-            --texto-claro: #f8f3f6;
-            --texto-suave: #e0d8dc;
-            --fundo-semitransp: rgba(8, 6, 8, 0.55);
-            --whatsapp-verde: #25d366;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            color: var(--texto-claro);
-            /* ✅ Fundo: banner.png */
-            background: linear-gradient(rgba(8,6,8,.5), rgba(15,8,15,.5)), url('banner.png');
-            background-size: cover;
-            background-position: center top;
-            background-attachment: fixed;
-            min-height: 100vh;
-        }
-        header {
-            background: var(--fundo-semitransp);
-            border-bottom: 1px solid rgba(201,162,39,.18);
-            padding: 1.2rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--dourado);
-            letter-spacing: 3px;
-            display: flex;
-            align-items: center;
-            gap: .5rem;
-        }
-        nav a {
-            color: var(--texto-suave);
-            text-decoration: none;
-            margin: 0 .7rem;
-            font-weight: 600;
-            transition: color .3s, transform .2s;
-            display: inline-block;
-        }
-        nav a:hover { color: var(--dourado-claro); transform: translateY(-2px); }
+  <meta charset="UTF-8">
 
-        main {
-            padding: 3rem 1.5rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--dourado-claro);
-            text-align: center;
-            font-size: 2.4rem;
-            margin-bottom: .5rem;
-        }
-        .subtitulo {
-            text-align: center;
-            color: var(--texto-suave);
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
-        }
-        .galeria {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-        .card {
-            background: rgba(0,0,0,.3);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(201,162,39,.2);
-            box-shadow: 0 8px 25px rgba(0,0,0,.25);
-            transition: transform .35s ease, box-shadow .35s ease, border-color .3s;
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 14px 35px rgba(0,0,0,.4);
-            border-color: var(--dourado);
-        }
-        /* ✅ Caixa elegante SEM foto externa */
-        .perfil-vazio {
-            width: 100%;
-            height: 360px;
-            background: linear-gradient(145deg, #121217, #1a1a1f);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid rgba(201,162,39,.15);
-            position: relative;
-            overflow: hidden;
-        }
-        .perfil-vazio::before {
-            content: '';
-            position: absolute;
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(201,162,39,.15), transparent 70%);
-        }
-        .icone-perfil {
-            font-size: 4.5rem;
-            color: var(--dourado);
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-        .perfil-texto {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.4rem;
-            color: var(--dourado-claro);
-            position: relative;
-            z-index: 1;
-        }
-        .card-corpo {
-            padding: 1.5rem;
-            text-align: center;
-        }
-        .nome {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--texto-claro);
-            margin-bottom: .4rem;
-        }
-        .descricao {
-            color: #b8b0b4;
-            font-size: .95rem;
-            margin-bottom: 1.4rem;
-        }
-        .botao-contato {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: linear-gradient(135deg, var(--dourado), var(--dourado-escuro));
-            color: #000;
-            text-decoration: none;
-            font-weight: 700;
-            padding: .85rem 1.8rem;
-            border-radius: 50px;
-            transition: transform .3s, box-shadow .3s;
-        }
-        .botao-contato:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(201,162,39,.35);
-        }
-        .voltar {
-            text-align: center;
-            margin-top: 3.5rem;
-        }
-        .voltar a {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--dourado);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
-            padding: .8rem 1.5rem;
-            border: 1px solid rgba(201,162,39,.25);
-            border-radius: 50px;
-            background: rgba(0,0,0,.2);
-            transition: all .3s;
-        }
-        .voltar a:hover {
-            background: rgba(201,162,39,.1);
-            color: var(--dourado-claro);
-        }
-        /* ✅ WhatsApp flutuante */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 60px;
-            height: 60px;
-            background: var(--whatsapp-verde);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 32px;
-            box-shadow: 0 5px 15px rgba(0,0,0,.4);
-            z-index: 999;
-            transition: transform .3s;
-        }
-        .whatsapp-float:hover { transform: scale(1.15); color: #fff; }
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
 
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            color: #887c80;
-            background: var(--fundo-semitransp);
-            border-top: 1px solid rgba(201,162,39,.1);
-            margin-top: 2rem;
-        }
-        @media (max-width: 768px) {
-            h1 { font-size: 1.9rem; }
-            header { justify-content: center; gap: 1rem; }
-            .galeria { grid-template-columns: 1fr; }
-            .perfil-vazio { height: 320px; }
-        }
-    </style>
+  <title>LUX — Modelos Masculinos</title>
+
+  <link
+    rel="stylesheet"
+    href="app.css"
+  >
 </head>
+
 <body>
 
-<header>
-    <div class="logo"><i class="fa-solid fa-gem"></i> LUX — Masculino</div>
-    <nav>
-        <a href="index.html">🏠 Início</a>
-        <a href="modelos-femininos.html">Femininas</a>
-        <a href="modelos-masculinos.html">Masculinos</a>
-    </nav>
-</header>
+  <header class="topbar">
 
-<main>
-    <h1>Modelos Masculinos</h1>
-    <p class="subtitulo">Exclusividade, estilo e presença — seleção LUX</p>
+    <a
+      class="brand"
+      href="index.html"
+    >
+      LUX
+    </a>
 
-    <div class="galeria">
-        <!-- Perfil 1 -->
-        <div class="card">
-            <div class="perfil-vazio">
-                <i class="fa-solid fa-user-tie icone-perfil"></i>
-                <span class="perfil-texto">Perfil Exclusivo</span>
-            </div>
-            <div class="card-corpo">
-                <h3 class="nome">Modelo 01</h3>
-                <p class="descricao">Sofisticação e carisma • Em breve</p>
-                <a class="botao-contato"
-                   href="https://wa.me/5551980612041?text=Olá!%20Tenho%20interesse%20no%20Modelo%2001%20da%20LUX."
-                   target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-whatsapp"></i> Contatar
-                </a>
-            </div>
-        </div>
+    <div class="actions">
 
-        <!-- Perfil 2 -->
-        <div class="card">
-            <div class="perfil-vazio">
-                <i class="fa-solid fa-user-tie icone-perfil"></i>
-                <span class="perfil-texto">Perfil Exclusivo</span>
-            </div>
-            <div class="card-corpo">
-                <h3 class="nome">Modelo 02</h3>
-                <p class="descricao">Elegância e estilo • Em breve</p>
-                <a class="botao-contato"
-                   href="https://wa.me/5551980612041?text=Olá!%20Tenho%20interesse%20no%20Modelo%2002%20da%20LUX."
-                   target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-whatsapp"></i> Contatar
-                </a>
-            </div>
-        </div>
+      <a
+        class="btn ghost"
+        href="login.html"
+      >
+        Entrar
+      </a>
 
-        <!-- Perfil 3 -->
-        <div class="card">
-            <div class="perfil-vazio">
-                <i class="fa-solid fa-user-tie icone-perfil"></i>
-                <span class="perfil-texto">Perfil Exclusivo</span>
-            </div>
-            <div class="card-corpo">
-                <h3 class="nome">Modelo 03</h3>
-                <p class="descricao">Presença marcante • Em breve</p>
-                <a class="botao-contato"
-                   href="https://wa.me/5551980612041?text=Olá!%20Tenho%20interesse%20no%20Modelo%2003%20da%20LUX."
-                   target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-whatsapp"></i> Contatar
-                </a>
-            </div>
-        </div>
     </div>
 
-    <div class="voltar">
-        <a href="index.html">
-            <i class="fa-solid fa-arrow-left"></i> Voltar à Página Principal
-        </a>
-    </div>
-</main>
+  </header>
 
-<!-- ✅ WhatsApp flutuante -->
-<a href="https://wa.me/5551980612041?text=Olá!%20Contato%20pelo%20catálogo%20masculino%20da%20LUX."
-   class="whatsapp-float" target="_blank" rel="noopener noreferrer">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
 
-<footer>
-    <p>© 2026 LUX — Proibido para menores de 18 anos. Todos os direitos reservados.</p>
-    <p><strong>LUX:</strong> Marca registrada — exclusividade e elegância.</p>
-</footer>
+  <main class="container">
+
+    <section class="hero">
+
+      <div class="eyebrow">
+        LUX
+      </div>
+
+      <h1 class="title">
+        Modelos Masculinos
+      </h1>
+
+      <p class="subtitle">
+        Conheça os perfis masculinos disponíveis
+        na plataforma LUX.
+      </p>
+
+    </section>
+
+
+    <section
+      id="listaModelos"
+      class="grid"
+    >
+
+      <div class="empty">
+        Carregando modelos...
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer class="footer">
+    LUX — Sensualidade & Sofisticação
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="config.js"></script>
+
+  <script src="auth.js"></script>
+
+
+  <script>
+
+    async function carregarModelos() {
+
+      const lista =
+        document.getElementById(
+          "listaModelos"
+        );
+
+      try {
+
+        const db =
+          requireClient();
+
+
+        const {
+          data,
+          error
+        } =
+          await db
+            .from("perfis")
+            .select("*")
+            .eq("tipo", "modelo")
+            .in(
+              "status",
+              [
+                "aprovado",
+                "ativo"
+              ]
+            );
+
+
+        if (error) {
+          throw error;
+        }
+
+
+        if (
+          !data ||
+          data.length === 0
+        ) {
+
+          lista.innerHTML = `
+            <div class="empty">
+              Nenhum modelo masculino disponível no momento.
+            </div>
+          `;
+
+          return;
+
+        }
+
+
+        lista.innerHTML =
+          data.map(
+            modelo => {
+
+              const nome =
+                escapeHTML(
+                  modelo.nome ||
+                  "Modelo LUX"
+                );
+
+
+              const cidade =
+                escapeHTML(
+                  modelo.cidade ||
+                  "Disponível na LUX"
+                );
+
+
+              let imagem = "";
+
+              if (
+                modelo.foto
+              ) {
+
+                imagem = `
+                  <img
+                    class="avatar"
+                    src="${escapeHTML(modelo.foto)}"
+                    alt="${nome}"
+                  >
+                `;
+
+              } else {
+
+                imagem = `
+                  <div
+                    class="avatar"
+                    style="
+                      display:flex;
+                      align-items:center;
+                      justify-content:center;
+                      color:var(--gold2);
+                      font-family:'Playfair Display',serif;
+                      font-size:28px;
+                    "
+                  >
+                    LUX
+                  </div>
+                `;
+
+              }
+
+
+              return `
+
+                <article class="card">
+
+                  ${imagem}
+
+                  <div class="card-body">
+
+                    <span class="pill">
+                      MODELO LUX
+                    </span>
+
+                    <h2>
+                      ${nome}
+                    </h2>
+
+                    <p
+                      style="
+                        color:var(--muted);
+                      "
+                    >
+                      ${cidade}
+                    </p>
+
+                    <div class="actions">
+
+                      <a
+                        class="btn primary"
+                        href="login.html"
+                      >
+                        Acessar
+                      </a>
+
+                    </div>
+
+                  </div>
+
+                </article>
+
+              `;
+
+            }
+          ).join("");
+
+
+      } catch (erro) {
+
+        console.error(erro);
+
+        lista.innerHTML = `
+          <div class="empty">
+            Não foi possível carregar os modelos.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    carregarModelos();
+
+  </script>
 
 </body>
+
 </html>

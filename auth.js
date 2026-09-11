@@ -1,462 +1,858 @@
-function requireClient() {
-
-  if (!luxSupabase) {
-    throw new Error(
-      "Supabase não configurado. Verifique config.js."
-    );
-  }
-
-  return luxSupabase;
-}
-
-
 /* =========================================================
-   MENSAGENS DE ERRO
+   LUX — SISTEMA DE AUTENTICAÇÃO
    ========================================================= */
 
-function friendlyAuthError(error) {
+(function () {
 
-  const msg =
-    (error?.message || "").toLowerCase();
+  "use strict";
 
-  if (
-    msg.includes("invalid login credentials")
-  ) {
-    return "E-mail ou senha incorretos.";
+
+  /* =========================================================
+     VERIFICAÇÃO DO CLIENTE SUPABASE
+     ========================================================= */
+
+  function requireClient() {
+
+    if (!window.luxSupabase) {
+
+      throw new Error(
+        "Supabase não foi inicializado. Verifique config.js."
+      );
+
+    }
+
+    return window.luxSupabase;
   }
 
-  if (
-    msg.includes("email not confirmed")
-  ) {
-    return "Confirme seu e-mail antes de entrar.";
+
+  /* =========================================================
+     TRATAMENTO DE ERROS
+     ========================================================= */
+
+  function friendlyAuthError(error) {
+
+    if (!error) {
+      return "Ocorreu um erro inesperado.";
+    }
+
+    const message =
+      error.message ||
+      error.error_description ||
+      String(error);
+
+    const lower = message.toLowerCase();
+
+    if (
+      lower.includes("user already registered") ||
+      lower.includes("already registered")
+    ) {
+      return "Este e-mail já está cadastrado.";
+    }
+
+    if (
+      lower.includes("invalid login credentials")
+    ) {
+      return "E-mail ou senha incorretos.";
+    }
+
+    if (
+      lower.includes("email not confirmed")
+    ) {
+      return "Seu e-mail ainda não foi confirmado.";
+    }
+
+    if (
+      lower.includes("password should be at least")
+    ) {
+      return "A senha precisa ter pelo menos 6 caracteres.";
+    }
+
+    if (
+      lower.includes("invalid email")
+    ) {
+      return "Digite um e-mail válido.";
+    }
+
+    if (
+      lower.includes("rate limit")
+    ) {
+      return "Muitas tentativas. Aguarde alguns minutos e tente novamente.";
+    }
+
+    if (
+      lower.includes("failed to fetch")
+    ) {
+      return "Não foi possível conectar ao servidor. Verifique sua internet.";
+    }
+
+    return message;
   }
 
-  if (
-    msg.includes("user already registered")
-  ) {
-    return "Este e-mail já está cadastrado.";
-  }
 
-  if (
-    msg.includes("password should be at least")
-  ) {
-    return "A senha deve ter pelo menos 6 caracteres.";
-  }
+  /* =========================================================
+     CADASTRO
+     ========================================================= */
 
-  return (
-    error?.message ||
-    "Não foi possível concluir a operação."
-  );
-}
-
-
-/* =========================================================
-   CADASTRO
-   ========================================================= */
-
-async function cadastrar(
-  tipo,
-  nome,
-  email,
-  senha
-) {
-
-  const db = requireClient();
-
-  const {
-    data,
-    error
-  } = await db.auth.signUp({
-
+  async function cadastrar(
+    tipo,
+    nome,
     email,
+    senha,
+    dadosExtras = {}
+  ) {
 
-    password: senha,
+    try {
 
-    options: {
-      data: {
-        tipo,
-        nome
+      const supabase = requireClient();
+
+      tipo = tipo === "modelo"
+        ? "modelo"
+        : "usuario";
+
+      nome = String(nome || "").trim();
+      email = String(email || "").trim().toLowerCase();
+      senha = String(senha || "");
+
+      if (!nome) {
+        throw new Error("Digite seu nome.");
       }
-    }
 
-  });
+      if (!email) {
+        throw new Error("Digite seu e-mail.");
+      }
 
-  if (error) {
-
-    throw new Error(
-      friendlyAuthError(error)
-    );
-
-  }
-
-  if (data.user) {
-
-    try {
-
-      await criarPerfilUsuario(
-        data.user.id,
-        tipo,
-        nome,
-        email
-      );
-
-    } catch (erro) {
-
-      console.error(
-        "Erro ao criar perfil:",
-        erro
-      );
-
-    }
-
-  }
-
-  return data.user;
-}
+      if (senha.length < 6) {
+        throw new Error(
+          "A senha precisa ter pelo menos 6 caracteres."
+        );
+      }
 
 
-/* =========================================================
-   CRIAÇÃO DO PERFIL
-   ========================================================= */
+      /* -------------------------------------------------------
+         METADATA
+         O trigger do SUPABASE.sql lê esses dados.
+         ------------------------------------------------------- */
 
-async function criarPerfilUsuario(
-  userId,
-  tipo,
-  nome,
-  email
-) {
-
-  const db = requireClient();
-
-
-  /* =====================================================
-     MODELO
-     ===================================================== */
-
-  if (tipo === "modelo") {
-
-    const {
-      error
-    } = await db
-      .from("perfis")
-      .insert({
-
-        id: userId,
-
-        tipo: "modelo",
-
+      const metadata = {
         nome: nome,
-
-        email: email,
-
-        status: "pendente",
-
-        data_cadastro:
-          new Date().toISOString(),
-
-        fotos: [],
-
-        video: null,
-
-        bio: "",
-
-        altura: "",
-
-        idade: 0,
-
-        cidade: "",
-
-        disponivel: false,
-
-        approved_at: null
-
-      });
+        tipo: tipo
+      };
 
 
-    if (error) {
+      /* Dados adicionais para modelos */
 
-      console.error(
-        "Erro ao criar perfil modelo:",
-        error
-      );
+      if (tipo === "modelo") {
 
-    }
+        metadata.maioridade_confirmada =
+          dadosExtras.maioridade_confirmada === true;
 
+        if (dadosExtras.idade !== undefined) {
+          metadata.idade = String(dadosExtras.idade);
+        }
 
-    /* NOTIFICAÇÃO ADMIN */
+        if (dadosExtras.cidade) {
+          metadata.cidade = String(dadosExtras.cidade);
+        }
 
-    try {
+        if (dadosExtras.pais) {
+          metadata.pais = String(dadosExtras.pais);
+        }
 
-      await enviarEmailNovoModelo(
-        nome,
-        email
-      );
+        if (dadosExtras.cor_cabelo) {
+          metadata.cor_cabelo =
+            String(dadosExtras.cor_cabelo);
+        }
 
-    } catch (erro) {
+        if (dadosExtras.cor_olhos) {
+          metadata.cor_olhos =
+            String(dadosExtras.cor_olhos);
+        }
 
-      console.error(
-        "Erro na notificação:",
-        erro
-      );
+        if (dadosExtras.altura_cm) {
+          metadata.altura_cm =
+            String(dadosExtras.altura_cm);
+        }
 
-    }
+        if (dadosExtras.idiomas) {
+          metadata.idiomas =
+            String(dadosExtras.idiomas);
+        }
 
-  }
+        if (dadosExtras.descricao) {
+          metadata.descricao =
+            String(dadosExtras.descricao).slice(0, 800);
+        }
 
-
-  /* =====================================================
-     USUÁRIO
-     ===================================================== */
-
-  else {
-
-    const {
-      error
-    } = await db
-      .from("perfis")
-      .insert({
-
-        id: userId,
-
-        tipo: "usuario",
-
-        nome: nome,
-
-        email: email,
-
-        status: "ativo",
-
-        data_cadastro:
-          new Date().toISOString()
-
-      });
+        if (dadosExtras.foto_url) {
+          metadata.foto_url =
+            String(dadosExtras.foto_url);
+        }
+      }
 
 
-    if (error) {
+      /* -------------------------------------------------------
+         CRIA USUÁRIO NO SUPABASE AUTH
+         ------------------------------------------------------- */
 
-      console.error(
-        "Erro ao criar perfil usuário:",
-        error
-      );
+      const { data, error } =
+        await supabase.auth.signUp({
 
-    }
+          email: email,
 
-  }
+          password: senha,
 
-}
-
-
-/* =========================================================
-   NOTIFICAÇÃO DE NOVO MODELO
-   ========================================================= */
-
-async function enviarEmailNovoModelo(
-  nome,
-  email
-) {
-
-  const db = requireClient();
-
-  try {
-
-    const response =
-      await db.functions.invoke(
-        "enviar-email-novo-modelo",
-        {
-
-          body: {
-
-            nome_modelo: nome,
-
-            email_modelo: email,
-
-            admin_email:
-              LUX_ADMIN_EMAIL,
-
-            timestamp:
-              new Date().toISOString()
-
+          options: {
+            data: metadata
           }
 
-        }
+        });
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      if (!data || !data.user) {
+
+        throw new Error(
+          "O Supabase não retornou o usuário criado."
+        );
+
+      }
+
+
+      /*
+       O trigger handle_novo_usuario()
+       cria automaticamente public.perfis.
+      */
+
+      const emailConfirmationRequired =
+        !!data.user &&
+        !data.session;
+
+
+      return {
+
+        success: true,
+
+        user: data.user,
+
+        session: data.session,
+
+        emailConfirmationRequired:
+          emailConfirmationRequired
+
+      };
+
+    } catch (error) {
+
+      console.error(
+        "Erro no cadastro LUX:",
+        error
       );
 
-    console.log(
-      "Email de notificação enviado:",
-      response
-    );
+      return {
 
-  } catch (erro) {
+        success: false,
 
-    console.error(
-      "Erro ao enviar email:",
-      erro
-    );
+        error: friendlyAuthError(error)
 
-  }
+      };
 
-}
-
-
-/* =========================================================
-   LOGIN
-   ========================================================= */
-
-async function login(
-  email,
-  senha
-) {
-
-  const db = requireClient();
-
-  const {
-    data,
-    error
-  } =
-    await db.auth.signInWithPassword({
-
-      email,
-
-      password: senha
-
-    });
-
-
-  if (error) {
-
-    throw new Error(
-      friendlyAuthError(error)
-    );
-
-  }
-
-
-  return data.user;
-}
-
-
-/* =========================================================
-   PERFIL
-   ========================================================= */
-
-async function getPerfil(id) {
-
-  const db = requireClient();
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("perfis")
-      .select("*")
-      .eq("id", id)
-      .single();
-
-
-  if (error) {
-
-    throw error;
-
-  }
-
-
-  return data;
-}
-
-
-/* =========================================================
-   TIPO DE USUÁRIO
-   ========================================================= */
-
-async function getTipoUsuario(id) {
-
-  const p =
-    await getPerfil(id);
-
-
-  if (
-    p.tipo === "modelo" &&
-    ![
-      "aprovado",
-      "ativo"
-    ].includes(p.status)
-  ) {
-
-    throw new Error(
-      "Seu cadastro de modelo está aguardando aprovação da administração."
-    );
-
-  }
-
-
-  return p.tipo;
-}
-
-
-/* =========================================================
-   USUÁRIO ATUAL
-   ========================================================= */
-
-async function usuarioAtual() {
-
-  const db = requireClient();
-
-  const {
-    data: {
-      user
     }
-  } =
-    await db.auth.getUser();
+
+  }
 
 
-  return user;
-}
+  /* =========================================================
+     ALIAS DE SEGURANÇA
+     Evita o erro "Cadastrar is not defined".
+     ========================================================= */
+
+  window.cadastrar = cadastrar;
+  window.Cadastrar = cadastrar;
 
 
-/* =========================================================
-   SAIR
-   ========================================================= */
+  /* =========================================================
+     LOGIN
+     ========================================================= */
 
-async function sair() {
+  async function login(email, senha) {
 
-  const db = requireClient();
+    try {
 
-  await db.auth.signOut();
+      const supabase = requireClient();
 
-  location.href =
-    "login.html";
-}
+      email = String(email || "")
+        .trim()
+        .toLowerCase();
+
+      senha = String(senha || "");
+
+      if (!email || !senha) {
+
+        throw new Error(
+          "Digite seu e-mail e sua senha."
+        );
+
+      }
+
+      const { data, error } =
+        await supabase.auth.signInWithPassword({
+
+          email: email,
+
+          password: senha
+
+        });
 
 
-/* =========================================================
-   PROTEÇÃO DE PÁGINAS
-   ========================================================= */
-
-async function proteger(
-  tipoEsperado
-) {
-
-  const user =
-    await usuarioAtual();
+      if (error) {
+        throw error;
+      }
 
 
-  if (!user) {
+      if (!data || !data.user) {
 
-    location.href =
+        throw new Error(
+          "Não foi possível iniciar a sessão."
+        );
+
+      }
+
+
+      const perfil =
+        await getPerfil(data.user.id);
+
+
+      if (!perfil) {
+
+        throw new Error(
+          "Sua conta foi criada, mas o perfil ainda não está disponível. Aguarde alguns instantes e tente novamente."
+        );
+
+      }
+
+
+      if (perfil.status === "bloqueado") {
+
+        await supabase.auth.signOut();
+
+        throw new Error(
+          "Sua conta está bloqueada."
+        );
+
+      }
+
+
+      if (perfil.tipo === "admin") {
+
+        window.location.href =
+          "painel.html";
+
+        return {
+          success: true,
+          perfil: perfil
+        };
+
+      }
+
+
+      if (perfil.tipo === "modelo") {
+
+        if (perfil.status === "pendente") {
+
+          window.location.href =
+            "painel-modelo.html";
+
+          return {
+            success: true,
+            perfil: perfil
+          };
+
+        }
+
+        window.location.href =
+          "painel-modelo.html";
+
+        return {
+          success: true,
+          perfil: perfil
+        };
+
+      }
+
+
+      window.location.href =
+        "painel-usuario.html";
+
+
+      return {
+
+        success: true,
+
+        perfil: perfil
+
+      };
+
+    } catch (error) {
+
+      console.error(
+        "Erro no login LUX:",
+        error
+      );
+
+      return {
+
+        success: false,
+
+        error: friendlyAuthError(error)
+
+      };
+
+    }
+
+  }
+
+
+  window.login = login;
+  window.Login = login;
+
+
+  /* =========================================================
+     BUSCAR PERFIL
+     ========================================================= */
+
+  async function getPerfil(userId) {
+
+    try {
+
+      const supabase = requireClient();
+
+      let id = userId;
+
+      if (!id) {
+
+        const {
+          data: {
+            user
+          }
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+          return null;
+        }
+
+        id = user.id;
+      }
+
+
+      const {
+        data,
+        error
+      } = await supabase
+        .from("perfis")
+        .select("*")
+        .eq("id", id)
+        .maybeSingle();
+
+
+      if (error) {
+
+        console.error(
+          "Erro ao buscar perfil:",
+          error
+        );
+
+        return null;
+
+      }
+
+
+      return data || null;
+
+    } catch (error) {
+
+      console.error(error);
+
+      return null;
+
+    }
+
+  }
+
+
+  window.getPerfil = getPerfil;
+
+
+  /* =========================================================
+     TIPO DO USUÁRIO
+     ========================================================= */
+
+  async function getTipoUsuario() {
+
+    const perfil =
+      await getPerfil();
+
+    return perfil
+      ? perfil.tipo
+      : null;
+
+  }
+
+
+  window.getTipoUsuario =
+    getTipoUsuario;
+
+
+  /* =========================================================
+     USUÁRIO ATUAL
+     ========================================================= */
+
+  async function usuarioAtual() {
+
+    try {
+
+      const supabase =
+        requireClient();
+
+      const {
+        data: {
+          user
+        }
+      } = await supabase.auth.getUser();
+
+      return user || null;
+
+    } catch (error) {
+
+      console.error(error);
+
+      return null;
+
+    }
+
+  }
+
+
+  window.usuarioAtual =
+    usuarioAtual;
+
+
+  /* =========================================================
+     SAIR
+     ========================================================= */
+
+  async function sair() {
+
+    try {
+
+      const supabase =
+        requireClient();
+
+      await supabase.auth.signOut();
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+    window.location.href =
       "login.html";
 
-    return null;
+  }
+
+
+  window.sair = sair;
+
+
+  /* =========================================================
+     PROTEGER PÁGINA
+     ========================================================= */
+
+  async function proteger(
+    tiposPermitidos = []
+  ) {
+
+    try {
+
+      const supabase =
+        requireClient();
+
+      const {
+        data: {
+          user
+        }
+      } = await supabase.auth.getUser();
+
+
+      if (!user) {
+
+        window.location.href =
+          "login.html";
+
+        return null;
+
+      }
+
+
+      const perfil =
+        await getPerfil(user.id);
+
+
+      if (!perfil) {
+
+        window.location.href =
+          "login.html";
+
+        return null;
+
+      }
+
+
+      if (
+        Array.isArray(tiposPermitidos) &&
+        tiposPermitidos.length > 0 &&
+        !tiposPermitidos.includes(
+          perfil.tipo
+        )
+      ) {
+
+        if (perfil.tipo === "admin") {
+
+          window.location.href =
+            "painel.html";
+
+        } else if (
+          perfil.tipo === "modelo"
+        ) {
+
+          window.location.href =
+            "painel-modelo.html";
+
+        } else {
+
+          window.location.href =
+            "painel-usuario.html";
+
+        }
+
+        return null;
+
+      }
+
+
+      return {
+
+        user: user,
+
+        perfil: perfil
+
+      };
+
+    } catch (error) {
+
+      console.error(error);
+
+      window.location.href =
+        "login.html";
+
+      return null;
+
+    }
 
   }
 
 
-  const tipo =
-    await getTipoUsuario(
-      user.id
-    );
+  window.proteger =
+    proteger;
 
 
-  if (tipo !== tipoEsperado) {
+  /* =========================================================
+     URL DE RECUPERAÇÃO
+     ========================================================= */
 
-    if (tipo === "modelo
+  function urlRecuperacaoSenha() {
+
+    const base =
+      window.location.origin +
+      window.location.pathname
+        .substring(
+          0,
+          window.location.pathname.lastIndexOf("/") + 1
+        );
+
+    return base + "nova-senha.html";
+
+  }
+
+
+  window.urlRecuperacaoSenha =
+    urlRecuperacaoSenha;
+
+
+  /* =========================================================
+     SOLICITAR RECUPERAÇÃO DE SENHA
+     ========================================================= */
+
+  async function solicitarRecuperacaoSenha(
+    email
+  ) {
+
+    try {
+
+      const supabase =
+        requireClient();
+
+      email = String(email || "")
+        .trim()
+        .toLowerCase();
+
+
+      if (!email) {
+
+        throw new Error(
+          "Digite seu e-mail."
+        );
+
+      }
+
+
+      const {
+        error
+      } =
+        await supabase.auth
+          .resetPasswordForEmail(
+            email,
+            {
+              redirectTo:
+                urlRecuperacaoSenha()
+            }
+          );
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      return {
+
+        success: true
+
+      };
+
+    } catch (error) {
+
+      console.error(error);
+
+      return {
+
+        success: false,
+
+        error:
+          friendlyAuthError(error)
+
+      };
+
+    }
+
+  }
+
+
+  window.solicitarRecuperacaoSenha =
+    solicitarRecuperacaoSenha;
+
+
+  /* =========================================================
+     ATUALIZAR SENHA
+     ========================================================= */
+
+  async function atualizarSenha(
+    novaSenha
+  ) {
+
+    try {
+
+      const supabase =
+        requireClient();
+
+      if (
+        !novaSenha ||
+        novaSenha.length < 6
+      ) {
+
+        throw new Error(
+          "A nova senha precisa ter pelo menos 6 caracteres."
+        );
+
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await supabase.auth.updateUser({
+          password: novaSenha
+        });
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      return {
+
+        success: true,
+
+        data: data
+
+      };
+
+    } catch (error) {
+
+      console.error(error);
+
+      return {
+
+        success: false,
+
+        error:
+          friendlyAuthError(error)
+
+      };
+
+    }
+
+  }
+
+
+  window.atualizarSenha =
+    atualizarSenha;
+
+
+  /* =========================================================
+     ESCAPE HTML
+     ========================================================= */
+
+  function escapeHTML(valor) {
+
+    return String(valor ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  window.escapeHTML =
+    escapeHTML;
+
+
+})();

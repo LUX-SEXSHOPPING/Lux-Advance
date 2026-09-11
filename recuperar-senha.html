@@ -1,1 +1,206 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LUX — Recuperar senha</title><link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/login.css"></head><body><main class="login-wrap"><a class="voltar" href="login.html">← Voltar ao login</a><section class="login-card"><div class="marca">LUX</div><p class="sub">Recuperação de senha</p><p style="color:#b9afb4">Digite o e-mail da sua conta e enviaremos um link para criar uma nova senha.</p><div id="mensagem" class="mensagem" hidden></div><form id="form"><label>E-mail</label><input id="email" type="email" autocomplete="email" required placeholder="seu@email.com"><button class="btn primary" type="submit">Enviar link de recuperação</button></form></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/config.js"></script><script src="js/auth.js"></script><script>document.getElementById('form').addEventListener('submit',async e=>{e.preventDefault();const m=document.getElementById('mensagem');m.hidden=false;m.className='mensagem';m.textContent='Enviando...';try{await solicitarRecuperacao(document.getElementById('email').value.trim());m.textContent='Se o e-mail estiver cadastrado, enviamos o link de recuperação. Verifique também a caixa de spam.';document.getElementById('form').reset();}catch(err){m.className='mensagem error';m.textContent=err.message;}});</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>LUX — Recuperar senha</title>
+
+  <link
+    rel="stylesheet"
+    href="app.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="login.css"
+  >
+
+</head>
+
+
+<body>
+
+  <main class="login-wrap">
+
+    <a
+      class="voltar"
+      href="login.html"
+    >
+      ← Voltar para o login
+    </a>
+
+
+    <section class="login-card">
+
+      <div class="marca">
+        LUX
+      </div>
+
+
+      <p class="sub">
+        Recuperação de senha
+      </p>
+
+
+      <p
+        style="
+          color:#b9afb4;
+          line-height:1.6;
+          text-align:center;
+        "
+      >
+        Informe o e-mail utilizado no seu cadastro.
+        Enviaremos um link para você criar uma nova senha.
+      </p>
+
+
+      <div
+        id="mensagem"
+        class="mensagem"
+        hidden
+      ></div>
+
+
+      <form id="recuperacaoForm">
+
+        <label for="email">
+          E-mail
+        </label>
+
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder="seu@email.com"
+        >
+
+
+        <button
+          class="btn primary"
+          type="submit"
+          id="btnEnviar"
+        >
+          Enviar link de recuperação
+        </button>
+
+      </form>
+
+
+      <p class="senha-link">
+
+        <a href="login.html">
+          Voltar para entrar
+        </a>
+
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+  <!-- CONFIGURAÇÃO -->
+
+  <script src="config.js"></script>
+
+
+  <!-- AUTENTICAÇÃO -->
+
+  <script src="auth.js"></script>
+
+
+  <script>
+
+    document
+      .getElementById("recuperacaoForm")
+      .addEventListener(
+        "submit",
+        async function(e) {
+
+          e.preventDefault();
+
+
+          const mensagem =
+            document.getElementById(
+              "mensagem"
+            );
+
+          const botao =
+            document.getElementById(
+              "btnEnviar"
+            );
+
+          const email =
+            document
+              .getElementById("email")
+              .value
+              .trim();
+
+
+          mensagem.hidden = false;
+
+          mensagem.className =
+            "mensagem";
+
+          mensagem.textContent =
+            "Enviando link de recuperação...";
+
+          botao.disabled = true;
+
+
+          try {
+
+            await solicitarRecuperacaoSenha(
+              email
+            );
+
+
+            mensagem.className =
+              "mensagem success";
+
+
+            mensagem.textContent =
+              "Se este e-mail estiver cadastrado, você receberá um link para criar uma nova senha. Verifique também a pasta de spam.";
+
+
+            document
+              .getElementById("email")
+              .disabled = true;
+
+
+          } catch (erro) {
+
+            mensagem.className =
+              "mensagem error";
+
+
+            mensagem.textContent =
+              erro.message;
+
+
+            botao.disabled = false;
+
+          }
+
+        }
+      );
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>LUX — Área da Modelo</title>
+
+  <link
+    rel="stylesheet"
+    href="app.css"
+  >
+
+</head>
+
+<body>
+
+  <header class="topbar">
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+      LUX
+    </a>
+
+    <button
+      class="btn ghost"
+      id="btnSair"
+    >
+      Sair
+    </button>
+
+  </header>
+
+
+  <main class="container">
+
+    <section class="hero">
+
+      <div class="eyebrow">
+        ÁREA DA MODELO
+      </div>
+
+      <h1
+        class="title"
+        id="titulo"
+      >
+        Meu perfil
+      </h1>
+
+      <p
+        class="subtitle"
+        id="subtitulo"
+      >
+        Carregando...
+      </p>
+
+    </section>
+
+
+    <div
+      id="mensagem"
+      class="notice"
+      hidden
+    ></div>
+
+
+    <section
+      id="conteudo"
+      hidden
+    >
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <div class="profile-head">
+
+            <div
+              id="foto"
+              style="
+                width:190px;
+                height:235px;
+                border-radius:20px;
+                border:1px solid var(--line);
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:#21191e;
+                color:var(--gold2);
+                font-family:'Playfair Display',serif;
+                font-size:28px;
+              "
+            >
+              LUX
+            </div>
+
+
+            <div>
+
+              <span class="pill">
+                MODELO LUX
+              </span>
+
+              <h2 id="nomeModelo">
+                Modelo
+              </h2>
+
+              <p
+                id="emailModelo"
+                style="color:var(--muted)"
+              >
+              </p>
+
+              <p
+                id="statusModelo"
+                style="color:var(--gold2)"
+              >
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <br>
+
+
+      <div class="grid">
+
+        <article class="card">
+
+          <div class="card-body">
+
+            <h2>
+              Informações do perfil
+            </h2>
+
+            <div class="info-list">
+
+              <div class="info">
+
+                <small>
+                  Idade
+                </small>
+
+                <span id="idade">
+                  —
+                </span>
+
+              </div>
+
+
+              <div class="info">
+
+                <small>
+                  Altura
+                </small>
+
+                <span id="altura">
+                  —
+                </span>
+
+              </div>
+
+
+              <div class="info">
+
+                <small>
+                  Cidade
+                </small>
+
+                <span id="cidade">
+                  —
+                </span>
+
+              </div>
+
+
+              <div class="info">
+
+                <small>
+                  Disponibilidade
+                </small>
+
+                <span id="disponivel">
+                  —
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <article class="card">
+
+          <div class="card-body">
+
+            <h2>
+              Minha apresentação
+            </h2>
+
+            <p
+              id="bio"
+              style="
+                color:var(--muted);
+                line-height:1.7;
+              "
+            >
+              Nenhuma apresentação cadastrada.
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+
+      <br>
+
+
+      <div class="actions">
+
+        <a
+          class="btn"
+          href="index.html"
+        >
+          Voltar ao LUX
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer class="footer">
+
+    LUX — Sensualidade & Sofisticação
+
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="config.js"></script>
+
+  <script src="auth.js"></script>
+
+
+  <script>
+
+    async function iniciar() {
+
+      const mensagem =
+        document.getElementById(
+          "mensagem"
+        );
+
+
+      try {
+
+        const user =
+          await usuarioAtual();
+
+
+        if (!user) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+        const perfil =
+          await getPerfil(
+            user.id
+          );
+
+
+        if (
+          perfil.tipo !== "modelo"
+        ) {
+
+          if (
+            perfil.tipo === "admin"
+          ) {
+
+            window.location.href =
+              "painel.html";
+
+          } else {
+
+            window.location.href =
+              "painel-usuario.html";
+
+          }
+
+          return;
+
+        }
+
+
+        document
+          .getElementById("nomeModelo")
+          .textContent =
+          perfil.nome ||
+          "Modelo";
+
+
+        document
+          .getElementById("emailModelo")
+          .textContent =
+          perfil.email ||
+          user.email ||
+          "";
+
+
+        document
+          .getElementById("idade")
+          .textContent =
+          perfil.idade ||
+          "—";
+
+
+        document
+          .getElementById("altura")
+          .textContent =
+          perfil.altura ||
+          "—";
+
+
+        document
+          .getElementById("cidade")
+          .textContent =
+          perfil.cidade ||
+          "—";
+
+
+        document
+          .getElementById("bio")
+          .textContent =
+          perfil.bio ||
+          "Nenhuma apresentação cadastrada.";
+
+
+        document
+          .getElementById("disponivel")
+          .textContent =
+          perfil.disponivel
+            ? "Disponível"
+            : "Indisponível";
+
+
+        document
+          .getElementById("statusModelo")
+          .textContent =
+          "Status: " +
+          (
+            perfil.status ||
+            "pendente"
+          );
+
+
+        if (
+          perfil.foto
+        ) {
+
+          const foto =
+            document.createElement(
+              "img"
+            );
+
+          foto.src =
+            perfil.foto;
+
+          foto.alt =
+            perfil.nome ||
+            "Modelo LUX";
+
+          foto.style.width =
+            "190px";
+
+          foto.style.height =
+            "235px";
+
+          foto.style.objectFit =
+            "cover";
+
+          foto.style.borderRadius =
+            "20px";
+
+          foto.style.border =
+            "1px solid var(--line)";
+
+
+          const container =
+            document.getElementById(
+              "foto"
+            );
+
+          container.replaceWith(
+            foto
+          );
+
+        }
+
+
+        document
+          .getElementById("titulo")
+          .textContent =
+          "Olá, " +
+          (
+            perfil.nome ||
+            "modelo"
+          );
+
+
+        document
+          .getElementById("subtitulo")
+          .textContent =
+          "Gerencie e acompanhe seu perfil na LUX.";
+
+
+        document
+          .getElementById("conteudo")
+          .hidden = false;
+
+
+      } catch (erro) {
+
+        console.error(erro);
+
+        mensagem.hidden = false;
+
+        mensagem.className =
+          "notice error";
+
+        mensagem.textContent =
+          erro.message ||
+          "Não foi possível carregar seu perfil.";
+
+      }
+
+    }
+
+
+    document
+      .getElementById("btnSair")
+      .addEventListener(
+        "click",
+        sair
+      );
+
+
+    iniciar();
+
+  </script>
+
+</body>
+
+</html>

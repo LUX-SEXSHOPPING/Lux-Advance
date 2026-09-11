@@ -33,6 +33,7 @@
     <button
       class="btn ghost"
       id="btnSair"
+      type="button"
     >
       Sair
     </button>
@@ -93,8 +94,12 @@
           <p
             id="emailUsuario"
             style="color:var(--muted)"
-          >
-          </p>
+          ></p>
+
+          <p
+            id="statusUsuario"
+            style="color:var(--muted)"
+          ></p>
 
         </div>
 
@@ -158,84 +163,213 @@
   </footer>
 
 
+  <!-- SUPABASE -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <!-- CONFIGURAÇÃO -->
+
   <script src="config.js"></script>
+
+  <!-- AUTENTICAÇÃO -->
 
   <script src="auth.js"></script>
 
 
   <script>
 
-    async function iniciar() {
+    async function iniciarPainel() {
 
       const mensagem =
-        document.getElementById(
-          "mensagem"
-        );
+        document.getElementById("mensagem");
 
       try {
 
-        const user =
-          await usuarioAtual();
+        /*
+         * Aguarda o carregamento da sessão
+         * antes de decidir se o usuário está logado.
+         */
+
+        const supabase =
+          window.luxSupabase;
 
 
-        if (!user) {
+        if (!supabase) {
 
-          window.location.href =
-            "login.html";
+          throw new Error(
+            "Supabase não foi inicializado."
+          );
+
+        }
+
+
+        /*
+         * Primeiro verifica a sessão atual.
+         */
+
+        let resultadoSessao =
+          await supabase.auth.getSession();
+
+
+        let session =
+          resultadoSessao &&
+          resultadoSessao.data
+            ? resultadoSessao.data.session
+            : null;
+
+
+        /*
+         * Pequena espera para o Supabase
+         * restaurar a sessão no navegador.
+         */
+
+        if (!session) {
+
+          await new Promise(
+            function(resolve) {
+              setTimeout(resolve, 800);
+            }
+          );
+
+
+          resultadoSessao =
+            await supabase.auth.getSession();
+
+
+          session =
+            resultadoSessao &&
+            resultadoSessao.data
+              ? resultadoSessao.data.session
+              : null;
+
+        }
+
+
+        /*
+         * Se realmente não existe sessão,
+         * aí sim volta para o login.
+         */
+
+        if (!session) {
+
+          window.location.replace(
+            "login.html"
+          );
 
           return;
 
         }
 
 
+        const user =
+          session.user;
+
+
+        /*
+         * Busca o perfil no banco.
+         */
+
         const perfil =
-          await getPerfil(
-            user.id
+          await getPerfil(user.id);
+
+
+        if (!perfil) {
+
+          mensagem.hidden = false;
+
+          mensagem.className =
+            "notice error";
+
+          mensagem.textContent =
+            "Sua conta foi autenticada, mas o perfil ainda está sendo criado. Aguarde alguns segundos e atualize a página.";
+
+          document
+            .getElementById("subtitulo")
+            .textContent =
+            "Preparando sua conta...";
+
+          return;
+
+        }
+
+
+        /*
+         * Se for modelo, vai para painel de modelo.
+         */
+
+        if (
+          perfil.tipo === "modelo"
+        ) {
+
+          window.location.replace(
+            "painel-modelo.html"
           );
 
+          return;
+
+        }
+
+
+        /*
+         * Se for administrador,
+         * vai para painel administrativo.
+         */
+
+        if (
+          perfil.tipo === "admin"
+        ) {
+
+          window.location.replace(
+            "painel.html"
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Somente usuários chegam aqui.
+         */
 
         if (
           perfil.tipo !== "usuario"
         ) {
 
-          if (
-            perfil.tipo === "modelo"
-          ) {
-
-            window.location.href =
-              "painel-modelo.html";
-
-          }
-
-          else if (
-            perfil.tipo === "admin"
-          ) {
-
-            window.location.href =
-              "painel.html";
-
-          }
-
-          return;
+          throw new Error(
+            "Tipo de conta não reconhecido."
+          );
 
         }
 
+
+        /*
+         * Preenche os dados.
+         */
 
         document
           .getElementById("nomeUsuario")
           .textContent =
           perfil.nome ||
+          user.user_metadata?.nome ||
           "Usuário";
 
 
         document
           .getElementById("emailUsuario")
           .textContent =
-          perfil.email ||
           user.email ||
           "";
+
+
+        document
+          .getElementById("statusUsuario")
+          .textContent =
+          "Status: " +
+          (
+            perfil.status ||
+            "ativo"
+          );
 
 
         document
@@ -244,6 +378,7 @@
           "Olá, " +
           (
             perfil.nome ||
+            user.user_metadata?.nome ||
             "usuário"
           );
 
@@ -254,6 +389,11 @@
           "Esta é sua área exclusiva na LUX.";
 
 
+        /*
+         * Mostra o conteúdo somente depois
+         * de confirmar que está tudo certo.
+         */
+
         document
           .getElementById("conteudo")
           .hidden = false;
@@ -261,7 +401,11 @@
 
       } catch (erro) {
 
-        console.error(erro);
+        console.error(
+          "Erro no painel do usuário:",
+          erro
+        );
+
 
         mensagem.hidden = false;
 
@@ -277,15 +421,27 @@
     }
 
 
+    /*
+     * Botão sair
+     */
+
     document
       .getElementById("btnSair")
       .addEventListener(
         "click",
-        sair
+        async function() {
+
+          await sair();
+
+        }
       );
 
 
-    iniciar();
+    /*
+     * Inicia o painel
+     */
+
+    iniciarPainel();
 
   </script>
 

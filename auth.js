@@ -1,5 +1,5 @@
 function requireClient() {
-  if (!luxSupabase) throw new Error("Supabase não configurado. Verifique js/config.js.");
+  if (!luxSupabase) throw new Error("Supabase não configurado. Verifique config.js.");
   return luxSupabase;
 }
 
@@ -19,7 +19,75 @@ async function cadastrar(tipo, nome, email, senha) {
     options: { data: { tipo, nome } }
   });
   if (error) throw new Error(friendlyAuthError(error));
+  
+  // Cria perfil no banco de dados
+  if (data.user) {
+    await criarPerfilUsuario(data.user.id, tipo, nome, email);
+  }
+  
   return data.user;
+}
+
+async function criarPerfilUsuario(userId, tipo, nome, email) {
+  const db = requireClient();
+  
+  if (tipo === "modelo") {
+    // Cria perfil exclusivo para modelo
+    const { error } = await db.from("perfis").insert({
+      id: userId,
+      tipo: "modelo",
+      nome: nome,
+      email: email,
+      status: "pendente",
+      data_cadastro: new Date().toISOString(),
+      fotos: [],
+      video: null,
+      bio: "",
+      altura: "",
+      idade: 0,
+      cidade: "",
+      disponivel: false,
+      approved_at: null
+    });
+    
+    if (error) console.error("Erro ao criar perfil modelo:", error);
+    
+    // Envia notificação por email para admin
+    await enviarEmailNovoModelo(nome, email);
+  } else {
+    // Cria perfil para usuário comum
+    const { error } = await db.from("perfis").insert({
+      id: userId,
+      tipo: "usuario",
+      nome: nome,
+      email: email,
+      status: "ativo",
+      data_cadastro: new Date().toISOString()
+    });
+    
+    if (error) console.error("Erro ao criar perfil usuário:", error);
+  }
+}
+
+async function enviarEmailNovoModelo(nome, email) {
+  const db = requireClient();
+  
+  try {
+    // Usa a função Edge Function do Supabase para enviar email
+    const response = await db.functions.invoke("enviar-email-novo-modelo", {
+      body: {
+        nome_modelo: nome,
+        email_modelo: email,
+        admin_email: LUX_ADMIN_EMAIL,
+        timestamp: new Date().toISOString()
+      }
+    });
+    
+    console.log("Email de notificação enviado:", response);
+  } catch (erro) {
+    console.error("Erro ao enviar email:", erro);
+    // Não falha o cadastro se o email não for enviado
+  }
 }
 
 async function login(email, senha) {
@@ -53,17 +121,20 @@ async function usuarioAtual() {
 async function sair() {
   const db = requireClient();
   await db.auth.signOut();
-  location.href = "../login.html";
+  location.href = "login.html";
 }
 
 async function proteger(tipoEsperado) {
   const user = await usuarioAtual();
-  if (!user) { location.href = "../login.html"; return null; }
+  if (!user) { location.href = "login.html"; return null; }
+  
   const tipo = await getTipoUsuario(user.id);
+  
   if (tipo !== tipoEsperado) {
-    location.href = tipo === "modelo" ? "../modelo/painel.html" : "../usuario/painel.html";
+    location.href = tipo === "modelo" ? "painel-modelo.html" : "painel-usuario.html";
     return null;
   }
+  
   return user;
 }
 

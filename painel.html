@@ -1,5 +1,346 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LUX — Painel da Modelo</title><link rel="stylesheet" href="../css/app.css"></head><body><header class="topbar"><a class="brand" href="../index.html">LUX</a><a class="btn ghost" href="../index.html">Voltar</a></header><main class="container"><div class="hero"><div class="eyebrow">Área exclusiva</div><h1 class="title">Meu perfil LUX</h1><p class="subtitle">Mantenha seus dados corretos e atualizados. O perfil público só fica disponível após análise e verificação.</p></div><div id="mensagem" class="notice" hidden></div><section class="card"><div class="card-body"><div id="statusBox"></div><form id="perfilForm"><div class="form-grid"><div class="field"><label>Nome de exibição *</label><input id="nome_exibicao" maxlength="80" required></div><div class="field"><label>Idade *</label><input id="idade" type="number" min="18" max="99" required></div><div class="field"><label>Cidade</label><input id="cidade" maxlength="80"></div><div class="field"><label>País</label><input id="pais" maxlength="60"></div><div class="field"><label>Cor do cabelo</label><select id="cor_cabelo"><option value="">Selecione</option><option>Preto</option><option>Castanho</option><option>Loiro</option><option>Ruivo</option><option>Colorido</option><option>Outro</option></select></div><div class="field"><label>Cor dos olhos</label><select id="cor_olhos"><option value="">Selecione</option><option>Castanhos</option><option>Pretos</option><option>Azuis</option><option>Verdes</option><option>Mel</option><option>Cinza</option><option>Outro</option></select></div><div class="field"><label>Altura (cm)</label><input id="altura_cm" type="number" min="100" max="230"></div><div class="field"><label>Idiomas</label><input id="idiomas" maxlength="200"></div><div class="field full"><label>Descrição / apresentação</label><textarea id="descricao" maxlength="800"></textarea></div><div class="field full"><label>Foto de perfil</label><input id="fotoArquivo" type="file" accept="image/jpeg,image/png,image/webp"><small style="color:#8f858a">JPG, PNG ou WEBP. A foto ficará vinculada somente à sua conta.</small></div><div class="field full"><label><input id="maioridade_confirmada" type="checkbox" required> Confirmo que tenho 18 anos ou mais e que todos os dados enviados são verdadeiros.</label></div></div><button class="btn primary" type="submit">Salvar alterações</button></form></div></section><section style="margin-top:20px" class="stat-grid"><div class="stat"><span>Estrelas recebidas</span><br><b id="estrelas">0</b></div><div class="stat"><span>Status</span><br><b id="verificacao">Pendente</b></div><div class="stat"><span>Publicação</span><br><b id="publicacao">Em análise</b></div></section><div class="actions" style="margin-top:20px"><a class="btn" href="../modelos.html">Ver perfis publicados</a><a class="btn" href="#" id="sair">Sair</a></div></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../js/config.js"></script><script src="../js/auth.js"></script><script>
-const $=id=>document.getElementById(id);let user,perfil;
-async function carregar(){user=await proteger('modelo');if(!user)return;const db=requireClient();const {data,error}=await db.from('modelo_perfis').select('*').eq('id',user.id).single();if(error)throw error;perfil=data;['nome_exibicao','idade','cidade','pais','cor_cabelo','cor_olhos','altura_cm','idiomas','descricao'].forEach(k=>$(k).value=perfil[k]??'');$('maioridade_confirmada').checked=!!perfil.maioridade_confirmada;$('estrelas').textContent=perfil.estrelas_total??0;$('verificacao').textContent=perfil.verificacao_status==='verificada'?'Verificada':perfil.verificacao_status==='em_analise'?'Em análise':perfil.verificacao_status==='reprovada'?'Reprovada':'Pendente';$('publicacao').textContent=perfil.verificacao_status==='verificada'?'Publicada':'Em análise';}
-$('perfilForm').addEventListener('submit',async e=>{e.preventDefault();const m=$('mensagem');m.hidden=false;m.className='notice';m.textContent='Salvando...';try{const db=requireClient();let foto_url=perfil.foto_url||null;const file=$('fotoArquivo').files[0];if(file){if(!['image/jpeg','image/png','image/webp'].includes(file.type))throw new Error('Formato de imagem não permitido.');if(file.size>5*1024*1024)throw new Error('A foto deve ter no máximo 5 MB.');const ext=file.type.split('/')[1].replace('jpeg','jpg');const path=user.id+'/perfil.'+ext;const up=await db.storage.from('modelos').upload(path,file,{upsert:true,contentType:file.type});if(up.error)throw up.error;foto_url=db.storage.from('modelos').getPublicUrl(path).data.publicUrl;}const payload={nome_exibicao:$('nome_exibicao').value.trim(),idade:Number($('idade').value),cidade:$('cidade').value.trim()||null,pais:$('pais').value.trim()||'Brasil',cor_cabelo:$('cor_cabelo').value||null,cor_olhos:$('cor_olhos').value||null,altura_cm:$('altura_cm').value?Number($('altura_cm').value):null,idiomas:$('idiomas').value.trim()||null,descricao:$('descricao').value.trim()||null,foto_url,maioridade_confirmada:$('maioridade_confirmada').checked,atualizado_em:new Date().toISOString()};const {error}=await db.from('modelo_perfis').update(payload).eq('id',user.id);if(error)throw error;m.className='notice success';m.textContent='Dados salvos. O perfil continua sujeito à análise da administração.';await carregar();}catch(err){m.className='notice error';m.textContent=err.message||'Não foi possível salvar.';}});$('sair').onclick=e=>{e.preventDefault();sair()};carregar().catch(e=>{document.querySelector('main').innerHTML='<div class="notice error">'+escapeHTML(e.message)+'</div>';});
-</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>LUX — Painel Administrativo</title>
+
+  <link
+    rel="stylesheet"
+    href="app.css"
+  >
+
+</head>
+
+<body>
+
+  <header class="topbar">
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+      LUX
+    </a>
+
+    <button
+      class="btn ghost"
+      onclick="sair()"
+    >
+      Sair
+    </button>
+
+  </header>
+
+
+  <main class="container">
+
+    <section class="hero">
+
+      <div class="eyebrow">
+        ADMINISTRAÇÃO
+      </div>
+
+      <h1 class="title">
+        Painel LUX
+      </h1>
+
+      <p class="subtitle">
+        Área administrativa da plataforma.
+      </p>
+
+    </section>
+
+
+    <div
+      id="mensagem"
+      class="notice"
+    >
+      Verificando acesso...
+    </div>
+
+
+    <section
+      id="conteudo"
+      hidden
+    >
+
+      <div class="stat-grid">
+
+        <div class="stat">
+
+          <small>
+            Modelos
+          </small>
+
+          <br>
+
+          <b id="totalModelos">
+            0
+          </b>
+
+        </div>
+
+
+        <div class="stat">
+
+          <small>
+            Pendentes
+          </small>
+
+          <br>
+
+          <b id="totalPendentes">
+            0
+          </b>
+
+        </div>
+
+
+        <div class="stat">
+
+          <small>
+            Usuários
+          </small>
+
+          <br>
+
+          <b id="totalUsuarios">
+            0
+          </b>
+
+        </div>
+
+      </div>
+
+
+      <br>
+
+
+      <section class="card">
+
+        <div class="card-body">
+
+          <h2>
+            Modelos aguardando aprovação
+          </h2>
+
+          <div id="pendentes">
+
+            <div class="empty">
+              Carregando...
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="config.js"></script>
+
+  <script src="auth.js"></script>
+
+
+  <script>
+
+    async function iniciarPainel() {
+
+      const mensagem =
+        document.getElementById(
+          "mensagem"
+        );
+
+      try {
+
+        const user =
+          await usuarioAtual();
+
+
+        if (!user) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+        const perfil =
+          await getPerfil(
+            user.id
+          );
+
+
+        if (
+          perfil.tipo !== "admin"
+        ) {
+
+          mensagem.className =
+            "notice error";
+
+          mensagem.textContent =
+            "Acesso restrito à administração.";
+
+          return;
+
+        }
+
+
+        mensagem.hidden = true;
+
+        document
+          .getElementById("conteudo")
+          .hidden = false;
+
+
+        await carregarDados();
+
+
+      } catch (erro) {
+
+        console.error(erro);
+
+        mensagem.className =
+          "notice error";
+
+        mensagem.textContent =
+          erro.message ||
+          "Não foi possível carregar o painel.";
+
+      }
+
+    }
+
+
+    async function carregarDados() {
+
+      const db =
+        requireClient();
+
+
+      const modelos =
+        await db
+          .from("perfis")
+          .select("*")
+          .eq("tipo", "modelo");
+
+
+      const usuarios =
+        await db
+          .from("perfis")
+          .select("*")
+          .eq("tipo", "usuario");
+
+
+      const lista =
+        modelos.data || [];
+
+
+      const pendentes =
+        lista.filter(
+          item =>
+            item.status === "pendente"
+        );
+
+
+      document
+        .getElementById("totalModelos")
+        .textContent =
+        lista.length;
+
+
+      document
+        .getElementById("totalPendentes")
+        .textContent =
+        pendentes.length;
+
+
+      document
+        .getElementById("totalUsuarios")
+        .textContent =
+        (usuarios.data || []).length;
+
+
+      const area =
+        document.getElementById(
+          "pendentes"
+        );
+
+
+      if (pendentes.length === 0) {
+
+        area.innerHTML = `
+          <div class="empty">
+            Nenhum cadastro aguardando aprovação.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      area.innerHTML =
+        pendentes.map(modelo => {
+
+          return `
+
+            <div
+              style="
+                padding:16px;
+                border-bottom:1px solid var(--line);
+              "
+            >
+
+              <strong>
+                ${escapeHTML(
+                  modelo.nome || "Sem nome"
+                )}
+              </strong>
+
+              <p
+                style="
+                  color:var(--muted);
+                "
+              >
+                ${escapeHTML(
+                  modelo.email || ""
+                )}
+              </p>
+
+              <span class="pill">
+                Pendente
+              </span>
+
+            </div>
+
+          `;
+
+        }).join("");
+
+    }
+
+
+    iniciarPainel();
+
+  </script>
+
+</body>
+
+</html>

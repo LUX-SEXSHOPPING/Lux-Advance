@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUX Pagamentos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --bg:#0b0608;
+      --card:rgba(22,10,14,.72);
+      --line:rgba(255,255,255,.10);
+      --txt:#fff6fb;
+      --muted:#d7b8c7;
+      --accent:#ff4da6;
+      --accent2:#ff8ac8;
+      --gold:#f8d58a;
+      --ok:#34d399;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--txt);
+      background:
+        radial-gradient(circle at top, rgba(255,77,166,.24), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(248,213,138,.14), transparent 30%),
+        linear-gradient(135deg, #050305, #14080d 55%, #0a0608);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      position:relative;
+    }
+    .btn-voltar {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, var(--accent2), var(--gold));
+      color: #1a0710;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.3s;
+      z-index: 100;
+    }
+    .btn-voltar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255,77,166,.3);
+    }
+    .wrap{
+      width:min(920px,100%);
+      text-align:center;
+    }
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      color:var(--gold);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:12px;
+      background:rgba(255,255,255,.04);
+      backdrop-filter:blur(8px);
+    }
+    h1{
+      margin:18px 0 10px;
+      font-size:clamp(2rem,4vw,3.6rem);
+      line-height:1.05;
+      text-shadow:0 8px 30px rgba(255,77,166,.25);
+    }
+    p{margin:0 auto 22px; max-width:620px; color:var(--muted); font-size:1rem}
+    .btn-planos{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      padding:14px 22px;
+      border-radius:14px;
+      font-weight:700;
+      color:#1a0710;
+      background:linear-gradient(135deg, var(--accent2), var(--gold));
+      box-shadow:0 10px 30px rgba(255,77,166,.28);
+      transition:.25s transform,.25s box-shadow;
+    }
+    .btn-planos:hover{transform:translateY(-2px); box-shadow:0 14px 34px rgba(255,77,166,.38)}
+    .planos-box{
+      display:none;
+      margin:18px auto 0;
+      width:min(560px,100%);
+      padding:16px;
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:var(--card);
+      backdrop-filter:blur(14px);
+      box-shadow:0 24px 60px rgba(0,0,0,.34);
+      text-align:left;
+    }
+    .planos-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:12px;
+    }
+    .planos-top strong{font-size:1.05rem; letter-spacing:.04em}
+    .close{
+      border:0;
+      background:transparent;
+      color:var(--muted);
+      font-size:1.3rem;
+      cursor:pointer;
+    }
+    .grid{
+      display:grid;
+      gap:10px;
+    }
+    .plano{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      padding:14px 16px;
+      border-radius:16px;
+      background:linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      cursor:pointer;
+      transition: all 0.3s;
+    }
+    .plano:hover {
+      background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border-color:var(--accent);
+      box-shadow: 0 8px 20px rgba(255,77,166,.15);
+    }
+    .plano .nome{font-weight:800; letter-spacing:.06em}
+    .plano .desc{display:block; color:var(--muted); font-size:.84rem; margin-top:4px}
+    .preco{
+      font-weight:900;
+      color:#ffd7ea;
+      white-space:nowrap;
+    }
+    .grátis{color:#8ef0bc}
+    
+    /* Modal de Detalhes */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+      z-index: 200;
+      backdrop-filter: blur(4px);
+    }
+    
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      opacity: 0;
+      visibility: hidden;
+      width: min(500px, 95%);
+      max-height: 85vh;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      z-index: 300;
+      transition: all 0.3s ease;
+      overflow-y: auto;
+      box-shadow: 0 24px 60px rgba(0,0,0,.34);
+    }
+    
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+    
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: var(--gold);
+      text-shadow: 0 4px 15px rgba(255,77,166,.2);
+    }
+    
+    .modal-close {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .modal-close:hover {
+      color: var(--accent);
+      transform: rotate(90deg);
+    }
+    
+    .modal-preco {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent2);
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: 0 4px 12px rgba(255,138,200,.2);
+    }
+    
+    .modal-preco.gratis {
+      color: #8ef0bc;
+    }
+    
+    .beneficios-secao {
+      margin-bottom: 24px;
+    }
+    
+    .beneficios-secao h3 {
+      color: var(--gold);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .beneficios-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .beneficio-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px;
+      background: rgba(255,255,255,.02);
+      border-radius: 8px;
+      border-left: 2px solid var(--accent2);
+    }
+    
+    .beneficio-item i {
+      color: var(--ok);
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    
+    .beneficio-item span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    
+    .porque-secao {
+      background: linear-gradient(135deg, rgba(255,77,166,.08), rgba(248,213,138,.04));
+      border: 1px solid rgba(255,77,166,.15);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .porque-secao h3 {
+      color: var(--gold);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0 0 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .porque-secao p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    .pagamento-secao {
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .pagamento-secao h3 {
+      color: var(--gold);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .metodos-pagamento {
+      display: grid;
+      gap: 10px;
+    }
+    
+    .metodo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .metodo:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border-color: var(--accent);
+      box-shadow: 0 6px 15px rgba(255,77,166,.15);
+    }
+    
+    .metodo input[type="radio"] {
+      cursor: pointer;
+      accent-color: var(--accent2);
+    }
+    
+    .metodo label {
+      cursor: pointer;
+      flex: 1;
+      margin: 0;
+    }
+    
+    .metodo-titulo {
+      font-weight: 700;
+      color: var(--txt);
+    }
+    
+    .metodo-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: block;
+    }
+    
+    .pix-container {
+      background: linear-gradient(135deg, rgba(76,175,80,.1), rgba(76,175,80,.05));
+      border: 1px solid rgba(76,175,80,.2);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 12px;
+      display: none;
+    }
+    
+    .pix-container.show {
+      display: block;
+    }
+    
+    .pix-label {
+      color: #8ef0bc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+    
+    .pix-key {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,0,0,.3);
+      border: 1px solid rgba(76,175,80,.3);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    
+    .pix-key-text {
+      flex: 1;
+      color: #8ef0bc;
+      font-size: 0.9rem;
+      font-weight: 600;
+      word-break: break-all;
+      font-family: monospace;
+    }
+    
+    .pix-copy-btn {
+      background: linear-gradient(135deg, #4CAF50, #8ef0bc);
+      border: none;
+      color: #1a0710;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    
+    .pix-copy-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(76,175,80,.3);
+    }
+    
+    .btn-whatsapp {
+      width: 100%;
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, #25d366, #34d399);
+      box-shadow: 0 10px 30px rgba(37,211,102,.28);
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(37,211,102,.38);
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #2d9f3f, #38c853);
+      color: white;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      display: none;
+      z-index: 1000;
+      animation: slideIn 0.3s ease-out;
+      box-shadow: 0 8px 20px rgba(45, 159, 63, 0.3);
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .toast.show {
+      display: block;
+    }
+    
+    @media (max-width:520px){
+      .plano{flex-direction:column; align-items:flex-start}
+      .preco{align-self:flex-end}
+      .btn-voltar {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+      .modal {
+        width: min(90vw, 100%);
+        max-height: 90vh;
+        padding: 16px;
+      }
+      .modal-header h2 {
+        font-size: 1.4rem;
+      }
+      .pix-key {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="btn-voltar">
+    <i class="fa-solid fa-arrow-left"></i> Voltar
+  </a>
+
+  <main class="wrap">
+    <span class="badge">Planos exclusivos</span>
+    <h1>Escolha o plano ideal</h1>
+    <p>Um toque elegante, discreto e chamativo para destacar seus planos na página inicial sem ocupar muito espaço.</p>
+    <button class="btn-planos" id="btnPlanos">Planos</button>
+
+    <section class="planos-box" id="boxPlanos" aria-hidden="true">
+      <div class="planos-top">
+        <strong>Planos disponíveis</strong>
+        <button class="close" id="fecharPlanos" aria-label="Fechar">×</button>
+      </div>
+      <div class="grid">
+        <div class="plano" onclick="abrirDetalhes('ESSENCE', 'Grátis', 'Plano grátis')">
+          <div>
+            <div class="nome">ESSENCE</div>
+            <span class="desc">Plano grátis</span>
+          </div>
+          <div class="preco grátis">Grátis</div>
+        </div>
+        <div class="plano" onclick="abrirDetalhes('DESFIRE', 'R$ 29,90', 'Acesso premium inicial')">
+          <div>
+            <div class="nome">DESFIRE</div>
+            <span class="desc">Acesso premium inicial</span>
+          </div>
+          <div class="preco">R$ 29,90</div>
+        </div>
+        <div class="plano" onclick="abrirDetalhes('ELITE', 'R$ 59,90', 'Mais benefícios e presença')">
+          <div>
+            <div class="nome">ELITE</div>
+            <span class="desc">Mais benefícios e presença</span>
+          </div>
+          <div class="preco">R$ 59,90</div>
+        </div>
+        <div class="plano" onclick="abrirDetalhes('ROYAL', 'R$ 99,90', 'Experiência sofisticada')">
+          <div>
+            <div class="nome">ROYAL</div>
+            <span class="desc">Experiência sofisticada</span>
+          </div>
+          <div class="preco">R$ 99,90</div>
+        </div>
+        <div class="plano" onclick="abrirDetalhes('DIAMOND', 'R$ 149,90', 'Plano máximo e exclusivo')">
+          <div>
+            <div class="nome">DIAMOND</div>
+            <span class="desc">Plano máximo e exclusivo</span>
+          </div>
+          <div class="preco">R$ 149,90</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal de Detalhes -->
+  <div class="overlay" id="overlay" onclick="fecharModal()"></div>
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <h2 id="modalNome">PLANO</h2>
+      <button class="modal-close" onclick="fecharModal()">×</button>
+    </div>
+    
+    <div class="modal-preco" id="modalPreco">R$ 0,00</div>
+    
+    <div class="porque-secao">
+      <h3><i class="fa-solid fa-lightbulb"></i> Por que escolher?</h3>
+      <p id="modalPorque">Descrição do plano...</p>
+    </div>
+    
+    <div class="beneficios-secao">
+      <h3><i class="fa-solid fa-check-circle"></i> Benefícios</h3>
+      <div class="beneficios-lista" id="beneficiosList"></div>
+    </div>
+    
+    <div class="pagamento-secao">
+      <h3><i class="fa-solid fa-credit-card"></i> Forma de Pagamento</h3>
+      <div class="metodos-pagamento">
+        <div class="metodo">
+          <input type="radio" id="pix" name="pagamento" value="pix" checked onchange="mostrarPix()">
+          <label for="pix">
+            <span class="metodo-titulo">PIX</span>
+            <span class="metodo-desc">Instantâneo e seguro</span>
+          </label>
+        </div>
+        <div class="metodo">
+          <input type="radio" id="whatsapp" name="pagamento" value="whatsapp" onchange="mostrarPix()">
+          <label for="whatsapp">
+            <span class="metodo-titulo">Contato via WhatsApp</span>
+            <span class="metodo-desc">Fale com nosso atendimento</span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="pix-container" id="pixContainer">
+        <span class="pix-label">Chave PIX</span>
+        <div class="pix-key">
+          <span class="pix-key-text" id="pixKeyText">ajudaasofia@gmail.com</span>
+          <button class="pix-copy-btn" onclick="copiarPix()">
+            <i class="fa-solid fa-copy"></i> Copiar
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <button class="btn-whatsapp" onclick="abrirWhatsApp()">
+      <i class="fa-brands fa-whatsapp"></i> Confirmar pelo WhatsApp
+    </button>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const btn = document.getElementById('btnPlanos');
+    const box = document.getElementById('boxPlanos');
+    const closeBtn = document.getElementById('fecharPlanos');
+    const toast = document.getElementById('toast');
+    const overlay = document.getElementById('overlay');
+    const modal = document.getElementById('modal');
+    
+    let planoAtual = {};
+
+    const planosData = {
+      ESSENCE: {
+        preco: 'Grátis',
+        precoClass: 'gratis',
+        porque: 'Perfeito para começar! Acesso básico com visibilidade garantida na plataforma.',
+        beneficios: [
+          'Perfil básico publicado',
+          'Apareça nos resultados de busca',
+          'Contato via WhatsApp',
+          'Suporte por email'
+        ]
+      },
+      DESFIRE: {
+        preco: 'R$ 29,90',
+        precoClass: '',
+        porque: 'Dê um passo adiante! Mais destaque e recursos premium para crescer sua presença.',
+        beneficios: [
+          'Tudo do plano ESSENCE',
+          'Perfil com destaque especial',
+          'Até 10 fotos/vídeos',
+          'Duração: 30 dias'
+        ]
+      },
+      ELITE: {
+        preco: 'R$ 59,90',
+        precoClass: '',
+        porque: 'Maximize sua presença! Posição privilegiada com todos os benefícios premium.',
+        beneficios: [
+          'Tudo do plano DESFIRE',
+          'Destaque em primeira posição',
+          'Até 30 fotos/vídeos',
+          'Análise de visualizações',
+          'Duração: 60 dias'
+        ]
+      },
+      ROYAL: {
+        preco: 'R$ 99,90',
+        precoClass: '',
+        porque: 'Experiência sofisticada! Acesso exclusivo com todos os recursos e prioridade máxima.',
+        beneficios: [
+          'Tudo do plano ELITE',
+          'Badge exclusiva "ROYAL"',
+          'Atendimento prioritário 24/7',
+          'Até 50 fotos/vídeos em 4K',
+          'Duração: 90 dias'
+        ]
+      },
+      DIAMOND: {
+        preco: 'R$ 149,90',
+        precoClass: '',
+        porque: 'O máximo em sofisticação! Acesso total com todos os recursos e exclusividade total.',
+        beneficios: [
+          'Tudo do plano ROYAL',
+          'Badge exclusiva "DIAMOND"',
+          'Anúncios promocionais ilimitados',
+          'Suporte VIP dedicado',
+          'Renovação automática com desconto',
+          'Duração: 180 dias'
+        ]
+      }
+    };
+
+    btn.addEventListener('click', () => {
+      const aberto = box.style.display === 'block';
+      box.style.display = aberto ? 'none' : 'block';
+      box.setAttribute('aria-hidden', aberto ? 'true' : 'false');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      box.style.display = 'none';
+      box.setAttribute('aria-hidden', 'true');
+    });
+
+    function mostrarToast(mensagem) {
+      toast.textContent = mensagem;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    function abrirDetalhes(nome, preco, desc) {
+      planoAtual = {
+        nome: nome,
+        preco: preco,
+        desc: desc,
+        ...planosData[nome]
+      };
+
+      document.getElementById('modalNome').textContent = nome;
+      document.getElementById('modalPreco').textContent = preco;
+      document.getElementById('modalPreco').className = `modal-preco ${planoAtual.precoClass}`;
+      document.getElementById('modalPorque').textContent = planoAtual.porque;
+
+      const beneficiosList = document.getElementById('beneficiosList');
+      beneficiosList.innerHTML = planoAtual.beneficios.map(b => `
+        <div class="beneficio-item">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>${b}</span>
+        </div>
+      `).join('');
+
+      overlay.classList.add('show');
+      modal.classList.add('show');
+      mostrarPix();
+
+      box.style.display = 'none';
+      box.setAttribute('aria-hidden', 'true');
+    }
+
+    function fecharModal() {
+      overlay.classList.remove('show');
+      modal.classList.remove('show');
+    }
+
+    function mostrarPix() {
+      const pixContainer = document.getElementById('pixContainer');
+      const pixRadio = document.getElementById('pix');
+      
+      if (pixRadio.checked) {
+        pixContainer.classList.add('show');
+      } else {
+        pixContainer.classList.remove('show');
+      }
+    }
+
+    function copiarPix() {
+      const pixText = document.getElementById('pixKeyText').textContent;
+      navigator.clipboard.writeText(pixText).then(() => {
+        mostrarToast('✓ PIX copiado para área de transferência!');
+      }).catch(() => {
+        mostrarToast('Erro ao copiar. Tente novamente.');
+      });
+    }
+
+    function abrirWhatsApp() {
+      if (planoAtual.nome === 'ESSENCE') {
+        const texto = `Olá! Tenho interesse no plano *${planoAtual.nome}* (Grátis). Gostaria de mais informações.`;
+        window.open(`https://wa.me/5551980612941?text=${encodeURIComponent(texto)}`, '_blank');
+      } else {
+        const texto = `Olá! Tenho interesse no plano *${planoAtual.nome}* (${planoAtual.preco}). Já copiei a chave PIX para pagamento.`;
+        window.open(`https://wa.me/5551980612941?text=${encodeURIComponent(texto)}`, '_blank');
+      }
+    }
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        fecharModal();
+      }
+    });
+  </script>
+</body>
+</html>

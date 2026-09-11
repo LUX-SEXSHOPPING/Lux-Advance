@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pré-Cadastro VIP — LUX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body {
+            background: url('banner.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .fundo-sobreposto {
+            background: rgba(0,0,0,0.65);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+        }
+        .conteudo { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; }
+        .voltar {
+            display: inline-block;
+            color: #d4af37;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+        .voltar:hover { text-decoration: underline; }
+        h2 {
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+        .subtitulo {
+            color: #ccc;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .beneficios {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .beneficios span {
+            background: rgba(212,175,55,0.15);
+            color: #e6c86e;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+        form {
+            background: rgba(0,0,0,0.55);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(212,175,55,0.4);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 13px;
+            margin: 7px 0;
+            border-radius: 8px;
+            border: 1px solid rgba(212,175,55,0.35);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 15px;
+        }
+        .titulo-secao-form {
+            color: #e6c86e;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 18px 0 4px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(212,175,55,0.2);
+        }
+        .grade-endereco {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 0 12px;
+        }
+        .grade-endereco.metade {
+            grid-template-columns: 1fr 1fr;
+        }
+        @media (max-width: 480px) {
+            .grade-endereco { grid-template-columns: 1fr; }
+        }
+        .arquivo-envio {
+            border: 2px dashed rgba(212,175,55,0.4);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin: 10px 0;
+            background: rgba(212,175,55,0.08);
+        }
+        .arquivo-envio label {
+            color: #d4af37;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .arquivo-envio input { margin: 8px 0 0; }
+        .aviso-fotos {
+            color: #ccc;
+            font-size: 13px;
+            margin: 12px 0 8px;
+            line-height: 1.6;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            border-left: 3px solid #d4af37;
+        }
+        .aviso-importante {
+            color: #ffd700;
+            font-size: 13px;
+            margin: 10px 0;
+            padding: 12px;
+            background: rgba(212,175,55,0.15);
+            border-radius: 8px;
+            border-left: 3px solid #ffd700;
+            line-height: 1.6;
+        }
+        .termo {
+            color: #ccc;
+            font-size: 13px;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            margin: 15px 0;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+            background: linear-gradient(90deg, #b8860b, #d4af37);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover { transform: scale(1.02); }
+        .lista-arquivos {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #999;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="fundo-sobreposto"></div>
+    <div class="conteudo">
+        <a href="index.html" class="voltar"><i class="fas fa-chevron-left"></i> ← Voltar à página inicial</a>
+
+        <h2>✨ Seja uma VIP — LUX</h2>
+        <p class="subtitulo">Trabalho com discrição, segurança e excelentes ganhos. Gravataí e Região Metropolitana.</p>
+
+        <div class="beneficios">
+            <span>✅ Total discrição</span>
+            <span>✅ Segurança garantida</span>
+            <span>✅ Valores justos</span>
+            <span>✅ Horários flexíveis</span>
+        </div>
+
+        <form onsubmit="enviarPreCadastro(event)" id="formCadastro">
+            <input type="text" id="nomeModela" placeholder="Seu nome ou apelido" required>
+            <input type="tel" id="telefoneModela" placeholder="Seu WhatsApp com DDD" required>
+            <input type="number" id="idadeModela" placeholder="Sua idade" min="18" required>
+            <input type="text" id="alturaModela" placeholder="Sua altura (ex: 1.65)" required>
+            <input type="text" id="cidadeModela" placeholder="Cidade / Região" required>
+
+            <!-- 📍 ENDEREÇO -->
+            <div class="titulo-secao-form">📍 Endereço</div>
+            <div class="grade-endereco">
+                <input type="text" id="enderecoModela" placeholder="Endereço (rua / avenida)" required>
+                <input type="text" id="numeroModela" placeholder="Número" required>
+            </div>
+            <input type="text" id="bairroModela" placeholder="Bairro" required>
+            <div class="grade-endereco metade">
+                <input type="text" id="cidadeEnderecoModela" placeholder="Cidade" required>
+                <input type="text" id="estadoModela" placeholder="Estado" required>
+            </div>
+            <input type="text" id="paisModela" placeholder="País" value="Brasil" required>
+
+            <textarea id="experienciaModela" placeholder="Descreva-se e informe sua disponibilidade" rows="4" required></textarea>
+
+            <!-- 📸 ENVIO DE FOTOS E VÍDEO -->
+            <div class="arquivo-envio">
+                <label>📸 Fotos de apresentação</label>
+                <input type="file" id="fotosApresentacao" accept="image/*" multiple onchange="atualizarListaArquivos()">
+            </div>
+
+            <div class="arquivo-envio">
+                <label>🎬 Vídeo de apresentação (opcional)</label>
+                <input type="file" id="videoApresentacao" accept="video/*" onchange="atualizarListaArquivos()">
+            </div>
+
+            <div class="lista-arquivos" id="listaArquivos"></div>
+
+            <!-- ⚠️ INSTRUÇÃO IMPORTANTE ADICIONADA -->
+            <div class="aviso-importante">
+                ⚠️ <strong>Atenção:</strong> Após clicar em "Enviar", uma conversa no WhatsApp abrirá com seus dados.<br>
+                <strong>Por favor, anexe suas fotos e vídeo diretamente nesta conversa</strong> e envie. O site envia suas informações, mas os arquivos precisam ser anexados por você na conve[...]
+            </div>
+
+            <div class="aviso-fotos">
+                🔒 <strong>Suas fotos e vídeo serão enviadas SOMENTE para avaliação.</strong><br>
+                Apenas se aprovadas serão publicadas no site. Ninguém mais terá acesso.
+            </div>
+
+            <label class="termo">
+                <input type="checkbox" required>
+                Declaro ser maior de 18 anos e concordo com os <a href="termos.html" target="_blank" style="color:#d4af37;">Termos de Uso e Privacidade</a>.
+            </label>
+
+            <button type="submit">💌 Enviar Pré-Cadastro</button>
+        </form>
+    </div>
+
+    <script>
+        let nomesArquivos = [];
+
+        function atualizarListaArquivos() {
+            const fotos = document.getElementById('fotosApresentacao').files;
+            const video = document.getElementById('videoApresentacao').files;
+            const lista = document.getElementById('listaArquivos');
+            
+            nomesArquivos = [];
+            let html = '';
+
+            if (fotos.length > 0) {
+                html += '<div>📸 ' + fotos.length + ' foto(s) selecionada(s)</div>';
+                for (let i = 0; i < fotos.length; i++) {
+                    nomesArquivos.push('📸 Foto: ' + fotos[i].name);
+                }
+            }
+            if (video.length > 0) {
+                html += '<div>🎬 1 vídeo selecionado</div>';
+                nomesArquivos.push('🎬 Vídeo: ' + video[0].name);
+            }
+            lista.innerHTML = html;
+        }
+
+        function enviarPreCadastro(e) {
+            e.preventDefault();
+            const nome = document.getElementById('nomeModela').value;
+            const tel = document.getElementById('telefoneModela').value;
+            const idade = document.getElementById('idadeModela').value;
+            const altura = document.getElementById('alturaModela').value;
+            const cidade = document.getElementById('cidadeModela').value;
+            const endereco = document.getElementById('enderecoModela').value;
+            const numero = document.getElementById('numeroModela').value;
+            const bairro = document.getElementById('bairroModela').value;
+            const cidadeEndereco = document.getElementById('cidadeEnderecoModela').value;
+            const estado = document.getElementById('estadoModela').value;
+            const pais = document.getElementById('paisModela').value;
+            const desc = document.getElementById('experienciaModela').value;
+
+            let arquivosTexto = nomesArquivos.length > 0 
+                ? nomesArquivos.join('\n') 
+                : 'Nenhum arquivo anexado';
+
+            const texto = `💎 *PRÉ-CADASTRO — NOVA VIP LUX*
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 Nome/Apelido: ${nome}
+📱 WhatsApp: ${tel}
+🎂 Idade: ${idade} anos
+📏 Altura: ${altura}
+📍 Cidade/Região: ${cidade}
+🏠 Endereço: ${endereco}, nº ${numero}
+🏘️ Bairro: ${bairro}
+🌆 Cidade: ${cidadeEndereco}
+🗺️ Estado: ${estado}
+🌎 País: ${pais}
+📝 Sobre e disponibilidade:
+${desc}
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+📂 Arquivos selecionados:
+${arquivosTexto}
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ LEMBRETE: Por favor, anexe suas fotos e vídeo DIRETAMENTE nesta conversa do WhatsApp! Obrigada. 💎
+⚠️ APENAS APROVADAS SERÃO PUBLICADAS NO SITE!`;
+
+            window.open(`https://wa.me/5551980612941?text=${encodeURIComponent(texto)}`);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Espera — LUX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dourado: #ffd700;
+            --dourado-claro: #fff176;
+            --texto-claro: #f0e9ec;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body {
+            background: url('banner.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .fundo-sobreposto {
+            background: rgba(0,0,0,0.65);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+        }
+        .conteudo { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; }
+        .voltar {
+            display: inline-block;
+            color: var(--dourado);
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+        .voltar:hover { text-decoration: underline; }
+
+        h2 {
+            color: var(--dourado);
+            text-align: center;
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+        .subtitulo {
+            color: #ccc;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        form {
+            background: rgba(0,0,0,0.55);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 13px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid rgba(255,215,0,0.4);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 15px;
+        }
+        select option {
+            background: #222;
+            color: #fff;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            background: linear-gradient(90deg, #b8860b, #ffd700);
+            color: #000;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover { transform: scale(1.02); }
+        .aviso {
+            background: rgba(255,215,0,0.1);
+            border-left: 3px solid #ffd700;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #e6c86e;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="fundo-sobreposto"></div>
+    <div class="conteudo">
+        <a href="index.html" class="voltar"><i class="fas fa-chevron-left"></i> ← Voltar à página inicial</a>
+
+        <h2>📋 Agendar Horário</h2>
+        <p class="subtitulo">A modelo está indisponível? Informe o horário desejado que entraremos em contato!</p>
+
+        <div class="aviso">
+            ⏰ Preencha abaixo e definimos o melhor horário juntos
+        </div>
+
+        <form onsubmit="enviarAgendamento(event)">
+            <input type="text" id="nomeCliente" placeholder="Seu nome" required>
+            <input type="tel" id="telefoneCliente" placeholder="Seu WhatsApp com DDD" required>
+            <input type="text" id="nomeModelo" placeholder="Nome da modelo desejada" required>
+
+            <input type="date" id="dataDesejada" required placeholder="Data desejada">
+            <input type="time" id="horarioDesejado" required placeholder="Horário desejado">
+
+            <textarea id="observacoes" placeholder="Observações ou preferências" rows="3"></textarea>
+
+            <button type="submit">📩 Solicitar Agendamento</button>
+        </form>
+    </div>
+
+    <script>
+        function enviarAgendamento(e) {
+            e.preventDefault();
+            const nome = document.getElementById('nomeCliente').value;
+            const tel = document.getElementById('telefoneCliente').value;
+            const modelo = document.getElementById('nomeModelo').value;
+            const data = document.getElementById('dataDesejada').value;
+            const horario = document.getElementById('horarioDesejado').value;
+            const obs = document.getElementById('observacoes').value || 'Sem observações';
+
+            const texto = `📋 *SOLICITAÇÃO DE AGENDAMENTO — LUX*
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 Cliente: ${nome}
+📱 WhatsApp: ${tel}
+💛 Modelo desejada: ${modelo}
+📅 Data: ${data}
+⏰ Horário: ${horario}
+📝 Observações: ${obs}
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+Modelo indisponível no momento. Confirmar horário!`;
+
+            window.open(`https://wa.me/5551980612041?text=${encodeURIComponent(texto)}`);
+        }
+    </script>
+</body>
+</html>

@@ -1,63 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 
   <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1"
+    content="width=device-width, initial-scale=1.0"
   >
 
-  <title>LUX — Nova senha</title>
+  <title>Nova Senha — LUX</title>
 
-  <link
-    rel="stylesheet"
-    href="app.css"
-  >
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="login.css">
 
-  <link
-    rel="stylesheet"
-    href="login.css"
-  >
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
 
 </head>
 
-
 <body>
 
-  <main class="login-wrap">
+  <main class="login-page">
 
     <section class="login-card">
 
-      <div class="marca">
-        LUX
+      <div class="login-brand">
+
+        <div class="login-logo">
+          LUX
+        </div>
+
+        <div class="login-subtitle">
+          Sensualidade & Sofisticação
+        </div>
+
       </div>
 
 
-      <p class="sub">
+      <h1>
         Criar nova senha
+      </h1>
+
+
+      <p class="login-description">
+
+        Digite sua nova senha abaixo.
+
       </p>
-
-
-      <p
-        style="
-          color:#b9afb4;
-          line-height:1.6;
-          text-align:center;
-        "
-      >
-        Digite uma nova senha para acessar
-        sua conta LUX.
-      </p>
-
-
-      <div
-        id="mensagem"
-        class="mensagem"
-        hidden
-      ></div>
 
 
       <form id="novaSenhaForm">
@@ -66,14 +57,13 @@
           Nova senha
         </label>
 
-
         <input
-          id="senha"
           type="password"
+          id="senha"
+          placeholder="Mínimo de 6 caracteres"
           autocomplete="new-password"
           minlength="6"
           required
-          placeholder="Digite sua nova senha"
         >
 
 
@@ -81,96 +71,111 @@
           Confirmar nova senha
         </label>
 
-
         <input
-          id="confirmarSenha"
           type="password"
+          id="confirmarSenha"
+          placeholder="Digite novamente"
           autocomplete="new-password"
           minlength="6"
           required
-          placeholder="Digite a senha novamente"
         >
 
 
         <button
-          class="btn primary"
           type="submit"
+          class="btn-primary"
           id="btnSalvar"
         >
+
           Salvar nova senha
+
         </button>
 
       </form>
 
 
-      <p class="senha-link">
+      <div
+        id="mensagem"
+        class="login-message"
+      ></div>
+
+
+      <div class="login-links">
 
         <a href="login.html">
           Voltar para o login
         </a>
 
-      </p>
+      </div>
 
     </section>
 
   </main>
 
 
-  <!-- SUPABASE -->
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-  <!-- CONFIGURAÇÃO -->
-
-  <script src="config.js"></script>
-
-
-  <!-- AUTENTICAÇÃO -->
-
-  <script src="auth.js"></script>
-
-
   <script>
 
-    /*
-      Verifica se existe uma sessão de recuperação.
-    */
+    const formulario =
+      document.getElementById(
+        "novaSenhaForm"
+      );
+
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
+
+    const botao =
+      document.getElementById(
+        "btnSalvar"
+      );
+
 
     async function verificarSessao() {
 
       try {
 
-        const db =
-          requireClient();
+        if (!window.luxSupabase) {
+
+          throw new Error(
+            "Supabase não foi inicializado."
+          );
+
+        }
+
 
         const {
-          data
+          data: {
+            session
+          }
         } =
-          await db.auth.getSession();
+          await window.luxSupabase.auth
+            .getSession();
 
-        if (!data.session) {
 
-          const mensagem =
-            document.getElementById(
-              "mensagem"
-            );
-
-          mensagem.hidden = false;
+        if (!session) {
 
           mensagem.className =
-            "mensagem error";
+            "login-message error";
 
           mensagem.textContent =
-            "O link de recuperação é inválido ou expirou. Solicite um novo link.";
+            "O link de recuperação é inválido, expirou ou já foi utilizado.";
+
+          botao.disabled = true;
 
         }
 
       } catch (erro) {
 
-        console.error(
-          erro
-        );
+        console.error(erro);
+
+        mensagem.className =
+          "login-message error";
+
+        mensagem.textContent =
+          "Não foi possível validar o link de recuperação.";
+
+        botao.disabled = true;
 
       }
 
@@ -180,133 +185,126 @@
     verificarSessao();
 
 
-    /*
-      Salva a nova senha.
-    */
+    formulario.addEventListener(
+      "submit",
+      async function(event) {
 
-    document
-      .getElementById("novaSenhaForm")
-      .addEventListener(
-        "submit",
-        async function(e) {
-
-          e.preventDefault();
+        event.preventDefault();
 
 
-          const mensagem =
-            document.getElementById(
-              "mensagem"
-            );
+        const senha =
+          document
+            .getElementById("senha")
+            .value;
 
-          const botao =
-            document.getElementById(
-              "btnSalvar"
-            );
-
-
-          const senha =
-            document
-              .getElementById("senha")
-              .value;
+        const confirmarSenha =
+          document
+            .getElementById("confirmarSenha")
+            .value;
 
 
-          const confirmarSenha =
-            document
-              .getElementById("confirmarSenha")
-              .value;
+        mensagem.textContent = "";
+        mensagem.className =
+          "login-message";
 
 
-          mensagem.hidden = false;
-
-          mensagem.className =
-            "mensagem";
-
-
-          if (senha.length < 6) {
-
-            mensagem.className =
-              "mensagem error";
-
-            mensagem.textContent =
-              "A senha deve ter pelo menos 6 caracteres.";
-
-            return;
-
-          }
-
-
-          if (
-            senha !== confirmarSenha
-          ) {
-
-            mensagem.className =
-              "mensagem error";
-
-            mensagem.textContent =
-              "As senhas não coincidem.";
-
-            return;
-
-          }
-
-
-          botao.disabled = true;
+        if (senha.length < 6) {
 
           mensagem.textContent =
-            "Salvando nova senha...";
+            "A senha precisa ter pelo menos 6 caracteres.";
+
+          return;
+
+        }
 
 
-          try {
+        if (senha !== confirmarSenha) {
 
-            await atualizarSenha(
+          mensagem.textContent =
+            "As senhas não são iguais.";
+
+          return;
+
+        }
+
+
+        botao.disabled = true;
+
+        botao.textContent =
+          "Salvando...";
+
+
+        try {
+
+          const resultado =
+            await window.atualizarSenha(
               senha
             );
 
 
-            mensagem.className =
-              "mensagem success";
+          if (!resultado.success) {
 
-            mensagem.textContent =
-              "Senha alterada com sucesso! Você será redirecionado para o login.";
-
-
-            document
-              .getElementById("senha")
-              .disabled = true;
-
-            document
-              .getElementById("confirmarSenha")
-              .disabled = true;
-
-
-            setTimeout(
-              function() {
-
-                window.location.href =
-                  "login.html";
-
-              },
-              2000
+            throw new Error(
+              resultado.error
             );
-
-
-          } catch (erro) {
-
-            mensagem.className =
-              "mensagem error";
-
-            mensagem.textContent =
-              erro.message;
-
-            botao.disabled = false;
 
           }
 
+
+          mensagem.className =
+            "login-message success";
+
+          mensagem.innerHTML =
+            "Senha alterada com sucesso!<br><br>" +
+            "Você será direcionado para o login.";
+
+
+          botao.textContent =
+            "Senha alterada";
+
+
+          setTimeout(
+            async function() {
+
+              try {
+
+                await window.luxSupabase
+                  .auth
+                  .signOut();
+
+              } catch (e) {}
+
+              window.location.href =
+                "login.html";
+
+            },
+            3000
+          );
+
+
+        } catch (erro) {
+
+          console.error(erro);
+
+          mensagem.className =
+            "login-message error";
+
+          mensagem.textContent =
+            erro.message ||
+            "Não foi possível alterar a senha.";
+
+          botao.disabled = false;
+
+          botao.textContent =
+            "Salvar nova senha";
+
         }
-      );
+
+      }
+
+    );
 
   </script>
 
 </body>
-
 </html>

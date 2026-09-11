@@ -10,7 +10,7 @@ const LUX_SUPABASE_ANON_KEY =
 
 
 /* =========================================================
-   VERIFICAÇÃO DA BIBLIOTECA
+   INICIALIZAÇÃO
    ========================================================= */
 
 if (!window.supabase) {
@@ -19,38 +19,45 @@ if (!window.supabase) {
     "Biblioteca Supabase não foi carregada."
   );
 
-}
-
-
-/* =========================================================
-   CLIENTE SUPABASE
-   ========================================================= */
-
-if (
-  window.supabase &&
-  LUX_SUPABASE_URL.startsWith("https://") &&
-  LUX_SUPABASE_ANON_KEY.startsWith("sb_publishable_")
-) {
-
-  window.luxSupabase =
-    window.supabase.createClient(
-      LUX_SUPABASE_URL,
-      LUX_SUPABASE_ANON_KEY
-    );
+  window.luxSupabase = null;
 
 } else {
 
-  window.luxSupabase = null;
+  try {
 
-  console.error(
-    "Não foi possível inicializar o Supabase."
-  );
+    window.luxSupabase =
+      window.supabase.createClient(
+        LUX_SUPABASE_URL,
+        LUX_SUPABASE_ANON_KEY,
+        {
+          auth: {
+            persistSession: true,
+            autoRefreshToken: true,
+            detectSessionInUrl: true
+          }
+        }
+      );
+
+    console.log(
+      "LUX: Supabase inicializado com sucesso."
+    );
+
+  } catch (erro) {
+
+    console.error(
+      "Erro ao inicializar Supabase:",
+      erro
+    );
+
+    window.luxSupabase = null;
+
+  }
 
 }
 
 
 /* =========================================================
-   E-MAIL ADMINISTRADOR
+   ADMINISTRADOR
    ========================================================= */
 
 const LUX_ADMIN_EMAIL =

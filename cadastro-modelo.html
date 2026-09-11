@@ -1,147 +1,116 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
+  <title>Cadastro de Modelo — LUX</title>
 
-  <title>LUX — Cadastro de Modelo</title>
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="login.css">
 
-  <link
-    rel="stylesheet"
-    href="app.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="login.css"
-  >
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
 </head>
 
 <body>
 
-  <main class="login-wrap">
-
-    <a
-      class="voltar"
-      href="login.html"
-    >
-      ← Voltar ao login
-    </a>
+  <main class="login-page">
 
     <section class="login-card">
 
-      <div class="marca">
-        LUX
+      <div class="login-brand">
+        <div class="login-logo">LUX</div>
+        <div class="login-subtitle">
+          Sensualidade & Sofisticação
+        </div>
       </div>
 
-      <p class="sub">
-        Cadastro de modelo
-      </p>
+      <h1>Cadastro de Modelo</h1>
 
-      <p
-        style="
-          color:#b9afb4;
-          line-height:1.6;
-          text-align:center;
-        "
-      >
-        Faça seu cadastro para análise
-        e aprovação pela administração LUX.
+      <p class="login-description">
+        Crie sua conta para solicitar seu cadastro na plataforma LUX.
       </p>
-
-      <div
-        id="mensagem"
-        class="mensagem"
-        hidden
-      ></div>
 
       <form id="cadastroModeloForm">
 
-        <label for="nome">
-          Nome
-        </label>
+        <label for="nome">Nome</label>
 
         <input
-          id="nome"
           type="text"
+          id="nome"
+          placeholder="Digite seu nome"
           autocomplete="name"
           required
-          placeholder="Seu nome"
         >
 
-        <label for="email">
-          E-mail
-        </label>
+        <label for="email">E-mail</label>
 
         <input
-          id="email"
           type="email"
+          id="email"
+          placeholder="Digite seu e-mail"
           autocomplete="email"
           required
-          placeholder="seu@email.com"
         >
 
-        <label for="senha">
-          Senha
-        </label>
+        <label for="senha">Senha</label>
 
         <input
+          type="password"
           id="senha"
-          type="password"
+          placeholder="Mínimo de 6 caracteres"
           autocomplete="new-password"
           minlength="6"
           required
-          placeholder="Mínimo de 6 caracteres"
         >
 
-        <label for="confirmarSenha">
-          Confirmar senha
-        </label>
+        <label for="confirmarSenha">Confirmar senha</label>
 
         <input
-          id="confirmarSenha"
           type="password"
+          id="confirmarSenha"
+          placeholder="Digite a senha novamente"
           autocomplete="new-password"
           minlength="6"
           required
-          placeholder="Digite a senha novamente"
         >
+
+        <label class="checkbox-row">
+
+          <input
+            type="checkbox"
+            id="maioridade"
+            required
+          >
+
+          <span>
+            Confirmo que sou maior de 18 anos.
+          </span>
+
+        </label>
 
         <button
-          class="btn primary"
           type="submit"
-          id="btnCadastrar"
+          class="btn-primary"
+          id="btnCadastrarModelo"
         >
-          Enviar cadastro
+          Solicitar cadastro
         </button>
 
       </form>
 
-      <p class="senha-link">
+      <div id="mensagem" class="login-message"></div>
 
-        Já possui uma conta?
+      <div class="login-links">
 
         <a href="login.html">
-          Entrar
+          Já tenho uma conta
         </a>
 
-      </p>
-
-      <div class="separador">
-        <span>USUÁRIO</span>
-      </div>
-
-      <div class="cadastros">
-
         <a href="cadastro-usuario.html">
-          Criar conta de usuário
+          Cadastro de usuário
         </a>
 
       </div>
@@ -150,154 +119,105 @@
 
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script src="config.js"></script>
-
-  <script src="auth.js"></script>
-
   <script>
 
-    document
-      .getElementById("cadastroModeloForm")
-      .addEventListener(
-        "submit",
-        async function(e) {
+    const formulario = document.getElementById("cadastroModeloForm");
+    const mensagem = document.getElementById("mensagem");
+    const botao = document.getElementById("btnCadastrarModelo");
 
-          e.preventDefault();
+    formulario.addEventListener("submit", async function(event) {
 
-          const mensagem =
-            document.getElementById("mensagem");
+      event.preventDefault();
 
-          const botao =
-            document.getElementById("btnCadastrar");
+      const nome = document.getElementById("nome").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value;
+      const confirmarSenha =
+        document.getElementById("confirmarSenha").value;
 
-          const nome =
-            document
-              .getElementById("nome")
-              .value
-              .trim();
+      const maioridade =
+        document.getElementById("maioridade").checked;
 
-          const email =
-            document
-              .getElementById("email")
-              .value
-              .trim();
+      mensagem.textContent = "";
+      mensagem.className = "login-message";
 
-          const senha =
-            document
-              .getElementById("senha")
-              .value;
+      if (!nome) {
+        mensagem.textContent = "Digite seu nome.";
+        return;
+      }
 
-          const confirmarSenha =
-            document
-              .getElementById("confirmarSenha")
-              .value;
+      if (senha.length < 6) {
+        mensagem.textContent =
+          "A senha precisa ter pelo menos 6 caracteres.";
+        return;
+      }
 
-          mensagem.hidden = false;
+      if (senha !== confirmarSenha) {
+        mensagem.textContent =
+          "As senhas não são iguais.";
+        return;
+      }
 
-          mensagem.className =
-            "mensagem";
+      if (!maioridade) {
+        mensagem.textContent =
+          "É necessário confirmar que você é maior de 18 anos.";
+        return;
+      }
 
-          if (nome.length < 2) {
+      botao.disabled = true;
+      botao.textContent = "Enviando cadastro...";
 
-            mensagem.className =
-              "mensagem error";
+      try {
 
-            mensagem.textContent =
-              "Informe seu nome.";
-
-            return;
-
-          }
-
-          if (senha.length < 6) {
-
-            mensagem.className =
-              "mensagem error";
-
-            mensagem.textContent =
-              "A senha deve ter pelo menos 6 caracteres.";
-
-            return;
-
-          }
-
-          if (senha !== confirmarSenha) {
-
-            mensagem.className =
-              "mensagem error";
-
-            mensagem.textContent =
-              "As senhas não coincidem.";
-
-            return;
-
-          }
-
-          botao.disabled = true;
-
-          mensagem.textContent =
-            "Enviando cadastro...";
-
-          try {
-
-            await cadastrar(
-              "modelo",
-              nome,
-              email,
-              senha
-            );
-
-            mensagem.className =
-              "mensagem success";
-
-            mensagem.textContent =
-              "Cadastro enviado com sucesso! Seu perfil ficará aguardando aprovação da administração.";
-
-            document
-              .getElementById("nome")
-              .disabled = true;
-
-            document
-              .getElementById("email")
-              .disabled = true;
-
-            document
-              .getElementById("senha")
-              .disabled = true;
-
-            document
-              .getElementById("confirmarSenha")
-              .disabled = true;
-
-            setTimeout(
-              function() {
-
-                window.location.href =
-                  "login.html";
-
-              },
-              3500
-            );
-
-          } catch (erro) {
-
-            mensagem.className =
-              "mensagem error";
-
-            mensagem.textContent =
-              erro.message;
-
-            botao.disabled = false;
-
-          }
-
+        if (typeof window.cadastrar !== "function") {
+          throw new Error(
+            "A função de cadastro não foi carregada. Verifique o auth.js."
+          );
         }
-      );
+
+        const resultado = await window.cadastrar(
+          "modelo",
+          nome,
+          email,
+          senha,
+          {
+            maioridade_confirmada: true
+          }
+        );
+
+        if (!resultado.success) {
+          throw new Error(
+            resultado.error || "Não foi possível realizar o cadastro."
+          );
+        }
+
+        mensagem.className = "login-message success";
+
+        mensagem.innerHTML =
+          "Cadastro enviado com sucesso!<br><br>" +
+          "Seu cadastro ficará pendente de análise pela administração da LUX.";
+
+        botao.textContent = "Cadastro enviado";
+
+        setTimeout(function() {
+          window.location.href = "login.html";
+        }, 5000);
+
+      } catch (erro) {
+
+        console.error(erro);
+
+        mensagem.className = "login-message error";
+        mensagem.textContent =
+          erro.message || "Erro ao realizar cadastro.";
+
+        botao.disabled = false;
+        botao.textContent = "Solicitar cadastro";
+      }
+
+    });
 
   </script>
 
 </body>
-
 </html>

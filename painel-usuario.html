@@ -1,1797 +1,464 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1"
->
-
-<title>LUX — ADVANCE | Área do Usuário</title>
-
-<link rel="stylesheet" href="app.css">
-
-<style>
-
-/* =====================================================
-   LUX — ADVANCE
-   HALLOWEEN EDITION
-   Layout premium — sistema preservado
-   ===================================================== */
-
-:root {
-  --lux-black: #050405;
-  --lux-dark: #0b0809;
-  --lux-card: #120d10;
-  --lux-card-2: #171014;
-
-  --lux-gold: #c9a227;
-  --lux-gold-light: #f0d878;
-  --lux-gold-soft: #d8b95b;
-
-  --lux-wine: #6e0f2e;
-  --lux-wine-dark: #3a0819;
-
-  --lux-orange: #a94d16;
-  --lux-orange-light: #d87932;
-
-  --lux-text: #f5e6c8;
-  --lux-muted: #b8adb2;
-
-  --lux-border: rgba(201,162,39,.23);
-}
-
-
-/* =====================================================
-   BASE
-   ===================================================== */
-
-* {
-  box-sizing: border-box;
-}
-
-
-html {
-  scroll-behavior: smooth;
-}
-
-
-body {
-
-  margin: 0;
-
-  min-height: 100vh;
-
-  color: var(--lux-text);
-
-  background:
-
-    radial-gradient(
-      circle at 85% 0%,
-      rgba(169,77,22,.13),
-      transparent 22%
-    ),
-
-    radial-gradient(
-      circle at 15% 15%,
-      rgba(110,15,46,.20),
-      transparent 30%
-    ),
-
-    radial-gradient(
-      circle at 50% 100%,
-      rgba(201,162,39,.05),
-      transparent 30%
-    ),
-
-    linear-gradient(
-      180deg,
-      #050405 0%,
-      #0b0809 55%,
-      #050405 100%
-    );
-
-}
-
-
-/* =====================================================
-   CABEÇALHO
-   ===================================================== */
-
-.lux-top {
-
-  position: sticky;
-
-  top: 0;
-
-  z-index: 100;
-
-  min-height: 72px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-  padding: 8px 20px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(5,4,5,.98),
-      rgba(17,9,13,.97)
-    );
-
-  border-bottom:
-    1px solid
-    rgba(201,162,39,.25);
-
-  box-shadow:
-    0 8px 35px rgba(0,0,0,.35);
-
-  backdrop-filter:
-    blur(15px);
-}
-
-
-/* =====================================================
-   MARCA
-   ===================================================== */
-
-.lux-brand {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 11px;
-
-  text-decoration: none;
-
-  min-width: 0;
-}
-
-
-.lux-brand-text {
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  line-height: 1;
-}
-
-
-.lux-brand-name {
-
-  font-family: Georgia, "Times New Roman", serif;
-
-  font-size: 25px;
-
-  font-weight: 700;
-
-  letter-spacing: 4px;
-
-  color:
-    var(--lux-gold-light);
-
-  text-shadow:
-    0 0 16px
-    rgba(201,162,39,.20);
-}
-
-
-.lux-brand-sub {
-
-  margin-top: 5px;
-
-  font-size: 8px;
-
-  letter-spacing: 2.5px;
-
-  color:
-    #8e7e84;
-
-  text-transform: uppercase;
-}
-
-
-/* =====================================================
-   LOGO4 — CANTO DIREITO
-   ===================================================== */
-
-.lux-advance {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 9px;
-
-  margin-left: auto;
-
-  margin-right: 14px;
-
-  padding:
-    5px 9px;
-
-  border-radius: 10px;
-
-  border:
-    1px solid
-    rgba(201,162,39,.18);
-
-  background:
-    rgba(255,255,255,.025);
-
-}
-
-
-.lux-advance-logo {
-
-  width: 38px;
-
-  height: 38px;
-
-  object-fit: contain;
-
-  display: block;
-
-  filter:
-    drop-shadow(
-      0 0 8px
-      rgba(201,162,39,.18)
-    );
-}
-
-
-.lux-advance-name {
-
-  color:
-    var(--lux-gold-light);
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 13px;
-
-  font-weight: 700;
-
-  letter-spacing: 2px;
-
-  white-space: nowrap;
-}
-
-
-/* =====================================================
-   BOTÃO SAIR
-   ===================================================== */
-
-.lux-sair {
-
-  padding:
-    9px 15px;
-
-  border:
-    1px solid
-    rgba(201,162,39,.35);
-
-  border-radius: 8px;
-
-  background:
-    rgba(255,255,255,.025);
-
-  color:
-    var(--lux-text);
-
-  font-size: 11px;
-
-  font-weight: 600;
-
-  letter-spacing: .5px;
-
-  cursor: pointer;
-
-  transition: .25s ease;
-}
-
-
-.lux-sair:hover {
-
-  background:
-    rgba(110,15,46,.35);
-
-  border-color:
-    var(--lux-gold);
-
-  transform:
-    translateY(-1px);
-}
-
-
-/* =====================================================
-   CONTEÚDO
-   ===================================================== */
-
-.lux-main {
-
-  width:
-    min(
-      1050px,
-      calc(100% - 28px)
-    );
-
-  margin:
-    0 auto;
-
-  padding:
-    35px 0 60px;
-}
-
-
-/* =====================================================
-   HALLOWEEN DECORATIVO
-   ===================================================== */
-
-.lux-moon {
-
-  position:
-    absolute;
-
-  right:
-    32px;
-
-  top:
-    25px;
-
-  width:
-    82px;
-
-  height:
-    82px;
-
-  border-radius:
-    50%;
-
-  background:
-    radial-gradient(
-      circle at 35% 35%,
-      #f5e6c8 0%,
-      #d8c68e 55%,
-      #9d8953 100%
-    );
-
-  opacity:
-    .10;
-
-  box-shadow:
-    0 0 40px
-    rgba(240,216,120,.18);
-
-}
-
-
-.lux-moon::after {
-
-  content: "";
-
-  position:
-    absolute;
-
-  width:
-    76px;
-
-  height:
-    76px;
-
-  border-radius:
-    50%;
-
-  left:
-    18px;
-
-  top:
-    -5px;
-
-  background:
-    #120d10;
-
-}
-
-
-/* =====================================================
-   WELCOME
-   ===================================================== */
-
-.lux-welcome {
-
-  position:
-    relative;
-
-  overflow:
-    hidden;
-
-  padding:
-    34px 28px;
-
-  border-radius:
-    18px;
-
-  border:
-    1px solid
-    var(--lux-border);
-
-  background:
-
-    linear-gradient(
-      135deg,
-      rgba(58,8,25,.72),
-      rgba(18,13,16,.97) 55%,
-      rgba(169,77,22,.08)
-    );
-
-  box-shadow:
-    0 20px 60px
-    rgba(0,0,0,.40);
-}
-
-
-.lux-welcome::before {
-
-  content: "";
-
-  position:
-    absolute;
-
-  width:
-    260px;
-
-  height:
-    260px;
-
-  right:
-    -140px;
-
-  bottom:
-    -170px;
-
-  border-radius:
-    50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(169,77,22,.17),
-      transparent 70%
-    );
-}
-
-
-.lux-welcome::after {
-
-  content: "";
-
-  position:
-    absolute;
-
-  left:
-    0;
-
-  bottom:
-    0;
-
-  width:
-    100%;
-
-  height:
-    1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(201,162,39,.55),
-      transparent
-    );
-}
-
-
-.lux-eyebrow {
-
-  position:
-    relative;
-
-  z-index:
-    2;
-
-  color:
-    var(--lux-gold-light);
-
-  font-size:
-    10px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    3px;
-}
-
-
-.lux-title {
-
-  position:
-    relative;
-
-  z-index:
-    2;
-
-  margin:
-    12px 0 8px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:
-    clamp(
-      30px,
-      7vw,
-      48px
-    );
-
-  line-height:
-    1.1;
-
-  color:
-    #fff8ed;
-}
-
-
-.lux-title span {
-
-  color:
-    var(--lux-gold-light);
-
-}
-
-
-.lux-subtitle {
-
-  position:
-    relative;
-
-  z-index:
-    2;
-
-  margin:
-    0;
-
-  color:
-    var(--lux-muted);
-
-  line-height:
-    1.7;
-
-  font-size:
-    14px;
-}
-
-
-/* =====================================================
-   MENSAGEM
-   ===================================================== */
-
-.lux-notice {
-
-  padding:
-    17px;
-
-  margin:
-    20px 0;
-
-  border-radius:
-    12px;
-
-  border:
-    1px solid
-    rgba(201,162,39,.22);
-
-  background:
-    rgba(255,255,255,.03);
-
-  color:
-    var(--lux-muted);
-}
-
-
-/* =====================================================
-   GRID
-   ===================================================== */
-
-.lux-grid {
-
-  display:
-    grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:
-    18px;
-}
-
-
-/* =====================================================
-   CARDS
-   ===================================================== */
-
-.lux-card {
-
-  position:
-    relative;
-
-  overflow:
-    hidden;
-
-  padding:
-    24px;
-
-  border-radius:
-    16px;
-
-  border:
-    1px solid
-    rgba(201,162,39,.20);
-
-  background:
-
-    linear-gradient(
-      145deg,
-      rgba(23,16,20,.98),
-      rgba(12,8,10,.98)
-    );
-
-  box-shadow:
-    0 14px 45px
-    rgba(0,0,0,.27);
-
-  transition:
-    transform .25s ease,
-    border-color .25s ease;
-}
-
-
-.lux-card::before {
-
-  content: "";
-
-  position:
-    absolute;
-
-  top: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(201,162,39,.4),
-      transparent
-    );
-}
-
-
-.lux-card:hover {
-
-  transform:
-    translateY(-2px);
-
-  border-color:
-    rgba(201,162,39,.34);
-}
-
-
-.lux-card h2 {
-
-  margin:
-    0 0 17px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  color:
-    var(--lux-gold-light);
-
-  font-size:
-    22px;
-}
-
-
-/* =====================================================
-   PERFIL
-   ===================================================== */
-
-.lux-name {
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  color:
-    #fff8ed;
-
-  font-size:
-    25px;
-
-  margin-bottom:
-    8px;
-}
-
-
-.lux-info {
-
-  color:
-    var(--lux-muted);
-
-  line-height:
-    1.8;
-
-  font-size:
-    13px;
-
-  word-break:
-    break-word;
-}
-
-
-.lux-status {
-
-  display:
-    inline-flex;
-
-  align-items:
-    center;
-
-  gap:
-    8px;
-
-  margin-top:
-    12px;
-
-  padding:
-    7px 12px;
-
-  border-radius:
-    20px;
-
-  background:
-    rgba(50,160,90,.10);
-
-  border:
-    1px solid
-    rgba(100,210,130,.24);
-
-  color:
-    #a9e5b8;
-
-  font-size:
-    10px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    .5px;
-}
-
-
-.lux-status::before {
-
-  content: "";
-
-  width:
-    6px;
-
-  height:
-    6px;
-
-  border-radius:
-    50%;
-
-  background:
-    #79d58c;
-
-  box-shadow:
-    0 0 8px
-    rgba(121,213,140,.7);
-}
-
-
-/* =====================================================
-   BOTÕES
-   ===================================================== */
-
-.lux-buttons {
-
-  display:
-    grid;
-
-  gap:
-    11px;
-
-  margin-top:
-    18px;
-}
-
-
-.lux-button {
-
-  display:
-    block;
-
-  padding:
-    13px;
-
-  text-align:
-    center;
-
-  text-decoration:
-    none;
-
-  border-radius:
-    9px;
-
-  border:
-    1px solid
-    rgba(201,162,39,.28);
-
-  color:
-    var(--lux-text);
-
-  background:
-    rgba(255,255,255,.025);
-
-  font-size:
-    11px;
-
-  font-weight:
-    600;
-
-  letter-spacing:
-    .7px;
-
-  transition:
-    .25s ease;
-}
-
-
-.lux-button:hover {
-
-  border-color:
-    var(--lux-gold);
-
-  background:
-    rgba(110,15,46,.20);
-
-  transform:
-    translateY(-1px);
-}
-
-
-.lux-button.primary {
-
-  background:
-    linear-gradient(
-      135deg,
-      #c9a227,
-      #f0d878
-    );
-
-  color:
-    #120e08;
-
-  border-color:
-    transparent;
-
-  font-weight:
-    800;
-
-}
-
-
-.lux-button.primary:hover {
-
-  background:
-    linear-gradient(
-      135deg,
-      #e0b93d,
-      #f4df91
-    );
-
-  box-shadow:
-    0 8px 25px
-    rgba(201,162,39,.16);
-}
-
-
-/* =====================================================
-   DETALHE HALLOWEEN
-   ===================================================== */
-
-.lux-halloween {
-
-  margin-top:
-    20px;
-
-  padding:
-    25px;
-
-  border-radius:
-    16px;
-
-  border:
-    1px solid
-    rgba(169,77,22,.28);
-
-  background:
-
-    linear-gradient(
-      120deg,
-      rgba(58,8,25,.32),
-      rgba(169,77,22,.08),
-      rgba(18,13,16,.95)
-    );
-}
-
-
-.lux-halloween-title {
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    10px;
-
-  margin-bottom:
-    8px;
-
-  color:
-    var(--lux-gold-light);
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:
-    22px;
-}
-
-
-.lux-halloween-title span {
-
-  color:
-    var(--lux-orange-light);
-
-  font-size:
-    20px;
-}
-
-
-.lux-halloween p {
-
-  margin:
-    0;
-
-  color:
-    var(--lux-muted);
-
-  font-size:
-    13px;
-
-  line-height:
-    1.7;
-}
-
-
-/* =====================================================
-   RODAPÉ
-   ===================================================== */
-
-.lux-footer {
-
-  text-align:
-    center;
-
-  padding:
-    25px;
-
-  border-top:
-    1px solid
-    rgba(201,162,39,.14);
-
-  color:
-    #81767b;
-
-  font-size:
-    10px;
-
-  letter-spacing:
-    .7px;
-}
-
-
-/* =====================================================
-   MOBILE
-   ===================================================== */
-
-@media (max-width: 700px) {
-
-  .lux-top {
-
-    min-height:
-      66px;
-
-    padding:
-      7px 12px;
-  }
-
-
-  .lux-brand-sub {
-
-    display:
-      none;
-  }
-
-
-  .lux-brand-name {
-
-    font-size:
-      23px;
-
-    letter-spacing:
-      3px;
-  }
-
-
-  .lux-advance {
-
-    margin-right:
-      8px;
-
-    padding:
-      4px 6px;
-
-    gap:
-      6px;
-  }
-
-
-  .lux-advance-logo {
-
-    width:
-      31px;
-
-    height:
-      31px;
-  }
-
-
-  .lux-advance-name {
-
-    font-size:
-      10px;
-
-    letter-spacing:
-      1.5px;
-  }
-
-
-  .lux-sair {
-
-    padding:
-      8px 11px;
-
-    font-size:
-      10px;
-  }
-
-
-  .lux-main {
-
-    width:
-      calc(100% - 22px);
-
-    padding:
-      23px 0 45px;
-  }
-
-
-  .lux-welcome {
-
-    padding:
-      27px 20px;
-  }
-
-
-  .lux-moon {
-
-    right:
-      15px;
-
-    top:
-      20px;
-
-    transform:
-      scale(.7);
-  }
-
-
-  .lux-grid {
-
-    grid-template-columns:
-      1fr;
-
-    gap:
-      15px;
-  }
-
-
-  .lux-card {
-
-    padding:
-      21px;
-  }
-
-}
-
-
-@media (max-width: 390px) {
-
-  .lux-advance-name {
-
-    display:
-      none;
-  }
-
-
-  .lux-advance {
-
-    border:
-      0;
-
-    background:
-      transparent;
-  }
-
-
-  .lux-title {
-
-    font-size:
-      29px;
-  }
-
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LUX — Painel do Usuário</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --dourado: #c9a227;
+      --dourado-claro: #f0d878;
+      --champanhe: #f5e6c8;
+      --vinho: #6e0f2e;
+      --fundo: #0c0809;
+      --card: #151012;
+      --texto: #f5f0f2;
+      --suave: #b9afb3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(110, 15, 46, 0.25), transparent 35%),
+        linear-gradient(135deg, #0c0809, #130b0e);
+      color: var(--texto);
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      width: 100%;
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(201, 162, 39, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .logo-text {
+      font-family: "Playfair Display", serif;
+      color: var(--dourado-claro);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      width: min(92%, 900px);
+      margin: 40px auto;
+    }
+
+    .painel {
+      background: rgba(21, 16, 18, 0.96);
+      border: 1px solid rgba(201, 162, 39, 0.28);
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    .titulo {
+      font-family: "Playfair Display", serif;
+      font-size: 32px;
+      color: var(--dourado-claro);
+      margin-bottom: 8px;
+    }
+
+    .subtitulo {
+      color: var(--suave);
+      margin-bottom: 28px;
+    }
+
+    .perfil {
+      background: #100c0e;
+      border: 1px solid rgba(245, 230, 200, 0.12);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .perfil h2 {
+      color: var(--champanhe);
+      margin-bottom: 15px;
+      font-family: "Playfair Display", serif;
+    }
+
+    .linha {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .linha:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      color: var(--suave);
+    }
+
+    .valor {
+      color: var(--texto);
+      text-align: right;
+      font-weight: 600;
+    }
+
+    .acoes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 13px 18px;
+      border-radius: 11px;
+      border: 1px solid rgba(201, 162, 39, 0.45);
+      text-decoration: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s ease;
+      font-size: 15px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-plano {
+      background: linear-gradient(135deg, var(--dourado), var(--dourado-claro));
+      color: #0c0809;
+      border: none;
+      box-shadow: 0 7px 22px rgba(201, 162, 39, 0.22);
+    }
+
+    .btn-plano:hover {
+      box-shadow: 0 10px 28px rgba(201, 162, 39, 0.35);
+    }
+
+    .btn-normal {
+      background: rgba(255,255,255,0.03);
+      color: var(--champanhe);
+    }
+
+    .btn-sair {
+      background: rgba(110, 15, 46, 0.25);
+      color: #f2c7d5;
+      border-color: rgba(110, 15, 46, 0.7);
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: rgba(201, 162, 39, 0.12);
+      color: var(--dourado-claro);
+      font-size: 13px;
+    }
+
+    #mensagem {
+      text-align: center;
+      color: var(--suave);
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+
+      .container {
+        margin: 25px auto;
+      }
+
+      .painel {
+        padding: 20px;
+      }
+
+      .titulo {
+        font-size: 26px;
+      }
+
+      .linha {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .valor {
+        text-align: left;
+      }
+
+      .logo-text {
+        font-size: 18px;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     CABEÇALHO
-     ===================================================== -->
-
-<header class="lux-top">
-
-
-  <!-- MARCA LUX -->
-
-  <a
-    href="index.html"
-    class="lux-brand"
-  >
-
-    <div class="lux-brand-text">
-
-      <div class="lux-brand-name">
-        LUX
-      </div>
-
-      <div class="lux-brand-sub">
-        Sensualidade & Sofisticação
-      </div>
-
+  <header>
+    <div class="logo-area">
+      <img src="logo4.png" alt="LUX" class="logo">
+      <div class="logo-text">LUX - ADVANCE</div>
     </div>
+  </header>
 
-  </a>
+  <main class="container">
 
+    <section class="painel">
 
-  <!-- LOGO4 + LUX ADVANCE -->
+      <h1 class="titulo">Painel do Usuário</h1>
 
-  <div class="lux-advance">
+      <p class="subtitulo">
+        Bem-vindo à sua área exclusiva LUX.
+      </p>
 
-    <img
-      src="logo4.png"
-      alt="LUX Advance"
-      class="lux-advance-logo"
-    >
+      <div id="mensagem">
+        Carregando seu perfil...
+      </div>
 
-    <span class="lux-advance-name">
-      LUX - ADVANCE
-    </span>
+      <div id="conteudo" style="display:none;">
 
-  </div>
+        <div class="perfil">
 
+          <h2>Minha conta</h2>
 
-  <!-- SAIR -->
+          <div class="linha">
+            <span class="label">Nome</span>
+            <span class="valor" id="nomeUsuario">---</span>
+          </div>
 
-  <button
-    id="btnSair"
-    class="lux-sair"
-    type="button"
-  >
-    Sair
-  </button>
+          <div class="linha">
+            <span class="label">E-mail</span>
+            <span class="valor" id="emailUsuario">---</span>
+          </div>
 
+          <div class="linha">
+            <span class="label">Tipo de conta</span>
+            <span class="valor" id="tipoUsuario">---</span>
+          </div>
 
-</header>
+          <div class="linha">
+            <span class="label">Status</span>
+            <span class="valor">
+              <span class="status" id="statusUsuario">---</span>
+            </span>
+          </div>
 
+        </div>
 
-<!-- =====================================================
-     CONTEÚDO
-     ===================================================== -->
+        <div class="acoes">
 
-<main class="lux-main">
+          <!-- NOVO BOTÃO DE PLANOS -->
+          <a href="planos.html" class="btn btn-plano">
+            💎 PLANOS LUX
+          </a>
 
+          <a href="index.html" class="btn btn-normal">
+            🏠 Página Inicial
+          </a>
 
-<section class="lux-welcome">
+          <button onclick="sair()" class="btn btn-sair">
+            🚪 Sair da Conta
+          </button>
 
+        </div>
 
-  <div class="lux-moon"></div>
+      </div>
 
+    </section>
 
-  <div class="lux-eyebrow">
-    LUX — ADVANCE • HALLOWEEN EDITION
-  </div>
+  </main>
 
 
-  <h1
-    id="titulo"
-    class="lux-title"
-  >
-    Olá, <span>usuário</span>
-  </h1>
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <!-- CONFIGURAÇÃO LUX -->
+  <script src="config.js"></script>
 
-  <p
-    id="subtitulo"
-    class="lux-subtitle"
-  >
-    Carregando sua conta...
-  </p>
+  <!-- AUTENTICAÇÃO LUX -->
+  <script src="auth.js"></script>
 
 
-</section>
+  <script>
 
+    async function carregarPainel() {
 
-<!-- MENSAGEM -->
+      const mensagem = document.getElementById("mensagem");
+      const conteudo = document.getElementById("conteudo");
 
-<div
-  id="mensagem"
-  class="lux-notice"
-  hidden
-></div>
+      try {
 
+        const supabase = window.luxSupabase;
 
-<!-- CONTEÚDO -->
-
-<section id="conteudo">
-
-
-<div class="lux-grid">
-
-
-<!-- ===================================================
-     PERFIL
-     =================================================== -->
-
-<article class="lux-card">
-
-  <h2>
-    Minha conta
-  </h2>
-
-
-  <div
-    id="nomeUsuario"
-    class="lux-name"
-  >
-    Carregando...
-  </div>
-
-
-  <div
-    id="emailUsuario"
-    class="lux-info"
-  >
-    Carregando e-mail...
-  </div>
-
-
-  <div
-    id="statusUsuario"
-    class="lux-status"
-  >
-    CONECTADO
-  </div>
-
-</article>
-
-
-<!-- ===================================================
-     EXPERIÊNCIA
-     =================================================== -->
-
-<article class="lux-card">
-
-  <h2>
-    Experiência LUX
-  </h2>
-
-
-  <p class="lux-info">
-
-    Sua conta está ativa.
-
-    Explore a plataforma LUX e
-    descubra os perfis disponíveis
-    em um ambiente reservado,
-    sofisticado e exclusivo.
-
-  </p>
-
-
-  <div class="lux-buttons">
-
-    <a
-      href="modelos.html"
-      class="lux-button primary"
-    >
-      VER MODELOS
-    </a>
-
-
-    <a
-      href="index.html"
-      class="lux-button"
-    >
-      PÁGINA INICIAL
-    </a>
-
-  </div>
-
-</article>
-
-
-<!-- ===================================================
-     ACESSOS
-     =================================================== -->
-
-<article class="lux-card">
-
-  <h2>
-    Acesso rápido
-  </h2>
-
-
-  <div class="lux-buttons">
-
-    <a
-      href="modelos-femininos.html"
-      class="lux-button"
-    >
-      MODELOS FEMININOS
-    </a>
-
-
-    <a
-      href="modelos-masculinos.html"
-      class="lux-button"
-    >
-      MODELOS MASCULINOS
-    </a>
-
-  </div>
-
-</article>
-
-
-<!-- ===================================================
-     CONTA
-     =================================================== -->
-
-<article class="lux-card">
-
-  <h2>
-    Segurança
-  </h2>
-
-
-  <p class="lux-info">
-
-    Sua sessão está vinculada à
-    sua conta LUX e protegida pelo
-    sistema de autenticação.
-
-  </p>
-
-
-  <div class="lux-buttons">
-
-    <button
-      id="btnSair2"
-      class="lux-button"
-      type="button"
-    >
-      ENCERRAR SESSÃO
-    </button>
-
-  </div>
-
-</article>
-
-
-</div>
-
-
-<!-- ===================================================
-     HALLOWEEN EDITION
-     =================================================== -->
-
-<section class="lux-halloween">
-
-  <div class="lux-halloween-title">
-
-    <span>☾</span>
-
-    Halloween Edition
-
-  </div>
-
-
-  <p>
-
-    Uma atmosfera mais misteriosa,
-    sofisticada e exclusiva para a
-    experiência LUX. O Halloween chega
-    à plataforma sem perder a elegância
-    que define a nossa identidade.
-
-  </p>
-
-</section>
-
-
-</section>
-
-
-</main>
-
-
-<!-- =====================================================
-     RODAPÉ
-     ===================================================== -->
-
-<footer class="lux-footer">
-
-  LUX — ADVANCE
-  &nbsp;•&nbsp;
-  Sensualidade & Sofisticação
-  &nbsp;•&nbsp;
-  Halloween Edition
-
-</footer>
-
-
-<!-- =====================================================
-     SUPABASE
-     ===================================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="config.js"></script>
-
-<script src="auth.js"></script>
-
-
-<!-- =====================================================
-     SISTEMA DE AUTENTICAÇÃO
-     PRESERVADO
-     ===================================================== -->
-
-<script>
-
-async function iniciarPainel() {
-
-  const mensagem =
-    document.getElementById("mensagem");
-
-
-  try {
-
-    const supabase =
-      window.luxSupabase;
-
-
-    if (!supabase) {
-
-      throw new Error(
-        "Supabase não foi inicializado."
-      );
-
-    }
-
-
-    const {
-      data,
-      error
-    } =
-      await supabase.auth.getSession();
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    const session =
-      data?.session;
-
-
-    if (!session) {
-
-      window.location.replace(
-        "login.html"
-      );
-
-      return;
-
-    }
-
-
-    const user =
-      session.user;
-
-
-    /*
-     * Dados da sessão
-     */
-
-    const nomeSessao =
-      user.user_metadata?.nome ||
-      user.email?.split("@")[0] ||
-      "Usuário";
-
-
-    document
-      .getElementById("nomeUsuario")
-      .textContent =
-      nomeSessao;
-
-
-    document
-      .getElementById("emailUsuario")
-      .textContent =
-      user.email || "";
-
-
-    document
-      .getElementById("titulo")
-      .innerHTML =
-      "Olá, <span>" +
-      nomeSessao.replace(
-        /[<>&"]/g,
-        ""
-      ) +
-      "</span>";
-
-
-    document
-      .getElementById("subtitulo")
-      .textContent =
-      "Esta é sua área exclusiva na LUX.";
-
-
-    /*
-     * Busca perfil
-     */
-
-    try {
-
-      const {
-        data: perfil,
-        error: erroPerfil
-      } =
-      await supabase
-        .from("perfis")
-        .select("nome,tipo,status")
-        .eq("id", user.id)
-        .maybeSingle();
-
-
-      if (
-        !erroPerfil &&
-        perfil
-      ) {
-
-
-        if (
-          perfil.tipo === "modelo"
-        ) {
-
-          window.location.replace(
-            "painel-modelo.html"
-          );
-
-          return;
-
+        if (!supabase) {
+          throw new Error("Supabase não foi inicializado.");
         }
 
+        const {
+          data: {
+            session
+          }
+        } = await supabase.auth.getSession();
 
-        if (
-          perfil.tipo === "admin"
-        ) {
+        if (!session || !session.user) {
 
-          window.location.replace(
-            "painel.html"
-          );
+          window.location.href =
+            "login.html?redirect=painel-usuario.html";
 
           return;
-
         }
 
+        const user = session.user;
 
-        document
-          .getElementById(
-            "nomeUsuario"
-          )
-          .textContent =
-          perfil.nome ||
-          nomeSessao;
+        /*
+         * Mostra imediatamente os dados básicos
+         */
+        document.getElementById("nomeUsuario").textContent =
+          user.user_metadata?.nome ||
+          user.email ||
+          "Usuário";
 
+        document.getElementById("emailUsuario").textContent =
+          user.email || "---";
 
-        document
-          .getElementById(
-            "statusUsuario"
-          )
-          .textContent =
-          (
-            perfil.status ||
-            "ATIVO"
-          ).toUpperCase();
+        /*
+         * Busca o perfil no Supabase
+         */
+        const {
+          data: perfil,
+          error
+        } = await supabase
+          .from("perfis")
+          .select("nome,tipo,status")
+          .eq("id", user.id)
+          .single();
+
+        if (error) {
+          console.error("Erro ao carregar perfil:", error);
+        }
+
+        if (perfil) {
+
+          document.getElementById("nomeUsuario").textContent =
+            perfil.nome || user.email || "Usuário";
+
+          document.getElementById("tipoUsuario").textContent =
+            perfil.tipo || "usuario";
+
+          document.getElementById("statusUsuario").textContent =
+            perfil.status || "ativo";
+
+          /*
+           * Modelos vão para o painel de modelos
+           */
+          if (perfil.tipo === "modelo") {
+
+            window.location.href =
+              "painel-modelo.html";
+
+            return;
+          }
+
+          /*
+           * Administrador vai para o painel administrativo
+           */
+          if (perfil.tipo === "admin") {
+
+            window.location.href =
+              "painel-admin.html";
+
+            return;
+          }
+
+        } else {
+
+          document.getElementById("tipoUsuario").textContent =
+            "usuario";
+
+          document.getElementById("statusUsuario").textContent =
+            "ativo";
+        }
+
+        mensagem.style.display = "none";
+        conteudo.style.display = "block";
+
+      } catch (erro) {
+
+        console.error("Erro no painel:", erro);
+
+        mensagem.textContent =
+          "Não foi possível carregar seu painel. Tente novamente.";
 
       }
 
-    } catch (erroPerfil) {
+    }
 
-      console.warn(
-        "Perfil ainda não disponível:",
-        erroPerfil
-      );
+
+    /*
+     * Logout
+     */
+    async function sairDoSistema() {
+
+      try {
+
+        const supabase = window.luxSupabase;
+
+        if (supabase) {
+          await supabase.auth.signOut();
+        }
+
+      } catch (erro) {
+
+        console.error("Erro ao sair:", erro);
+
+      }
+
+      window.location.href = "login.html";
 
     }
 
 
     /*
-     * Mostra conteúdo
+     * Mantém compatibilidade com o auth.js
      */
-
-    document
-      .getElementById("conteudo")
-      .hidden = false;
+    window.sair = sairDoSistema;
 
 
-  } catch (erro) {
+    /*
+     * Inicia painel
+     */
+    carregarPainel();
 
-    console.error(
-      "Erro no painel:",
-      erro
-    );
-
-
-    mensagem.hidden = false;
-
-    mensagem.textContent =
-      "Não foi possível carregar sua conta: " +
-      (
-        erro.message ||
-        "erro desconhecido"
-      );
-
-  }
-
-}
-
-
-/* =====================================================
-   SAIR
-   ===================================================== */
-
-async function sairDoSistema() {
-
-  try {
-
-    if (
-      window.luxSupabase
-    ) {
-
-      await window.luxSupabase
-        .auth
-        .signOut();
-
-    }
-
-  } finally {
-
-    window.location.replace(
-      "login.html"
-    );
-
-  }
-
-}
-
-
-document
-  .getElementById("btnSair")
-  .addEventListener(
-    "click",
-    sairDoSistema
-  );
-
-
-document
-  .getElementById("btnSair2")
-  .addEventListener(
-    "click",
-    sairDoSistema
-  );
-
-
-/* =====================================================
-   INICIAR
-   ===================================================== */
-
-iniciarPainel();
-
-</script>
-
+  </script>
 
 </body>
-
 </html>

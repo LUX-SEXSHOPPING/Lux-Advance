@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>LUX — Painel do Usuário</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap"
+  rel="stylesheet"
+>
 
 <style>
 
@@ -23,6 +41,7 @@
   --texto:#f7f0e8;
   --suave:#b9adb0;
   --vermelho:#e62945;
+  --verde:#39d46a;
 }
 
 *{
@@ -38,13 +57,26 @@ body{
   overflow-x:hidden;
 
   background:
-    radial-gradient(circle at 50% 10%,rgba(117,19,51,.35),transparent 30%),
-    radial-gradient(circle at 85% 80%,rgba(255,85,0,.10),transparent 20%),
-    linear-gradient(135deg,#050304,#12070b 50%,#050304);
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(117,19,51,.35),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(255,85,0,.10),
+      transparent 20%
+    ),
+    linear-gradient(
+      135deg,
+      #050304,
+      #12070b 50%,
+      #050304
+    );
 }
 
 /* =========================
-   EFEITO HALLOWEEN
+   HALLOWEEN
 ========================= */
 
 .morcego{
@@ -52,24 +84,53 @@ body{
   z-index:1;
   font-size:28px;
   opacity:.75;
-  filter:drop-shadow(0 0 8px rgba(0,0,0,.9));
   pointer-events:none;
   animation:voar 7s ease-in-out infinite;
 }
 
-.m1{top:17%;left:3%;animation-delay:0s;}
-.m2{top:31%;right:5%;font-size:36px;animation-delay:2s;}
-.m3{top:67%;left:7%;font-size:24px;animation-delay:4s;}
-.m4{top:76%;right:10%;font-size:30px;animation-delay:1s;}
-.m5{top:48%;left:48%;font-size:20px;animation-delay:3s;}
+.m1{
+  top:17%;
+  left:3%;
+}
+
+.m2{
+  top:31%;
+  right:5%;
+  font-size:36px;
+  animation-delay:2s;
+}
+
+.m3{
+  top:67%;
+  left:7%;
+  font-size:24px;
+  animation-delay:4s;
+}
+
+.m4{
+  top:76%;
+  right:10%;
+  font-size:30px;
+  animation-delay:1s;
+}
+
+.m5{
+  top:48%;
+  left:48%;
+  font-size:20px;
+  animation-delay:3s;
+}
 
 @keyframes voar{
+
   0%,100%{
     transform:translate(0,0) rotate(-4deg);
   }
+
   50%{
     transform:translate(18px,-12px) rotate(5deg);
   }
+
 }
 
 .teia{
@@ -98,6 +159,7 @@ body{
 header{
   position:relative;
   z-index:5;
+
   height:90px;
 
   display:flex;
@@ -106,10 +168,14 @@ header{
 
   padding:0 6%;
 
-  background:rgba(3,2,3,.88);
-  border-bottom:1px solid rgba(201,162,39,.45);
+  background:rgba(3,2,3,.90);
 
-  box-shadow:0 5px 25px rgba(0,0,0,.7);
+  border-bottom:
+    1px solid rgba(201,162,39,.45);
+
+  box-shadow:
+    0 5px 25px rgba(0,0,0,.7);
+
   backdrop-filter:blur(8px);
 }
 
@@ -137,28 +203,36 @@ header{
   display:flex;
   align-items:center;
   gap:12px;
-  color:var(--champanhe);
 }
 
 .avatar{
   width:45px;
   height:45px;
+
   border-radius:50%;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  background:linear-gradient(135deg,var(--dourado),var(--ouro));
+  background:
+    linear-gradient(
+      135deg,
+      var(--dourado),
+      var(--ouro)
+    );
+
   color:#120a0c;
+
   font-size:22px;
 
-  box-shadow:0 0 18px rgba(201,162,39,.25);
+  box-shadow:
+    0 0 18px rgba(201,162,39,.25);
 }
 
 .usuario-header small{
-  color:var(--suave);
   display:block;
+  color:var(--suave);
   font-size:12px;
 }
 
@@ -167,15 +241,19 @@ header{
 }
 
 /* =========================
-   CONTEÚDO
+   CONTAINER
 ========================= */
 
 .container{
   position:relative;
   z-index:3;
+
   width:min(90%,1000px);
-  margin:0 auto;
-  padding:55px 0 80px;
+
+  margin:auto;
+
+  padding:
+    55px 0 80px;
 }
 
 .hero{
@@ -184,9 +262,15 @@ header{
 
 .hero h1{
   font-family:"Playfair Display",serif;
-  font-size:clamp(36px,7vw,62px);
+
+  font-size:
+    clamp(36px,7vw,62px);
+
   color:var(--ouro);
-  text-shadow:0 0 20px rgba(201,162,39,.18);
+
+  text-shadow:
+    0 0 20px rgba(201,162,39,.18);
+
   margin-bottom:10px;
 }
 
@@ -197,34 +281,46 @@ header{
 
 .frase{
   margin-top:18px;
+
   color:#d9946e;
+
   font-family:"Playfair Display",serif;
+
   font-style:italic;
+
   font-size:16px;
 }
 
 .frase::before{
   content:"";
+
   display:inline-block;
+
   width:38px;
   height:2px;
+
   background:var(--dourado);
+
   vertical-align:middle;
+
   margin-right:10px;
 }
 
 /* =========================
-   CARD CONTA
+   CONTA
 ========================= */
 
 .conta{
-  background:linear-gradient(
-    145deg,
-    rgba(18,8,12,.96),
-    rgba(5,3,4,.96)
-  );
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18,8,12,.96),
+      rgba(5,3,4,.96)
+    );
 
-  border:1px solid rgba(201,162,39,.48);
+  border:
+    1px solid rgba(201,162,39,.48);
+
   border-radius:20px;
 
   padding:30px;
@@ -240,17 +336,17 @@ header{
   gap:15px;
 
   padding-bottom:20px;
+
   margin-bottom:5px;
 
-  border-bottom:1px solid rgba(201,162,39,.25);
+  border-bottom:
+    1px solid rgba(201,162,39,.25);
 
   font-family:"Playfair Display",serif;
-  font-size:28px;
-  color:var(--champanhe);
-}
 
-.conta-icone{
-  font-size:31px;
+  font-size:28px;
+
+  color:var(--champanhe);
 }
 
 .linha{
@@ -260,51 +356,103 @@ header{
 
   min-height:62px;
 
-  border-bottom:1px solid rgba(255,255,255,.07);
-}
-
-.linha:last-child{
-  border-bottom:none;
+  border-bottom:
+    1px solid rgba(255,255,255,.07);
 }
 
 .label{
-  color:#b9adb0;
+  color:var(--suave);
   font-size:16px;
 }
 
 .valor{
   color:#fff;
+
   font-weight:600;
+
   text-align:right;
+
   max-width:60%;
+
   word-break:break-word;
 }
 
 .status{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-
   color:#8ee49c;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:7px;
 }
 
 .status::before{
   content:"";
+
   width:10px;
   height:10px;
+
   border-radius:50%;
-  background:#35c759;
-  box-shadow:0 0 10px rgba(53,199,89,.7);
+
+  background:var(--verde);
+
+  box-shadow:
+    0 0 10px rgba(57,212,106,.7);
 }
 
 /* =========================
-   BOTÕES
+   PLANO ATUAL
+========================= */
+
+.plano-atual{
+  display:none;
+
+  margin-top:18px;
+
+  padding:18px 20px;
+
+  border-radius:15px;
+
+  border:
+    1px solid rgba(201,162,39,.4);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(110,15,46,.22),
+      rgba(201,162,39,.08)
+    );
+}
+
+.plano-atual h3{
+  color:var(--ouro);
+
+  font-family:"Playfair Display",serif;
+
+  margin-bottom:8px;
+}
+
+.plano-atual p{
+  color:var(--suave);
+
+  font-size:14px;
+
+  line-height:1.6;
+}
+
+/* =========================
+   AÇÕES
 ========================= */
 
 .acoes{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+
+  grid-template-columns:
+    repeat(2,1fr);
+
   gap:16px;
+
   margin-top:28px;
 }
 
@@ -312,15 +460,19 @@ header{
   min-height:90px;
 
   display:flex;
+
   align-items:center;
+
   gap:17px;
 
   padding:18px 25px;
 
   text-decoration:none;
+
   border-radius:17px;
 
-  border:1px solid rgba(201,162,39,.45);
+  border:
+    1px solid rgba(201,162,39,.45);
 
   background:
     linear-gradient(
@@ -335,43 +487,68 @@ header{
 
   transition:.25s ease;
 
-  box-shadow:0 8px 25px rgba(0,0,0,.3);
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.3);
 }
 
 .btn:hover{
   transform:translateY(-3px);
+
   border-color:var(--ouro);
-  box-shadow:0 12px 30px rgba(201,162,39,.15);
+
+  box-shadow:
+    0 12px 30px rgba(201,162,39,.15);
 }
 
 .btn-icone{
   font-size:34px;
+
   min-width:42px;
+
   text-align:center;
 }
 
 .btn-texto strong{
   display:block;
+
   font-family:"Playfair Display",serif;
+
   font-size:20px;
+
   color:#fff;
 }
 
 .btn-texto span{
   display:block;
+
   margin-top:5px;
+
   color:#c99c88;
+
   font-size:13px;
 }
 
-/* PLANO */
+/* =========================
+   PLANOS
+========================= */
 
 .btn-plano{
-  background:
-    radial-gradient(circle at 50% 0%,rgba(255,177,0,.28),transparent 50%),
-    linear-gradient(135deg,#7b4300,#c78c12 45%,#5c3000);
 
-  border:1px solid #f0c44e;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255,177,0,.28),
+      transparent 50%
+    ),
+    linear-gradient(
+      135deg,
+      #7b4300,
+      #c78c12 45%,
+      #5c3000
+    );
+
+  border:
+    1px solid #f0c44e;
 
   box-shadow:
     0 0 20px rgba(201,162,39,.25),
@@ -386,15 +563,331 @@ header{
   color:#ffe5a0;
 }
 
-/* SAIR */
+/* =========================
+   SAIR
+========================= */
 
 .btn-sair{
-  border-color:rgba(230,41,69,.55);
+  border-color:
+    rgba(230,41,69,.55);
 }
 
 .btn-sair:hover{
   border-color:var(--vermelho);
-  box-shadow:0 10px 30px rgba(230,41,69,.12);
+
+  box-shadow:
+    0 10px 30px rgba(230,41,69,.12);
+}
+
+/* =========================
+   MODAIS
+========================= */
+
+.modal{
+  display:none;
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:100;
+
+  background:
+    rgba(0,0,0,.82);
+
+  backdrop-filter:blur(7px);
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:20px;
+}
+
+.modal-caixa{
+
+  width:min(100%,500px);
+
+  background:
+    linear-gradient(
+      145deg,
+      #160b10,
+      #070506
+    );
+
+  border:
+    1px solid rgba(201,162,39,.55);
+
+  border-radius:20px;
+
+  padding:28px;
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.8);
+}
+
+.modal-titulo{
+
+  color:var(--ouro);
+
+  font-family:"Playfair Display",serif;
+
+  font-size:27px;
+
+  margin-bottom:20px;
+}
+
+.modal input,
+.modal textarea{
+
+  width:100%;
+
+  background:#090607;
+
+  color:#fff;
+
+  border:
+    1px solid rgba(201,162,39,.35);
+
+  border-radius:10px;
+
+  padding:14px;
+
+  margin-bottom:15px;
+
+  outline:none;
+
+  font-size:15px;
+}
+
+.modal textarea{
+  min-height:120px;
+
+  resize:vertical;
+}
+
+.modal input:focus,
+.modal textarea:focus{
+
+  border-color:var(--ouro);
+
+  box-shadow:
+    0 0 10px rgba(201,162,39,.12);
+}
+
+.modal-botoes{
+
+  display:flex;
+
+  gap:10px;
+
+  margin-top:5px;
+}
+
+.modal-botoes button{
+
+  flex:1;
+
+  padding:13px;
+
+  border-radius:10px;
+
+  cursor:pointer;
+
+  font-weight:bold;
+
+  border:
+    1px solid rgba(201,162,39,.4);
+
+  background:#120b0e;
+
+  color:var(--champanhe);
+}
+
+.modal-botoes .confirmar{
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--dourado),
+      var(--ouro)
+    );
+
+  color:#10090a;
+
+  border:none;
+}
+
+.fechar{
+
+  float:right;
+
+  color:#aaa;
+
+  cursor:pointer;
+
+  font-size:25px;
+}
+
+/* =========================
+   PEDIDOS
+========================= */
+
+.pedido{
+
+  padding:16px;
+
+  margin-bottom:12px;
+
+  border:
+    1px solid rgba(201,162,39,.2);
+
+  border-radius:12px;
+
+  background:rgba(255,255,255,.025);
+}
+
+.pedido strong{
+  color:var(--ouro);
+}
+
+.pedido small{
+  display:block;
+
+  color:var(--suave);
+
+  margin-top:6px;
+}
+
+.badge{
+
+  display:inline-block;
+
+  margin-top:8px;
+
+  padding:5px 9px;
+
+  border-radius:20px;
+
+  font-size:11px;
+
+  background:rgba(201,162,39,.12);
+
+  color:var(--ouro);
+}
+
+#listaPedidos{
+  max-height:450px;
+
+  overflow-y:auto;
+}
+
+/* =========================
+   RODAPÉ
+========================= */
+
+footer{
+
+  position:relative;
+
+  z-index:3;
+
+  min-height:300px;
+
+  margin-top:30px;
+
+  padding:
+    55px 20px 30px;
+
+  text-align:center;
+
+  background:
+    radial-gradient(
+      circle at 70% 70%,
+      rgba(255,72,0,.15),
+      transparent 20%
+    ),
+    linear-gradient(
+      180deg,
+      #080405,
+      #020102
+    );
+
+  border-top:
+    1px solid rgba(201,162,39,.25);
+
+  overflow:hidden;
+}
+
+.footer-logo{
+
+  font-family:"Playfair Display",serif;
+
+  font-size:30px;
+
+  color:var(--ouro);
+
+  font-weight:700;
+
+  letter-spacing:3px;
+}
+
+.footer-frase{
+
+  margin-top:10px;
+
+  color:#d5b58a;
+
+  font-family:"Playfair Display",serif;
+
+  font-style:italic;
+}
+
+.direitos{
+
+  margin-top:30px;
+
+  color:#766a6d;
+
+  font-size:12px;
+}
+
+.abobora{
+
+  position:absolute;
+
+  right:5%;
+
+  bottom:-10px;
+
+  font-size:125px;
+
+  filter:
+    drop-shadow(
+      0 0 12px rgba(255,90,0,.55)
+    )
+    drop-shadow(
+      0 0 35px rgba(255,60,0,.18)
+    );
+
+  animation:
+    assustar 4s ease-in-out infinite;
+}
+
+@keyframes assustar{
+
+  0%,90%,100%{
+    transform:rotate(0) scale(1);
+  }
+
+  94%{
+    transform:rotate(-4deg) scale(1.08);
+  }
+
+  97%{
+    transform:rotate(4deg) scale(1.08);
+  }
+
 }
 
 /* =========================
@@ -402,92 +895,23 @@ header{
 ========================= */
 
 #mensagem{
+
   text-align:center;
+
   color:var(--suave);
+
   padding:50px 20px;
 }
 
 /* =========================
-   RODAPÉ HALLOWEEN
-========================= */
-
-footer{
-  position:relative;
-  z-index:3;
-
-  min-height:300px;
-
-  margin-top:30px;
-  padding:55px 20px 30px;
-
-  text-align:center;
-
-  background:
-    radial-gradient(circle at 70% 70%,rgba(255,72,0,.15),transparent 20%),
-    linear-gradient(180deg,#080405,#020102);
-
-  border-top:1px solid rgba(201,162,39,.25);
-
-  overflow:hidden;
-}
-
-.footer-logo{
-  font-family:"Playfair Display",serif;
-  font-size:30px;
-  color:var(--ouro);
-  font-weight:700;
-  letter-spacing:3px;
-}
-
-.footer-frase{
-  margin-top:10px;
-  color:#d5b58a;
-  font-family:"Playfair Display",serif;
-  font-style:italic;
-}
-
-.direitos{
-  margin-top:30px;
-  color:#766a6d;
-  font-size:12px;
-}
-
-/* ABÓBORA */
-
-.abobora{
-  position:absolute;
-  right:5%;
-  bottom:-10px;
-
-  font-size:125px;
-
-  filter:
-    drop-shadow(0 0 12px rgba(255,90,0,.55))
-    drop-shadow(0 0 35px rgba(255,60,0,.18));
-
-  animation:assustar 4s ease-in-out infinite;
-}
-
-@keyframes assustar{
-  0%,90%,100%{
-    transform:rotate(0) scale(1);
-  }
-  94%{
-    transform:rotate(-4deg) scale(1.08);
-  }
-  97%{
-    transform:rotate(4deg) scale(1.08);
-  }
-}
-
-/* =========================
-   RESPONSIVO
+   MOBILE
 ========================= */
 
 @media(max-width:700px){
 
   header{
     height:75px;
+
     padding:0 18px;
   }
 
@@ -506,6 +930,7 @@ footer{
 
   .container{
     width:92%;
+
     padding-top:35px;
   }
 
@@ -514,15 +939,22 @@ footer{
   }
 
   .linha{
+
     flex-direction:column;
+
     align-items:flex-start;
+
     justify-content:center;
+
     gap:6px;
+
     padding:12px 0;
   }
 
   .valor{
+
     max-width:100%;
+
     text-align:left;
   }
 
@@ -536,28 +968,35 @@ footer{
 
   .abobora{
     font-size:90px;
+
     right:-5px;
+
     opacity:.8;
   }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
-<!-- MORCEGOS -->
+
+<!-- HALLOWEEN -->
+
 <div class="morcego m1">🦇</div>
 <div class="morcego m2">🦇</div>
 <div class="morcego m3">🦇</div>
 <div class="morcego m4">🦇</div>
 <div class="morcego m5">🦇</div>
 
-<!-- TEIAS -->
 <div class="teia teia1">🕸️</div>
 <div class="teia teia2">🕸️</div>
 
+
+<!-- HEADER -->
 
 <header>
 
@@ -575,6 +1014,7 @@ footer{
 
   </div>
 
+
   <div class="usuario-header">
 
     <div class="avatar">
@@ -582,8 +1022,13 @@ footer{
     </div>
 
     <div>
+
       <small>Olá,</small>
-      <strong id="nomeHeader">Usuário</strong>
+
+      <strong id="nomeHeader">
+        Usuário
+      </strong>
+
     </div>
 
   </div>
@@ -591,11 +1036,16 @@ footer{
 </header>
 
 
+<!-- CONTEÚDO -->
+
 <main class="container">
+
 
   <section class="hero">
 
-    <h1>Painel do Usuário</h1>
+    <h1>
+      Painel do Usuário
+    </h1>
 
     <p>
       Bem-vindo à sua área exclusiva LUX.
@@ -618,13 +1068,16 @@ footer{
     style="display:none;"
   >
 
+
     <!-- CONTA -->
 
     <div class="conta">
 
       <div class="conta-titulo">
 
-        <span class="conta-icone">👤</span>
+        <span>
+          👤
+        </span>
 
         <span>
           Minha Conta
@@ -696,6 +1149,24 @@ footer{
 
       </div>
 
+
+      <!-- PLANO ATUAL -->
+
+      <div
+        id="planoAtual"
+        class="plano-atual"
+      >
+
+        <h3>
+          💎 Meu Plano
+        </h3>
+
+        <p id="dadosPlano">
+          Carregando...
+        </p>
+
+      </div>
+
     </div>
 
 
@@ -703,8 +1174,6 @@ footer{
 
     <div class="acoes">
 
-
-      <!-- PLANOS -->
 
       <a
         href="planos.html"
@@ -730,12 +1199,10 @@ footer{
       </a>
 
 
-      <!-- PERFIL -->
-
-      <a
-        href="#"
+      <button
+        type="button"
         class="btn"
-        onclick="alert('Área de edição de perfil em breve.'); return false;"
+        onclick="abrirEditarPerfil()"
       >
 
         <span class="btn-icone">
@@ -754,15 +1221,13 @@ footer{
 
         </span>
 
-      </a>
+      </button>
 
 
-      <!-- SUPORTE -->
-
-      <a
-        href="#"
+      <button
+        type="button"
         class="btn"
-        onclick="alert('Suporte LUX em breve.'); return false;"
+        onclick="abrirSuporte()"
       >
 
         <span class="btn-icone">
@@ -776,20 +1241,18 @@ footer{
           </strong>
 
           <span>
-            Tire suas dúvidas
+            Fale com a LUX
           </span>
 
         </span>
 
-      </a>
+      </button>
 
 
-      <!-- PEDIDOS -->
-
-      <a
-        href="#"
+      <button
+        type="button"
         class="btn"
-        onclick="alert('Histórico de pedidos em breve.'); return false;"
+        onclick="abrirPedidos()"
       >
 
         <span class="btn-icone">
@@ -808,10 +1271,8 @@ footer{
 
         </span>
 
-      </a>
+      </button>
 
-
-      <!-- INÍCIO -->
 
       <a
         href="index.html"
@@ -836,8 +1297,6 @@ footer{
 
       </a>
 
-
-      <!-- SAIR -->
 
       <button
         type="button"
@@ -871,7 +1330,150 @@ footer{
 </main>
 
 
-<!-- RODAPÉ -->
+<!-- =========================
+     MODAL EDITAR PERFIL
+========================= -->
+
+<div
+  id="modalPerfil"
+  class="modal"
+>
+
+  <div class="modal-caixa">
+
+    <span
+      class="fechar"
+      onclick="fecharModal('modalPerfil')"
+    >
+      ×
+    </span>
+
+    <h2 class="modal-titulo">
+      Editar Perfil
+    </h2>
+
+    <input
+      type="text"
+      id="novoNome"
+      placeholder="Seu nome"
+      maxlength="100"
+    >
+
+    <div class="modal-botoes">
+
+      <button
+        onclick="fecharModal('modalPerfil')"
+      >
+        Cancelar
+      </button>
+
+      <button
+        class="confirmar"
+        onclick="salvarPerfil()"
+      >
+        Salvar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     MODAL SUPORTE
+========================= -->
+
+<div
+  id="modalSuporte"
+  class="modal"
+>
+
+  <div class="modal-caixa">
+
+    <span
+      class="fechar"
+      onclick="fecharModal('modalSuporte')"
+    >
+      ×
+    </span>
+
+    <h2 class="modal-titulo">
+      💬 Suporte LUX
+    </h2>
+
+    <p
+      style="
+        color:#b9adb0;
+        margin-bottom:18px;
+        line-height:1.6;
+      "
+    >
+      Escreva sua mensagem e ela será preparada para enviar ao suporte.
+    </p>
+
+    <textarea
+      id="mensagemSuporte"
+      placeholder="Digite sua dúvida ou solicitação..."
+    ></textarea>
+
+    <div class="modal-botoes">
+
+      <button
+        onclick="fecharModal('modalSuporte')"
+      >
+        Fechar
+      </button>
+
+      <button
+        class="confirmar"
+        onclick="enviarSuporte()"
+      >
+        Enviar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     MODAL PEDIDOS
+========================= -->
+
+<div
+  id="modalPedidos"
+  class="modal"
+>
+
+  <div class="modal-caixa">
+
+    <span
+      class="fechar"
+      onclick="fecharModal('modalPedidos')"
+    >
+      ×
+    </span>
+
+    <h2 class="modal-titulo">
+      📋 Meus Pedidos
+    </h2>
+
+    <div id="listaPedidos">
+      Carregando pedidos...
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     RODAPÉ
+========================= -->
 
 <footer>
 
@@ -906,6 +1508,13 @@ footer{
 
 <script>
 
+let usuarioLogado = null;
+
+
+/* =========================
+   CARREGAR PAINEL
+========================= */
+
 async function carregarPainel(){
 
   const mensagem =
@@ -936,7 +1545,10 @@ async function carregarPainel(){
       await supabase.auth.getSession();
 
 
-    if(!session || !session.user){
+    if(
+      !session ||
+      !session.user
+    ){
 
       window.location.href =
         "login.html?redirect=painel-usuario.html";
@@ -946,17 +1558,13 @@ async function carregarPainel(){
     }
 
 
-    const user =
+    usuarioLogado =
       session.user;
 
 
-    /*
-      DADOS IMEDIATOS
-    */
-
     const nomeInicial =
-      user.user_metadata?.nome ||
-      user.email ||
+      usuarioLogado.user_metadata?.nome ||
+      usuarioLogado.email ||
       "Usuário";
 
 
@@ -975,16 +1583,16 @@ async function carregarPainel(){
     document.getElementById(
       "emailUsuario"
     ).textContent =
-      user.email || "---";
+      usuarioLogado.email || "---";
 
 
-    /*
-      BUSCA PERFIL
-    */
+    /* =========================
+       PERFIL
+    ========================= */
 
     const {
       data:perfil,
-      error
+      error:perfilError
     } =
       await supabase
         .from("perfis")
@@ -993,16 +1601,16 @@ async function carregarPainel(){
         )
         .eq(
           "id",
-          user.id
+          usuarioLogado.id
         )
         .single();
 
 
-    if(error){
+    if(perfilError){
 
       console.error(
-        "Erro ao carregar perfil:",
-        error
+        "Erro perfil:",
+        perfilError
       );
 
     }
@@ -1038,9 +1646,7 @@ async function carregarPainel(){
         "ativo";
 
 
-      /*
-        MODELO
-      */
+      /* MODELO */
 
       if(
         perfil.tipo === "modelo"
@@ -1054,9 +1660,7 @@ async function carregarPainel(){
       }
 
 
-      /*
-        ADMIN
-      */
+      /* ADMIN */
 
       if(
         perfil.tipo === "admin"
@@ -1070,28 +1674,24 @@ async function carregarPainel(){
       }
 
     }
-    else{
-
-      document.getElementById(
-        "tipoUsuario"
-      ).textContent =
-        "usuario";
 
 
-      document.getElementById(
-        "statusUsuario"
-      ).textContent =
-        "ativo";
-
-    }
-
+    /* =========================
+       MOSTRA PAINEL
+    ========================= */
 
     mensagem.style.display =
       "none";
 
-
     conteudo.style.display =
       "block";
+
+
+    /* =========================
+       CARREGA PLANO
+    ========================= */
+
+    await carregarPlanoAtual();
 
 
   }
@@ -1102,7 +1702,6 @@ async function carregarPainel(){
       erro
     );
 
-
     mensagem.textContent =
       "Não foi possível carregar seu painel. Tente novamente.";
 
@@ -1111,9 +1710,497 @@ async function carregarPainel(){
 }
 
 
-/*
-  SAIR
-*/
+/* =========================
+   PLANO ATUAL
+========================= */
+
+async function carregarPlanoAtual(){
+
+  const supabase =
+    window.luxSupabase;
+
+  if(
+    !supabase ||
+    !usuarioLogado
+  ) return;
+
+
+  const agora =
+    new Date().toISOString();
+
+
+  const {
+    data,
+    error
+  } =
+    await supabase
+      .from("planos_usuario")
+      .select(
+        "plano,inicio,fim,ativo"
+      )
+      .eq(
+        "usuario_id",
+        usuarioLogado.id
+      )
+      .eq(
+        "ativo",
+        true
+      )
+      .gte(
+        "fim",
+        agora
+      )
+      .order(
+        "fim",
+        {
+          ascending:false
+        }
+      )
+      .limit(1)
+      .maybeSingle();
+
+
+  if(error){
+
+    console.error(
+      "Erro plano:",
+      error
+    );
+
+    return;
+
+  }
+
+
+  if(!data){
+
+    return;
+
+  }
+
+
+  const inicio =
+    data.inicio
+      ? new Date(data.inicio)
+          .toLocaleDateString("pt-BR")
+      : "---";
+
+
+  const fim =
+    data.fim
+      ? new Date(data.fim)
+          .toLocaleDateString("pt-BR")
+      : "---";
+
+
+  const caixa =
+    document.getElementById(
+      "planoAtual"
+    );
+
+
+  const dados =
+    document.getElementById(
+      "dadosPlano"
+    );
+
+
+  caixa.style.display =
+    "block";
+
+
+  dados.innerHTML =
+    "<strong style='color:#fff;'>"
+    + data.plano
+    + "</strong>"
+    + "<br>"
+    + "Início: "
+    + inicio
+    + "<br>"
+    + "Válido até: "
+    + fim;
+
+}
+
+
+/* =========================
+   EDITAR PERFIL
+========================= */
+
+function abrirEditarPerfil(){
+
+  const nome =
+    document.getElementById(
+      "nomeUsuario"
+    ).textContent;
+
+
+  document.getElementById(
+    "novoNome"
+  ).value =
+    nome;
+
+
+  document.getElementById(
+    "modalPerfil"
+  ).style.display =
+    "flex";
+
+}
+
+
+async function salvarPerfil(){
+
+  const novoNome =
+    document.getElementById(
+      "novoNome"
+    ).value.trim();
+
+
+  if(!novoNome){
+
+    alert(
+      "Digite seu nome."
+    );
+
+    return;
+
+  }
+
+
+  if(!usuarioLogado){
+
+    alert(
+      "Sessão não encontrada."
+    );
+
+    return;
+
+  }
+
+
+  const supabase =
+    window.luxSupabase;
+
+
+  try{
+
+    const {
+      error
+    } =
+      await supabase
+        .from("perfis")
+        .update({
+          nome:novoNome,
+          updated_at:
+            new Date().toISOString()
+        })
+        .eq(
+          "id",
+          usuarioLogado.id
+        );
+
+
+    if(error){
+
+      console.error(error);
+
+      throw error;
+
+    }
+
+
+    /* Atualiza também o metadata */
+
+    await supabase.auth.updateUser({
+      data:{
+        nome:novoNome
+      }
+    });
+
+
+    document.getElementById(
+      "nomeUsuario"
+    ).textContent =
+      novoNome;
+
+
+    document.getElementById(
+      "nomeHeader"
+    ).textContent =
+      novoNome;
+
+
+    fecharModal(
+      "modalPerfil"
+    );
+
+
+    alert(
+      "Perfil atualizado com sucesso."
+    );
+
+
+  }
+  catch(erro){
+
+    console.error(
+      "Erro ao salvar:",
+      erro
+    );
+
+    alert(
+      "Não foi possível atualizar seu perfil."
+    );
+
+  }
+
+}
+
+
+/* =========================
+   SUPORTE
+========================= */
+
+function abrirSuporte(){
+
+  document.getElementById(
+    "mensagemSuporte"
+  ).value = "";
+
+
+  document.getElementById(
+    "modalSuporte"
+  ).style.display =
+    "flex";
+
+}
+
+
+function enviarSuporte(){
+
+  const mensagem =
+    document.getElementById(
+      "mensagemSuporte"
+    ).value.trim();
+
+
+  if(!mensagem){
+
+    alert(
+      "Digite sua mensagem."
+    );
+
+    return;
+
+  }
+
+
+  const email =
+    "Luxcdam@gmail.com";
+
+
+  const assunto =
+    encodeURIComponent(
+      "Suporte LUX — Solicitação do usuário"
+    );
+
+
+  const corpo =
+    encodeURIComponent(
+      "Olá, equipe LUX.\n\n"
+      + "Usuário: "
+      + (
+        usuarioLogado?.email ||
+        ""
+      )
+      + "\n\n"
+      + "Mensagem:\n"
+      + mensagem
+    );
+
+
+  window.location.href =
+    "mailto:"
+    + email
+    + "?subject="
+    + assunto
+    + "&body="
+    + corpo;
+
+}
+
+
+/* =========================
+   PEDIDOS
+========================= */
+
+async function abrirPedidos(){
+
+  document.getElementById(
+    "modalPedidos"
+  ).style.display =
+    "flex";
+
+
+  const lista =
+    document.getElementById(
+      "listaPedidos"
+    );
+
+
+  lista.innerHTML =
+    "Carregando pedidos...";
+
+
+  try{
+
+    const supabase =
+      window.luxSupabase;
+
+
+    const {
+      data,
+      error
+    } =
+      await supabase
+        .from("pedidos")
+        .select(
+          "plano,valor,status,criado_em,mercadopago_payment_id"
+        )
+        .eq(
+          "usuario_id",
+          usuarioLogado.id
+        )
+        .order(
+          "criado_em",
+          {
+            ascending:false
+          }
+        );
+
+
+    if(error){
+
+      throw error;
+
+    }
+
+
+    if(!data || data.length === 0){
+
+      lista.innerHTML =
+        "<p style='color:#b9adb0;'>"
+        + "Você ainda não possui pedidos."
+        + "</p>";
+
+      return;
+
+    }
+
+
+    lista.innerHTML = "";
+
+
+    data.forEach(
+      pedido => {
+
+        const dataPedido =
+          pedido.criado_em
+            ? new Date(
+                pedido.criado_em
+              ).toLocaleDateString(
+                "pt-BR"
+              )
+            : "---";
+
+
+        const valor =
+          Number(
+            pedido.valor || 0
+          ).toLocaleString(
+            "pt-BR",
+            {
+              style:"currency",
+              currency:"BRL"
+            }
+          );
+
+
+        const div =
+          document.createElement(
+            "div"
+          );
+
+
+        div.className =
+          "pedido";
+
+
+        div.innerHTML =
+          "<strong>"
+          + pedido.plano
+          + "</strong>"
+          + "<br>"
+          + "<span style='color:#ddd;'>"
+          + valor
+          + "</span>"
+          + "<small>"
+          + "Data: "
+          + dataPedido
+          + "</small>"
+          + "<span class='badge'>"
+          + (
+              pedido.status ||
+              "pendente"
+            )
+          + "</span>";
+
+
+        lista.appendChild(
+          div
+        );
+
+      }
+    );
+
+
+  }
+  catch(erro){
+
+    console.error(
+      "Erro pedidos:",
+      erro
+    );
+
+
+    lista.innerHTML =
+      "<p style='color:#e88;'>"
+      + "Não foi possível carregar seus pedidos."
+      + "</p>";
+
+  }
+
+}
+
+
+/* =========================
+   MODAIS
+========================= */
+
+function fecharModal(id){
+
+  document.getElementById(
+    id
+  ).style.display =
+    "none";
+
+}
+
+
+/* =========================
+   SAIR
+========================= */
 
 async function sairDoSistema(){
 
@@ -1121,6 +2208,7 @@ async function sairDoSistema(){
 
     const supabase =
       window.luxSupabase;
+
 
     if(supabase){
 
@@ -1148,6 +2236,10 @@ async function sairDoSistema(){
 window.sair =
   sairDoSistema;
 
+
+/* =========================
+   INICIALIZAÇÃO
+========================= */
 
 carregarPainel();
 

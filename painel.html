@@ -2,345 +2,1321 @@
 <html lang="pt-BR">
 
 <head>
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>LUX — Painel Administrativo</title>
 
-  <link
-    rel="stylesheet"
-    href="app.css"
-  >
+  <link rel="stylesheet" href="app.css">
+
+  <style>
+    .admin-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+
+    .admin-nav button {
+      cursor: pointer;
+    }
+
+    .admin-section {
+      margin-top: 20px;
+    }
+
+    .admin-card {
+      padding: 18px;
+      margin-bottom: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .admin-actions button {
+      cursor: pointer;
+    }
+
+    .btn-danger {
+      border-color: #8b2635 !important;
+    }
+
+    .btn-success {
+      border-color: #287a50 !important;
+    }
+
+    .status-pendente {
+      color: #e6c86e;
+    }
+
+    .status-ativo {
+      color: #65d391;
+    }
+
+    .status-bloqueado {
+      color: #ff6b6b;
+    }
+
+    .status-resolvida {
+      color: #65d391;
+    }
+
+    .empty {
+      padding: 20px;
+      opacity: .7;
+    }
+
+    .detalhes {
+      margin-top: 10px;
+      padding: 12px;
+      background: rgba(255,255,255,.03);
+      border-radius: 10px;
+    }
+  </style>
 
 </head>
 
 <body>
 
-  <header class="topbar">
+<header class="topbar">
 
-    <a
-      class="brand"
-      href="index.html"
-    >
-      LUX
-    </a>
+  <a class="brand" href="index.html">
+    LUX
+  </a>
 
-    <button
-      class="btn ghost"
-      onclick="sair()"
-    >
-      Sair
-    </button>
+  <button class="btn ghost" onclick="sair()">
+    Sair
+  </button>
 
-  </header>
+</header>
 
 
-  <main class="container">
+<main class="container">
 
-    <section class="hero">
+  <section class="hero">
 
-      <div class="eyebrow">
-        ADMINISTRAÇÃO
+    <div class="eyebrow">
+      ADMINISTRAÇÃO
+    </div>
+
+    <h1 class="title">
+      Painel LUX
+    </h1>
+
+    <p class="subtitle">
+      Central administrativa da plataforma.
+    </p>
+
+  </section>
+
+
+  <div id="mensagem" class="notice">
+    Verificando acesso...
+  </div>
+
+
+  <section id="conteudo" hidden>
+
+
+    <!-- =================================================
+         ESTATÍSTICAS
+         ================================================= -->
+
+    <div class="stat-grid">
+
+      <div class="stat">
+        <small>Modelos</small>
+        <br>
+        <b id="totalModelos">0</b>
       </div>
 
-      <h1 class="title">
-        Painel LUX
-      </h1>
+      <div class="stat">
+        <small>Pendentes</small>
+        <br>
+        <b id="totalPendentes">0</b>
+      </div>
 
-      <p class="subtitle">
-        Área administrativa da plataforma.
-      </p>
+      <div class="stat">
+        <small>Usuários</small>
+        <br>
+        <b id="totalUsuarios">0</b>
+      </div>
 
-    </section>
+      <div class="stat">
+        <small>Reclamações</small>
+        <br>
+        <b id="totalReclamacoes">0</b>
+      </div>
 
-
-    <div
-      id="mensagem"
-      class="notice"
-    >
-      Verificando acesso...
     </div>
 
 
+    <!-- =================================================
+         MENU ADMIN
+         ================================================= -->
+
+    <div class="admin-nav">
+
+      <button
+        class="btn primary"
+        onclick="mostrarSecao('modelos')">
+        Modelos
+      </button>
+
+      <button
+        class="btn ghost"
+        onclick="mostrarSecao('usuarios')">
+        Usuários
+      </button>
+
+      <button
+        class="btn ghost"
+        onclick="mostrarSecao('reclamacoes')">
+        Reclamações
+      </button>
+
+      <button
+        class="btn ghost"
+        onclick="mostrarSecao('pagamentos')">
+        Pagamentos
+      </button>
+
+    </div>
+
+
+    <!-- =================================================
+         MODELOS
+         ================================================= -->
+
     <section
-      id="conteudo"
-      hidden
-    >
+      id="secao-modelos"
+      class="admin-section">
 
-      <div class="stat-grid">
-
-        <div class="stat">
-
-          <small>
-            Modelos
-          </small>
-
-          <br>
-
-          <b id="totalModelos">
-            0
-          </b>
-
-        </div>
-
-
-        <div class="stat">
-
-          <small>
-            Pendentes
-          </small>
-
-          <br>
-
-          <b id="totalPendentes">
-            0
-          </b>
-
-        </div>
-
-
-        <div class="stat">
-
-          <small>
-            Usuários
-          </small>
-
-          <br>
-
-          <b id="totalUsuarios">
-            0
-          </b>
-
-        </div>
-
-      </div>
-
-
-      <br>
-
-
-      <section class="card">
+      <div class="card">
 
         <div class="card-body">
 
           <h2>
-            Modelos aguardando aprovação
+            Gestão de modelos
           </h2>
 
-          <div id="pendentes">
+          <div id="modelosLista">
 
             <div class="empty">
-              Carregando...
+              Carregando modelos...
             </div>
 
           </div>
 
         </div>
 
-      </section>
+      </div>
 
     </section>
 
-  </main>
 
+    <!-- =================================================
+         USUÁRIOS
+         ================================================= -->
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <section
+      id="secao-usuarios"
+      class="admin-section"
+      hidden>
 
-  <script src="config.js"></script>
+      <div class="card">
 
-  <script src="auth.js"></script>
+        <div class="card-body">
 
+          <h2>
+            Usuários cadastrados
+          </h2>
 
-  <script>
+          <div id="usuariosLista">
 
-    async function iniciarPainel() {
-
-      const mensagem =
-        document.getElementById(
-          "mensagem"
-        );
-
-      try {
-
-        const user =
-          await usuarioAtual();
-
-
-        if (!user) {
-
-          window.location.href =
-            "login.html";
-
-          return;
-
-        }
-
-
-        const perfil =
-          await getPerfil(
-            user.id
-          );
-
-
-        if (
-          perfil.tipo !== "admin"
-        ) {
-
-          mensagem.className =
-            "notice error";
-
-          mensagem.textContent =
-            "Acesso restrito à administração.";
-
-          return;
-
-        }
-
-
-        mensagem.hidden = true;
-
-        document
-          .getElementById("conteudo")
-          .hidden = false;
-
-
-        await carregarDados();
-
-
-      } catch (erro) {
-
-        console.error(erro);
-
-        mensagem.className =
-          "notice error";
-
-        mensagem.textContent =
-          erro.message ||
-          "Não foi possível carregar o painel.";
-
-      }
-
-    }
-
-
-    async function carregarDados() {
-
-      const db =
-        requireClient();
-
-
-      const modelos =
-        await db
-          .from("perfis")
-          .select("*")
-          .eq("tipo", "modelo");
-
-
-      const usuarios =
-        await db
-          .from("perfis")
-          .select("*")
-          .eq("tipo", "usuario");
-
-
-      const lista =
-        modelos.data || [];
-
-
-      const pendentes =
-        lista.filter(
-          item =>
-            item.status === "pendente"
-        );
-
-
-      document
-        .getElementById("totalModelos")
-        .textContent =
-        lista.length;
-
-
-      document
-        .getElementById("totalPendentes")
-        .textContent =
-        pendentes.length;
-
-
-      document
-        .getElementById("totalUsuarios")
-        .textContent =
-        (usuarios.data || []).length;
-
-
-      const area =
-        document.getElementById(
-          "pendentes"
-        );
-
-
-      if (pendentes.length === 0) {
-
-        area.innerHTML = `
-          <div class="empty">
-            Nenhum cadastro aguardando aprovação.
-          </div>
-        `;
-
-        return;
-
-      }
-
-
-      area.innerHTML =
-        pendentes.map(modelo => {
-
-          return `
-
-            <div
-              style="
-                padding:16px;
-                border-bottom:1px solid var(--line);
-              "
-            >
-
-              <strong>
-                ${escapeHTML(
-                  modelo.nome || "Sem nome"
-                )}
-              </strong>
-
-              <p
-                style="
-                  color:var(--muted);
-                "
-              >
-                ${escapeHTML(
-                  modelo.email || ""
-                )}
-              </p>
-
-              <span class="pill">
-                Pendente
-              </span>
-
+            <div class="empty">
+              Carregando usuários...
             </div>
 
-          `;
+          </div>
 
-        }).join("");
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         RECLAMAÇÕES
+         ================================================= -->
+
+    <section
+      id="secao-reclamacoes"
+      class="admin-section"
+      hidden>
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <h2>
+            Central de reclamações
+          </h2>
+
+          <p style="color:var(--muted)">
+            Reclamações feitas por usuários e modelos.
+          </p>
+
+          <div id="reclamacoesLista">
+
+            <div class="empty">
+              Carregando reclamações...
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PAGAMENTOS
+         ================================================= -->
+
+    <section
+      id="secao-pagamentos"
+      class="admin-section"
+      hidden>
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <h2>
+            Planos e pagamentos
+          </h2>
+
+          <div id="pagamentosLista">
+
+            <div class="empty">
+              Carregando pagamentos...
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </section>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="config.js"></script>
+
+<script src="auth.js"></script>
+
+
+<script>
+
+/* =========================================================
+   UTILITÁRIOS
+   ========================================================= */
+
+function escapeHTML(valor) {
+
+  return String(valor ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+/* =========================================================
+   SAIR
+   ========================================================= */
+
+async function sair() {
+
+  try {
+
+    await logout();
+
+  } catch (erro) {
+
+    console.error(erro);
+
+  }
+
+  window.location.href =
+    "login.html";
+
+}
+
+
+/* =========================================================
+   TROCAR SEÇÃO
+   ========================================================= */
+
+function mostrarSecao(nome) {
+
+  const secoes = [
+    "modelos",
+    "usuarios",
+    "reclamacoes",
+    "pagamentos"
+  ];
+
+  secoes.forEach(secao => {
+
+    const elemento =
+      document.getElementById(
+        "secao-" + secao
+      );
+
+    if (elemento) {
+
+      elemento.hidden =
+        secao !== nome;
+
+    }
+
+  });
+
+}
+
+
+/* =========================================================
+   INICIAR PAINEL
+   ========================================================= */
+
+async function iniciarPainel() {
+
+  const mensagem =
+    document.getElementById("mensagem");
+
+  try {
+
+    const user =
+      await usuarioAtual();
+
+    if (!user) {
+
+      window.location.href =
+        "login.html";
+
+      return;
 
     }
 
 
-    iniciarPainel();
+    const perfil =
+      await getPerfil(user.id);
 
-  </script>
+
+    if (!perfil) {
+
+      throw new Error(
+        "Perfil administrativo não encontrado."
+      );
+
+    }
+
+
+    if (perfil.tipo !== "admin") {
+
+      mensagem.className =
+        "notice error";
+
+      mensagem.textContent =
+        "Acesso restrito à administração.";
+
+      return;
+
+    }
+
+
+    mensagem.hidden = true;
+
+    document
+      .getElementById("conteudo")
+      .hidden = false;
+
+
+    await carregarDados();
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    mensagem.className =
+      "notice error";
+
+    mensagem.textContent =
+      erro.message ||
+      "Não foi possível carregar o painel.";
+
+  }
+
+}
+
+
+/* =========================================================
+   CARREGAR DADOS
+   ========================================================= */
+
+async function carregarDados() {
+
+  const db =
+    requireClient();
+
+
+  await Promise.all([
+
+    carregarModelos(db),
+
+    carregarUsuarios(db),
+
+    carregarReclamacoes(db),
+
+    carregarPagamentos(db)
+
+  ]);
+
+}
+
+
+/* =========================================================
+   MODELOS
+   ========================================================= */
+
+async function carregarModelos(db) {
+
+  const {
+    data,
+    error
+  } = await db
+    .from("perfis")
+    .select("*")
+    .eq("tipo", "modelo")
+    .order("created_at", {
+      ascending: false
+    });
+
+
+  if (error) {
+
+    console.error(
+      "Erro modelos:",
+      error
+    );
+
+    throw error;
+
+  }
+
+
+  const modelos =
+    data || [];
+
+
+  const pendentes =
+    modelos.filter(
+      modelo =>
+        modelo.status === "pendente"
+    );
+
+
+  document
+    .getElementById("totalModelos")
+    .textContent =
+    modelos.length;
+
+
+  document
+    .getElementById("totalPendentes")
+    .textContent =
+    pendentes.length;
+
+
+  const area =
+    document.getElementById(
+      "modelosLista"
+    );
+
+
+  if (!modelos.length) {
+
+    area.innerHTML = `
+      <div class="empty">
+        Nenhum modelo cadastrado.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  area.innerHTML =
+    modelos.map(modelo => {
+
+      const status =
+        modelo.status || "ativo";
+
+
+      return `
+
+        <div class="admin-card">
+
+          <strong>
+            ${escapeHTML(
+              modelo.nome ||
+              "Sem nome"
+            )}
+          </strong>
+
+          <p style="color:var(--muted)">
+            ${escapeHTML(
+              modelo.email ||
+              "E-mail não informado"
+            )}
+          </p>
+
+          <p>
+            Status:
+            <strong class="status-${escapeHTML(status)}">
+              ${escapeHTML(status)}
+            </strong>
+          </p>
+
+
+          <div class="admin-actions">
+
+            ${
+              status === "pendente"
+              ? `
+                <button
+                  class="btn primary"
+                  onclick="aprovarModelo('${modelo.id}')">
+                  Aprovar
+                </button>
+
+                <button
+                  class="btn ghost btn-danger"
+                  onclick="reprovarModelo('${modelo.id}')">
+                  Reprovar
+                </button>
+              `
+              : ""
+            }
+
+
+            ${
+              status === "bloqueado"
+              ? `
+                <button
+                  class="btn primary"
+                  onclick="desbloquearConta('${modelo.id}')">
+                  Desbloquear
+                </button>
+              `
+              : `
+                <button
+                  class="btn ghost btn-danger"
+                  onclick="bloquearConta('${modelo.id}')">
+                  Bloquear
+                </button>
+              `
+            }
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================================================
+   APROVAR MODELO
+   ========================================================= */
+
+async function aprovarModelo(id) {
+
+  if (
+    !confirm(
+      "Deseja aprovar este modelo?"
+    )
+  ) return;
+
+
+  const db =
+    requireClient();
+
+
+  const {
+    error
+  } = await db
+    .from("perfis")
+    .update({
+      status: "aprovado"
+    })
+    .eq("id", id)
+    .eq("tipo", "modelo");
+
+
+  if (error) {
+
+    console.error(error);
+
+    alert(
+      "Não foi possível aprovar o modelo: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Modelo aprovado com sucesso."
+  );
+
+
+  await carregarDados();
+
+}
+
+
+/* =========================================================
+   REPROVAR MODELO
+   ========================================================= */
+
+async function reprovarModelo(id) {
+
+  if (
+    !confirm(
+      "Deseja reprovar este modelo?"
+    )
+  ) return;
+
+
+  const db =
+    requireClient();
+
+
+  const {
+    error
+  } = await db
+    .from("perfis")
+    .update({
+      status: "pendente"
+    })
+    .eq("id", id)
+    .eq("tipo", "modelo");
+
+
+  if (error) {
+
+    console.error(error);
+
+    alert(
+      "Não foi possível reprovar o modelo: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Modelo devolvido para análise."
+  );
+
+
+  await carregarDados();
+
+}
+
+
+/* =========================================================
+   BLOQUEAR
+   ========================================================= */
+
+async function bloquearConta(id) {
+
+  if (
+    !confirm(
+      "Deseja bloquear esta conta?"
+    )
+  ) return;
+
+
+  const db =
+    requireClient();
+
+
+  const {
+    error
+  } = await db
+    .from("perfis")
+    .update({
+      status: "bloqueado"
+    })
+    .eq("id", id);
+
+
+  if (error) {
+
+    alert(
+      "Erro ao bloquear: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Conta bloqueada."
+  );
+
+
+  await carregarDados();
+
+}
+
+
+/* =========================================================
+   DESBLOQUEAR
+   ========================================================= */
+
+async function desbloquearConta(id) {
+
+  if (
+    !confirm(
+      "Deseja desbloquear esta conta?"
+    )
+  ) return;
+
+
+  const db =
+    requireClient();
+
+
+  const {
+    error
+  } = await db
+    .from("perfis")
+    .update({
+      status: "ativo"
+    })
+    .eq("id", id);
+
+
+  if (error) {
+
+    alert(
+      "Erro ao desbloquear: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Conta desbloqueada."
+  );
+
+
+  await carregarDados();
+
+}
+
+
+/* =========================================================
+   USUÁRIOS
+   ========================================================= */
+
+async function carregarUsuarios(db) {
+
+  const {
+    data,
+    error
+  } = await db
+    .from("perfis")
+    .select("*")
+    .eq("tipo", "usuario")
+    .order("created_at", {
+      ascending: false
+    });
+
+
+  if (error) {
+
+    console.error(
+      "Erro usuários:",
+      error
+    );
+
+    return;
+
+  }
+
+
+  const usuarios =
+    data || [];
+
+
+  document
+    .getElementById("totalUsuarios")
+    .textContent =
+    usuarios.length;
+
+
+  const area =
+    document.getElementById(
+      "usuariosLista"
+    );
+
+
+  if (!usuarios.length) {
+
+    area.innerHTML = `
+      <div class="empty">
+        Nenhum usuário cadastrado.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  area.innerHTML =
+    usuarios.map(usuario => {
+
+      const status =
+        usuario.status || "ativo";
+
+
+      return `
+
+        <div class="admin-card">
+
+          <strong>
+            ${escapeHTML(
+              usuario.nome ||
+              "Sem nome"
+            )}
+          </strong>
+
+          <p style="color:var(--muted)">
+            ${escapeHTML(
+              usuario.email ||
+              ""
+            )}
+          </p>
+
+          <p>
+            Status:
+            <strong>
+              ${escapeHTML(status)}
+            </strong>
+          </p>
+
+          <div class="admin-actions">
+
+            ${
+              status === "bloqueado"
+              ? `
+                <button
+                  class="btn primary"
+                  onclick="desbloquearConta('${usuario.id}')">
+                  Desbloquear
+                </button>
+              `
+              : `
+                <button
+                  class="btn ghost btn-danger"
+                  onclick="bloquearConta('${usuario.id}')">
+                  Bloquear
+                </button>
+              `
+            }
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================================================
+   RECLAMAÇÕES
+   ========================================================= */
+
+async function carregarReclamacoes(db) {
+
+  const {
+    data,
+    error
+  } = await db
+    .from("reclamacoes")
+    .select("*")
+    .order("created_at", {
+      ascending: false
+    });
+
+
+  if (error) {
+
+    console.error(
+      "Erro reclamações:",
+      error
+    );
+
+    document
+      .getElementById(
+        "reclamacoesLista"
+      )
+      .innerHTML = `
+        <div class="empty">
+          A tabela de reclamações ainda não está disponível.
+        </div>
+      `;
+
+    document
+      .getElementById(
+        "totalReclamacoes"
+      )
+      .textContent = "0";
+
+    return;
+
+  }
+
+
+  const reclamacoes =
+    data || [];
+
+
+  document
+    .getElementById(
+      "totalReclamacoes"
+    )
+    .textContent =
+    reclamacoes.filter(
+      r =>
+        r.status !== "resolvida" &&
+        r.status !== "arquivada"
+    ).length;
+
+
+  const area =
+    document.getElementById(
+      "reclamacoesLista"
+    );
+
+
+  if (!reclamacoes.length) {
+
+    area.innerHTML = `
+      <div class="empty">
+        Nenhuma reclamação registrada.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  area.innerHTML =
+    reclamacoes.map(reclamacao => {
+
+      return `
+
+        <div class="admin-card">
+
+          <strong>
+            ${escapeHTML(
+              reclamacao.motivo ||
+              "Reclamação"
+            )}
+          </strong>
+
+          <p>
+            ${escapeHTML(
+              reclamacao.descricao ||
+              "Sem descrição."
+            )}
+          </p>
+
+          <p>
+            Status:
+            <strong>
+              ${escapeHTML(
+                reclamacao.status ||
+                "pendente"
+              )}
+            </strong>
+          </p>
+
+          <div class="admin-actions">
+
+            <button
+              class="btn primary"
+              onclick="resolverReclamacao('${reclamacao.id}')">
+              Resolver
+            </button>
+
+            <button
+              class="btn ghost"
+              onclick="arquivarReclamacao('${reclamacao.id}')">
+              Arquivar
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================================================
+   RESOLVER RECLAMAÇÃO
+   ========================================================= */
+
+async function resolverReclamacao(id) {
+
+  const db =
+    requireClient();
+
+
+  const {
+    error
+  } = await db
+    .from("reclamacoes")
+    .update({
+      status: "resolvida"
+    })
+    .eq("id", id);
+
+
+  if (error) {
+
+    alert(
+      "Erro ao resolver reclamação: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Reclamação marcada como resolvida."
+  );
+
+
+  await carregarDados();
+
+}
+
+
+/* =========================================================
+   ARQUIVAR RECLAMAÇÃO
+   ========================================================= */
+
+async function arquivarReclamacao(id) {
+
+  const db =
+    requireClient();
+
+
+  const {
+    error
+  } = await db
+    .from("reclamacoes")
+    .update({
+      status: "arquivada"
+    })
+    .eq("id", id);
+
+
+  if (error) {
+
+    alert(
+      "Erro ao arquivar reclamação: " +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Reclamação arquivada."
+  );
+
+
+  await carregarDados();
+
+}
+
+
+/* =========================================================
+   PAGAMENTOS
+   ========================================================= */
+
+async function carregarPagamentos(db) {
+
+  const {
+    data,
+    error
+  } = await db
+    .from("pagamentos_planos")
+    .select("*")
+    .order("created_at", {
+      ascending: false
+    });
+
+
+  const area =
+    document.getElementById(
+      "pagamentosLista"
+    );
+
+
+  if (error) {
+
+    console.error(
+      "Erro pagamentos:",
+      error
+    );
+
+    area.innerHTML = `
+      <div class="empty">
+        Não foi possível carregar os pagamentos.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const pagamentos =
+    data || [];
+
+
+  if (!pagamentos.length) {
+
+    area.innerHTML = `
+      <div class="empty">
+        Nenhum pagamento registrado.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  area.innerHTML =
+    pagamentos.map(pagamento => {
+
+      return `
+
+        <div class="admin-card">
+
+          <strong>
+            Plano:
+            ${escapeHTML(
+              pagamento.plano_codigo ||
+              "-"
+            )}
+          </strong>
+
+          <p>
+            Valor:
+            R$ ${escapeHTML(
+              pagamento.valor ||
+              "0,00"
+            )}
+          </p>
+
+          <p>
+            Status:
+            ${escapeHTML(
+              pagamento.status ||
+              "-"
+            )}
+          </p>
+
+          <p>
+            Assinatura:
+            ${escapeHTML(
+              pagamento.mp_subscription_id ||
+              "-"
+            )}
+          </p>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================================================
+   INICIAR
+   ========================================================= */
+
+iniciarPainel();
+
+</script>
 
 </body>
-
 </html>

@@ -1,809 +1,486 @@
 /* =========================================================
-   LUX — SISTEMA DE AUTENTICAÇÃO
+   LUX — AUTENTICAÇÃO
+   V3 ATUALIZADA
    ========================================================= */
 
-(function () {
 
-  "use strict";
+/* =========================================================
+   CLIENTE SUPABASE
+   ========================================================= */
 
-  /* =========================================================
-     VERIFICAÇÃO DO CLIENTE SUPABASE
-     ========================================================= */
+function requireClient() {
 
-  function requireClient() {
+  const client = window.luxSupabase;
 
-    if (!window.luxSupabase) {
-      throw new Error(
-        "Supabase não foi inicializado. Verifique config.js."
-      );
-    }
+  if (!client) {
 
-    return window.luxSupabase;
+    throw new Error(
+      "Supabase não foi inicializado. Verifique o config.js."
+    );
+
   }
 
+  return client;
+}
 
-  /* =========================================================
-     TRATAMENTO DE ERROS
-     ========================================================= */
 
-  function friendlyAuthError(error) {
+/* =========================================================
+   PERFIL DO USUÁRIO
+   ========================================================= */
 
-    if (!error) {
-      return "Ocorreu um erro inesperado.";
-    }
+async function getPerfil(userId) {
 
-    const message =
-      error.message ||
-      error.error_description ||
-      String(error);
+  const supabase = requireClient();
 
-    const lower = message.toLowerCase();
+  const { data, error } = await supabase
+    .from("modelo_perfis")
+    .select("*")
+    .eq("id", userId)
+    .maybeSingle();
 
-    if (
-      lower.includes("user already registered") ||
-      lower.includes("already registered")
-    ) {
-      return "Este e-mail já está cadastrado.";
-    }
-
-    if (
-      lower.includes("invalid login credentials")
-    ) {
-      return "E-mail ou senha incorretos.";
-    }
-
-    if (
-      lower.includes("email not confirmed")
-    ) {
-      return "Seu e-mail ainda não foi confirmado.";
-    }
-
-    if (
-      lower.includes("password should be at least")
-    ) {
-      return "A senha precisa ter pelo menos 6 caracteres.";
-    }
-
-    if (
-      lower.includes("invalid email")
-    ) {
-      return "Digite um e-mail válido.";
-    }
-
-    if (
-      lower.includes("rate limit")
-    ) {
-      return "Muitas tentativas. Aguarde alguns minutos e tente novamente.";
-    }
-
-    if (
-      lower.includes("failed to fetch")
-    ) {
-      return "Não foi possível conectar ao servidor. Verifique sua internet.";
-    }
-
-    return message;
+  if (error) {
+    throw error;
   }
 
-
-  /* =========================================================
-     CADASTRO
-     ========================================================= */
-
-  async function cadastrar(
-    tipo,
-    nome,
-    email,
-    senha,
-    dadosExtras = {}
-  ) {
-
-    try {
-
-      const supabase = requireClient();
-
-      tipo = tipo === "modelo"
-        ? "modelo"
-        : "usuario";
-
-      nome = String(nome || "").trim();
-      email = String(email || "").trim().toLowerCase();
-      senha = String(senha || "");
-
-      if (!nome) {
-        throw new Error("Digite seu nome.");
-      }
-
-      if (!email) {
-        throw new Error("Digite seu e-mail.");
-      }
-
-      if (senha.length < 6) {
-        throw new Error(
-          "A senha precisa ter pelo menos 6 caracteres."
-        );
-      }
+  return data;
+}
 
 
-      /* -------------------------------------------------------
-         METADATA
-         ------------------------------------------------------- */
+/* =========================================================
+   USUÁRIO ATUAL
+   ========================================================= */
 
-      const metadata = {
-        nome: nome,
-        tipo: tipo
-      };
+async function usuarioAtual() {
 
+  const supabase = requireClient();
 
-      /* Dados adicionais para modelos */
+  const { data, error } =
+    await supabase.auth.getUser();
 
-      if (tipo === "modelo") {
+  if (error) {
+    return null;
+  }
 
-        metadata.maioridade_confirmada =
-          dadosExtras.maioridade_confirmada === true;
-
-        if (dadosExtras.idade !== undefined) {
-          metadata.idade =
-            String(dadosExtras.idade);
-        }
-
-        if (dadosExtras.cidade) {
-          metadata.cidade =
-            String(dadosExtras.cidade);
-        }
-
-        if (dadosExtras.pais) {
-          metadata.pais =
-            String(dadosExtras.pais);
-        }
-
-        if (dadosExtras.cor_cabelo) {
-          metadata.cor_cabelo =
-            String(dadosExtras.cor_cabelo);
-        }
-
-        if (dadosExtras.cor_olhos) {
-          metadata.cor_olhos =
-            String(dadosExtras.cor_olhos);
-        }
-
-        if (dadosExtras.altura_cm) {
-          metadata.altura_cm =
-            String(dadosExtras.altura_cm);
-        }
-
-        if (dadosExtras.idiomas) {
-          metadata.idiomas =
-            String(dadosExtras.idiomas);
-        }
-
-        if (dadosExtras.descricao) {
-          metadata.descricao =
-            String(dadosExtras.descricao)
-              .slice(0, 800);
-        }
-
-        if (dadosExtras.foto_url) {
-          metadata.foto_url =
-            String(dadosExtras.foto_url);
-        }
-      }
+  return data?.user || null;
+}
 
 
-      /* -------------------------------------------------------
-         CRIA USUÁRIO NO SUPABASE AUTH
-         ------------------------------------------------------- */
+/* =========================================================
+   TIPO DO USUÁRIO
+   ========================================================= */
 
-      const {
-        data,
-        error
-      } = await supabase.auth.signUp({
+async function getTipoUsuario(userId) {
 
-        email: email,
+  const perfil = await getPerfil(userId);
 
-        password: senha,
-
-        options: {
-          data: metadata
-        }
-
-      });
+  return perfil?.tipo || null;
+}
 
 
-      if (error) {
-        throw error;
-      }
+/* =========================================================
+   LOGIN
+   ========================================================= */
 
+async function login(email, senha) {
 
-      if (!data || !data.user) {
-        throw new Error(
-          "O Supabase não retornou o usuário criado."
-        );
-      }
+  const supabase = requireClient();
 
+  email = String(email || "").trim();
 
-      /*
-       O trigger handle_novo_usuario()
-       cria automaticamente public.perfis.
-      */
+  if (!email || !senha) {
 
-      const emailConfirmationRequired =
-        !!data.user && !data.session;
-
-
-      return {
-
-        success: true,
-
-        user: data.user,
-
-        session: data.session,
-
-        emailConfirmationRequired:
-          emailConfirmationRequired
-
-      };
-
-    } catch (error) {
-
-      console.error(
-        "Erro no cadastro LUX:",
-        error
-      );
-
-      return {
-
-        success: false,
-
-        error:
-          friendlyAuthError(error)
-
-      };
-
-    }
+    throw new Error(
+      "Informe o e-mail e a senha."
+    );
 
   }
 
 
-  /* =========================================================
-     DISPONIBILIZA CADASTRO GLOBALMENTE
-     ========================================================= */
+  const { data, error } =
+    await supabase.auth.signInWithPassword({
 
-  window.cadastrar = cadastrar;
-  window.Cadastrar = cadastrar;
-
-
-  /* =========================================================
-     LOGIN
-     ========================================================= */
-
-  async function login(email, senha) {
-
-    const supabase = requireClient();
-
-    email = String(email || "")
-      .trim()
-      .toLowerCase();
-
-    senha = String(senha || "");
-
-    if (!email || !senha) {
-      throw new Error(
-        "Digite seu e-mail e sua senha."
-      );
-    }
-
-    const {
-      data,
-      error
-    } = await supabase.auth.signInWithPassword({
       email,
       password: senha
+
     });
 
-    if (error) {
-      throw new Error(
-        friendlyAuthError(error)
-      );
-    }
 
-    if (!data?.user || !data?.session) {
-      throw new Error(
-        "Não foi possível iniciar a sessão. Tente novamente."
-      );
-    }
+  if (error) {
 
-    const {
-      data: sessionCheck
-    } = await supabase.auth.getSession();
-
-    if (!sessionCheck?.session?.user) {
-      throw new Error(
-        "A sessão não foi salva. Tente entrar novamente."
-      );
-    }
-
-    const perfil =
-      await getPerfil(data.user.id);
-
-    if (!perfil) {
-
-      await supabase.auth.signOut();
-
-      throw new Error(
-        "Sua conta foi criada, mas o perfil ainda não está disponível. Aguarde alguns instantes e tente novamente."
-      );
-
-    }
+    console.error(
+      "Erro Supabase:",
+      error
+    );
 
     if (
-      perfil.status === "bloqueado"
+      error.message?.toLowerCase()
+        .includes("invalid login credentials")
     ) {
 
-      await supabase.auth.signOut();
-
       throw new Error(
-        "Sua conta está bloqueada."
+        "E-mail ou senha incorretos."
       );
 
     }
+
+    throw new Error(
+      error.message ||
+      "Não foi possível realizar o login."
+    );
+
+  }
+
+
+  const user = data?.user;
+
+  const session = data?.session;
+
+
+  if (!user) {
+
+    throw new Error(
+      "Usuário não encontrado."
+    );
+
+  }
+
+
+  if (!session) {
+
+    throw new Error(
+      "Sessão não criada. Tente novamente."
+    );
+
+  }
+
+
+  /* =====================================================
+     BUSCA O PERFIL
+     ===================================================== */
+
+  const perfil =
+    await getPerfil(user.id);
+
+
+  if (!perfil) {
+
+    await supabase.auth.signOut();
+
+    throw new Error(
+      "Sua conta foi criada, mas o perfil ainda não está disponível."
+    );
+
+  }
+
+
+  /* =====================================================
+     CONTA BLOQUEADA
+     ===================================================== */
+
+  if (
+    perfil.status === "bloqueado" ||
+    perfil.status === "banido"
+  ) {
+
+    await supabase.auth.signOut();
+
+    throw new Error(
+      "Esta conta está bloqueada."
+    );
+
+  }
+
+
+  /* =====================================================
+     RETORNO
+     ===================================================== */
+
+  return {
+
+    success: true,
+
+    user,
+
+    session,
+
+    perfil
+
+  };
+
+}
+
+
+/* =========================================================
+   CADASTRO
+   ========================================================= */
+
+async function cadastrar(
+  tipo,
+  nome,
+  email,
+  senha,
+  extras = {}
+) {
+
+  const supabase = requireClient();
+
+  tipo = String(tipo || "")
+    .trim()
+    .toLowerCase();
+
+  nome = String(nome || "").trim();
+
+  email = String(email || "").trim();
+
+
+  /* =====================================================
+     VALIDAÇÕES
+     ===================================================== */
+
+  if (!nome) {
+
+    throw new Error(
+      "Informe seu nome."
+    );
+
+  }
+
+
+  if (!email) {
+
+    throw new Error(
+      "Informe seu e-mail."
+    );
+
+  }
+
+
+  if (!senha || senha.length < 6) {
+
+    throw new Error(
+      "A senha deve possuir pelo menos 6 caracteres."
+    );
+
+  }
+
+
+  if (
+    tipo !== "modelo" &&
+    tipo !== "usuario"
+  ) {
+
+    throw new Error(
+      "Tipo de cadastro inválido."
+    );
+
+  }
+
+
+  /* =====================================================
+     CRIA USUÁRIO AUTH
+     ===================================================== */
+
+  const {
+    data,
+    error
+  } = await supabase.auth.signUp({
+
+    email,
+
+    password: senha,
+
+    options: {
+
+      data: {
+
+        nome,
+
+        tipo
+
+      }
+
+    }
+
+  });
+
+
+  if (error) {
+
+    console.error(
+      "Erro ao cadastrar:",
+      error
+    );
+
+    const msg =
+      error.message?.toLowerCase() || "";
+
+
+    if (
+      msg.includes("already registered") ||
+      msg.includes("already exists")
+    ) {
+
+      throw new Error(
+        "Este e-mail já está cadastrado."
+      );
+
+    }
+
+
+    throw new Error(
+      error.message ||
+      "Não foi possível criar a conta."
+    );
+
+  }
+
+
+  const user = data?.user;
+
+
+  if (!user) {
+
+    throw new Error(
+      "Não foi possível criar o usuário."
+    );
+
+  }
+
+
+  /* =====================================================
+     CRIA PERFIL
+     ===================================================== */
+
+  const perfil = {
+
+    id: user.id,
+
+    tipo,
+
+    nome,
+
+    email,
+
+    ...extras
+
+  };
+
+
+  const {
+    data: perfilCriado,
+    error: perfilError
+  } = await supabase
+    .from("modelo_perfis")
+    .insert(perfil)
+    .select()
+    .single();
+
+
+  if (perfilError) {
+
+    console.error(
+      "Erro ao criar perfil:",
+      perfilError
+    );
+
+    /*
+     * Não apagamos o usuário Auth automaticamente.
+     * Isso evita problemas caso a confirmação de e-mail
+     * esteja ativada no Supabase.
+     */
+
+    throw new Error(
+      "A conta foi criada, mas houve um problema ao criar o perfil. Entre em contato com o administrador."
+    );
+
+  }
+
+
+  /* =====================================================
+     MODELO — STATUS INICIAL
+     ===================================================== */
+
+  if (tipo === "modelo") {
 
     return {
 
       success: true,
 
-      user: data.user,
+      user,
 
-      session: sessionCheck.session,
+      perfil: perfilCriado,
 
-      perfil: perfil
+      mensagem:
+        "Cadastro realizado. Seu perfil ficará aguardando análise."
 
     };
 
   }
 
 
-  window.login = login;
-  window.Login = login;
+  /* =====================================================
+     USUÁRIO NORMAL
+     ===================================================== */
+
+  return {
+
+    success: true,
+
+    user,
+
+    perfil: perfilCriado,
+
+    mensagem:
+      "Cadastro realizado com sucesso."
+
+  };
+
+}
 
 
-  /* =========================================================
-     BUSCAR PERFIL
-     ========================================================= */
+/* =========================================================
+   LOGOUT
+   ========================================================= */
 
-  async function getPerfil(userId) {
+async function logout() {
 
-    try {
+  const supabase = requireClient();
 
-      const supabase =
-        requireClient();
+  const { error } =
+    await supabase.auth.signOut();
 
-      let id = userId;
+  if (error) {
 
-      if (!id) {
+    console.error(
+      "Erro ao sair:",
+      error
+    );
 
-        const {
-          data: {
-            user
-          }
-        } = await supabase.auth.getUser();
-
-        if (!user) {
-          return null;
-        }
-
-        id = user.id;
-
-      }
-
-
-      const {
-        data,
-        error
-      } = await supabase
-        .from("perfis")
-        .select("*")
-        .eq("id", id)
-        .maybeSingle();
-
-
-      if (error) {
-
-        console.error(
-          "Erro ao buscar perfil:",
-          error
-        );
-
-        return null;
-
-      }
-
-
-      return data || null;
-
-    } catch (error) {
-
-      console.error(error);
-
-      return null;
-
-    }
+    throw error;
 
   }
 
+}
 
-  window.getPerfil =
-    getPerfil;
 
+/* =========================================================
+   EXPORTAÇÕES GLOBAIS
+   ========================================================= */
 
-  /* =========================================================
-     TIPO DO USUÁRIO
-     ========================================================= */
+window.login =
+  login;
 
-  async function getTipoUsuario(userId) {
+window.cadastrar =
+  cadastrar;
 
-    const perfil =
-      await getPerfil(userId);
+window.logout =
+  logout;
 
-    return perfil
-      ? perfil.tipo
-      : null;
+window.usuarioAtual =
+  usuarioAtual;
 
-  }
+window.getPerfil =
+  getPerfil;
 
-
-  window.getTipoUsuario =
-    getTipoUsuario;
-
-
-  /* =========================================================
-     USUÁRIO ATUAL
-     ========================================================= */
-
-  async function usuarioAtual() {
-
-    try {
-
-      const supabase =
-        requireClient();
-
-      const {
-        data: {
-          user
-        }
-      } = await supabase.auth.getUser();
-
-      return user || null;
-
-    } catch (error) {
-
-      console.error(error);
-
-      return null;
-
-    }
-
-  }
-
-
-  window.usuarioAtual =
-    usuarioAtual;
-
-
-  /* =========================================================
-     SAIR
-     ========================================================= */
-
-  async function sair() {
-
-    try {
-
-      const supabase =
-        requireClient();
-
-      await supabase.auth.signOut();
-
-    } catch (error) {
-
-      console.error(error);
-
-    }
-
-    window.location.href =
-      "login.html";
-
-  }
-
-
-  window.sair =
-    sair;
-
-
-  /* =========================================================
-     PROTEGER PÁGINA
-     ========================================================= */
-
-  async function proteger(
-    tiposPermitidos = []
-  ) {
-
-    try {
-
-      const supabase =
-        requireClient();
-
-      const {
-        data: {
-          user
-        }
-      } = await supabase.auth.getUser();
-
-
-      if (!user) {
-
-        window.location.href =
-          "login.html";
-
-        return null;
-
-      }
-
-
-      const perfil =
-        await getPerfil(user.id);
-
-
-      if (!perfil) {
-
-        window.location.href =
-          "login.html";
-
-        return null;
-
-      }
-
-
-      if (
-        Array.isArray(tiposPermitidos) &&
-        tiposPermitidos.length > 0 &&
-        !tiposPermitidos.includes(
-          perfil.tipo
-        )
-      ) {
-
-        if (perfil.tipo === "admin") {
-
-          window.location.href =
-            "painel.html";
-
-        } else if (
-          perfil.tipo === "modelo"
-        ) {
-
-          window.location.href =
-            "painel-modelo.html";
-
-        } else {
-
-          window.location.href =
-            "painel-usuario.html";
-
-        }
-
-        return null;
-
-      }
-
-
-      return {
-
-        user: user,
-
-        perfil: perfil
-
-      };
-
-    } catch (error) {
-
-      console.error(error);
-
-      window.location.href =
-        "login.html";
-
-      return null;
-
-    }
-
-  }
-
-
-  window.proteger =
-    proteger;
-
-
-  /* =========================================================
-     URL DE RECUPERAÇÃO
-     ========================================================= */
-
-  function urlRecuperacaoSenha() {
-
-    const base =
-      window.location.origin +
-      window.location.pathname.substring(
-        0,
-        window.location.pathname.lastIndexOf("/") + 1
-      );
-
-    return base +
-      "nova-senha.html";
-
-  }
-
-
-  window.urlRecuperacaoSenha =
-    urlRecuperacaoSenha;
-
-
-  /* =========================================================
-     SOLICITAR RECUPERAÇÃO DE SENHA
-     ========================================================= */
-
-  async function solicitarRecuperacaoSenha(
-    email
-  ) {
-
-    try {
-
-      const supabase =
-        requireClient();
-
-      email = String(email || "")
-        .trim()
-        .toLowerCase();
-
-
-      if (!email) {
-
-        throw new Error(
-          "Digite seu e-mail."
-        );
-
-      }
-
-
-      const {
-        error
-      } =
-        await supabase.auth
-          .resetPasswordForEmail(
-            email,
-            {
-              redirectTo:
-                urlRecuperacaoSenha()
-            }
-          );
-
-
-      if (error) {
-        throw error;
-      }
-
-
-      return {
-
-        success: true
-
-      };
-
-    } catch (error) {
-
-      console.error(error);
-
-      return {
-
-        success: false,
-
-        error:
-          friendlyAuthError(error)
-
-      };
-
-    }
-
-  }
-
-
-  window.solicitarRecuperacaoSenha =
-    solicitarRecuperacaoSenha;
-
-
-  /* =========================================================
-     ATUALIZAR SENHA
-     ========================================================= */
-
-  async function atualizarSenha(
-    novaSenha
-  ) {
-
-    try {
-
-      const supabase =
-        requireClient();
-
-      if (
-        !novaSenha ||
-        novaSenha.length < 6
-      ) {
-
-        throw new Error(
-          "A nova senha precisa ter pelo menos 6 caracteres."
-        );
-
-      }
-
-
-      const {
-        data,
-        error
-      } =
-        await supabase.auth.updateUser({
-          password: novaSenha
-        });
-
-
-      if (error) {
-        throw error;
-      }
-
-
-      return {
-
-        success: true,
-
-        data: data
-
-      };
-
-    } catch (error) {
-
-      console.error(error);
-
-      return {
-
-        success: false,
-
-        error:
-          friendlyAuthError(error)
-
-      };
-
-    }
-
-  }
-
-
-  window.atualizarSenha =
-    atualizarSenha;
-
-
-  /* =========================================================
-     ESCAPE HTML
-     ========================================================= */
-
-  function escapeHTML(valor) {
-
-    return String(valor ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
-
-
-  window.escapeHTML =
-    escapeHTML;
-
-
-})();
+window.getTipoUsuario =
+  getTipoUsuario;

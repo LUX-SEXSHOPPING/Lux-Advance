@@ -2,270 +2,201 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>LUX — Login</title>
+  <title>LUX — Entrar</title>
 
-    <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
 
-    <main class="auth-page">
+  <main class="login-wrap">
 
-        <section class="auth-card">
+    <a class="voltar" href="index.html">
+      ← Voltar ao LUX
+    </a>
 
-            <div class="auth-header">
-                <h1>LUX</h1>
-                <p>Entre na sua conta</p>
-            </div>
+    <section class="login-card">
 
-            <form id="loginForm">
+      <div class="marca">LUX</div>
 
-                <div class="form-group">
-                    <label for="email">E-mail</label>
+      <p class="sub">
+        Acesso exclusivo
+      </p>
 
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="seu@email.com"
-                        autocomplete="email"
-                        required>
-                </div>
+      <p style="color:#b9afb4">
+        Entre como usuário ou modelo.
+        Cada conta recebe uma área própria.
+      </p>
 
-                <div class="form-group">
-                    <label for="senha">Senha</label>
+      <div id="mensagem" class="mensagem" hidden></div>
 
-                    <input
-                        type="password"
-                        id="senha"
-                        name="senha"
-                        placeholder="Sua senha"
-                        autocomplete="current-password"
-                        required>
-                </div>
+      <form id="loginForm">
 
-                <div
-                    id="mensagem"
-                    style="display:none;">
-                </div>
+        <label for="email">
+          E-mail
+        </label>
 
-                <button
-                    type="submit"
-                    id="btnLogin">
-                    ENTRAR
-                </button>
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder="seu@email.com"
+        >
 
-            </form>
+        <label for="senha">
+          Senha
+        </label>
 
-            <div class="auth-links">
+        <input
+          id="senha"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="Sua senha"
+        >
 
-                <a href="cadastro.html">
-                    Criar conta
-                </a>
+        <button
+          class="btn primary"
+          type="submit"
+        >
+          Entrar
+        </button>
 
-                <a href="index.html">
-                    Voltar para o início
-                </a>
+      </form>
 
-            </div>
+      <p class="senha-link">
+        <a href="redefinir-senha.html">
+          Esqueci minha senha
+        </a>
+      </p>
 
-        </section>
+      <div class="separador">
+        <span>CRIAR CONTA</span>
+      </div>
 
-    </main>
+      <div class="cadastros">
+
+        <a href="cadastro-usuario.html">
+          Criar conta de usuário
+        </a>
+
+        <a href="cadastro-modelo.html">
+          Cadastrar como modelo
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
 
 
-    <!-- SUPABASE -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- CONFIGURAÇÃO -->
-    <script src="config.js"></script>
+  <!-- CONFIGURAÇÃO -->
+  <script src="config.js?v=3"></script>
 
-    <!-- AUTENTICAÇÃO -->
-    <script src="auth.js"></script>
+  <!-- AUTENTICAÇÃO -->
+  <script src="auth.js?v=3"></script>
 
 
-    <script>
+  <script>
 
-        // ============================================
-        // REDIRECIONAMENTO POR PERFIL
-        // ============================================
+    const form = document.getElementById("loginForm");
+    const mensagem = document.getElementById("mensagem");
 
-        function redirecionarPorPerfil(perfil) {
+    form.addEventListener("submit", async function (e) {
 
-            if (!perfil || !perfil.tipo) {
-                throw new Error(
-                    "Tipo de usuário não encontrado."
-                );
-            }
+      e.preventDefault();
 
-            switch (perfil.tipo) {
+      mensagem.hidden = false;
+      mensagem.className = "mensagem";
+      mensagem.textContent = "Entrando...";
 
-                case "modelo":
-                    window.location.replace(
-                        "painel-modelo.html"
-                    );
-                    break;
+      const email = document
+        .getElementById("email")
+        .value
+        .trim();
 
-                case "usuario":
-                    window.location.replace(
-                        "painel-usuario.html"
-                    );
-                    break;
+      const senha = document
+        .getElementById("senha")
+        .value;
 
-                case "admin":
-                    window.location.replace(
-                        "painel-adm.html"
-                    );
-                    break;
 
-                default:
-                    throw new Error(
-                        "Tipo de usuário inválido."
-                    );
-            }
+      try {
+
+        if (typeof window.login !== "function") {
+          throw new Error(
+            "Sistema de login não carregado. Atualize a página e tente novamente."
+          );
         }
 
 
-        // ============================================
-        // VERIFICAR SESSÃO EXISTENTE
-        // ============================================
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            async () => {
-
-                try {
-
-                    const {
-                        data: { session }
-                    } =
-                        await supabaseClient.auth.getSession();
-
-                    if (!session?.user) {
-                        return;
-                    }
-
-                    const perfil =
-                        await getPerfil(
-                            session.user.id
-                        );
-
-                    if (!perfil) {
-                        await supabaseClient.auth.signOut();
-                        return;
-                    }
-
-                    redirecionarPorPerfil(perfil);
-
-                } catch (error) {
-
-                    console.error(
-                        "Erro ao verificar sessão:",
-                        error
-                    );
-
-                }
-            }
+        const usuario = await window.login(
+          email,
+          senha
         );
 
 
-        // ============================================
-        // LOGIN
-        // ============================================
-
-        document
-            .getElementById("loginForm")
-            .addEventListener(
-                "submit",
-                async function (event) {
-
-                    event.preventDefault();
-
-                    const email =
-                        document
-                            .getElementById("email")
-                            .value
-                            .trim();
-
-                    const senha =
-                        document
-                            .getElementById("senha")
-                            .value;
-
-                    const btn =
-                        document
-                            .getElementById("btnLogin");
-
-                    const mensagem =
-                        document
-                            .getElementById("mensagem");
+        if (!usuario || !usuario.id) {
+          throw new Error(
+            "Não foi possível identificar sua conta."
+          );
+        }
 
 
-                    btn.disabled = true;
+        const tipo = await window.getTipoUsuario(
+          usuario.id
+        );
 
-                    btn.textContent =
-                        "ENTRANDO...";
 
-                    mensagem.style.display =
-                        "none";
+        mensagem.textContent =
+          "Login realizado. Abrindo seu painel...";
 
-                    try {
 
-                        const resultado =
-                            await login(
-                                email,
-                                senha
-                            );
+        if (tipo === "modelo") {
 
-                        if (!resultado.success) {
-                            throw new Error(
-                                resultado.error ||
-                                "Não foi possível fazer login."
-                            );
-                        }
+          window.location.href =
+            "modelo/painel.html";
 
-                        const perfil =
-                            resultado.perfil;
+        } else if (tipo === "admin") {
 
-                        if (!perfil) {
-                            throw new Error(
-                                "Perfil não encontrado."
-                            );
-                        }
+          window.location.href =
+            "admin/painel.html";
 
-                        // Um único redirecionamento
-                        redirecionarPorPerfil(
-                            perfil
-                        );
+        } else {
 
-                    } catch (error) {
+          window.location.href =
+            "usuario/painel.html";
 
-                        console.error(
-                            "Erro no login:",
-                            error
-                        );
+        }
 
-                        mensagem.textContent =
-                            error?.message ||
-                            "E-mail ou senha incorretos.";
+      } catch (erro) {
 
-                        mensagem.style.display =
-                            "block";
+        console.error(
+          "Erro no login:",
+          erro
+        );
 
-                        btn.disabled = false;
+        mensagem.hidden = false;
+        mensagem.className =
+          "mensagem error";
 
-                        btn.textContent =
-                            "ENTRAR";
-                    }
-                }
-            );
+        mensagem.textContent =
+          erro?.message ||
+          "Não foi possível realizar o login.";
 
-    </script>
+      }
+
+    });
+
+  </script>
 
 </body>
 

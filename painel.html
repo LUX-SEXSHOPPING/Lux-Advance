@@ -1,92 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>LUX — Painel Administrativo</title>
 
   <link rel="stylesheet" href="app.css">
 
   <style>
-    .admin-nav {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 20px 0;
+    .admin-menu {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:20px 0;
     }
 
-    .admin-nav button {
-      cursor: pointer;
+    .admin-menu button {
+      cursor:pointer;
     }
 
     .admin-section {
-      margin-top: 20px;
+      margin-top:20px;
     }
 
     .admin-card {
-      padding: 18px;
-      margin-bottom: 12px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
+      padding:18px;
+      margin-bottom:14px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+    }
+
+    .admin-card h3 {
+      margin-top:0;
     }
 
     .admin-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
     }
 
     .admin-actions button {
-      cursor: pointer;
+      cursor:pointer;
     }
 
-    .btn-danger {
-      border-color: #8b2635 !important;
-    }
-
-    .btn-success {
-      border-color: #287a50 !important;
+    .status {
+      font-weight:bold;
     }
 
     .status-pendente {
-      color: #e6c86e;
+      color:#f0d878;
     }
 
-    .status-ativo {
-      color: #65d391;
-    }
-
-    .status-bloqueado {
-      color: #ff6b6b;
-    }
-
+    .status-aprovado,
+    .status-ativo,
     .status-resolvida {
-      color: #65d391;
+      color:#63d98a;
     }
 
-    .empty {
-      padding: 20px;
-      opacity: .7;
+    .status-bloqueado,
+    .status-arquivada {
+      color:#ff6b6b;
     }
 
-    .detalhes {
-      margin-top: 10px;
-      padding: 12px;
-      background: rgba(255,255,255,.03);
-      border-radius: 10px;
+    .status-em_analise {
+      color:#6db7ff;
+    }
+
+    .admin-info {
+      opacity:.75;
+      font-size:.9rem;
+    }
+
+    .vazio {
+      padding:20px;
+      opacity:.65;
     }
   </style>
-
 </head>
 
 <body>
 
 <header class="topbar">
 
-  <a class="brand" href="index.html">
+  <a href="index.html" class="brand">
     LUX
   </a>
 
@@ -106,11 +106,11 @@
     </div>
 
     <h1 class="title">
-      Painel LUX
+      Painel Administrativo
     </h1>
 
     <p class="subtitle">
-      Central administrativa da plataforma.
+      Controle de modelos, usuários, reclamações e pagamentos.
     </p>
 
   </section>
@@ -121,12 +121,9 @@
   </div>
 
 
-  <section id="conteudo" hidden>
+  <section id="painel" hidden>
 
-
-    <!-- =================================================
-         ESTATÍSTICAS
-         ================================================= -->
+    <!-- ESTATÍSTICAS -->
 
     <div class="stat-grid">
 
@@ -149,7 +146,7 @@
       </div>
 
       <div class="stat">
-        <small>Reclamações</small>
+        <small>Reclamações abertas</small>
         <br>
         <b id="totalReclamacoes">0</b>
       </div>
@@ -157,32 +154,26 @@
     </div>
 
 
-    <!-- =================================================
-         MENU ADMIN
-         ================================================= -->
+    <!-- MENU -->
 
-    <div class="admin-nav">
+    <div class="admin-menu">
 
-      <button
-        class="btn primary"
+      <button class="btn primary"
         onclick="mostrarSecao('modelos')">
         Modelos
       </button>
 
-      <button
-        class="btn ghost"
+      <button class="btn ghost"
         onclick="mostrarSecao('usuarios')">
         Usuários
       </button>
 
-      <button
-        class="btn ghost"
+      <button class="btn ghost"
         onclick="mostrarSecao('reclamacoes')">
         Reclamações
       </button>
 
-      <button
-        class="btn ghost"
+      <button class="btn ghost"
         onclick="mostrarSecao('pagamentos')">
         Pagamentos
       </button>
@@ -190,28 +181,18 @@
     </div>
 
 
-    <!-- =================================================
-         MODELOS
-         ================================================= -->
+    <!-- MODELOS -->
 
-    <section
-      id="secao-modelos"
-      class="admin-section">
+    <section id="secao-modelos" class="admin-section">
 
       <div class="card">
 
         <div class="card-body">
 
-          <h2>
-            Gestão de modelos
-          </h2>
+          <h2>Modelos</h2>
 
-          <div id="modelosLista">
-
-            <div class="empty">
-              Carregando modelos...
-            </div>
-
+          <div id="listaModelos">
+            Carregando...
           </div>
 
         </div>
@@ -221,12 +202,9 @@
     </section>
 
 
-    <!-- =================================================
-         USUÁRIOS
-         ================================================= -->
+    <!-- USUÁRIOS -->
 
-    <section
-      id="secao-usuarios"
+    <section id="secao-usuarios"
       class="admin-section"
       hidden>
 
@@ -234,16 +212,10 @@
 
         <div class="card-body">
 
-          <h2>
-            Usuários cadastrados
-          </h2>
+          <h2>Usuários</h2>
 
-          <div id="usuariosLista">
-
-            <div class="empty">
-              Carregando usuários...
-            </div>
-
+          <div id="listaUsuarios">
+            Carregando...
           </div>
 
         </div>
@@ -253,12 +225,9 @@
     </section>
 
 
-    <!-- =================================================
-         RECLAMAÇÕES
-         ================================================= -->
+    <!-- RECLAMAÇÕES -->
 
-    <section
-      id="secao-reclamacoes"
+    <section id="secao-reclamacoes"
       class="admin-section"
       hidden>
 
@@ -266,20 +235,14 @@
 
         <div class="card-body">
 
-          <h2>
-            Central de reclamações
-          </h2>
+          <h2>Central de Reclamações</h2>
 
-          <p style="color:var(--muted)">
-            Reclamações feitas por usuários e modelos.
+          <p class="admin-info">
+            Todas as reclamações registradas na plataforma.
           </p>
 
-          <div id="reclamacoesLista">
-
-            <div class="empty">
-              Carregando reclamações...
-            </div>
-
+          <div id="listaReclamacoes">
+            Carregando...
           </div>
 
         </div>
@@ -289,12 +252,9 @@
     </section>
 
 
-    <!-- =================================================
-         PAGAMENTOS
-         ================================================= -->
+    <!-- PAGAMENTOS -->
 
-    <section
-      id="secao-pagamentos"
+    <section id="secao-pagamentos"
       class="admin-section"
       hidden>
 
@@ -302,16 +262,10 @@
 
         <div class="card-body">
 
-          <h2>
-            Planos e pagamentos
-          </h2>
+          <h2>Pagamentos e Planos</h2>
 
-          <div id="pagamentosLista">
-
-            <div class="empty">
-              Carregando pagamentos...
-            </div>
-
+          <div id="listaPagamentos">
+            Carregando...
           </div>
 
         </div>
@@ -319,7 +273,6 @@
       </div>
 
     </section>
-
 
   </section>
 
@@ -327,57 +280,77 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="config.js"></script>
-
 <script src="auth.js"></script>
 
 
 <script>
 
-/* =========================================================
-   UTILITÁRIOS
-   ========================================================= */
+/* =====================================================
+   SUPABASE
+   ===================================================== */
 
-function escapeHTML(valor) {
+function banco() {
 
-  return String(valor ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+  if (window.luxSupabase) {
+    return window.luxSupabase;
+  }
+
+  if (window.supabase) {
+    return window.supabase;
+  }
+
+  throw new Error("Supabase não foi carregado.");
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   ESCAPAR HTML
+   ===================================================== */
+
+function escapar(valor) {
+
+  return String(valor ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
    SAIR
-   ========================================================= */
+   ===================================================== */
 
 async function sair() {
 
   try {
 
-    await logout();
+    if (typeof logout === "function") {
+      await logout();
+    } else {
+      await banco().auth.signOut();
+    }
 
-  } catch (erro) {
+  } catch(e) {
 
-    console.error(erro);
+    console.error(e);
 
   }
 
-  window.location.href =
-    "login.html";
+  window.location.href = "login.html";
 
 }
 
 
-/* =========================================================
+/* =====================================================
    TROCAR SEÇÃO
-   ========================================================= */
+   ===================================================== */
 
-function mostrarSecao(nome) {
+function mostrarSecao(secao) {
 
   const secoes = [
     "modelos",
@@ -386,18 +359,15 @@ function mostrarSecao(nome) {
     "pagamentos"
   ];
 
-  secoes.forEach(secao => {
+  secoes.forEach(nome => {
 
     const elemento =
       document.getElementById(
-        "secao-" + secao
+        "secao-" + nome
       );
 
     if (elemento) {
-
-      elemento.hidden =
-        secao !== nome;
-
+      elemento.hidden = nome !== secao;
     }
 
   });
@@ -405,19 +375,25 @@ function mostrarSecao(nome) {
 }
 
 
-/* =========================================================
-   INICIAR PAINEL
-   ========================================================= */
+/* =====================================================
+   INICIAR
+   ===================================================== */
 
-async function iniciarPainel() {
+async function iniciar() {
 
   const mensagem =
     document.getElementById("mensagem");
 
   try {
 
-    const user =
-      await usuarioAtual();
+    const db = banco();
+
+    const {
+      data: {
+        user
+      }
+    } = await db.auth.getUser();
+
 
     if (!user) {
 
@@ -429,11 +405,17 @@ async function iniciarPainel() {
     }
 
 
-    const perfil =
-      await getPerfil(user.id);
+    const {
+      data: perfil,
+      error
+    } = await db
+      .from("perfis")
+      .select("id,nome,tipo,status")
+      .eq("id",user.id)
+      .single();
 
 
-    if (!perfil) {
+    if (error || !perfil) {
 
       throw new Error(
         "Perfil administrativo não encontrado."
@@ -444,11 +426,8 @@ async function iniciarPainel() {
 
     if (perfil.tipo !== "admin") {
 
-      mensagem.className =
-        "notice error";
-
       mensagem.textContent =
-        "Acesso restrito à administração.";
+        "Acesso negado. Esta área é exclusiva para administradores.";
 
       return;
 
@@ -458,56 +437,46 @@ async function iniciarPainel() {
     mensagem.hidden = true;
 
     document
-      .getElementById("conteudo")
+      .getElementById("painel")
       .hidden = false;
 
 
-    await carregarDados();
+    await carregarTudo();
 
-  } catch (erro) {
+  } catch(e) {
 
-    console.error(erro);
-
-    mensagem.className =
-      "notice error";
+    console.error(e);
 
     mensagem.textContent =
-      erro.message ||
-      "Não foi possível carregar o painel.";
+      e.message ||
+      "Erro ao carregar painel.";
 
   }
 
 }
 
 
-/* =========================================================
-   CARREGAR DADOS
-   ========================================================= */
+/* =====================================================
+   CARREGAR TUDO
+   ===================================================== */
 
-async function carregarDados() {
+async function carregarTudo() {
 
-  const db =
-    requireClient();
-
+  const db = banco();
 
   await Promise.all([
-
     carregarModelos(db),
-
     carregarUsuarios(db),
-
     carregarReclamacoes(db),
-
     carregarPagamentos(db)
-
   ]);
 
 }
 
 
-/* =========================================================
+/* =====================================================
    MODELOS
-   ========================================================= */
+   ===================================================== */
 
 async function carregarModelos(db) {
 
@@ -516,34 +485,47 @@ async function carregarModelos(db) {
     error
   } = await db
     .from("perfis")
-    .select("*")
-    .eq("tipo", "modelo")
+    .select(`
+      id,
+      nome,
+      tipo,
+      status,
+      created_at,
+      modelo_perfis (
+        nome_exibicao,
+        idade,
+        cidade,
+        pais,
+        verificacao_status,
+        plano_codigo,
+        plano_nome,
+        plano_status,
+        selo_codigo
+      )
+    `)
+    .eq("tipo","modelo")
     .order("created_at", {
-      ascending: false
+      ascending:false
     });
 
 
   if (error) {
 
-    console.error(
-      "Erro modelos:",
-      error
-    );
+    console.error(error);
 
-    throw error;
+    document
+      .getElementById("listaModelos")
+      .innerHTML =
+      `<div class="vazio">
+        Erro ao carregar modelos.
+      </div>`;
+
+    return;
 
   }
 
 
-  const modelos =
-    data || [];
-
-
-  const pendentes =
-    modelos.filter(
-      modelo =>
-        modelo.status === "pendente"
-    );
+  const modelos = data || [];
 
 
   document
@@ -555,22 +537,23 @@ async function carregarModelos(db) {
   document
     .getElementById("totalPendentes")
     .textContent =
-    pendentes.length;
+    modelos.filter(
+      m => m.status === "pendente"
+    ).length;
 
 
   const area =
     document.getElementById(
-      "modelosLista"
+      "listaModelos"
     );
 
 
   if (!modelos.length) {
 
-    area.innerHTML = `
-      <div class="empty">
+    area.innerHTML =
+      `<div class="vazio">
         Nenhum modelo cadastrado.
-      </div>
-    `;
+      </div>`;
 
     return;
 
@@ -580,33 +563,74 @@ async function carregarModelos(db) {
   area.innerHTML =
     modelos.map(modelo => {
 
+      const extra =
+        Array.isArray(
+          modelo.modelo_perfis
+        )
+        ? modelo.modelo_perfis[0]
+        : modelo.modelo_perfis;
+
+
       const status =
         modelo.status || "ativo";
+
+
+      const verificacao =
+        extra?.verificacao_status ||
+        "pendente";
+
+
+      const plano =
+        extra?.plano_nome ||
+        extra?.plano_codigo ||
+        "ESSENCE";
 
 
       return `
 
         <div class="admin-card">
 
-          <strong>
-            ${escapeHTML(
+          <h3>
+            ${escapar(
+              extra?.nome_exibicao ||
               modelo.nome ||
-              "Sem nome"
+              "Modelo"
             )}
-          </strong>
+          </h3>
 
-          <p style="color:var(--muted)">
-            ${escapeHTML(
-              modelo.email ||
-              "E-mail não informado"
+          <p>
+            <b>ID:</b>
+            ${escapar(modelo.id)}
+          </p>
+
+          <p>
+            <b>Idade:</b>
+            ${escapar(extra?.idade || "-")}
+          </p>
+
+          <p>
+            <b>Local:</b>
+            ${escapar(
+              extra?.cidade ||
+              "-"
             )}
           </p>
 
           <p>
-            Status:
-            <strong class="status-${escapeHTML(status)}">
-              ${escapeHTML(status)}
-            </strong>
+            <b>Plano:</b>
+            ${escapar(plano)}
+          </p>
+
+          <p>
+            <b>Verificação:</b>
+            ${escapar(verificacao)}
+          </p>
+
+          <p>
+            <b>Status:</b>
+            <span class="status status-${escapar(status)}">
+              ${escapar(status)}
+            </span>
           </p>
 
 
@@ -618,11 +642,11 @@ async function carregarModelos(db) {
                 <button
                   class="btn primary"
                   onclick="aprovarModelo('${modelo.id}')">
-                  Aprovar
+                  Aprovar modelo
                 </button>
 
                 <button
-                  class="btn ghost btn-danger"
+                  class="btn ghost"
                   onclick="reprovarModelo('${modelo.id}')">
                   Reprovar
                 </button>
@@ -636,14 +660,14 @@ async function carregarModelos(db) {
               ? `
                 <button
                   class="btn primary"
-                  onclick="desbloquearConta('${modelo.id}')">
+                  onclick="desbloquear('${modelo.id}')">
                   Desbloquear
                 </button>
               `
               : `
                 <button
-                  class="btn ghost btn-danger"
-                  onclick="bloquearConta('${modelo.id}')">
+                  class="btn ghost"
+                  onclick="bloquear('${modelo.id}')">
                   Bloquear
                 </button>
               `
@@ -660,40 +684,34 @@ async function carregarModelos(db) {
 }
 
 
-/* =========================================================
+/* =====================================================
    APROVAR MODELO
-   ========================================================= */
+   ===================================================== */
 
 async function aprovarModelo(id) {
 
-  if (
-    !confirm(
-      "Deseja aprovar este modelo?"
-    )
-  ) return;
+  if (!confirm(
+    "Deseja aprovar este modelo?"
+  )) return;
 
 
-  const db =
-    requireClient();
+  const db = banco();
 
 
   const {
     error
-  } = await db
-    .from("perfis")
-    .update({
-      status: "aprovado"
-    })
-    .eq("id", id)
-    .eq("tipo", "modelo");
+  } = await db.rpc(
+    "admin_aprovar_modelo",
+    {
+      p_modelo_id:id
+    }
+  );
 
 
   if (error) {
 
-    console.error(error);
-
     alert(
-      "Não foi possível aprovar o modelo: " +
+      "Erro ao aprovar modelo:\n" +
       error.message
     );
 
@@ -707,45 +725,39 @@ async function aprovarModelo(id) {
   );
 
 
-  await carregarDados();
+  await carregarTudo();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    REPROVAR MODELO
-   ========================================================= */
+   ===================================================== */
 
 async function reprovarModelo(id) {
 
-  if (
-    !confirm(
-      "Deseja reprovar este modelo?"
-    )
-  ) return;
+  if (!confirm(
+    "Deseja reprovar este modelo?"
+  )) return;
 
 
-  const db =
-    requireClient();
+  const db = banco();
 
 
   const {
     error
-  } = await db
-    .from("perfis")
-    .update({
-      status: "pendente"
-    })
-    .eq("id", id)
-    .eq("tipo", "modelo");
+  } = await db.rpc(
+    "admin_reprovar_modelo",
+    {
+      p_modelo_id:id
+    }
+  );
 
 
   if (error) {
 
-    console.error(error);
-
     alert(
-      "Não foi possível reprovar o modelo: " +
+      "Erro ao reprovar modelo:\n" +
       error.message
     );
 
@@ -755,46 +767,43 @@ async function reprovarModelo(id) {
 
 
   alert(
-    "Modelo devolvido para análise."
+    "Modelo reprovado."
   );
 
 
-  await carregarDados();
+  await carregarTudo();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    BLOQUEAR
-   ========================================================= */
+   ===================================================== */
 
-async function bloquearConta(id) {
+async function bloquear(id) {
 
-  if (
-    !confirm(
-      "Deseja bloquear esta conta?"
-    )
-  ) return;
+  if (!confirm(
+    "Deseja bloquear esta conta?"
+  )) return;
 
 
-  const db =
-    requireClient();
+  const db = banco();
 
 
   const {
     error
-  } = await db
-    .from("perfis")
-    .update({
-      status: "bloqueado"
-    })
-    .eq("id", id);
+  } = await db.rpc(
+    "admin_bloquear_conta",
+    {
+      p_usuario_id:id
+    }
+  );
 
 
   if (error) {
 
     alert(
-      "Erro ao bloquear: " +
+      "Erro ao bloquear:\n" +
       error.message
     );
 
@@ -803,47 +812,42 @@ async function bloquearConta(id) {
   }
 
 
-  alert(
-    "Conta bloqueada."
-  );
+  alert("Conta bloqueada.");
 
 
-  await carregarDados();
+  await carregarTudo();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    DESBLOQUEAR
-   ========================================================= */
+   ===================================================== */
 
-async function desbloquearConta(id) {
+async function desbloquear(id) {
 
-  if (
-    !confirm(
-      "Deseja desbloquear esta conta?"
-    )
-  ) return;
+  if (!confirm(
+    "Deseja desbloquear esta conta?"
+  )) return;
 
 
-  const db =
-    requireClient();
+  const db = banco();
 
 
   const {
     error
-  } = await db
-    .from("perfis")
-    .update({
-      status: "ativo"
-    })
-    .eq("id", id);
+  } = await db.rpc(
+    "admin_desbloquear_conta",
+    {
+      p_usuario_id:id
+    }
+  );
 
 
   if (error) {
 
     alert(
-      "Erro ao desbloquear: " +
+      "Erro ao desbloquear:\n" +
       error.message
     );
 
@@ -852,19 +856,17 @@ async function desbloquearConta(id) {
   }
 
 
-  alert(
-    "Conta desbloqueada."
-  );
+  alert("Conta desbloqueada.");
 
 
-  await carregarDados();
+  await carregarTudo();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    USUÁRIOS
-   ========================================================= */
+   ===================================================== */
 
 async function carregarUsuarios(db) {
 
@@ -873,27 +875,23 @@ async function carregarUsuarios(db) {
     error
   } = await db
     .from("perfis")
-    .select("*")
-    .eq("tipo", "usuario")
+    .select("id,nome,tipo,status,created_at")
+    .eq("tipo","usuario")
     .order("created_at", {
-      ascending: false
+      ascending:false
     });
 
 
   if (error) {
 
-    console.error(
-      "Erro usuários:",
-      error
-    );
+    console.error(error);
 
     return;
 
   }
 
 
-  const usuarios =
-    data || [];
+  const usuarios = data || [];
 
 
   document
@@ -904,17 +902,16 @@ async function carregarUsuarios(db) {
 
   const area =
     document.getElementById(
-      "usuariosLista"
+      "listaUsuarios"
     );
 
 
   if (!usuarios.length) {
 
-    area.innerHTML = `
-      <div class="empty">
+    area.innerHTML =
+      `<div class="vazio">
         Nenhum usuário cadastrado.
-      </div>
-    `;
+      </div>`;
 
     return;
 
@@ -932,25 +929,23 @@ async function carregarUsuarios(db) {
 
         <div class="admin-card">
 
-          <strong>
-            ${escapeHTML(
+          <h3>
+            ${escapar(
               usuario.nome ||
-              "Sem nome"
+              "Usuário"
             )}
-          </strong>
+          </h3>
 
-          <p style="color:var(--muted)">
-            ${escapeHTML(
-              usuario.email ||
-              ""
-            )}
+          <p>
+            <b>ID:</b>
+            ${escapar(usuario.id)}
           </p>
 
           <p>
-            Status:
-            <strong>
-              ${escapeHTML(status)}
-            </strong>
+            <b>Status:</b>
+            <span class="status">
+              ${escapar(status)}
+            </span>
           </p>
 
           <div class="admin-actions">
@@ -960,14 +955,14 @@ async function carregarUsuarios(db) {
               ? `
                 <button
                   class="btn primary"
-                  onclick="desbloquearConta('${usuario.id}')">
+                  onclick="desbloquear('${usuario.id}')">
                   Desbloquear
                 </button>
               `
               : `
                 <button
-                  class="btn ghost btn-danger"
-                  onclick="bloquearConta('${usuario.id}')">
+                  class="btn ghost"
+                  onclick="bloquear('${usuario.id}')">
                   Bloquear
                 </button>
               `
@@ -984,9 +979,18 @@ async function carregarUsuarios(db) {
 }
 
 
-/* =========================================================
+/* =====================================================
    RECLAMAÇÕES
-   ========================================================= */
+   ESTRUTURA REAL DO BANCO:
+   usuario_id
+   login
+   email
+   assunto
+   mensagem
+   status
+   criado_em
+   atualizado_em
+   ===================================================== */
 
 async function carregarReclamacoes(db) {
 
@@ -995,9 +999,18 @@ async function carregarReclamacoes(db) {
     error
   } = await db
     .from("reclamacoes")
-    .select("*")
-    .order("created_at", {
-      ascending: false
+    .select(`
+      usuario_id,
+      login,
+      email,
+      assunto,
+      mensagem,
+      status,
+      criado_em,
+      atualizado_em
+    `)
+    .order("criado_em", {
+      ascending:false
     });
 
 
@@ -1008,21 +1021,17 @@ async function carregarReclamacoes(db) {
       error
     );
 
-    document
-      .getElementById(
-        "reclamacoesLista"
-      )
-      .innerHTML = `
-        <div class="empty">
-          A tabela de reclamações ainda não está disponível.
-        </div>
-      `;
 
     document
       .getElementById(
-        "totalReclamacoes"
+        "listaReclamacoes"
       )
-      .textContent = "0";
+      .innerHTML =
+      `<div class="vazio">
+        Erro ao carregar reclamações:<br>
+        ${escapar(error.message)}
+      </div>`;
+
 
     return;
 
@@ -1047,17 +1056,16 @@ async function carregarReclamacoes(db) {
 
   const area =
     document.getElementById(
-      "reclamacoesLista"
+      "listaReclamacoes"
     );
 
 
   if (!reclamacoes.length) {
 
-    area.innerHTML = `
-      <div class="empty">
+    area.innerHTML =
+      `<div class="vazio">
         Nenhuma reclamação registrada.
-      </div>
-    `;
+      </div>`;
 
     return;
 
@@ -1065,49 +1073,110 @@ async function carregarReclamacoes(db) {
 
 
   area.innerHTML =
-    reclamacoes.map(reclamacao => {
+    reclamacoes.map((r,index) => {
+
+      const status =
+        r.status || "pendente";
+
 
       return `
 
         <div class="admin-card">
 
-          <strong>
-            ${escapeHTML(
-              reclamacao.motivo ||
+          <h3>
+            ${escapar(
+              r.assunto ||
               "Reclamação"
             )}
-          </strong>
+          </h3>
 
           <p>
-            ${escapeHTML(
-              reclamacao.descricao ||
-              "Sem descrição."
+            <b>Login:</b>
+            ${escapar(r.login || "-")}
+          </p>
+
+          <p>
+            <b>E-mail:</b>
+            ${escapar(r.email || "-")}
+          </p>
+
+          <p>
+            <b>Usuário ID:</b>
+            ${escapar(r.usuario_id || "-")}
+          </p>
+
+          <p>
+            <b>Mensagem:</b>
+          </p>
+
+          <div class="admin-info">
+            ${escapar(
+              r.mensagem ||
+              "Sem mensagem."
+            )}
+          </div>
+
+          <p>
+            <b>Status:</b>
+            <span class="status status-${escapar(status)}">
+              ${escapar(status)}
+            </span>
+          </p>
+
+          <p class="admin-info">
+            Criado em:
+            ${escapar(
+              r.criado_em || "-"
             )}
           </p>
 
-          <p>
-            Status:
-            <strong>
-              ${escapeHTML(
-                reclamacao.status ||
-                "pendente"
-              )}
-            </strong>
-          </p>
 
           <div class="admin-actions">
 
-            <button
-              class="btn primary"
-              onclick="resolverReclamacao('${reclamacao.id}')">
-              Resolver
-            </button>
+            ${
+              status !== "em_analise"
+              ? `
+                <button
+                  class="btn ghost"
+                  onclick="alterarReclamacao(
+                    '${escaparJS(r.usuario_id)}',
+                    'em_analise'
+                  )">
+                  Em análise
+                </button>
+              `
+              : ""
+            }
 
-            <button
-              class="btn ghost"
-              onclick="arquivarReclamacao('${reclamacao.id}')">
-              Arquivar
-            </button>
+
+            ${
+              status !== "resolvida"
+              ? `
+                <button
+                  class="btn primary"
+                  onclick="resolverReclamacao(
+                    '${escaparJS(r.usuario_id)}'
+                  )">
+                  Resolver
+                </button>
+              `
+              : ""
+            }
+
+
+            ${
+              status !== "arquivada"
+              ? `
+                <button
+                  class="btn ghost"
+                  onclick="arquivarReclamacao(
+                    '${escaparJS(r.usuario_id)}'
+                  )">
+                  Arquivar
+                </button>
+              `
+              : ""
+            }
 
           </div>
 
@@ -1120,56 +1189,31 @@ async function carregarReclamacoes(db) {
 }
 
 
-/* =========================================================
-   RESOLVER RECLAMAÇÃO
-   ========================================================= */
+/* =====================================================
+   ESCAPAR PARA JAVASCRIPT
+   ===================================================== */
 
-async function resolverReclamacao(id) {
+function escaparJS(valor) {
 
-  const db =
-    requireClient();
-
-
-  const {
-    error
-  } = await db
-    .from("reclamacoes")
-    .update({
-      status: "resolvida"
-    })
-    .eq("id", id);
-
-
-  if (error) {
-
-    alert(
-      "Erro ao resolver reclamação: " +
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  alert(
-    "Reclamação marcada como resolvida."
-  );
-
-
-  await carregarDados();
+  return String(valor ?? "")
+    .replaceAll("\\","\\\\")
+    .replaceAll("'","\\'")
+    .replaceAll("\n","\\n")
+    .replaceAll("\r","\\r");
 
 }
 
 
-/* =========================================================
-   ARQUIVAR RECLAMAÇÃO
-   ========================================================= */
+/* =====================================================
+   ALTERAR RECLAMAÇÃO
+   ===================================================== */
 
-async function arquivarReclamacao(id) {
+async function alterarReclamacao(
+  usuarioId,
+  novoStatus
+) {
 
-  const db =
-    requireClient();
+  const db = banco();
 
 
   const {
@@ -1177,38 +1221,92 @@ async function arquivarReclamacao(id) {
   } = await db
     .from("reclamacoes")
     .update({
-      status: "arquivada"
+      status:novoStatus,
+      atualizado_em:new Date().toISOString()
     })
-    .eq("id", id);
+    .eq("usuario_id",usuarioId);
 
 
   if (error) {
 
     alert(
-      "Erro ao arquivar reclamação: " +
+      "Erro ao atualizar reclamação:\n" +
       error.message
     );
 
     return;
 
   }
+
+
+  await carregarReclamacoes(db);
+
+}
+
+
+/* =====================================================
+   RESOLVER
+   ===================================================== */
+
+async function resolverReclamacao(
+  usuarioId
+) {
+
+  if (!confirm(
+    "Marcar reclamação como resolvida?"
+  )) return;
+
+
+  await alterarReclamacao(
+    usuarioId,
+    "resolvida"
+  );
+
+
+  alert(
+    "Reclamação resolvida."
+  );
+
+}
+
+
+/* =====================================================
+   ARQUIVAR
+   ===================================================== */
+
+async function arquivarReclamacao(
+  usuarioId
+) {
+
+  if (!confirm(
+    "Arquivar esta reclamação?"
+  )) return;
+
+
+  await alterarReclamacao(
+    usuarioId,
+    "arquivada"
+  );
 
 
   alert(
     "Reclamação arquivada."
   );
 
-
-  await carregarDados();
-
 }
 
 
-/* =========================================================
+/* =====================================================
    PAGAMENTOS
-   ========================================================= */
+   ===================================================== */
 
 async function carregarPagamentos(db) {
+
+  const area =
+    document.getElementById(
+      "listaPagamentos"
+    );
+
 
   const {
     data,
@@ -1217,28 +1315,16 @@ async function carregarPagamentos(db) {
     .from("pagamentos_planos")
     .select("*")
     .order("created_at", {
-      ascending: false
+      ascending:false
     });
-
-
-  const area =
-    document.getElementById(
-      "pagamentosLista"
-    );
 
 
   if (error) {
 
-    console.error(
-      "Erro pagamentos:",
-      error
-    );
-
-    area.innerHTML = `
-      <div class="empty">
-        Não foi possível carregar os pagamentos.
-      </div>
-    `;
+    area.innerHTML =
+      `<div class="vazio">
+        Nenhum pagamento disponível ou tabela ainda não configurada.
+      </div>`;
 
     return;
 
@@ -1251,11 +1337,10 @@ async function carregarPagamentos(db) {
 
   if (!pagamentos.length) {
 
-    area.innerHTML = `
-      <div class="empty">
+    area.innerHTML =
+      `<div class="vazio">
         Nenhum pagamento registrado.
-      </div>
-    `;
+      </div>`;
 
     return;
 
@@ -1263,40 +1348,49 @@ async function carregarPagamentos(db) {
 
 
   area.innerHTML =
-    pagamentos.map(pagamento => {
+    pagamentos.map(p => {
 
       return `
 
         <div class="admin-card">
 
-          <strong>
+          <h3>
             Plano:
-            ${escapeHTML(
-              pagamento.plano_codigo ||
+            ${escapar(
+              p.plano_codigo ||
               "-"
             )}
-          </strong>
+          </h3>
 
           <p>
-            Valor:
-            R$ ${escapeHTML(
-              pagamento.valor ||
-              "0,00"
-            )}
-          </p>
-
-          <p>
-            Status:
-            ${escapeHTML(
-              pagamento.status ||
+            <b>Modelo:</b>
+            ${escapar(
+              p.modelo_id ||
               "-"
             )}
           </p>
 
           <p>
-            Assinatura:
-            ${escapeHTML(
-              pagamento.mp_subscription_id ||
+            <b>Valor:</b>
+            R$
+            ${escapar(
+              p.valor ||
+              "0.00"
+            )}
+          </p>
+
+          <p>
+            <b>Status:</b>
+            ${escapar(
+              p.status ||
+              "-"
+            )}
+          </p>
+
+          <p>
+            <b>Assinatura MP:</b>
+            ${escapar(
+              p.mp_subscription_id ||
               "-"
             )}
           </p>
@@ -1310,11 +1404,11 @@ async function carregarPagamentos(db) {
 }
 
 
-/* =========================================================
-   INICIAR
-   ========================================================= */
+/* =====================================================
+   EXECUTAR
+   ===================================================== */
 
-iniciarPainel();
+iniciar();
 
 </script>
 

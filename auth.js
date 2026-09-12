@@ -1,171 +1,809 @@
-// ============================================
-// LUX ADVANCE — AUTENTICAÇÃO
-// ============================================
+/* =========================================================
+   LUX — SISTEMA DE AUTENTICAÇÃO
+   ========================================================= */
 
-async function login(email, senha) {
+(function () {
+
+  "use strict";
+
+  /* =========================================================
+     VERIFICAÇÃO DO CLIENTE SUPABASE
+     ========================================================= */
+
+  function requireClient() {
+
+    if (!window.luxSupabase) {
+      throw new Error(
+        "Supabase não foi inicializado. Verifique config.js."
+      );
+    }
+
+    return window.luxSupabase;
+  }
+
+
+  /* =========================================================
+     TRATAMENTO DE ERROS
+     ========================================================= */
+
+  function friendlyAuthError(error) {
+
+    if (!error) {
+      return "Ocorreu um erro inesperado.";
+    }
+
+    const message =
+      error.message ||
+      error.error_description ||
+      String(error);
+
+    const lower = message.toLowerCase();
+
+    if (
+      lower.includes("user already registered") ||
+      lower.includes("already registered")
+    ) {
+      return "Este e-mail já está cadastrado.";
+    }
+
+    if (
+      lower.includes("invalid login credentials")
+    ) {
+      return "E-mail ou senha incorretos.";
+    }
+
+    if (
+      lower.includes("email not confirmed")
+    ) {
+      return "Seu e-mail ainda não foi confirmado.";
+    }
+
+    if (
+      lower.includes("password should be at least")
+    ) {
+      return "A senha precisa ter pelo menos 6 caracteres.";
+    }
+
+    if (
+      lower.includes("invalid email")
+    ) {
+      return "Digite um e-mail válido.";
+    }
+
+    if (
+      lower.includes("rate limit")
+    ) {
+      return "Muitas tentativas. Aguarde alguns minutos e tente novamente.";
+    }
+
+    if (
+      lower.includes("failed to fetch")
+    ) {
+      return "Não foi possível conectar ao servidor. Verifique sua internet.";
+    }
+
+    return message;
+  }
+
+
+  /* =========================================================
+     CADASTRO
+     ========================================================= */
+
+  async function cadastrar(
+    tipo,
+    nome,
+    email,
+    senha,
+    dadosExtras = {}
+  ) {
+
     try {
-        if (!email || !senha) {
-            throw new Error("Informe seu e-mail e sua senha.");
+
+      const supabase = requireClient();
+
+      tipo = tipo === "modelo"
+        ? "modelo"
+        : "usuario";
+
+      nome = String(nome || "").trim();
+      email = String(email || "").trim().toLowerCase();
+      senha = String(senha || "");
+
+      if (!nome) {
+        throw new Error("Digite seu nome.");
+      }
+
+      if (!email) {
+        throw new Error("Digite seu e-mail.");
+      }
+
+      if (senha.length < 6) {
+        throw new Error(
+          "A senha precisa ter pelo menos 6 caracteres."
+        );
+      }
+
+
+      /* -------------------------------------------------------
+         METADATA
+         ------------------------------------------------------- */
+
+      const metadata = {
+        nome: nome,
+        tipo: tipo
+      };
+
+
+      /* Dados adicionais para modelos */
+
+      if (tipo === "modelo") {
+
+        metadata.maioridade_confirmada =
+          dadosExtras.maioridade_confirmada === true;
+
+        if (dadosExtras.idade !== undefined) {
+          metadata.idade =
+            String(dadosExtras.idade);
         }
 
-        const { data, error } = await supabaseClient.auth.signInWithPassword({
-            email: email.trim(),
-            password: senha
-        });
-
-        if (error) {
-            throw new Error(error.message);
+        if (dadosExtras.cidade) {
+          metadata.cidade =
+            String(dadosExtras.cidade);
         }
 
-        if (!data || !data.user || !data.session) {
-            throw new Error("Não foi possível iniciar a sessão.");
+        if (dadosExtras.pais) {
+          metadata.pais =
+            String(dadosExtras.pais);
         }
 
-        // Confirma que a sessão realmente ficou salva
-        const { data: sessaoAtual, error: erroSessao } =
-            await supabaseClient.auth.getSession();
-
-        if (erroSessao || !sessaoAtual?.session) {
-            await supabaseClient.auth.signOut();
-            throw new Error("A sessão não foi estabelecida corretamente.");
+        if (dadosExtras.cor_cabelo) {
+          metadata.cor_cabelo =
+            String(dadosExtras.cor_cabelo);
         }
 
-        const usuario = data.user;
-
-        // Busca o perfil do usuário
-        const perfil = await getPerfil(usuario.id);
-
-        if (!perfil) {
-            await supabaseClient.auth.signOut();
-            throw new Error(
-                "Seu cadastro não possui um perfil válido."
-            );
+        if (dadosExtras.cor_olhos) {
+          metadata.cor_olhos =
+            String(dadosExtras.cor_olhos);
         }
 
-        // Verifica se a conta está bloqueada
-        if (
-            perfil.status === "bloqueado" ||
-            perfil.bloqueado === true
-        ) {
-            await supabaseClient.auth.signOut();
-            throw new Error(
-                "Sua conta está bloqueada. Entre em contato com a administração."
-            );
+        if (dadosExtras.altura_cm) {
+          metadata.altura_cm =
+            String(dadosExtras.altura_cm);
         }
 
-        // IMPORTANTE:
-        // O redirecionamento NÃO acontece aqui.
-        // O login.html será responsável por isso.
-        return {
-            success: true,
-            user: usuario,
-            session: sessaoAtual.session,
-            perfil: perfil
-        };
+        if (dadosExtras.idiomas) {
+          metadata.idiomas =
+            String(dadosExtras.idiomas);
+        }
+
+        if (dadosExtras.descricao) {
+          metadata.descricao =
+            String(dadosExtras.descricao)
+              .slice(0, 800);
+        }
+
+        if (dadosExtras.foto_url) {
+          metadata.foto_url =
+            String(dadosExtras.foto_url);
+        }
+      }
+
+
+      /* -------------------------------------------------------
+         CRIA USUÁRIO NO SUPABASE AUTH
+         ------------------------------------------------------- */
+
+      const {
+        data,
+        error
+      } = await supabase.auth.signUp({
+
+        email: email,
+
+        password: senha,
+
+        options: {
+          data: metadata
+        }
+
+      });
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      if (!data || !data.user) {
+        throw new Error(
+          "O Supabase não retornou o usuário criado."
+        );
+      }
+
+
+      /*
+       O trigger handle_novo_usuario()
+       cria automaticamente public.perfis.
+      */
+
+      const emailConfirmationRequired =
+        !!data.user && !data.session;
+
+
+      return {
+
+        success: true,
+
+        user: data.user,
+
+        session: data.session,
+
+        emailConfirmationRequired:
+          emailConfirmationRequired
+
+      };
 
     } catch (error) {
-        console.error("Erro no login:", error);
 
-        return {
-            success: false,
-            error: error?.message || "Erro ao fazer login."
-        };
+      console.error(
+        "Erro no cadastro LUX:",
+        error
+      );
+
+      return {
+
+        success: false,
+
+        error:
+          friendlyAuthError(error)
+
+      };
+
     }
-}
+
+  }
 
 
-// ============================================
-// BUSCAR PERFIL
-// ============================================
+  /* =========================================================
+     DISPONIBILIZA CADASTRO GLOBALMENTE
+     ========================================================= */
 
-async function getPerfil(userId = null) {
-    try {
-        let id = userId;
+  window.cadastrar = cadastrar;
+  window.Cadastrar = cadastrar;
 
-        if (!id) {
-            const {
-                data: { user },
-                error
-            } = await supabaseClient.auth.getUser();
 
-            if (error || !user) {
-                return null;
-            }
+  /* =========================================================
+     LOGIN
+     ========================================================= */
 
-            id = user.id;
-        }
+  async function login(email, senha) {
 
-        const { data, error } = await supabaseClient
-            .from("perfis")
-            .select("*")
-            .eq("id", id)
-            .single();
+    const supabase = requireClient();
 
-        if (error) {
-            console.error("Erro ao buscar perfil:", error);
-            return null;
-        }
+    email = String(email || "")
+      .trim()
+      .toLowerCase();
 
-        return data;
+    senha = String(senha || "");
 
-    } catch (error) {
-        console.error("Erro em getPerfil:", error);
-        return null;
+    if (!email || !senha) {
+      throw new Error(
+        "Digite seu e-mail e sua senha."
+      );
     }
-}
 
+    const {
+      data,
+      error
+    } = await supabase.auth.signInWithPassword({
+      email,
+      password: senha
+    });
 
-// ============================================
-// TIPO DO USUÁRIO
-// ============================================
+    if (error) {
+      throw new Error(
+        friendlyAuthError(error)
+      );
+    }
 
-async function getTipoUsuario(userId = null) {
-    const perfil = await getPerfil(userId);
+    if (!data?.user || !data?.session) {
+      throw new Error(
+        "Não foi possível iniciar a sessão. Tente novamente."
+      );
+    }
+
+    const {
+      data: sessionCheck
+    } = await supabase.auth.getSession();
+
+    if (!sessionCheck?.session?.user) {
+      throw new Error(
+        "A sessão não foi salva. Tente entrar novamente."
+      );
+    }
+
+    const perfil =
+      await getPerfil(data.user.id);
 
     if (!perfil) {
-        return null;
+
+      await supabase.auth.signOut();
+
+      throw new Error(
+        "Sua conta foi criada, mas o perfil ainda não está disponível. Aguarde alguns instantes e tente novamente."
+      );
+
     }
 
-    return perfil.tipo || null;
-}
+    if (
+      perfil.status === "bloqueado"
+    ) {
+
+      await supabase.auth.signOut();
+
+      throw new Error(
+        "Sua conta está bloqueada."
+      );
+
+    }
+
+    return {
+
+      success: true,
+
+      user: data.user,
+
+      session: sessionCheck.session,
+
+      perfil: perfil
+
+    };
+
+  }
 
 
-// ============================================
-// USUÁRIO LOGADO
-// ============================================
+  window.login = login;
+  window.Login = login;
 
-async function getUsuarioAtual() {
+
+  /* =========================================================
+     BUSCAR PERFIL
+     ========================================================= */
+
+  async function getPerfil(userId) {
+
     try {
-        const {
-            data: { user },
-            error
-        } = await supabaseClient.auth.getUser();
 
-        if (error || !user) {
-            return null;
+      const supabase =
+        requireClient();
+
+      let id = userId;
+
+      if (!id) {
+
+        const {
+          data: {
+            user
+          }
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+          return null;
         }
 
-        return user;
+        id = user.id;
 
-    } catch (error) {
-        console.error("Erro ao obter usuário:", error);
+      }
+
+
+      const {
+        data,
+        error
+      } = await supabase
+        .from("perfis")
+        .select("*")
+        .eq("id", id)
+        .maybeSingle();
+
+
+      if (error) {
+
+        console.error(
+          "Erro ao buscar perfil:",
+          error
+        );
+
         return null;
-    }
-}
+
+      }
 
 
-// ============================================
-// LOGOUT
-// ============================================
-
-async function logout() {
-    try {
-        await supabaseClient.auth.signOut();
-
-        window.location.replace("login.html");
+      return data || null;
 
     } catch (error) {
-        console.error("Erro ao sair:", error);
-        window.location.replace("login.html");
+
+      console.error(error);
+
+      return null;
+
     }
-}
+
+  }
+
+
+  window.getPerfil =
+    getPerfil;
+
+
+  /* =========================================================
+     TIPO DO USUÁRIO
+     ========================================================= */
+
+  async function getTipoUsuario(userId) {
+
+    const perfil =
+      await getPerfil(userId);
+
+    return perfil
+      ? perfil.tipo
+      : null;
+
+  }
+
+
+  window.getTipoUsuario =
+    getTipoUsuario;
+
+
+  /* =========================================================
+     USUÁRIO ATUAL
+     ========================================================= */
+
+  async function usuarioAtual() {
+
+    try {
+
+      const supabase =
+        requireClient();
+
+      const {
+        data: {
+          user
+        }
+      } = await supabase.auth.getUser();
+
+      return user || null;
+
+    } catch (error) {
+
+      console.error(error);
+
+      return null;
+
+    }
+
+  }
+
+
+  window.usuarioAtual =
+    usuarioAtual;
+
+
+  /* =========================================================
+     SAIR
+     ========================================================= */
+
+  async function sair() {
+
+    try {
+
+      const supabase =
+        requireClient();
+
+      await supabase.auth.signOut();
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+    window.location.href =
+      "login.html";
+
+  }
+
+
+  window.sair =
+    sair;
+
+
+  /* =========================================================
+     PROTEGER PÁGINA
+     ========================================================= */
+
+  async function proteger(
+    tiposPermitidos = []
+  ) {
+
+    try {
+
+      const supabase =
+        requireClient();
+
+      const {
+        data: {
+          user
+        }
+      } = await supabase.auth.getUser();
+
+
+      if (!user) {
+
+        window.location.href =
+          "login.html";
+
+        return null;
+
+      }
+
+
+      const perfil =
+        await getPerfil(user.id);
+
+
+      if (!perfil) {
+
+        window.location.href =
+          "login.html";
+
+        return null;
+
+      }
+
+
+      if (
+        Array.isArray(tiposPermitidos) &&
+        tiposPermitidos.length > 0 &&
+        !tiposPermitidos.includes(
+          perfil.tipo
+        )
+      ) {
+
+        if (perfil.tipo === "admin") {
+
+          window.location.href =
+            "painel.html";
+
+        } else if (
+          perfil.tipo === "modelo"
+        ) {
+
+          window.location.href =
+            "painel-modelo.html";
+
+        } else {
+
+          window.location.href =
+            "painel-usuario.html";
+
+        }
+
+        return null;
+
+      }
+
+
+      return {
+
+        user: user,
+
+        perfil: perfil
+
+      };
+
+    } catch (error) {
+
+      console.error(error);
+
+      window.location.href =
+        "login.html";
+
+      return null;
+
+    }
+
+  }
+
+
+  window.proteger =
+    proteger;
+
+
+  /* =========================================================
+     URL DE RECUPERAÇÃO
+     ========================================================= */
+
+  function urlRecuperacaoSenha() {
+
+    const base =
+      window.location.origin +
+      window.location.pathname.substring(
+        0,
+        window.location.pathname.lastIndexOf("/") + 1
+      );
+
+    return base +
+      "nova-senha.html";
+
+  }
+
+
+  window.urlRecuperacaoSenha =
+    urlRecuperacaoSenha;
+
+
+  /* =========================================================
+     SOLICITAR RECUPERAÇÃO DE SENHA
+     ========================================================= */
+
+  async function solicitarRecuperacaoSenha(
+    email
+  ) {
+
+    try {
+
+      const supabase =
+        requireClient();
+
+      email = String(email || "")
+        .trim()
+        .toLowerCase();
+
+
+      if (!email) {
+
+        throw new Error(
+          "Digite seu e-mail."
+        );
+
+      }
+
+
+      const {
+        error
+      } =
+        await supabase.auth
+          .resetPasswordForEmail(
+            email,
+            {
+              redirectTo:
+                urlRecuperacaoSenha()
+            }
+          );
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      return {
+
+        success: true
+
+      };
+
+    } catch (error) {
+
+      console.error(error);
+
+      return {
+
+        success: false,
+
+        error:
+          friendlyAuthError(error)
+
+      };
+
+    }
+
+  }
+
+
+  window.solicitarRecuperacaoSenha =
+    solicitarRecuperacaoSenha;
+
+
+  /* =========================================================
+     ATUALIZAR SENHA
+     ========================================================= */
+
+  async function atualizarSenha(
+    novaSenha
+  ) {
+
+    try {
+
+      const supabase =
+        requireClient();
+
+      if (
+        !novaSenha ||
+        novaSenha.length < 6
+      ) {
+
+        throw new Error(
+          "A nova senha precisa ter pelo menos 6 caracteres."
+        );
+
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await supabase.auth.updateUser({
+          password: novaSenha
+        });
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      return {
+
+        success: true,
+
+        data: data
+
+      };
+
+    } catch (error) {
+
+      console.error(error);
+
+      return {
+
+        success: false,
+
+        error:
+          friendlyAuthError(error)
+
+      };
+
+    }
+
+  }
+
+
+  window.atualizarSenha =
+    atualizarSenha;
+
+
+  /* =========================================================
+     ESCAPE HTML
+     ========================================================= */
+
+  function escapeHTML(valor) {
+
+    return String(valor ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  window.escapeHTML =
+    escapeHTML;
+
+
+})();

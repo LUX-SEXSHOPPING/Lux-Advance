@@ -1,6 +1,6 @@
 /* =========================================================
    LUX — AUTENTICAÇÃO
-   V3 ATUALIZADA
+   V3 CORRIGIDA
    ========================================================= */
 
 
@@ -13,11 +13,9 @@ function requireClient() {
   const client = window.luxSupabase;
 
   if (!client) {
-
     throw new Error(
       "Supabase não foi inicializado. Verifique o config.js."
     );
-
   }
 
   return client;
@@ -25,10 +23,33 @@ function requireClient() {
 
 
 /* =========================================================
-   PERFIL DO USUÁRIO
+   PERFIL PRINCIPAL
    ========================================================= */
 
 async function getPerfil(userId) {
+
+  const supabase = requireClient();
+
+  const { data, error } = await supabase
+    .from("perfis")
+    .select("*")
+    .eq("id", userId)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Erro ao buscar perfil:", error);
+    throw error;
+  }
+
+  return data;
+}
+
+
+/* =========================================================
+   DADOS DA MODELO
+   ========================================================= */
+
+async function getModeloPerfil(userId) {
 
   const supabase = requireClient();
 
@@ -39,7 +60,12 @@ async function getPerfil(userId) {
     .maybeSingle();
 
   if (error) {
-    throw error;
+    console.error(
+      "Erro ao buscar modelo_perfis:",
+      error
+    );
+
+    return null;
   }
 
   return data;
@@ -58,6 +84,11 @@ async function usuarioAtual() {
     await supabase.auth.getUser();
 
   if (error) {
+    console.error(
+      "Erro ao identificar usuário:",
+      error
+    );
+
     return null;
   }
 
@@ -73,7 +104,11 @@ async function getTipoUsuario(userId) {
 
   const perfil = await getPerfil(userId);
 
-  return perfil?.tipo || null;
+  if (!perfil) {
+    return null;
+  }
+
+  return perfil.tipo || null;
 }
 
 
@@ -88,21 +123,25 @@ async function login(email, senha) {
   email = String(email || "").trim();
 
   if (!email || !senha) {
-
     throw new Error(
       "Informe o e-mail e a senha."
     );
-
   }
 
 
-  const { data, error } =
-    await supabase.auth.signInWithPassword({
+  /* =====================================================
+     AUTENTICAÇÃO
+     ===================================================== */
 
-      email,
-      password: senha
+  const {
+    data,
+    error
+  } = await supabase.auth.signInWithPassword({
 
-    });
+    email,
+    password: senha
+
+  });
 
 
   if (error) {
@@ -112,9 +151,11 @@ async function login(email, senha) {
       error
     );
 
+    const msg =
+      error.message?.toLowerCase() || "";
+
     if (
-      error.message?.toLowerCase()
-        .includes("invalid login credentials")
+      msg.includes("invalid login credentials")
     ) {
 
       throw new Error(
@@ -127,12 +168,10 @@ async function login(email, senha) {
       error.message ||
       "Não foi possível realizar o login."
     );
-
   }
 
 
   const user = data?.user;
-
   const session = data?.session;
 
 
@@ -155,7 +194,7 @@ async function login(email, senha) {
 
 
   /* =====================================================
-     BUSCA O PERFIL
+     BUSCA PERFIL PRINCIPAL
      ===================================================== */
 
   const perfil =
@@ -174,7 +213,7 @@ async function login(email, senha) {
 
 
   /* =====================================================
-     CONTA BLOQUEADA
+     VERIFICA STATUS
      ===================================================== */
 
   if (
@@ -192,18 +231,20 @@ async function login(email, senha) {
 
 
   /* =====================================================
-     RETORNO
+     RETORNO COMPATÍVEL COM login.html
      ===================================================== */
 
   return {
 
-    success: true,
+    id: user.id,
 
     user,
 
     session,
 
-    perfil
+    perfil,
+
+    success: true
 
   };
 
@@ -238,31 +279,22 @@ async function cadastrar(
      ===================================================== */
 
   if (!nome) {
-
     throw new Error(
       "Informe seu nome."
     );
-
   }
 
-
   if (!email) {
-
     throw new Error(
       "Informe seu e-mail."
     );
-
   }
 
-
   if (!senha || senha.length < 6) {
-
     throw new Error(
       "A senha deve possuir pelo menos 6 caracteres."
     );
-
   }
-
 
   if (
     tipo !== "modelo" &&
@@ -314,7 +346,6 @@ async function cadastrar(
     const msg =
       error.message?.toLowerCase() || "";
 
-
     if (
       msg.includes("already registered") ||
       msg.includes("already exists")
@@ -325,7 +356,6 @@ async function cadastrar(
       );
 
     }
-
 
     throw new Error(
       error.message ||
@@ -348,10 +378,10 @@ async function cadastrar(
 
 
   /* =====================================================
-     CRIA PERFIL
+     PERFIL PRINCIPAL
      ===================================================== */
 
-  const perfil = {
+  const perfilBase = {
 
     id: user.id,
 
@@ -359,9 +389,10 @@ async function cadastrar(
 
     nome,
 
-    email,
-
-    ...extras
+    status:
+      tipo === "modelo"
+        ? "pendente"
+        : "ativo"
 
   };
 
@@ -370,8 +401,8 @@ async function cadastrar(
     data: perfilCriado,
     error: perfilError
   } = await supabase
-    .from("modelo_perfis")
-    .insert(perfil)
+    .from("perfis")
+    .insert(perfilBase)
     .select()
     .single();
 
@@ -383,12 +414,6 @@ async function cadastrar(
       perfilError
     );
 
-    /*
-     * Não apagamos o usuário Auth automaticamente.
-     * Isso evita problemas caso a confirmação de e-mail
-     * esteja ativada no Supabase.
-     */
-
     throw new Error(
       "A conta foi criada, mas houve um problema ao criar o perfil. Entre em contato com o administrador."
     );
@@ -397,14 +422,56 @@ async function cadastrar(
 
 
   /* =====================================================
-     MODELO — STATUS INICIAL
+     MODELO
      ===================================================== */
 
   if (tipo === "modelo") {
 
+    /*
+     * Os dados específicos da modelo são enviados
+     * separadamente para modelo_perfis.
+     */
+
+    const modeloPerfil = {
+
+      id: user.id,
+
+      ...extras
+
+    };
+
+
+    const {
+      error: modeloError
+    } = await supabase
+      .from("modelo_perfis")
+      .insert(modeloPerfil);
+
+
+    if (modeloError) {
+
+      console.error(
+        "Erro ao criar modelo_perfis:",
+        modeloError
+      );
+
+      /*
+       * O perfil principal já existe.
+       * Não apagamos a conta Auth.
+       */
+
+      throw new Error(
+        "Sua conta foi criada, mas houve um problema ao criar os dados do modelo. Entre em contato com o administrador."
+      );
+
+    }
+
+
     return {
 
       success: true,
+
+      id: user.id,
 
       user,
 
@@ -425,6 +492,8 @@ async function cadastrar(
   return {
 
     success: true,
+
+    id: user.id,
 
     user,
 
@@ -481,6 +550,9 @@ window.usuarioAtual =
 
 window.getPerfil =
   getPerfil;
+
+window.getModeloPerfil =
+  getModeloPerfil;
 
 window.getTipoUsuario =
   getTipoUsuario;

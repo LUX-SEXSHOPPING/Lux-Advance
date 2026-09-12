@@ -131,12 +131,16 @@
 
       try {
 
+        /* Verifica se o sistema de autenticação carregou */
+
         if (typeof window.login !== "function") {
           throw new Error(
             "Sistema de login não carregado. Atualize a página e tente novamente."
           );
         }
 
+
+        /* Faz login no Supabase */
 
         const usuario = await window.login(
           email,
@@ -151,31 +155,51 @@
         }
 
 
+        /* Busca o tipo da conta */
+
         const tipo = await window.getTipoUsuario(
           usuario.id
         );
+
+
+        if (!tipo) {
+          throw new Error(
+            "Sua conta foi criada, mas o perfil ainda não está disponível. Aguarde alguns instantes e tente novamente."
+          );
+        }
 
 
         mensagem.textContent =
           "Login realizado. Abrindo seu painel...";
 
 
+        /*
+         * REDIRECIONAMENTO DOS PAINÉIS
+         *
+         * Os arquivos estão na raiz do projeto.
+         */
+
         if (tipo === "modelo") {
 
           window.location.href =
-            "modelo/painel.html";
-
-        } else if (tipo === "admin") {
-
-          window.location.href =
-            "admin/painel.html";
-
-        } else {
-
-          window.location.href =
-            "usuario/painel.html";
+            "painel-modelo.html";
 
         }
+
+        else if (tipo === "admin") {
+
+          window.location.href =
+            "painel.html";
+
+        }
+
+        else {
+
+          window.location.href =
+            "painel-usuario.html";
+
+        }
+
 
       } catch (erro) {
 
@@ -185,6 +209,7 @@
         );
 
         mensagem.hidden = false;
+
         mensagem.className =
           "mensagem error";
 

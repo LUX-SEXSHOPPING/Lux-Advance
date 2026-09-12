@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>LUX — Entrar</title>
+
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+  <main class="login-wrap">
+
+    <a class="voltar" href="index.html">
+      ← Voltar ao LUX
+    </a>
+
+    <section class="login-card">
+
+      <div class="marca">LUX</div>
+
+      <p class="sub">
+        Acesso exclusivo
+      </p>
+
+      <p class="descricao-login">
+        Entre como usuário ou modelo.
+        Cada conta recebe uma área própria.
+      </p>
+
+      <div id="mensagem" class="mensagem" hidden></div>
+
+      <form id="loginForm">
+
+        <label for="email">
+          E-mail
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder="seu@email.com"
+        >
+
+        <label for="senha">
+          Senha
+        </label>
+
+        <input
+          id="senha"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="Sua senha"
+        >
+
+        <button
+          class="btn primary"
+          type="submit"
+        >
+          Entrar
+        </button>
+
+      </form>
+
+      <p class="senha-link">
+        <a href="recuperar-senha.html">
+          Esqueci minha senha
+        </a>
+      </p>
+
+      <div class="separador">
+        <span>CRIAR CONTA</span>
+      </div>
+
+      <div class="cadastros">
+
+        <a href="cadastro-usuario.html">
+          Criar conta de usuário
+        </a>
+
+        <a href="cadastro-modelo.html">
+          Cadastrar como modelo
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- CONFIGURAÇÃO -->
+  <script src="config.js"></script>
+
+  <!-- AUTENTICAÇÃO -->
+  <script src="auth.js"></script>
+
+
+  <script>
+
+    /*
+     * Se o usuário já estiver conectado,
+     * direciona automaticamente para sua área.
+     */
+
+    (async () => {
+
+      try {
+
+        const u = await usuarioAtual();
+
+        if (!u) return;
+
+        const t = await getTipoUsuario(u.id);
+
+        if (t === "modelo") {
+
+          location.href = "painel-modelo.html";
+
+        } else if (t === "admin") {
+
+          location.href = "painel.html";
+
+        } else {
+
+          location.href = "painel-usuario.html";
+
+        }
+
+      } catch (e) {
+
+        console.log(
+          "Nenhuma sessão ativa."
+        );
+
+      }
+
+    })();
+
+
+    /*
+     * LOGIN
+     */
+
+    document
+      .getElementById("loginForm")
+      .addEventListener(
+        "submit",
+        async function(e) {
+
+          e.preventDefault();
+
+          const mensagem =
+            document.getElementById("mensagem");
+
+          const email =
+            document
+              .getElementById("email")
+              .value
+              .trim();
+
+          const senha =
+            document
+              .getElementById("senha")
+              .value;
+
+
+          mensagem.hidden = false;
+          mensagem.className = "mensagem";
+          mensagem.textContent = "Entrando...";
+
+
+          try {
+
+            const usuario =
+              await login(
+                email,
+                senha
+              );
+
+            const tipo =
+              await getTipoUsuario(
+                usuario.id
+              );
+
+
+            if (tipo === "modelo") {
+
+              location.href =
+                "painel-modelo.html";
+
+            } else if (tipo === "admin") {
+
+              location.href =
+                "painel.html";
+
+            } else {
+
+              location.href =
+                "painel-usuario.html";
+
+            }
+
+
+          } catch (erro) {
+
+            mensagem.hidden = false;
+            mensagem.className =
+              "mensagem error";
+
+            mensagem.textContent =
+              erro.message;
+
+          }
+
+        }
+      );
+
+  </script>
+
+</body>
+</html>

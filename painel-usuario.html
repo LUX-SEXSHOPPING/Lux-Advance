@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>LUX — Área do Usuário</title>
+
+  <link
+    rel="stylesheet"
+    href="app.css"
+  >
+
+</head>
+
+<body>
+
+  <header class="topbar">
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+      LUX
+    </a>
+
+    <button
+      class="btn ghost"
+      id="btnSair"
+    >
+      Sair
+    </button>
+
+  </header>
+
+
+  <main class="container">
+
+    <section class="hero">
+
+      <div class="eyebrow">
+        ÁREA EXCLUSIVA
+      </div>
+
+      <h1
+        class="title"
+        id="titulo"
+      >
+        Minha conta
+      </h1>
+
+      <p
+        class="subtitle"
+        id="subtitulo"
+      >
+        Carregando suas informações...
+      </p>
+
+    </section>
+
+
+    <div
+      id="mensagem"
+      class="notice"
+      hidden
+    ></div>
+
+
+    <section
+      id="conteudo"
+      class="grid"
+      hidden
+    >
+
+      <article class="card">
+
+        <div class="card-body">
+
+          <span class="pill">
+            PERFIL
+          </span>
+
+          <h2 id="nomeUsuario">
+            Usuário
+          </h2>
+
+          <p
+            id="emailUsuario"
+            style="color:var(--muted)"
+          >
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article class="card">
+
+        <div class="card-body">
+
+          <span class="pill">
+            LUX
+          </span>
+
+          <h2>
+            Bem-vindo
+          </h2>
+
+          <p
+            style="
+              color:var(--muted);
+              line-height:1.7;
+            "
+          >
+            Sua conta está ativa.
+            Explore a plataforma LUX e
+            acompanhe as novidades.
+          </p>
+
+          <div class="actions">
+
+            <a
+              class="btn primary"
+              href="modelos.html"
+            >
+              Ver modelos
+            </a>
+
+            <a
+              class="btn"
+              href="index.html"
+            >
+              Página inicial
+            </a>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </section>
+
+  </main>
+
+
+  <footer class="footer">
+
+    LUX — Sensualidade & Sofisticação
+
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="config.js"></script>
+
+  <script src="auth.js"></script>
+
+
+  <script>
+
+    async function iniciar() {
+
+      const mensagem =
+        document.getElementById(
+          "mensagem"
+        );
+
+      try {
+
+        const user =
+          await usuarioAtual();
+
+
+        if (!user) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+        const perfil =
+          await getPerfil(
+            user.id
+          );
+
+
+        if (
+          perfil.tipo !== "usuario"
+        ) {
+
+          if (
+            perfil.tipo === "modelo"
+          ) {
+
+            window.location.href =
+              "painel-modelo.html";
+
+          }
+
+          else if (
+            perfil.tipo === "admin"
+          ) {
+
+            window.location.href =
+              "painel.html";
+
+          }
+
+          return;
+
+        }
+
+
+        document
+          .getElementById("nomeUsuario")
+          .textContent =
+          perfil.nome ||
+          "Usuário";
+
+
+        document
+          .getElementById("emailUsuario")
+          .textContent =
+          perfil.email ||
+          user.email ||
+          "";
+
+
+        document
+          .getElementById("titulo")
+          .textContent =
+          "Olá, " +
+          (
+            perfil.nome ||
+            "usuário"
+          );
+
+
+        document
+          .getElementById("subtitulo")
+          .textContent =
+          "Esta é sua área exclusiva na LUX.";
+
+
+        document
+          .getElementById("conteudo")
+          .hidden = false;
+
+
+      } catch (erro) {
+
+        console.error(erro);
+
+        mensagem.hidden = false;
+
+        mensagem.className =
+          "notice error";
+
+        mensagem.textContent =
+          erro.message ||
+          "Não foi possível carregar sua conta.";
+
+      }
+
+    }
+
+
+    document
+      .getElementById("btnSair")
+      .addEventListener(
+        "click",
+        sair
+      );
+
+
+    iniciar();
+
+  </script>
+
+</body>
+
+</html>

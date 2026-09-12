@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>LUX — Painel Administrativo</title>
+
+  <link
+    rel="stylesheet"
+    href="app.css"
+  >
+
+</head>
+
+<body>
+
+  <header class="topbar">
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+      LUX
+    </a>
+
+    <button
+      class="btn ghost"
+      onclick="sair()"
+    >
+      Sair
+    </button>
+
+  </header>
+
+
+  <main class="container">
+
+    <section class="hero">
+
+      <div class="eyebrow">
+        ADMINISTRAÇÃO
+      </div>
+
+      <h1 class="title">
+        Painel LUX
+      </h1>
+
+      <p class="subtitle">
+        Área administrativa da plataforma.
+      </p>
+
+    </section>
+
+
+    <div
+      id="mensagem"
+      class="notice"
+    >
+      Verificando acesso...
+    </div>
+
+
+    <section
+      id="conteudo"
+      hidden
+    >
+
+      <div class="stat-grid">
+
+        <div class="stat">
+
+          <small>
+            Modelos
+          </small>
+
+          <br>
+
+          <b id="totalModelos">
+            0
+          </b>
+
+        </div>
+
+
+        <div class="stat">
+
+          <small>
+            Pendentes
+          </small>
+
+          <br>
+
+          <b id="totalPendentes">
+            0
+          </b>
+
+        </div>
+
+
+        <div class="stat">
+
+          <small>
+            Usuários
+          </small>
+
+          <br>
+
+          <b id="totalUsuarios">
+            0
+          </b>
+
+        </div>
+
+      </div>
+
+
+      <br>
+
+
+      <section class="card">
+
+        <div class="card-body">
+
+          <h2>
+            Modelos aguardando aprovação
+          </h2>
+
+          <div id="pendentes">
+
+            <div class="empty">
+              Carregando...
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="config.js"></script>
+
+  <script src="auth.js"></script>
+
+
+  <script>
+
+    async function iniciarPainel() {
+
+      const mensagem =
+        document.getElementById(
+          "mensagem"
+        );
+
+      try {
+
+        const user =
+          await usuarioAtual();
+
+
+        if (!user) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+        const perfil =
+          await getPerfil(
+            user.id
+          );
+
+
+        if (
+          perfil.tipo !== "admin"
+        ) {
+
+          mensagem.className =
+            "notice error";
+
+          mensagem.textContent =
+            "Acesso restrito à administração.";
+
+          return;
+
+        }
+
+
+        mensagem.hidden = true;
+
+        document
+          .getElementById("conteudo")
+          .hidden = false;
+
+
+        await carregarDados();
+
+
+      } catch (erro) {
+
+        console.error(erro);
+
+        mensagem.className =
+          "notice error";
+
+        mensagem.textContent =
+          erro.message ||
+          "Não foi possível carregar o painel.";
+
+      }
+
+    }
+
+
+    async function carregarDados() {
+
+      const db =
+        requireClient();
+
+
+      const modelos =
+        await db
+          .from("perfis")
+          .select("*")
+          .eq("tipo", "modelo");
+
+
+      const usuarios =
+        await db
+          .from("perfis")
+          .select("*")
+          .eq("tipo", "usuario");
+
+
+      const lista =
+        modelos.data || [];
+
+
+      const pendentes =
+        lista.filter(
+          item =>
+            item.status === "pendente"
+        );
+
+
+      document
+        .getElementById("totalModelos")
+        .textContent =
+        lista.length;
+
+
+      document
+        .getElementById("totalPendentes")
+        .textContent =
+        pendentes.length;
+
+
+      document
+        .getElementById("totalUsuarios")
+        .textContent =
+        (usuarios.data || []).length;
+
+
+      const area =
+        document.getElementById(
+          "pendentes"
+        );
+
+
+      if (pendentes.length === 0) {
+
+        area.innerHTML = `
+          <div class="empty">
+            Nenhum cadastro aguardando aprovação.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      area.innerHTML =
+        pendentes.map(modelo => {
+
+          return `
+
+            <div
+              style="
+                padding:16px;
+                border-bottom:1px solid var(--line);
+              "
+            >
+
+              <strong>
+                ${escapeHTML(
+                  modelo.nome || "Sem nome"
+                )}
+              </strong>
+
+              <p
+                style="
+                  color:var(--muted);
+                "
+              >
+                ${escapeHTML(
+                  modelo.email || ""
+                )}
+              </p>
+
+              <span class="pill">
+                Pendente
+              </span>
+
+            </div>
+
+          `;
+
+        }).join("");
+
+    }
+
+
+    iniciarPainel();
+
+  </script>
+
+</body>
+
+</html>

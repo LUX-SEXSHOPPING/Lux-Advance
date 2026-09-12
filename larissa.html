@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Larissa — VIP LUX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body {
+            background: linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)),
+                        url('banner.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .conteudo { position: relative; z-index: 1; max-width: 420px; margin: 0 auto; }
+        .voltar {
+            display: inline-block;
+            color: #d4af37;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+        .voltar:hover { text-decoration: underline; }
+        .perfil-card {
+            background: rgba(0,0,0,0.6);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(212,175,55,0.4);
+            text-align: center;
+        }
+        .foto-modelo {
+            width: 100%;
+            max-width: 280px;
+            height: 360px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 3px solid #d4af37;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #d4af37;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .idade-cidade {
+            color: #ccc;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+        .disponivel {
+            display: inline-block;
+            background: rgba(0,200,80,0.2);
+            color: #00ff64;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .descricao {
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        .dados {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        .dados span {
+            background: rgba(212,175,55,0.15);
+            color: #e6c86e;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .btn-whatsapp {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #25d366, #128c7e);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+        .btn-whatsapp:hover { transform: scale(1.03); }
+    </style>
+</head>
+<body>
+    <div class="conteudo">
+        <a href="catalago.html" class="voltar"><i class="fas fa-chevron-left"></i> ← Voltar ao Catálogo</a>
+
+        <div class="perfil-card">
+            <img src="vip3.png" alt="Larissa" class="foto-modelo">
+
+            <h1>Larissa Hoffman</h1>
+            <p class="idade-cidade"><i class="fas fa-map-marker-alt"></i> Gravataí — RS</p>
+            
+            <span class="disponivel">🟢 Disponível</span>
+
+            <div class="dados">
+                <span>🎂 20 anos</span>
+                <span>📏 1.65m</span>
+            </div>
+
+            <div class="descricao">
+                💋 <strong>Mistério e sedução.</strong><br>
+                Jovem, misteriosa e envolvente. Traz o ardor de um amor proibido e a leveza de quem sabe encantar. Tem um sorriso que promete segredos e um olhar que convida a descobrir cada detalhe.<br><br>
+                ✨ <em>Disponível para momentos inesquecíveis.</em>
+            </div>
+
+            <a href="https://wa.me/5551980612041?text=💎 Olá! Vim pelo site — Gostaria de agendar com a Larissa." class="btn-whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i> Agendar pelo WhatsApp
+            </a>
+        </div>
+    </div>
+</body>
+</html>

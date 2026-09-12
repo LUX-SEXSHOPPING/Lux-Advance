@@ -1,0 +1,9 @@
+# LUX Advance — Supabase Edge Functions
+# criar-assinatura é chamada por usuários autenticados.
+# O webhook é público para o Mercado Pago e valida x-signature no próprio código.
+
+[functions.criar-assinatura]
+verify_jwt = true
+
+[functions.mercadopago-webhook]
+verify_jwt = false

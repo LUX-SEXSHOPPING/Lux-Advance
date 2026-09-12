@@ -17,9 +17,267 @@
     href="app.css"
   >
 
+  <style>
+
+    /* =========================================
+       LUX HALLOWEEN — PAINEL DA MODELO
+       ========================================= */
+
+    body {
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(255, 102, 0, .12),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 85% 80%,
+          rgba(110, 15, 46, .18),
+          transparent 35%
+        ),
+        #080607;
+    }
+
+    .topbar {
+      border-bottom: 1px solid rgba(255, 140, 0, .25);
+      box-shadow:
+        0 4px 25px rgba(0,0,0,.55);
+    }
+
+    .brand {
+      color: #f0d878 !important;
+      text-shadow:
+        0 0 12px rgba(240,216,120,.25);
+      letter-spacing: 5px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,140,0,.18);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(30,18,15,.96),
+          rgba(12,8,9,.98)
+        );
+      box-shadow:
+        0 15px 45px rgba(0,0,0,.45),
+        inset 0 1px rgba(255,255,255,.03);
+    }
+
+    .hero::before {
+      content: "🎃";
+      position: absolute;
+      right: 25px;
+      top: 18px;
+      font-size: 55px;
+      opacity: .12;
+      filter: grayscale(.3);
+    }
+
+    .hero::after {
+      content: "✦";
+      position: absolute;
+      right: 95px;
+      bottom: 20px;
+      font-size: 22px;
+      color: #ff8c00;
+      opacity: .35;
+    }
+
+    .eyebrow {
+      color: #ff9d32 !important;
+      letter-spacing: 3px;
+    }
+
+    .title {
+      text-shadow:
+        0 0 25px rgba(255,110,0,.12);
+    }
+
+    .subtitle {
+      color: #bdb0b5 !important;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,140,0,.16) !important;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(25,17,19,.98),
+          rgba(13,9,10,.98)
+        ) !important;
+      box-shadow:
+        0 15px 40px rgba(0,0,0,.42),
+        inset 0 1px rgba(255,255,255,.025);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: -60px;
+      bottom: -60px;
+      border-radius: 50%;
+      background: rgba(255,102,0,.07);
+      filter: blur(5px);
+      pointer-events: none;
+    }
+
+    .profile-head {
+      position: relative;
+      z-index: 2;
+    }
+
+    #foto {
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(255,110,0,.10),
+          #171012 70%
+        ) !important;
+
+      border-color:
+        rgba(255,140,0,.28) !important;
+
+      box-shadow:
+        0 0 30px rgba(255,100,0,.08),
+        inset 0 0 25px rgba(0,0,0,.5);
+    }
+
+    .pill {
+      border-color:
+        rgba(255,140,0,.3) !important;
+
+      background:
+        rgba(255,100,0,.08) !important;
+
+      color:
+        #f0d878 !important;
+    }
+
+    #seloModelo {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,140,0,.14),
+          rgba(110,15,46,.18)
+        ) !important;
+
+      border-color:
+        rgba(240,216,120,.35) !important;
+
+      box-shadow:
+        0 0 18px rgba(255,120,0,.08);
+    }
+
+    #statusModelo {
+      color: #ffad5c !important;
+    }
+
+    .info {
+      border-bottom:
+        1px solid rgba(255,140,0,.10);
+    }
+
+    .info small {
+      color: #8f8589 !important;
+    }
+
+    .info span {
+      color: #f0e8e2 !important;
+    }
+
+    .btn {
+      background:
+        linear-gradient(
+          135deg,
+          #d88916,
+          #b96808
+        ) !important;
+
+      color: #120b08 !important;
+
+      border: 0 !important;
+
+      box-shadow:
+        0 8px 25px rgba(210,100,0,.18);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 10px 30px rgba(255,120,0,.25);
+    }
+
+    .btn.ghost {
+      background:
+        rgba(255,255,255,.035) !important;
+
+      color:
+        #f0d878 !important;
+
+      border:
+        1px solid rgba(240,216,120,.25) !important;
+
+      box-shadow: none;
+    }
+
+    .footer {
+      border-top:
+        1px solid rgba(255,140,0,.12);
+
+      color: #756b70 !important;
+    }
+
+    /* Pequenas teias decorativas */
+
+    .halloween-decoration {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      color: #fff;
+      opacity: .08;
+      font-size: 75px;
+    }
+
+    .web-left {
+      left: -15px;
+      top: 90px;
+    }
+
+    .web-right {
+      right: -10px;
+      top: 240px;
+      transform: rotate(180deg);
+    }
+
+    .container,
+    .topbar,
+    .footer {
+      position: relative;
+      z-index: 2;
+    }
+
+  </style>
+
 </head>
 
+
 <body>
+
+  <div class="halloween-decoration web-left">
+    🕸️
+  </div>
+
+  <div class="halloween-decoration web-right">
+    🕸️
+  </div>
+
 
   <header class="topbar">
 
@@ -45,7 +303,7 @@
     <section class="hero">
 
       <div class="eyebrow">
-        ÁREA DA MODELO
+        🎃 ÁREA DA MODELO
       </div>
 
       <h1
@@ -97,6 +355,7 @@
                 color:var(--gold2);
                 font-family:'Playfair Display',serif;
                 font-size:28px;
+                overflow:hidden;
               "
             >
               LUX
@@ -106,7 +365,7 @@
             <div>
 
               <span class="pill">
-                MODELO LUX
+                🎃 MODELO LUX
               </span>
 
               <h2 id="nomeModelo">
@@ -116,16 +375,25 @@
               <p
                 id="emailModelo"
                 style="color:var(--muted)"
-              >
-              </p>
+              ></p>
 
-              <div id="seloModelo" class="pill lux-plan-badge" style="margin:8px 0;display:inline-flex">✦ LUX ESSENCE</div>
+
+              <div
+                id="seloModelo"
+                class="pill lux-plan-badge"
+                style="
+                  margin:8px 0;
+                  display:inline-flex
+                "
+              >
+                ✦ LUX ESSENCE
+              </div>
+
 
               <p
                 id="statusModelo"
                 style="color:var(--gold2)"
-              >
-              </p>
+              ></p>
 
             </div>
 
@@ -141,15 +409,18 @@
 
       <div class="grid">
 
+
         <article class="card">
 
           <div class="card-body">
 
             <h2>
-              Informações do perfil
+              ✦ Informações do perfil
             </h2>
 
+
             <div class="info-list">
+
 
               <div class="info">
 
@@ -202,6 +473,7 @@
 
               </div>
 
+
             </div>
 
           </div>
@@ -209,12 +481,13 @@
         </article>
 
 
+
         <article class="card">
 
           <div class="card-body">
 
             <h2>
-              Minha apresentação
+              🕯️ Minha apresentação
             </h2>
 
             <p
@@ -231,6 +504,7 @@
 
         </article>
 
+
       </div>
 
 
@@ -243,10 +517,11 @@
           class="btn"
           href="index.html"
         >
-          Voltar ao LUX
+          ✦ Voltar ao LUX
         </a>
 
       </div>
+
 
     </section>
 
@@ -255,7 +530,7 @@
 
   <footer class="footer">
 
-    LUX — Sensualidade & Sofisticação
+    LUX — Sensualidade & Sofisticação · Halloween Edition 🎃
 
   </footer>
 
@@ -272,9 +547,7 @@
     async function iniciar() {
 
       const mensagem =
-        document.getElementById(
-          "mensagem"
-        );
+        document.getElementById("mensagem");
 
 
       try {
@@ -293,10 +566,21 @@
         }
 
 
+        /*
+         * PERFIL PRINCIPAL
+         */
+
         const perfil =
-          await getPerfil(
-            user.id
+          await getPerfil(user.id);
+
+
+        if (!perfil) {
+
+          throw new Error(
+            "Perfil não encontrado."
           );
+
+        }
 
 
         if (
@@ -322,103 +606,177 @@
         }
 
 
-        document
-          .getElementById("nomeModelo")
-          .textContent =
+        /*
+         * PERFIL ESPECÍFICO DA MODELO
+         */
+
+        let modelo = null;
+
+
+        if (
+          typeof getModeloPerfil ===
+          "function"
+        ) {
+
+          modelo =
+            await getModeloPerfil(
+              user.id
+            );
+
+        }
+
+
+        /*
+         * NOME
+         */
+
+        const nome =
+          modelo?.nome_exibicao ||
           perfil.nome ||
           "Modelo";
 
 
         document
+          .getElementById("nomeModelo")
+          .textContent =
+          nome;
+
+
+        document
+          .getElementById("titulo")
+          .textContent =
+          "Olá, " + nome;
+
+
+        /*
+         * E-MAIL
+         */
+
+        document
           .getElementById("emailModelo")
           .textContent =
-          perfil.email ||
-          user.email ||
-          "";
+          user.email || "";
 
+
+        /*
+         * DADOS DO PERFIL
+         */
 
         document
           .getElementById("idade")
           .textContent =
-          perfil.idade ||
+          modelo?.idade ||
           "—";
 
 
         document
           .getElementById("altura")
           .textContent =
-          perfil.altura ||
-          "—";
+          modelo?.altura_cm
+            ? modelo.altura_cm + " cm"
+            : "—";
 
 
         document
           .getElementById("cidade")
           .textContent =
-          perfil.cidade ||
+          modelo?.cidade ||
           "—";
 
 
         document
           .getElementById("bio")
           .textContent =
-          perfil.bio ||
+          modelo?.descricao ||
           "Nenhuma apresentação cadastrada.";
+
+
+        /*
+         * DISPONIBILIDADE
+         *
+         * Caso o banco ainda não tenha
+         * esse campo, mostra "Disponível".
+         */
+
+        const disponibilidade =
+          modelo?.disponivel;
 
 
         document
           .getElementById("disponivel")
           .textContent =
-          perfil.disponivel
-            ? "Disponível"
-            : "Indisponível";
+          disponibilidade === false
+            ? "Indisponível"
+            : "Disponível";
+
+
+        /*
+         * STATUS
+         */
+
+        const status =
+          perfil.status ||
+          modelo?.verificacao_status ||
+          "pendente";
 
 
         document
           .getElementById("statusModelo")
           .textContent =
           "Status: " +
-          (
-            perfil.status ||
-            "pendente"
-          );
+          status;
 
 
-        if (
-          perfil.foto
-        ) {
+        /*
+         * FOTO
+         */
+
+        const fotoUrl =
+          modelo?.foto_url ||
+          modelo?.foto;
+
+
+        if (fotoUrl) {
 
           const foto =
-            document.createElement(
-              "img"
-            );
+            document.createElement("img");
+
 
           foto.src =
-            perfil.foto;
+            fotoUrl;
+
 
           foto.alt =
-            perfil.nome ||
-            "Modelo LUX";
+            nome;
+
 
           foto.style.width =
             "190px";
 
+
           foto.style.height =
             "235px";
+
 
           foto.style.objectFit =
             "cover";
 
+
           foto.style.borderRadius =
             "20px";
 
+
           foto.style.border =
-            "1px solid var(--line)";
+            "1px solid rgba(255,140,0,.28)";
+
+
+          foto.style.boxShadow =
+            "0 0 30px rgba(255,100,0,.10)";
 
 
           const container =
-            document.getElementById(
-              "foto"
-            );
+            document.getElementById("foto");
+
 
           container.replaceWith(
             foto
@@ -427,21 +785,53 @@
         }
 
 
-        document
-          .getElementById("titulo")
-          .textContent =
-          "Olá, " +
-          (
-            perfil.nome ||
-            "modelo"
-          );
+        /*
+         * SELO / PLANO
+         */
 
+        const selo =
+          modelo?.selo_codigo ||
+          modelo?.plano_codigo ||
+          "ESSENCE";
+
+
+        const nomesSelo = {
+
+          ESSENCE:
+            "✦ LUX ESSENCE",
+
+          DESFIRE:
+            "🔥 LUX DESFIRE",
+
+          ELITE:
+            "👑 LUX ELITE",
+
+          ROYAL:
+            "♛ LUX ROYAL"
+
+        };
+
+
+        document
+          .getElementById("seloModelo")
+          .textContent =
+          nomesSelo[selo] ||
+          "✦ LUX ESSENCE";
+
+
+        /*
+         * SUBTÍTULO
+         */
 
         document
           .getElementById("subtitulo")
           .textContent =
           "Gerencie e acompanhe seu perfil na LUX.";
 
+
+        /*
+         * MOSTRA CONTEÚDO
+         */
 
         document
           .getElementById("conteudo")
@@ -450,12 +840,19 @@
 
       } catch (erro) {
 
-        console.error(erro);
+        console.error(
+          "Erro no painel da modelo:",
+          erro
+        );
 
-        mensagem.hidden = false;
+
+        mensagem.hidden =
+          false;
+
 
         mensagem.className =
           "notice error";
+
 
         mensagem.textContent =
           erro.message ||
@@ -465,6 +862,10 @@
 
     }
 
+
+    /*
+     * SAIR
+     */
 
     document
       .getElementById("btnSair")

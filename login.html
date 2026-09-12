@@ -1,231 +1,272 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-  <title>LUX — Entrar</title>
+    <title>LUX — Login</title>
 
-  <link rel="stylesheet" href="app.css">
-  <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="app.css">
 </head>
 
 <body>
 
-  <main class="login-wrap">
+    <main class="auth-page">
 
-    <a class="voltar" href="index.html">
-      ← Voltar ao LUX
-    </a>
+        <section class="auth-card">
 
-    <section class="login-card">
+            <div class="auth-header">
+                <h1>LUX</h1>
+                <p>Entre na sua conta</p>
+            </div>
 
-      <div class="marca">LUX</div>
+            <form id="loginForm">
 
-      <p class="sub">
-        Acesso exclusivo
-      </p>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
 
-      <p class="descricao-login">
-        Entre como usuário ou modelo.
-        Cada conta recebe uma área própria.
-      </p>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="seu@email.com"
+                        autocomplete="email"
+                        required>
+                </div>
 
-      <div id="mensagem" class="mensagem" hidden></div>
+                <div class="form-group">
+                    <label for="senha">Senha</label>
 
-      <form id="loginForm">
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Sua senha"
+                        autocomplete="current-password"
+                        required>
+                </div>
 
-        <label for="email">
-          E-mail
-        </label>
+                <div
+                    id="mensagem"
+                    style="display:none;">
+                </div>
 
-        <input
-          id="email"
-          type="email"
-          autocomplete="email"
-          required
-          placeholder="seu@email.com"
-        >
+                <button
+                    type="submit"
+                    id="btnLogin">
+                    ENTRAR
+                </button>
 
-        <label for="senha">
-          Senha
-        </label>
+            </form>
 
-        <input
-          id="senha"
-          type="password"
-          autocomplete="current-password"
-          required
-          placeholder="Sua senha"
-        >
+            <div class="auth-links">
 
-        <button
-          class="btn primary"
-          type="submit"
-        >
-          Entrar
-        </button>
+                <a href="cadastro.html">
+                    Criar conta
+                </a>
 
-      </form>
+                <a href="index.html">
+                    Voltar para o início
+                </a>
 
-      <p class="senha-link">
-        <a href="recuperar-senha.html">
-          Esqueci minha senha
-        </a>
-      </p>
+            </div>
 
-      <div class="separador">
-        <span>CRIAR CONTA</span>
-      </div>
+        </section>
 
-      <div class="cadastros">
+    </main>
 
-        <a href="cadastro-usuario.html">
-          Criar conta de usuário
-        </a>
 
-        <a href="cadastro-modelo.html">
-          Cadastrar como modelo
-        </a>
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-      </div>
+    <!-- CONFIGURAÇÃO -->
+    <script src="config.js"></script>
 
-    </section>
+    <!-- AUTENTICAÇÃO -->
+    <script src="auth.js"></script>
 
-  </main>
 
+    <script>
 
-  <!-- SUPABASE -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        // ============================================
+        // REDIRECIONAMENTO POR PERFIL
+        // ============================================
 
-  <!-- CONFIGURAÇÃO -->
-  <script src="config.js"></script>
+        function redirecionarPorPerfil(perfil) {
 
-  <!-- AUTENTICAÇÃO -->
-  <script src="auth.js"></script>
-
-
-  <script>
-
-    /*
-     * Se o usuário já estiver conectado,
-     * direciona automaticamente para sua área.
-     */
-
-    (async () => {
-
-      try {
-
-        const u = await usuarioAtual();
-
-        if (!u) return;
-
-        const t = await getTipoUsuario(u.id);
-
-        if (t === "modelo") {
-
-          location.href = "painel-modelo.html";
-
-        } else if (t === "admin") {
-
-          location.href = "painel.html";
-
-        } else {
-
-          location.href = "painel-usuario.html";
-
-        }
-
-      } catch (e) {
-
-        console.log(
-          "Nenhuma sessão ativa."
-        );
-
-      }
-
-    })();
-
-
-    /*
-     * LOGIN
-     */
-
-    document
-      .getElementById("loginForm")
-      .addEventListener(
-        "submit",
-        async function(e) {
-
-          e.preventDefault();
-
-          const mensagem =
-            document.getElementById("mensagem");
-
-          const email =
-            document
-              .getElementById("email")
-              .value
-              .trim();
-
-          const senha =
-            document
-              .getElementById("senha")
-              .value;
-
-
-          mensagem.hidden = false;
-          mensagem.className = "mensagem";
-          mensagem.textContent = "Entrando...";
-
-
-          try {
-
-            const usuario =
-              await login(
-                email,
-                senha
-              );
-
-            const tipo =
-              await getTipoUsuario(
-                usuario.id
-              );
-
-
-            if (tipo === "modelo") {
-
-              location.href =
-                "painel-modelo.html";
-
-            } else if (tipo === "admin") {
-
-              location.href =
-                "painel.html";
-
-            } else {
-
-              location.href =
-                "painel-usuario.html";
-
+            if (!perfil || !perfil.tipo) {
+                throw new Error(
+                    "Tipo de usuário não encontrado."
+                );
             }
 
+            switch (perfil.tipo) {
 
-          } catch (erro) {
+                case "modelo":
+                    window.location.replace(
+                        "painel-modelo.html"
+                    );
+                    break;
 
-            mensagem.hidden = false;
-            mensagem.className =
-              "mensagem error";
+                case "usuario":
+                    window.location.replace(
+                        "painel-usuario.html"
+                    );
+                    break;
 
-            mensagem.textContent =
-              erro.message;
+                case "admin":
+                    window.location.replace(
+                        "painel-adm.html"
+                    );
+                    break;
 
-          }
-
+                default:
+                    throw new Error(
+                        "Tipo de usuário inválido."
+                    );
+            }
         }
-      );
 
-  </script>
+
+        // ============================================
+        // VERIFICAR SESSÃO EXISTENTE
+        // ============================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async () => {
+
+                try {
+
+                    const {
+                        data: { session }
+                    } =
+                        await supabaseClient.auth.getSession();
+
+                    if (!session?.user) {
+                        return;
+                    }
+
+                    const perfil =
+                        await getPerfil(
+                            session.user.id
+                        );
+
+                    if (!perfil) {
+                        await supabaseClient.auth.signOut();
+                        return;
+                    }
+
+                    redirecionarPorPerfil(perfil);
+
+                } catch (error) {
+
+                    console.error(
+                        "Erro ao verificar sessão:",
+                        error
+                    );
+
+                }
+            }
+        );
+
+
+        // ============================================
+        // LOGIN
+        // ============================================
+
+        document
+            .getElementById("loginForm")
+            .addEventListener(
+                "submit",
+                async function (event) {
+
+                    event.preventDefault();
+
+                    const email =
+                        document
+                            .getElementById("email")
+                            .value
+                            .trim();
+
+                    const senha =
+                        document
+                            .getElementById("senha")
+                            .value;
+
+                    const btn =
+                        document
+                            .getElementById("btnLogin");
+
+                    const mensagem =
+                        document
+                            .getElementById("mensagem");
+
+
+                    btn.disabled = true;
+
+                    btn.textContent =
+                        "ENTRANDO...";
+
+                    mensagem.style.display =
+                        "none";
+
+                    try {
+
+                        const resultado =
+                            await login(
+                                email,
+                                senha
+                            );
+
+                        if (!resultado.success) {
+                            throw new Error(
+                                resultado.error ||
+                                "Não foi possível fazer login."
+                            );
+                        }
+
+                        const perfil =
+                            resultado.perfil;
+
+                        if (!perfil) {
+                            throw new Error(
+                                "Perfil não encontrado."
+                            );
+                        }
+
+                        // Um único redirecionamento
+                        redirecionarPorPerfil(
+                            perfil
+                        );
+
+                    } catch (error) {
+
+                        console.error(
+                            "Erro no login:",
+                            error
+                        );
+
+                        mensagem.textContent =
+                            error?.message ||
+                            "E-mail ou senha incorretos.";
+
+                        mensagem.style.display =
+                            "block";
+
+                        btn.disabled = false;
+
+                        btn.textContent =
+                            "ENTRAR";
+                    }
+                }
+            );
+
+    </script>
 
 </body>
+
 </html>

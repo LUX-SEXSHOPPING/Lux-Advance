@@ -1,474 +1,2043 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#c9a227">
-<meta name="description" content="LUX Advance — Mais que um site, uma experiência. Conectamos momentos especiais com pessoas extraordinárias.">
-<title>LUX Advance — Mais que um site, uma experiência</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>LUX Store | Produtos Sensuais</title>
 
-<style>
-:root{
-  --dourado:#c9a227;
-  --dourado-claro:#f0d878;
-  --champanhe:#f5e6c8;
-  --texto-claro:#efe7dd;
-  --texto-suave:#cbbfaf;
-  --ouro-brilhante:#ffd700;
-  --borda-dourada:rgba(201,162,39,.28);
-}
+  <meta
+    name="description"
+    content="Loja virtual LUX com produtos sensuais premium, carrinho e checkout completo."
+  />
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',system-ui,sans-serif
-}
+  <style>
 
-html{
-  scroll-behavior:smooth
-}
-
-body{
-  color:var(--texto-claro);
-  min-height:100vh;
-  background:#000 url('lux-halloween.jpg') center top / cover no-repeat fixed;
-}
-
-body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.42);
-  z-index:0;
-  pointer-events:none;
-}
-
-.conteudo{
-  position:relative;
-  z-index:1;
-  max-width:1120px;
-  margin:0 auto;
-  padding:0 22px
-}
-
-/* ===================== MENU REFINADO ===================== */
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:24px 0;
-  flex-wrap:wrap;
-  gap:16px;
-  position:relative;
-  z-index:10;
-}
-
-.logo-header{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.logo-img{
-  width:80px;
-  height:80px;
-  object-fit:contain;
-  filter:brightness(1.3) saturate(1.4) drop-shadow(0 0 12px rgba(201,162,39,.5));
-  transition:all .3s;
-}
-
-.logo-img:hover{
-  filter:brightness(1.5) saturate(1.6) drop-shadow(0 0 20px rgba(201,162,39,.8));
-  transform:scale(1.08);
-}
-
-.logo-lux{
-  font-size:40px;
-  font-weight:800;
-  font-style:italic;
-  letter-spacing:6px;
-  color:var(--champanhe);
-  text-shadow:0 0 24px rgba(201,162,39,.4);
-  position:relative;
-  z-index:11;
-}
-
-.logo-lux::after{
-  content:'';
-  position:absolute;
-  left:2px;
-  right:14px;
-  bottom:-7px;
-  height:1px;
-  background:linear-gradient(90deg,var(--dourado),transparent)
-}
-
-nav{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:flex-end;
-  position:relative;
-  z-index:11;
-}
-
-nav a{
-  width:82px;
-  height:76px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  color:var(--texto-suave);
-  text-decoration:none;
-  font-size:13px;
-  letter-spacing:.5px;
-  border:1px solid rgba(201,162,39,.22);
-  border-radius:12px;
-  background:rgba(10,6,2,.55);
-  backdrop-filter:blur(8px);
-  transition:all .3s ease;
-  box-shadow:inset 0 1px 0 rgba(255,255,210,.06), 0 4px 12px rgba(0,0,0,.35);
-}
-
-nav a i{
-  font-size:18px;
-  color:var(--dourado-claro);
-  transition:color .3s ease;
-}
-
-nav a.ativo,
-nav a:hover{
-  color:var(--dourado-claro);
-  border-color:rgba(212,175,55,.45);
-  background:rgba(201,162,39,.12);
-  box-shadow:0 0 18px rgba(212,175,55,.18), inset 0 1px 0 rgba(255,255,210,.12);
-  transform:translateY(-2px);
-}
-
-nav a.ativo i,
-nav a:hover i{
-  color:var(--ouro-brilhante);
-}
-
-/* ===================== CONTEÚDO ===================== */
-.hero{
-  text-align:center;
-  padding:54px 10px 64px;
-  position:relative;
-  z-index:2;
-}
-
-.hero .selo{
-  display:inline-block;
-  font-size:12px;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  color:var(--dourado-claro);
-  border:1px solid var(--borda-dourada);
-  border-radius:999px;
-  padding:7px 20px;
-  background:rgba(201,162,39,.08);
-  margin-bottom:26px;
-  backdrop-filter:blur(6px);
-}
-
-.hero h1{
-  font-size:min(72px,13vw);
-  font-style:italic;
-  font-weight:800;
-  line-height:.95;
-  letter-spacing:6px;
-  padding-left:10px;
-  background:linear-gradient(
-    180deg,
-    #fdf3d0 0%,
-    var(--dourado-claro) 45%,
-    var(--dourado) 78%,
-    #8a6d14 100%
-  );
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  filter:drop-shadow(0 0 26px rgba(201,162,39,.3));
-}
-
-.hero .slogan{
-  font-size:clamp(17px,2.6vw,24px);
-  color:var(--champanhe);
-  margin-top:10px;
-  letter-spacing:1px;
-  text-shadow:0 2px 12px rgba(0,0,0,.8);
-}
-
-.hero .descricao{
-  max-width:620px;
-  margin:22px auto 0;
-  color:var(--texto-suave);
-  font-size:15px;
-  line-height:1.8;
-  text-shadow:0 1px 6px rgba(0,0,0,.6);
-}
-
-.hero .acoes{
-  display:flex;
-  gap:14px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-top:34px;
-  position:relative;
-  z-index:5;
-}
-
-.btn{
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  padding:14px 30px;
-  border-radius:999px;
-  font-size:15px;
-  font-weight:600;
-  text-decoration:none;
-  letter-spacing:.5px;
-  transition:all .3s;
-  cursor:pointer;
-  border:1px solid transparent;
-  position:relative;
-  z-index:5;
-}
-
-.btn-ouro{
-  background:linear-gradient(135deg,#f0d878,#c9a227 60%,#8a6d14);
-  color:#1a1206;
-  box-shadow:0 8px 28px rgba(201,162,39,.3)
-}
-
-.btn-ouro:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 34px rgba(201,162,39,.45)
-}
-
-.btn-contorno{
-  color:var(--dourado-claro);
-  border-color:var(--borda-dourada);
-  background:rgba(201,162,39,.06);
-  backdrop-filter:blur(4px);
-}
-
-.btn-contorno:hover{
-  background:rgba(201,162,39,.14);
-  transform:translateY(-2px);
-  box-shadow:0 0 16px rgba(201,162,39,.2);
-}
-
-.btn-pix{
-  background:linear-gradient(135deg,#fff176,#ffd700,#c9a227);
-  color:#2c2000;
-  border:2px solid #ffd700;
-  box-shadow:0 0 18px rgba(255,215,0,.4),0 8px 24px rgba(201,162,39,.35);
-  font-weight:700;
-}
-
-.btn-pix:hover{
-  transform:translateY(-3px);
-  box-shadow:0 0 28px rgba(255,215,0,.6),0 12px 30px rgba(201,162,39,.45);
-}
-
-.pix-info{
-  margin-top:12px;
-  color:var(--texto-suave);
-  font-size:13px;
-  text-shadow:0 1px 4px rgba(0,0,0,.6);
-}
-
-#pixModal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  z-index:2000;
-  align-items:center;
-  justify-content:center;
-  padding:16px;
-  backdrop-filter:blur(8px)
-}
-
-#pixModal .pix-card{
-  width:100%;
-  max-width:420px;
-  background:linear-gradient(135deg,#1a1206,#120d0f);
-  border:1px solid rgba(201,162,39,.35);
-  border-radius:16px;
-  padding:18px;
-  color:#efe7dd;
-  box-shadow:0 8px 32px rgba(0,0,0,.6)
-}
-
-#pixModal h3{
-  color:#f0d878;
-  font-size:20px;
-  margin-bottom:14px
-}
-
-#pixModal label{
-  color:#d4c5a9;
-  font-size:13px;
-  font-weight:600;
-  display:block;
-  margin-bottom:6px
-}
-
-#pixModal select,
-#pixModal input,
-#pixModal textarea{
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  margin-bottom:10px;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(201,162,39,.2);
-  color:#efe7dd;
-  font-size:15px
-}
-
-#pixModal select:focus,
-#pixModal input:focus{
-  outline:none;
-  border-color:rgba(201,162,39,.5);
-}
-
-@media (max-width: 768px) {
-  .logo-img{width:60px;height:60px;}
-  .logo-lux{font-size:28px;}
-
-  nav{
-    justify-content:center;
-    width:100%;
-  }
-
-  nav a{
-    width:70px;
-    height:68px;
-    font-size:12px;
-  }
-
-  nav a i{
-    font-size:16px;
-  }
-}
-</style>
-</head>
-<body>
-<a href="login.html" style="position:fixed;right:16px;top:16px;z-index:9999;color:#f0d878;text-decoration:none;border:1px solid rgba(201,162,39,.35);padding:9px 13px;border-radius:10px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);">Entrar</a>
-
-<div class="conteudo">
-<header>
-  <div class="logo-header">
-    <img src="logo3.png" alt="LUX Logo" class="logo-img">
-    <div class="logo-lux">LUX Advance</div>
-  </div>
-  <nav>
-    <a href="index.html" class="ativo"><i class="fas fa-home"></i>Início</a>
-    <a href="loja.html"><i class="fas fa-shopping-bag"></i>Loja</a>
-    <a href="catalago.html"><i class="fas fa-book"></i>Catálogo</a>
-    <a href="planos.html"><i class="fas fa-crown"></i>Planos</a>
-    <a href="pre-cadastro.html"><i class="fas fa-user-plus"></i>Pré-Cadastro</a>
-    <a href="lista-espera.html"><i class="fas fa-calendar-alt"></i>Agendar</a>
-    <a href="termos.html"><i class="fas fa-shield-alt"></i>Termos</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <span class="selo">✦ Seleção Premium ✦</span>
-  <h1>LUX Advance</h1>
-  <p class="slogan">MAIS QUE UM SITE, UMA EXPERIÊNCIA</p>
-  <p class="descricao">Conectamos momentos especiais com pessoas extraordinárias.</p>
-  <div class="acoes">
-    <a href="catalago.html" class="btn btn-ouro"><i class="fas fa-gem"></i> Ver Catálogo</a>
-    <a href="planos.html" class="btn btn-contorno"><i class="fas fa-star"></i> Conhecer Planos</a>
-    <button type="button" id="btnDoarPix" class="btn btn-pix"><i class="fas fa-qrcode"></i> Doar via PIX</button>
-  </div>
-  <p class="pix-info">Doe quanto desejar — valor mínimo: R$ 0,50</p>
-</section>
-</div>
-
-<div id="pixModal">
-  <div class="pix-card">
-    <h3>💛 Doação via PIX</h3>
-    <label for="pixValor">Escolha o valor:</label>
-    <select id="pixValor">
-      <option value="0.50" selected>R$ 0,50</option>
-      <option value="5">R$ 5,00</option>
-      <option value="10">R$ 10,00</option>
-      <option value="15">R$ 15,00</option>
-      <option value="20">R$ 20,00</option>
-      <option value="25">R$ 25,00</option>
-      <option value="custom">Valor que desejar</option>
-    </select>
-    <input id="pixValorCustom" type="number" min="0.50" step="0.01" value="0.50" placeholder="Mínimo R$ 0,50" style="display:none" />
-    <p style="font-size:12px;color:#cbbfaf;margin:10px 0">Chave PIX: <strong>ajudaasofia@gmail.com</strong></p>
-    <textarea id="pixTexto" readonly style="width:100%;height:70px;border-radius:8px;border:1px solid rgba(201,162,39,.2);background:rgba(0,0,0,.45);color:#ddd;padding:8px;resize:none;margin-bottom:12px"></textarea>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button type="button" id="gerarPixBtn" class="btn btn-ouro">Gerar PIX</button>
-      <button type="button" id="copiarPixBtn" class="btn btn-contorno">Copiar</button>
-      <button type="button" id="fecharPixBtn" class="btn btn-contorno">Fechar</button>
-    </div>
-  </div>
-</div>
-
-<script src="loja.js"></script>
-<script>
-(function(){
-const chavePix='ajudaasofia@gmail.com';
-const btnDoarPix=document.getElementById('btnDoarPix');
-const pixModal=document.getElementById('pixModal');
-const pixValor=document.getElementById('pixValor');
-const pixValorCustom=document.getElementById('pixValorCustom');
-const gerarPixBtn=document.getElementById('gerarPixBtn');
-const copiarPixBtn=document.getElementById('copiarPixBtn');
-const fecharPixBtn=document.getElementById('fecharPixBtn');
-const pixTexto=document.getElementById('pixTexto');
-if(!btnDoarPix)return;
-
-btnDoarPix.addEventListener('click',()=>{
-  pixModal.style.display='flex';
-  pixTexto.value='';
-  pixValor.value='0.50';
-  pixValorCustom.style.display='none';
-});
-
-pixValor.addEventListener('change',()=>{
-  const ehCustom=pixValor.value==='custom';
-  pixValorCustom.style.display=ehCustom?'block':'none';
-});
-
-gerarPixBtn.addEventListener('click',()=>{
-  let valor=pixValor.value;
-  if(valor==='custom'){
-    valor=parseFloat(pixValorCustom.value);
-    if(!valor || isNaN(valor) || valor<0.50){
-      alert('⚠️ Valor mínimo: R$ 0,50 — ajuste por favor.');
-      pixValorCustom.value='0.50';
-      return;
+    :root{
+      --bg:#0a0a0f;
+      --card:#12121a;
+      --card-2:#181824;
+      --gold:#d4af37;
+      --gold-soft:#f0d98a;
+      --text:#f5f5f7;
+      --muted:#b6b6c4;
+      --danger:#ff5d73;
+      --ok:#34d399;
+      --accent:#8b1e3f;
+      --accent-2:#b32654;
+      --border:rgba(255,255,255,.08);
+      --shadow:0 8px 32px rgba(0,0,0,.4);
+      --radius:16px;
     }
-  }
-  pixTexto.value=chavePix;
-});
 
-copiarPixBtn.addEventListener('click',async()=>{
- if(!pixTexto.value.trim()){alert('Primeiro gere o PIX.');return;}
- try{await navigator.clipboard.writeText(pixTexto.value);alert('✅ PIX copiado com sucesso!');}
- catch{pixTexto.select();document.execCommand('copy');alert('✅ PIX copiado com sucesso!');}
-});
+    *{
+      box-sizing:border-box;
+    }
 
-fecharPixBtn.addEventListener('click',()=>{pixModal.style.display='none';});
-pixModal.addEventListener('click',(e)=>{if(e.target===pixModal)pixModal.style.display='none';});
-})();
-</script>
+    body{
+      margin:0;
+      font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(
+          1200px 500px at 20% -10%,
+          rgba(179,38,84,.25),
+          transparent 55%
+        ),
+        radial-gradient(
+          1400px 900px at 80% 80%,
+          rgba(212,175,55,.1),
+          transparent 50%
+        );
+      background-attachment:fixed;
+      color:var(--text);
+      background-color:var(--bg);
+    }
+
+    .container{
+      width:min(1200px,92%);
+      margin:0 auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(10px);
+      background:rgba(10,10,15,.75);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:14px 0;
+    }
+
+    /* BOTÃO ENTRAR */
+
+    .top-left{
+      display:flex;
+      align-items:center;
+      flex-shrink:0;
+    }
+
+    .btn-entrar{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+
+      min-width:125px;
+
+      padding:12px 22px;
+
+      border-radius:12px;
+
+      border:1px solid #f0d98a;
+
+      background:
+        linear-gradient(
+          135deg,
+          #d4af37,
+          #f0d98a
+        );
+
+      color:#17120a;
+
+      font-size:1rem;
+      font-weight:800;
+
+      text-decoration:none;
+
+      box-shadow:
+        0 6px 20px
+        rgba(212,175,55,.28);
+
+      transition:.2s ease;
+    }
+
+    .btn-entrar:hover{
+      transform:translateY(-1px);
+
+      box-shadow:
+        0 8px 26px
+        rgba(212,175,55,.45);
+
+      filter:brightness(1.08);
+    }
+
+    /* MARCA */
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      font-weight:800;
+      flex:1;
+      justify-content:center;
+      min-width:0;
+    }
+
+    .brand-logo-wrapper{
+      width:72px;
+      height:72px;
+
+      border-radius:18px;
+
+      border:2px solid var(--gold);
+
+      display:grid;
+      place-items:center;
+
+      box-shadow:
+        0 8px 24px
+        rgba(212,175,55,.35);
+
+      background:
+        rgba(212,175,55,.08);
+
+      flex-shrink:0;
+    }
+
+    .brand-logo{
+      height:64px;
+      width:64px;
+
+      object-fit:contain;
+
+      filter:
+        drop-shadow(
+          0 2px 8px
+          rgba(212,175,55,.2)
+        );
+    }
+
+    .brand span{
+      font-size:
+        clamp(1.4rem,3.2vw,2.4rem);
+
+      letter-spacing:.5px;
+
+      color:var(--gold-soft);
+
+      text-shadow:
+        0 0 18px
+        rgba(212,175,55,.25);
+
+      white-space:nowrap;
+    }
+
+    /* AÇÕES */
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-shrink:0;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:600;
+    }
+
+    .btn-outline{
+      background:transparent;
+      color:var(--text);
+
+      border:1px solid
+        rgba(255,255,255,.2);
+
+      transition:.2s;
+    }
+
+    .btn-outline:hover{
+      background:
+        rgba(255,255,255,.08);
+
+      border-color:var(--gold);
+    }
+
+    .btn-gold{
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold),
+          var(--gold-soft)
+        );
+
+      color:#1a1a1a;
+      font-weight:700;
+    }
+
+    .cart-btn{
+      position:relative;
+    }
+
+    .badge{
+      position:absolute;
+
+      top:-8px;
+      right:-8px;
+
+      min-width:20px;
+      height:20px;
+
+      border-radius:999px;
+
+      display:grid;
+      place-items:center;
+
+      background:var(--danger);
+
+      color:#fff;
+
+      font-size:.7rem;
+      font-weight:700;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      padding:56px 0 30px;
+    }
+
+    .hero-wrap{
+      background:
+        linear-gradient(
+          145deg,
+          rgba(212,175,55,.12),
+          rgba(179,38,84,.14)
+        );
+
+      border:1px solid var(--border);
+
+      border-radius:24px;
+
+      padding:36px;
+
+      box-shadow:var(--shadow);
+    }
+
+    .hero h1{
+      margin:0 0 10px;
+
+      font-size:
+        clamp(1.8rem,3.4vw,3rem);
+    }
+
+    .hero p{
+      margin:0;
+
+      color:var(--muted);
+
+      max-width:760px;
+    }
+
+    .notice{
+      margin-top:16px;
+
+      border-left:
+        3px solid var(--gold);
+
+      background:
+        rgba(212,175,55,.08);
+
+      padding:12px 14px;
+
+      border-radius:8px;
+
+      font-size:.95rem;
+    }
+
+    /* =========================
+       PRODUTOS
+    ========================== */
+
+    .section-title{
+      margin:26px 0 16px;
+
+      font-size:1.15rem;
+
+      color:var(--gold-soft);
+    }
+
+    .grid{
+      display:grid;
+
+      grid-template-columns:
+        repeat(4,1fr);
+
+      gap:16px;
+
+      padding-bottom:40px;
+    }
+
+    @media(max-width:1000px){
+
+      .grid{
+        grid-template-columns:
+          repeat(3,1fr);
+      }
+
+    }
+
+    @media(max-width:760px){
+
+      .grid{
+        grid-template-columns:
+          repeat(2,1fr);
+      }
+
+    }
+
+    @media(max-width:520px){
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+    }
+
+    .card{
+      background:
+        linear-gradient(
+          180deg,
+          var(--card),
+          var(--card-2)
+        );
+
+      border:
+        1px solid
+        rgba(255,255,255,.06);
+
+      border-radius:
+        var(--radius);
+
+      overflow:hidden;
+
+      box-shadow:
+        var(--shadow);
+
+      display:flex;
+      flex-direction:column;
+
+      transition:.2s;
+    }
+
+    .card:hover{
+      border-color:var(--gold);
+
+      box-shadow:
+        0 12px 40px
+        rgba(212,175,55,.15);
+    }
+
+    .thumb{
+      height:170px;
+
+      background:
+        linear-gradient(
+          130deg,
+          rgba(212,175,55,.18),
+          rgba(139,30,63,.2)
+        );
+
+      display:grid;
+
+      place-items:center;
+
+      font-size:2rem;
+    }
+
+    .card-body{
+      padding:14px;
+
+      flex:1;
+
+      display:flex;
+
+      flex-direction:column;
+    }
+
+    .name{
+      margin:0 0 6px;
+
+      font-size:.95rem;
+    }
+
+    .desc{
+      margin:0;
+
+      color:var(--muted);
+
+      font-size:.92rem;
+
+      line-height:1.35;
+
+      min-height:38px;
+
+      flex:1;
+    }
+
+    .row{
+      margin-top:12px;
+
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:center;
+
+      gap:8px;
+    }
+
+    .price{
+      font-size:1.05rem;
+
+      font-weight:800;
+
+      color:var(--gold-soft);
+    }
+
+    .btn-add{
+      background:transparent;
+
+      border:
+        1px solid var(--gold);
+
+      color:var(--gold-soft);
+
+      border-radius:10px;
+
+      padding:8px 10px;
+
+      font-weight:600;
+
+      cursor:pointer;
+
+      transition:.2s;
+    }
+
+    .btn-add:hover{
+      background:
+        rgba(212,175,55,.15);
+    }
+
+    /* =========================
+       CARRINHO
+    ========================== */
+
+    .overlay{
+      position:fixed;
+
+      inset:0;
+
+      background:
+        rgba(0,0,0,.55);
+
+      opacity:0;
+
+      visibility:hidden;
+
+      transition:.22s;
+
+      z-index:80;
+    }
+
+    .overlay.show{
+      opacity:1;
+
+      visibility:visible;
+    }
+
+    .drawer{
+      position:fixed;
+
+      top:0;
+
+      right:-460px;
+
+      width:min(460px,100%);
+
+      height:100vh;
+
+      background:#0f0f17;
+
+      z-index:90;
+
+      border-left:
+        1px solid
+        rgba(255,255,255,.08);
+
+      transition:.28s;
+
+      display:flex;
+
+      flex-direction:column;
+    }
+
+    .drawer.show{
+      right:0;
+    }
+
+    .drawer-head{
+      padding:16px;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:center;
+    }
+
+    .icon-btn{
+      background:transparent;
+
+      border:
+        1px solid
+        rgba(255,255,255,.2);
+
+      color:#fff;
+
+      border-radius:8px;
+
+      width:36px;
+      height:36px;
+
+      display:grid;
+
+      place-items:center;
+
+      cursor:pointer;
+    }
+
+    .cart-list{
+      padding:12px 16px;
+
+      overflow:auto;
+
+      flex:1;
+    }
+
+    .item{
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      border-radius:12px;
+
+      padding:10px;
+
+      margin-bottom:10px;
+
+      background:
+        rgba(255,255,255,.02);
+    }
+
+    .item-top{
+      display:flex;
+
+      justify-content:space-between;
+
+      gap:10px;
+
+      margin-bottom:6px;
+    }
+
+    .item-price{
+      color:var(--gold-soft);
+
+      font-weight:700;
+
+      white-space:nowrap;
+    }
+
+    .qty{
+      margin-top:8px;
+
+      display:flex;
+
+      align-items:center;
+
+      gap:8px;
+    }
+
+    .qty button{
+      width:28px;
+      height:28px;
+
+      border:none;
+
+      background:
+        rgba(255,255,255,.1);
+
+      border-radius:6px;
+
+      color:#fff;
+
+      cursor:pointer;
+    }
+
+    .qty button:hover{
+      background:
+        rgba(212,175,55,.2);
+    }
+
+    .summary{
+      padding:14px 16px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.08);
+
+      background:#11111a;
+    }
+
+    .sum-line{
+      display:flex;
+
+      justify-content:space-between;
+
+      margin-bottom:8px;
+
+      color:var(--muted);
+    }
+
+    .sum-total{
+      display:flex;
+
+      justify-content:space-between;
+
+      font-weight:800;
+
+      font-size:1.1rem;
+
+      color:var(--gold-soft);
+
+      margin-top:8px;
+
+      padding-top:8px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.08);
+    }
+
+    .checkout-btn{
+      margin-top:12px;
+
+      width:100%;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold),
+          var(--gold-soft)
+        );
+
+      color:#1a1a1a;
+
+      border:none;
+
+      border-radius:12px;
+
+      padding:12px;
+
+      font-weight:800;
+
+      cursor:pointer;
+
+      transition:.2s;
+    }
+
+    .checkout-btn:hover{
+      box-shadow:
+        0 8px 24px
+        rgba(212,175,55,.35);
+    }
+
+    /* =========================
+       CHECKOUT
+    ========================== */
+
+    .checkout{
+      margin:
+        12px 0 60px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #11111a,
+          #161622
+        );
+
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      border-radius:20px;
+
+      padding:20px;
+
+      box-shadow:var(--shadow);
+    }
+
+    .form-grid{
+      display:grid;
+
+      grid-template-columns:
+        repeat(2,1fr);
+
+      gap:12px;
+    }
+
+    .full{
+      grid-column:1/-1;
+    }
+
+    @media(max-width:760px){
+
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .full{
+        grid-column:auto;
+      }
+
+    }
+
+    label{
+      display:block;
+
+      font-size:.88rem;
+
+      margin-bottom:6px;
+
+      color:#d8d8e4;
+
+      font-weight:600;
+    }
+
+    input,
+    select{
+      width:100%;
+
+      padding:11px 12px;
+
+      border-radius:10px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.16);
+
+      background:#0e0e16;
+
+      color:#f5f5f7;
+
+      font-size:.95rem;
+
+      transition:.2s;
+    }
+
+    input:focus,
+    select:focus{
+      outline:none;
+
+      border-color:var(--gold);
+
+      box-shadow:
+        0 0 12px
+        rgba(212,175,55,.2);
+    }
+
+    .pay-box{
+      margin-top:14px;
+
+      padding:14px;
+
+      border:
+        1px dashed
+        rgba(212,175,55,.45);
+
+      border-radius:12px;
+
+      background:
+        rgba(212,175,55,.07);
+
+      color:#f6e7b7;
+
+      font-size:.9rem;
+    }
+
+    .final-row{
+      display:flex;
+
+      gap:10px;
+
+      flex-wrap:wrap;
+
+      margin-top:20px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer{
+      padding:30px 0 50px;
+
+      color:var(--muted);
+
+      font-size:.9rem;
+
+      text-align:center;
+    }
+
+    /* =========================
+       RESPONSIVO HEADER
+    ========================== */
+
+    @media(max-width:760px){
+
+      .nav{
+        gap:8px;
+      }
+
+      .brand{
+        gap:8px;
+      }
+
+      .brand-logo-wrapper{
+        width:54px;
+        height:54px;
+        border-radius:14px;
+      }
+
+      .brand-logo{
+        width:48px;
+        height:48px;
+      }
+
+      .brand span{
+        font-size:1.15rem;
+      }
+
+      .btn-entrar{
+        min-width:100px;
+
+        padding:
+          10px 14px;
+
+        font-size:.9rem;
+      }
+
+      .actions .btn{
+        padding:
+          10px 11px;
+
+        font-size:.85rem;
+      }
+
+    }
+
+    @media(max-width:520px){
+
+      .brand span{
+        display:none;
+      }
+
+      .btn-entrar{
+        min-width:92px;
+
+        padding:
+          10px 12px;
+
+        font-size:.85rem;
+      }
+
+      .actions .btn{
+        font-size:0;
+
+        width:45px;
+        height:42px;
+
+        padding:0;
+      }
+
+      .actions .btn:first-letter{
+        font-size:1rem;
+      }
+
+      .hero-wrap{
+        padding:24px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="container nav">
+
+      <!-- BOTÃO ENTRAR -->
+      <div class="top-left">
+
+        <a
+          href="login.html"
+          class="btn-entrar"
+        >
+          🔐 Entrar
+        </a>
+
+      </div>
+
+
+      <!-- LOGO -->
+      <div class="brand">
+
+        <div class="brand-logo-wrapper">
+
+          <img
+            src="logo4.png"
+            alt="LUX Store"
+            class="brand-logo"
+          />
+
+        </div>
+
+        <span>LUX Store</span>
+
+      </div>
+
+
+      <!-- CARRINHO -->
+      <div class="actions">
+
+        <button
+          class="btn btn-outline cart-btn"
+          id="openCart"
+          type="button"
+        >
+
+          🛒 Carrinho
+
+          <span
+            class="badge"
+            id="cartCount"
+          >
+            0
+          </span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       CONTEÚDO
+  ========================== -->
+
+  <main class="container">
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="hero-wrap">
+
+        <h1>
+          Produtos Sensuais Premium com Discrição e Elegância
+        </h1>
+
+        <p>
+          Escolha seus produtos, finalize no carrinho e conclua
+          o pedido com atendimento humanizado e confidencial.
+        </p>
+
+        <div class="notice">
+          📦 Entrega discreta |
+          🔒 Dados seguros |
+          ✨ Qualidade garantida
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CATÁLOGO -->
+
+    <h3 class="section-title">
+      Catálogo em destaque
+    </h3>
+
+    <section
+      class="grid"
+      id="productsGrid"
+    ></section>
+
+
+    <!-- CHECKOUT -->
+
+    <section
+      class="checkout"
+      id="checkout"
+    >
+
+      <h2>
+        Finalizar pedido
+      </h2>
+
+
+      <form id="checkoutForm">
+
+        <div class="form-grid">
+
+
+          <div class="full">
+
+            <label>
+              Nome completo
+            </label>
+
+            <input
+              type="text"
+              id="nome"
+              required
+            />
+
+          </div>
+
+
+          <div>
+
+            <label>
+              CPF
+            </label>
+
+            <input
+              type="text"
+              id="cpf"
+              maxlength="14"
+              required
+            />
+
+          </div>
+
+
+          <div>
+
+            <label>
+              E-mail
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              required
+            />
+
+          </div>
+
+
+          <div>
+
+            <label>
+              Telefone (WhatsApp)
+            </label>
+
+            <input
+              type="tel"
+              id="telefone"
+              required
+            />
+
+          </div>
+
+
+          <div>
+
+            <label>
+              CEP
+            </label>
+
+            <input
+              type="text"
+              id="cep"
+              maxlength="9"
+              required
+            />
+
+          </div>
+
+
+          <div>
+
+            <label>
+              Endereço
+            </label>
+
+            <input
+              type="text"
+              id="endereco"
+              required
+            />
+
+          </div>
+
+
+          <div>
+
+            <label>
+              Número
+            </label>
+
+            <input
+              type="text"
+              id="numero"
+              required
+            />
+
+          </div>
+
+
+          <div>
+
+            <label>
+              Complemento
+            </label>
+
+            <input
+              type="text"
+              id="complemento"
+            />
+
+          </div>
+
+
+          <div>
+
+            <label>
+              Bairro
+            </label>
+
+            <input
+              type="text"
+              id="bairro"
+              required
+            />
+
+          </div>
+
+
+          <div>
+
+            <label>
+              Cidade
+            </label>
+
+            <input
+              type="text"
+              id="cidade"
+              required
+            />
+
+          </div>
+
+
+          <div>
+
+            <label>
+              Estado (UF)
+            </label>
+
+            <input
+              type="text"
+              id="estado"
+              maxlength="2"
+              required
+            />
+
+          </div>
+
+
+          <div>
+
+            <label>
+              Forma de pagamento
+            </label>
+
+            <select
+              id="pagamento"
+              required
+            >
+
+              <option>
+                PIX
+              </option>
+
+              <option>
+                Cartão
+              </option>
+
+              <option>
+                Boleto
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="pay-box">
+
+          <strong>
+            Importante:
+          </strong>
+
+          o pedido é liberado para separação após
+          confirmação do pagamento.
+
+        </div>
+
+
+        <div class="final-row">
+
+          <button
+            type="submit"
+            class="btn btn-gold"
+          >
+            Enviar Pedido via WhatsApp
+          </button>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       OVERLAY
+  ========================== -->
+
+  <div
+    class="overlay"
+    id="overlay"
+  ></div>
+
+
+  <!-- =========================
+       CARRINHO LATERAL
+  ========================== -->
+
+  <aside
+    class="drawer"
+    id="drawer"
+  >
+
+    <div class="drawer-head">
+
+      <h4>
+        Seu carrinho
+      </h4>
+
+      <button
+        class="icon-btn"
+        id="closeCart"
+        type="button"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <div
+      class="cart-list"
+      id="cartList"
+    ></div>
+
+
+    <div class="summary">
+
+      <div class="sum-line">
+
+        <span>
+          Subtotal:
+        </span>
+
+        <span id="subtotal">
+          R$ 0,00
+        </span>
+
+      </div>
+
+
+      <div class="sum-line">
+
+        <span>
+          Entrega:
+        </span>
+
+        <span>
+          A calcular
+        </span>
+
+      </div>
+
+
+      <div class="sum-total">
+
+        <span>
+          Total:
+        </span>
+
+        <span id="total">
+          R$ 0,00
+        </span>
+
+      </div>
+
+
+      <button
+        class="checkout-btn"
+        onclick="goCheckout()"
+        type="button"
+      >
+        Ir para Checkout
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    © 2026 LUX Store —
+    Atendimento discreto, elegante e profissional.
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    const whatsappNumber =
+      "5551980612941";
+
+
+    const products = [
+
+      {
+        id:1,
+        name:"Vibrador Bullet Recarregável",
+        price:79.9,
+        emoji:"💫",
+        desc:"Compacto e silencioso."
+      },
+
+      {
+        id:2,
+        name:"Vibrador Rabbit Premium",
+        price:249.9,
+        emoji:"🐇",
+        desc:"Estimulação dupla com modos intensos."
+      },
+
+      {
+        id:3,
+        name:"Sugador Clitoriano Lux",
+        price:219.9,
+        emoji:"💖",
+        desc:"Tecnologia de pulsação a vácuo."
+      },
+
+      {
+        id:4,
+        name:"Plug Anal em Silicone P",
+        price:69.9,
+        emoji:"🔹",
+        desc:"Toque suave para iniciantes."
+      },
+
+      {
+        id:5,
+        name:"Plug Anal em Silicone M",
+        price:89.9,
+        emoji:"🔷",
+        desc:"Conforto com base segura."
+      },
+
+      {
+        id:6,
+        name:"Cinta com Vibro",
+        price:329.9,
+        emoji:"⚡",
+        desc:"Desempenho e ajuste confortável."
+      },
+
+      {
+        id:7,
+        name:"Gel Excitante Térmico",
+        price:49.9,
+        emoji:"🔥",
+        desc:"Aquecimento suave e prazeroso."
+      },
+
+      {
+        id:8,
+        name:"Lubrificante à Base d'Água 200ml",
+        price:39.9,
+        emoji:"💧",
+        desc:"Textura leve e alta durabilidade."
+      },
+
+      {
+        id:9,
+        name:"Lubrificante Siliconado 100ml",
+        price:59.9,
+        emoji:"🫧",
+        desc:"Deslize prolongado premium."
+      },
+
+      {
+        id:10,
+        name:"Algema Acolchoada",
+        price:89.9,
+        emoji:"⛓️",
+        desc:"Confortável e resistente."
+      },
+
+      {
+        id:11,
+        name:"Venda de Cetim",
+        price:29.9,
+        emoji:"🎀",
+        desc:"Toque delicado e elegante."
+      },
+
+      {
+        id:12,
+        name:"Chicote Soft Touch",
+        price:69.9,
+        emoji:"🖤",
+        desc:"Material flexível com acabamento fino."
+      },
+
+      {
+        id:13,
+        name:"Dado Erótico Deluxe",
+        price:34.9,
+        emoji:"🎲",
+        desc:"Brincadeira divertida para casal."
+      },
+
+      {
+        id:14,
+        name:"Lingerie Body Rendado",
+        price:119.9,
+        emoji:"👗",
+        desc:"Modelagem sensual premium."
+      },
+
+      {
+        id:15,
+        name:"Fantasia Sensual Premium",
+        price:149.9,
+        emoji:"✨",
+        desc:"Visual marcante para ocasiões especiais."
+      },
+
+      {
+        id:16,
+        name:"Vela para Massagem 120g",
+        price:74.9,
+        emoji:"🕯️",
+        desc:"Aroma sofisticado e toque quente."
+      },
+
+      {
+        id:17,
+        name:"Óleo Corporal Afrodisíaco",
+        price:64.9,
+        emoji:"🌹",
+        desc:"Massagem envolvente e perfumada."
+      },
+
+      {
+        id:18,
+        name:"Kit Casal Iniciante",
+        price:159.9,
+        emoji:"🎁",
+        desc:"Seleção completa para começar."
+      },
+
+      {
+        id:19,
+        name:"Kit Casal Intensidade",
+        price:249.9,
+        emoji:"💎",
+        desc:"Experiência premium a dois."
+      },
+
+      {
+        id:20,
+        name:"Masturbador Masculino Soft",
+        price:139.9,
+        emoji:"🔺",
+        desc:"Textura interna macia e realista."
+      }
+
+    ];
+
+
+    let cart = [];
+
+
+    const productsGrid =
+      document.getElementById("productsGrid");
+
+    const cartList =
+      document.getElementById("cartList");
+
+    const cartCount =
+      document.getElementById("cartCount");
+
+    const subtotalEl =
+      document.getElementById("subtotal");
+
+    const totalEl =
+      document.getElementById("total");
+
+
+    function brl(v){
+
+      return v.toLocaleString(
+        "pt-BR",
+        {
+          style:"currency",
+          currency:"BRL"
+        }
+      );
+
+    }
+
+
+    function renderProducts(){
+
+      productsGrid.innerHTML =
+        products.map(
+          p => `
+
+            <article class="card">
+
+              <div class="thumb">
+                ${p.emoji}
+              </div>
+
+              <div class="card-body">
+
+                <h4 class="name">
+                  ${p.name}
+                </h4>
+
+                <p class="desc">
+                  ${p.desc}
+                </p>
+
+                <div class="row">
+
+                  <span class="price">
+                    ${brl(p.price)}
+                  </span>
+
+                  <button
+                    type="button"
+                    class="btn-add"
+                    onclick="addToCart(${p.id})"
+                  >
+                    + Adicionar
+                  </button>
+
+                </div>
+
+              </div>
+
+            </article>
+
+          `
+        ).join("");
+
+    }
+
+
+    function addToCart(id){
+
+      const f =
+        cart.find(
+          i => i.id === id
+        );
+
+      if(f){
+
+        f.qty++;
+
+      }else{
+
+        const p =
+          products.find(
+            x => x.id === id
+          );
+
+        cart.push({
+          ...p,
+          qty:1
+        });
+
+      }
+
+      renderCart();
+
+      openCart();
+
+    }
+
+
+    function changeQty(id,d){
+
+      const i =
+        cart.find(
+          x => x.id === id
+        );
+
+      if(!i)return;
+
+      i.qty += d;
+
+      if(i.qty <= 0){
+
+        cart =
+          cart.filter(
+            x => x.id !== id
+          );
+
+      }
+
+      renderCart();
+
+    }
+
+
+    function cartSubtotal(){
+
+      return cart.reduce(
+        (a,i) =>
+          a + i.price * i.qty,
+        0
+      );
+
+    }
+
+
+    function renderCart(){
+
+      cartCount.textContent =
+        cart.reduce(
+          (a,i) => a + i.qty,
+          0
+        );
+
+
+      cartList.innerHTML =
+        cart.length
+
+        ?
+
+        cart.map(
+          i => `
+
+            <div class="item">
+
+              <div class="item-top">
+
+                <span>
+                  ${i.name}
+                </span>
+
+                <span class="item-price">
+                  ${brl(i.price * i.qty)}
+                </span>
+
+              </div>
+
+              <div class="qty">
+
+                <button
+                  type="button"
+                  onclick="changeQty(${i.id},-1)"
+                >
+                  −
+                </button>
+
+                <span>
+                  ${i.qty}
+                </span>
+
+                <button
+                  type="button"
+                  onclick="changeQty(${i.id},1)"
+                >
+                  +
+                </button>
+
+              </div>
+
+            </div>
+
+          `
+        ).join("")
+
+        :
+
+        `
+          <p
+            style="
+              color:var(--muted);
+              text-align:center;
+              padding:20px
+            "
+          >
+            Seu carrinho está vazio
+          </p>
+        `;
+
+
+      subtotalEl.textContent =
+        brl(cartSubtotal());
+
+      totalEl.textContent =
+        brl(cartSubtotal());
+
+    }
+
+
+    const overlay =
+      document.getElementById("overlay");
+
+    const drawer =
+      document.getElementById("drawer");
+
+
+    document
+      .getElementById("openCart")
+      .onclick = openCart;
+
+
+    document
+      .getElementById("closeCart")
+      .onclick = closeCart;
+
+
+    overlay.onclick = closeCart;
+
+
+    function openCart(){
+
+      overlay.classList.add("show");
+
+      drawer.classList.add("show");
+
+    }
+
+
+    function closeCart(){
+
+      overlay.classList.remove("show");
+
+      drawer.classList.remove("show");
+
+    }
+
+
+    function goCheckout(){
+
+      closeCart();
+
+      document
+        .getElementById("checkout")
+        .scrollIntoView({
+          behavior:"smooth"
+        });
+
+    }
+
+
+    function formData(){
+
+      return {
+
+        nome:
+          nome.value.trim(),
+
+        cpf:
+          cpf.value.trim(),
+
+        email:
+          email.value.trim(),
+
+        telefone:
+          telefone.value.trim(),
+
+        cep:
+          cep.value.trim(),
+
+        endereco:
+          endereco.value.trim(),
+
+        numero:
+          numero.value.trim(),
+
+        complemento:
+          complemento.value.trim(),
+
+        bairro:
+          bairro.value.trim(),
+
+        cidade:
+          cidade.value.trim(),
+
+        estado:
+          estado.value.trim(),
+
+        pagamento:
+          pagamento.value.trim()
+
+      };
+
+    }
+
+
+    function valid(d){
+
+      return [
+
+        "nome",
+        "cpf",
+        "email",
+        "telefone",
+        "cep",
+        "endereco",
+        "numero",
+        "bairro",
+        "cidade",
+        "estado",
+        "pagamento"
+
+      ].every(
+        k => d[k]
+      )
+
+      && cart.length > 0;
+
+    }
+
+
+    function build(d){
+
+      const itens =
+        cart.map(
+          i =>
+            `- ${i.name} x${i.qty} (${brl(i.price*i.qty)})`
+        ).join("\n");
+
+
+      return `🛍️ *Novo Pedido - LUX Store*
+
+*Itens:*
+${itens}
+
+*Total:* ${brl(cartSubtotal())}
+
+*Dados do Cliente:*
+*Nome:* ${d.nome}
+*CPF:* ${d.cpf}
+*E-mail:* ${d.email}
+*Telefone:* ${d.telefone}
+
+*Endereço de Entrega:*
+${d.endereco}, ${d.numero}${d.complemento ? ", " + d.complemento : ""}
+${d.bairro} - ${d.cidade}, ${d.estado}
+CEP: ${d.cep}
+
+*Forma de Pagamento:* ${d.pagamento}`;
+
+    }
+
+
+    checkoutForm.addEventListener(
+      "submit",
+      e => {
+
+        e.preventDefault();
+
+
+        const d =
+          formData();
+
+
+        if(!valid(d)){
+
+          return alert(
+            "Preencha os campos obrigatórios e adicione itens ao carrinho."
+          );
+
+        }
+
+
+        window.open(
+          `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(build(d))}`,
+          "_blank"
+        );
+
+
+        setTimeout(
+          () => {
+
+            cart = [];
+
+            nome.value = "";
+            cpf.value = "";
+            email.value = "";
+            telefone.value = "";
+            cep.value = "";
+            endereco.value = "";
+            numero.value = "";
+            complemento.value = "";
+            bairro.value = "";
+            cidade.value = "";
+            estado.value = "";
+            pagamento.value = "PIX";
+
+            renderCart();
+
+          },
+          500
+        );
+
+      }
+    );
+
+
+    renderProducts();
+
+    renderCart();
+
+  </script>
+
 </body>
 </html>

@@ -12,7 +12,6 @@
 
 <title>LUX Advance — Acesso</title>
 
-
 <!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -21,7 +20,6 @@
 
 <!-- AUTENTICAÇÃO -->
 <script src="./auth.js"></script>
-
 
 <style>
 
@@ -56,9 +54,7 @@ body {
     center / cover fixed no-repeat;
 
   padding: 20px;
-
 }
-
 
 .container {
 
@@ -69,7 +65,6 @@ body {
   margin: 0 auto;
 
 }
-
 
 .voltar {
 
@@ -84,7 +79,6 @@ body {
   margin-bottom: 15px;
 
 }
-
 
 .card {
 
@@ -109,7 +103,6 @@ body {
 
 }
 
-
 .logo {
 
   text-align: center;
@@ -129,7 +122,6 @@ body {
 
 }
 
-
 .slogan {
 
   text-align: center;
@@ -146,20 +138,17 @@ body {
 
 }
 
-
 .tela {
 
   display: none;
 
 }
 
-
 .tela.ativa {
 
   display: block;
 
 }
-
 
 h1 {
 
@@ -177,7 +166,6 @@ h1 {
 
 }
 
-
 .descricao {
 
   text-align: center;
@@ -192,7 +180,6 @@ h1 {
 
 }
 
-
 .opcoes {
 
   display: grid;
@@ -200,7 +187,6 @@ h1 {
   gap: 13px;
 
 }
-
 
 .opcao {
 
@@ -231,7 +217,6 @@ h1 {
 
 }
 
-
 .opcao:hover {
 
   border-color:
@@ -241,7 +226,6 @@ h1 {
     rgba(248,213,138,.08);
 
 }
-
 
 .opcao strong {
 
@@ -255,7 +239,6 @@ h1 {
 
 }
 
-
 .opcao span {
 
   display: block;
@@ -268,13 +251,11 @@ h1 {
 
 }
 
-
 .campo {
 
   margin-bottom: 15px;
 
 }
-
 
 .campo label {
 
@@ -290,9 +271,9 @@ h1 {
 
 }
 
-
 input,
-textarea {
+textarea,
+select {
 
   width: 100%;
 
@@ -317,13 +298,11 @@ textarea {
 
 }
 
-
 input {
 
   height: 47px;
 
 }
-
 
 textarea {
 
@@ -333,15 +312,28 @@ textarea {
 
 }
 
+select {
+
+  height: 47px;
+
+}
+
+select option {
+
+  background: #160a12;
+
+  color: #fff;
+
+}
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
 
   border-color:
     rgba(248,213,138,.75);
 
 }
-
 
 input::placeholder,
 textarea::placeholder {
@@ -350,12 +342,11 @@ textarea::placeholder {
 
 }
 
-
 .btn-principal {
 
   width: 100%;
 
-  height: 50px;
+  min-height: 50px;
 
   border: none;
 
@@ -378,7 +369,6 @@ textarea::placeholder {
 
 }
 
-
 .btn-principal:disabled {
 
   opacity: .55;
@@ -386,7 +376,6 @@ textarea::placeholder {
   cursor: wait;
 
 }
-
 
 .btn-secundario {
 
@@ -410,7 +399,6 @@ textarea::placeholder {
 
 }
 
-
 .tipo {
 
   text-align: center;
@@ -426,7 +414,6 @@ textarea::placeholder {
   letter-spacing: .5px;
 
 }
-
 
 .mensagem {
 
@@ -446,7 +433,6 @@ textarea::placeholder {
 
 }
 
-
 .mensagem.erro {
 
   display: block;
@@ -461,7 +447,6 @@ textarea::placeholder {
     rgba(255,70,100,.3);
 
 }
-
 
 .mensagem.sucesso {
 
@@ -478,7 +463,6 @@ textarea::placeholder {
 
 }
 
-
 .rodape {
 
   text-align: center;
@@ -490,7 +474,6 @@ textarea::placeholder {
   margin-top: 18px;
 
 }
-
 
 @media(max-width:480px) {
 
@@ -512,12 +495,9 @@ textarea::placeholder {
 
 </head>
 
-
 <body>
 
-
 <div class="container">
-
 
 <a
   href="./index.html"
@@ -526,19 +506,15 @@ textarea::placeholder {
 ← Voltar
 </a>
 
-
 <div class="card">
-
 
 <div class="logo">
 LUX Advance
 </div>
 
-
 <div class="slogan">
 MAIS QUE UM SITE, UMA EXPERIÊNCIA
 </div>
-
 
 
 <!-- =====================================================
@@ -554,17 +530,11 @@ MAIS QUE UM SITE, UMA EXPERIÊNCIA
 Acesso LUX
 </h1>
 
-
 <div class="descricao">
-
-Entre na sua conta ou crie
-seu cadastro gratuitamente.
-
+Entre na sua conta ou crie seu cadastro gratuitamente.
 </div>
 
-
 <div class="opcoes">
-
 
 <button
   type="button"
@@ -577,12 +547,10 @@ seu cadastro gratuitamente.
 </strong>
 
 <span>
-Entre com seu e-mail e senha
-para acessar sua área.
+Entre com seu e-mail e senha para acessar sua área.
 </span>
 
 </button>
-
 
 <button
   type="button"
@@ -595,22 +563,18 @@ para acessar sua área.
 </strong>
 
 <span>
-Crie sua conta escolhendo
-Usuário ou Modelo.
+Crie sua conta escolhendo Usuário ou Modelo.
 </span>
 
 </button>
 
-
 </div>
-
 
 </section>
 
 
-
 <!-- =====================================================
-     LOGIN
+     TELA LOGIN
 ===================================================== -->
 
 <section
@@ -622,14 +586,11 @@ Usuário ou Modelo.
 Entrar
 </h1>
 
-
 <div class="descricao">
 Digite seus dados de acesso.
 </div>
 
-
 <form id="formLogin">
-
 
 <div class="campo">
 
@@ -641,11 +602,11 @@ E-MAIL
   type="email"
   id="loginEmail"
   placeholder="Digite seu e-mail"
+  autocomplete="email"
   required
 >
 
 </div>
-
 
 <div class="campo">
 
@@ -657,11 +618,11 @@ SENHA
   type="password"
   id="loginSenha"
   placeholder="Digite sua senha"
+  autocomplete="current-password"
   required
 >
 
 </div>
-
 
 <button
   type="submit"
@@ -671,15 +632,12 @@ SENHA
 ENTRAR
 </button>
 
-
 </form>
-
 
 <div
   id="msgLogin"
   class="mensagem"
 ></div>
-
 
 <button
   type="button"
@@ -689,9 +647,7 @@ ENTRAR
 ← Voltar
 </button>
 
-
 </section>
-
 
 
 <!-- =====================================================
@@ -705,3 +661,566 @@ ENTRAR
 
 <h1>
 Criar cadastro
+</h1>
+
+<div class="descricao">
+Escolha como deseja participar da LUX Advance.
+</div>
+
+<div class="opcoes">
+
+<button
+  type="button"
+  id="btnUsuario"
+  class="opcao"
+>
+
+<strong>
+👤 Sou Usuário
+</strong>
+
+<span>
+Crie sua conta para acessar os recursos da LUX Advance.
+</span>
+
+</button>
+
+<button
+  type="button"
+  id="btnModelo"
+  class="opcao"
+>
+
+<strong>
+✦ Sou Modelo
+</strong>
+
+<span>
+Cadastre seu perfil para participar da seleção LUX Advance.
+</span>
+
+</button>
+
+</div>
+
+<button
+  type="button"
+  class="btn-secundario"
+  id="btnVoltarEscolha"
+>
+← Voltar
+</button>
+
+</section>
+
+
+<!-- =====================================================
+     CADASTRO USUÁRIO
+===================================================== -->
+
+<section
+  id="telaUsuario"
+  class="tela"
+>
+
+<h1>
+Cadastro de Usuário
+</h1>
+
+<div class="tipo">
+CONTA LUX ADVANCE
+</div>
+
+<form id="formUsuario">
+
+<div class="campo">
+
+<label>
+NOME
+</label>
+
+<input
+  type="text"
+  id="usuarioNome"
+  placeholder="Seu nome"
+  autocomplete="name"
+  required
+>
+
+</div>
+
+<div class="campo">
+
+<label>
+E-MAIL
+</label>
+
+<input
+  type="email"
+  id="usuarioEmail"
+  placeholder="Seu e-mail"
+  autocomplete="email"
+  required
+>
+
+</div>
+
+<div class="campo">
+
+<label>
+WHATSAPP
+</label>
+
+<input
+  type="tel"
+  id="usuarioWhatsApp"
+  placeholder="(51) 99999-9999"
+  required
+>
+
+</div>
+
+<div class="campo">
+
+<label>
+SENHA
+</label>
+
+<input
+  type="password"
+  id="usuarioSenha"
+  placeholder="Mínimo 6 caracteres"
+  autocomplete="new-password"
+  minlength="6"
+  required
+>
+
+</div>
+
+<div class="campo">
+
+<label>
+CONFIRMAR SENHA
+</label>
+
+<input
+  type="password"
+  id="usuarioSenhaConfirmacao"
+  placeholder="Repita sua senha"
+  autocomplete="new-password"
+  minlength="6"
+  required
+>
+
+</div>
+
+<button
+  type="submit"
+  class="btn-principal"
+  id="btnCadastrarUsuario"
+>
+CRIAR CADASTRO
+</button>
+
+</form>
+
+<div
+  id="msgUsuario"
+  class="mensagem"
+></div>
+
+<button
+  type="button"
+  class="btn-secundario"
+  id="btnVoltarUsuario"
+>
+← Voltar
+</button>
+
+</section>
+
+
+<!-- =====================================================
+     CADASTRO MODELO
+===================================================== -->
+
+<section
+  id="telaModelo"
+  class="tela"
+>
+
+<h1>
+Cadastro de Modelo
+</h1>
+
+<div class="tipo">
+PRÉ-CADASTRO LUX ADVANCE
+</div>
+
+<div class="descricao">
+Preencha seus dados. Seu perfil ficará sujeito à análise da equipe LUX.
+</div>
+
+<form id="formModelo">
+
+<div class="campo">
+
+<label>
+NOME
+</label>
+
+<input
+  type="text"
+  id="modeloNome"
+  placeholder="Seu nome"
+  autocomplete="name"
+  required
+>
+
+</div>
+
+<div class="campo">
+
+<label>
+NOME PROFISSIONAL / APELIDO
+</label>
+
+<input
+  type="text"
+  id="modeloProfissional"
+  placeholder="Como deseja ser apresentada"
+  required
+>
+
+</div>
+
+<div class="campo">
+
+<label>
+E-MAIL
+</label>
+
+<input
+  type="email"
+  id="modeloEmail"
+  placeholder="Seu e-mail"
+  autocomplete="email"
+  required
+>
+
+</div>
+
+<div class="campo">
+
+<label>
+WHATSAPP
+</label>
+
+<input
+  type="tel"
+  id="modeloWhatsApp"
+  placeholder="(51) 99999-9999"
+  required
+>
+
+</div>
+
+<div class="campo">
+
+<label>
+COR DOS CABELOS
+</label>
+
+<select
+  id="modeloCabelo"
+  required
+>
+
+<option value="">
+Selecione
+</option>
+
+<option value="Loiro">
+Loiro
+</option>
+
+<option value="Castanho">
+Castanho
+</option>
+
+<option value="Preto">
+Preto
+</option>
+
+<option value="Ruivo">
+Ruivo
+</option>
+
+<option value="Colorido">
+Colorido
+</option>
+
+<option value="Outro">
+Outro
+</option>
+
+</select>
+
+</div>
+
+<div class="campo">
+
+<label>
+DESCRIÇÃO
+</label>
+
+<textarea
+  id="modeloDescricao"
+  placeholder="Conte um pouco sobre seu perfil..."
+  required
+></textarea>
+
+</div>
+
+<div class="campo">
+
+<label>
+SENHA
+</label>
+
+<input
+  type="password"
+  id="modeloSenha"
+  placeholder="Mínimo 6 caracteres"
+  autocomplete="new-password"
+  minlength="6"
+  required
+>
+
+</div>
+
+<div class="campo">
+
+<label>
+CONFIRMAR SENHA
+</label>
+
+<input
+  type="password"
+  id="modeloSenhaConfirmacao"
+  placeholder="Repita sua senha"
+  autocomplete="new-password"
+  minlength="6"
+  required
+>
+
+</div>
+
+<button
+  type="submit"
+  class="btn-principal"
+  id="btnCadastrarModelo"
+>
+ENVIAR PRÉ-CADASTRO
+</button>
+
+</form>
+
+<div
+  id="msgModelo"
+  class="mensagem"
+></div>
+
+<button
+  type="button"
+  class="btn-secundario"
+  id="btnVoltarModelo"
+>
+← Voltar
+</button>
+
+</section>
+
+
+<div class="rodape">
+LUX Advance • Acesso exclusivo
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT DA PÁGINA
+===================================================== -->
+
+<script>
+
+(function () {
+
+"use strict";
+
+
+/* =====================================================
+   CONTROLE DAS TELAS
+===================================================== */
+
+function mostrarTela(id) {
+
+  document
+    .querySelectorAll(".tela")
+    .forEach(function (tela) {
+
+      tela.classList.remove("ativa");
+
+    });
+
+
+  const tela =
+    document.getElementById(id);
+
+
+  if (tela) {
+
+    tela.classList.add("ativa");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+}
+
+
+/* =====================================================
+   LIMPAR MENSAGEM
+===================================================== */
+
+function limparMensagem(elemento) {
+
+  if (!elemento) return;
+
+  elemento.className = "mensagem";
+
+  elemento.textContent = "";
+
+}
+
+
+/* =====================================================
+   MOSTRAR ERRO
+===================================================== */
+
+function mostrarErro(elemento, mensagem) {
+
+  if (!elemento) return;
+
+  elemento.className =
+    "mensagem erro";
+
+  elemento.textContent =
+    mensagem;
+
+}
+
+
+/* =====================================================
+   MOSTRAR SUCESSO
+===================================================== */
+
+function mostrarSucesso(elemento, mensagem) {
+
+  if (!elemento) return;
+
+  elemento.className =
+    "mensagem sucesso";
+
+  elemento.textContent =
+    mensagem;
+
+}
+
+
+/* =====================================================
+   BOTÕES DA TELA INICIAL
+===================================================== */
+
+document
+  .getElementById("btnJaTenho")
+  .addEventListener("click", function () {
+
+    mostrarTela("telaLogin");
+
+  });
+
+
+document
+  .getElementById("btnNaoTenho")
+  .addEventListener("click", function () {
+
+    mostrarTela("telaEscolha");
+
+  });
+
+
+/* =====================================================
+   ESCOLHA USUÁRIO / MODELO
+===================================================== */
+
+document
+  .getElementById("btnUsuario")
+  .addEventListener("click", function () {
+
+    mostrarTela("telaUsuario");
+
+  });
+
+
+document
+  .getElementById("btnModelo")
+  .addEventListener("click", function () {
+
+    mostrarTela("telaModelo");
+
+  });
+
+
+/* =====================================================
+   BOTÕES VOLTAR
+===================================================== */
+
+document
+  .getElementById("btnVoltarLogin")
+  .addEventListener("click", function () {
+
+    mostrarTela("telaInicial");
+
+  });
+
+
+document
+  .getElementById("btnVoltarEscolha")
+  .addEventListener("click", function () {
+
+    mostrarTela("telaInicial");
+
+  });
+
+
+document
+  .getElementById("btnVoltarUsuario")
+  .addEventListener("click", function () {
+
+    mostrarTela("telaEscolha");
+
+  });
+
+
+document
+  .getElementById("btnVoltarModelo")
+  .addEventListener("click", function () {
+
+    mostrar

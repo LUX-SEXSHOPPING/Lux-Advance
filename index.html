@@ -2,170 +2,322 @@
 <html lang="pt-BR">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#c9a227">
-<meta name="description" content="LUX Advance — Mais que um site, uma experiência.">
-<title>LUX Advance — Mais que um site, uma experiência</title>
 
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+  name="theme-color"
+  content="#c9a227"
+>
+
+<meta
+  name="description"
+  content="LUX Advance — Mais que um site, uma experiência."
+>
+
+<title>
+LUX Advance — Mais que um site, uma experiência
+</title>
+
+<link
+  rel="manifest"
+  href="manifest.json"
+>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
 
 <style>
 
 :root{
+
   --dourado:#c9a227;
   --dourado-claro:#f0d878;
   --champanhe:#f5e6c8;
+
   --texto-claro:#efe7dd;
   --texto-suave:#cbbfaf;
+
   --ouro-brilhante:#ffd700;
-  --borda-dourada:rgba(201,162,39,.28);
+
+  --borda-dourada:
+    rgba(201,162,39,.28);
+
 }
+
+
+/* ==============================
+   RESET
+================================ */
 
 *{
+
   margin:0;
   padding:0;
+
   box-sizing:border-box;
-  font-family:'Segoe UI',system-ui,sans-serif;
+
+  font-family:
+    'Segoe UI',
+    system-ui,
+    sans-serif;
+
 }
+
 
 html{
+
   scroll-behavior:smooth;
+
 }
 
+
+/* ==============================
+   FUNDO
+================================ */
+
 body{
+
   color:var(--texto-claro);
+
   min-height:100vh;
 
   background:
-    #000 url('lux-halloween.jpg')
-    center top / cover no-repeat fixed;
+
+    #000
+    url('lux-halloween.jpg')
+    center top / cover
+    no-repeat fixed;
+
 }
+
 
 body::before{
+
   content:'';
+
   position:fixed;
+
   inset:0;
 
-  background:rgba(0,0,0,.42);
+  background:
+    rgba(0,0,0,.42);
 
   z-index:0;
+
   pointer-events:none;
+
 }
+
+
+/* ==============================
+   CONTEÚDO
+================================ */
 
 .conteudo{
+
   position:relative;
+
   z-index:1;
 
-  max-width:1120px;
+  max-width:1200px;
+
   margin:0 auto;
 
-  padding:0 22px;
+  padding:
+    0 22px;
+
 }
+
 
 /* ==============================
    CABEÇALHO
 ================================ */
 
 header{
+
   display:flex;
-  justify-content:space-between;
+
   align-items:center;
 
-  padding:24px 0;
+  justify-content:space-between;
+
+  gap:20px;
+
+  padding:
+    22px 0;
 
   position:relative;
+
   z-index:10;
+
 }
 
-/* LOGO */
 
-.logo-header{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.logo-img{
-  width:80px;
-  height:80px;
-
-  object-fit:contain;
-
-  filter:
-    brightness(1.3)
-    saturate(1.4)
-    drop-shadow(
-      0 0 12px
-      rgba(201,162,39,.5)
-    );
-
-  transition:all .3s;
-}
-
-.logo-img:hover{
-  filter:
-    brightness(1.5)
-    saturate(1.6)
-    drop-shadow(
-      0 0 20px
-      rgba(201,162,39,.8)
-    );
-
-  transform:scale(1.08);
-}
+/* ==============================
+   NOME LUX
+================================ */
 
 .logo-lux{
+
   font-size:40px;
+
   font-weight:800;
+
   font-style:italic;
 
   letter-spacing:6px;
 
-  color:var(--champanhe);
+  color:
+    var(--champanhe);
 
   text-shadow:
+
     0 0 24px
     rgba(201,162,39,.4);
 
   position:relative;
+
 }
 
+
 .logo-lux::after{
+
   content:'';
 
   position:absolute;
 
   left:2px;
+
   right:14px;
+
   bottom:-7px;
 
   height:1px;
 
   background:
+
     linear-gradient(
       90deg,
       var(--dourado),
       transparent
     );
+
 }
+
+
+/* ==============================
+   MENU
+================================ */
+
+.menu{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:8px;
+
+  flex-wrap:wrap;
+
+  padding:
+    8px 0 18px;
+
+  position:relative;
+
+  z-index:10;
+
+}
+
+
+.menu a{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:7px;
+
+  padding:
+    9px 12px;
+
+  border-radius:9px;
+
+  color:
+    var(--texto-claro);
+
+  text-decoration:none;
+
+  font-size:13px;
+
+  font-weight:600;
+
+  border:
+    1px solid
+    transparent;
+
+  transition:
+    all .25s ease;
+
+}
+
+
+.menu a:hover{
+
+  color:
+    var(--dourado-claro);
+
+  border-color:
+    var(--borda-dourada);
+
+  background:
+    rgba(201,162,39,.08);
+
+  transform:
+    translateY(-1px);
+
+}
+
+
+.menu a i{
+
+  color:
+    var(--dourado);
+
+  font-size:12px;
+
+}
+
 
 /* ==============================
    BOTÃO ENTRAR
 ================================ */
 
 .btn-entrar{
+
   display:inline-flex;
 
   align-items:center;
+
   justify-content:center;
+
   gap:9px;
 
   min-width:125px;
 
-  padding:13px 22px;
+  padding:
+    13px 22px;
 
   border-radius:12px;
 
@@ -174,11 +326,13 @@ header{
   color:#17120a;
 
   font-size:15px;
+
   font-weight:800;
 
   letter-spacing:.5px;
 
   background:
+
     linear-gradient(
       135deg,
       #f0d878,
@@ -186,48 +340,70 @@ header{
       #8a6d14
     );
 
-  border:1px solid #f0d878;
+  border:
+    1px solid
+    #f0d878;
 
   box-shadow:
+
     0 7px 24px
     rgba(201,162,39,.35);
 
-  transition:all .3s ease;
+  transition:
+    all .3s ease;
+
 }
 
+
 .btn-entrar:hover{
-  transform:translateY(-2px);
+
+  transform:
+    translateY(-2px);
 
   box-shadow:
+
     0 11px 30px
     rgba(201,162,39,.55);
 
-  filter:brightness(1.08);
+  filter:
+    brightness(1.08);
+
 }
 
+
 .btn-entrar i{
+
   font-size:16px;
+
 }
+
 
 /* ==============================
    HERO
 ================================ */
 
 .hero{
+
   text-align:center;
 
   padding:
-    100px 10px
+    85px 10px
     120px;
 
   position:relative;
+
   z-index:2;
+
 }
 
+
 .hero h1{
-  font-size:min(72px,13vw);
+
+  font-size:
+    min(72px,13vw);
 
   font-style:italic;
+
   font-weight:800;
 
   line-height:.95;
@@ -237,6 +413,7 @@ header{
   padding-left:10px;
 
   background:
+
     linear-gradient(
       180deg,
       #fdf3d0 0%,
@@ -246,18 +423,23 @@ header{
     );
 
   -webkit-background-clip:text;
+
   background-clip:text;
 
   color:transparent;
 
   filter:
+
     drop-shadow(
       0 0 26px
       rgba(201,162,39,.3)
     );
+
 }
 
+
 .hero .slogan{
+
   font-size:
     clamp(
       17px,
@@ -265,162 +447,380 @@ header{
       24px
     );
 
-  color:var(--champanhe);
+  color:
+    var(--champanhe);
 
   margin-top:18px;
 
   letter-spacing:2px;
 
   text-shadow:
+
     0 2px 12px
     rgba(0,0,0,.8);
+
 }
 
+
 .hero .descricao{
+
   max-width:620px;
 
-  margin:24px auto 0;
+  margin:
+    24px auto 0;
 
-  color:var(--texto-suave);
+  color:
+    var(--texto-suave);
 
   font-size:15px;
 
   line-height:1.8;
 
   text-shadow:
+
     0 1px 6px
     rgba(0,0,0,.6);
+
 }
+
+
+/* ==============================
+   PIX
+================================ */
+
+.menu .pix{
+
+  color:
+    var(--dourado-claro);
+
+  border-color:
+    rgba(201,162,39,.25);
+
+  background:
+    rgba(201,162,39,.06);
+
+}
+
+
+.menu .pix i{
+
+  color:
+    var(--ouro-brilhante);
+
+}
+
 
 /* ==============================
    RESPONSIVO
 ================================ */
 
-@media(max-width:768px){
+@media(max-width:900px){
 
   header{
-    padding:18px 0;
-  }
 
-  .logo-img{
-    width:60px;
-    height:60px;
+    flex-direction:column;
+
+    align-items:center;
+
   }
 
   .logo-lux{
+
+    font-size:32px;
+
+  }
+
+  .menu{
+
+    gap:5px;
+
+  }
+
+}
+
+
+@media(max-width:768px){
+
+  .conteudo{
+
+    padding:
+      0 15px;
+
+  }
+
+  header{
+
+    padding:
+      18px 0;
+
+  }
+
+  .logo-lux{
+
     font-size:27px;
+
     letter-spacing:3px;
+
+  }
+
+  .menu a{
+
+    font-size:12px;
+
+    padding:
+      8px 9px;
+
   }
 
   .btn-entrar{
-    min-width:100px;
-    padding:11px 15px;
+
+    min-width:110px;
+
+    padding:
+      11px 17px;
+
     font-size:14px;
+
   }
 
   .hero{
+
     padding:
-      90px 8px
+      80px 8px
       100px;
+
   }
 
   .hero h1{
+
     font-size:
       min(58px,13vw);
 
     letter-spacing:3px;
+
   }
 
   .hero .slogan{
+
     font-size:16px;
+
     letter-spacing:1px;
+
   }
 
 }
+
 
 @media(max-width:480px){
 
-  .logo-header{
-    gap:8px;
-  }
-
-  .logo-img{
-    width:52px;
-    height:52px;
-  }
-
   .logo-lux{
+
     font-size:22px;
+
     letter-spacing:2px;
+
+  }
+
+  .menu{
+
+    gap:3px;
+
+  }
+
+  .menu a{
+
+    font-size:11px;
+
+    padding:
+      7px 7px;
+
+  }
+
+  .menu a i{
+
+    display:none;
+
   }
 
   .btn-entrar{
-    min-width:90px;
-    padding:10px 12px;
+
+    min-width:100px;
+
+    padding:
+      10px 14px;
+
     font-size:13px;
+
   }
 
 }
+
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="conteudo">
 
+
+<!-- ==============================
+     CABEÇALHO
+================================ -->
+
 <header>
 
-  <!-- LOGO LUX -->
-  <div class="logo-header">
 
-    <img
-      src="logo3.png"
-      alt="LUX Advance"
-      class="logo-img"
-    >
+  <!-- NOME DA LUX -->
+  <div class="logo-lux">
 
-    <div class="logo-lux">
-      LUX Advance
-    </div>
+    LUX Advance
 
   </div>
 
-  <!-- ÚNICO BOTÃO DO CABEÇALHO -->
+
+  <!-- ENTRAR -->
+
   <a
     href="login.html"
     class="btn-entrar"
   >
+
     <i class="fas fa-lock"></i>
+
     Entrar
+
   </a>
+
 
 </header>
 
 
+
 <!-- ==============================
-     PÁGINA INICIAL
+     MENU PRINCIPAL
+================================ -->
+
+<nav class="menu">
+
+
+  <a href="index.html">
+
+    <i class="fas fa-house"></i>
+
+    Início
+
+  </a>
+
+
+  <a href="loja.html">
+
+    <i class="fas fa-store"></i>
+
+    Loja
+
+  </a>
+
+
+  <a href="catalago.html">
+
+    <i class="fas fa-images"></i>
+
+    Catálogo
+
+  </a>
+
+
+  <a href="planos.html">
+
+    <i class="fas fa-crown"></i>
+
+    Planos
+
+  </a>
+
+
+  <a href="pre-cadastro.html">
+
+    <i class="fas fa-user-plus"></i>
+
+    Pré-Cadastro
+
+  </a>
+
+
+  <a href="agendar.html">
+
+    <i class="fas fa-calendar-check"></i>
+
+    Agendar
+
+  </a>
+
+
+  <a href="termos.html">
+
+    <i class="fas fa-file-contract"></i>
+
+    Termos
+
+  </a>
+
+
+  <a
+    href="doar-pix.html"
+    class="pix"
+  >
+
+    <i class="fas fa-qrcode"></i>
+
+    Doar PIX
+
+  </a>
+
+
+</nav>
+
+
+
+<!-- ==============================
+     HERO
 ================================ -->
 
 <section class="hero">
 
+
   <h1>
+
     LUX Advance
+
   </h1>
 
+
   <p class="slogan">
-    MAIS QUE UM SITE, UMA EXPERIÊNCIA
+
+    MAIS QUE UM SITE,
+    UMA EXPERIÊNCIA
+
   </p>
 
+
   <p class="descricao">
+
     Conectamos momentos especiais
     com pessoas extraordinárias.
+
   </p>
+
 
 </section>
 
+
 </div>
+
 
 </body>
 

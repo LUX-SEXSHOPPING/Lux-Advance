@@ -162,7 +162,6 @@ body::before{
 
 /* ==================================================
    CABEÇALHO
-   NÃO HÁ LOGO OU TEXTO AQUI
 ================================================== */
 
 header{
@@ -180,7 +179,6 @@ header{
 
 /* ==================================================
    BOTÃO ENTRAR
-   CANTO SUPERIOR DIREITO
 ================================================== */
 
 .btn-entrar{
@@ -279,6 +277,7 @@ header{
 
 /* ==================================================
    ÁREA DO MENU
+   DESCIDO UM POUCO PARA DESTACAR O LUX
 ================================================== */
 
 .menu-area{
@@ -289,7 +288,7 @@ header{
 
   z-index:15;
 
-  margin-top:8px;
+  margin-top:22px;
 
   margin-bottom:42px;
 
@@ -324,7 +323,7 @@ header{
 
 
 /* ==================================================
-   PEQUENA LINHA DECORATIVA
+   DETALHE
 ================================================== */
 
 .menu-area::before{
@@ -369,7 +368,7 @@ header{
 
 
 /* ==================================================
-   CAIXINHAS INDIVIDUAIS
+   CAIXINHAS DO MENU
 ================================================== */
 
 .menu a{
@@ -437,10 +436,6 @@ header{
 }
 
 
-/* ==================================================
-   BRILHO DA CAIXINHA
-================================================== */
-
 .menu a::before{
 
   content:"";
@@ -469,10 +464,6 @@ header{
 }
 
 
-/* ==================================================
-   ÍCONES DOURADOS
-================================================== */
-
 .menu a i{
 
   color:
@@ -488,10 +479,6 @@ header{
 
 }
 
-
-/* ==================================================
-   HOVER
-================================================== */
 
 .menu a:hover{
 
@@ -525,10 +512,6 @@ header{
 
 }
 
-
-/* ==================================================
-   INÍCIO ATIVO
-================================================== */
 
 .menu a.ativo{
 
@@ -582,7 +565,6 @@ header{
 
 /* ==================================================
    HERO
-   DESCIDO UM POUCO PARA BAIXO
 ================================================== */
 
 .hero{
@@ -597,13 +579,13 @@ header{
 
   padding:
     75px 10px
-    150px;
+    260px;
 
 }
 
 
 /* ==================================================
-   LUX ADVANCE PRINCIPAL
+   LUX ADVANCE
 ================================================== */
 
 .hero h1{
@@ -662,7 +644,7 @@ header{
 
 
 /* ==================================================
-   DETALHE ABAIXO DO TÍTULO
+   LINHA ABAIXO DO TÍTULO
 ================================================== */
 
 .hero h1::after{
@@ -763,7 +745,8 @@ header{
 
 
 /* ==================================================
-   RODAPÉ LUX
+   RODAPÉ
+   SOMENTE AS INFORMAÇÕES SOLICITADAS
 ================================================== */
 
 .rodape{
@@ -774,11 +757,11 @@ header{
 
   width:100%;
 
-  margin-top:20px;
+  margin-top:0;
 
   padding:
-    38px 20px
-    28px;
+    28px 20px
+    24px;
 
   text-align:center;
 
@@ -802,77 +785,23 @@ header{
 }
 
 
-.rodape::before{
-
-  content:"✦";
-
-  display:block;
-
-  color:
-    var(--ouro-claro);
-
-  font-size:12px;
-
-  margin-bottom:12px;
-
-}
-
-
-.rodape-logo{
-
-  font-family:
-    "Playfair Display",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(
-      25px,
-      5vw,
-      36px
-    );
-
-  font-style:italic;
-
-  font-weight:700;
-
-  letter-spacing:2px;
-
-  background:
-
-    linear-gradient(
-      180deg,
-      #fff7dc,
-      #f1d36b 45%,
-      #c9a227 75%,
-      #80600e
-    );
-
-  -webkit-background-clip:text;
-
-  background-clip:text;
-
-  color:transparent;
-
-  filter:
-    drop-shadow(
-      0 2px 5px
-      rgba(0,0,0,.90)
-    );
-
-}
-
+/* ==================================================
+   AGÊNCIA EUROPEIA
+================================================== */
 
 .rodape-agencia{
-
-  margin-top:6px;
 
   font-family:
     "Cormorant Garamond",
     Georgia,
     serif;
 
-  font-size:19px;
+  font-size:
+    clamp(
+      18px,
+      4vw,
+      24px
+    );
 
   font-weight:700;
 
@@ -886,143 +815,41 @@ header{
 }
 
 
-.rodape-frase{
+/* ==================================================
+   AVISO 18+
+================================================== */
 
-  max-width:650px;
+.rodape-18{
 
-  margin:
-    13px auto 0;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:16px;
-
-  line-height:1.5;
-
-  color:
-    var(--texto-suave);
-
-}
-
-
-.rodape-links{
-
-  display:flex;
-
-  flex-wrap:wrap;
-
-  justify-content:center;
-
-  align-items:center;
-
-  gap:8px 18px;
-
-  margin-top:22px;
-
-}
-
-
-.rodape-links a{
-
-  color:
-    #eadba9;
-
-  text-decoration:none;
+  margin-top:10px;
 
   font-family:
     "Cormorant Garamond",
     Georgia,
     serif;
 
-  font-size:16px;
+  font-size:
+    16px;
 
   font-weight:600;
 
-  transition:
-    color .25s ease;
-
-}
-
-
-.rodape-links a:hover{
+  letter-spacing:1px;
 
   color:
-    #fff1a8;
+    var(--champanhe);
 
 }
 
 
-.rodape-suporte{
-
-  margin-top:21px;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:16px;
-
-  color:
-    var(--texto);
-
-}
-
-
-.rodape-suporte a{
-
-  color:
-    var(--ouro-claro);
-
-  text-decoration:none;
-
-  font-weight:700;
-
-}
-
-
-.rodape-aviso{
-
-  max-width:700px;
-
-  margin:
-    22px auto 0;
-
-  padding:
-    10px 14px;
-
-  border:
-    1px solid
-    rgba(201,162,39,.28);
-
-  border-radius:10px;
-
-  background:
-    rgba(0,0,0,.35);
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size:14px;
-
-  line-height:1.5;
-
-  color:
-    #bfb4a7;
-
-}
-
+/* ==================================================
+   DIREITOS AUTORAIS
+================================================== */
 
 .rodape-final{
 
-  margin-top:23px;
+  margin-top:14px;
 
-  padding-top:18px;
+  padding-top:14px;
 
   border-top:
     1px solid
@@ -1033,7 +860,8 @@ header{
     Georgia,
     serif;
 
-  font-size:14px;
+  font-size:
+    14px;
 
   color:
     #8f877e;
@@ -1106,7 +934,7 @@ header{
 
   .menu-area{
 
-    margin-top:3px;
+    margin-top:18px;
 
     margin-bottom:34px;
 
@@ -1158,7 +986,7 @@ header{
 
     padding:
       70px 5px
-      110px;
+      220px;
 
   }
 
@@ -1195,34 +1023,32 @@ header{
 
   .rodape{
 
-    margin-top:10px;
-
     padding:
-      32px 12px
-      24px;
+      26px 12px
+      22px;
 
   }
 
 
   .rodape-agencia{
 
-    font-size:17px;
+    font-size:18px;
 
     letter-spacing:2px;
 
   }
 
 
-  .rodape-links{
+  .rodape-18{
 
-    gap:7px 14px;
+    font-size:15px;
 
   }
 
 
-  .rodape-links a{
+  .rodape-final{
 
-    font-size:15px;
+    font-size:13px;
 
   }
 
@@ -1265,6 +1091,8 @@ header{
 
   .menu-area{
 
+    margin-top:16px;
+
     margin-bottom:30px;
 
   }
@@ -1303,6 +1131,8 @@ header{
 
     padding-top:62px;
 
+    padding-bottom:200px;
+
   }
 
 
@@ -1320,23 +1150,16 @@ header{
   }
 
 
-  .rodape-logo{
-
-    font-size:28px;
-
-  }
-
-
   .rodape-agencia{
 
-    font-size:15px;
+    font-size:16px;
 
   }
 
 
-  .rodape-frase{
+  .rodape-18{
 
-    font-size:15px;
+    font-size:14px;
 
   }
 
@@ -1355,12 +1178,9 @@ header{
 
 <!-- ==================================================
      CABEÇALHO
-     SEM LOGO E SEM TEXTO
 ================================================== -->
 
 <header>
-
-  <!-- ENTRAR -->
 
   <a
     href="./login.html"
@@ -1452,8 +1272,6 @@ header{
     </a>
 
 
-    <!-- DOAR PIX -->
-
     <a
       href="./doar-pix.html"
       class="pix"
@@ -1506,88 +1324,24 @@ header{
 </div>
 
 
+
 <!-- ==================================================
-     RODAPÉ LUX ADVANCE
+     RODAPÉ
 ================================================== -->
 
 <footer class="rodape">
 
 
-  <div class="rodape-logo">
-    LUX Advance
-  </div>
-
-
   <div class="rodape-agencia">
+
     Agência Europeia
-  </div>
-
-
-  <p class="rodape-frase">
-
-    Uma plataforma digital dedicada à conexão,
-    experiências e atendimento com
-    elegância, privacidade e sofisticação.
-
-  </p>
-
-
-  <nav class="rodape-links">
-
-    <a href="./index.html">
-      Início
-    </a>
-
-    <a href="./loja.html">
-      Loja
-    </a>
-
-    <a href="./catalago.html">
-      Catálogo
-    </a>
-
-    <a href="./planos.html">
-      Planos
-    </a>
-
-    <a href="./pre-cadastro.html">
-      Pré-Cadastro
-    </a>
-
-    <a href="./termos.html">
-      Termos de Uso
-    </a>
-
-  </nav>
-
-
-  <div class="rodape-suporte">
-
-    <i class="fas fa-headset"></i>
-
-    Atendimento e suporte:
-
-    <a
-      href="https://wa.me/5551980612941"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-
-      WhatsApp
-
-    </a>
 
   </div>
 
 
-  <div class="rodape-aviso">
+  <div class="rodape-18">
 
-    <strong>18+</strong>
-
-    &nbsp; Conteúdo e serviços destinados
-    exclusivamente a maiores de 18 anos.
-    Ao utilizar a plataforma, o usuário declara
-    possuir idade legal para acessá-la.
+    PROIBIDO PARA MENORES DE 18 ANOS
 
   </div>
 

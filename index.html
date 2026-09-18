@@ -20,42 +20,61 @@
   content="LUX Advance — Mais que um site, uma experiência."
 >
 
-<title>
-LUX Advance — Mais que um site, uma experiência
-</title>
+<title>LUX Advance</title>
+
+
+<!-- FONTES SOFISTICADAS -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link
-  rel="manifest"
-  href="manifest.json"
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
 >
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+  rel="stylesheet"
+>
+
+
+<!-- ÍCONES -->
 
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 >
 
+
+<link
+  rel="manifest"
+  href="manifest.json"
+>
+
+
 <style>
+
+/* ==================================================
+   LUX ADVANCE
+================================================== */
 
 :root{
 
-  --dourado:#c9a227;
-  --dourado-claro:#f0d878;
-  --champanhe:#f5e6c8;
+  --ouro:#c9a227;
+  --ouro-claro:#f1d36b;
+  --ouro-brilho:#ffe9a3;
 
-  --texto-claro:#efe7dd;
-  --texto-suave:#cbbfaf;
-
-  --ouro-brilhante:#ffd700;
-
-  --borda-dourada:
-    rgba(201,162,39,.28);
+  --champanhe:#f7e9cb;
+  --texto:#eee4d8;
+  --texto-suave:#cbbfb1;
 
 }
 
 
-/* ==============================
+/* ==================================================
    RESET
-================================ */
+================================================== */
 
 *{
 
@@ -63,11 +82,6 @@ LUX Advance — Mais que um site, uma experiência
   padding:0;
 
   box-sizing:border-box;
-
-  font-family:
-    'Segoe UI',
-    system-ui,
-    sans-serif;
 
 }
 
@@ -79,234 +93,105 @@ html{
 }
 
 
-/* ==============================
-   FUNDO
-================================ */
-
 body{
 
-  color:var(--texto-claro);
-
   min-height:100vh;
+
+  overflow-x:hidden;
+
+  color:var(--texto);
 
   background:
 
     #000
-    url('lux-halloween.jpg')
+    url("lux-halloween.jpg")
     center top / cover
     no-repeat fixed;
 
 }
 
 
+/* ==================================================
+   CAMADA DE PROTEÇÃO DO FUNDO
+================================================== */
+
 body::before{
 
-  content:'';
+  content:"";
 
   position:fixed;
 
   inset:0;
 
-  background:
-    rgba(0,0,0,.42);
-
   z-index:0;
 
   pointer-events:none;
 
-}
-
-
-/* ==============================
-   CONTEÚDO
-================================ */
-
-.conteudo{
-
-  position:relative;
-
-  z-index:1;
-
-  max-width:1200px;
-
-  margin:0 auto;
-
-  padding:
-    0 22px;
-
-}
-
-
-/* ==============================
-   CABEÇALHO
-================================ */
-
-header{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:20px;
-
-  padding:
-    22px 0;
-
-  position:relative;
-
-  z-index:10;
-
-}
-
-
-/* ==============================
-   NOME LUX
-================================ */
-
-.logo-lux{
-
-  font-size:40px;
-
-  font-weight:800;
-
-  font-style:italic;
-
-  letter-spacing:6px;
-
-  color:
-    var(--champanhe);
-
-  text-shadow:
-
-    0 0 24px
-    rgba(201,162,39,.4);
-
-  position:relative;
-
-}
-
-
-.logo-lux::after{
-
-  content:'';
-
-  position:absolute;
-
-  left:2px;
-
-  right:14px;
-
-  bottom:-7px;
-
-  height:1px;
-
   background:
 
     linear-gradient(
-      90deg,
-      var(--dourado),
-      transparent
+      180deg,
+      rgba(0,0,0,.12),
+      rgba(0,0,0,.30) 50%,
+      rgba(0,0,0,.45)
     );
 
 }
 
 
-/* ==============================
-   MENU
-================================ */
+/* ==================================================
+   CONTEÚDO
+================================================== */
 
-.menu{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  gap:8px;
-
-  flex-wrap:wrap;
-
-  padding:
-    8px 0 18px;
+.conteudo{
 
   position:relative;
 
-  z-index:10;
+  z-index:2;
+
+  width:100%;
+
+  max-width:1200px;
+
+  margin:0 auto;
+
+  padding:0 22px;
 
 }
 
 
-.menu a{
+/* ==================================================
+   CABEÇALHO
+   NÃO HÁ LOGO OU TEXTO AQUI
+================================================== */
 
-  display:inline-flex;
+header{
 
-  align-items:center;
+  width:100%;
 
-  justify-content:center;
+  height:108px;
 
-  gap:7px;
+  position:relative;
 
-  padding:
-    9px 12px;
-
-  border-radius:9px;
-
-  color:
-    var(--texto-claro);
-
-  text-decoration:none;
-
-  font-size:13px;
-
-  font-weight:600;
-
-  border:
-    1px solid
-    transparent;
-
-  transition:
-    all .25s ease;
+  z-index:20;
 
 }
 
 
-.menu a:hover{
-
-  color:
-    var(--dourado-claro);
-
-  border-color:
-    var(--borda-dourada);
-
-  background:
-    rgba(201,162,39,.08);
-
-  transform:
-    translateY(-1px);
-
-}
-
-
-.menu a i{
-
-  color:
-    var(--dourado);
-
-  font-size:12px;
-
-}
-
-
-/* ==============================
+/* ==================================================
    BOTÃO ENTRAR
-================================ */
+   CANTO SUPERIOR DIREITO
+================================================== */
 
 .btn-entrar{
 
-  display:inline-flex;
+  position:absolute;
+
+  top:20px;
+
+  right:0;
+
+  display:flex;
 
   align-items:center;
 
@@ -314,59 +199,73 @@ header{
 
   gap:9px;
 
-  min-width:125px;
+  width:132px;
 
-  padding:
-    13px 22px;
+  height:50px;
 
-  border-radius:12px;
+  border-radius:14px;
 
   text-decoration:none;
 
   color:#17120a;
 
-  font-size:15px;
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
 
-  font-weight:800;
+  font-size:16px;
 
-  letter-spacing:.5px;
+  font-weight:700;
+
+  letter-spacing:.3px;
 
   background:
 
     linear-gradient(
-      135deg,
-      #f0d878,
-      #c9a227 60%,
-      #8a6d14
+      145deg,
+      #fff0a8 0%,
+      #f0d36b 35%,
+      #c9a227 70%,
+      #886711 100%
     );
 
   border:
     1px solid
-    #f0d878;
+    #ffe89a;
 
   box-shadow:
 
     0 7px 24px
-    rgba(201,162,39,.35);
+    rgba(0,0,0,.50),
+
+    0 0 16px
+    rgba(201,162,39,.25),
+
+    inset 0 1px
+    rgba(255,255,255,.70);
 
   transition:
-    all .3s ease;
+    transform .25s ease,
+    filter .25s ease,
+    box-shadow .25s ease;
 
 }
 
 
 .btn-entrar:hover{
 
-  transform:
-    translateY(-2px);
+  transform:translateY(-2px);
+
+  filter:brightness(1.08);
 
   box-shadow:
 
-    0 11px 30px
-    rgba(201,162,39,.55);
+    0 10px 28px
+    rgba(0,0,0,.55),
 
-  filter:
-    brightness(1.08);
+    0 0 23px
+    rgba(240,216,120,.35);
 
 }
 
@@ -378,48 +277,392 @@ header{
 }
 
 
-/* ==============================
-   HERO
-================================ */
+/* ==================================================
+   ÁREA DO MENU
+   MAIS ABAIXO DO CABEÇALHO
+================================================== */
 
-.hero{
+.menu-area{
 
-  text-align:center;
-
-  padding:
-    85px 10px
-    120px;
+  width:100%;
 
   position:relative;
 
-  z-index:2;
+  z-index:15;
 
-}
+  margin-top:8px;
 
+  margin-bottom:42px;
 
-.hero h1{
-
-  font-size:
-    min(72px,13vw);
-
-  font-style:italic;
-
-  font-weight:800;
-
-  line-height:.95;
-
-  letter-spacing:6px;
-
-  padding-left:10px;
+  padding:
+    15px 14px 16px;
 
   background:
 
     linear-gradient(
       180deg,
-      #fdf3d0 0%,
-      var(--dourado-claro) 45%,
-      var(--dourado) 78%,
-      #8a6d14 100%
+      rgba(3,2,3,.94),
+      rgba(7,5,6,.88)
+    );
+
+  border-top:
+    1px solid
+    rgba(201,162,39,.55);
+
+  border-bottom:
+    1px solid
+    rgba(201,162,39,.50);
+
+  box-shadow:
+
+    0 8px 30px
+    rgba(0,0,0,.55),
+
+    inset 0 1px
+    rgba(255,255,255,.04);
+
+}
+
+
+/* ==================================================
+   PEQUENA LINHA DECORATIVA
+================================================== */
+
+.menu-area::before{
+
+  content:"✦";
+
+  display:block;
+
+  width:100%;
+
+  text-align:center;
+
+  color:
+    rgba(240,216,120,.70);
+
+  font-size:10px;
+
+  margin-bottom:8px;
+
+}
+
+
+/* ==================================================
+   MENU
+================================================== */
+
+.menu{
+
+  width:100%;
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:11px;
+
+}
+
+
+/* ==================================================
+   CAIXINHAS INDIVIDUAIS
+================================================== */
+
+.menu a{
+
+  position:relative;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:9px;
+
+  min-width:132px;
+
+  height:48px;
+
+  padding:
+    0 18px;
+
+  border-radius:25px;
+
+  text-decoration:none;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size:18px;
+
+  font-weight:700;
+
+  letter-spacing:.3px;
+
+  color:#eee1c8;
+
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(8,7,7,.98),
+      rgba(22,15,16,.94)
+    );
+
+  border:
+    1px solid
+    rgba(201,162,39,.68);
+
+  box-shadow:
+
+    inset 0 1px
+    rgba(255,255,255,.05),
+
+    inset 0 0 12px
+    rgba(201,162,39,.025),
+
+    0 5px 16px
+    rgba(0,0,0,.40);
+
+  transition:
+    all .28s ease;
+
+}
+
+
+/* ==================================================
+   BRILHO DA CAIXINHA
+================================================== */
+
+.menu a::before{
+
+  content:"";
+
+  position:absolute;
+
+  top:2px;
+
+  left:22%;
+
+  right:22%;
+
+  height:1px;
+
+  background:
+
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,235,170,.90),
+      transparent
+    );
+
+  opacity:.75;
+
+}
+
+
+/* ==================================================
+   ÍCONES DOURADOS
+================================================== */
+
+.menu a i{
+
+  color:
+    var(--ouro-claro);
+
+  font-size:16px;
+
+  filter:
+    drop-shadow(
+      0 0 5px
+      rgba(201,162,39,.40)
+    );
+
+}
+
+
+/* ==================================================
+   HOVER
+================================================== */
+
+.menu a:hover{
+
+  transform:
+    translateY(-3px);
+
+  color:
+    #fff2c9;
+
+  border-color:
+    #f2d774;
+
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(48,35,10,.98),
+      rgba(17,11,12,.97)
+    );
+
+  box-shadow:
+
+    0 8px 23px
+    rgba(0,0,0,.48),
+
+    0 0 17px
+    rgba(201,162,39,.20),
+
+    inset 0 0 15px
+    rgba(201,162,39,.08);
+
+}
+
+
+/* ==================================================
+   INÍCIO ATIVO
+================================================== */
+
+.menu a.ativo{
+
+  color:
+    #fff2c9;
+
+  border-color:
+    #f1d36d;
+
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(52,39,12,.98),
+      rgba(18,12,12,.97)
+    );
+
+  box-shadow:
+
+    0 0 18px
+    rgba(201,162,39,.22),
+
+    inset 0 0 14px
+    rgba(201,162,39,.08);
+
+}
+
+
+/* ==================================================
+   SELEÇÃO PREMIUM
+================================================== */
+
+.menu a.premium{
+
+  color:
+    #f5da7c;
+
+  border-color:
+    rgba(242,215,119,.80);
+
+}
+
+
+.menu a.premium i{
+
+  color:
+    #ffd700;
+
+}
+
+
+/* ==================================================
+   DOAR PIX
+================================================== */
+
+.menu a.pix{
+
+  color:
+    #f5da7c;
+
+  border-color:
+    rgba(242,215,119,.80);
+
+}
+
+
+.menu a.pix i{
+
+  color:
+    #ffd700;
+
+}
+
+
+/* ==================================================
+   HERO
+   ABAIXO DO MENU
+================================================== */
+
+.hero{
+
+  width:100%;
+
+  position:relative;
+
+  z-index:3;
+
+  text-align:center;
+
+  padding:
+    52px 10px
+    130px;
+
+}
+
+
+/* ==================================================
+   LUX ADVANCE PRINCIPAL
+   SOFISTICADO / SENSUAL
+================================================== */
+
+.hero h1{
+
+  margin:0;
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(
+      52px,
+      8vw,
+      88px
+    );
+
+  font-style:italic;
+
+  font-weight:700;
+
+  line-height:1;
+
+  letter-spacing:2px;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      #fff7dc 0%,
+      #f4dd86 35%,
+      #c9a227 72%,
+      #80600e 100%
     );
 
   -webkit-background-clip:text;
@@ -431,230 +674,364 @@ header{
   filter:
 
     drop-shadow(
-      0 0 26px
-      rgba(201,162,39,.3)
+      0 3px 5px
+      rgba(0,0,0,.90)
+    )
+
+    drop-shadow(
+      0 0 24px
+      rgba(201,162,39,.28)
     );
 
 }
 
 
+/* ==================================================
+   DETALHE ABAIXO DO TÍTULO
+================================================== */
+
+.hero h1::after{
+
+  content:"";
+
+  display:block;
+
+  width:
+    min(240px,52%);
+
+  height:1px;
+
+  margin:
+    17px auto 0;
+
+  background:
+
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--ouro-claro),
+      transparent
+    );
+
+  opacity:.75;
+
+}
+
+
+/* ==================================================
+   SLOGAN
+================================================== */
+
 .hero .slogan{
+
+  margin-top:22px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
 
   font-size:
     clamp(
-      17px,
-      2.6vw,
-      24px
+      20px,
+      3vw,
+      28px
     );
+
+  font-weight:600;
+
+  letter-spacing:2px;
 
   color:
     var(--champanhe);
 
-  margin-top:18px;
-
-  letter-spacing:2px;
-
   text-shadow:
-
-    0 2px 12px
-    rgba(0,0,0,.8);
+    0 2px 10px
+    rgba(0,0,0,.95);
 
 }
 
 
+/* ==================================================
+   DESCRIÇÃO
+================================================== */
+
 .hero .descricao{
 
-  max-width:620px;
+  max-width:680px;
 
   margin:
-    24px auto 0;
+    23px auto 0;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(
+      17px,
+      2.4vw,
+      21px
+    );
+
+  line-height:1.65;
 
   color:
     var(--texto-suave);
 
-  font-size:15px;
-
-  line-height:1.8;
-
   text-shadow:
-
-    0 1px 6px
-    rgba(0,0,0,.6);
-
-}
-
-
-/* ==============================
-   PIX
-================================ */
-
-.menu .pix{
-
-  color:
-    var(--dourado-claro);
-
-  border-color:
-    rgba(201,162,39,.25);
-
-  background:
-    rgba(201,162,39,.06);
+    0 2px 8px
+    rgba(0,0,0,.95);
 
 }
 
 
-.menu .pix i{
+/* ==================================================
+   TABLET
+================================================== */
 
-  color:
-    var(--ouro-brilhante);
-
-}
-
-
-/* ==============================
-   RESPONSIVO
-================================ */
-
-@media(max-width:900px){
-
-  header{
-
-    flex-direction:column;
-
-    align-items:center;
-
-  }
-
-  .logo-lux{
-
-    font-size:32px;
-
-  }
+@media(max-width:950px){
 
   .menu{
 
-    gap:5px;
-
-  }
-
-}
-
-
-@media(max-width:768px){
-
-  .conteudo{
-
-    padding:
-      0 15px;
-
-  }
-
-  header{
-
-    padding:
-      18px 0;
-
-  }
-
-  .logo-lux{
-
-    font-size:27px;
-
-    letter-spacing:3px;
+    gap:9px;
 
   }
 
   .menu a{
 
-    font-size:12px;
+    min-width:125px;
 
-    padding:
-      8px 9px;
+    height:46px;
+
+    padding:0 15px;
+
+    font-size:17px;
 
   }
 
-  .btn-entrar{
+}
 
-    min-width:110px;
+
+/* ==================================================
+   CELULAR
+================================================== */
+
+@media(max-width:700px){
+
+  .conteudo{
 
     padding:
-      11px 17px;
+      0 10px;
+
+  }
+
+
+  header{
+
+    height:112px;
+
+  }
+
+
+  .btn-entrar{
+
+    top:18px;
+
+    right:0;
+
+    width:116px;
+
+    height:47px;
+
+    font-size:15px;
+
+  }
+
+
+  .menu-area{
+
+    margin-top:3px;
+
+    margin-bottom:34px;
+
+    padding:
+      13px 7px 15px;
+
+  }
+
+
+  .menu-area::before{
+
+    margin-bottom:8px;
+
+  }
+
+
+  .menu{
+
+    gap:7px;
+
+  }
+
+
+  .menu a{
+
+    min-width:
+      calc(33.333% - 7px);
+
+    height:45px;
+
+    padding:
+      0 5px;
+
+    gap:5px;
 
     font-size:14px;
 
   }
 
-  .hero{
-
-    padding:
-      80px 8px
-      100px;
-
-  }
-
-  .hero h1{
-
-    font-size:
-      min(58px,13vw);
-
-    letter-spacing:3px;
-
-  }
-
-  .hero .slogan{
-
-    font-size:16px;
-
-    letter-spacing:1px;
-
-  }
-
-}
-
-
-@media(max-width:480px){
-
-  .logo-lux{
-
-    font-size:22px;
-
-    letter-spacing:2px;
-
-  }
-
-  .menu{
-
-    gap:3px;
-
-  }
-
-  .menu a{
-
-    font-size:11px;
-
-    padding:
-      7px 7px;
-
-  }
 
   .menu a i{
-
-    display:none;
-
-  }
-
-  .btn-entrar{
-
-    min-width:100px;
-
-    padding:
-      10px 14px;
 
     font-size:13px;
 
   }
 
+
+  .hero{
+
+    padding:
+      50px 5px
+      105px;
+
+  }
+
+
+  .hero h1{
+
+    font-size:
+      clamp(
+        45px,
+        13vw,
+        63px
+      );
+
+    letter-spacing:1px;
+
+  }
+
+
+  .hero .slogan{
+
+    font-size:17px;
+
+    letter-spacing:1px;
+
+  }
+
+
+  .hero .descricao{
+
+    font-size:17px;
+
+  }
+
 }
 
+
+/* ==================================================
+   CELULAR PEQUENO
+================================================== */
+
+@media(max-width:430px){
+
+  .conteudo{
+
+    padding:
+      0 8px;
+
+  }
+
+
+  header{
+
+    height:108px;
+
+  }
+
+
+  .btn-entrar{
+
+    top:16px;
+
+    width:108px;
+
+    height:45px;
+
+    font-size:14px;
+
+  }
+
+
+  .menu-area{
+
+    margin-bottom:30px;
+
+  }
+
+
+  .menu{
+
+    gap:6px;
+
+  }
+
+
+  .menu a{
+
+    min-width:
+      calc(33.333% - 6px);
+
+    height:43px;
+
+    padding:
+      0 4px;
+
+    font-size:12px;
+
+  }
+
+
+  .menu a i{
+
+    font-size:11px;
+
+  }
+
+
+  .hero{
+
+    padding-top:46px;
+
+  }
+
+
+  .hero h1{
+
+    font-size:43px;
+
+  }
+
+
+  .hero .slogan{
+
+    font-size:16px;
+
+  }
+
+}
 
 </style>
 
@@ -667,22 +1044,14 @@ header{
 <div class="conteudo">
 
 
-<!-- ==============================
+<!-- ==================================================
      CABEÇALHO
-================================ -->
+     SEM LOGO E SEM TEXTO
+================================================== -->
 
 <header>
 
-
-  <!-- NOME DA LUX -->
-  <div class="logo-lux">
-
-    LUX Advance
-
-  </div>
-
-
-  <!-- ENTRAR -->
+  <!-- SOMENTE ENTRAR -->
 
   <a
     href="login.html"
@@ -695,108 +1064,124 @@ header{
 
   </a>
 
-
 </header>
 
 
 
-<!-- ==============================
+<!-- ==================================================
      MENU PRINCIPAL
-================================ -->
+================================================== -->
 
-<nav class="menu">
+<div class="menu-area">
 
-
-  <a href="index.html">
-
-    <i class="fas fa-house"></i>
-
-    Início
-
-  </a>
+  <nav class="menu">
 
 
-  <a href="loja.html">
+    <a
+      href="index.html"
+      class="ativo"
+    >
 
-    <i class="fas fa-store"></i>
+      <i class="fas fa-house"></i>
 
-    Loja
+      <span>Início</span>
 
-  </a>
-
-
-  <a href="catalago.html">
-
-    <i class="fas fa-images"></i>
-
-    Catálogo
-
-  </a>
+    </a>
 
 
-  <a href="planos.html">
+    <a href="loja.html">
 
-    <i class="fas fa-crown"></i>
+      <i class="fas fa-cart-shopping"></i>
 
-    Planos
+      <span>Loja</span>
 
-  </a>
-
-
-  <a href="pre-cadastro.html">
-
-    <i class="fas fa-user-plus"></i>
-
-    Pré-Cadastro
-
-  </a>
+    </a>
 
 
-  <a href="agendar.html">
+    <a href="catalago.html">
 
-    <i class="fas fa-calendar-check"></i>
+      <i class="fas fa-book-open"></i>
 
-    Agendar
+      <span>Catálogo</span>
 
-  </a>
-
-
-  <a href="termos.html">
-
-    <i class="fas fa-file-contract"></i>
-
-    Termos
-
-  </a>
+    </a>
 
 
-  <a
-    href="doar-pix.html"
-    class="pix"
-  >
+    <a href="planos.html">
 
-    <i class="fas fa-qrcode"></i>
+      <i class="fas fa-crown"></i>
 
-    Doar PIX
+      <span>Planos</span>
 
-  </a>
+    </a>
 
 
-</nav>
+    <a href="pre-cadastro.html">
+
+      <i class="fas fa-user-plus"></i>
+
+      <span>Pré-Cadastro</span>
+
+    </a>
+
+
+    <a href="agendar.html">
+
+      <i class="fas fa-calendar-days"></i>
+
+      <span>Agendar</span>
+
+    </a>
+
+
+    <a href="termos.html">
+
+      <i class="fas fa-shield-halved"></i>
+
+      <span>Termos</span>
+
+    </a>
+
+
+    <a
+      href="selecao-premium.html"
+      class="premium"
+    >
+
+      <i class="fas fa-gem"></i>
+
+      <span>Seleção Premium</span>
+
+    </a>
+
+
+    <a
+      href="doar-pix.html"
+      class="pix"
+    >
+
+      <i class="fas fa-qrcode"></i>
+
+      <span>Doar PIX</span>
+
+    </a>
+
+
+  </nav>
+
+</div>
 
 
 
-<!-- ==============================
-     HERO
-================================ -->
+<!-- ==================================================
+     CONTEÚDO PRINCIPAL
+================================================== -->
 
 <section class="hero">
 
 
   <h1>
-
     LUX Advance
-
   </h1>
 
 

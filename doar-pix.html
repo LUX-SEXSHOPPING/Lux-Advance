@@ -12,7 +12,10 @@
 
   <title>LUX — Doação PIX</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
 
   <link
     rel="preconnect"
@@ -46,19 +49,22 @@
 
       min-height: 100vh;
 
-      font-family: Arial, Helvetica, sans-serif;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
       color: #fff;
 
       background:
         radial-gradient(
           circle at 50% -10%,
-          rgba(255, 77, 166, .16),
+          rgba(255,77,166,.16),
           transparent 40%
         ),
         radial-gradient(
           circle at 0% 100%,
-          rgba(248, 213, 138, .08),
+          rgba(248,213,138,.08),
           transparent 35%
         ),
         #080406;
@@ -99,11 +105,12 @@
 
       color: #f8d58a;
 
-      border: 1px solid
-        rgba(248, 213, 138, .38);
+      border:
+        1px solid
+        rgba(248,213,138,.38);
 
       background:
-        rgba(255, 255, 255, .025);
+        rgba(255,255,255,.025);
 
       transition: .3s;
     }
@@ -115,7 +122,8 @@
 
       color: #10070a;
 
-      transform: translateY(-2px);
+      transform:
+        translateY(-2px);
     }
 
 
@@ -127,7 +135,8 @@
 
       width: min(720px, 92%);
 
-      margin: 10px auto 60px;
+      margin:
+        10px auto 60px;
     }
 
 
@@ -137,677 +146,12 @@
 
       overflow: hidden;
 
-      padding: 30px 25px;
+      padding:
+        30px 25px;
 
       border-radius: 25px;
 
       background:
         linear-gradient(
           145deg,
-          rgba(28, 12, 20, .97),
-          rgba(8, 4, 6, .98)
-        );
-
-      border: 1px solid
-        rgba(248, 213, 138, .28);
-
-      box-shadow:
-        0 25px 80px
-        rgba(0, 0, 0, .65);
-    }
-
-
-    .card::before {
-
-      content: "";
-
-      position: absolute;
-
-      width: 250px;
-
-      height: 250px;
-
-      border-radius: 50%;
-
-      top: -140px;
-
-      right: -100px;
-
-      background:
-        rgba(255, 77, 166, .08);
-
-      filter: blur(30px);
-
-      pointer-events: none;
-    }
-
-
-    /* =========================
-       TITULO
-    ========================= */
-
-    .titulo {
-
-      position: relative;
-
-      text-align: center;
-
-      margin-bottom: 8px;
-
-      color: #f8d58a;
-
-      font-family:
-        "Playfair Display",
-        Georgia,
-        serif;
-
-      font-size:
-        clamp(31px, 8vw, 50px);
-
-      font-weight: 700;
-
-      font-style: italic;
-    }
-
-
-    .subtitulo {
-
-      text-align: center;
-
-      color: #cfc7ca;
-
-      line-height: 1.6;
-
-      margin:
-        0 auto 30px;
-
-      max-width: 520px;
-    }
-
-
-    /* =========================
-       CARTAO DA CHAVE PIX
-    ========================= */
-
-    .pix-card {
-
-      position: relative;
-
-      margin: 0 auto 28px;
-
-      padding: 23px;
-
-      border-radius: 20px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 77, 166, .08),
-          rgba(248, 213, 138, .045)
-        );
-
-      border: 1px solid
-        rgba(248, 213, 138, .25);
-
-      text-align: center;
-    }
-
-
-    .pix-icon {
-
-      width: 52px;
-
-      height: 52px;
-
-      margin: 0 auto 12px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      border-radius: 50%;
-
-      color: #f8d58a;
-
-      border: 1px solid
-        rgba(248, 213, 138, .35);
-
-      background:
-        rgba(248, 213, 138, .07);
-
-      font-size: 22px;
-    }
-
-
-    .pix-titulo {
-
-      color: #f8d58a;
-
-      font-family:
-        "Playfair Display",
-        Georgia,
-        serif;
-
-      font-size: 23px;
-
-      margin-bottom: 5px;
-    }
-
-
-    .pix-descricao {
-
-      color: #aaa;
-
-      font-size: 14px;
-
-      margin-bottom: 17px;
-    }
-
-
-    /* BOTAO GERAR CHAVE */
-
-    .btn-gerar-chave {
-
-      width: 100%;
-
-      max-width: 310px;
-
-      padding: 13px 18px;
-
-      border-radius: 12px;
-
-      border: 1px solid
-        rgba(248, 213, 138, .5);
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(248, 213, 138, .13),
-          rgba(255, 77, 166, .08)
-        );
-
-      color: #f8d58a;
-
-      font-size: 15px;
-
-      font-weight: bold;
-
-      cursor: pointer;
-
-      transition: .3s;
-    }
-
-
-    .btn-gerar-chave:hover {
-
-      background: #f8d58a;
-
-      color: #10070a;
-
-      transform: translateY(-2px);
-    }
-
-
-    /* CHAVE ESCONDIDA */
-
-    .chave-area {
-
-      display: none;
-
-      margin-top: 18px;
-
-      animation:
-        aparecer .35s ease;
-    }
-
-
-    @keyframes aparecer {
-
-      from {
-
-        opacity: 0;
-
-        transform: translateY(-8px);
-      }
-
-      to {
-
-        opacity: 1;
-
-        transform: translateY(0);
-      }
-    }
-
-
-    .chave-label {
-
-      display: block;
-
-      margin-bottom: 7px;
-
-      color: #aaa;
-
-      font-size: 12px;
-
-      text-transform: uppercase;
-
-      letter-spacing: 1px;
-    }
-
-
-    .chave-box {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 8px;
-
-      padding: 5px;
-
-      border-radius: 12px;
-
-      background: #080406;
-
-      border: 1px solid
-        rgba(255, 77, 166, .3);
-    }
-
-
-    .chave-texto {
-
-      flex: 1;
-
-      min-width: 0;
-
-      padding: 10px;
-
-      color: #ff4da6;
-
-      font-size: 15px;
-
-      font-weight: bold;
-
-      word-break: break-word;
-    }
-
-
-    .btn-copiar-chave {
-
-      flex-shrink: 0;
-
-      padding: 10px 13px;
-
-      border: 0;
-
-      border-radius: 9px;
-
-      background: #ff4da6;
-
-      color: #fff;
-
-      cursor: pointer;
-
-      font-weight: bold;
-
-      transition: .25s;
-    }
-
-
-    .btn-copiar-chave:hover {
-
-      filter: brightness(1.1);
-
-      transform: translateY(-1px);
-    }
-
-
-    /* =========================
-       FORMULARIO
-    ========================= */
-
-    .form-title {
-
-      color: #f8d58a;
-
-      font-family:
-        "Playfair Display",
-        Georgia,
-        serif;
-
-      font-size: 24px;
-
-      margin:
-        5px 0 20px;
-    }
-
-
-    label {
-
-      display: block;
-
-      margin:
-        15px 0 7px;
-
-      color: #e8d9df;
-
-      font-size: 14px;
-
-      font-weight: bold;
-    }
-
-
-    input {
-
-      width: 100%;
-
-      padding: 14px 15px;
-
-      border-radius: 12px;
-
-      border: 1px solid
-        rgba(248, 213, 138, .23);
-
-      background: #12090d;
-
-      color: #fff;
-
-      outline: none;
-
-      font-size: 16px;
-
-      transition: .25s;
-    }
-
-
-    input::placeholder {
-
-      color: #716970;
-    }
-
-
-    input:focus {
-
-      border-color: #ff4da6;
-
-      box-shadow:
-        0 0 0 3px
-        rgba(255, 77, 166, .08);
-    }
-
-
-    /* =========================
-       BOTOES
-    ========================= */
-
-    .botoes {
-
-      display: grid;
-
-      gap: 12px;
-
-      margin-top: 24px;
-    }
-
-
-    #btnPix {
-
-      width: 100%;
-
-      padding: 16px;
-
-      border: 0;
-
-      border-radius: 13px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #f8d58a,
-          #c9a227
-        );
-
-      color: #13090c;
-
-      font-size: 16px;
-
-      font-weight: bold;
-
-      cursor: pointer;
-
-      transition: .3s;
-    }
-
-
-    #btnPix:hover {
-
-      transform: translateY(-2px);
-
-      box-shadow:
-        0 8px 25px
-        rgba(248, 213, 138, .15);
-    }
-
-
-    #btnCartao {
-
-      width: 100%;
-
-      padding: 14px;
-
-      border-radius: 13px;
-
-      border: 1px solid #292126;
-
-      background: #10080c;
-
-      color: #777;
-
-      font-size: 14px;
-
-      cursor: not-allowed;
-    }
-
-
-    /* =========================
-       RESULTADO PIX
-    ========================= */
-
-    .resultado {
-
-      display: none;
-
-      margin-top: 30px;
-
-      padding-top: 28px;
-
-      border-top: 1px solid
-        rgba(248, 213, 138, .18);
-
-      text-align: center;
-    }
-
-
-    .resultado h2 {
-
-      margin: 0 0 8px;
-
-      color: #f8d58a;
-
-      font-family:
-        "Playfair Display",
-        Georgia,
-        serif;
-
-      font-size: 29px;
-    }
-
-
-    .resultado p {
-
-      color: #bbb;
-
-      line-height: 1.5;
-    }
-
-
-    /* QR */
-
-    #qrcode {
-
-      display: flex;
-
-      justify-content: center;
-
-      margin: 22px 0;
-    }
-
-
-    #qrcode img {
-
-      padding: 10px;
-
-      border-radius: 14px;
-
-      background: #fff;
-
-      box-shadow:
-        0 10px 35px
-        rgba(0, 0, 0, .4);
-    }
-
-
-    /* =========================
-       PIX COPIA E COLA
-    ========================= */
-
-    .codigo-label {
-
-      display: block;
-
-      text-align: left;
-
-      margin-bottom: 7px;
-
-      color: #f8d58a;
-
-      font-size: 13px;
-
-      font-weight: bold;
-    }
-
-
-    .codigo-box {
-
-      padding: 14px;
-
-      border-radius: 12px;
-
-      background: #050304;
-
-      border: 1px solid #282126;
-
-      text-align: left;
-
-      color: #aaa;
-
-      font-size: 12px;
-
-      line-height: 1.5;
-
-      word-break: break-all;
-
-      max-height: 130px;
-
-      overflow-y: auto;
-    }
-
-
-    .btn-copiar {
-
-      width: 100%;
-
-      margin-top: 10px;
-
-      padding: 13px;
-
-      border-radius: 12px;
-
-      border: 1px solid
-        rgba(248, 213, 138, .3);
-
-      background: #1a0d13;
-
-      color: #f8d58a;
-
-      cursor: pointer;
-
-      font-weight: bold;
-
-      transition: .25s;
-    }
-
-
-    .btn-copiar:hover {
-
-      background: #25131b;
-    }
-
-
-    /* =========================
-       WHATSAPP
-    ========================= */
-
-    .whatsapp-area {
-
-      margin-top: 25px;
-
-      padding-top: 22px;
-
-      border-top: 1px solid
-        rgba(255, 255, 255, .07);
-    }
-
-
-    .whatsapp-area p {
-
-      font-size: 13px;
-
-      color: #999;
-
-      margin-bottom: 14px;
-    }
-
-
-    #btnWhatsAppPagamento {
-
-      display: none;
-
-      width: 100%;
-
-      padding: 16px;
-
-      border: 0;
-
-      border-radius: 13px;
-
-      background:
-        #25D366;
-
-      color: #fff;
-
-      font-size: 16px;
-
-      font-weight: bold;
-
-      cursor: pointer;
-
-      transition: .3s;
-    }
-
-
-    #btnWhatsAppPagamento:hover {
-
-      filter: brightness(1.08
+          rgba

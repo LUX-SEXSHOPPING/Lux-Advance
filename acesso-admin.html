@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt‑BR">
+<head>
+<meta charset="UTF‑8">
+<meta name="viewport" content="width=device‑width, initial‑scale=1.0">
+<title>🔐 Acesso — Área Administrativa</title>
+<style>
+*{margin:0;padding:0;box‑sizing:border‑box;font‑family:'Segoe UI',sans‑serif}
+body{background:#000 url('lux‑halloween.jpg') center/cover no‑repeat;min‑height:100vh;display:flex;align‑items:center;justify‑content:center;padding:20px}
+.escuro{position:fixed;inset:0;background:rgba(0,0,0,.75);z‑index:1}
+.caixa{position:relative;z‑index:2;background:linear-gradient(145deg,#2b220f,#1a1406);border:2px solid #c9a227;border‑radius:20px;padding:30px;width:100%;max‑width:400px;box‑shadow:0 10px 40px rgba(0,0,0,.8),0 0 25px rgba(201,162,39,.15);text‑align:center}
+h2{color:#f0d878;font‑size:24px;margin‑bottom:8px}
+p{color:#cbbfaf;margin‑bottom:20px;font‑size:15px}
+input{width:100%;padding:14px;border‑radius:10px;border:1px solid rgba(201,162,39,.4);background:rgba(0,0,0,.5);color:#fff;font‑size:18px;text‑align:center;margin‑bottom:16px}
+button{width:100%;padding:14px;border‑radius:10px;border:none;font‑size:17px;font‑weight:bold;cursor:pointer;background:linear-gradient(180deg,#f0d878,#c9a227);color:#221a00;transition:transform .2s}
+button:hover{transform:scale(1.03)}
+.erro{color:#ff7b7b;margin‑top:12px;display:none}
+</style>
+</head>
+<body><div class="escuro"></div>
+<div class="caixa">
+  <h2>🔒 ENTRAR — ÁREA ADMINISTRATIVA</h2>
+  <p>Digite o código combinado para acessar</p>
+  <input type="text" id="codigoEntrada" placeholder="Digite aqui…" autocomplete="off">
+  <button onclick="verificar()">CONFIRMAR E ENTRAR</button>
+  <div class="erro" id="avisoErro">❌ Código incorreto — verifique com o dono ou sócio</div>
+</div>
+
+<script>
+// ✅ ALTERA AQUI — COLOQUE SEU CÓDIGO SIMPLES, EX: LUX123 / SEUCODIGO / NOMEQUEQUISER
+const CODIGO_PERMITIDO = "LUXADM01";
+// ✅ PRA ONDE VAI QUEM ACERTA — COLOQUE O ARQUIVO REAL DA SUA ÁREA
+const PAGINA_ADMIN = "admin.html";
+
+function verificar(){
+  const digitado = document.getElementById("codigoEntrada").value.trim();
+  if(digitado === CODIGO_PERMITIDO){
+    window.location.href = PAGINA_ADMIN;
+  }else{
+    document.getElementById("avisoErro").style.display = "block";
+  }
+}
+// Permitir apertar Enter pra confirmar
+document.getElementById("codigoEntrada").addEventListener("keydown", e => {
+  if(e.key === "Enter") verificar();
+});
+</script>
+</body>
+</html>

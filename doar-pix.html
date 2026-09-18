@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+  name="theme-color"
+  content="#0b0608"
+>
+
+<title>LUX Advance — Doar PIX</title>
+
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+  rel="stylesheet"
+>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
+
+<style>
+
+:root{
+  --ouro:#c9a227;
+  --ouro-claro:#f1d36b;
+  --ouro-brilho:#ffe9a3;
+  --texto:#eee4d8;
+  --texto-suave:#cbbfb1;
+  --fundo:#0b0608;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  color:var(--texto);
+  font-family:"Cormorant Garamond",Georgia,serif;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,.55),
+      rgba(0,0,0,.72)
+    ),
+    url("lux-halloween.jpg")
+    center top / cover
+    fixed
+    no-repeat;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+}
+
+.container{
+  width:100%;
+  max-width:620px;
+}
+
+.card{
+  position:relative;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(10,8,9,.97),
+      rgba(25,16,18,.96)
+    );
+
+  border:1px solid rgba(201,162,39,.65);
+
+  border-radius:24px;
+
+  padding:42px 32px;
+
+  text-align:center;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.70),
+    0 0 35px rgba(201,162,39,.12),
+    inset 0 1px rgba(255,255,255,.05);
+}
+
+.card::before{
+  content:"✦";
+
+  display:block;
+
+  color:var(--ouro-claro);
+
+  font-size:15px;
+
+  margin-bottom:14px;
+}
+
+.icon{
+  width:76px;
+  height:76px;
+
+  margin:0 auto 20px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#17120a;
+
+  font-size:30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff0a8,
+      #f0d36b 40%,
+      #c9a227 75%,
+      #80600e
+    );
+
+  border:1px solid #ffe89a;
+
+  box-shadow:
+    0 0 25px rgba(201,162,39,.22),
+    inset 0 1px rgba(255,255,255,.7);
+}
+
+h1{
+  font-family:"Playfair Display",Georgia,serif;
+
+  font-size:clamp(34px,7vw,52px);
+
+  font-style:italic;
+
+  line-height:1.1;
+
+  margin-bottom:12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fff7dc,
+      #f4dd86 40%,
+      #c9a227 75%,
+      #80600e
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  color:transparent;
+
+  filter:
+    drop-shadow(0 3px 5px rgba(0,0,0,.8));
+}
+
+.linha{
+  width:180px;
+  height:1px;
+
+  margin:0 auto 22px;
+
+  background:
+    linear-gradient(
+      90deg

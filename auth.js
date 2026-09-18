@@ -1,6 +1,6 @@
 /* =========================================================
    LUX — AUTENTICAÇÃO
-   V3 CORRIGIDA
+   V3
    ========================================================= */
 
 
@@ -60,6 +60,7 @@ async function getModeloPerfil(userId) {
     .maybeSingle();
 
   if (error) {
+
     console.error(
       "Erro ao buscar modelo_perfis:",
       error
@@ -84,6 +85,7 @@ async function usuarioAtual() {
     await supabase.auth.getUser();
 
   if (error) {
+
     console.error(
       "Erro ao identificar usuário:",
       error
@@ -129,16 +131,13 @@ async function login(email, senha) {
   }
 
 
-  /* =====================================================
-     AUTENTICAÇÃO
-     ===================================================== */
-
   const {
     data,
     error
   } = await supabase.auth.signInWithPassword({
 
     email,
+
     password: senha
 
   });
@@ -161,7 +160,6 @@ async function login(email, senha) {
       throw new Error(
         "E-mail ou senha incorretos."
       );
-
     }
 
     throw new Error(
@@ -180,7 +178,6 @@ async function login(email, senha) {
     throw new Error(
       "Usuário não encontrado."
     );
-
   }
 
 
@@ -189,13 +186,8 @@ async function login(email, senha) {
     throw new Error(
       "Sessão não criada. Tente novamente."
     );
-
   }
 
-
-  /* =====================================================
-     BUSCA PERFIL PRINCIPAL
-     ===================================================== */
 
   const perfil =
     await getPerfil(user.id);
@@ -208,13 +200,8 @@ async function login(email, senha) {
     throw new Error(
       "Sua conta foi criada, mas o perfil ainda não está disponível."
     );
-
   }
 
-
-  /* =====================================================
-     VERIFICA STATUS
-     ===================================================== */
 
   if (
     perfil.status === "bloqueado" ||
@@ -226,13 +213,8 @@ async function login(email, senha) {
     throw new Error(
       "Esta conta está bloqueada."
     );
-
   }
 
-
-  /* =====================================================
-     RETORNO COMPATÍVEL COM login.html
-     ===================================================== */
 
   return {
 
@@ -247,7 +229,6 @@ async function login(email, senha) {
     success: true
 
   };
-
 }
 
 
@@ -273,10 +254,6 @@ async function cadastrar(
 
   email = String(email || "").trim();
 
-
-  /* =====================================================
-     VALIDAÇÕES
-     ===================================================== */
 
   if (!nome) {
     throw new Error(
@@ -304,13 +281,8 @@ async function cadastrar(
     throw new Error(
       "Tipo de cadastro inválido."
     );
-
   }
 
-
-  /* =====================================================
-     CRIA USUÁRIO AUTH
-     ===================================================== */
 
   const {
     data,
@@ -354,14 +326,12 @@ async function cadastrar(
       throw new Error(
         "Este e-mail já está cadastrado."
       );
-
     }
 
     throw new Error(
       error.message ||
       "Não foi possível criar a conta."
     );
-
   }
 
 
@@ -373,13 +343,8 @@ async function cadastrar(
     throw new Error(
       "Não foi possível criar o usuário."
     );
-
   }
 
-
-  /* =====================================================
-     PERFIL PRINCIPAL
-     ===================================================== */
 
   const perfilBase = {
 
@@ -417,20 +382,10 @@ async function cadastrar(
     throw new Error(
       "A conta foi criada, mas houve um problema ao criar o perfil. Entre em contato com o administrador."
     );
-
   }
 
 
-  /* =====================================================
-     MODELO
-     ===================================================== */
-
   if (tipo === "modelo") {
-
-    /*
-     * Os dados específicos da modelo são enviados
-     * separadamente para modelo_perfis.
-     */
 
     const modeloPerfil = {
 
@@ -455,15 +410,9 @@ async function cadastrar(
         modeloError
       );
 
-      /*
-       * O perfil principal já existe.
-       * Não apagamos a conta Auth.
-       */
-
       throw new Error(
         "Sua conta foi criada, mas houve um problema ao criar os dados do modelo. Entre em contato com o administrador."
       );
-
     }
 
 
@@ -481,13 +430,8 @@ async function cadastrar(
         "Cadastro realizado. Seu perfil ficará aguardando análise."
 
     };
-
   }
 
-
-  /* =====================================================
-     USUÁRIO NORMAL
-     ===================================================== */
 
   return {
 
@@ -503,7 +447,6 @@ async function cadastrar(
       "Cadastro realizado com sucesso."
 
   };
-
 }
 
 
@@ -526,9 +469,7 @@ async function logout() {
     );
 
     throw error;
-
   }
-
 }
 
 

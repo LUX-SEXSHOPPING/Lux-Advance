@@ -582,6 +582,7 @@ header{
 
 /* ==================================================
    HERO
+   DESCIDO UM POUCO PARA BAIXO
 ================================================== */
 
 .hero{
@@ -595,8 +596,8 @@ header{
   text-align:center;
 
   padding:
-    52px 10px
-    130px;
+    75px 10px
+    150px;
 
 }
 
@@ -762,6 +763,285 @@ header{
 
 
 /* ==================================================
+   RODAPÉ LUX
+================================================== */
+
+.rodape{
+
+  position:relative;
+
+  z-index:5;
+
+  width:100%;
+
+  margin-top:20px;
+
+  padding:
+    38px 20px
+    28px;
+
+  text-align:center;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      rgba(3,2,3,.90),
+      rgba(0,0,0,.97)
+    );
+
+  border-top:
+    1px solid
+    rgba(201,162,39,.60);
+
+  box-shadow:
+
+    0 -8px 30px
+    rgba(0,0,0,.55);
+
+}
+
+
+.rodape::before{
+
+  content:"✦";
+
+  display:block;
+
+  color:
+    var(--ouro-claro);
+
+  font-size:12px;
+
+  margin-bottom:12px;
+
+}
+
+
+.rodape-logo{
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(
+      25px,
+      5vw,
+      36px
+    );
+
+  font-style:italic;
+
+  font-weight:700;
+
+  letter-spacing:2px;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      #fff7dc,
+      #f1d36b 45%,
+      #c9a227 75%,
+      #80600e
+    );
+
+  -webkit-background-clip:text;
+
+  background-clip:text;
+
+  color:transparent;
+
+  filter:
+    drop-shadow(
+      0 2px 5px
+      rgba(0,0,0,.90)
+    );
+
+}
+
+
+.rodape-agencia{
+
+  margin-top:6px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size:19px;
+
+  font-weight:700;
+
+  letter-spacing:3px;
+
+  color:
+    var(--ouro-claro);
+
+  text-transform:uppercase;
+
+}
+
+
+.rodape-frase{
+
+  max-width:650px;
+
+  margin:
+    13px auto 0;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size:16px;
+
+  line-height:1.5;
+
+  color:
+    var(--texto-suave);
+
+}
+
+
+.rodape-links{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:8px 18px;
+
+  margin-top:22px;
+
+}
+
+
+.rodape-links a{
+
+  color:
+    #eadba9;
+
+  text-decoration:none;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size:16px;
+
+  font-weight:600;
+
+  transition:
+    color .25s ease;
+
+}
+
+
+.rodape-links a:hover{
+
+  color:
+    #fff1a8;
+
+}
+
+
+.rodape-suporte{
+
+  margin-top:21px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size:16px;
+
+  color:
+    var(--texto);
+
+}
+
+
+.rodape-suporte a{
+
+  color:
+    var(--ouro-claro);
+
+  text-decoration:none;
+
+  font-weight:700;
+
+}
+
+
+.rodape-aviso{
+
+  max-width:700px;
+
+  margin:
+    22px auto 0;
+
+  padding:
+    10px 14px;
+
+  border:
+    1px solid
+    rgba(201,162,39,.28);
+
+  border-radius:10px;
+
+  background:
+    rgba(0,0,0,.35);
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size:14px;
+
+  line-height:1.5;
+
+  color:
+    #bfb4a7;
+
+}
+
+
+.rodape-final{
+
+  margin-top:23px;
+
+  padding-top:18px;
+
+  border-top:
+    1px solid
+    rgba(201,162,39,.18);
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size:14px;
+
+  color:
+    #8f877e;
+
+}
+
+
+/* ==================================================
    TABLET
 ================================================== */
 
@@ -877,8 +1157,8 @@ header{
   .hero{
 
     padding:
-      50px 5px
-      105px;
+      70px 5px
+      110px;
 
   }
 
@@ -909,6 +1189,40 @@ header{
   .hero .descricao{
 
     font-size:17px;
+
+  }
+
+
+  .rodape{
+
+    margin-top:10px;
+
+    padding:
+      32px 12px
+      24px;
+
+  }
+
+
+  .rodape-agencia{
+
+    font-size:17px;
+
+    letter-spacing:2px;
+
+  }
+
+
+  .rodape-links{
+
+    gap:7px 14px;
+
+  }
+
+
+  .rodape-links a{
+
+    font-size:15px;
 
   }
 
@@ -987,7 +1301,7 @@ header{
 
   .hero{
 
-    padding-top:46px;
+    padding-top:62px;
 
   }
 
@@ -1002,6 +1316,27 @@ header{
   .hero .slogan{
 
     font-size:16px;
+
+  }
+
+
+  .rodape-logo{
+
+    font-size:28px;
+
+  }
+
+
+  .rodape-agencia{
+
+    font-size:15px;
+
+  }
+
+
+  .rodape-frase{
+
+    font-size:15px;
 
   }
 
@@ -1099,8 +1434,6 @@ header{
     </a>
 
 
-    <!-- AGENDAR CORRIGIDO -->
-
     <a href="./agendar.html">
 
       <i class="fas fa-calendar-days"></i>
@@ -1171,6 +1504,103 @@ header{
 
 
 </div>
+
+
+<!-- ==================================================
+     RODAPÉ LUX ADVANCE
+================================================== -->
+
+<footer class="rodape">
+
+
+  <div class="rodape-logo">
+    LUX Advance
+  </div>
+
+
+  <div class="rodape-agencia">
+    Agência Europeia
+  </div>
+
+
+  <p class="rodape-frase">
+
+    Uma plataforma digital dedicada à conexão,
+    experiências e atendimento com
+    elegância, privacidade e sofisticação.
+
+  </p>
+
+
+  <nav class="rodape-links">
+
+    <a href="./index.html">
+      Início
+    </a>
+
+    <a href="./loja.html">
+      Loja
+    </a>
+
+    <a href="./catalago.html">
+      Catálogo
+    </a>
+
+    <a href="./planos.html">
+      Planos
+    </a>
+
+    <a href="./pre-cadastro.html">
+      Pré-Cadastro
+    </a>
+
+    <a href="./termos.html">
+      Termos de Uso
+    </a>
+
+  </nav>
+
+
+  <div class="rodape-suporte">
+
+    <i class="fas fa-headset"></i>
+
+    Atendimento e suporte:
+
+    <a
+      href="https://wa.me/5551980612941"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+
+      WhatsApp
+
+    </a>
+
+  </div>
+
+
+  <div class="rodape-aviso">
+
+    <strong>18+</strong>
+
+    &nbsp; Conteúdo e serviços destinados
+    exclusivamente a maiores de 18 anos.
+    Ao utilizar a plataforma, o usuário declara
+    possuir idade legal para acessá-la.
+
+  </div>
+
+
+  <div class="rodape-final">
+
+    © 2026 LUX Advance —
+    Todos os direitos reservados.
+
+  </div>
+
+
+</footer>
 
 
 </body>

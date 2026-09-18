@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>LUX — Agendamento</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    body {
+
+      margin: 0;
+
+      min-height: 100vh;
+
+      font-family: Arial, sans-serif;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          rgba(7,3,6,.72),
+          rgba(7,3,6,.9)
+        ),
+        url("./lux-halloween.jpg")
+        center / cover fixed no-repeat;
+
+      padding: 25px;
+    }
+
+
+    .topo {
+
+      max-width: 1100px;
+
+      margin: auto;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 15px;
+
+      margin-bottom: 35px;
+    }
+
+
+    .marca {
+
+      font-family:
+        "Playfair Display",
+        serif;
+
+      font-size: 32px;
+
+      font-weight: 700;
+
+      font-style: italic;
+
+      color: #f8d58a;
+    }
+
+
+    .voltar {
+
+      text-decoration: none;
+
+      color: #f8d58a;
+
+      border: 1px solid rgba(248,213,138,.45);
+
+      padding: 10px 17px;
+
+      border-radius: 25px;
+
+      background: rgba(10,5,8,.7);
+    }
+
+
+    .container {
+
+      width: 100%;
+
+      max-width: 650px;
+
+      margin: auto;
+
+      padding: 35px;
+
+      border-radius: 25px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(20,8,14,.96),
+          rgba(7,3,7,.96)
+        );
+
+      border: 1px solid rgba(248,213,138,.4);
+
+      box-shadow:
+        0 25px 70px rgba(0,0,0,.65);
+    }
+
+
+    .titulo {
+
+      text-align: center;
+
+      font-family:
+        "Playfair Display",
+        serif;
+
+      font-size: 35px;
+
+      color: #f8d58a;
+
+      margin: 0;
+    }
+
+
+    .subtitulo {
+
+      text-align: center;
+
+      color: #bbb;
+
+      margin:
+        10px
+        0
+        30px;
+
+      line-height: 1.5;
+    }
+
+
+    .campo {
+
+      margin-bottom: 18px;
+    }
+
+
+    label {
+
+      display: block;
+
+      color: #f8d58a;
+
+      font-size: 13px;
+
+      margin-bottom: 7px;
+    }
+
+
+    input,
+    select,
+    textarea {
+
+      width: 100%;
+
+      padding: 14px;
+
+      border-radius: 12px;
+
+      border: 1px solid rgba(248,213,138,.28);
+
+      background: rgba(255,255,255,.06);
+
+      color: #fff;
+
+      outline: none;
+
+      font-size: 15px;
+    }
+
+
+    select option {
+
+      color: #111;
+
+      background: #fff;
+    }
+
+
+    textarea {
+
+      min-height: 110px;
+
+      resize: vertical;
+    }
+
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+
+      border-color: #f8d58a;
+
+      background: rgba(255,255,255,.1);
+    }
+
+
+    .btn {
+
+      width: 100%;
+
+      border: none;
+
+      border-radius: 13px;
+
+      padding: 16px;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      color: #160a0e;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f8d58a,
+          #c9a227
+        );
+    }
+
+
+    .aviso {
+
+      margin-top: 22px;
+
+      padding: 15px;
+
+      border-radius: 12px;
+
+      background: rgba(248,213,138,.07);
+
+      border: 1px solid rgba(248,213,138,.18);
+
+      color: #bbb;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+
+      text-align: center;
+    }
+
+
+    @media (max-width: 600px) {
+
+      body {
+        padding: 15px;
+      }
+
+      .container {
+        padding: 25px 20px;
+      }
+
+      .topo {
+        margin-bottom: 25px;
+      }
+
+      .marca {
+        font-size: 25px;
+      }
+
+      .titulo {
+        font-size: 29px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<header class="topo">
+
+  <div class="marca">
+    LUX Advance
+  </div>
+
+  <a
+    href="./index.html"
+    class="voltar"
+  >
+    ← Voltar
+  </a>
+
+</header>
+
+
+<main class="container">
+
+
+  <h1 class="titulo">
+    Agendamento
+  </h1>
+
+
+  <p class="subtitulo">
+    Solicite seu atendimento e informe
+    os detalhes da experiência que deseja.
+  </p>
+
+
+  <form id="formAgendamento">
+
+
+    <div class="campo">
+
+      <label for="nome">
+        Nome
+      </label>
+
+      <input
+        id="nome"
+        type="text"
+        placeholder="Seu nome"
+        required
+      >
+
+    </div>
+
+
+    <div class="campo">
+
+      <label for="whatsapp">
+        WhatsApp
+      </label>
+
+      <input
+        id="whatsapp"
+        type="tel"
+        placeholder="(51) 99999-9999"
+        required
+      >
+
+    </div>
+
+
+    <div class="campo">
+
+      <label for="data">
+        Data desejada
+      </label>
+
+      <input
+        id="data"
+        type="date"
+        required
+      >
+
+    </div>
+
+
+    <div class="campo">
+
+      <label for="horario">
+        Horário desejado
+      </label>
+
+      <input
+        id="horario"
+        type="time"
+        required
+      >
+
+    </div>
+
+
+    <div class="campo">
+
+      <label for="tipo">
+        Tipo de atendimento
+      </label>
+
+      <select
+        id="tipo"
+        required
+      >
+
+        <option value="">
+          Selecione
+        </option>
+
+        <option value="Atendimento">
+          Atendimento
+        </option>
+
+        <option value="Experiência personalizada">
+          Experiência personalizada
+        </option>
+
+        <option value="Outro">
+          Outro
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="campo">
+
+      <label for="observacoes">
+        Observações
+      </label>
+
+      <textarea
+        id="observacoes"
+        placeholder="Informe alguma preferência ou detalhe importante."
+      ></textarea>
+
+    </div>
+
+
+    <button
+      type="submit"
+      class="btn"
+    >
+      Solicitar Agendamento
+    </button>
+
+
+  </form>
+
+
+  <div class="aviso">
+
+    Seu pedido será encaminhado para o
+    WhatsApp da LUX para confirmação.
+    O horário somente será considerado
+    confirmado após o retorno da equipe.
+
+  </div>
+
+
+</main>
+
+
+<script>
+
+const NUMERO_WHATSAPP =
+  "5551980612941";
+
+
+const form =
+  document.getElementById(
+    "formAgendamento"
+  );
+
+
+form.addEventListener(
+  "submit",
+  function(event) {
+
+    event.preventDefault();
+
+
+    const nome =
+      document.getElementById("nome").value.trim();
+
+    const whatsapp =
+      document.getElementById("whatsapp").value.trim();
+
+    const data =
+      document.getElementById("data").value;
+
+    const horario =
+      document.getElementById("horario").value;
+
+    const tipo =
+      document.getElementById("tipo").value;
+
+    const observacoes =
+      document
+        .getElementById("observacoes")
+        .value
+        .trim();
+
+
+    if (
+      !nome ||
+      !whatsapp ||
+      !data ||
+      !horario ||
+      !tipo
+    ) {
+
+      alert(
+        "Preencha todos os campos obrigatórios."
+      );
+
+      return;
+    }
+
+
+    const dataFormatada =
+      data.split("-").reverse().join("/");
+
+
+    const mensagem =
+
+      "Olá, LUX Advance.%0A%0A" +
+
+      "*SOLICITAÇÃO DE AGENDAMENTO*%0A%0A" +
+
+      "*Nome:* " +
+      encodeURIComponent(nome) +
+
+      "%0A*WhatsApp:* " +
+      encodeURIComponent(whatsapp) +
+
+      "%0A*Data:* " +
+      encodeURIComponent(dataFormatada) +
+
+      "%0A*Horário:* " +
+      encodeURIComponent(horario) +
+
+      "%0A*Tipo:* " +
+      encodeURIComponent(tipo) +
+
+      "%0A*Observações:* " +
+      encodeURIComponent(
+        observacoes || "Nenhuma"
+      );
+
+
+    window.open(
+
+      "https://wa.me/" +
+      NUMERO_WHATSAPP +
+      "?text=" +
+      mensagem,
+
+      "_blank"
+
+    );
+
+  }
+);
+
+</script>
+
+
+</body>
+
+</html>

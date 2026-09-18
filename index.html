@@ -5,15 +5,9 @@
 
 <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-  name="theme-color"
-  content="#c9a227"
->
+<meta name="theme-color" content="#c9a227">
 
 <meta
   name="description"
@@ -21,9 +15,6 @@
 >
 
 <title>LUX Advance</title>
-
-
-<!-- FONTES SOFISTICADAS -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -38,26 +29,15 @@
   rel="stylesheet"
 >
 
-
-<!-- ÍCONES -->
-
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 >
 
-
-<link
-  rel="manifest"
-  href="./manifest.json"
->
+<link rel="manifest" href="./manifest.json">
 
 
 <style>
-
-/* ==================================================
-   LUX ADVANCE
-================================================== */
 
 :root{
 
@@ -72,15 +52,10 @@
 }
 
 
-/* ==================================================
-   RESET
-================================================== */
-
 *{
 
   margin:0;
   padding:0;
-
   box-sizing:border-box;
 
 }
@@ -111,10 +86,6 @@ body{
 }
 
 
-/* ==================================================
-   CAMADA DE PROTEÇÃO DO FUNDO
-================================================== */
-
 body::before{
 
   content:"";
@@ -139,10 +110,6 @@ body::before{
 }
 
 
-/* ==================================================
-   CONTEÚDO
-================================================== */
-
 .conteudo{
 
   position:relative;
@@ -160,10 +127,6 @@ body::before{
 }
 
 
-/* ==================================================
-   CABEÇALHO
-================================================== */
-
 header{
 
   width:100%;
@@ -176,10 +139,6 @@ header{
 
 }
 
-
-/* ==================================================
-   BOTÃO ENTRAR
-================================================== */
 
 .btn-entrar{
 
@@ -276,8 +235,8 @@ header{
 
 
 /* ==================================================
-   ÁREA DO MENU
-   DESCIDO UM POUCO PARA DESTACAR O LUX
+   MENU
+   FUNDO AO REDOR TOTALMENTE TRANSPARENTE
 ================================================== */
 
 .menu-area{
@@ -288,60 +247,17 @@ header{
 
   z-index:15;
 
-  margin-top:22px;
+  margin-top:78px;
 
   margin-bottom:42px;
 
-  padding:
-    15px 14px 16px;
+  padding:15px 14px 16px;
 
-  background:
+  background:transparent;
 
-    linear-gradient(
-      180deg,
-      rgba(3,2,3,.94),
-      rgba(7,5,6,.88)
-    );
+  border:none;
 
-  border-top:
-    1px solid
-    rgba(201,162,39,.55);
-
-  border-bottom:
-    1px solid
-    rgba(201,162,39,.50);
-
-  box-shadow:
-
-    0 8px 30px
-    rgba(0,0,0,.55),
-
-    inset 0 1px
-    rgba(255,255,255,.04);
-
-}
-
-
-/* ==================================================
-   DETALHE
-================================================== */
-
-.menu-area::before{
-
-  content:"✦";
-
-  display:block;
-
-  width:100%;
-
-  text-align:center;
-
-  color:
-    rgba(240,216,120,.70);
-
-  font-size:10px;
-
-  margin-bottom:8px;
+  box-shadow:none;
 
 }
 
@@ -367,10 +283,6 @@ header{
 }
 
 
-/* ==================================================
-   CAIXINHAS DO MENU
-================================================== */
-
 .menu a{
 
   position:relative;
@@ -387,10 +299,9 @@ header{
 
   height:48px;
 
-  padding:
-    0 18px;
+  padding:0 18px;
 
-  border-radius:25px;
+  border-radius:12px;
 
   text-decoration:none;
 
@@ -407,28 +318,25 @@ header{
 
   color:#eee1c8;
 
-  background:
+  /* SOMENTE OS BOTÕES SÃO TRANSPARENTES */
 
-    linear-gradient(
-      145deg,
-      rgba(8,7,7,.98),
-      rgba(22,15,16,.94)
-    );
+  background:rgba(0,0,0,.38);
 
   border:
     1px solid
-    rgba(201,162,39,.68);
+    rgba(201,162,39,.75);
 
   box-shadow:
 
-    inset 0 1px
-    rgba(255,255,255,.05),
-
-    inset 0 0 12px
-    rgba(201,162,39,.025),
-
     0 5px 16px
-    rgba(0,0,0,.40);
+    rgba(0,0,0,.30),
+
+    inset 0 1px
+    rgba(255,255,255,.08);
+
+  backdrop-filter:blur(2px);
+
+  -webkit-backdrop-filter:blur(2px);
 
   transition:
     all .28s ease;
@@ -466,12 +374,12 @@ header{
 
 .menu a i{
 
-  color:
-    var(--ouro-claro);
+  color:var(--ouro-claro);
 
   font-size:16px;
 
   filter:
+
     drop-shadow(
       0 0 5px
       rgba(201,162,39,.40)
@@ -485,19 +393,12 @@ header{
   transform:
     translateY(-3px);
 
-  color:
-    #fff2c9;
+  color:#fff2c9;
 
-  border-color:
-    #f2d774;
+  border-color:#f2d774;
 
   background:
-
-    linear-gradient(
-      145deg,
-      rgba(48,35,10,.98),
-      rgba(17,11,12,.97)
-    );
+    rgba(35,27,10,.58);
 
   box-shadow:
 
@@ -515,19 +416,12 @@ header{
 
 .menu a.ativo{
 
-  color:
-    #fff2c9;
+  color:#fff2c9;
 
-  border-color:
-    #f1d36d;
+  border-color:#f1d36d;
 
   background:
-
-    linear-gradient(
-      145deg,
-      rgba(52,39,12,.98),
-      rgba(18,12,12,.97)
-    );
+    rgba(35,27,10,.48);
 
   box-shadow:
 
@@ -540,14 +434,9 @@ header{
 }
 
 
-/* ==================================================
-   DOAR PIX
-================================================== */
-
 .menu a.pix{
 
-  color:
-    #f5da7c;
+  color:#f5da7c;
 
   border-color:
     rgba(242,215,119,.80);
@@ -557,8 +446,7 @@ header{
 
 .menu a.pix i{
 
-  color:
-    #ffd700;
+  color:#ffd700;
 
 }
 
@@ -579,14 +467,10 @@ header{
 
   padding:
     75px 10px
-    260px;
+    150px;
 
 }
 
-
-/* ==================================================
-   LUX ADVANCE
-================================================== */
 
 .hero h1{
 
@@ -643,23 +527,17 @@ header{
 }
 
 
-/* ==================================================
-   LINHA ABAIXO DO TÍTULO
-================================================== */
-
 .hero h1::after{
 
   content:"";
 
   display:block;
 
-  width:
-    min(240px,52%);
+  width:min(240px,52%);
 
   height:1px;
 
-  margin:
-    17px auto 0;
+  margin:17px auto 0;
 
   background:
 
@@ -674,10 +552,6 @@ header{
 
 }
 
-
-/* ==================================================
-   SLOGAN
-================================================== */
 
 .hero .slogan{
 
@@ -699,8 +573,7 @@ header{
 
   letter-spacing:2px;
 
-  color:
-    var(--champanhe);
+  color:var(--champanhe);
 
   text-shadow:
     0 2px 10px
@@ -709,16 +582,11 @@ header{
 }
 
 
-/* ==================================================
-   DESCRIÇÃO
-================================================== */
-
 .hero .descricao{
 
   max-width:680px;
 
-  margin:
-    23px auto 0;
+  margin:23px auto 0;
 
   font-family:
     "Cormorant Garamond",
@@ -734,8 +602,7 @@ header{
 
   line-height:1.65;
 
-  color:
-    var(--texto-suave);
+  color:var(--texto-suave);
 
   text-shadow:
     0 2px 8px
@@ -746,7 +613,6 @@ header{
 
 /* ==================================================
    RODAPÉ
-   SOMENTE AS INFORMAÇÕES SOLICITADAS
 ================================================== */
 
 .rodape{
@@ -757,10 +623,10 @@ header{
 
   width:100%;
 
-  margin-top:0;
+  margin-top:20px;
 
   padding:
-    28px 20px
+    30px 20px
     24px;
 
   text-align:center;
@@ -785,10 +651,6 @@ header{
 }
 
 
-/* ==================================================
-   AGÊNCIA EUROPEIA
-================================================== */
-
 .rodape-agencia{
 
   font-family:
@@ -796,60 +658,42 @@ header{
     Georgia,
     serif;
 
-  font-size:
-    clamp(
-      18px,
-      4vw,
-      24px
-    );
+  font-size:19px;
 
   font-weight:700;
 
   letter-spacing:3px;
 
-  color:
-    var(--ouro-claro);
+  color:var(--ouro-claro);
 
   text-transform:uppercase;
 
 }
 
 
-/* ==================================================
-   AVISO 18+
-================================================== */
+.rodape-idade{
 
-.rodape-18{
-
-  margin-top:10px;
+  margin-top:9px;
 
   font-family:
     "Cormorant Garamond",
     Georgia,
     serif;
 
-  font-size:
-    16px;
+  font-size:16px;
 
   font-weight:600;
 
-  letter-spacing:1px;
-
-  color:
-    var(--champanhe);
+  color:var(--texto);
 
 }
 
 
-/* ==================================================
-   DIREITOS AUTORAIS
-================================================== */
-
 .rodape-final{
 
-  margin-top:14px;
+  margin-top:18px;
 
-  padding-top:14px;
+  padding-top:15px;
 
   border-top:
     1px solid
@@ -860,11 +704,9 @@ header{
     Georgia,
     serif;
 
-  font-size:
-    14px;
+  font-size:14px;
 
-  color:
-    #8f877e;
+  color:#8f877e;
 
 }
 
@@ -904,8 +746,7 @@ header{
 
   .conteudo{
 
-    padding:
-      0 10px;
+    padding:0 10px;
 
   }
 
@@ -934,19 +775,18 @@ header{
 
   .menu-area{
 
-    margin-top:18px;
+    margin-top:73px;
 
     margin-bottom:34px;
 
     padding:
       13px 7px 15px;
 
-  }
+    background:transparent;
 
+    border:none;
 
-  .menu-area::before{
-
-    margin-bottom:8px;
+    box-shadow:none;
 
   }
 
@@ -965,8 +805,7 @@ header{
 
     height:45px;
 
-    padding:
-      0 5px;
+    padding:0 5px;
 
     gap:5px;
 
@@ -986,7 +825,7 @@ header{
 
     padding:
       70px 5px
-      220px;
+      110px;
 
   }
 
@@ -1023,8 +862,10 @@ header{
 
   .rodape{
 
+    margin-top:10px;
+
     padding:
-      26px 12px
+      28px 12px
       22px;
 
   }
@@ -1032,14 +873,14 @@ header{
 
   .rodape-agencia{
 
-    font-size:18px;
+    font-size:17px;
 
     letter-spacing:2px;
 
   }
 
 
-  .rodape-18{
+  .rodape-idade{
 
     font-size:15px;
 
@@ -1063,8 +904,7 @@ header{
 
   .conteudo{
 
-    padding:
-      0 8px;
+    padding:0 8px;
 
   }
 
@@ -1091,9 +931,15 @@ header{
 
   .menu-area{
 
-    margin-top:16px;
+    margin-top:73px;
 
     margin-bottom:30px;
+
+    background:transparent;
+
+    border:none;
+
+    box-shadow:none;
 
   }
 
@@ -1112,8 +958,7 @@ header{
 
     height:43px;
 
-    padding:
-      0 4px;
+    padding:0 4px;
 
     font-size:12px;
 
@@ -1130,8 +975,6 @@ header{
   .hero{
 
     padding-top:62px;
-
-    padding-bottom:200px;
 
   }
 
@@ -1152,14 +995,21 @@ header{
 
   .rodape-agencia{
 
-    font-size:16px;
+    font-size:15px;
 
   }
 
 
-  .rodape-18{
+  .rodape-idade{
 
     font-size:14px;
+
+  }
+
+
+  .rodape-final{
+
+    font-size:12px;
 
   }
 
@@ -1176,10 +1026,6 @@ header{
 <div class="conteudo">
 
 
-<!-- ==================================================
-     CABEÇALHO
-================================================== -->
-
 <header>
 
   <a
@@ -1195,11 +1041,6 @@ header{
 
 </header>
 
-
-
-<!-- ==================================================
-     MENU PRINCIPAL
-================================================== -->
 
 <div class="menu-area">
 
@@ -1289,13 +1130,7 @@ header{
 </div>
 
 
-
-<!-- ==================================================
-     CONTEÚDO PRINCIPAL
-================================================== -->
-
 <section class="hero">
-
 
   <h1>
     LUX Advance
@@ -1317,17 +1152,11 @@ header{
 
   </p>
 
-
 </section>
 
 
 </div>
 
-
-
-<!-- ==================================================
-     RODAPÉ
-================================================== -->
 
 <footer class="rodape">
 
@@ -1339,9 +1168,9 @@ header{
   </div>
 
 
-  <div class="rodape-18">
+  <div class="rodape-idade">
 
-    PROIBIDO PARA MENORES DE 18 ANOS
+    Conteúdo para maiores de 18 anos
 
   </div>
 

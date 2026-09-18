@@ -3,944 +3,555 @@
 
 <head>
 
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-<meta
-  name="theme-color"
-  content="#c9a227"
->
+  <title>LUX Advance — Acesso</title>
 
-<meta
-  name="description"
-  content="LUX Advance — Mais que um site, uma experiência."
->
 
-<title>LUX Advance — Mais que um site, uma experiência</title>
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <!-- CONFIG -->
+  <script src="./config.js"></script>
 
-<link
-  rel="manifest"
-  href="./manifest.json"
->
+  <!-- AUTENTICAÇÃO -->
+  <script src="./auth.js"></script>
 
 
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
->
+  <style>
 
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
 
-/* ==================================================
-   VARIÁVEIS LUX
-================================================== */
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
 
-:root{
 
-  --ouro:#c9a227;
-  --ouro-claro:#f4d875;
-  --ouro-brilho:#ffe9a3;
+    body {
 
-  --champanhe:#f5e6c8;
+      min-height: 100vh;
 
-  --texto:#f1e9df;
-  --texto-suave:#c9beb0;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-  --preto:#050304;
+      color: #fff;
 
-}
+      background:
 
+        linear-gradient(
+          rgba(5, 2, 7, 0.78),
+          rgba(12, 3, 10, 0.96)
+        ),
 
-/* ==================================================
-   RESET
-================================================== */
+        url("./lux-halloween.jpg")
+        center / cover fixed no-repeat;
 
-*{
+      padding: 22px;
 
-  margin:0;
-  padding:0;
+    }
 
-  box-sizing:border-box;
 
-  font-family:
-    "Segoe UI",
-    system-ui,
-    sans-serif;
+    .container {
 
-}
+      width: 100%;
 
+      max-width: 480px;
 
-html{
+      margin: 0 auto;
 
-  scroll-behavior:smooth;
+    }
 
-}
 
+    /* =====================================================
+       VOLTAR
+       ===================================================== */
 
-body{
+    .voltar {
 
-  min-height:100vh;
+      display: inline-block;
 
-  color:var(--texto);
+      color: #f8d58a;
 
-  background:
+      text-decoration: none;
 
-    #000
-    url("./lux-halloween.jpg")
-    center top / cover
-    no-repeat fixed;
+      font-size: 14px;
 
-  overflow-x:hidden;
+      margin-bottom: 15px;
 
-}
+    }
 
 
-/* ==================================================
-   CAMADA ESCURA
-================================================== */
+    .voltar:hover {
+      color: #fff;
+    }
 
-body::before{
 
-  content:"";
+    /* =====================================================
+       CARD PRINCIPAL
+       ===================================================== */
 
-  position:fixed;
+    .card {
 
-  inset:0;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(25, 6, 18, 0.97),
+          rgba(7, 3, 9, 0.98)
+        );
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.28),
-      rgba(0,0,0,.48)
-    );
+      border:
+        1px solid
+        rgba(248, 213, 138, 0.35);
 
-  z-index:0;
+      border-radius: 22px;
 
-  pointer-events:none;
+      padding: 30px 24px;
 
-}
+      box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.65);
 
+    }
 
-/* ==================================================
-   CONTEÚDO
-================================================== */
 
-.conteudo{
+    /* =====================================================
+       MARCA
+       ===================================================== */
 
-  position:relative;
+    .logo {
 
-  z-index:2;
+      text-align: center;
 
-  width:100%;
+      color: #f8d58a;
 
-  max-width:1200px;
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  margin:0 auto;
+      font-size: 34px;
 
-  padding:
-    0 22px;
+      font-weight: bold;
 
-}
+      font-style: italic;
 
+      margin-bottom: 5px;
 
-/* ==================================================
-   CABEÇALHO
-================================================== */
+    }
 
-header{
 
-  width:100%;
+    .slogan {
 
-  min-height:100px;
+      text-align: center;
 
-  display:flex;
+      color: #aaa;
 
-  align-items:center;
+      font-size: 11px;
 
-  justify-content:space-between;
+      letter-spacing: 1px;
 
-  gap:25px;
+      margin-bottom: 28px;
 
-  position:relative;
+    }
 
-  z-index:10;
 
-  padding:
-    20px 0;
+    /* =====================================================
+       TELAS
+       ===================================================== */
 
-}
+    .tela {
+      display: none;
+    }
 
 
-/* ==================================================
-   NOME LUX
-================================================== */
+    .tela.ativa {
+      display: block;
+    }
 
-.logo-lux{
 
-  color:var(--champanhe);
+    h1 {
 
-  font-size:40px;
+      text-align: center;
 
-  font-weight:800;
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  font-style:italic;
+      font-size: 25px;
 
-  letter-spacing:6px;
+      margin: 0 0 8px;
 
-  text-shadow:
+    }
 
-    0 0 10px rgba(201,162,39,.25),
 
-    0 0 28px rgba(201,162,39,.22);
+    .descricao {
 
-  position:relative;
+      text-align: center;
 
-}
+      color: #aaa;
 
+      font-size: 13px;
 
-.logo-lux::after{
+      line-height: 1.5;
 
-  content:"";
+      margin-bottom: 25px;
 
-  position:absolute;
+    }
 
-  left:2px;
 
-  bottom:-8px;
+    /* =====================================================
+       BOTÕES DE ESCOLHA
+       ===================================================== */
 
-  width:115px;
+    .opcoes {
 
-  height:1px;
+      display: grid;
 
-  background:
+      gap: 13px;
 
-    linear-gradient(
-      90deg,
-      var(--ouro),
-      transparent
-    );
+    }
 
-}
 
+    .opcao {
 
-/* ==================================================
-   BOTÃO ENTRAR
-================================================== */
+      width: 100%;
 
-.btn-entrar{
+      padding: 18px;
 
-  display:inline-flex;
+      border-radius: 14px;
 
-  align-items:center;
+      border:
+        1px solid
+        rgba(248,213,138,.35);
 
-  justify-content:center;
+      background:
+        rgba(255,255,255,.045);
 
-  gap:9px;
+      color: #fff;
 
-  min-width:125px;
+      cursor: pointer;
 
-  padding:
-    13px 22px;
+      text-align: left;
 
-  border-radius:11px;
+      transition: .2s;
 
-  text-decoration:none;
+    }
 
-  color:#17120a;
 
-  font-size:15px;
+    .opcao:hover {
 
-  font-weight:800;
+      background:
+        rgba(248,213,138,.08);
 
-  letter-spacing:.5px;
+      border-color:
+        rgba(248,213,138,.75);
 
-  background:
+      transform: translateY(-1px);
 
-    linear-gradient(
-      135deg,
-      #f5df83,
-      #c9a227 58%,
-      #8b6d15
-    );
+    }
 
-  border:
-    1px solid
-    #f7df83;
 
-  box-shadow:
+    .opcao strong {
 
-    0 7px 25px
-    rgba(201,162,39,.30);
+      display: block;
 
-  transition:
-    .3s ease;
+      color: #f8d58a;
 
-}
+      font-size: 16px;
 
+      margin-bottom: 5px;
 
-.btn-entrar:hover{
+    }
 
-  transform:
-    translateY(-2px);
 
-  filter:
-    brightness(1.08);
+    .opcao span {
 
-  box-shadow:
+      display: block;
 
-    0 10px 30px
-    rgba(201,162,39,.48);
+      color: #aaa;
 
-}
+      font-size: 12px;
 
+      line-height: 1.4;
 
-.btn-entrar i{
+    }
 
-  font-size:15px;
 
-}
+    /* =====================================================
+       FORMULÁRIO
+       ===================================================== */
 
+    .campo {
 
-/* ==================================================
-   ÁREA DO MENU
-================================================== */
+      margin-bottom: 15px;
 
-.menu-area{
+    }
 
-  width:100%;
 
-  display:flex;
+    label {
 
-  justify-content:center;
+      display: block;
 
-  margin-top:4px;
+      color: #f8d58a;
 
-  margin-bottom:34px;
+      font-size: 12px;
 
-  padding:
-    13px 12px;
+      font-weight: bold;
 
-  background:
+      margin-bottom: 7px;
 
-    linear-gradient(
-      180deg,
-      rgba(4,3,4,.91),
-      rgba(7,5,6,.82)
-    );
+    }
 
-  border-top:
-    1px solid
-    rgba(201,162,39,.40);
 
-  border-bottom:
-    1px solid
-    rgba(201,162,39,.35);
+    input,
+    textarea {
 
-  box-shadow:
+      width: 100%;
 
-    0 8px 30px
-    rgba(0,0,0,.40),
+      border-radius: 11px;
 
-    inset 0 1px
-    rgba(255,255,255,.025);
+      border:
+        1px solid
+        rgba(255,255,255,.13);
 
-}
+      background:
+        rgba(255,255,255,.055);
 
+      color: #fff;
 
-/* ==================================================
-   MENU
-================================================== */
+      padding: 13px;
 
-.menu{
+      outline: none;
 
-  width:100%;
+      font-size: 14px;
 
-  display:flex;
+      font-family: Arial, sans-serif;
 
-  flex-wrap:wrap;
+    }
 
-  justify-content:center;
 
-  align-items:center;
+    input {
 
-  gap:10px;
+      height: 47px;
 
-}
+    }
 
 
-/* ==================================================
-   CADA CAIXINHA
-================================================== */
+    textarea {
 
-.menu a{
+      min-height: 85px;
 
-  position:relative;
+      resize: vertical;
 
-  display:inline-flex;
+    }
 
-  align-items:center;
 
-  justify-content:center;
+    input:focus,
+    textarea:focus {
 
-  gap:9px;
+      border-color:
+        rgba(248,213,138,.7);
 
-  min-width:132px;
+    }
 
-  height:48px;
 
-  padding:
-    0 18px;
+    input::placeholder,
+    textarea::placeholder {
+      color: #777;
+    }
 
-  border-radius:25px;
 
-  border:
-    1px solid
-    rgba(201,162,39,.65);
+    /* =====================================================
+       BOTÕES
+       ===================================================== */
 
-  background:
+    .btn-principal {
 
-    linear-gradient(
-      145deg,
-      rgba(10,8,9,.97),
-      rgba(19,13,14,.92)
-    );
+      width: 100%;
 
-  color:
-    #eee1c9;
+      height: 50px;
 
-  text-decoration:none;
+      border: 0;
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+      border-radius: 12px;
 
-  font-size:16px;
+      background:
+        linear-gradient(
+          135deg,
+          #f8d58a,
+          #d7a84d
+        );
 
-  font-weight:700;
+      color: #16070d;
 
-  letter-spacing:.3px;
+      font-weight: bold;
 
-  box-shadow:
+      font-size: 14px;
 
-    inset 0 0 0 1px
-    rgba(255,255,255,.025),
+      cursor: pointer;
 
-    0 4px 14px
-    rgba(0,0,0,.35);
+      margin-top: 5px;
 
-  transition:
-    all .28s ease;
+    }
 
-}
 
+    .btn-principal:disabled {
 
-/* ==================================================
-   BRILHO SUPERIOR
-================================================== */
+      opacity: .55;
 
-.menu a::before{
+      cursor: wait;
 
-  content:"";
+    }
 
-  position:absolute;
 
-  top:1px;
+    .btn-secundario {
 
-  left:20%;
+      width: 100%;
 
-  right:20%;
+      height: 45px;
 
-  height:1px;
+      border-radius: 11px;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,233,163,.7),
-      transparent
-    );
+      border:
+        1px solid
+        rgba(248,213,138,.3);
 
-  opacity:.7;
+      background:
+        transparent;
 
-}
+      color: #f8d58a;
 
+      cursor: pointer;
 
-/* ==================================================
-   ÍCONES
-================================================== */
+      margin-top: 10px;
 
-.menu a i{
+    }
 
-  color:
-    var(--ouro-claro);
 
-  font-size:17px;
+    /* =====================================================
+       MENSAGEM
+       ===================================================== */
 
-  filter:
+    .mensagem {
 
-    drop-shadow(
-      0 0 5px
-      rgba(201,162,39,.35)
-    );
+      display: none;
 
-}
+      padding: 12px;
 
+      margin-top: 15px;
 
-/* ==================================================
-   HOVER
-================================================== */
+      border-radius: 10px;
 
-.menu a:hover{
+      text-align: center;
 
-  color:
-    #fff2c6;
+      font-size: 12px;
 
-  border-color:
-    var(--ouro-claro);
+      line-height: 1.5;
 
-  background:
+    }
 
-    linear-gradient(
-      145deg,
-      rgba(39,28,10,.96),
-      rgba(15,10,11,.96)
-    );
 
-  transform:
-    translateY(-2px);
+    .mensagem.erro {
 
-  box-shadow:
+      display: block;
 
-    0 7px 20px
-    rgba(201,162,39,.22),
+      color: #ffbdc9;
 
-    inset 0 0 14px
-    rgba(201,162,39,.06);
+      background:
+        rgba(180,30,70,.15);
 
-}
+      border:
+        1px solid
+        rgba(255,70,100,.3);
 
+    }
 
-.menu a:hover i{
 
-  color:
-    #ffeaa0;
+    .mensagem.sucesso {
 
-}
+      display: block;
 
+      color: #c5ffd6;
 
-/* ==================================================
-   ITEM ATIVO — INÍCIO
-================================================== */
+      background:
+        rgba(50,150,80,.15);
 
-.menu a.ativo{
+      border:
+        1px solid
+        rgba(100,220,140,.25);
 
-  color:#fff4ca;
+    }
 
-  border-color:
-    #f1cf5f;
 
-  background:
+    /* =====================================================
+       TIPO DE CADASTRO
+       ===================================================== */
 
-    linear-gradient(
-      145deg,
-      rgba(50,37,12,.96),
-      rgba(18,13,10,.96)
-    );
+    .tipo-titulo {
 
-  box-shadow:
+      text-align: center;
 
-    0 0 18px
-    rgba(201,162,39,.24),
+      color: #f8d58a;
 
-    inset 0 0 12px
-    rgba(201,162,39,.07);
+      font-size: 13px;
 
-}
+      margin-bottom: 15px;
 
+      font-weight: bold;
 
-.menu a.ativo i{
+      letter-spacing: .5px;
 
-  color:
-    #ffe27b;
+    }
 
-}
 
+    /* =====================================================
+       RODAPÉ
+       ===================================================== */
 
-/* ==================================================
-   DOAR PIX
-================================================== */
+    .rodape {
 
-.menu a.pix{
+      text-align: center;
 
-  border-color:
-    rgba(240,216,120,.78);
+      color: #666;
 
-  color:
-    #f5d979;
+      font-size: 10px;
 
-}
+      margin-top: 18px;
 
+    }
 
-.menu a.pix i{
 
-  color:
-    #ffd700;
+    @media (max-width: 480px) {
 
-}
+      body {
+        padding: 15px;
+      }
 
+      .card {
+        padding: 27px 19px;
+      }
 
-/* ==================================================
-   HERO
-================================================== */
+      .logo {
+        font-size: 30px;
+      }
 
-.hero{
+    }
 
-  width:100%;
-
-  text-align:center;
-
-  padding:
-    72px 10px
-    120px;
-
-  position:relative;
-
-  z-index:3;
-
-}
-
-
-/* ==================================================
-   TÍTULO
-================================================== */
-
-.hero h1{
-
-  font-size:
-    min(72px,13vw);
-
-  line-height:.95;
-
-  font-style:italic;
-
-  font-weight:800;
-
-  letter-spacing:6px;
-
-  padding-left:8px;
-
-  background:
-
-    linear-gradient(
-      180deg,
-      #fff4ce 0%,
-      #f0d878 43%,
-      #c9a227 78%,
-      #80620f 100%
-    );
-
-  -webkit-background-clip:text;
-
-  background-clip:text;
-
-  color:transparent;
-
-  filter:
-
-    drop-shadow(
-      0 0 25px
-      rgba(201,162,39,.32)
-    );
-
-}
-
-
-/* ==================================================
-   SLOGAN
-================================================== */
-
-.hero .slogan{
-
-  margin-top:20px;
-
-  color:
-    var(--champanhe);
-
-  font-size:
-    clamp(
-      17px,
-      2.6vw,
-      24px
-    );
-
-  font-weight:500;
-
-  letter-spacing:2px;
-
-  text-shadow:
-
-    0 2px 12px
-    rgba(0,0,0,.9);
-
-}
-
-
-/* ==================================================
-   DESCRIÇÃO
-================================================== */
-
-.hero .descricao{
-
-  max-width:650px;
-
-  margin:
-    24px auto 0;
-
-  color:
-    var(--texto-suave);
-
-  font-size:16px;
-
-  line-height:1.8;
-
-  text-shadow:
-
-    0 2px 8px
-    rgba(0,0,0,.9);
-
-}
-
-
-/* ==================================================
-   RESPONSIVO TABLET
-================================================== */
-
-@media(max-width:950px){
-
-  .menu{
-
-    gap:8px;
-
-  }
-
-  .menu a{
-
-    min-width:125px;
-
-    height:46px;
-
-    padding:
-      0 15px;
-
-    font-size:15px;
-
-  }
-
-}
-
-
-/* ==================================================
-   RESPONSIVO CELULAR
-================================================== */
-
-@media(max-width:700px){
-
-  .conteudo{
-
-    padding:
-      0 12px;
-
-  }
-
-
-  header{
-
-    min-height:85px;
-
-    padding:
-      16px 0;
-
-  }
-
-
-  .logo-lux{
-
-    font-size:27px;
-
-    letter-spacing:3px;
-
-  }
-
-
-  .logo-lux::after{
-
-    width:80px;
-
-  }
-
-
-  .btn-entrar{
-
-    min-width:105px;
-
-    padding:
-      11px 15px;
-
-    font-size:13px;
-
-  }
-
-
-  .menu-area{
-
-    margin-bottom:28px;
-
-    padding:
-      11px 7px;
-
-  }
-
-
-  .menu{
-
-    gap:7px;
-
-  }
-
-
-  .menu a{
-
-    min-width:
-      calc(33.333% - 7px);
-
-    height:44px;
-
-    padding:
-      0 7px;
-
-    gap:5px;
-
-    font-size:12px;
-
-  }
-
-
-  .menu a i{
-
-    font-size:13px;
-
-  }
-
-
-  .hero{
-
-    padding:
-      62px 7px
-      100px;
-
-  }
-
-
-  .hero h1{
-
-    font-size:
-      min(58px,13vw);
-
-    letter-spacing:3px;
-
-  }
-
-
-  .hero .slogan{
-
-    font-size:16px;
-
-    letter-spacing:1px;
-
-  }
-
-
-  .hero .descricao{
-
-    font-size:14px;
-
-  }
-
-}
-
-
-/* ==================================================
-   CELULARES PEQUENOS
-================================================== */
-
-@media(max-width:430px){
-
-  .logo-lux{
-
-    font-size:22px;
-
-    letter-spacing:2px;
-
-  }
-
-
-  .btn-entrar{
-
-    min-width:92px;
-
-    padding:
-      10px 12px;
-
-    font-size:12px;
-
-  }
-
-
-  .menu{
-
-    gap:6px;
-
-  }
-
-
-  .menu a{
-
-    min-width:
-      calc(33.333% - 6px);
-
-    height:42px;
-
-    padding:
-      0 5px;
-
-    font-size:10px;
-
-  }
-
-
-  .menu a i{
-
-    font-size:11px;
-
-  }
-
-
-  .hero{
-
-    padding-top:55px;
-
-  }
-
-}
-
-</style>
+  </style>
 
 </head>
 
@@ -948,168 +559,788 @@ header{
 <body>
 
 
-<div class="conteudo">
+<div class="container">
 
-
-<!-- ==================================================
-     CABEÇALHO
-================================================== -->
-
-<header>
-
-
-  <div class="logo-lux">
-    LUX Advance
-  </div>
-
-
-  <!-- BOTÃO ENTRAR -->
 
   <a
-    href="./login.html"
-    class="btn-entrar"
+    href="./index.html"
+    class="voltar"
   >
-
-    <i class="fas fa-lock"></i>
-
-    Entrar
-
+    ← Voltar
   </a>
 
 
-</header>
+  <div class="card">
+
+
+    <div class="logo">
+      LUX Advance
+    </div>
+
+
+    <div class="slogan">
+      MAIS QUE UM SITE, UMA EXPERIÊNCIA
+    </div>
 
 
 
-<!-- ==================================================
-     MENU
-================================================== -->
+    <!-- =================================================
+         TELA INICIAL
+         ================================================= -->
 
-<div class="menu-area">
-
-
-  <nav class="menu">
-
-
-    <a
-      href="./index.html"
-      class="ativo"
+    <section
+      id="telaInicial"
+      class="tela ativa"
     >
 
-      <i class="fas fa-house"></i>
-
-      Início
-
-    </a>
+      <h1>
+        Acesso LUX
+      </h1>
 
 
-    <a href="./loja.html">
+      <div class="descricao">
 
-      <i class="fas fa-cart-shopping"></i>
+        Entre na sua conta ou escolha
+        uma opção para criar seu cadastro.
 
-      Loja
-
-    </a>
-
-
-    <a href="./catalago.html">
-
-      <i class="fas fa-book-open"></i>
-
-      Catálogo
-
-    </a>
+      </div>
 
 
-    <a href="./planos.html">
-
-      <i class="fas fa-crown"></i>
-
-      Planos
-
-    </a>
+      <div class="opcoes">
 
 
-    <a href="./pre-cadastro.html">
+        <button
+          type="button"
+          class="opcao"
+          onclick="mostrarLogin()"
+        >
 
-      <i class="fas fa-user-plus"></i>
+          <strong>
+            🔐 Já tenho cadastro
+          </strong>
 
-      Pré-Cadastro
+          <span>
+            Entre com seu e-mail e senha
+            para acessar sua área exclusiva.
+          </span>
 
-    </a>
-
-
-    <a href="./agendar.html">
-
-      <i class="fas fa-calendar-days"></i>
-
-      Agendar
-
-    </a>
-
-
-    <a href="./termos.html">
-
-      <i class="fas fa-shield-halved"></i>
-
-      Termos
-
-    </a>
+        </button>
 
 
-    <a
-      href="./doar-pix.html"
-      class="pix"
+
+        <button
+          type="button"
+          class="opcao"
+          onclick="mostrarEscolhaCadastro()"
+        >
+
+          <strong>
+            ✦ Ainda não tenho cadastro
+          </strong>
+
+          <span>
+            Crie sua conta gratuitamente.
+            Escolha entre Usuário ou Modelo.
+          </span>
+
+        </button>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         LOGIN
+         ================================================= -->
+
+    <section
+      id="telaLogin"
+      class="tela"
     >
 
-      <i class="fas fa-qrcode"></i>
-
-      Doar PIX
-
-    </a>
+      <h1>
+        Entrar
+      </h1>
 
 
-  </nav>
+      <div class="descricao">
+        Acesse sua conta LUX Advance.
+      </div>
+
+
+      <form id="formLogin">
+
+
+        <div class="campo">
+
+          <label for="loginEmail">
+            E-MAIL
+          </label>
+
+          <input
+            type="email"
+            id="loginEmail"
+            placeholder="Digite seu e-mail"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="loginSenha">
+            SENHA
+          </label>
+
+          <input
+            type="password"
+            id="loginSenha"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+            required
+          >
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="btn-principal"
+          id="btnLogin"
+        >
+          ENTRAR
+        </button>
+
+
+      </form>
+
+
+      <div
+        id="mensagemLogin"
+        class="mensagem"
+      ></div>
+
+
+      <button
+        type="button"
+        class="btn-secundario"
+        onclick="mostrarInicial()"
+      >
+        ← Voltar
+      </button>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         ESCOLHER CADASTRO
+         ================================================= -->
+
+    <section
+      id="telaEscolha"
+      class="tela"
+    >
+
+      <h1>
+        Criar cadastro
+      </h1>
+
+
+      <div class="descricao">
+
+        Escolha como deseja participar
+        da experiência LUX Advance.
+
+      </div>
+
+
+      <div class="opcoes">
+
+
+        <button
+          type="button"
+          class="opcao"
+          onclick="mostrarCadastroUsuario()"
+        >
+
+          <strong>
+            👤 Sou Usuário
+          </strong>
+
+          <span>
+            Crie sua conta para acessar
+            os recursos da plataforma.
+          </span>
+
+        </button>
+
+
+        <button
+          type="button"
+          class="opcao"
+          onclick="mostrarCadastroModelo()"
+        >
+
+          <strong>
+            ✦ Sou Modelo
+          </strong>
+
+          <span>
+            Cadastre seu perfil e envie
+            seus dados para análise da LUX.
+          </span>
+
+        </button>
+
+
+      </div>
+
+
+      <button
+        type="button"
+        class="btn-secundario"
+        onclick="mostrarInicial()"
+      >
+        ← Voltar
+      </button>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         CADASTRO USUÁRIO
+         ================================================= -->
+
+    <section
+      id="telaUsuario"
+      class="tela"
+    >
+
+      <div class="tipo-titulo">
+        CADASTRO DE USUÁRIO
+      </div>
+
+
+      <h1>
+        Sua conta LUX
+      </h1>
+
+
+      <div class="descricao">
+        Preencha seus dados para criar sua conta.
+      </div>
+
+
+      <form id="formUsuario">
+
+
+        <div class="campo">
+
+          <label for="usuarioNome">
+            NOME
+          </label>
+
+          <input
+            type="text"
+            id="usuarioNome"
+            placeholder="Seu nome"
+            required
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="usuarioEmail">
+            E-MAIL
+          </label>
+
+          <input
+            type="email"
+            id="usuarioEmail"
+            placeholder="Seu e-mail"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="usuarioWhatsApp">
+            WHATSAPP
+          </label>
+
+          <input
+            type="tel"
+            id="usuarioWhatsApp"
+            placeholder="(00) 00000-0000"
+            required
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="usuarioSenha">
+            SENHA
+          </label>
+
+          <input
+            type="password"
+            id="usuarioSenha"
+            placeholder="Mínimo 6 caracteres"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="usuarioSenha2">
+            CONFIRMAR SENHA
+          </label>
+
+          <input
+            type="password"
+            id="usuarioSenha2"
+            placeholder="Digite novamente"
+            autocomplete="new-password"
+            required
+          >
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="btn-principal"
+          id="btnCadastroUsuario"
+        >
+          CRIAR CONTA
+        </button>
+
+
+      </form>
+
+
+      <div
+        id="mensagemUsuario"
+        class="mensagem"
+      ></div>
+
+
+      <button
+        type="button"
+        class="btn-secundario"
+        onclick="mostrarEscolhaCadastro()"
+      >
+        ← Voltar
+      </button>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         CADASTRO MODELO
+         ================================================= -->
+
+    <section
+      id="telaModelo"
+      class="tela"
+    >
+
+      <div class="tipo-titulo">
+        CADASTRO DE MODELO
+      </div>
+
+
+      <h1>
+        Seu perfil LUX
+      </h1>
+
+
+      <div class="descricao">
+
+        Preencha seus dados.
+        Seu cadastro ficará sujeito à análise.
+
+      </div>
+
+
+      <form id="formModelo">
+
+
+        <div class="campo">
+
+          <label for="modeloNome">
+            NOME
+          </label>
+
+          <input
+            type="text"
+            id="modeloNome"
+            placeholder="Seu nome"
+            required
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="modeloNomeProfissional">
+            NOME / APELIDO PROFISSIONAL
+          </label>
+
+          <input
+            type="text"
+            id="modeloNomeProfissional"
+            placeholder="Como deseja aparecer no perfil"
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="modeloEmail">
+            E-MAIL
+          </label>
+
+          <input
+            type="email"
+            id="modeloEmail"
+            placeholder="Seu e-mail"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="modeloWhatsApp">
+            WHATSAPP
+          </label>
+
+          <input
+            type="tel"
+            id="modeloWhatsApp"
+            placeholder="(00) 00000-0000"
+            required
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="modeloCabelo">
+            COR DOS CABELOS
+          </label>
+
+          <input
+            type="text"
+            id="modeloCabelo"
+            placeholder="Ex.: castanho, loiro..."
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="modeloDescricao">
+            SOBRE VOCÊ
+          </label>
+
+          <textarea
+            id="modeloDescricao"
+            placeholder="Conte um pouco sobre você..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="modeloSenha">
+            SENHA
+          </label>
+
+          <input
+            type="password"
+            id="modeloSenha"
+            placeholder="Mínimo 6 caracteres"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="modeloSenha2">
+            CONFIRMAR SENHA
+          </label>
+
+          <input
+            type="password"
+            id="modeloSenha2"
+            placeholder="Digite novamente"
+            autocomplete="new-password"
+            required
+          >
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="btn-principal"
+          id="btnCadastroModelo"
+        >
+          ENVIAR CADASTRO
+        </button>
+
+
+      </form>
+
+
+      <div
+        id="mensagemModelo"
+        class="mensagem"
+      ></div>
+
+
+      <button
+        type="button"
+        class="btn-secundario"
+        onclick="mostrarEscolhaCadastro()"
+      >
+        ← Voltar
+      </button>
+
+
+    </section>
+
+
+  </div>
+
+
+  <div class="rodape">
+    LUX Advance • Acesso seguro
+  </div>
 
 
 </div>
 
 
 
-<!-- ==================================================
-     CONTEÚDO PRINCIPAL
-================================================== -->
-
-<section class="hero">
+<script>
 
 
-  <h1>
-    LUX Advance
-  </h1>
+/* =========================================================
+   CONFIGURAÇÕES
+   ========================================================= */
 
 
-  <p class="slogan">
-
-    MAIS QUE UM SITE,
-    UMA EXPERIÊNCIA
-
-  </p>
-
-
-  <p class="descricao">
-
-    Conectamos momentos especiais
-    com pessoas extraordinárias.
-
-  </p>
+/*
+ * WhatsApp que receberá as notificações
+ * dos novos cadastros.
+ */
+const WHATSAPP_LUX =
+  "5551980612941";
 
 
-</section>
+/* =========================================================
+   CONTROLE DAS TELAS
+   ========================================================= */
+
+function mostrarTela(id) {
+
+  document
+    .querySelectorAll(".tela")
+    .forEach(function(tela) {
+
+      tela.classList.remove("ativa");
+
+    });
 
 
-</div>
+  document
+    .getElementById(id)
+    .classList.add("ativa");
+
+}
 
 
-</body>
+function mostrarInicial() {
+  mostrarTela("telaInicial");
+}
 
-</html>
+
+function mostrarLogin() {
+  mostrarTela("telaLogin");
+}
+
+
+function mostrarEscolhaCadastro() {
+  mostrarTela("telaEscolha");
+}
+
+
+function mostrarCadastroUsuario() {
+  mostrarTela("telaUsuario");
+}
+
+
+function mostrarCadastroModelo() {
+  mostrarTela("telaModelo");
+}
+
+
+/* =========================================================
+   MENSAGENS
+   ========================================================= */
+
+function mensagem(elemento, texto, tipo) {
+
+  elemento.textContent = texto;
+
+  elemento.className =
+    "mensagem " + tipo;
+
+}
+
+
+/* =========================================================
+   WHATSAPP
+   ========================================================= */
+
+function abrirWhatsApp(texto) {
+
+  const url =
+
+    "https://wa.me/" +
+    WHATSAPP_LUX +
+    "?text=" +
+    encodeURIComponent(texto);
+
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+document
+  .getElementById("formLogin")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const email =
+        document
+          .getElementById("loginEmail")
+          .value
+          .trim();
+
+
+      const senha =
+        document
+          .getElementById("loginSenha")
+          .value;
+
+
+      const botao =
+        document
+          .getElementById("btnLogin");
+
+
+      const msg =
+        document
+          .getElementById("mensagemLogin");
+
+
+      botao.disabled = true;
+
+      botao.textContent =
+        "ENTRANDO...";
+
+
+      msg.className =
+        "mensagem";
+
+
+      try {
+
+
+        const resultado =
+          await window.login(
+            email,
+            senha
+          );
+
+
+        if (
+          !resultado ||
+          !resultado.success
+        ) {
+
+          throw new Error(
+            "Não foi possível realizar o login."
+          );
+
+        }
+
+
+        mensagem(
+          msg,
+          "Login realizado com sucesso. Entrando...",
+          "sucesso"
+        );
+
+
+        const params =
+          new URLSearchParams(
+            window.location.search
+          );
+
+
+        const redirect =
+          params.get("redirect");
+
+
+        let

@@ -227,6 +227,12 @@ h1 {
 
 }
 
+.opcao:active {
+
+  transform: scale(.99);
+
+}
+
 .opcao strong {
 
   display: block;
@@ -367,6 +373,20 @@ textarea::placeholder {
 
   cursor: pointer;
 
+  transition: .2s;
+
+}
+
+.btn-principal:hover {
+
+  filter: brightness(1.08);
+
+}
+
+.btn-principal:active {
+
+  transform: scale(.99);
+
 }
 
 .btn-principal:disabled {
@@ -396,6 +416,13 @@ textarea::placeholder {
   color: #f8d58a;
 
   cursor: pointer;
+
+}
+
+.btn-secundario:hover {
+
+  background:
+    rgba(248,213,138,.07);
 
 }
 
@@ -1103,9 +1130,11 @@ function limparMensagem(elemento) {
 
   if (!elemento) return;
 
-  elemento.className = "mensagem";
+  elemento.className =
+    "mensagem";
 
-  elemento.textContent = "";
+  elemento.textContent =
+    "";
 
 }
 
@@ -1114,7 +1143,10 @@ function limparMensagem(elemento) {
    MOSTRAR ERRO
 ===================================================== */
 
-function mostrarErro(elemento, mensagem) {
+function mostrarErro(
+  elemento,
+  mensagem
+) {
 
   if (!elemento) return;
 
@@ -1131,7 +1163,10 @@ function mostrarErro(elemento, mensagem) {
    MOSTRAR SUCESSO
 ===================================================== */
 
-function mostrarSucesso(elemento, mensagem) {
+function mostrarSucesso(
+  elemento,
+  mensagem
+) {
 
   if (!elemento) return;
 
@@ -1145,82 +1180,860 @@ function mostrarSucesso(elemento, mensagem) {
 
 
 /* =====================================================
-   BOTÕES DA TELA INICIAL
+   BOTÃO — JÁ TENHO CADASTRO
 ===================================================== */
 
-document
-  .getElementById("btnJaTenho")
-  .addEventListener("click", function () {
+const btnJaTenho =
+  document.getElementById(
+    "btnJaTenho"
+  );
 
-    mostrarTela("telaLogin");
+if (btnJaTenho) {
 
-  });
+  btnJaTenho.addEventListener(
+    "click",
+    function () {
 
+      mostrarTela(
+        "telaLogin"
+      );
 
-document
-  .getElementById("btnNaoTenho")
-  .addEventListener("click", function () {
+    }
+  );
 
-    mostrarTela("telaEscolha");
-
-  });
+}
 
 
 /* =====================================================
-   ESCOLHA USUÁRIO / MODELO
+   BOTÃO — AINDA NÃO TENHO CADASTRO
 ===================================================== */
 
-document
-  .getElementById("btnUsuario")
-  .addEventListener("click", function () {
+const btnNaoTenho =
+  document.getElementById(
+    "btnNaoTenho"
+  );
 
-    mostrarTela("telaUsuario");
+if (btnNaoTenho) {
 
-  });
+  btnNaoTenho.addEventListener(
+    "click",
+    function () {
 
+      mostrarTela(
+        "telaEscolha"
+      );
 
-document
-  .getElementById("btnModelo")
-  .addEventListener("click", function () {
+    }
+  );
 
-    mostrarTela("telaModelo");
-
-  });
+}
 
 
 /* =====================================================
-   BOTÕES VOLTAR
+   BOTÃO — SOU USUÁRIO
 ===================================================== */
 
-document
-  .getElementById("btnVoltarLogin")
-  .addEventListener("click", function () {
+const btnUsuario =
+  document.getElementById(
+    "btnUsuario"
+  );
 
-    mostrarTela("telaInicial");
+if (btnUsuario) {
 
-  });
+  btnUsuario.addEventListener(
+    "click",
+    function () {
 
+      mostrarTela(
+        "telaUsuario"
+      );
 
-document
-  .getElementById("btnVoltarEscolha")
-  .addEventListener("click", function () {
+    }
+  );
 
-    mostrarTela("telaInicial");
-
-  });
-
-
-document
-  .getElementById("btnVoltarUsuario")
-  .addEventListener("click", function () {
-
-    mostrarTela("telaEscolha");
-
-  });
+}
 
 
-document
-  .getElementById("btnVoltarModelo")
-  .addEventListener("click", function () {
+/* =====================================================
+   BOTÃO — SOU MODELO
+===================================================== */
 
-    mostrar
+const btnModelo =
+  document.getElementById(
+    "btnModelo"
+  );
+
+if (btnModelo) {
+
+  btnModelo.addEventListener(
+    "click",
+    function () {
+
+      mostrarTela(
+        "telaModelo"
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   VOLTAR — LOGIN
+===================================================== */
+
+const btnVoltarLogin =
+  document.getElementById(
+    "btnVoltarLogin"
+  );
+
+if (btnVoltarLogin) {
+
+  btnVoltarLogin.addEventListener(
+    "click",
+    function () {
+
+      mostrarTela(
+        "telaInicial"
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   VOLTAR — ESCOLHA
+===================================================== */
+
+const btnVoltarEscolha =
+  document.getElementById(
+    "btnVoltarEscolha"
+  );
+
+if (btnVoltarEscolha) {
+
+  btnVoltarEscolha.addEventListener(
+    "click",
+    function () {
+
+      mostrarTela(
+        "telaInicial"
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   VOLTAR — USUÁRIO
+===================================================== */
+
+const btnVoltarUsuario =
+  document.getElementById(
+    "btnVoltarUsuario"
+  );
+
+if (btnVoltarUsuario) {
+
+  btnVoltarUsuario.addEventListener(
+    "click",
+    function () {
+
+      mostrarTela(
+        "telaEscolha"
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   VOLTAR — MODELO
+===================================================== */
+
+const btnVoltarModelo =
+  document.getElementById(
+    "btnVoltarModelo"
+  );
+
+if (btnVoltarModelo) {
+
+  btnVoltarModelo.addEventListener(
+    "click",
+    function () {
+
+      mostrarTela(
+        "telaEscolha"
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+const formLogin =
+  document.getElementById(
+    "formLogin"
+  );
+
+if (formLogin) {
+
+  formLogin.addEventListener(
+    "submit",
+    async function (event) {
+
+      event.preventDefault();
+
+
+      const email =
+        document
+          .getElementById(
+            "loginEmail"
+          )
+          .value
+          .trim();
+
+
+      const senha =
+        document
+          .getElementById(
+            "loginSenha"
+          )
+          .value;
+
+
+      const botao =
+        document.getElementById(
+          "btnLogin"
+        );
+
+
+      const mensagem =
+        document.getElementById(
+          "msgLogin"
+        );
+
+
+      limparMensagem(
+        mensagem
+      );
+
+
+      if (
+        typeof window.login !==
+        "function"
+      ) {
+
+        mostrarErro(
+          mensagem,
+          "O sistema de autenticação não foi carregado. Verifique o config.js e o auth.js."
+        );
+
+        return;
+      }
+
+
+      botao.disabled =
+        true;
+
+      botao.textContent =
+        "ENTRANDO...";
+
+
+      try {
+
+        const resultado =
+          await window.login(
+            email,
+            senha
+          );
+
+
+        mostrarSucesso(
+          mensagem,
+          "Login realizado com sucesso. Abrindo sua área..."
+        );
+
+
+        const perfil =
+          resultado &&
+          resultado.perfil;
+
+
+        setTimeout(
+          function () {
+
+            if (
+              perfil &&
+              perfil.tipo ===
+              "modelo"
+            ) {
+
+              window.location.href =
+                "./painel-modelo.html";
+
+              return;
+
+            }
+
+
+            if (
+              perfil &&
+              perfil.tipo ===
+              "admin"
+            ) {
+
+              window.location.href =
+                "./painel.html";
+
+              return;
+
+            }
+
+
+            window.location.href =
+              "./painel-usuario.html";
+
+          },
+          700
+        );
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro no login:",
+          erro
+        );
+
+
+        mostrarErro(
+          mensagem,
+          erro &&
+          erro.message
+            ? erro.message
+            : "Não foi possível realizar o login."
+        );
+
+
+        botao.disabled =
+          false;
+
+        botao.textContent =
+          "ENTRAR";
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   CADASTRO DE USUÁRIO
+===================================================== */
+
+const formUsuario =
+  document.getElementById(
+    "formUsuario"
+  );
+
+if (formUsuario) {
+
+  formUsuario.addEventListener(
+    "submit",
+    async function (event) {
+
+      event.preventDefault();
+
+
+      const nome =
+        document
+          .getElementById(
+            "usuarioNome"
+          )
+          .value
+          .trim();
+
+
+      const email =
+        document
+          .getElementById(
+            "usuarioEmail"
+          )
+          .value
+          .trim();
+
+
+      const whatsapp =
+        document
+          .getElementById(
+            "usuarioWhatsApp"
+          )
+          .value
+          .trim();
+
+
+      const senha =
+        document
+          .getElementById(
+            "usuarioSenha"
+          )
+          .value;
+
+
+      const confirmacao =
+        document
+          .getElementById(
+            "usuarioSenhaConfirmacao"
+          )
+          .value;
+
+
+      const botao =
+        document.getElementById(
+          "btnCadastrarUsuario"
+        );
+
+
+      const mensagem =
+        document.getElementById(
+          "msgUsuario"
+        );
+
+
+      limparMensagem(
+        mensagem
+      );
+
+
+      if (
+        senha.length < 6
+      ) {
+
+        mostrarErro(
+          mensagem,
+          "A senha deve possuir pelo menos 6 caracteres."
+        );
+
+        return;
+      }
+
+
+      if (
+        senha !==
+        confirmacao
+      ) {
+
+        mostrarErro(
+          mensagem,
+          "As senhas não são iguais."
+        );
+
+        return;
+      }
+
+
+      if (
+        typeof window.cadastrar !==
+        "function"
+      ) {
+
+        mostrarErro(
+          mensagem,
+          "O sistema de cadastro não foi carregado. Verifique o auth.js."
+        );
+
+        return;
+      }
+
+
+      botao.disabled =
+        true;
+
+      botao.textContent =
+        "CRIANDO CONTA...";
+
+
+      try {
+
+        const resultado =
+          await window.cadastrar(
+            "usuario",
+            nome,
+            email,
+            senha,
+            {
+              whatsapp:
+                whatsapp
+            }
+          );
+
+
+        mostrarSucesso(
+          mensagem,
+          resultado &&
+          resultado.mensagem
+            ? resultado.mensagem
+            : "Cadastro realizado com sucesso."
+        );
+
+
+        /*
+         * A SENHA NÃO É ENVIADA
+         * PARA O WHATSAPP.
+         */
+
+        const texto =
+          "NOVO CADASTRO LUX ADVANCE\n\n" +
+          "Tipo: Usuário\n" +
+          "Nome: " +
+          nome +
+          "\n" +
+          "E-mail: " +
+          email +
+          "\n" +
+          "WhatsApp: " +
+          whatsapp;
+
+
+        const urlWhatsApp =
+          "https://wa.me/5551980612941?text=" +
+          encodeURIComponent(
+            texto
+          );
+
+
+        setTimeout(
+          function () {
+
+            window.open(
+              urlWhatsApp,
+              "_blank"
+            );
+
+          },
+          700
+        );
+
+
+        botao.textContent =
+          "CADASTRO REALIZADO";
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro no cadastro:",
+          erro
+        );
+
+
+        mostrarErro(
+          mensagem,
+          erro &&
+          erro.message
+            ? erro.message
+            : "Não foi possível criar o cadastro."
+        );
+
+
+        botao.disabled =
+          false;
+
+        botao.textContent =
+          "CRIAR CADASTRO";
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   PRÉ-CADASTRO DE MODELO
+===================================================== */
+
+const formModelo =
+  document.getElementById(
+    "formModelo"
+  );
+
+if (formModelo) {
+
+  formModelo.addEventListener(
+    "submit",
+    async function (event) {
+
+      event.preventDefault();
+
+
+      const nome =
+        document
+          .getElementById(
+            "modeloNome"
+          )
+          .value
+          .trim();
+
+
+      const profissional =
+        document
+          .getElementById(
+            "modeloProfissional"
+          )
+          .value
+          .trim();
+
+
+      const email =
+        document
+          .getElementById(
+            "modeloEmail"
+          )
+          .value
+          .trim();
+
+
+      const whatsapp =
+        document
+          .getElementById(
+            "modeloWhatsApp"
+          )
+          .value
+          .trim();
+
+
+      const cabelo =
+        document
+          .getElementById(
+            "modeloCabelo"
+          )
+          .value;
+
+
+      const descricao =
+        document
+          .getElementById(
+            "modeloDescricao"
+          )
+          .value
+          .trim();
+
+
+      const senha =
+        document
+          .getElementById(
+            "modeloSenha"
+          )
+          .value;
+
+
+      const confirmacao =
+        document
+          .getElementById(
+            "modeloSenhaConfirmacao"
+          )
+          .value;
+
+
+      const botao =
+        document.getElementById(
+          "btnCadastrarModelo"
+        );
+
+
+      const mensagem =
+        document.getElementById(
+          "msgModelo"
+        );
+
+
+      limparMensagem(
+        mensagem
+      );
+
+
+      if (
+        senha.length < 6
+      ) {
+
+        mostrarErro(
+          mensagem,
+          "A senha deve possuir pelo menos 6 caracteres."
+        );
+
+        return;
+      }
+
+
+      if (
+        senha !==
+        confirmacao
+      ) {
+
+        mostrarErro(
+          mensagem,
+          "As senhas não são iguais."
+        );
+
+        return;
+      }
+
+
+      if (
+        typeof window.cadastrar !==
+        "function"
+      ) {
+
+        mostrarErro(
+          mensagem,
+          "O sistema de cadastro não foi carregado. Verifique o auth.js."
+        );
+
+        return;
+      }
+
+
+      botao.disabled =
+        true;
+
+      botao.textContent =
+        "ENVIANDO...";
+
+
+      try {
+
+        const resultado =
+          await window.cadastrar(
+            "modelo",
+            nome,
+            email,
+            senha,
+            {
+              nome_profissional:
+                profissional,
+
+              whatsapp:
+                whatsapp,
+
+              cor_cabelo:
+                cabelo,
+
+              descricao:
+                descricao
+            }
+          );
+
+
+        mostrarSucesso(
+          mensagem,
+          resultado &&
+          resultado.mensagem
+            ? resultado.mensagem
+            : "Pré-cadastro enviado com sucesso."
+        );
+
+
+        /*
+         * A SENHA NÃO É ENVIADA
+         * PARA O WHATSAPP.
+         */
+
+        const texto =
+          "NOVO PRÉ-CADASTRO DE MODELO — LUX ADVANCE\n\n" +
+          "Nome: " +
+          nome +
+          "\n" +
+          "Nome profissional: " +
+          profissional +
+          "\n" +
+          "E-mail: " +
+          email +
+          "\n" +
+          "WhatsApp: " +
+          whatsapp +
+          "\n" +
+          "Cor dos cabelos: " +
+          cabelo +
+          "\n" +
+          "Descrição: " +
+          descricao;
+
+
+        const urlWhatsApp =
+          "https://wa.me/5551980612941?text=" +
+          encodeURIComponent(
+            texto
+          );
+
+
+        setTimeout(
+          function () {
+
+            window.open(
+              urlWhatsApp,
+              "_blank"
+            );
+
+          },
+          700
+        );
+
+
+        botao.textContent =
+          "PRÉ-CADASTRO ENVIADO";
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro no pré-cadastro:",
+          erro
+        );
+
+
+        mostrarErro(
+          mensagem,
+          erro &&
+          erro.message
+            ? erro.message
+            : "Não foi possível realizar o pré-cadastro."
+        );
+
+
+        botao.disabled =
+          false;
+
+        botao.textContent =
+          "ENVIAR PRÉ-CADASTRO";
+
+      }
+
+    }
+  );
+
+}
+
+
+})();
+</script>
+
+</body>
+
+</html>

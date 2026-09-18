@@ -3,555 +3,512 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <title>LUX Advance — Acesso</title>
+<title>LUX Advance — Acesso</title>
 
 
-  <!-- SUPABASE -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- CONFIG -->
-  <script src="./config.js"></script>
+<!-- CONFIGURAÇÃO -->
+<script src="./config.js"></script>
 
-  <!-- AUTENTICAÇÃO -->
-  <script src="./auth.js"></script>
+<!-- AUTENTICAÇÃO -->
+<script src="./auth.js"></script>
 
 
-  <style>
+<style>
 
-    * {
-      box-sizing: border-box;
-    }
+* {
+  box-sizing: border-box;
+}
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
-    }
+body {
 
+  min-height: 100vh;
 
-    body {
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
-      min-height: 100vh;
+  color: #fff;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  background:
+    linear-gradient(
+      rgba(5,2,7,.78),
+      rgba(12,3,10,.96)
+    ),
+    url("./lux-halloween.jpg")
+    center / cover fixed no-repeat;
 
-      color: #fff;
+  padding: 20px;
 
-      background:
+}
 
-        linear-gradient(
-          rgba(5, 2, 7, 0.78),
-          rgba(12, 3, 10, 0.96)
-        ),
 
-        url("./lux-halloween.jpg")
-        center / cover fixed no-repeat;
+.container {
 
-      padding: 22px;
+  width: 100%;
 
-    }
+  max-width: 480px;
 
+  margin: 0 auto;
 
-    .container {
+}
 
-      width: 100%;
 
-      max-width: 480px;
+.voltar {
 
-      margin: 0 auto;
+  display: inline-block;
 
-    }
+  color: #f8d58a;
 
+  text-decoration: none;
 
-    /* =====================================================
-       VOLTAR
-       ===================================================== */
+  font-size: 14px;
 
-    .voltar {
+  margin-bottom: 15px;
 
-      display: inline-block;
+}
 
-      color: #f8d58a;
 
-      text-decoration: none;
+.card {
 
-      font-size: 14px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25,6,18,.97),
+      rgba(7,3,9,.98)
+    );
 
-      margin-bottom: 15px;
+  border:
+    1px solid
+    rgba(248,213,138,.35);
 
-    }
+  border-radius: 22px;
 
+  padding: 30px 23px;
 
-    .voltar:hover {
-      color: #fff;
-    }
+  box-shadow:
+    0 20px 60px
+    rgba(0,0,0,.65);
 
+}
 
-    /* =====================================================
-       CARD PRINCIPAL
-       ===================================================== */
 
-    .card {
+.logo {
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(25, 6, 18, 0.97),
-          rgba(7, 3, 9, 0.98)
-        );
+  text-align: center;
 
-      border:
-        1px solid
-        rgba(248, 213, 138, 0.35);
+  color: #f8d58a;
 
-      border-radius: 22px;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
-      padding: 30px 24px;
+  font-size: 34px;
 
-      box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.65);
+  font-weight: bold;
 
-    }
+  font-style: italic;
 
+}
 
-    /* =====================================================
-       MARCA
-       ===================================================== */
 
-    .logo {
+.slogan {
 
-      text-align: center;
+  text-align: center;
 
-      color: #f8d58a;
+  color: #aaa;
 
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+  font-size: 11px;
 
-      font-size: 34px;
+  letter-spacing: 1px;
 
-      font-weight: bold;
+  margin-top: 5px;
 
-      font-style: italic;
+  margin-bottom: 28px;
 
-      margin-bottom: 5px;
+}
 
-    }
 
+.tela {
 
-    .slogan {
+  display: none;
 
-      text-align: center;
+}
 
-      color: #aaa;
 
-      font-size: 11px;
+.tela.ativa {
 
-      letter-spacing: 1px;
+  display: block;
 
-      margin-bottom: 28px;
+}
 
-    }
 
+h1 {
 
-    /* =====================================================
-       TELAS
-       ===================================================== */
+  text-align: center;
 
-    .tela {
-      display: none;
-    }
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
+  font-size: 25px;
 
-    .tela.ativa {
-      display: block;
-    }
+  margin:
+    0 0 9px;
 
+}
 
-    h1 {
 
-      text-align: center;
+.descricao {
 
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+  text-align: center;
 
-      font-size: 25px;
+  color: #aaa;
 
-      margin: 0 0 8px;
+  font-size: 13px;
 
-    }
+  line-height: 1.5;
 
+  margin-bottom: 25px;
 
-    .descricao {
+}
 
-      text-align: center;
 
-      color: #aaa;
+.opcoes {
 
-      font-size: 13px;
+  display: grid;
 
-      line-height: 1.5;
+  gap: 13px;
 
-      margin-bottom: 25px;
+}
 
-    }
 
+.opcao {
 
-    /* =====================================================
-       BOTÕES DE ESCOLHA
-       ===================================================== */
+  width: 100%;
 
-    .opcoes {
+  min-height: 82px;
 
-      display: grid;
+  padding: 17px;
 
-      gap: 13px;
+  border-radius: 14px;
 
-    }
+  border:
+    1px solid
+    rgba(248,213,138,.35);
 
+  background:
+    rgba(255,255,255,.045);
 
-    .opcao {
+  color: #fff;
 
-      width: 100%;
+  cursor: pointer;
 
-      padding: 18px;
+  text-align: left;
 
-      border-radius: 14px;
+  font-family: Arial, sans-serif;
 
-      border:
-        1px solid
-        rgba(248,213,138,.35);
+  transition: .2s;
 
-      background:
-        rgba(255,255,255,.045);
+}
 
-      color: #fff;
 
-      cursor: pointer;
+.opcao:hover {
 
-      text-align: left;
+  border-color:
+    rgba(248,213,138,.75);
 
-      transition: .2s;
+  background:
+    rgba(248,213,138,.08);
 
-    }
+}
 
 
-    .opcao:hover {
+.opcao strong {
 
-      background:
-        rgba(248,213,138,.08);
+  display: block;
 
-      border-color:
-        rgba(248,213,138,.75);
+  color: #f8d58a;
 
-      transform: translateY(-1px);
+  font-size: 16px;
 
-    }
+  margin-bottom: 6px;
 
+}
 
-    .opcao strong {
 
-      display: block;
+.opcao span {
 
-      color: #f8d58a;
+  display: block;
 
-      font-size: 16px;
+  color: #aaa;
 
-      margin-bottom: 5px;
+  font-size: 12px;
 
-    }
+  line-height: 1.4;
 
+}
 
-    .opcao span {
 
-      display: block;
+.campo {
 
-      color: #aaa;
+  margin-bottom: 15px;
 
-      font-size: 12px;
+}
 
-      line-height: 1.4;
 
-    }
+.campo label {
 
+  display: block;
 
-    /* =====================================================
-       FORMULÁRIO
-       ===================================================== */
+  color: #f8d58a;
 
-    .campo {
+  font-size: 12px;
 
-      margin-bottom: 15px;
+  font-weight: bold;
 
-    }
+  margin-bottom: 7px;
 
+}
 
-    label {
 
-      display: block;
+input,
+textarea {
 
-      color: #f8d58a;
+  width: 100%;
 
-      font-size: 12px;
+  border-radius: 11px;
 
-      font-weight: bold;
+  border:
+    1px solid
+    rgba(255,255,255,.13);
 
-      margin-bottom: 7px;
+  background:
+    rgba(255,255,255,.055);
 
-    }
+  color: #fff;
 
+  outline: none;
 
-    input,
-    textarea {
+  font-family: Arial, sans-serif;
 
-      width: 100%;
+  font-size: 14px;
 
-      border-radius: 11px;
+  padding: 13px;
 
-      border:
-        1px solid
-        rgba(255,255,255,.13);
+}
 
-      background:
-        rgba(255,255,255,.055);
 
-      color: #fff;
+input {
 
-      padding: 13px;
+  height: 47px;
 
-      outline: none;
+}
 
-      font-size: 14px;
 
-      font-family: Arial, sans-serif;
+textarea {
 
-    }
+  min-height: 85px;
 
+  resize: vertical;
 
-    input {
+}
 
-      height: 47px;
 
-    }
+input:focus,
+textarea:focus {
 
+  border-color:
+    rgba(248,213,138,.75);
 
-    textarea {
+}
 
-      min-height: 85px;
 
-      resize: vertical;
+input::placeholder,
+textarea::placeholder {
 
-    }
+  color: #777;
 
+}
 
-    input:focus,
-    textarea:focus {
 
-      border-color:
-        rgba(248,213,138,.7);
+.btn-principal {
 
-    }
+  width: 100%;
 
+  height: 50px;
 
-    input::placeholder,
-    textarea::placeholder {
-      color: #777;
-    }
+  border: none;
 
+  border-radius: 12px;
 
-    /* =====================================================
-       BOTÕES
-       ===================================================== */
+  background:
+    linear-gradient(
+      135deg,
+      #f8d58a,
+      #d7a84d
+    );
 
-    .btn-principal {
+  color: #16070d;
 
-      width: 100%;
+  font-weight: bold;
 
-      height: 50px;
+  font-size: 14px;
 
-      border: 0;
+  cursor: pointer;
 
-      border-radius: 12px;
+}
 
-      background:
-        linear-gradient(
-          135deg,
-          #f8d58a,
-          #d7a84d
-        );
 
-      color: #16070d;
+.btn-principal:disabled {
 
-      font-weight: bold;
+  opacity: .55;
 
-      font-size: 14px;
+  cursor: wait;
 
-      cursor: pointer;
+}
 
-      margin-top: 5px;
 
-    }
+.btn-secundario {
 
+  width: 100%;
 
-    .btn-principal:disabled {
+  height: 45px;
 
-      opacity: .55;
+  margin-top: 10px;
 
-      cursor: wait;
+  border-radius: 11px;
 
-    }
+  border:
+    1px solid
+    rgba(248,213,138,.3);
 
+  background: transparent;
 
-    .btn-secundario {
+  color: #f8d58a;
 
-      width: 100%;
+  cursor: pointer;
 
-      height: 45px;
+}
 
-      border-radius: 11px;
 
-      border:
-        1px solid
-        rgba(248,213,138,.3);
+.tipo {
 
-      background:
-        transparent;
+  text-align: center;
 
-      color: #f8d58a;
+  color: #f8d58a;
 
-      cursor: pointer;
+  font-size: 12px;
 
-      margin-top: 10px;
+  font-weight: bold;
 
-    }
+  margin-bottom: 12px;
 
+  letter-spacing: .5px;
 
-    /* =====================================================
-       MENSAGEM
-       ===================================================== */
+}
 
-    .mensagem {
 
-      display: none;
+.mensagem {
 
-      padding: 12px;
+  display: none;
 
-      margin-top: 15px;
+  padding: 12px;
 
-      border-radius: 10px;
+  margin-top: 15px;
 
-      text-align: center;
+  border-radius: 10px;
 
-      font-size: 12px;
+  text-align: center;
 
-      line-height: 1.5;
+  font-size: 12px;
 
-    }
+  line-height: 1.5;
 
+}
 
-    .mensagem.erro {
 
-      display: block;
+.mensagem.erro {
 
-      color: #ffbdc9;
+  display: block;
 
-      background:
-        rgba(180,30,70,.15);
+  color: #ffbdc9;
 
-      border:
-        1px solid
-        rgba(255,70,100,.3);
+  background:
+    rgba(180,30,70,.15);
 
-    }
+  border:
+    1px solid
+    rgba(255,70,100,.3);
 
+}
 
-    .mensagem.sucesso {
 
-      display: block;
+.mensagem.sucesso {
 
-      color: #c5ffd6;
+  display: block;
 
-      background:
-        rgba(50,150,80,.15);
+  color: #c5ffd6;
 
-      border:
-        1px solid
-        rgba(100,220,140,.25);
+  background:
+    rgba(50,150,80,.15);
 
-    }
+  border:
+    1px solid
+    rgba(100,220,140,.25);
 
+}
 
-    /* =====================================================
-       TIPO DE CADASTRO
-       ===================================================== */
 
-    .tipo-titulo {
+.rodape {
 
-      text-align: center;
+  text-align: center;
 
-      color: #f8d58a;
+  color: #666;
 
-      font-size: 13px;
+  font-size: 10px;
 
-      margin-bottom: 15px;
+  margin-top: 18px;
 
-      font-weight: bold;
+}
 
-      letter-spacing: .5px;
 
-    }
+@media(max-width:480px) {
 
+  body {
+    padding: 15px;
+  }
 
-    /* =====================================================
-       RODAPÉ
-       ===================================================== */
+  .card {
+    padding: 27px 19px;
+  }
 
-    .rodape {
+  .logo {
+    font-size: 30px;
+  }
 
-      text-align: center;
+}
 
-      color: #666;
-
-      font-size: 10px;
-
-      margin-top: 18px;
-
-    }
-
-
-    @media (max-width: 480px) {
-
-      body {
-        padding: 15px;
-      }
-
-      .card {
-        padding: 27px 19px;
-      }
-
-      .logo {
-        font-size: 30px;
-      }
-
-    }
-
-  </style>
+</style>
 
 </head>
 
@@ -562,785 +519,189 @@
 <div class="container">
 
 
-  <a
-    href="./index.html"
-    class="voltar"
-  >
-    ← Voltar
-  </a>
+<a
+  href="./index.html"
+  class="voltar"
+>
+← Voltar
+</a>
 
 
-  <div class="card">
+<div class="card">
 
 
-    <div class="logo">
-      LUX Advance
-    </div>
+<div class="logo">
+LUX Advance
+</div>
 
 
-    <div class="slogan">
-      MAIS QUE UM SITE, UMA EXPERIÊNCIA
-    </div>
+<div class="slogan">
+MAIS QUE UM SITE, UMA EXPERIÊNCIA
+</div>
 
 
 
-    <!-- =================================================
-         TELA INICIAL
-         ================================================= -->
+<!-- =====================================================
+     TELA INICIAL
+===================================================== -->
 
-    <section
-      id="telaInicial"
-      class="tela ativa"
-    >
+<section
+  id="telaInicial"
+  class="tela ativa"
+>
 
-      <h1>
-        Acesso LUX
-      </h1>
+<h1>
+Acesso LUX
+</h1>
 
 
-      <div class="descricao">
+<div class="descricao">
 
-        Entre na sua conta ou escolha
-        uma opção para criar seu cadastro.
+Entre na sua conta ou crie
+seu cadastro gratuitamente.
 
-      </div>
+</div>
 
 
-      <div class="opcoes">
+<div class="opcoes">
 
 
-        <button
-          type="button"
-          class="opcao"
-          onclick="mostrarLogin()"
-        >
+<button
+  type="button"
+  id="btnJaTenho"
+  class="opcao"
+>
 
-          <strong>
-            🔐 Já tenho cadastro
-          </strong>
+<strong>
+🔐 Já tenho cadastro
+</strong>
 
-          <span>
-            Entre com seu e-mail e senha
-            para acessar sua área exclusiva.
-          </span>
+<span>
+Entre com seu e-mail e senha
+para acessar sua área.
+</span>
 
-        </button>
+</button>
 
 
+<button
+  type="button"
+  id="btnNaoTenho"
+  class="opcao"
+>
 
-        <button
-          type="button"
-          class="opcao"
-          onclick="mostrarEscolhaCadastro()"
-        >
+<strong>
+✦ Ainda não tenho cadastro
+</strong>
 
-          <strong>
-            ✦ Ainda não tenho cadastro
-          </strong>
+<span>
+Crie sua conta escolhendo
+Usuário ou Modelo.
+</span>
 
-          <span>
-            Crie sua conta gratuitamente.
-            Escolha entre Usuário ou Modelo.
-          </span>
-
-        </button>
-
-
-      </div>
-
-
-    </section>
-
-
-
-    <!-- =================================================
-         LOGIN
-         ================================================= -->
-
-    <section
-      id="telaLogin"
-      class="tela"
-    >
-
-      <h1>
-        Entrar
-      </h1>
-
-
-      <div class="descricao">
-        Acesse sua conta LUX Advance.
-      </div>
-
-
-      <form id="formLogin">
-
-
-        <div class="campo">
-
-          <label for="loginEmail">
-            E-MAIL
-          </label>
-
-          <input
-            type="email"
-            id="loginEmail"
-            placeholder="Digite seu e-mail"
-            autocomplete="email"
-            required
-          >
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="loginSenha">
-            SENHA
-          </label>
-
-          <input
-            type="password"
-            id="loginSenha"
-            placeholder="Digite sua senha"
-            autocomplete="current-password"
-            required
-          >
-
-        </div>
-
-
-        <button
-          type="submit"
-          class="btn-principal"
-          id="btnLogin"
-        >
-          ENTRAR
-        </button>
-
-
-      </form>
-
-
-      <div
-        id="mensagemLogin"
-        class="mensagem"
-      ></div>
-
-
-      <button
-        type="button"
-        class="btn-secundario"
-        onclick="mostrarInicial()"
-      >
-        ← Voltar
-      </button>
-
-
-    </section>
-
-
-
-    <!-- =================================================
-         ESCOLHER CADASTRO
-         ================================================= -->
-
-    <section
-      id="telaEscolha"
-      class="tela"
-    >
-
-      <h1>
-        Criar cadastro
-      </h1>
-
-
-      <div class="descricao">
-
-        Escolha como deseja participar
-        da experiência LUX Advance.
-
-      </div>
-
-
-      <div class="opcoes">
-
-
-        <button
-          type="button"
-          class="opcao"
-          onclick="mostrarCadastroUsuario()"
-        >
-
-          <strong>
-            👤 Sou Usuário
-          </strong>
-
-          <span>
-            Crie sua conta para acessar
-            os recursos da plataforma.
-          </span>
-
-        </button>
-
-
-        <button
-          type="button"
-          class="opcao"
-          onclick="mostrarCadastroModelo()"
-        >
-
-          <strong>
-            ✦ Sou Modelo
-          </strong>
-
-          <span>
-            Cadastre seu perfil e envie
-            seus dados para análise da LUX.
-          </span>
-
-        </button>
-
-
-      </div>
-
-
-      <button
-        type="button"
-        class="btn-secundario"
-        onclick="mostrarInicial()"
-      >
-        ← Voltar
-      </button>
-
-
-    </section>
-
-
-
-    <!-- =================================================
-         CADASTRO USUÁRIO
-         ================================================= -->
-
-    <section
-      id="telaUsuario"
-      class="tela"
-    >
-
-      <div class="tipo-titulo">
-        CADASTRO DE USUÁRIO
-      </div>
-
-
-      <h1>
-        Sua conta LUX
-      </h1>
-
-
-      <div class="descricao">
-        Preencha seus dados para criar sua conta.
-      </div>
-
-
-      <form id="formUsuario">
-
-
-        <div class="campo">
-
-          <label for="usuarioNome">
-            NOME
-          </label>
-
-          <input
-            type="text"
-            id="usuarioNome"
-            placeholder="Seu nome"
-            required
-          >
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="usuarioEmail">
-            E-MAIL
-          </label>
-
-          <input
-            type="email"
-            id="usuarioEmail"
-            placeholder="Seu e-mail"
-            autocomplete="email"
-            required
-          >
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="usuarioWhatsApp">
-            WHATSAPP
-          </label>
-
-          <input
-            type="tel"
-            id="usuarioWhatsApp"
-            placeholder="(00) 00000-0000"
-            required
-          >
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="usuarioSenha">
-            SENHA
-          </label>
-
-          <input
-            type="password"
-            id="usuarioSenha"
-            placeholder="Mínimo 6 caracteres"
-            autocomplete="new-password"
-            minlength="6"
-            required
-          >
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="usuarioSenha2">
-            CONFIRMAR SENHA
-          </label>
-
-          <input
-            type="password"
-            id="usuarioSenha2"
-            placeholder="Digite novamente"
-            autocomplete="new-password"
-            required
-          >
-
-        </div>
-
-
-        <button
-          type="submit"
-          class="btn-principal"
-          id="btnCadastroUsuario"
-        >
-          CRIAR CONTA
-        </button>
-
-
-      </form>
-
-
-      <div
-        id="mensagemUsuario"
-        class="mensagem"
-      ></div>
-
-
-      <button
-        type="button"
-        class="btn-secundario"
-        onclick="mostrarEscolhaCadastro()"
-      >
-        ← Voltar
-      </button>
-
-
-    </section>
-
-
-
-    <!-- =================================================
-         CADASTRO MODELO
-         ================================================= -->
-
-    <section
-      id="telaModelo"
-      class="tela"
-    >
-
-      <div class="tipo-titulo">
-        CADASTRO DE MODELO
-      </div>
-
-
-      <h1>
-        Seu perfil LUX
-      </h1>
-
-
-      <div class="descricao">
-
-        Preencha seus dados.
-        Seu cadastro ficará sujeito à análise.
-
-      </div>
-
-
-      <form id="formModelo">
-
-
-        <div class="campo">
-
-          <label for="modeloNome">
-            NOME
-          </label>
-
-          <input
-            type="text"
-            id="modeloNome"
-            placeholder="Seu nome"
-            required
-          >
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="modeloNomeProfissional">
-            NOME / APELIDO PROFISSIONAL
-          </label>
-
-          <input
-            type="text"
-            id="modeloNomeProfissional"
-            placeholder="Como deseja aparecer no perfil"
-          >
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="modeloEmail">
-            E-MAIL
-          </label>
-
-          <input
-            type="email"
-            id="modeloEmail"
-            placeholder="Seu e-mail"
-            autocomplete="email"
-            required
-          >
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="modeloWhatsApp">
-            WHATSAPP
-          </label>
-
-          <input
-            type="tel"
-            id="modeloWhatsApp"
-            placeholder="(00) 00000-0000"
-            required
-          >
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="modeloCabelo">
-            COR DOS CABELOS
-          </label>
-
-          <input
-            type="text"
-            id="modeloCabelo"
-            placeholder="Ex.: castanho, loiro..."
-          >
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="modeloDescricao">
-            SOBRE VOCÊ
-          </label>
-
-          <textarea
-            id="modeloDescricao"
-            placeholder="Conte um pouco sobre você..."
-          ></textarea>
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="modeloSenha">
-            SENHA
-          </label>
-
-          <input
-            type="password"
-            id="modeloSenha"
-            placeholder="Mínimo 6 caracteres"
-            autocomplete="new-password"
-            minlength="6"
-            required
-          >
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="modeloSenha2">
-            CONFIRMAR SENHA
-          </label>
-
-          <input
-            type="password"
-            id="modeloSenha2"
-            placeholder="Digite novamente"
-            autocomplete="new-password"
-            required
-          >
-
-        </div>
-
-
-        <button
-          type="submit"
-          class="btn-principal"
-          id="btnCadastroModelo"
-        >
-          ENVIAR CADASTRO
-        </button>
-
-
-      </form>
-
-
-      <div
-        id="mensagemModelo"
-        class="mensagem"
-      ></div>
-
-
-      <button
-        type="button"
-        class="btn-secundario"
-        onclick="mostrarEscolhaCadastro()"
-      >
-        ← Voltar
-      </button>
-
-
-    </section>
-
-
-  </div>
-
-
-  <div class="rodape">
-    LUX Advance • Acesso seguro
-  </div>
+</button>
 
 
 </div>
 
 
+</section>
 
-<script>
 
 
-/* =========================================================
-   CONFIGURAÇÕES
-   ========================================================= */
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
+<section
+  id="telaLogin"
+  class="tela"
+>
 
-/*
- * WhatsApp que receberá as notificações
- * dos novos cadastros.
- */
-const WHATSAPP_LUX =
-  "5551980612941";
+<h1>
+Entrar
+</h1>
 
 
-/* =========================================================
-   CONTROLE DAS TELAS
-   ========================================================= */
+<div class="descricao">
+Digite seus dados de acesso.
+</div>
 
-function mostrarTela(id) {
 
-  document
-    .querySelectorAll(".tela")
-    .forEach(function(tela) {
+<form id="formLogin">
 
-      tela.classList.remove("ativa");
 
-    });
+<div class="campo">
 
+<label>
+E-MAIL
+</label>
 
-  document
-    .getElementById(id)
-    .classList.add("ativa");
+<input
+  type="email"
+  id="loginEmail"
+  placeholder="Digite seu e-mail"
+  required
+>
 
-}
+</div>
 
 
-function mostrarInicial() {
-  mostrarTela("telaInicial");
-}
+<div class="campo">
 
+<label>
+SENHA
+</label>
 
-function mostrarLogin() {
-  mostrarTela("telaLogin");
-}
+<input
+  type="password"
+  id="loginSenha"
+  placeholder="Digite sua senha"
+  required
+>
 
+</div>
 
-function mostrarEscolhaCadastro() {
-  mostrarTela("telaEscolha");
-}
 
+<button
+  type="submit"
+  class="btn-principal"
+  id="btnLogin"
+>
+ENTRAR
+</button>
 
-function mostrarCadastroUsuario() {
-  mostrarTela("telaUsuario");
-}
 
+</form>
 
-function mostrarCadastroModelo() {
-  mostrarTela("telaModelo");
-}
 
+<div
+  id="msgLogin"
+  class="mensagem"
+></div>
 
-/* =========================================================
-   MENSAGENS
-   ========================================================= */
 
-function mensagem(elemento, texto, tipo) {
+<button
+  type="button"
+  class="btn-secundario"
+  id="btnVoltarLogin"
+>
+← Voltar
+</button>
 
-  elemento.textContent = texto;
 
-  elemento.className =
-    "mensagem " + tipo;
+</section>
 
-}
 
 
-/* =========================================================
-   WHATSAPP
-   ========================================================= */
+<!-- =====================================================
+     ESCOLHA DO CADASTRO
+===================================================== -->
 
-function abrirWhatsApp(texto) {
+<section
+  id="telaEscolha"
+  class="tela"
+>
 
-  const url =
-
-    "https://wa.me/" +
-    WHATSAPP_LUX +
-    "?text=" +
-    encodeURIComponent(texto);
-
-
-  window.open(
-    url,
-    "_blank"
-  );
-
-}
-
-
-/* =========================================================
-   LOGIN
-   ========================================================= */
-
-document
-  .getElementById("formLogin")
-  .addEventListener(
-    "submit",
-    async function(event) {
-
-      event.preventDefault();
-
-
-      const email =
-        document
-          .getElementById("loginEmail")
-          .value
-          .trim();
-
-
-      const senha =
-        document
-          .getElementById("loginSenha")
-          .value;
-
-
-      const botao =
-        document
-          .getElementById("btnLogin");
-
-
-      const msg =
-        document
-          .getElementById("mensagemLogin");
-
-
-      botao.disabled = true;
-
-      botao.textContent =
-        "ENTRANDO...";
-
-
-      msg.className =
-        "mensagem";
-
-
-      try {
-
-
-        const resultado =
-          await window.login(
-            email,
-            senha
-          );
-
-
-        if (
-          !resultado ||
-          !resultado.success
-        ) {
-
-          throw new Error(
-            "Não foi possível realizar o login."
-          );
-
-        }
-
-
-        mensagem(
-          msg,
-          "Login realizado com sucesso. Entrando...",
-          "sucesso"
-        );
-
-
-        const params =
-          new URLSearchParams(
-            window.location.search
-          );
-
-
-        const redirect =
-          params.get("redirect");
-
-
-        let
+<h1>
+Criar cadastro

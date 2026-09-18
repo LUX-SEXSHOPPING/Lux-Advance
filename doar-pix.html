@@ -2,156 +2,1155 @@
 <html lang="pt-BR">
 
 <head>
+<meta charset="UTF-8">
 
-  <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<title>LUX — Doação PIX</title>
 
-  <title>LUX — Doação PIX</title>
+<style>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
+*{
+  box-sizing:border-box;
+}
 
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+html,
+body{
+  margin:0;
+  min-height:100%;
+}
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap"
-    rel="stylesheet"
-  >
+body{
 
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-  >
+  font-family:Arial,Helvetica,sans-serif;
 
-  <style>
+  color:#fff;
 
-    * {
-      box-sizing: border-box;
+  background:
+    linear-gradient(
+      rgba(8,3,7,.88),
+      rgba(8,3,7,.96)
+    ),
+    url("./lux-halloween.jpg")
+    center/cover fixed no-repeat;
+
+  min-height:100vh;
+
+  padding:20px;
+}
+
+
+/* TOPO */
+
+.topo{
+
+  max-width:720px;
+
+  margin:0 auto 20px;
+
+  display:flex;
+
+  justify-content:flex-end;
+}
+
+.voltar{
+
+  display:inline-block;
+
+  padding:11px 18px;
+
+  border-radius:25px;
+
+  color:#f8d58a;
+
+  text-decoration:none;
+
+  border:1px solid
+  rgba(248,213,138,.45);
+
+  background:
+  rgba(0,0,0,.45);
+}
+
+
+/* CARD */
+
+.container{
+
+  width:100%;
+
+  max-width:720px;
+
+  margin:auto;
+}
+
+.card{
+
+  padding:30px 22px;
+
+  border-radius:25px;
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(30,12,22,.98),
+    rgba(8,4,7,.98)
+  );
+
+  border:1px solid
+  rgba(248,213,138,.35);
+
+  box-shadow:
+  0 20px 60px
+  rgba(0,0,0,.65);
+}
+
+
+/* TÍTULO */
+
+h1{
+
+  margin:0;
+
+  text-align:center;
+
+  color:#f8d58a;
+
+  font-family:Georgia,serif;
+
+  font-style:italic;
+
+  font-size:42px;
+}
+
+.subtitulo{
+
+  text-align:center;
+
+  color:#c9c1c5;
+
+  line-height:1.6;
+
+  margin:
+  12px auto 28px;
+
+}
+
+
+/* CHAVE */
+
+.pix{
+
+  padding:22px;
+
+  border-radius:18px;
+
+  text-align:center;
+
+  background:
+  rgba(255,77,166,.06);
+
+  border:1px solid
+  rgba(248,213,138,.25);
+
+  margin-bottom:28px;
+}
+
+.pix h2{
+
+  margin:0 0 8px;
+
+  color:#f8d58a;
+
+  font-family:Georgia,serif;
+}
+
+.pix p{
+
+  color:#aaa;
+
+  font-size:14px;
+}
+
+.btn{
+
+  width:100%;
+
+  border:0;
+
+  border-radius:12px;
+
+  padding:15px;
+
+  font-size:16px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+}
+
+.btn-chave{
+
+  max-width:320px;
+
+  color:#f8d58a;
+
+  background:#171016;
+
+  border:1px solid
+  rgba(248,213,138,.45);
+}
+
+.chave{
+
+  display:none;
+
+  margin-top:18px;
+}
+
+.chave-box{
+
+  display:flex;
+
+  gap:8px;
+
+  align-items:center;
+
+  background:#050304;
+
+  border:1px solid
+  rgba(255,77,166,.35);
+
+  border-radius:12px;
+
+  padding:6px;
+}
+
+.chave-texto{
+
+  flex:1;
+
+  padding:10px;
+
+  color:#ff4da6;
+
+  font-weight:bold;
+
+  word-break:break-all;
+}
+
+.btn-copiar{
+
+  width:auto;
+
+  padding:11px 15px;
+
+  background:#ff4da6;
+
+  color:white;
+}
+
+
+/* FORM */
+
+h3{
+
+  color:#f8d58a;
+
+  font-family:Georgia,serif;
+
+  font-size:24px;
+}
+
+label{
+
+  display:block;
+
+  margin:
+  15px 0 7px;
+
+  color:#ddd;
+
+  font-weight:bold;
+
+  font-size:14px;
+}
+
+input{
+
+  width:100%;
+
+  padding:14px;
+
+  border-radius:11px;
+
+  border:1px solid
+  rgba(248,213,138,.25);
+
+  background:#12090d;
+
+  color:white;
+
+  font-size:16px;
+
+  outline:none;
+}
+
+input:focus{
+
+  border-color:#ff4da6;
+}
+
+.btn-pix{
+
+  margin-top:25px;
+
+  color:#13090c;
+
+  background:
+  linear-gradient(
+    135deg,
+    #f8d58a,
+    #c9a227
+  );
+}
+
+
+/* RESULTADO */
+
+.resultado{
+
+  display:none;
+
+  margin-top:30px;
+
+  padding-top:25px;
+
+  border-top:1px solid
+  rgba(248,213,138,.2);
+
+  text-align:center;
+}
+
+.resultado h2{
+
+  color:#f8d58a;
+
+  font-family:Georgia,serif;
+}
+
+#qrcode{
+
+  display:flex;
+
+  justify-content:center;
+
+  margin:20px 0;
+}
+
+#qrcode img{
+
+  background:white;
+
+  padding:10px;
+
+  border-radius:12px;
+}
+
+.codigo{
+
+  text-align:left;
+
+  background:#050304;
+
+  border:1px solid #292126;
+
+  border-radius:12px;
+
+  padding:14px;
+
+  color:#aaa;
+
+  font-size:12px;
+
+  word-break:break-all;
+}
+
+.btn-copia{
+
+  margin-top:10px;
+
+  background:#1a0d13;
+
+  color:#f8d58a;
+
+  border:1px solid
+  rgba(248,213,138,.3);
+}
+
+.whatsapp{
+
+  margin-top:20px;
+
+  background:#25D366;
+
+  color:white;
+}
+
+.mensagem{
+
+  display:none;
+
+  margin-top:15px;
+
+  padding:12px;
+
+  border-radius:10px;
+
+  text-align:center;
+}
+
+.erro{
+
+  display:block;
+
+  color:#ffb4bd;
+
+  background:rgba(180,20,50,.2);
+}
+
+.sucesso{
+
+  display:block;
+
+  color:#baffd2;
+
+  background:rgba(30,130,70,.2);
+}
+
+
+/* CELULAR */
+
+@media(max-width:600px){
+
+  body{
+    padding:12px;
+  }
+
+  .card{
+    padding:25px 17px;
+  }
+
+  h1{
+    font-size:34px;
+  }
+
+  .chave-box{
+    flex-direction:column;
+  }
+
+  .btn-copiar{
+    width:100%;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="topo">
+
+<a href="./index.html" class="voltar">
+← Voltar
+</a>
+
+</div>
+
+
+<main class="container">
+
+<section class="card">
+
+
+<h1>
+Doação PIX
+</h1>
+
+
+<p class="subtitulo">
+
+Sua contribuição ajuda a manter
+a experiência LUX funcionando.
+
+</p>
+
+
+<!-- CHAVE PIX -->
+
+<section class="pix">
+
+<h2>
+Chave PIX
+</h2>
+
+<p>
+Clique abaixo para visualizar
+a chave de contribuição.
+</p>
+
+
+<button
+type="button"
+class="btn btn-chave"
+id="mostrarChave">
+
+Visualizar chave PIX
+
+</button>
+
+
+<div
+class="chave"
+id="chave">
+
+<div class="chave-box">
+
+<div class="chave-texto">
+ajudaasofia@gmail.com
+</div>
+
+<button
+type="button"
+class="btn btn-copiar"
+id="copiarChave">
+
+Copiar
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FORMULÁRIO -->
+
+<h3>
+Dados da contribuição
+</h3>
+
+
+<form id="formPix">
+
+
+<label for="nome">
+Nome
+</label>
+
+<input
+id="nome"
+type="text"
+placeholder="Seu nome"
+required
+>
+
+
+<label for="email">
+E-mail
+</label>
+
+<input
+id="email"
+type="email"
+placeholder="seu@email.com"
+required
+>
+
+
+<label for="whatsapp">
+WhatsApp
+</label>
+
+<input
+id="whatsapp"
+type="tel"
+placeholder="(51) 99999-9999"
+required
+>
+
+
+<label for="valor">
+Valor da contribuição
+</label>
+
+<input
+id="valor"
+type="number"
+min="0.50"
+step="0.01"
+placeholder="5,00"
+required
+>
+
+
+<button
+class="btn btn-pix"
+type="submit">
+
+Gerar PIX
+
+</button>
+
+
+</form>
+
+
+<div
+id="mensagem"
+class="mensagem">
+</div>
+
+
+<!-- RESULTADO -->
+
+<section
+id="resultado"
+class="resultado">
+
+<h2>
+PIX gerado
+</h2>
+
+<p>
+Escaneie o QR Code ou copie
+o código PIX.
+</p>
+
+
+<div id="qrcode"></div>
+
+
+<div class="codigo"
+id="codigoPix">
+</div>
+
+
+<button
+type="button"
+class="btn btn-copia"
+id="copiarPix">
+
+Copiar PIX
+
+</button>
+
+
+<button
+type="button"
+class="btn whatsapp"
+id="whatsapp">
+
+Enviar confirmação pelo WhatsApp
+
+</button>
+
+
+</section>
+
+
+</section>
+
+</main>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+
+<script>
+
+/* CONFIGURAÇÃO */
+
+const CHAVE_PIX =
+"ajudaasofia@gmail.com";
+
+const NOME =
+"AJUDA SOFIA";
+
+const CIDADE =
+"SAO PAULO";
+
+const WHATSAPP =
+"5551980612941";
+
+
+/* ELEMENTOS */
+
+const mostrarChave =
+document.getElementById(
+"mostrarChave"
+);
+
+const chave =
+document.getElementById(
+"chave"
+);
+
+const copiarChave =
+document.getElementById(
+"copiarChave"
+);
+
+const form =
+document.getElementById(
+"formPix"
+);
+
+const resultado =
+document.getElementById(
+"resultado"
+);
+
+const mensagem =
+document.getElementById(
+"mensagem"
+);
+
+const codigoPix =
+document.getElementById(
+"codigoPix"
+);
+
+const qrcode =
+document.getElementById(
+"qrcode"
+);
+
+
+/* MOSTRAR CHAVE */
+
+mostrarChave.onclick =
+function(){
+
+  chave.style.display =
+  chave.style.display === "block"
+  ? "none"
+  : "block";
+
+};
+
+
+/* COPIAR */
+
+async function copiar(texto){
+
+  try{
+
+    await navigator
+    .clipboard
+    .writeText(texto);
+
+    return true;
+
+  }catch(e){
+
+    const campo =
+    document.createElement(
+    "textarea"
+    );
+
+    campo.value = texto;
+
+    document.body.appendChild(
+    campo
+    );
+
+    campo.select();
+
+    document.execCommand(
+    "copy"
+    );
+
+    campo.remove();
+
+    return true;
+
+  }
+
+}
+
+
+copiarChave.onclick =
+async function(){
+
+  await copiar(
+  CHAVE_PIX
+  );
+
+  this.textContent =
+  "Copiado!";
+
+  setTimeout(
+  () => {
+    this.textContent =
+    "Copiar";
+  },
+  1500
+  );
+
+};
+
+
+/* CRC16 */
+
+function crc16(texto){
+
+  let crc = 0xFFFF;
+
+  for(
+    let i=0;
+    i<texto.length;
+    i++
+  ){
+
+    crc ^=
+    texto.charCodeAt(i)
+    << 8;
+
+    for(
+      let j=0;
+      j<8;
+      j++
+    ){
+
+      if(
+        crc & 0x8000
+      ){
+
+        crc =
+        (crc << 1)
+        ^ 0x1021;
+
+      }else{
+
+        crc <<=
+        1;
+
+      }
+
+      crc &=
+      0xFFFF;
+
     }
 
-    html {
-      scroll-behavior: smooth;
+  }
+
+  return crc
+  .toString(16)
+  .toUpperCase()
+  .padStart(4,"0");
+
+}
+
+
+/* CAMPO PIX */
+
+function campo(id,valor){
+
+  return id +
+  String(valor.length)
+  .padStart(2,"0") +
+  valor;
+
+}
+
+
+/* PAYLOAD */
+
+function gerarPix(valor){
+
+  const conta =
+
+    campo(
+      "00",
+      "br.gov.bcb.pix"
+    ) +
+
+    campo(
+      "01",
+      CHAVE_PIX
+    );
+
+
+  let payload =
+
+    campo(
+      "00",
+      "01"
+    ) +
+
+    campo(
+      "26",
+      conta
+    ) +
+
+    campo(
+      "52",
+      "0000"
+    ) +
+
+    campo(
+      "53",
+      "986"
+    ) +
+
+    campo(
+      "54",
+      Number(valor)
+      .toFixed(2)
+    ) +
+
+    campo(
+      "58",
+      "BR"
+    ) +
+
+    campo(
+      "59",
+      NOME
+      .substring(0,25)
+    ) +
+
+    campo(
+      "60",
+      CIDADE
+      .substring(0,15)
+    ) +
+
+    campo(
+      "62",
+      campo(
+        "05",
+        "***"
+      )
+    ) +
+
+    "6304";
+
+
+  payload +=
+  crc16(payload);
+
+  return payload;
+
+}
+
+
+/* GERAR PIX */
+
+form.onsubmit =
+function(event){
+
+  event.preventDefault();
+
+
+  const nome =
+  document
+  .getElementById("nome")
+  .value
+  .trim();
+
+
+  const email =
+  document
+  .getElementById("email")
+  .value
+  .trim();
+
+
+  const whatsapp =
+  document
+  .getElementById("whatsapp")
+  .value
+  .trim();
+
+
+  const valor =
+  Number(
+    document
+    .getElementById("valor")
+    .value
+  );
+
+
+  if(
+    !nome ||
+    !email ||
+    !whatsapp
+  ){
+
+    mensagem.textContent =
+    "Preencha todos os dados.";
+
+    mensagem.className =
+    "mensagem erro";
+
+    return;
+
+  }
+
+
+  if(
+    !Number.isFinite(valor) ||
+    valor < 0.50
+  ){
+
+    mensagem.textContent =
+    "O valor mínimo é R$ 0,50.";
+
+    mensagem.className =
+    "mensagem erro";
+
+    return;
+
+  }
+
+
+  try{
+
+    const payload =
+    gerarPix(valor);
+
+
+    codigoPix.textContent =
+    payload;
+
+
+    qrcode.innerHTML =
+    "";
+
+
+    if(
+      typeof QRCode ===
+      "undefined"
+    ){
+
+      throw new Error(
+      "QR Code não carregado."
+      );
+
     }
 
-    body {
 
-      margin: 0;
-
-      min-height: 100vh;
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      color: #fff;
-
-      background:
-        radial-gradient(
-          circle at 50% -10%,
-          rgba(255,77,166,.16),
-          transparent 40%
-        ),
-        radial-gradient(
-          circle at 0% 100%,
-          rgba(248,213,138,.08),
-          transparent 35%
-        ),
-        #080406;
-    }
+    new QRCode(
+      qrcode,
+      {
+        text:payload,
+        width:230,
+        height:230
+      }
+    );
 
 
-    /* =========================
-       TOPO
-    ========================= */
-
-    .topbar {
-
-      width: 100%;
-
-      padding: 18px;
-
-      display: flex;
-
-      justify-content: flex-end;
-
-      align-items: center;
-    }
+    resultado.style.display =
+    "block";
 
 
-    .voltar {
+    mensagem.textContent =
+    "PIX gerado com sucesso.";
 
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 8px;
-
-      padding: 10px 17px;
-
-      border-radius: 30px;
-
-      text-decoration: none;
-
-      color: #f8d58a;
-
-      border:
-        1px solid
-        rgba(248,213,138,.38);
-
-      background:
-        rgba(255,255,255,.025);
-
-      transition: .3s;
-    }
+    mensagem.className =
+    "mensagem sucesso";
 
 
-    .voltar:hover {
-
-      background: #f8d58a;
-
-      color: #10070a;
-
-      transform:
-        translateY(-2px);
-    }
+    resultado.scrollIntoView({
+      behavior:"smooth"
+    });
 
 
-    /* =========================
-       CONTAINER
-    ========================= */
+    document
+    .getElementById(
+      "copiarPix"
+    )
+    .onclick =
+    async function(){
 
-    .container {
+      await copiar(
+      payload
+      );
 
-      width: min(720px, 92%);
+      this.textContent =
+      "PIX copiado!";
 
-      margin:
-        10px auto 60px;
-    }
+      setTimeout(
+      () => {
+        this.textContent =
+        "Copiar PIX";
+      },
+      1500
+      );
+
+    };
 
 
-    .card {
+    document
+    .getElementById(
+      "whatsapp"
+    )
+    .onclick =
+    function(){
 
-      position: relative;
+      const texto =
 
-      overflow: hidden;
+      "Olá, LUX Advance.%0A%0A" +
 
-      padding:
-        30px 25px;
+      "Realizei uma contribuição via PIX.%0A%0A" +
 
-      border-radius: 25px;
+      "Nome: " +
+      encodeURIComponent(nome) +
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba
+      "%0AValor: R$ " +
+      encodeURIComponent(
+        valor.toFixed(2)
+      ) +
+
+      "%0AWhatsApp: " +
+      encodeURIComponent(
+        whatsapp
+      );
+
+
+      window.open(
+        "https://wa.me/" +
+        WHATSAPP +
+        "?text=" +
+        texto,
+        "_blank"
+      );
+
+    };
+
+  }catch(error){
+
+    mensagem.textContent =
+    error.message ||
+    "Erro ao gerar PIX.";
+
+    mensagem.className =
+    "mensagem erro";
+
+  }
+
+};
+
+</script>
+
+
+</body>
+</html>

@@ -22,10 +22,8 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   >
 
-  <!-- SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- CONFIG DO PROJETO -->
   <script src="./config.js"></script>
 
   <style>
@@ -36,18 +34,14 @@
       padding: 0;
     }
 
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
-    }
-
     body {
 
       min-height: 100vh;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
       padding: 20px;
@@ -61,81 +55,84 @@
 
       background:
         linear-gradient(
-          rgba(8, 3, 7, 0.76),
-          rgba(8, 3, 7, 0.90)
+          rgba(8,3,7,.76),
+          rgba(8,3,7,.94)
         ),
         url("./lux-halloween.jpg")
-        center center /
-        cover
-        fixed
-        no-repeat;
+        center / cover fixed no-repeat;
 
     }
+
 
     .container {
 
       width: 100%;
+
       max-width: 460px;
 
     }
 
+
     .painel {
 
-      padding: 38px 30px 30px;
+      padding: 38px 30px 32px;
 
-      border:
-        1px solid
-        rgba(201, 162, 39, 0.55);
+      text-align: center;
+
+      border: 1px solid
+        rgba(201,162,39,.55);
 
       border-radius: 24px;
 
       background:
         linear-gradient(
           145deg,
-          rgba(22, 8, 14, 0.97),
-          rgba(6, 3, 7, 0.96)
+          rgba(22,8,14,.97),
+          rgba(6,3,7,.97)
         );
 
       box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.75),
-        0 0 45px rgba(201, 162, 39, 0.08);
-
-      backdrop-filter: blur(12px);
-
-      text-align: center;
+        0 30px 80px
+        rgba(0,0,0,.78);
 
     }
+
 
     .icone {
 
       width: 82px;
+
       height: 82px;
 
-      margin: 0 auto 20px;
+      margin:
+        0 auto 20px;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
       border:
         1px solid
-        rgba(241, 211, 107, 0.65);
+        rgba(241,211,107,.65);
 
       border-radius: 50%;
 
       color: #f1d36b;
 
       background:
-        rgba(201, 162, 39, 0.10);
-
-      box-shadow:
-        0 0 30px rgba(201, 162, 39, 0.12);
+        rgba(201,162,39,.10);
 
     }
+
 
     .icone i {
+
       font-size: 31px;
+
     }
+
 
     .marca {
 
@@ -146,32 +143,34 @@
 
       font-size: 32px;
 
-      font-weight: 600;
-
       letter-spacing: 4px;
 
       color: #f1d36b;
 
     }
 
+
     .subtitulo {
 
       margin-top: 5px;
+
+      color: #cbbfb1;
 
       font-size: 16px;
 
       letter-spacing: 2px;
 
-      color: #cbbfb1;
-
     }
+
 
     .linha {
 
       width: 90px;
+
       height: 1px;
 
-      margin: 22px auto 25px;
+      margin:
+        22px auto 25px;
 
       background:
         linear-gradient(
@@ -183,6 +182,7 @@
 
     }
 
+
     h1 {
 
       font-family:
@@ -190,13 +190,14 @@
         Georgia,
         serif;
 
-      font-size: 24px;
-
       color: #fff1d0;
 
-      margin-bottom: 9px;
+      font-size: 24px;
+
+      margin-bottom: 10px;
 
     }
+
 
     .descricao {
 
@@ -210,6 +211,7 @@
 
     }
 
+
     .campo {
 
       position: relative;
@@ -217,6 +219,7 @@
       margin-bottom: 16px;
 
     }
+
 
     .campo i {
 
@@ -231,9 +234,8 @@
 
       color: #c9a227;
 
-      z-index: 2;
-
     }
+
 
     .campo input {
 
@@ -242,12 +244,11 @@
       height: 55px;
 
       padding:
-        0 17px
-        0 47px;
+        0 17px 0 47px;
 
       border:
         1px solid
-        rgba(201, 162, 39, 0.30);
+        rgba(201,162,39,.30);
 
       border-radius: 13px;
 
@@ -256,7 +257,7 @@
       color: #fff;
 
       background:
-        rgba(255, 255, 255, 0.045);
+        rgba(255,255,255,.045);
 
       font-family:
         "Cormorant Garamond",
@@ -267,20 +268,18 @@
 
     }
 
+
     .campo input:focus {
 
       border-color:
-        rgba(241, 211, 107, 0.85);
+        rgba(241,211,107,.85);
 
       box-shadow:
         0 0 0 3px
-        rgba(201, 162, 39, 0.08);
+        rgba(201,162,39,.08);
 
     }
 
-    .campo input::placeholder {
-      color: #8f8378;
-    }
 
     .botao {
 
@@ -309,13 +308,25 @@
         Georgia,
         serif;
 
-      font-size: 16px;
-
       font-weight: 700;
 
       letter-spacing: 1px;
 
+      transition: .2s;
+
     }
+
+
+    .botao:hover {
+
+      transform: translateY(-1px);
+
+      box-shadow:
+        0 10px 25px
+        rgba(201,162,39,.22);
+
+    }
+
 
     .botao:disabled {
 
@@ -324,6 +335,53 @@
       cursor: wait;
 
     }
+
+
+    .esqueci {
+
+      display: inline-block;
+
+      margin-top: 19px;
+
+      color: #c9a227;
+
+      text-decoration: none;
+
+      font-size: 15px;
+
+      cursor: pointer;
+
+    }
+
+
+    .esqueci:hover {
+
+      color: #f1d36b;
+
+    }
+
+
+    .voltar {
+
+      display: block;
+
+      margin-top: 18px;
+
+      color: #8f847b;
+
+      text-decoration: none;
+
+      font-size: 14px;
+
+    }
+
+
+    .voltar:hover {
+
+      color: #eee4d8;
+
+    }
+
 
     .mensagem {
 
@@ -337,51 +395,20 @@
 
     }
 
+
     .erro {
+
       color: #ff9999;
+
     }
+
 
     .sucesso {
+
       color: #e6c86e;
-    }
-
-    .esqueci {
-
-      display: inline-block;
-
-      margin-top: 18px;
-
-      color: #c9a227;
-
-      text-decoration: none;
-
-      cursor: pointer;
-
-      font-size: 15px;
 
     }
 
-    .esqueci:hover {
-      color: #f1d36b;
-    }
-
-    .voltar {
-
-      display: block;
-
-      margin-top: 23px;
-
-      color: #9e9287;
-
-      text-decoration: none;
-
-      font-size: 14px;
-
-    }
-
-    .voltar:hover {
-      color: #eee4d8;
-    }
 
     .rodape {
 
@@ -397,13 +424,10 @@
 
       font-size: 12px;
 
-      line-height: 1.5;
-
     }
 
-    /* =========================================================
-       MODAL
-       ========================================================= */
+
+    /* MODAL */
 
     .modal {
 
@@ -414,24 +438,30 @@
       display: none;
 
       align-items: center;
+
       justify-content: center;
 
       padding: 20px;
 
       background:
-        rgba(0,0,0,.84);
+        rgba(0,0,0,.78);
 
-      z-index: 100;
+      z-index: 9999;
 
     }
+
 
     .modal.ativo {
+
       display: flex;
+
     }
+
 
     .modal-box {
 
       width: 100%;
+
       max-width: 430px;
 
       padding: 30px;
@@ -445,17 +475,16 @@
       background:
         linear-gradient(
           145deg,
-          #190a11,
-          #080307
+          #180911,
+          #070307
         );
 
       box-shadow:
-        0 25px 70px
-        rgba(0,0,0,.8);
-
-      text-align: center;
+        0 30px 80px
+        rgba(0,0,0,.85);
 
     }
+
 
     .modal-box h2 {
 
@@ -470,6 +499,7 @@
 
     }
 
+
     .modal-box p {
 
       color: #bfb2a5;
@@ -480,7 +510,34 @@
 
     }
 
-    .modal-botoes {
+
+    .modal-box input {
+
+      width: 100%;
+
+      height: 52px;
+
+      padding: 0 15px;
+
+      border:
+        1px solid
+        rgba(201,162,39,.35);
+
+      border-radius: 12px;
+
+      outline: none;
+
+      color: #fff;
+
+      background:
+        rgba(255,255,255,.05);
+
+      font-size: 16px;
+
+    }
+
+
+    .modal-acoes {
 
       display: flex;
 
@@ -490,13 +547,14 @@
 
     }
 
-    .modal-botoes button {
+
+    .modal-acoes button {
 
       flex: 1;
 
-      height: 48px;
+      height: 50px;
 
-      border-radius: 10px;
+      border-radius: 11px;
 
       cursor: pointer;
 
@@ -507,11 +565,14 @@
 
     }
 
-    .enviar {
+
+    .btn-enviar {
 
       border: none;
 
       color: #170d05;
+
+      font-weight: 700;
 
       background:
         linear-gradient(
@@ -522,39 +583,40 @@
 
     }
 
-    .cancelar {
+
+    .btn-fechar {
 
       border:
         1px solid
         rgba(255,255,255,.15);
 
-      color: #ddd;
+      color: #eee4d8;
 
       background:
-        rgba(255,255,255,.05);
+        rgba(255,255,255,.04);
 
     }
 
-    .modal-botoes button:disabled {
-
-      opacity: .6;
-
-      cursor: wait;
-
-    }
 
     @media (max-width: 500px) {
 
-      body {
-        padding: 14px;
-      }
-
       .painel {
-        padding: 30px 21px 27px;
+
+        padding:
+          30px 20px 25px;
+
       }
 
       .marca {
+
         font-size: 28px;
+
+      }
+
+      .modal-box {
+
+        padding: 24px 20px;
+
       }
 
     }
@@ -566,34 +628,60 @@
 
 <body>
 
+
   <main class="container">
 
     <section class="painel">
 
       <div class="icone">
+
         <i class="fas fa-user-shield"></i>
+
       </div>
+
 
       <div class="marca">
         LUX
       </div>
 
+
       <div class="subtitulo">
         ADVANCE
       </div>
 
+
       <div class="linha"></div>
+
 
       <h1>
         Acesso Administrativo
       </h1>
 
+
       <p class="descricao">
-        Área exclusiva de administração da plataforma LUX.
+
+        Área exclusiva para administração
+        e gerenciamento da plataforma LUX.
+
       </p>
 
 
       <form id="formLogin">
+
+        <div class="campo">
+
+          <i class="fas fa-envelope"></i>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="E-mail administrativo"
+            autocomplete="username"
+            required
+          >
+
+        </div>
+
 
         <div class="campo">
 
@@ -602,7 +690,7 @@
           <input
             type="password"
             id="senha"
-            placeholder="Senha administrativa"
+            placeholder="Senha"
             autocomplete="current-password"
             required
           >
@@ -615,9 +703,13 @@
           class="botao"
           id="btnEntrar"
         >
+
           <i class="fas fa-right-to-bracket"></i>
+
           &nbsp;
+
           ENTRAR NO PAINEL
+
         </button>
 
       </form>
@@ -632,9 +724,13 @@
       <a
         href="#"
         class="esqueci"
-        id="esqueciSenha"
+        id="btnEsqueci"
       >
+
+        <i class="fas fa-key"></i>
+
         Esqueci minha senha
+
       </a>
 
 
@@ -642,16 +738,17 @@
         href="./index.html"
         class="voltar"
       >
+
         <i class="fas fa-arrow-left"></i>
+
         Voltar para o site
+
       </a>
 
 
       <div class="rodape">
 
-        LUX Advance © 2026<br>
-
-        Área administrativa protegida.
+        LUX Advance © 2026
 
       </div>
 
@@ -660,13 +757,12 @@
   </main>
 
 
-  <!-- =========================================================
-       MODAL RECUPERAÇÃO
-       ========================================================= -->
+
+  <!-- MODAL RECUPERAÇÃO -->
 
   <div
     class="modal"
-    id="modal"
+    id="modalRecuperacao"
   >
 
     <div class="modal-box">
@@ -676,40 +772,42 @@
       </h2>
 
       <p>
-        Digite o e-mail administrativo para receber o link de recuperação pelo Supabase.
+
+        Enviaremos um link seguro para
+        redefinir a senha administrativa.
+
       </p>
 
 
-      <div class="campo">
-
-        <i class="fas fa-envelope"></i>
-
-        <input
-          type="email"
-          id="emailRecuperacao"
-          placeholder="E-mail administrativo"
-          autocomplete="email"
-        >
-
-      </div>
+      <input
+        type="email"
+        id="emailRecuperacao"
+        placeholder="E-mail administrativo"
+        autocomplete="email"
+      >
 
 
-      <div class="modal-botoes">
+      <div class="modal-acoes">
 
         <button
           type="button"
-          class="cancelar"
-          id="fecharModal"
+          class="btn-fechar"
+          id="btnFechar"
         >
-          Cancelar
+
+          CANCELAR
+
         </button>
 
+
         <button
           type="button"
-          class="enviar"
-          id="enviarRecuperacao"
+          class="btn-enviar"
+          id="btnEnviar"
         >
-          Enviar
+
+          ENVIAR LINK
+
         </button>
 
       </div>
@@ -725,23 +823,77 @@
   </div>
 
 
+
   <script>
 
-    /* =========================================================
-       LUX — LOGIN ADMINISTRATIVO
-       ========================================================= */
+    const supabase =
+      window.luxSupabase;
+
 
     const formLogin =
-      document.getElementById("formLogin");
+      document.getElementById(
+        "formLogin"
+      );
+
+
+    const email =
+      document.getElementById(
+        "email"
+      );
+
 
     const senha =
-      document.getElementById("senha");
+      document.getElementById(
+        "senha"
+      );
+
 
     const btnEntrar =
-      document.getElementById("btnEntrar");
+      document.getElementById(
+        "btnEntrar"
+      );
+
 
     const mensagem =
-      document.getElementById("mensagem");
+      document.getElementById(
+        "mensagem"
+      );
+
+
+    const modal =
+      document.getElementById(
+        "modalRecuperacao"
+      );
+
+
+    const emailRecuperacao =
+      document.getElementById(
+        "emailRecuperacao"
+      );
+
+
+    const btnEsqueci =
+      document.getElementById(
+        "btnEsqueci"
+      );
+
+
+    const btnFechar =
+      document.getElementById(
+        "btnFechar"
+      );
+
+
+    const btnEnviar =
+      document.getElementById(
+        "btnEnviar"
+      );
+
+
+    const mensagemRecuperacao =
+      document.getElementById(
+        "mensagemRecuperacao"
+      );
 
 
     function mostrarMensagem(
@@ -759,9 +911,34 @@
     }
 
 
-    /* =========================================================
-       LOGIN ADMINISTRATIVO
-       ========================================================= */
+    function mostrarMensagemRecuperacao(
+      texto,
+      tipo
+    ) {
+
+      mensagemRecuperacao.textContent =
+        texto;
+
+      mensagemRecuperacao.className =
+        "mensagem " +
+        (tipo || "");
+
+    }
+
+
+    if (!supabase) {
+
+      mostrarMensagem(
+        "Supabase não foi inicializado. Verifique o config.js.",
+        "erro"
+      );
+
+    }
+
+
+    /*
+     * LOGIN ADMINISTRATIVO
+     */
 
     formLogin.addEventListener(
       "submit",
@@ -769,18 +946,38 @@
 
         event.preventDefault();
 
-        mostrarMensagem("", "");
+
+        if (!supabase) {
+
+          mostrarMensagem(
+            "Supabase não foi inicializado.",
+            "erro"
+          );
+
+          return;
+
+        }
+
+
+        const emailDigitado =
+          String(
+            email.value || ""
+          )
+          .trim()
+          .toLowerCase();
+
 
         const senhaDigitada =
           String(
             senha.value || ""
-          ).trim();
+          );
 
 
-        if (!senhaDigitada) {
+        if (!emailDigitado ||
+            !senhaDigitada) {
 
           mostrarMensagem(
-            "Digite sua senha.",
+            "Informe o e-mail e a senha.",
             "erro"
           );
 
@@ -789,23 +986,7 @@
         }
 
 
-        if (!window.luxSupabase) {
-
-          mostrarMensagem(
-            "Supabase não foi inicializado. Verifique o config.js.",
-            "erro"
-          );
-
-          return;
-
-        }
-
-
-        const supabase =
-          window.luxSupabase;
-
-
-        const emailAdmin =
+        const adminEmail =
           String(
             window.LUX_ADMIN_EMAIL || ""
           )
@@ -813,7 +994,9 @@
           .toLowerCase();
 
 
-        if (!emailAdmin) {
+        if (
+          !adminEmail
+        ) {
 
           mostrarMensagem(
             "E-mail administrativo não configurado no config.js.",
@@ -825,10 +1008,33 @@
         }
 
 
-        btnEntrar.disabled = true;
+        if (
+          emailDigitado !==
+          adminEmail
+        ) {
+
+          mostrarMensagem(
+            "Acesso administrativo não autorizado.",
+            "erro"
+          );
+
+          return;
+
+        }
+
+
+        btnEntrar.disabled =
+          true;
+
 
         btnEntrar.innerHTML =
-          '<i class="fas fa-spinner fa-spin"></i> AUTENTICANDO...';
+          '<i class="fas fa-spinner fa-spin"></i> VERIFICANDO...';
+
+
+        mostrarMensagem(
+          "",
+          ""
+        );
 
 
         try {
@@ -840,7 +1046,7 @@
             await supabase.auth.signInWithPassword({
 
               email:
-                emailAdmin,
+                emailDigitado,
 
               password:
                 senhaDigitada
@@ -855,8 +1061,28 @@
               error
             );
 
+            const erro =
+              String(
+                error.message || ""
+              ).toLowerCase();
+
+
+            if (
+              erro.includes(
+                "invalid login credentials"
+              )
+            ) {
+
+              throw new Error(
+                "E-mail ou senha incorretos."
+              );
+
+            }
+
+
             throw new Error(
-              "E-mail ou senha administrativa inválidos."
+              error.message ||
+              "Não foi possível realizar o login."
             );
 
           }
@@ -875,71 +1101,41 @@
           }
 
 
-          const emailUsuario =
+          if (
             String(
               user.email || ""
             )
             .trim()
-            .toLowerCase();
-
-
-          if (
-            emailUsuario !==
-            emailAdmin
+            .toLowerCase()
+            !==
+            adminEmail
           ) {
 
             await supabase.auth.signOut();
 
             throw new Error(
-              "Esta conta não possui acesso administrativo."
+              "Este usuário não possui permissão administrativa."
             );
 
           }
 
 
           /*
-           * CONFIRMA A SESSÃO
+           * Confirma se a sessão realmente foi criada
            */
 
-          let session = null;
+          const {
+            data: sessionData
+          } =
+            await supabase.auth.getSession();
 
 
-          for (
-            let tentativa = 0;
-            tentativa < 10;
-            tentativa++
+          if (
+            !sessionData?.session
           ) {
 
-            const {
-              data: sessao
-            } =
-              await supabase.auth.getSession();
-
-
-            session =
-              sessao?.session || null;
-
-
-            if (session) {
-              break;
-            }
-
-
-            await new Promise(
-              resolve =>
-                setTimeout(
-                  resolve,
-                  300
-                )
-            );
-
-          }
-
-
-          if (!session) {
-
             throw new Error(
-              "A sessão não foi criada. Tente novamente."
+              "A sessão administrativa não foi criada. Tente novamente."
             );
 
           }
@@ -966,19 +1162,21 @@
         } catch (error) {
 
           console.error(
-            "LUX ADMIN:",
+            "Erro administrativo:",
             error
           );
 
 
           mostrarMensagem(
-            error.message ||
-            "Não foi possível realizar o acesso.",
+            error?.message ||
+            "Não foi possível entrar.",
             "erro"
           );
 
 
-          btnEntrar.disabled = false;
+          btnEntrar.disabled =
+            false;
+
 
           btnEntrar.innerHTML =
             '<i class="fas fa-right-to-bracket"></i> &nbsp; ENTRAR NO PAINEL';
@@ -989,40 +1187,12 @@
     );
 
 
-    /* =========================================================
-       ABRIR RECUPERAÇÃO
-       ========================================================= */
 
-    const modal =
-      document.getElementById("modal");
+    /*
+     * ABRIR RECUPERAÇÃO
+     */
 
-    const esqueciSenha =
-      document.getElementById(
-        "esqueciSenha"
-      );
-
-    const fecharModal =
-      document.getElementById(
-        "fecharModal"
-      );
-
-    const emailRecuperacao =
-      document.getElementById(
-        "emailRecuperacao"
-      );
-
-    const enviarRecuperacao =
-      document.getElementById(
-        "enviarRecuperacao"
-      );
-
-    const mensagemRecuperacao =
-      document.getElementById(
-        "mensagemRecuperacao"
-      );
-
-
-    esqueciSenha.addEventListener(
+    btnEsqueci.addEventListener(
       "click",
       function(event) {
 
@@ -1030,14 +1200,15 @@
 
 
         emailRecuperacao.value =
-          window.LUX_ADMIN_EMAIL || "";
-
-
-        mensagemRecuperacao.textContent =
+          window.LUX_ADMIN_EMAIL ||
+          email.value ||
           "";
 
-        mensagemRecuperacao.className =
-          "mensagem";
+
+        mostrarMensagemRecuperacao(
+          "",
+          ""
+        );
 
 
         modal.classList.add(
@@ -1048,7 +1219,12 @@
     );
 
 
-    fecharModal.addEventListener(
+
+    /*
+     * FECHAR MODAL
+     */
+
+    btnFechar.addEventListener(
       "click",
       function() {
 
@@ -1060,12 +1236,14 @@
     );
 
 
+
     modal.addEventListener(
       "click",
       function(event) {
 
         if (
-          event.target === modal
+          event.target ===
+          modal
         ) {
 
           modal.classList.remove(
@@ -1078,22 +1256,28 @@
     );
 
 
-    /* =========================================================
-       ENVIAR RECUPERAÇÃO DE SENHA
-       ========================================================= */
 
-    enviarRecuperacao.addEventListener(
+    /*
+     * ENVIAR RECUPERAÇÃO
+     */
+
+    btnEnviar.addEventListener(
       "click",
       async function() {
 
-        mensagemRecuperacao.textContent =
-          "";
+        if (!supabase) {
 
-        mensagemRecuperacao.className =
-          "mensagem";
+          mostrarMensagemRecuperacao(
+            "Supabase não foi inicializado.",
+            "erro"
+          );
+
+          return;
+
+        }
 
 
-        const email =
+        const emailDigitado =
           String(
             emailRecuperacao.value || ""
           )
@@ -1101,7 +1285,7 @@
           .toLowerCase();
 
 
-        const emailAdmin =
+        const adminEmail =
           String(
             window.LUX_ADMIN_EMAIL || ""
           )
@@ -1109,30 +1293,12 @@
           .toLowerCase();
 
 
-        /* -----------------------------------------------------
-           VALIDAR E-MAIL
-           ----------------------------------------------------- */
+        if (!emailDigitado) {
 
-        if (!email) {
-
-          mensagemRecuperacao.className =
-            "mensagem erro";
-
-          mensagemRecuperacao.textContent =
-            "Digite o e-mail administrativo.";
-
-          return;
-
-        }
-
-
-        if (!emailAdmin) {
-
-          mensagemRecuperacao.className =
-            "mensagem erro";
-
-          mensagemRecuperacao.textContent =
-            "E-mail administrativo não está configurado no config.js.";
+          mostrarMensagemRecuperacao(
+            "Informe o e-mail administrativo.",
+            "erro"
+          );
 
           return;
 
@@ -1140,95 +1306,55 @@
 
 
         if (
-          email !== emailAdmin
+          emailDigitado !==
+          adminEmail
         ) {
 
-          mensagemRecuperacao.className =
-            "mensagem erro";
-
-          mensagemRecuperacao.textContent =
-            "Digite o e-mail administrativo cadastrado no sistema.";
-
-          return;
-
-        }
-
-
-        /* -----------------------------------------------------
-           VERIFICAR SUPABASE
-           ----------------------------------------------------- */
-
-        if (!window.luxSupabase) {
-
-          mensagemRecuperacao.className =
-            "mensagem erro";
-
-          mensagemRecuperacao.textContent =
-            "Supabase não foi inicializado. Verifique o config.js.";
+          mostrarMensagemRecuperacao(
+            "Informe o e-mail administrativo correto.",
+            "erro"
+          );
 
           return;
 
         }
 
 
-        enviarRecuperacao.disabled =
+        btnEnviar.disabled =
           true;
 
-        enviarRecuperacao.textContent =
-          "Enviando...";
+
+        btnEnviar.textContent =
+          "ENVIANDO...";
 
 
         try {
 
-          /* ---------------------------------------------------
-             URL EXATA DA PÁGINA DE REDEFINIÇÃO
-
-             IMPORTANTE:
-             Esta página precisa existir no GitHub Pages:
-             
-             /Lux-Advance/redefinir-senha.html
-             --------------------------------------------------- */
+          /*
+           * ESTA É A PÁGINA QUE DEVE EXISTIR
+           * NO MESMO PROJETO DO GITHUB PAGES.
+           */
 
           const redirectTo =
             "https://lux-sexshopping.github.io/Lux-Advance/redefinir-senha.html";
 
 
-          console.log(
-            "LUX — e-mail de recuperação:",
-            email
-          );
-
-          console.log(
-            "LUX — URL de redirecionamento:",
-            redirectTo
-          );
-
-
-          /* ---------------------------------------------------
-             ENVIA O E-MAIL PELO SUPABASE
-             --------------------------------------------------- */
-
           const {
             error
           } =
-            await window.luxSupabase.auth
-              .resetPasswordForEmail(
-                email,
-                {
-                  redirectTo:
-                    redirectTo
-                }
-              );
+            await supabase.auth.resetPasswordForEmail(
+              emailDigitado,
+              {
+                redirectTo:
+                  redirectTo
+              }
+            );
 
-
-          /* ---------------------------------------------------
-             VERIFICAR ERRO
-             --------------------------------------------------- */
 
           if (error) {
 
             console.error(
-              "Supabase Recovery Error:",
+              "Erro recuperação:",
               error
             );
 
@@ -1237,113 +1363,59 @@
           }
 
 
-          /* ---------------------------------------------------
-             SUCESSO
-             --------------------------------------------------- */
-
-          mensagemRecuperacao.className =
-            "mensagem sucesso";
-
-          mensagemRecuperacao.textContent =
-            "Link enviado! Verifique o e-mail administrativo.";
+          mostrarMensagemRecuperacao(
+            "Link enviado. Verifique sua caixa de entrada e também a pasta de spam.",
+            "sucesso"
+          );
 
 
         } catch (error) {
 
           console.error(
-            "LUX — erro na recuperação:",
+            "Erro ao enviar recuperação:",
             error
           );
 
 
-          let textoErro =
-            error?.message ||
-            "Não foi possível enviar o e-mail de recuperação.";
+          const erro =
+            String(
+              error?.message || ""
+            ).toLowerCase();
 
-
-          const erroMinusculo =
-            textoErro.toLowerCase();
-
-
-          /* ---------------------------------------------------
-             TRATAMENTO DE LIMITE DE ENVIO
-             --------------------------------------------------- */
 
           if (
-            erroMinusculo.includes(
+            erro.includes(
               "rate limit"
             ) ||
-            erroMinusculo.includes(
-              "too many requests"
-            ) ||
-            erroMinusculo.includes(
-              "email rate limit"
+            erro.includes(
+              "too many"
             )
           ) {
 
-            textoErro =
-              "Limite de envio de e-mails atingido. Aguarde alguns minutos e tente novamente.";
+            mostrarMensagemRecuperacao(
+              "O envio de recuperação foi temporariamente limitado. Aguarde e tente novamente.",
+              "erro"
+            );
+
+          } else {
+
+            mostrarMensagemRecuperacao(
+              error?.message ||
+              "Não foi possível enviar o e-mail de recuperação.",
+              "erro"
+            );
 
           }
 
-
-          /* ---------------------------------------------------
-             TRATAMENTO DE REDIRECT
-             --------------------------------------------------- */
-
-          if (
-            erroMinusculo.includes(
-              "redirect"
-            ) ||
-            erroMinusculo.includes(
-              "not allowed"
-            )
-          ) {
-
-            textoErro =
-              "A URL de recuperação não está autorizada no Supabase. Verifique as Redirect URLs.";
-
-          }
-
-
-          mensagemRecuperacao.className =
-            "mensagem erro";
-
-          mensagemRecuperacao.textContent =
-            textoErro;
-
-
-        } finally {
-
-          enviarRecuperacao.disabled =
-            false;
-
-          enviarRecuperacao.textContent =
-            "Enviar";
-
         }
 
-      }
-    );
+
+        btnEnviar.disabled =
+          false;
 
 
-    /* =========================================================
-       ESC — FECHAR MODAL
-       ========================================================= */
-
-    document.addEventListener(
-      "keydown",
-      function(event) {
-
-        if (
-          event.key === "Escape"
-        ) {
-
-          modal.classList.remove(
-            "ativo"
-          );
-
-        }
+        btnEnviar.textContent =
+          "ENVIAR LINK";
 
       }
     );

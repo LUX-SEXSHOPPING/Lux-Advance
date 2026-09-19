@@ -17,7 +17,13 @@
   >
 </head>
 
-<body>
+<body style="
+  background:
+    #000
+    url('./Halloween-feminina.jpg')
+    center top / cover
+    no-repeat fixed;
+">
 
   <header class="topbar">
 
@@ -193,7 +199,13 @@
                   ${imagem}
 
                   <div class="card-body">
-                  <span class="pill lux-plan-badge">✦ LUX <span>${escapeHTML(modelo.selo_codigo || "ESSENCE")}</span></span>
+
+                    <span class="pill lux-plan-badge">
+                      ✦ LUX
+                      <span>
+                        ${escapeHTML(modelo.selo_codigo || "ESSENCE")}
+                      </span>
+                    </span>
 
                     <span class="pill">
                       MODELO LUX

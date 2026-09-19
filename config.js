@@ -10,11 +10,9 @@ const LUX_SUPABASE_ANON_KEY =
    ========================================================= */
 
 if (!window.supabase) {
-
   console.error(
     "Biblioteca Supabase não foi carregada."
   );
-
 }
 
 
@@ -42,8 +40,7 @@ const luxSupabase =
    DISPONIBILIZAR SUPABASE NO PROJETO
    ========================================================= */
 
-window.luxSupabase =
-  luxSupabase;
+window.luxSupabase = luxSupabase;
 
 
 /* =========================================================
@@ -52,7 +49,6 @@ window.luxSupabase =
 
 const LUX_ADMIN_EMAIL =
   "Luxcdam@gmail.com";
-
 
 window.LUX_ADMIN_EMAIL =
   LUX_ADMIN_EMAIL;

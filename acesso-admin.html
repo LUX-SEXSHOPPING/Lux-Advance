@@ -401,7 +401,9 @@
 
     }
 
-    /* MODAL */
+    /* =========================================================
+       MODAL
+       ========================================================= */
 
     .modal {
 
@@ -533,6 +535,14 @@
 
     }
 
+    .modal-botoes button:disabled {
+
+      opacity: .6;
+
+      cursor: wait;
+
+    }
+
     @media (max-width: 500px) {
 
       body {
@@ -650,7 +660,9 @@
   </main>
 
 
-  <!-- MODAL RECUPERAÇÃO -->
+  <!-- =========================================================
+       MODAL RECUPERAÇÃO
+       ========================================================= -->
 
   <div
     class="modal"
@@ -747,6 +759,10 @@
     }
 
 
+    /* =========================================================
+       LOGIN ADMINISTRATIVO
+       ========================================================= */
+
     formLogin.addEventListener(
       "submit",
       async function(event) {
@@ -754,7 +770,6 @@
         event.preventDefault();
 
         mostrarMensagem("", "");
-
 
         const senhaDigitada =
           String(
@@ -936,10 +951,6 @@
           );
 
 
-          /*
-           * DESTINO CORRETO
-           */
-
           setTimeout(
             function() {
 
@@ -1025,6 +1036,9 @@
         mensagemRecuperacao.textContent =
           "";
 
+        mensagemRecuperacao.className =
+          "mensagem";
+
 
         modal.classList.add(
           "ativo"
@@ -1065,7 +1079,7 @@
 
 
     /* =========================================================
-       ENVIAR RECUPERAÇÃO
+       ENVIAR RECUPERAÇÃO DE SENHA
        ========================================================= */
 
     enviarRecuperacao.addEventListener(
@@ -1074,6 +1088,9 @@
 
         mensagemRecuperacao.textContent =
           "";
+
+        mensagemRecuperacao.className =
+          "mensagem";
 
 
         const email =
@@ -1092,10 +1109,30 @@
           .toLowerCase();
 
 
+        /* -----------------------------------------------------
+           VALIDAR E-MAIL
+           ----------------------------------------------------- */
+
         if (!email) {
+
+          mensagemRecuperacao.className =
+            "mensagem erro";
 
           mensagemRecuperacao.textContent =
             "Digite o e-mail administrativo.";
+
+          return;
+
+        }
+
+
+        if (!emailAdmin) {
+
+          mensagemRecuperacao.className =
+            "mensagem erro";
+
+          mensagemRecuperacao.textContent =
+            "E-mail administrativo não está configurado no config.js.";
 
           return;
 
@@ -1106,6 +1143,9 @@
           email !== emailAdmin
         ) {
 
+          mensagemRecuperacao.className =
+            "mensagem erro";
+
           mensagemRecuperacao.textContent =
             "Digite o e-mail administrativo cadastrado no sistema.";
 
@@ -1114,10 +1154,17 @@
         }
 
 
+        /* -----------------------------------------------------
+           VERIFICAR SUPABASE
+           ----------------------------------------------------- */
+
         if (!window.luxSupabase) {
 
+          mensagemRecuperacao.className =
+            "mensagem erro";
+
           mensagemRecuperacao.textContent =
-            "Supabase não foi inicializado.";
+            "Supabase não foi inicializado. Verifique o config.js.";
 
           return;
 
@@ -1133,24 +1180,33 @@
 
         try {
 
-          /*
-           * URL DA PÁGINA DE REDEFINIÇÃO
-           */
+          /* ---------------------------------------------------
+             URL EXATA DA PÁGINA DE REDEFINIÇÃO
+
+             IMPORTANTE:
+             Esta página precisa existir no GitHub Pages:
+             
+             /Lux-Advance/redefinir-senha.html
+             --------------------------------------------------- */
 
           const redirectTo =
-            window.location.origin +
-            window.location.pathname
-              .replace(
-                "acesso-admin.html",
-                "redefinir-senha.html"
-              );
+            "https://lux-sexshopping.github.io/Lux-Advance/redefinir-senha.html";
 
 
           console.log(
-            "URL de recuperação:",
+            "LUX — e-mail de recuperação:",
+            email
+          );
+
+          console.log(
+            "LUX — URL de redirecionamento:",
             redirectTo
           );
 
+
+          /* ---------------------------------------------------
+             ENVIA O E-MAIL PELO SUPABASE
+             --------------------------------------------------- */
 
           const {
             error
@@ -1159,19 +1215,34 @@
               .resetPasswordForEmail(
                 email,
                 {
-                  redirectTo
+                  redirectTo:
+                    redirectTo
                 }
               );
 
 
+          /* ---------------------------------------------------
+             VERIFICAR ERRO
+             --------------------------------------------------- */
+
           if (error) {
+
+            console.error(
+              "Supabase Recovery Error:",
+              error
+            );
+
             throw error;
+
           }
 
 
+          /* ---------------------------------------------------
+             SUCESSO
+             --------------------------------------------------- */
+
           mensagemRecuperacao.className =
             "mensagem sucesso";
-
 
           mensagemRecuperacao.textContent =
             "Link enviado! Verifique o e-mail administrativo.";
@@ -1180,18 +1251,67 @@
         } catch (error) {
 
           console.error(
-            "Erro recuperação:",
+            "LUX — erro na recuperação:",
             error
           );
+
+
+          let textoErro =
+            error?.message ||
+            "Não foi possível enviar o e-mail de recuperação.";
+
+
+          const erroMinusculo =
+            textoErro.toLowerCase();
+
+
+          /* ---------------------------------------------------
+             TRATAMENTO DE LIMITE DE ENVIO
+             --------------------------------------------------- */
+
+          if (
+            erroMinusculo.includes(
+              "rate limit"
+            ) ||
+            erroMinusculo.includes(
+              "too many requests"
+            ) ||
+            erroMinusculo.includes(
+              "email rate limit"
+            )
+          ) {
+
+            textoErro =
+              "Limite de envio de e-mails atingido. Aguarde alguns minutos e tente novamente.";
+
+          }
+
+
+          /* ---------------------------------------------------
+             TRATAMENTO DE REDIRECT
+             --------------------------------------------------- */
+
+          if (
+            erroMinusculo.includes(
+              "redirect"
+            ) ||
+            erroMinusculo.includes(
+              "not allowed"
+            )
+          ) {
+
+            textoErro =
+              "A URL de recuperação não está autorizada no Supabase. Verifique as Redirect URLs.";
+
+          }
 
 
           mensagemRecuperacao.className =
             "mensagem erro";
 
-
           mensagemRecuperacao.textContent =
-            error.message ||
-            "Não foi possível enviar o e-mail.";
+            textoErro;
+
 
         } finally {
 
@@ -1200,6 +1320,28 @@
 
           enviarRecuperacao.textContent =
             "Enviar";
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       ESC — FECHAR MODAL
+       ========================================================= */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          modal.classList.remove(
+            "ativo"
+          );
 
         }
 

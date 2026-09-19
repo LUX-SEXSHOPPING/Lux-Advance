@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -15,15 +16,51 @@
     rel="stylesheet"
     href="app.css"
   >
+
+  <style>
+
+    body{
+      background:
+        linear-gradient(
+          rgba(0,0,0,.58),
+          rgba(0,0,0,.78)
+        ),
+        url("./Halloween-feminina.jpg")
+        center top / cover
+        no-repeat fixed;
+    }
+
+    .pesquisa-lux{
+      max-width:650px;
+      margin:0 auto 35px;
+      display:flex;
+      gap:10px;
+    }
+
+    .pesquisa-lux input{
+      flex:1;
+      padding:15px 18px;
+      border-radius:30px;
+      border:1px solid rgba(248,213,138,.5);
+      background:rgba(0,0,0,.65);
+      color:#fff;
+      outline:none;
+    }
+
+    .pesquisa-lux input::placeholder{
+      color:#aaa;
+    }
+
+    .catalogo-link{
+      display:inline-block;
+      margin-bottom:25px;
+    }
+
+  </style>
+
 </head>
 
-<body style="
-  background:
-    #000
-    url('./Halloween-feminina.jpg')
-    center top / cover
-    no-repeat fixed;
-">
+<body>
 
   <header class="topbar">
 
@@ -35,6 +72,13 @@
     </a>
 
     <div class="actions">
+
+      <a
+        class="btn ghost"
+        href="catalago.html"
+      >
+        Catálogo
+      </a>
 
       <a
         class="btn ghost"
@@ -57,7 +101,7 @@
       </div>
 
       <h1 class="title">
-        Modelos Femininos
+        Modelos Femininas
       </h1>
 
       <p class="subtitle">
@@ -66,6 +110,26 @@
       </p>
 
     </section>
+
+
+    <a
+      class="btn ghost catalogo-link"
+      href="catalago.html"
+    >
+      ← Voltar ao Catálogo
+    </a>
+
+
+    <div class="pesquisa-lux">
+
+      <input
+        type="search"
+        id="pesquisa"
+        placeholder="Pesquisar por nome ou cidade..."
+        autocomplete="off"
+      >
+
+    </div>
 
 
     <section
@@ -96,17 +160,170 @@
 
   <script>
 
-    async function carregarModelos() {
+    let modelos = [];
+
+
+    function escapeHTML(valor){
+
+      return String(valor || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+    }
+
+
+    function mostrarModelos(listaDados){
 
       const lista =
         document.getElementById(
           "listaModelos"
         );
 
-      try {
+
+      if(
+        !listaDados ||
+        listaDados.length === 0
+      ){
+
+        lista.innerHTML = `
+          <div class="empty">
+            Nenhum modelo feminino disponível.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      lista.innerHTML =
+        listaDados.map(modelo => {
+
+          const nome =
+            escapeHTML(
+              modelo.nome_exibicao ||
+              modelo.nome ||
+              "Modelo LUX"
+            );
+
+
+          const cidade =
+            escapeHTML(
+              modelo.cidade ||
+              "Disponível na LUX"
+            );
+
+
+          let imagem = "";
+
+
+          if(modelo.foto){
+
+            imagem = `
+              <img
+                class="avatar"
+                src="${escapeHTML(modelo.foto)}"
+                alt="${nome}"
+              >
+            `;
+
+          }else{
+
+            imagem = `
+              <div
+                class="avatar"
+                style="
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                  color:var(--gold2);
+                  font-family:'Playfair Display',serif;
+                  font-size:28px;
+                "
+              >
+                LUX
+              </div>
+            `;
+
+          }
+
+
+          return `
+
+            <article class="card">
+
+              ${imagem}
+
+              <div class="card-body">
+
+                <span class="pill lux-plan-badge">
+                  ✦ LUX
+                  <span>
+                    ${escapeHTML(
+                      modelo.selo_codigo ||
+                      "ESSENCE"
+                    )}
+                  </span>
+                </span>
+
+                <span class="pill">
+                  MODELO FEMININA
+                </span>
+
+                <h2>
+                  ${nome}
+                </h2>
+
+                <p style="color:var(--muted)">
+                  ${cidade}
+                </p>
+
+                <div class="actions">
+
+                  <a
+                    class="btn primary"
+                    href="login.html"
+                  >
+                    Acessar
+                  </a>
+
+                </div>
+
+              </div>
+
+            </article>
+
+          `;
+
+        }).join("");
+
+    }
+
+
+    async function carregarModelos(){
+
+      const lista =
+        document.getElementById(
+          "listaModelos"
+        );
+
+
+      try{
 
         const db =
-          requireClient();
+          window.luxSupabase;
+
+
+        if(!db){
+
+          throw new Error(
+            "Supabase não inicializado."
+          );
+
+        }
 
 
         const {
@@ -118,133 +335,19 @@
             .select("*");
 
 
-        if (error) {
+        if(error){
+
           throw error;
-        }
-
-
-        if (
-          !data ||
-          data.length === 0
-        ) {
-
-          lista.innerHTML = `
-            <div class="empty">
-              Nenhum modelo feminino disponível no momento.
-            </div>
-          `;
-
-          return;
 
         }
 
 
-        lista.innerHTML =
-          data.map(
-            modelo => {
+        modelos = data || [];
 
-              const nome =
-                escapeHTML(
-                  modelo.nome_exibicao || modelo.nome ||
-                  "Modelo LUX"
-                );
+        mostrarModelos(modelos);
 
 
-              const cidade =
-                escapeHTML(
-                  modelo.cidade ||
-                  "Disponível na LUX"
-                );
-
-
-              let imagem = "";
-
-              if (
-                modelo.foto
-              ) {
-
-                imagem = `
-                  <img
-                    class="avatar"
-                    src="${escapeHTML(modelo.foto)}"
-                    alt="${nome}"
-                  >
-                `;
-
-              } else {
-
-                imagem = `
-                  <div
-                    class="avatar"
-                    style="
-                      display:flex;
-                      align-items:center;
-                      justify-content:center;
-                      color:var(--gold2);
-                      font-family:'Playfair Display',serif;
-                      font-size:28px;
-                    "
-                  >
-                    LUX
-                  </div>
-                `;
-
-              }
-
-
-              return `
-
-                <article class="card">
-
-                  ${imagem}
-
-                  <div class="card-body">
-
-                    <span class="pill lux-plan-badge">
-                      ✦ LUX
-                      <span>
-                        ${escapeHTML(modelo.selo_codigo || "ESSENCE")}
-                      </span>
-                    </span>
-
-                    <span class="pill">
-                      MODELO LUX
-                    </span>
-
-                    <h2>
-                      ${nome}
-                    </h2>
-
-                    <p
-                      style="
-                        color:var(--muted);
-                      "
-                    >
-                      ${cidade}
-                    </p>
-
-                    <div class="actions">
-
-                      <a
-                        class="btn primary"
-                        href="login.html"
-                      >
-                        Acessar
-                      </a>
-
-                    </div>
-
-                  </div>
-
-                </article>
-
-              `;
-
-            }
-          ).join("");
-
-
-      } catch (erro) {
+      }catch(erro){
 
         console.error(erro);
 
@@ -257,6 +360,59 @@
       }
 
     }
+
+
+    document
+      .getElementById("pesquisa")
+      .addEventListener(
+        "input",
+        function(){
+
+          const termo =
+            this.value
+              .trim()
+              .toLowerCase();
+
+
+          if(!termo){
+
+            mostrarModelos(modelos);
+
+            return;
+
+          }
+
+
+          const filtrados =
+            modelos.filter(modelo => {
+
+              const nome =
+                String(
+                  modelo.nome_exibicao ||
+                  modelo.nome ||
+                  ""
+                ).toLowerCase();
+
+
+              const cidade =
+                String(
+                  modelo.cidade ||
+                  ""
+                ).toLowerCase();
+
+
+              return (
+                nome.includes(termo) ||
+                cidade.includes(termo)
+              );
+
+            });
+
+
+          mostrarModelos(filtrados);
+
+        }
+      );
 
 
     carregarModelos();

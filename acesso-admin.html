@@ -37,13 +37,13 @@ body{
 
   padding:20px;
 
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:Arial,sans-serif;
 
-  color:#f8f2e8;
+  color:#f8f1e7;
 
   background:
     linear-gradient(
-      rgba(5,2,4,.78),
+      rgba(5,3,4,.78),
       rgba(8,3,6,.94)
     ),
     url("./Halloween-feminina.jpg")
@@ -51,53 +51,49 @@ body{
 
 }
 
-
-/* =========================
-   CARTÃO
-========================= */
-
 .container{
 
   width:100%;
 
   max-width:470px;
 
-  padding:42px 30px;
+}
 
-  text-align:center;
+.card{
 
   background:
     linear-gradient(
       145deg,
-      rgba(31,13,21,.96),
-      rgba(10,5,8,.97)
+      rgba(30,14,21,.97),
+      rgba(9,5,7,.98)
     );
 
-  border:1px solid
-    rgba(216,180,91,.35);
+  border:
+    1px solid rgba(216,180,91,.35);
 
   border-radius:20px;
 
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.65),
-    0 0 45px rgba(216,180,91,.08);
+  padding:38px 30px;
 
-  backdrop-filter:blur(14px);
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.65),
+    0 0 35px rgba(216,180,91,.08);
+
+  text-align:center;
 
 }
 
-
-/* =========================
-   LOGO
-========================= */
-
 .logo{
 
-  width:82px;
+  width:78px;
 
-  height:82px;
+  height:78px;
 
-  margin:0 auto 18px;
+  margin:0 auto 20px;
+
+  border-radius:50%;
+
+  border:1px solid #d8b45b;
 
   display:flex;
 
@@ -105,25 +101,20 @@ body{
 
   justify-content:center;
 
-  border-radius:50%;
-
-  border:1px solid #d8b45b;
-
-  color:#f3d889;
-
   font-family:
     "Playfair Display",
     serif;
 
   font-size:25px;
 
-  font-weight:700;
+  font-weight:bold;
+
+  color:#f3d889;
 
   box-shadow:
-    0 0 30px rgba(216,180,91,.15);
+    0 0 25px rgba(216,180,91,.15);
 
 }
-
 
 h1{
 
@@ -131,14 +122,13 @@ h1{
     "Playfair Display",
     serif;
 
-  font-size:32px;
-
   color:#f3d889;
+
+  font-size:31px;
 
   margin-bottom:8px;
 
 }
-
 
 .subtitulo{
 
@@ -146,37 +136,13 @@ h1{
 
   font-size:12px;
 
-  letter-spacing:2px;
-
-  text-transform:uppercase;
+  line-height:1.6;
 
   margin-bottom:30px;
 
 }
 
-
-/* =========================
-   TEXTO
-========================= */
-
-.descricao{
-
-  color:#bdb5ae;
-
-  font-size:13px;
-
-  line-height:1.7;
-
-  margin-bottom:25px;
-
-}
-
-
-/* =========================
-   CAMPO
-========================= */
-
-label{
+.label{
 
   display:block;
 
@@ -192,24 +158,23 @@ label{
 
 }
 
-
 input{
 
   width:100%;
 
   height:58px;
 
-  padding:0 18px;
+  padding:0 16px;
 
   border-radius:10px;
 
-  border:1px solid
-    rgba(216,180,91,.35);
+  border:1px solid rgba(216,180,91,.3);
 
-  background:
-    rgba(4,3,4,.9);
+  background:#080506;
 
-  color:#fff;
+  color:white;
+
+  outline:none;
 
   font-size:18px;
 
@@ -217,27 +182,16 @@ input{
 
   letter-spacing:4px;
 
-  outline:none;
-
-  transition:.2s;
-
 }
-
 
 input:focus{
 
   border-color:#d8b45b;
 
   box-shadow:
-    0 0 18px
-    rgba(216,180,91,.12);
+    0 0 15px rgba(216,180,91,.1);
 
 }
-
-
-/* =========================
-   BOTÃO
-========================= */
 
 button{
 
@@ -245,73 +199,40 @@ button{
 
   height:54px;
 
-  margin-top:16px;
+  margin-top:18px;
 
-  border:1px solid #d8b45b;
+  border:none;
 
   border-radius:10px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #d8b45b,
-      #f3d889
-    );
-
-  color:#120a0d;
+  cursor:pointer;
 
   font-weight:bold;
 
   letter-spacing:1px;
 
-  cursor:pointer;
+  color:#090506;
+
+  background:
+    linear-gradient(
+      135deg,
+      #c99e3e,
+      #f3d889,
+      #c99e3e
+    );
 
   transition:.2s;
 
 }
-
 
 button:hover{
 
   transform:translateY(-2px);
 
   box-shadow:
-    0 10px 30px
-    rgba(216,180,91,.2);
+    0 8px 25px rgba(216,180,91,.2);
 
 }
-
-
-/* =========================
-   ERRO
-========================= */
-
-.erro{
-
-  display:none;
-
-  margin-top:16px;
-
-  padding:12px;
-
-  border-radius:8px;
-
-  background:
-    rgba(120,20,35,.25);
-
-  border:1px solid
-    rgba(231,106,124,.35);
-
-  color:#ffadb9;
-
-  font-size:12px;
-
-}
-
-
-/* =========================
-   VOLTAR
-========================= */
 
 .voltar{
 
@@ -319,7 +240,7 @@ button:hover{
 
   margin-top:22px;
 
-  color:#aaa19a;
+  color:#999;
 
   text-decoration:none;
 
@@ -327,61 +248,43 @@ button:hover{
 
 }
 
-
 .voltar:hover{
 
   color:#f3d889;
 
 }
 
+#avisoErro{
 
-/* =========================
-   RODAPÉ
-========================= */
+  display:none;
 
-.footer{
+  margin-top:18px;
 
-  margin-top:28px;
+  padding:12px;
 
-  padding-top:20px;
+  border-radius:8px;
 
-  border-top:
-    1px solid
-    rgba(216,180,91,.12);
+  border:1px solid rgba(231,106,124,.35);
 
-  color:#777;
+  background:rgba(120,20,40,.15);
+
+  color:#ffabb8;
+
+  font-size:12px;
+
+  line-height:1.5;
+
+}
+
+.rodape{
+
+  margin-top:22px;
+
+  color:#666;
 
   font-size:10px;
 
   line-height:1.6;
-
-}
-
-
-.footer strong{
-
-  color:#d8b45b;
-
-}
-
-
-/* =========================
-   CELULAR
-========================= */
-
-@media(max-width:500px){
-
-  .container{
-
-    padding:34px 22px;
-
-  }
-
-  h1{
-
-    font-size:28px;
-
-  }
 
 }
 
@@ -392,40 +295,30 @@ button:hover{
 
 <body>
 
-
 <div class="container">
 
+  <div class="card">
 
-  <div class="logo">
-    LUX
-  </div>
+    <div class="logo">
+      LUX
+    </div>
 
+    <h1>
+      Acesso Executivo
+    </h1>
 
-  <h1>
-    Acesso Executivo
-  </h1>
+    <p class="subtitulo">
 
+      Área administrativa da LUX Advance.
+      Acesso restrito à administração da plataforma.
 
-  <div class="subtitulo">
-    LUX — ADVANCE
-  </div>
-
-
-  <p class="descricao">
-
-    Área restrita de administração.
-    Este ambiente é destinado exclusivamente
-    à gestão e supervisão da plataforma LUX Advance.
-
-  </p>
+    </p>
 
 
-  <form
-    id="formAdmin"
-  >
-
-
-    <label for="codigoEntrada">
+    <label
+      class="label"
+      for="codigoEntrada"
+    >
       CÓDIGO DE ACESSO
     </label>
 
@@ -435,52 +328,43 @@ button:hover{
       id="codigoEntrada"
       placeholder="••••••••"
       autocomplete="off"
-      required
+      onkeydown="teclaEnter(event)"
     >
 
 
     <button
-      type="submit"
+      onclick="verificar()"
     >
-      ACESSAR PAINEL EXECUTIVO
+      ENTRAR NO PAINEL
     </button>
 
 
-  </form>
+    <div id="avisoErro">
+
+      Código de acesso inválido.
+
+    </div>
 
 
-  <div
-    id="avisoErro"
-    class="erro"
-  >
-    Código de acesso inválido.
-  </div>
+    <a
+      href="./index.html"
+      class="voltar"
+    >
+      ← Voltar para a LUX
+    </a>
 
 
-  <a
-    href="./index.html"
-    class="voltar"
-  >
-    ← Voltar para a LUX
-  </a>
+    <div class="rodape">
 
+      LUX ADVANCE<br>
 
-  <div class="footer">
+      Agência Europeia • Conteúdo para maiores de 18 anos<br><br>
 
-    <strong>
-      LUX ADVANCE
-    </strong>
+      © 2026 LUX Advance
 
-    <br>
-
-    Área administrativa restrita
-
-    <br>
-
-    © 2026 LUX Advance — Todos os direitos reservados.
+    </div>
 
   </div>
-
 
 </div>
 
@@ -488,82 +372,80 @@ button:hover{
 <script>
 
 /* =========================================================
-   LUX — ACESSO ADMINISTRATIVO
+   LUX — ACESSO EXECUTIVO
    ========================================================= */
 
 const CODIGO_PERMITIDO =
   "LUXADM01";
 
 
-/*
-   ARQUIVO CORRETO DO PAINEL
-*/
-
 const PAGINA_ADMIN =
   "./painel-admin.html";
 
 
-const form =
-  document.getElementById(
-    "formAdmin"
-  );
+function verificar(){
+
+  const campo =
+    document.getElementById(
+      "codigoEntrada"
+    );
 
 
-const campo =
-  document.getElementById(
-    "codigoEntrada"
-  );
+  const aviso =
+    document.getElementById(
+      "avisoErro"
+    );
 
 
-const aviso =
-  document.getElementById(
-    "avisoErro"
-  );
+  const codigo =
+    campo.value.trim();
 
 
-form.addEventListener(
-  "submit",
-  function(event){
-
-    event.preventDefault();
+  aviso.style.display =
+    "none";
 
 
-    const digitado =
-      campo.value.trim();
+  if(
+    codigo === CODIGO_PERMITIDO
+  ){
 
+    /*
+      IMPORTANTE:
+      O destino correto é
+      painel-admin.html
+    */
 
-    aviso.style.display =
-      "none";
+    window.location.href =
+      PAGINA_ADMIN;
 
-
-    if(
-      digitado ===
-      CODIGO_PERMITIDO
-    ){
-
-      /*
-         REDIRECIONAMENTO CORRETO
-      */
-
-      window.location.href =
-        PAGINA_ADMIN;
-
-    }else{
-
-      aviso.style.display =
-        "block";
-
-      campo.value = "";
-
-      campo.focus();
-
-    }
+    return;
 
   }
-);
+
+
+  aviso.style.display =
+    "block";
+
+  campo.value = "";
+
+  campo.focus();
+
+}
+
+
+function teclaEnter(event){
+
+  if(
+    event.key === "Enter"
+  ){
+
+    verificar();
+
+  }
+
+}
 
 </script>
-
 
 </body>
 

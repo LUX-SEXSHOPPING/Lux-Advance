@@ -5,19 +5,21 @@
 
 <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>LUX — Painel Administrativo</title>
+<title>LUX — Painel Executivo</title>
 
 <link
-  href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
-  rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap"
+rel="stylesheet"
 >
 
 <style>
+
+/* =========================================================
+   LUX ADVANCE — PAINEL EXECUTIVO
+   HALLOWEEN EDITION
+   ========================================================= */
 
 *{
   box-sizing:border-box;
@@ -26,61 +28,117 @@
 }
 
 :root{
-  --preto:#080506;
-  --preto2:#11090c;
-  --vinho:#210d15;
-  --vinho2:#35121f;
-  --dourado:#d8b45b;
-  --dourado2:#f3d889;
-  --rosa:#ff4da6;
-  --branco:#f7f2e9;
-  --cinza:#bdb5ae;
-  --verde:#63d39b;
-  --vermelho:#e76a7c;
-  --borda:rgba(216,180,91,.25);
+
+  --black:#050304;
+  --black2:#0b0709;
+  --black3:#120b0f;
+
+  --wine:#1b080f;
+  --wine2:#2c0e19;
+
+  --gold:#c9a44d;
+  --gold2:#f1d98a;
+  --gold3:#fff0b5;
+
+  --purple:#35134a;
+
+  --white:#f8f3e9;
+  --muted:#a89f98;
+  --muted2:#6f6864;
+
+  --green:#66d39a;
+  --red:#e87989;
+
+  --border:rgba(201,164,77,.24);
+
+  --glass:rgba(12,7,10,.78);
+
 }
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
 
 body{
 
   min-height:100vh;
 
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
-  color:var(--branco);
+  color:var(--white);
 
   background:
-    linear-gradient(
-      rgba(5,3,4,.82),
-      rgba(8,4,6,.95)
+
+    radial-gradient(
+      circle at 75% 12%,
+      rgba(91,42,117,.22),
+      transparent 28%
     ),
+
+    radial-gradient(
+      circle at 15% 85%,
+      rgba(102,20,42,.20),
+      transparent 30%
+    ),
+
+    linear-gradient(
+      180deg,
+      rgba(3,2,3,.60),
+      rgba(5,3,5,.94)
+    ),
+
     url("./Halloween-feminina.jpg")
-    center top / cover fixed no-repeat;
+
+    center top /
+    cover fixed no-repeat;
+
+  overflow-x:hidden;
 
 }
 
-/* =========================
-   TOPO
-========================= */
 
-.topbar{
+/* =========================================================
+   FUMAÇA / LUZ
+   ========================================================= */
 
-  height:76px;
+body::before{
 
-  display:flex;
+  content:"";
 
-  align-items:center;
+  position:fixed;
 
-  justify-content:space-between;
+  inset:0;
 
-  padding:0 28px;
+  pointer-events:none;
 
   background:
-    rgba(8,5,6,.94);
 
-  border-bottom:
-    1px solid var(--borda);
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(255,216,138,.08),
+      transparent 34%
+    ),
 
-  backdrop-filter:blur(12px);
+    radial-gradient(
+      ellipse at 100% 60%,
+      rgba(113,54,145,.10),
+      transparent 30%
+    );
+
+  z-index:0;
+
+}
+
+
+/* =========================================================
+   TOPO
+   ========================================================= */
+
+.topbar{
 
   position:sticky;
 
@@ -88,7 +146,35 @@ body{
 
   z-index:1000;
 
+  height:78px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:
+    0 clamp(18px,4vw,55px);
+
+  background:
+    rgba(5,3,4,.88);
+
+  border-bottom:
+    1px solid var(--border);
+
+  backdrop-filter:
+    blur(18px);
+
+  box-shadow:
+    0 8px 40px rgba(0,0,0,.45);
+
 }
+
+
+/* =========================================================
+   MARCA
+   ========================================================= */
 
 .marca{
 
@@ -96,19 +182,17 @@ body{
 
   align-items:center;
 
-  gap:12px;
+  gap:14px;
 
 }
 
 .logo{
 
-  width:45px;
+  width:48px;
 
-  height:45px;
+  height:48px;
 
   border-radius:50%;
-
-  border:1px solid var(--dourado);
 
   display:flex;
 
@@ -116,32 +200,48 @@ body{
 
   justify-content:center;
 
-  color:var(--dourado2);
-
   font-family:
-    "Playfair Display",
+    "Cinzel",
     serif;
 
   font-weight:700;
 
-  font-size:20px;
+  font-size:16px;
+
+  letter-spacing:1px;
+
+  color:var(--gold2);
+
+  border:
+    1px solid var(--gold);
+
+  background:
+
+    radial-gradient(
+      circle,
+      rgba(201,164,77,.15),
+      rgba(0,0,0,.45)
+    );
 
   box-shadow:
-    0 0 18px rgba(216,180,91,.15);
+
+    0 0 20px rgba(201,164,77,.13),
+
+    inset 0 0 15px rgba(201,164,77,.06);
 
 }
 
 .marca-texto{
 
   font-family:
-    "Playfair Display",
+    "Cinzel",
     serif;
 
-  color:var(--dourado2);
+  color:var(--gold2);
 
-  font-size:20px;
+  font-size:18px;
 
-  letter-spacing:1px;
+  letter-spacing:2px;
 
 }
 
@@ -149,127 +249,202 @@ body{
 
   display:block;
 
-  font-family:Arial,sans-serif;
+  margin-top:3px;
 
-  font-size:9px;
+  font-family:
+    Arial,
+    sans-serif;
 
-  letter-spacing:3px;
+  color:var(--muted2);
 
-  color:var(--cinza);
+  font-size:8px;
 
-  margin-top:2px;
+  letter-spacing:4px;
 
 }
 
+
+/* =========================================================
+   BOTÃO SAIR
+   ========================================================= */
+
 .btn-sair{
 
-  border:1px solid var(--dourado);
+  border:
+    1px solid rgba(201,164,77,.55);
 
-  color:var(--dourado2);
+  color:var(--gold2);
 
-  background:transparent;
+  background:
+    rgba(201,164,77,.04);
 
-  padding:10px 18px;
+  padding:
+    11px 21px;
 
-  border-radius:8px;
+  border-radius:7px;
 
   cursor:pointer;
 
-  font-weight:bold;
+  font-family:
+    "Cinzel",
+    serif;
+
+  font-size:10px;
+
+  letter-spacing:1.5px;
+
+  transition:.25s;
 
 }
 
 .btn-sair:hover{
 
-  background:var(--dourado);
+  background:
+    var(--gold);
 
   color:#090506;
 
+  box-shadow:
+    0 0 22px rgba(201,164,77,.18);
+
 }
 
-/* =========================
+
+/* =========================================================
    CONTAINER
-========================= */
+   ========================================================= */
 
 .container{
 
-  width:min(1400px,94%);
+  position:relative;
+
+  z-index:1;
+
+  width:min(1420px,92%);
 
   margin:auto;
 
-  padding:35px 0 60px;
+  padding:
+    50px 0 70px;
 
 }
 
-/* =========================
+
+/* =========================================================
    CABEÇALHO
-========================= */
+   ========================================================= */
 
 .cabecalho{
 
-  margin-bottom:30px;
+  position:relative;
+
+  padding:
+    10px 0 38px;
 
 }
 
 .cabecalho small{
 
-  color:var(--dourado);
+  font-family:
+    "Cinzel",
+    serif;
 
-  letter-spacing:3px;
+  color:var(--gold);
 
-  font-size:11px;
+  font-size:9px;
+
+  letter-spacing:4px;
 
 }
 
 .cabecalho h1{
 
+  margin-top:10px;
+
   font-family:
     "Playfair Display",
     serif;
 
-  font-size:42px;
+  font-size:
+    clamp(36px,5vw,58px);
 
-  margin:7px 0;
+  font-weight:500;
+
+  letter-spacing:-1px;
 
   color:#fff;
+
+  text-shadow:
+    0 4px 30px rgba(0,0,0,.7);
+
+}
+
+.cabecalho h1::after{
+
+  content:"";
+
+  display:block;
+
+  width:85px;
+
+  height:1px;
+
+  margin-top:16px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--gold),
+      transparent
+    );
 
 }
 
 .cabecalho p{
 
-  color:var(--cinza);
+  margin-top:18px;
 
   max-width:700px;
 
-  line-height:1.6;
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.8;
 
 }
 
-/* =========================
+
+/* =========================================================
    ALERTA
-========================= */
+   ========================================================= */
 
 .alerta{
 
   display:none;
 
-  padding:14px 18px;
+  margin-bottom:24px;
 
-  border:1px solid rgba(231,106,124,.4);
+  padding:15px 18px;
 
-  background:rgba(100,20,35,.25);
-
-  color:#ffd5dc;
+  border:
+    1px solid rgba(231,106,124,.35);
 
   border-radius:10px;
 
-  margin-bottom:25px;
+  background:
+    rgba(100,20,35,.22);
+
+  color:#ffd5dc;
+
+  font-size:12px;
 
 }
 
-/* =========================
-   CARDS ESTATÍSTICAS
-========================= */
+
+/* =========================================================
+   ESTATÍSTICAS
+   ========================================================= */
 
 .estatisticas{
 
@@ -280,41 +455,108 @@ body{
 
   gap:16px;
 
-  margin-bottom:30px;
+  margin-bottom:25px;
 
 }
 
 .stat{
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(34,16,23,.95),
-      rgba(13,7,10,.95)
-    );
+  position:relative;
 
-  border:1px solid var(--borda);
+  overflow:hidden;
+
+  min-height:145px;
+
+  padding:24px;
+
+  border:
+    1px solid rgba(201,164,77,.18);
 
   border-radius:14px;
 
-  padding:22px;
+  background:
 
-  min-height:130px;
+    linear-gradient(
+      145deg,
+      rgba(32,16,23,.88),
+      rgba(7,4,6,.91)
+    );
 
   box-shadow:
-    0 15px 40px rgba(0,0,0,.2);
+    0 18px 45px rgba(0,0,0,.25);
+
+  transition:.25s;
+
+}
+
+.stat::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:90px;
+
+  height:90px;
+
+  right:-35px;
+
+  top:-35px;
+
+  border-radius:50%;
+
+  background:
+    rgba(201,164,77,.08);
+
+}
+
+.stat::after{
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+
+  top:0;
+
+  width:2px;
+
+  height:100%;
+
+  background:
+    linear-gradient(
+      transparent,
+      var(--gold),
+      transparent
+    );
+
+}
+
+.stat:hover{
+
+  transform:translateY(-3px);
+
+  border-color:
+    rgba(201,164,77,.38);
+
+  box-shadow:
+    0 22px 55px rgba(0,0,0,.35),
+    0 0 25px rgba(201,164,77,.05);
 
 }
 
 .stat small{
 
-  color:var(--cinza);
+  color:var(--muted);
 
-  text-transform:uppercase;
+  font-family:
+    "Cinzel",
+    serif;
 
-  letter-spacing:1.5px;
+  font-size:9px;
 
-  font-size:10px;
+  letter-spacing:2px;
 
 }
 
@@ -322,66 +564,78 @@ body{
 
   display:block;
 
+  margin-top:13px;
+
   font-family:
     "Playfair Display",
     serif;
 
-  font-size:38px;
+  font-size:40px;
 
-  color:var(--dourado2);
+  font-weight:500;
 
-  margin-top:12px;
+  color:var(--gold2);
 
 }
 
 .stat p{
 
-  color:#938a85;
+  margin-top:4px;
 
-  font-size:12px;
+  color:var(--muted2);
 
-  margin-top:3px;
+  font-size:11px;
 
 }
 
-/* =========================
-   GRID PRINCIPAL
-========================= */
+
+/* =========================================================
+   GRID
+   ========================================================= */
 
 .grid{
 
   display:grid;
 
   grid-template-columns:
-    1.4fr .8fr;
+    minmax(0,1.45fr)
+    minmax(300px,.75fr);
 
   gap:20px;
 
 }
 
+
+/* =========================================================
+   PAINEL
+   ========================================================= */
+
 .painel{
-
-  background:
-    rgba(13,7,10,.92);
-
-  border:
-    1px solid var(--borda);
-
-  border-radius:16px;
 
   overflow:hidden;
 
+  border:
+    1px solid rgba(201,164,77,.19);
+
+  border-radius:15px;
+
+  background:
+    rgba(9,5,7,.84);
+
   box-shadow:
-    0 20px 50px rgba(0,0,0,.25);
+    0 25px 65px rgba(0,0,0,.30);
+
+  backdrop-filter:
+    blur(12px);
 
 }
 
 .painel-header{
 
-  padding:20px 22px;
+  min-height:84px;
 
-  border-bottom:
-    1px solid rgba(216,180,91,.13);
+  padding:
+    18px 23px;
 
   display:flex;
 
@@ -389,7 +643,8 @@ body{
 
   justify-content:space-between;
 
-  gap:15px;
+  border-bottom:
+    1px solid rgba(201,164,77,.11);
 
 }
 
@@ -399,27 +654,96 @@ body{
     "Playfair Display",
     serif;
 
-  color:var(--dourado2);
-
   font-size:23px;
+
+  font-weight:500;
+
+  color:var(--gold2);
 
 }
 
 .painel-header span{
 
-  color:var(--cinza);
+  display:block;
 
-  font-size:12px;
+  margin-top:5px;
+
+  color:var(--muted2);
+
+  font-size:10px;
+
+  letter-spacing:.4px;
 
 }
 
-/* =========================
-   APROVAÇÕES
-========================= */
+
+/* =========================================================
+   BUSCA
+   ========================================================= */
+
+.busca{
+
+  padding:16px;
+
+  background:
+    rgba(255,255,255,.012);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.04);
+
+}
+
+.busca input{
+
+  width:100%;
+
+  height:46px;
+
+  padding:
+    0 15px;
+
+  border:
+    1px solid rgba(201,164,77,.17);
+
+  border-radius:8px;
+
+  outline:none;
+
+  background:
+    rgba(0,0,0,.42);
+
+  color:#fff;
+
+  font-size:12px;
+
+  transition:.2s;
+
+}
+
+.busca input::placeholder{
+
+  color:#6f6865;
+
+}
+
+.busca input:focus{
+
+  border-color:
+    rgba(201,164,77,.55);
+
+  box-shadow:
+    0 0 20px rgba(201,164,77,.06);
+
+}
+
+
+/* =========================================================
+   LISTA
+   ========================================================= */
 
 .lista{
 
-  padding:10px;
+  padding:5px;
 
 }
 
@@ -431,18 +755,28 @@ body{
 
   justify-content:space-between;
 
-  gap:15px;
+  gap:20px;
 
-  padding:17px;
+  padding:
+    19px 17px;
 
   border-bottom:
-    1px solid rgba(255,255,255,.06);
+    1px solid rgba(255,255,255,.045);
+
+  transition:.2s;
 
 }
 
 .modelo:last-child{
 
   border-bottom:none;
+
+}
+
+.modelo:hover{
+
+  background:
+    rgba(201,164,77,.025);
 
 }
 
@@ -456,21 +790,33 @@ body{
 
   display:block;
 
+  margin-bottom:6px;
+
   color:#fff;
 
-  font-size:15px;
+  font-family:
+    "Playfair Display",
+    serif;
 
-  margin-bottom:5px;
+  font-size:16px;
+
+  font-weight:500;
 
 }
 
 .modelo-info span{
 
-  color:#999;
-
-  font-size:12px;
-
   display:block;
+
+  margin-top:3px;
+
+  color:#807976;
+
+  font-size:11px;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
 
 }
 
@@ -478,15 +824,18 @@ body{
 
   display:inline-block;
 
-  margin-top:8px;
+  margin-top:9px;
 
-  padding:4px 8px;
+  padding:
+    5px 9px;
 
   border-radius:20px;
 
-  font-size:10px;
+  font-family:
+    "Cinzel",
+    serif;
 
-  text-transform:uppercase;
+  font-size:8px;
 
   letter-spacing:1px;
 
@@ -494,33 +843,44 @@ body{
 
 .status-pendente{
 
-  color:#f4cf78;
+  color:#f2d27a;
 
-  background:rgba(216,180,91,.12);
+  border:
+    1px solid rgba(216,180,91,.25);
 
-  border:1px solid rgba(216,180,91,.2);
+  background:
+    rgba(216,180,91,.08);
 
 }
 
 .status-ativo{
 
-  color:var(--verde);
+  color:var(--green);
 
-  background:rgba(99,211,155,.1);
+  border:
+    1px solid rgba(102,211,154,.25);
 
-  border:1px solid rgba(99,211,155,.2);
+  background:
+    rgba(102,211,154,.07);
 
 }
 
 .status-bloqueado{
 
-  color:var(--vermelho);
+  color:#ff9aaa;
 
-  background:rgba(231,106,124,.1);
+  border:
+    1px solid rgba(231,106,124,.25);
 
-  border:1px solid rgba(231,106,124,.2);
+  background:
+    rgba(231,106,124,.07);
 
 }
+
+
+/* =========================================================
+   AÇÕES
+   ========================================================= */
 
 .acoes{
 
@@ -536,86 +896,85 @@ body{
 
 .btn{
 
-  border:1px solid var(--borda);
+  border:
+    1px solid rgba(201,164,77,.18);
 
-  background:#160b0f;
+  background:
+    rgba(201,164,77,.025);
 
-  color:#eee;
+  color:#ddd;
 
-  padding:8px 11px;
+  padding:
+    8px 11px;
 
-  border-radius:7px;
+  border-radius:6px;
 
   cursor:pointer;
 
-  font-size:11px;
+  font-family:
+    "Cinzel",
+    serif;
+
+  font-size:8px;
+
+  letter-spacing:1px;
+
+  transition:.2s;
 
 }
 
 .btn:hover{
 
-  border-color:var(--dourado);
+  border-color:
+    rgba(201,164,77,.65);
 
-  color:var(--dourado2);
+  color:var(--gold2);
+
+  background:
+    rgba(201,164,77,.07);
 
 }
 
 .btn-aprovar{
 
-  border-color:rgba(99,211,155,.35);
+  color:var(--green);
 
-  color:var(--verde);
+  border-color:
+    rgba(102,211,154,.22);
+
+}
+
+.btn-aprovar:hover{
+
+  color:#9bf0c0;
+
+  border-color:
+    rgba(102,211,154,.55);
 
 }
 
 .btn-rejeitar{
 
-  border-color:rgba(231,106,124,.35);
+  color:#ef8798;
 
-  color:#ff9baa;
-
-}
-
-/* =========================
-   BUSCA
-========================= */
-
-.busca{
-
-  padding:16px;
-
-  border-bottom:
-    1px solid rgba(255,255,255,.05);
+  border-color:
+    rgba(231,106,124,.22);
 
 }
 
-.busca input{
+.btn-rejeitar:hover{
 
-  width:100%;
+  color:#ffb3bf;
 
-  padding:13px 14px;
-
-  border-radius:8px;
-
-  border:1px solid rgba(216,180,91,.2);
-
-  background:#090608;
-
-  color:white;
-
-  outline:none;
+  border-color:
+    rgba(231,106,124,.55);
 
 }
 
-.busca input:focus{
 
-  border-color:var(--dourado);
-
-}
-
-/* =========================
+/* =========================================================
    ATALHOS
-========================= */
+   ========================================================= */
 
 .atalhos{
 
@@ -632,33 +991,61 @@ body{
 
 .atalho{
 
+  position:relative;
+
+  overflow:hidden;
+
   text-decoration:none;
 
   color:#eee;
 
+  min-height:88px;
+
+  padding:16px;
+
   border:
-    1px solid rgba(216,180,91,.16);
+    1px solid rgba(201,164,77,.13);
+
+  border-radius:9px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(38,18,25,.8),
-      rgba(12,7,10,.9)
+      rgba(38,18,25,.65),
+      rgba(7,4,6,.85)
     );
 
-  border-radius:10px;
+  transition:.25s;
 
-  padding:16px;
+}
 
-  transition:.2s;
+.atalho::after{
+
+  content:"↗";
+
+  position:absolute;
+
+  right:12px;
+
+  top:10px;
+
+  color:
+    rgba(201,164,77,.35);
+
+  font-size:13px;
 
 }
 
 .atalho:hover{
 
-  border-color:var(--dourado);
+  transform:
+    translateY(-3px);
 
-  transform:translateY(-2px);
+  border-color:
+    rgba(201,164,77,.45);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.25);
 
 }
 
@@ -666,31 +1053,39 @@ body{
 
   display:block;
 
-  color:var(--dourado2);
+  margin-bottom:7px;
+
+  color:var(--gold2);
 
   font-family:
     "Playfair Display",
     serif;
 
-  margin-bottom:5px;
+  font-size:14px;
+
+  font-weight:500;
 
 }
 
 .atalho span{
 
-  font-size:11px;
+  color:#77706d;
 
-  color:#999;
+  font-size:10px;
+
+  line-height:1.4;
 
 }
 
-/* =========================
+
+/* =========================================================
    SEGURANÇA
-========================= */
+   ========================================================= */
 
 .seguranca{
 
-  padding:20px;
+  padding:
+    8px 20px 15px;
 
 }
 
@@ -698,14 +1093,15 @@ body{
 
   display:flex;
 
-  justify-content:space-between;
-
   align-items:center;
 
-  padding:13px 0;
+  justify-content:space-between;
+
+  padding:
+    14px 0;
 
   border-bottom:
-    1px solid rgba(255,255,255,.05);
+    1px solid rgba(255,255,255,.045);
 
 }
 
@@ -717,52 +1113,70 @@ body{
 
 .linha-seguranca span{
 
-  color:#aaa;
+  color:#918984;
 
-  font-size:12px;
+  font-size:11px;
 
 }
 
 .linha-seguranca strong{
 
-  color:var(--verde);
+  color:var(--green);
 
-  font-size:11px;
+  font-family:
+    "Cinzel",
+    serif;
+
+  font-size:8px;
+
+  letter-spacing:1px;
 
 }
 
-/* =========================
+
+/* =========================================================
    RODAPÉ
-========================= */
+   ========================================================= */
 
 footer{
 
-  margin-top:35px;
+  margin-top:45px;
 
   padding-top:25px;
 
   border-top:
-    1px solid rgba(216,180,91,.12);
+    1px solid rgba(201,164,77,.12);
 
   text-align:center;
 
-  color:#777;
+  color:#625c59;
 
-  font-size:11px;
+  font-size:9px;
+
+  letter-spacing:.3px;
+
+  line-height:1.8;
 
 }
 
 footer strong{
 
-  color:var(--dourado);
+  color:var(--gold);
+
+  font-family:
+    "Cinzel",
+    serif;
+
+  letter-spacing:2px;
 
 }
 
-/* =========================
-   RESPONSIVO
-========================= */
 
-@media(max-width:1000px){
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media(max-width:1050px){
 
   .estatisticas{
 
@@ -779,19 +1193,47 @@ footer strong{
 
 }
 
-@media(max-width:600px){
+@media(max-width:650px){
 
   .topbar{
 
-    padding:0 15px;
+    height:70px;
 
-    height:68px;
+    padding:
+      0 15px;
+
+  }
+
+  .logo{
+
+    width:42px;
+
+    height:42px;
 
   }
 
   .marca-texto{
 
-    font-size:16px;
+    font-size:14px;
+
+    letter-spacing:1px;
+
+  }
+
+  .marca-texto span{
+
+    font-size:7px;
+
+    letter-spacing:2px;
+
+  }
+
+  .btn-sair{
+
+    padding:
+      9px 13px;
+
+    font-size:8px;
 
   }
 
@@ -799,19 +1241,33 @@ footer strong{
 
     width:92%;
 
-    padding-top:25px;
+    padding:
+      35px 0 50px;
+
+  }
+
+  .cabecalho{
+
+    padding-bottom:27px;
 
   }
 
   .cabecalho h1{
 
-    font-size:32px;
+    font-size:36px;
+
+  }
+
+  .cabecalho p{
+
+    font-size:12px;
 
   }
 
   .estatisticas{
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+      1fr 1fr;
 
     gap:10px;
 
@@ -819,15 +1275,36 @@ footer strong{
 
   .stat{
 
-    padding:16px;
+    min-height:115px;
 
-    min-height:110px;
+    padding:17px;
 
   }
 
   .stat strong{
 
-    font-size:30px;
+    font-size:31px;
+
+  }
+
+  .stat small{
+
+    font-size:8px;
+
+    letter-spacing:1px;
+
+  }
+
+  .painel-header{
+
+    padding:
+      17px;
+
+  }
+
+  .painel-header h2{
+
+    font-size:20px;
 
   }
 
@@ -853,15 +1330,48 @@ footer strong{
 
 }
 
+
+/* =========================================================
+   CELULAR PEQUENO
+   ========================================================= */
+
+@media(max-width:390px){
+
+  .estatisticas{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .cabecalho h1{
+
+    font-size:31px;
+
+  }
+
+}
+
+
+/* =========================================================
+   SELEÇÃO
+   ========================================================= */
+
+::selection{
+
+  background:
+    rgba(201,164,77,.35);
+
+  color:#fff;
+
+}
+
 </style>
 
 </head>
 
+
 <body>
 
-<!-- =========================
-     TOPO
-========================= -->
 
 <header class="topbar">
 
@@ -876,12 +1386,13 @@ footer strong{
       LUX — ADVANCE
 
       <span>
-        PAINEL EXECUTIVO
+        EXECUTIVE ADMINISTRATION
       </span>
 
     </div>
 
   </div>
+
 
   <button
     class="btn-sair"
@@ -893,422 +1404,419 @@ footer strong{
 </header>
 
 
+
 <main class="container">
 
-  <!-- CABEÇALHO -->
 
-  <section class="cabecalho">
+<section class="cabecalho">
+
+  <small>
+    LUX ADVANCE • HALLOWEEN EDITION
+  </small>
+
+  <h1>
+    Painel Executivo
+  </h1>
+
+  <p>
+    Centro de administração e gestão da LUX Advance.
+    Acompanhe os cadastros, analise modelos,
+    controle os acessos e mantenha a plataforma
+    sob supervisão administrativa.
+  </p>
+
+</section>
+
+
+
+<div
+  id="alerta"
+  class="alerta"
+></div>
+
+
+
+<section class="estatisticas">
+
+
+  <div class="stat">
 
     <small>
-      ADMINISTRAÇÃO • CONTROLE • GESTÃO
+      MODELOS
     </small>
 
-    <h1>
-      Painel Executivo
-    </h1>
+    <strong id="totalModelos">
+      —
+    </strong>
 
     <p>
-      Centro de administração da LUX Advance.
-      Gerencie modelos, usuários, aprovações,
-      segurança e operações da plataforma.
+      perfis cadastrados
     </p>
 
-  </section>
+  </div>
 
 
-  <div
-    id="alerta"
-    class="alerta"
-  ></div>
+  <div class="stat">
+
+    <small>
+      PENDENTES
+    </small>
+
+    <strong id="totalPendentes">
+      —
+    </strong>
+
+    <p>
+      aguardando análise
+    </p>
+
+  </div>
 
 
-  <!-- =========================
-       ESTATÍSTICAS
-  ========================= -->
+  <div class="stat">
 
-  <section class="estatisticas">
+    <small>
+      ATIVOS
+    </small>
 
-    <div class="stat">
+    <strong id="totalAtivos">
+      —
+    </strong>
 
-      <small>
-        Modelos
-      </small>
+    <p>
+      perfis aprovados
+    </p>
 
-      <strong id="totalModelos">
-        —
-      </strong>
-
-      <p>
-        cadastrados
-      </p>
-
-    </div>
+  </div>
 
 
-    <div class="stat">
+  <div class="stat">
 
-      <small>
-        Pendentes
-      </small>
+    <small>
+      USUÁRIOS
+    </small>
 
-      <strong id="totalPendentes">
-        —
-      </strong>
+    <strong id="totalUsuarios">
+      —
+    </strong>
 
-      <p>
-        aguardando análise
-      </p>
+    <p>
+      contas cadastradas
+    </p>
 
-    </div>
-
-
-    <div class="stat">
-
-      <small>
-        Ativos
-      </small>
-
-      <strong id="totalAtivos">
-        —
-      </strong>
-
-      <p>
-        perfis ativos
-      </p>
-
-    </div>
+  </div>
 
 
-    <div class="stat">
-
-      <small>
-        Usuários
-      </small>
-
-      <strong id="totalUsuarios">
-        —
-      </strong>
-
-      <p>
-        contas cadastradas
-      </p>
-
-    </div>
-
-  </section>
+</section>
 
 
-  <!-- =========================
-       GRID
-  ========================= -->
 
-  <section class="grid">
+<section class="grid">
 
 
-    <!-- =====================
-         MODELOS
-    ====================== -->
-
-    <div class="painel">
-
-      <div class="painel-header">
-
-        <div>
-
-          <h2>
-            Aprovação de Modelos
-          </h2>
-
-          <span>
-            Perfis que aguardam análise administrativa
-          </span>
-
-        </div>
-
-      </div>
+<div class="painel">
 
 
-      <div class="busca">
-
-        <input
-          type="text"
-          id="pesquisa"
-          placeholder="Pesquisar modelo por nome, e-mail ou WhatsApp..."
-          oninput="filtrarModelos()"
-        >
-
-      </div>
-
-
-      <div
-        class="lista"
-        id="listaModelos"
-      >
-
-        <div class="modelo">
-
-          <div class="modelo-info">
-
-            <strong>
-              Carregando...
-            </strong>
-
-            <span>
-              Consultando banco de dados.
-            </span>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- =====================
-         LATERAL
-    ====================== -->
+  <div class="painel-header">
 
     <div>
 
+      <h2>
+        Aprovação de Modelos
+      </h2>
 
-      <!-- ATALHOS -->
+      <span>
+        Controle e análise dos perfis cadastrados
+      </span>
 
-      <div class="painel">
+    </div>
 
-        <div class="painel-header">
+  </div>
 
-          <div>
 
-            <h2>
-              Central de Ações
-            </h2>
+  <div class="busca">
 
-            <span>
-              Acessos rápidos
-            </span>
+    <input
+      type="text"
+      id="pesquisa"
+      placeholder="Pesquisar por nome, e-mail ou WhatsApp..."
+      oninput="filtrarModelos()"
+    >
 
-          </div>
+  </div>
 
-        </div>
 
+  <div
+    class="lista"
+    id="listaModelos"
+  >
 
-        <div class="atalhos">
+    <div class="modelo">
 
-          <a
-            class="atalho"
-            href="./index.html"
-          >
+      <div class="modelo-info">
 
-            <strong>
-              Página Inicial
-            </strong>
+        <strong>
+          Carregando...
+        </strong>
 
-            <span>
-              Visualizar o site
-            </span>
-
-          </a>
-
-
-          <a
-            class="atalho"
-            href="./catalago.html"
-          >
-
-            <strong>
-              Catálogo
-            </strong>
-
-            <span>
-              Ver categorias
-            </span>
-
-          </a>
-
-
-          <a
-            class="atalho"
-            href="./modelos-femininos.html"
-          >
-
-            <strong>
-              Modelos Femininas
-            </strong>
-
-            <span>
-              Acessar catálogo feminino
-            </span>
-
-          </a>
-
-
-          <a
-            class="atalho"
-            href="./modelos-masculinos.html"
-          >
-
-            <strong>
-              Modelos Masculinos
-            </strong>
-
-            <span>
-              Acessar catálogo masculino
-            </span>
-
-          </a>
-
-
-          <a
-            class="atalho"
-            href="./planos.html"
-          >
-
-            <strong>
-              Planos LUX
-            </strong>
-
-            <span>
-              Gerenciar apresentação dos planos
-            </span>
-
-          </a>
-
-
-          <a
-            class="atalho"
-            href="./termos.html"
-          >
-
-            <strong>
-              Termos
-            </strong>
-
-            <span>
-              Consultar regras da plataforma
-            </span>
-
-          </a>
-
-
-        </div>
-
-      </div>
-
-
-      <!-- SEGURANÇA -->
-
-      <div
-        class="painel"
-        style="margin-top:20px;"
-      >
-
-        <div class="painel-header">
-
-          <div>
-
-            <h2>
-              Segurança
-            </h2>
-
-            <span>
-              Estado administrativo
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <div class="seguranca">
-
-
-          <div class="linha-seguranca">
-
-            <span>
-              Sessão administrativa
-            </span>
-
-            <strong>
-              ATIVA
-            </strong>
-
-          </div>
-
-
-          <div class="linha-seguranca">
-
-            <span>
-              Supabase
-            </span>
-
-            <strong id="statusSupabase">
-              VERIFICANDO
-            </strong>
-
-          </div>
-
-
-          <div class="linha-seguranca">
-
-            <span>
-              Conta administrativa
-            </span>
-
-            <strong>
-              LUX
-            </strong>
-
-          </div>
-
-
-          <div class="linha-seguranca">
-
-            <span>
-              Ambiente
-            </span>
-
-            <strong>
-              PRODUÇÃO
-            </strong>
-
-          </div>
-
-
-        </div>
+        <span>
+          Consultando informações da plataforma.
+        </span>
 
       </div>
 
     </div>
 
-  </section>
+  </div>
 
 
-  <footer>
+</div>
 
-    <strong>
-      LUX ADVANCE
-    </strong>
 
-    — Painel Administrativo
 
-    <br>
+<div>
 
-    Agência Europeia • Conteúdo para maiores de 18 anos
 
-    <br><br>
 
-    © 2026 LUX Advance — Todos os direitos reservados.
+<div class="painel">
 
-  </footer>
+
+  <div class="painel-header">
+
+    <div>
+
+      <h2>
+        Central de Ações
+      </h2>
+
+      <span>
+        Acessos administrativos
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="atalhos">
+
+
+    <a
+      class="atalho"
+      href="./index.html"
+    >
+
+      <strong>
+        Página Inicial
+      </strong>
+
+      <span>
+        Visualizar a experiência pública da LUX.
+      </span>
+
+    </a>
+
+
+    <a
+      class="atalho"
+      href="./catalago.html"
+    >
+
+      <strong>
+        Catálogo
+      </strong>
+
+      <span>
+        Acessar a central de categorias.
+      </span>
+
+    </a>
+
+
+    <a
+      class="atalho"
+      href="./modelos-femininos.html"
+    >
+
+      <strong>
+        Modelos Femininas
+      </strong>
+
+      <span>
+        Visualizar os perfis femininos.
+      </span>
+
+    </a>
+
+
+    <a
+      class="atalho"
+      href="./modelos-masculinos.html"
+    >
+
+      <strong>
+        Modelos Masculinos
+      </strong>
+
+      <span>
+        Visualizar os perfis masculinos.
+      </span>
+
+    </a>
+
+
+    <a
+      class="atalho"
+      href="./planos.html"
+    >
+
+      <strong>
+        Planos LUX
+      </strong>
+
+      <span>
+        Consultar os planos da plataforma.
+      </span>
+
+    </a>
+
+
+    <a
+      class="atalho"
+      href="./termos.html"
+    >
+
+      <strong>
+        Termos
+      </strong>
+
+      <span>
+        Consultar as regras da plataforma.
+      </span>
+
+    </a>
+
+
+  </div>
+
+</div>
+
+
+
+<div
+  class="painel"
+  style="margin-top:20px;"
+>
+
+
+  <div class="painel-header">
+
+    <div>
+
+      <h2>
+        Segurança
+      </h2>
+
+      <span>
+        Estado do ambiente administrativo
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="seguranca">
+
+
+    <div class="linha-seguranca">
+
+      <span>
+        Sessão administrativa
+      </span>
+
+      <strong>
+        ATIVA
+      </strong>
+
+    </div>
+
+
+    <div class="linha-seguranca">
+
+      <span>
+        Supabase
+      </span>
+
+      <strong id="statusSupabase">
+        VERIFICANDO
+      </strong>
+
+    </div>
+
+
+    <div class="linha-seguranca">
+
+      <span>
+        Administração
+      </span>
+
+      <strong>
+        LUX
+      </strong>
+
+    </div>
+
+
+    <div class="linha-seguranca">
+
+      <span>
+        Ambiente
+      </span>
+
+      <strong>
+        PRODUÇÃO
+      </strong>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<footer>
+
+  <strong>
+    LUX ADVANCE
+  </strong>
+
+  <br>
+
+  Painel Executivo • Halloween Edition
+
+  <br>
+
+  Agência Europeia • Conteúdo para maiores de 18 anos
+
+  <br>
+
+  © 2026 LUX Advance — Todos os direitos reservados.
+
+</footer>
+
 
 </main>
 
 
-<!-- =========================
-     SUPABASE
-========================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1319,31 +1827,20 @@ footer strong{
 
 <script>
 
-/* =========================================================
-   LUX — PAINEL ADMINISTRATIVO
-   ========================================================= */
-
 let modelos = [];
 
-
-/* =========================
-   ELEMENTOS
-========================= */
 
 const lista =
   document.getElementById(
     "listaModelos"
   );
 
+
 const alerta =
   document.getElementById(
     "alerta"
   );
 
-
-/* =========================
-   ALERTA
-========================= */
 
 function mostrarAlerta(
   mensagem
@@ -1358,10 +1855,6 @@ function mostrarAlerta(
 }
 
 
-/* =========================
-   ESCAPE HTML
-========================= */
-
 function escapeHTML(
   valor
 ){
@@ -1371,21 +1864,13 @@ function escapeHTML(
   )
 
   .replaceAll("&","&amp;")
-
   .replaceAll("<","&lt;")
-
   .replaceAll(">","&gt;")
-
   .replaceAll('"',"&quot;")
-
   .replaceAll("'","&#039;");
 
 }
 
-
-/* =========================
-   VERIFICAR ADMIN
-========================= */
 
 async function verificarAdmin(){
 
@@ -1400,6 +1885,7 @@ async function verificarAdmin(){
       );
 
     }
+
 
     const {
       data,
@@ -1456,12 +1942,15 @@ async function verificarAdmin(){
         .auth
         .signOut();
 
+
       alert(
         "Acesso administrativo não autorizado."
       );
 
+
       window.location.href =
         "./acessoadmin.html";
+
 
       return null;
 
@@ -1476,6 +1965,7 @@ async function verificarAdmin(){
 
     return user;
 
+
   }catch(error){
 
     console.error(
@@ -1483,14 +1973,17 @@ async function verificarAdmin(){
       error
     );
 
+
     document.getElementById(
       "statusSupabase"
     ).textContent =
       "ERRO";
 
+
     mostrarAlerta(
       "Não foi possível validar o acesso administrativo."
     );
+
 
     return null;
 
@@ -1499,9 +1992,6 @@ async function verificarAdmin(){
 }
 
 
-/* =========================
-   CARREGAR DADOS
-========================= */
 
 async function carregarDashboard(){
 
@@ -1521,10 +2011,6 @@ async function carregarDashboard(){
     const supabase =
       window.luxSupabase;
 
-
-    /* =====================
-       TODOS OS PERFIS
-    ====================== */
 
     const {
       data: perfis,
@@ -1610,10 +2096,6 @@ async function carregarDashboard(){
       usuariosPerfis.length;
 
 
-    /* =====================
-       MODELO COMPLETO
-    ====================== */
-
     const {
       data: modelosDados,
       error: erroModelos
@@ -1626,7 +2108,7 @@ async function carregarDashboard(){
     if(erroModelos){
 
       console.warn(
-        "Não foi possível carregar modelo_perfis:",
+        "Erro modelo_perfis:",
         erroModelos
       );
 
@@ -1652,9 +2134,11 @@ async function carregarDashboard(){
       error
     );
 
+
     mostrarAlerta(
       "Erro ao carregar os dados administrativos."
     );
+
 
     lista.innerHTML = `
 
@@ -1681,9 +2165,6 @@ async function carregarDashboard(){
 }
 
 
-/* =========================
-   RENDERIZAR MODELOS
-========================= */
 
 function renderizarModelos(
   dadosModelo,
@@ -1725,6 +2206,7 @@ function renderizarModelos(
 
   dadosPerfis.forEach(
     perfil => {
+
 
       const modelo =
         dadosModelo.find(
@@ -1849,9 +2331,6 @@ function renderizarModelos(
 }
 
 
-/* =========================
-   PESQUISA
-========================= */
 
 function filtrarModelos(){
 
@@ -1890,9 +2369,6 @@ function filtrarModelos(){
 }
 
 
-/* =========================
-   ALTERAR STATUS
-========================= */
 
 async function alterarStatus(
   id,
@@ -1912,15 +2388,13 @@ async function alterarStatus(
       : "bloquear este modelo";
 
 
-  const confirmar =
-    confirm(
+  if(
+    !confirm(
       "Deseja realmente " +
       texto +
       "?"
-    );
-
-
-  if(!confirmar){
+    )
+  ){
 
     return;
 
@@ -1971,6 +2445,7 @@ async function alterarStatus(
       error
     );
 
+
     alert(
       "Não foi possível alterar o status. Verifique as políticas RLS do Supabase."
     );
@@ -1980,9 +2455,6 @@ async function alterarStatus(
 }
 
 
-/* =========================
-   SAIR
-========================= */
 
 async function sair(){
 
@@ -2013,13 +2485,10 @@ async function sair(){
 }
 
 
-/* =========================
-   INICIAR
-========================= */
-
 carregarDashboard();
 
 </script>
+
 
 </body>
 

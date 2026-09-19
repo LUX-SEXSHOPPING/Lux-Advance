@@ -3,449 +3,1210 @@
 
 <head>
 
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-<title>LUX — Acesso Executivo</title>
+  <title>LUX — Acesso Administrativo</title>
 
-<link
-  href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap"
-  rel="stylesheet"
->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-<style>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-body{
+  <!-- CONFIG DO PROJETO -->
+  <script src="./config.js"></script>
 
-  min-height:100vh;
+  <style>
 
-  display:flex;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  align-items:center;
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
 
-  justify-content:center;
+    body {
 
-  padding:20px;
+      min-height: 100vh;
 
-  font-family:Arial,sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  color:#f8f1e7;
+      padding: 20px;
 
-  background:
-    linear-gradient(
-      rgba(5,3,4,.78),
-      rgba(8,3,6,.94)
-    ),
-    url("./Halloween-feminina.jpg")
-    center/cover fixed no-repeat;
+      font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
 
-}
+      color: #eee4d8;
 
-.container{
+      background:
+        linear-gradient(
+          rgba(8, 3, 7, 0.76),
+          rgba(8, 3, 7, 0.90)
+        ),
+        url("./lux-halloween.jpg")
+        center center /
+        cover
+        fixed
+        no-repeat;
 
-  width:100%;
+    }
 
-  max-width:470px;
+    .container {
 
-}
+      width: 100%;
+      max-width: 460px;
 
-.card{
+    }
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(30,14,21,.97),
-      rgba(9,5,7,.98)
-    );
+    .painel {
 
-  border:
-    1px solid rgba(216,180,91,.35);
+      padding: 38px 30px 30px;
 
-  border-radius:20px;
+      border:
+        1px solid
+        rgba(201, 162, 39, 0.55);
 
-  padding:38px 30px;
+      border-radius: 24px;
 
-  box-shadow:
-    0 25px 80px rgba(0,0,0,.65),
-    0 0 35px rgba(216,180,91,.08);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(22, 8, 14, 0.97),
+          rgba(6, 3, 7, 0.96)
+        );
 
-  text-align:center;
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.75),
+        0 0 45px rgba(201, 162, 39, 0.08);
 
-}
+      backdrop-filter: blur(12px);
 
-.logo{
+      text-align: center;
 
-  width:78px;
+    }
 
-  height:78px;
+    .icone {
 
-  margin:0 auto 20px;
+      width: 82px;
+      height: 82px;
 
-  border-radius:50%;
+      margin: 0 auto 20px;
 
-  border:1px solid #d8b45b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  display:flex;
+      border:
+        1px solid
+        rgba(241, 211, 107, 0.65);
 
-  align-items:center;
+      border-radius: 50%;
 
-  justify-content:center;
+      color: #f1d36b;
 
-  font-family:
-    "Playfair Display",
-    serif;
+      background:
+        rgba(201, 162, 39, 0.10);
 
-  font-size:25px;
+      box-shadow:
+        0 0 30px rgba(201, 162, 39, 0.12);
 
-  font-weight:bold;
+    }
 
-  color:#f3d889;
+    .icone i {
+      font-size: 31px;
+    }
 
-  box-shadow:
-    0 0 25px rgba(216,180,91,.15);
+    .marca {
 
-}
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
 
-h1{
+      font-size: 32px;
 
-  font-family:
-    "Playfair Display",
-    serif;
+      font-weight: 600;
 
-  color:#f3d889;
+      letter-spacing: 4px;
 
-  font-size:31px;
+      color: #f1d36b;
 
-  margin-bottom:8px;
+    }
 
-}
+    .subtitulo {
 
-.subtitulo{
+      margin-top: 5px;
 
-  color:#aaa19a;
+      font-size: 16px;
 
-  font-size:12px;
+      letter-spacing: 2px;
 
-  line-height:1.6;
+      color: #cbbfb1;
 
-  margin-bottom:30px;
+    }
 
-}
+    .linha {
 
-.label{
+      width: 90px;
+      height: 1px;
 
-  display:block;
+      margin: 22px auto 25px;
 
-  text-align:left;
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          #c9a227,
+          transparent
+        );
 
-  color:#d8b45b;
+    }
 
-  font-size:11px;
+    h1 {
 
-  letter-spacing:1.5px;
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
 
-  margin-bottom:8px;
+      font-size: 24px;
 
-}
+      color: #fff1d0;
 
-input{
+      margin-bottom: 9px;
 
-  width:100%;
+    }
 
-  height:58px;
+    .descricao {
 
-  padding:0 16px;
+      color: #bfb2a5;
 
-  border-radius:10px;
+      font-size: 16px;
 
-  border:1px solid rgba(216,180,91,.3);
+      line-height: 1.5;
 
-  background:#080506;
+      margin-bottom: 25px;
 
-  color:white;
+    }
 
-  outline:none;
+    .campo {
 
-  font-size:18px;
+      position: relative;
 
-  text-align:center;
+      margin-bottom: 16px;
 
-  letter-spacing:4px;
+    }
 
-}
+    .campo i {
 
-input:focus{
+      position: absolute;
 
-  border-color:#d8b45b;
+      left: 17px;
 
-  box-shadow:
-    0 0 15px rgba(216,180,91,.1);
+      top: 50%;
 
-}
+      transform:
+        translateY(-50%);
 
-button{
+      color: #c9a227;
 
-  width:100%;
+      z-index: 2;
 
-  height:54px;
+    }
 
-  margin-top:18px;
+    .campo input {
 
-  border:none;
+      width: 100%;
 
-  border-radius:10px;
+      height: 55px;
 
-  cursor:pointer;
+      padding:
+        0 17px
+        0 47px;
 
-  font-weight:bold;
+      border:
+        1px solid
+        rgba(201, 162, 39, 0.30);
 
-  letter-spacing:1px;
+      border-radius: 13px;
 
-  color:#090506;
+      outline: none;
 
-  background:
-    linear-gradient(
-      135deg,
-      #c99e3e,
-      #f3d889,
-      #c99e3e
-    );
+      color: #fff;
 
-  transition:.2s;
+      background:
+        rgba(255, 255, 255, 0.045);
 
-}
+      font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
 
-button:hover{
+      font-size: 17px;
 
-  transform:translateY(-2px);
+    }
 
-  box-shadow:
-    0 8px 25px rgba(216,180,91,.2);
+    .campo input:focus {
 
-}
+      border-color:
+        rgba(241, 211, 107, 0.85);
 
-.voltar{
+      box-shadow:
+        0 0 0 3px
+        rgba(201, 162, 39, 0.08);
 
-  display:block;
+    }
 
-  margin-top:22px;
+    .campo input::placeholder {
+      color: #8f8378;
+    }
 
-  color:#999;
+    .botao {
 
-  text-decoration:none;
+      width: 100%;
 
-  font-size:12px;
+      height: 55px;
 
-}
+      border: none;
 
-.voltar:hover{
+      border-radius: 13px;
 
-  color:#f3d889;
+      cursor: pointer;
 
-}
+      color: #170d05;
 
-#avisoErro{
+      background:
+        linear-gradient(
+          135deg,
+          #c9a227,
+          #f1d36b,
+          #c9a227
+        );
 
-  display:none;
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
 
-  margin-top:18px;
+      font-size: 16px;
 
-  padding:12px;
+      font-weight: 700;
 
-  border-radius:8px;
+      letter-spacing: 1px;
 
-  border:1px solid rgba(231,106,124,.35);
+    }
 
-  background:rgba(120,20,40,.15);
+    .botao:disabled {
 
-  color:#ffabb8;
+      opacity: .6;
 
-  font-size:12px;
+      cursor: wait;
 
-  line-height:1.5;
+    }
 
-}
+    .mensagem {
 
-.rodape{
+      min-height: 25px;
 
-  margin-top:22px;
+      margin-top: 16px;
 
-  color:#666;
+      font-size: 15px;
 
-  font-size:10px;
+      line-height: 1.4;
 
-  line-height:1.6;
+    }
 
-}
+    .erro {
+      color: #ff9999;
+    }
 
-</style>
+    .sucesso {
+      color: #e6c86e;
+    }
+
+    .esqueci {
+
+      display: inline-block;
+
+      margin-top: 18px;
+
+      color: #c9a227;
+
+      text-decoration: none;
+
+      cursor: pointer;
+
+      font-size: 15px;
+
+    }
+
+    .esqueci:hover {
+      color: #f1d36b;
+    }
+
+    .voltar {
+
+      display: block;
+
+      margin-top: 23px;
+
+      color: #9e9287;
+
+      text-decoration: none;
+
+      font-size: 14px;
+
+    }
+
+    .voltar:hover {
+      color: #eee4d8;
+    }
+
+    .rodape {
+
+      margin-top: 22px;
+
+      padding-top: 18px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.07);
+
+      color: #70675f;
+
+      font-size: 12px;
+
+      line-height: 1.5;
+
+    }
+
+    /* MODAL */
+
+    .modal {
+
+      position: fixed;
+
+      inset: 0;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background:
+        rgba(0,0,0,.84);
+
+      z-index: 100;
+
+    }
+
+    .modal.ativo {
+      display: flex;
+    }
+
+    .modal-box {
+
+      width: 100%;
+      max-width: 430px;
+
+      padding: 30px;
+
+      border:
+        1px solid
+        rgba(201,162,39,.55);
+
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #190a11,
+          #080307
+        );
+
+      box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.8);
+
+      text-align: center;
+
+    }
+
+    .modal-box h2 {
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      color: #f1d36b;
+
+      margin-bottom: 10px;
+
+    }
+
+    .modal-box p {
+
+      color: #bfb2a5;
+
+      line-height: 1.5;
+
+      margin-bottom: 20px;
+
+    }
+
+    .modal-botoes {
+
+      display: flex;
+
+      gap: 10px;
+
+      margin-top: 15px;
+
+    }
+
+    .modal-botoes button {
+
+      flex: 1;
+
+      height: 48px;
+
+      border-radius: 10px;
+
+      cursor: pointer;
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    }
+
+    .enviar {
+
+      border: none;
+
+      color: #170d05;
+
+      background:
+        linear-gradient(
+          135deg,
+          #c9a227,
+          #f1d36b
+        );
+
+    }
+
+    .cancelar {
+
+      border:
+        1px solid
+        rgba(255,255,255,.15);
+
+      color: #ddd;
+
+      background:
+        rgba(255,255,255,.05);
+
+    }
+
+    @media (max-width: 500px) {
+
+      body {
+        padding: 14px;
+      }
+
+      .painel {
+        padding: 30px 21px 27px;
+      }
+
+      .marca {
+        font-size: 28px;
+      }
+
+    }
+
+  </style>
 
 </head>
 
 
 <body>
 
-<div class="container">
+  <main class="container">
 
-  <div class="card">
+    <section class="painel">
 
-    <div class="logo">
-      LUX
-    </div>
+      <div class="icone">
+        <i class="fas fa-user-shield"></i>
+      </div>
 
-    <h1>
-      Acesso Executivo
-    </h1>
+      <div class="marca">
+        LUX
+      </div>
 
-    <p class="subtitulo">
+      <div class="subtitulo">
+        ADVANCE
+      </div>
 
-      Área administrativa da LUX Advance.
-      Acesso restrito à administração da plataforma.
+      <div class="linha"></div>
 
-    </p>
+      <h1>
+        Acesso Administrativo
+      </h1>
 
-
-    <label
-      class="label"
-      for="codigoEntrada"
-    >
-      CÓDIGO DE ACESSO
-    </label>
-
-
-    <input
-      type="password"
-      id="codigoEntrada"
-      placeholder="••••••••"
-      autocomplete="off"
-      onkeydown="teclaEnter(event)"
-    >
+      <p class="descricao">
+        Área exclusiva de administração da plataforma LUX.
+      </p>
 
 
-    <button
-      onclick="verificar()"
-    >
-      ENTRAR NO PAINEL
-    </button>
+      <form id="formLogin">
+
+        <div class="campo">
+
+          <i class="fas fa-lock"></i>
+
+          <input
+            type="password"
+            id="senha"
+            placeholder="Senha administrativa"
+            autocomplete="current-password"
+            required
+          >
+
+        </div>
 
 
-    <div id="avisoErro">
+        <button
+          type="submit"
+          class="botao"
+          id="btnEntrar"
+        >
+          <i class="fas fa-right-to-bracket"></i>
+          &nbsp;
+          ENTRAR NO PAINEL
+        </button>
 
-      Código de acesso inválido.
-
-    </div>
-
-
-    <a
-      href="./index.html"
-      class="voltar"
-    >
-      ← Voltar para a LUX
-    </a>
+      </form>
 
 
-    <div class="rodape">
+      <div
+        id="mensagem"
+        class="mensagem"
+      ></div>
 
-      LUX ADVANCE<br>
 
-      Agência Europeia • Conteúdo para maiores de 18 anos<br><br>
+      <a
+        href="#"
+        class="esqueci"
+        id="esqueciSenha"
+      >
+        Esqueci minha senha
+      </a>
 
-      © 2026 LUX Advance
+
+      <a
+        href="./index.html"
+        class="voltar"
+      >
+        <i class="fas fa-arrow-left"></i>
+        Voltar para o site
+      </a>
+
+
+      <div class="rodape">
+
+        LUX Advance © 2026<br>
+
+        Área administrativa protegida.
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- MODAL RECUPERAÇÃO -->
+
+  <div
+    class="modal"
+    id="modal"
+  >
+
+    <div class="modal-box">
+
+      <h2>
+        Recuperar senha
+      </h2>
+
+      <p>
+        Digite o e-mail administrativo para receber o link de recuperação pelo Supabase.
+      </p>
+
+
+      <div class="campo">
+
+        <i class="fas fa-envelope"></i>
+
+        <input
+          type="email"
+          id="emailRecuperacao"
+          placeholder="E-mail administrativo"
+          autocomplete="email"
+        >
+
+      </div>
+
+
+      <div class="modal-botoes">
+
+        <button
+          type="button"
+          class="cancelar"
+          id="fecharModal"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="button"
+          class="enviar"
+          id="enviarRecuperacao"
+        >
+          Enviar
+        </button>
+
+      </div>
+
+
+      <div
+        id="mensagemRecuperacao"
+        class="mensagem"
+      ></div>
 
     </div>
 
   </div>
 
-</div>
+
+  <script>
+
+    /* =========================================================
+       LUX — LOGIN ADMINISTRATIVO
+       ========================================================= */
+
+    const formLogin =
+      document.getElementById("formLogin");
+
+    const senha =
+      document.getElementById("senha");
+
+    const btnEntrar =
+      document.getElementById("btnEntrar");
+
+    const mensagem =
+      document.getElementById("mensagem");
 
 
-<script>
+    function mostrarMensagem(
+      texto,
+      tipo
+    ) {
 
-/* =========================================================
-   LUX — ACESSO EXECUTIVO
-   ========================================================= */
+      mensagem.textContent =
+        texto;
 
-const CODIGO_PERMITIDO =
-  "LUXADM01";
+      mensagem.className =
+        "mensagem " +
+        (tipo || "");
 
-
-const PAGINA_ADMIN =
-  "./painel-admin.html";
+    }
 
 
-function verificar(){
+    formLogin.addEventListener(
+      "submit",
+      async function(event) {
 
-  const campo =
-    document.getElementById(
-      "codigoEntrada"
+        event.preventDefault();
+
+        mostrarMensagem("", "");
+
+
+        const senhaDigitada =
+          String(
+            senha.value || ""
+          ).trim();
+
+
+        if (!senhaDigitada) {
+
+          mostrarMensagem(
+            "Digite sua senha.",
+            "erro"
+          );
+
+          return;
+
+        }
+
+
+        if (!window.luxSupabase) {
+
+          mostrarMensagem(
+            "Supabase não foi inicializado. Verifique o config.js.",
+            "erro"
+          );
+
+          return;
+
+        }
+
+
+        const supabase =
+          window.luxSupabase;
+
+
+        const emailAdmin =
+          String(
+            window.LUX_ADMIN_EMAIL || ""
+          )
+          .trim()
+          .toLowerCase();
+
+
+        if (!emailAdmin) {
+
+          mostrarMensagem(
+            "E-mail administrativo não configurado no config.js.",
+            "erro"
+          );
+
+          return;
+
+        }
+
+
+        btnEntrar.disabled = true;
+
+        btnEntrar.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> AUTENTICANDO...';
+
+
+        try {
+
+          const {
+            data,
+            error
+          } =
+            await supabase.auth.signInWithPassword({
+
+              email:
+                emailAdmin,
+
+              password:
+                senhaDigitada
+
+            });
+
+
+          if (error) {
+
+            console.error(
+              "Erro no login:",
+              error
+            );
+
+            throw new Error(
+              "E-mail ou senha administrativa inválidos."
+            );
+
+          }
+
+
+          const user =
+            data?.user;
+
+
+          if (!user) {
+
+            throw new Error(
+              "Usuário administrativo não encontrado."
+            );
+
+          }
+
+
+          const emailUsuario =
+            String(
+              user.email || ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+          if (
+            emailUsuario !==
+            emailAdmin
+          ) {
+
+            await supabase.auth.signOut();
+
+            throw new Error(
+              "Esta conta não possui acesso administrativo."
+            );
+
+          }
+
+
+          /*
+           * CONFIRMA A SESSÃO
+           */
+
+          let session = null;
+
+
+          for (
+            let tentativa = 0;
+            tentativa < 10;
+            tentativa++
+          ) {
+
+            const {
+              data: sessao
+            } =
+              await supabase.auth.getSession();
+
+
+            session =
+              sessao?.session || null;
+
+
+            if (session) {
+              break;
+            }
+
+
+            await new Promise(
+              resolve =>
+                setTimeout(
+                  resolve,
+                  300
+                )
+            );
+
+          }
+
+
+          if (!session) {
+
+            throw new Error(
+              "A sessão não foi criada. Tente novamente."
+            );
+
+          }
+
+
+          mostrarMensagem(
+            "Acesso autorizado. Abrindo painel...",
+            "sucesso"
+          );
+
+
+          /*
+           * DESTINO CORRETO
+           */
+
+          setTimeout(
+            function() {
+
+              window.location.replace(
+                "./painel-admin.html"
+              );
+
+            },
+            500
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "LUX ADMIN:",
+            error
+          );
+
+
+          mostrarMensagem(
+            error.message ||
+            "Não foi possível realizar o acesso.",
+            "erro"
+          );
+
+
+          btnEntrar.disabled = false;
+
+          btnEntrar.innerHTML =
+            '<i class="fas fa-right-to-bracket"></i> &nbsp; ENTRAR NO PAINEL';
+
+        }
+
+      }
     );
 
 
-  const aviso =
-    document.getElementById(
-      "avisoErro"
+    /* =========================================================
+       ABRIR RECUPERAÇÃO
+       ========================================================= */
+
+    const modal =
+      document.getElementById("modal");
+
+    const esqueciSenha =
+      document.getElementById(
+        "esqueciSenha"
+      );
+
+    const fecharModal =
+      document.getElementById(
+        "fecharModal"
+      );
+
+    const emailRecuperacao =
+      document.getElementById(
+        "emailRecuperacao"
+      );
+
+    const enviarRecuperacao =
+      document.getElementById(
+        "enviarRecuperacao"
+      );
+
+    const mensagemRecuperacao =
+      document.getElementById(
+        "mensagemRecuperacao"
+      );
+
+
+    esqueciSenha.addEventListener(
+      "click",
+      function(event) {
+
+        event.preventDefault();
+
+
+        emailRecuperacao.value =
+          window.LUX_ADMIN_EMAIL || "";
+
+
+        mensagemRecuperacao.textContent =
+          "";
+
+
+        modal.classList.add(
+          "ativo"
+        );
+
+      }
     );
 
 
-  const codigo =
-    campo.value.trim();
+    fecharModal.addEventListener(
+      "click",
+      function() {
+
+        modal.classList.remove(
+          "ativo"
+        );
+
+      }
+    );
 
 
-  aviso.style.display =
-    "none";
+    modal.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target === modal
+        ) {
+
+          modal.classList.remove(
+            "ativo"
+          );
+
+        }
+
+      }
+    );
 
 
-  if(
-    codigo === CODIGO_PERMITIDO
-  ){
+    /* =========================================================
+       ENVIAR RECUPERAÇÃO
+       ========================================================= */
 
-    /*
-      IMPORTANTE:
-      O destino correto é
-      painel-admin.html
-    */
+    enviarRecuperacao.addEventListener(
+      "click",
+      async function() {
 
-    window.location.href =
-      PAGINA_ADMIN;
-
-    return;
-
-  }
+        mensagemRecuperacao.textContent =
+          "";
 
 
-  aviso.style.display =
-    "block";
-
-  campo.value = "";
-
-  campo.focus();
-
-}
+        const email =
+          String(
+            emailRecuperacao.value || ""
+          )
+          .trim()
+          .toLowerCase();
 
 
-function teclaEnter(event){
+        const emailAdmin =
+          String(
+            window.LUX_ADMIN_EMAIL || ""
+          )
+          .trim()
+          .toLowerCase();
 
-  if(
-    event.key === "Enter"
-  ){
 
-    verificar();
+        if (!email) {
 
-  }
+          mensagemRecuperacao.textContent =
+            "Digite o e-mail administrativo.";
 
-}
+          return;
 
-</script>
+        }
+
+
+        if (
+          email !== emailAdmin
+        ) {
+
+          mensagemRecuperacao.textContent =
+            "Digite o e-mail administrativo cadastrado no sistema.";
+
+          return;
+
+        }
+
+
+        if (!window.luxSupabase) {
+
+          mensagemRecuperacao.textContent =
+            "Supabase não foi inicializado.";
+
+          return;
+
+        }
+
+
+        enviarRecuperacao.disabled =
+          true;
+
+        enviarRecuperacao.textContent =
+          "Enviando...";
+
+
+        try {
+
+          /*
+           * URL DA PÁGINA DE REDEFINIÇÃO
+           */
+
+          const redirectTo =
+            window.location.origin +
+            window.location.pathname
+              .replace(
+                "acesso-admin.html",
+                "redefinir-senha.html"
+              );
+
+
+          console.log(
+            "URL de recuperação:",
+            redirectTo
+          );
+
+
+          const {
+            error
+          } =
+            await window.luxSupabase.auth
+              .resetPasswordForEmail(
+                email,
+                {
+                  redirectTo
+                }
+              );
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          mensagemRecuperacao.className =
+            "mensagem sucesso";
+
+
+          mensagemRecuperacao.textContent =
+            "Link enviado! Verifique o e-mail administrativo.";
+
+
+        } catch (error) {
+
+          console.error(
+            "Erro recuperação:",
+            error
+          );
+
+
+          mensagemRecuperacao.className =
+            "mensagem erro";
+
+
+          mensagemRecuperacao.textContent =
+            error.message ||
+            "Não foi possível enviar o e-mail.";
+
+        } finally {
+
+          enviarRecuperacao.disabled =
+            false;
+
+          enviarRecuperacao.textContent =
+            "Enviar";
+
+        }
+
+      }
+    );
+
+  </script>
 
 </body>
 

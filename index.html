@@ -140,13 +140,31 @@ header{
 }
 
 
-.btn-entrar{
+/* ==================================================
+   BOTÕES DE ACESSO
+================================================== */
+
+.botoes-acesso{
 
   position:absolute;
 
   top:20px;
 
   right:0;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:flex-end;
+
+  gap:10px;
+
+}
+
+
+.btn-entrar,
+.btn-admin{
 
   display:flex;
 
@@ -210,7 +228,8 @@ header{
 }
 
 
-.btn-entrar:hover{
+.btn-entrar:hover,
+.btn-admin:hover{
 
   transform:translateY(-2px);
 
@@ -227,7 +246,8 @@ header{
 }
 
 
-.btn-entrar i{
+.btn-entrar i,
+.btn-admin i{
 
   font-size:16px;
 
@@ -753,17 +773,35 @@ header{
   }
 
 
-  .btn-entrar{
+  .botoes-acesso{
 
     top:18px;
 
     right:0;
 
+    gap:6px;
+
+  }
+
+
+  .btn-entrar,
+  .btn-admin{
+
     width:116px;
 
     height:47px;
 
-    font-size:15px;
+    font-size:13px;
+
+    gap:6px;
+
+  }
+
+
+  .btn-entrar i,
+  .btn-admin i{
+
+    font-size:13px;
 
   }
 
@@ -913,15 +951,33 @@ header{
   }
 
 
-  .btn-entrar{
+  .botoes-acesso{
 
     top:16px;
+
+    right:0;
+
+    gap:5px;
+
+  }
+
+
+  .btn-entrar,
+  .btn-admin{
 
     width:108px;
 
     height:45px;
 
-    font-size:14px;
+    font-size:12px;
+
+  }
+
+
+  .btn-entrar i,
+  .btn-admin i{
+
+    font-size:12px;
 
   }
 
@@ -1034,16 +1090,36 @@ header{
 
 <header>
 
-  <a
-    href="./login.html"
-    class="btn-entrar"
-  >
 
-    <i class="fas fa-lock"></i>
+  <div class="botoes-acesso">
 
-    Entrar
 
-  </a>
+    <a
+      href="./login.html"
+      class="btn-entrar"
+    >
+
+      <i class="fas fa-lock"></i>
+
+      Entrar
+
+    </a>
+
+
+    <a
+      href="./acessoadmin.html"
+      class="btn-admin"
+    >
+
+      <i class="fas fa-user-shield"></i>
+
+      Área Admin
+
+    </a>
+
+
+  </div>
+
 
 </header>
 
@@ -1171,8 +1247,8 @@ header{
 
   <div class="rodape-final">
 
-    © 2026 LUX Advance — Agência europeia 
-  de acompanhantes, todos os direitos reservados.
+    © 2026 LUX Advance — Agência europeia
+    de acompanhantes, todos os direitos reservados.
 
   </div>
 

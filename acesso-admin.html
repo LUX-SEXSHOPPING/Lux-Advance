@@ -1,49 +1,885 @@
 <!DOCTYPE html>
-<html lang="pt‑BR">
+<html lang="pt-BR">
+
 <head>
-<meta charset="UTF‑8">
-<meta name="viewport" content="width=device‑width, initial‑scale=1.0">
-<title>🔐 Acesso — Área Administrativa</title>
-<style>
-*{margin:0;padding:0;box‑sizing:border‑box;font‑family:'Segoe UI',sans‑serif}
-body{background:#000 url('lux‑halloween.jpg') center/cover no‑repeat;min‑height:100vh;display:flex;align‑items:center;justify‑content:center;padding:20px}
-.escuro{position:fixed;inset:0;background:rgba(0,0,0,.75);z‑index:1}
-.caixa{position:relative;z‑index:2;background:linear-gradient(145deg,#2b220f,#1a1406);border:2px solid #c9a227;border‑radius:20px;padding:30px;width:100%;max‑width:400px;box‑shadow:0 10px 40px rgba(0,0,0,.8),0 0 25px rgba(201,162,39,.15);text‑align:center}
-h2{color:#f0d878;font‑size:24px;margin‑bottom:8px}
-p{color:#cbbfaf;margin‑bottom:20px;font‑size:15px}
-input{width:100%;padding:14px;border‑radius:10px;border:1px solid rgba(201,162,39,.4);background:rgba(0,0,0,.5);color:#fff;font‑size:18px;text‑align:center;margin‑bottom:16px}
-button{width:100%;padding:14px;border‑radius:10px;border:none;font‑size:17px;font‑weight:bold;cursor:pointer;background:linear-gradient(180deg,#f0d878,#c9a227);color:#221a00;transition:transform .2s}
-button:hover{transform:scale(1.03)}
-.erro{color:#ff7b7b;margin‑top:12px;display:none}
-</style>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>LUX Advance — Acesso Administrativo</title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html,
+    body{
+      width:100%;
+      min-height:100%;
+    }
+
+    body{
+
+      min-height:100vh;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      padding:30px 20px;
+
+      font-family:
+        Montserrat,
+        Arial,
+        sans-serif;
+
+      color:#f5eee5;
+
+      background:
+        linear-gradient(
+          rgba(0,0,0,.72),
+          rgba(0,0,0,.90)
+        ),
+        url("./lux-halloween.jpg")
+        center center / cover
+        fixed
+        no-repeat;
+
+      overflow-x:hidden;
+
+      position:relative;
+    }
+
+
+    /* =====================================================
+       ATMOSFERA HALLOWEEN
+       ===================================================== */
+
+    body::before{
+
+      content:"";
+
+      position:fixed;
+
+      width:500px;
+      height:500px;
+
+      top:-250px;
+      right:-180px;
+
+      border-radius:50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255,77,166,.16),
+          transparent 68%
+        );
+
+      pointer-events:none;
+    }
+
+    body::after{
+
+      content:"";
+
+      position:fixed;
+
+      width:450px;
+      height:450px;
+
+      bottom:-250px;
+      left:-180px;
+
+      border-radius:50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(216,180,90,.13),
+          transparent 68%
+        );
+
+      pointer-events:none;
+    }
+
+
+    .lua{
+
+      position:fixed;
+
+      width:170px;
+      height:170px;
+
+      top:7%;
+      right:8%;
+
+      border-radius:50%;
+
+      background:
+        radial-gradient(
+          circle at 35% 35%,
+          #fff4c8,
+          #d9bd73 42%,
+          rgba(216,180,90,.15) 70%,
+          transparent 72%
+        );
+
+      opacity:.14;
+
+      filter:blur(.3px);
+
+      pointer-events:none;
+    }
+
+
+    /* =====================================================
+       CAIXA PRINCIPAL
+       ===================================================== */
+
+    .caixa{
+
+      position:relative;
+
+      width:100%;
+      max-width:560px;
+
+      padding:58px 52px 52px;
+
+      border-radius:28px;
+
+      border:
+        1px solid
+        rgba(216,180,90,.62);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(30,20,10,.96),
+          rgba(10,7,9,.96)
+        );
+
+      box-shadow:
+
+        0 30px 100px
+        rgba(0,0,0,.85),
+
+        0 0 50px
+        rgba(216,180,90,.12),
+
+        inset 0 0 40px
+        rgba(216,180,90,.025);
+
+      backdrop-filter:blur(16px);
+
+      text-align:center;
+
+      z-index:5;
+
+      overflow:hidden;
+    }
+
+
+    .caixa::before{
+
+      content:"";
+
+      position:absolute;
+
+      top:0;
+      left:0;
+      right:0;
+
+      height:2px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          #d8b45a,
+          #f2d98a,
+          #d8b45a,
+          transparent
+        );
+    }
+
+
+    .caixa::after{
+
+      content:"";
+
+      position:absolute;
+
+      width:250px;
+      height:250px;
+
+      top:-160px;
+      left:-150px;
+
+      border-radius:50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255,77,166,.13),
+          transparent 70%
+        );
+
+      pointer-events:none;
+    }
+
+
+    /* =====================================================
+       MARCA
+       ===================================================== */
+
+    .lux{
+
+      font-family:
+        "Playfair Display",
+        serif;
+
+      font-size:52px;
+
+      font-weight:700;
+
+      letter-spacing:7px;
+
+      color:#f2d98a;
+
+      text-shadow:
+        0 0 20px
+        rgba(216,180,90,.20);
+
+      margin-bottom:2px;
+    }
+
+
+    .advance{
+
+      font-size:10px;
+
+      letter-spacing:7px;
+
+      color:#a99f96;
+
+      text-transform:uppercase;
+
+      margin-bottom:35px;
+    }
+
+
+    .ornamento{
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      gap:12px;
+
+      margin-bottom:28px;
+    }
+
+
+    .ornamento span{
+
+      display:block;
+
+      width:65px;
+      height:1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          #d8b45a
+        );
+    }
+
+
+    .ornamento span:last-child{
+
+      background:
+        linear-gradient(
+          90deg,
+          #d8b45a,
+          transparent
+        );
+    }
+
+
+    .ornamento i{
+
+      color:#d8b45a;
+
+      font-size:15px;
+
+      font-style:normal;
+    }
+
+
+    /* =====================================================
+       TÍTULO
+       ===================================================== */
+
+    h1{
+
+      font-family:
+        "Playfair Display",
+        serif;
+
+      font-size:31px;
+
+      font-weight:600;
+
+      letter-spacing:.5px;
+
+      color:#f6e4ae;
+
+      margin-bottom:10px;
+    }
+
+
+    .descricao{
+
+      max-width:420px;
+
+      margin:0 auto 34px;
+
+      color:#bdb3aa;
+
+      font-size:13px;
+
+      line-height:1.7;
+    }
+
+
+    .aviso{
+
+      display:inline-block;
+
+      margin-bottom:25px;
+
+      padding:7px 14px;
+
+      border:
+        1px solid
+        rgba(216,180,90,.25);
+
+      border-radius:30px;
+
+      color:#bcae99;
+
+      background:
+        rgba(216,180,90,.04);
+
+      font-size:9px;
+
+      letter-spacing:2px;
+
+      text-transform:uppercase;
+    }
+
+
+    /* =====================================================
+       CAMPO
+       ===================================================== */
+
+    .campo{
+
+      text-align:left;
+
+      margin-bottom:18px;
+    }
+
+
+    .campo label{
+
+      display:block;
+
+      margin-bottom:9px;
+
+      color:#d6c59b;
+
+      font-size:11px;
+
+      font-weight:600;
+
+      letter-spacing:1.8px;
+
+      text-transform:uppercase;
+    }
+
+
+    .campo input{
+
+      width:100%;
+
+      height:64px;
+
+      padding:
+        0 20px;
+
+      border:
+        1px solid
+        rgba(216,180,90,.34);
+
+      border-radius:14px;
+
+      outline:none;
+
+      background:
+        rgba(0,0,0,.58);
+
+      color:#fff;
+
+      font-family:
+        Montserrat,
+        sans-serif;
+
+      font-size:20px;
+
+      text-align:center;
+
+      letter-spacing:3px;
+
+      transition:
+        .25s ease;
+
+      box-shadow:
+        inset 0 0 18px
+        rgba(0,0,0,.35);
+    }
+
+
+    .campo input::placeholder{
+
+      color:#665e58;
+
+      letter-spacing:1px;
+
+      font-size:13px;
+    }
+
+
+    .campo input:focus{
+
+      border-color:#d8b45a;
+
+      box-shadow:
+        0 0 0 3px
+        rgba(216,180,90,.08),
+        0 0 25px
+        rgba(216,180,90,.10);
+
+      background:
+        rgba(0,0,0,.72);
+    }
+
+
+    /* =====================================================
+       BOTÃO
+       ===================================================== */
+
+    button{
+
+      width:100%;
+
+      height:62px;
+
+      margin-top:8px;
+
+      border:0;
+
+      border-radius:14px;
+
+      cursor:pointer;
+
+      font-family:
+        Montserrat,
+        sans-serif;
+
+      font-size:13px;
+
+      font-weight:700;
+
+      letter-spacing:2px;
+
+      color:#171005;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f4df9b,
+          #d8b45a 50%,
+          #b38a2d
+        );
+
+      box-shadow:
+        0 12px 30px
+        rgba(216,180,90,.18);
+
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
+    }
+
+
+    button:hover{
+
+      transform:
+        translateY(-2px);
+
+      filter:
+        brightness(1.08);
+
+      box-shadow:
+        0 16px 38px
+        rgba(216,180,90,.27);
+    }
+
+
+    button:active{
+
+      transform:
+        translateY(0);
+    }
+
+
+    /* =====================================================
+       ERRO
+       ===================================================== */
+
+    .erro{
+
+      display:none;
+
+      margin-top:18px;
+
+      padding:13px 15px;
+
+      border:
+        1px solid
+        rgba(255,90,90,.28);
+
+      border-radius:10px;
+
+      background:
+        rgba(120,0,0,.16);
+
+      color:#ff9a9a;
+
+      font-size:11px;
+
+      line-height:1.5;
+    }
+
+
+    /* =====================================================
+       RODAPÉ
+       ===================================================== */
+
+    .rodape{
+
+      margin-top:31px;
+
+      padding-top:20px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.07);
+
+      color:#77716d;
+
+      font-size:9px;
+
+      line-height:1.7;
+
+      letter-spacing:1px;
+
+      text-transform:uppercase;
+    }
+
+
+    .rodape strong{
+
+      color:#a58b51;
+    }
+
+
+    /* =====================================================
+       RESPONSIVO
+       ===================================================== */
+
+    @media(max-width:600px){
+
+      body{
+
+        padding:
+          18px 14px;
+      }
+
+      .caixa{
+
+        max-width:100%;
+
+        padding:
+          45px 25px 38px;
+
+        border-radius:22px;
+      }
+
+      .lux{
+
+        font-size:43px;
+
+        letter-spacing:6px;
+      }
+
+      .advance{
+
+        font-size:8px;
+
+        letter-spacing:5px;
+
+        margin-bottom:28px;
+      }
+
+      h1{
+
+        font-size:26px;
+      }
+
+      .descricao{
+
+        font-size:12px;
+      }
+
+      .campo input{
+
+        height:60px;
+      }
+
+      button{
+
+        height:59px;
+      }
+
+    }
+
+  </style>
+
 </head>
-<body><div class="escuro"></div>
-<div class="caixa">
-  <h2>🔒 ENTRAR — ÁREA ADMINISTRATIVA</h2>
-  <p>Digite o código combinado para acessar</p>
-  <input type="text" id="codigoEntrada" placeholder="Digite aqui…" autocomplete="off">
-  <button onclick="verificar()">CONFIRMAR E ENTRAR</button>
-  <div class="erro" id="avisoErro">❌ Código incorreto — verifique com o dono ou sócio</div>
-</div>
 
-<script>
-// ✅ ALTERA AQUI — COLOQUE SEU CÓDIGO SIMPLES, EX: LUX123 / SEUCODIGO / NOMEQUEQUISER
-const CODIGO_PERMITIDO = "LUXADM01";
-// ✅ PRA ONDE VAI QUEM ACERTA — COLOQUE O ARQUIVO REAL DA SUA ÁREA
-const PAGINA_ADMIN = "admin.html";
 
-function verificar(){
-  const digitado = document.getElementById("codigoEntrada").value.trim();
-  if(digitado === CODIGO_PERMITIDO){
-    window.location.href = PAGINA_ADMIN;
-  }else{
-    document.getElementById("avisoErro").style.display = "block";
-  }
-}
-// Permitir apertar Enter pra confirmar
-document.getElementById("codigoEntrada").addEventListener("keydown", e => {
-  if(e.key === "Enter") verificar();
-});
-</script>
+<body>
+
+
+  <div class="lua"></div>
+
+
+  <main class="caixa">
+
+
+    <div class="lux">
+      LUX
+    </div>
+
+    <div class="advance">
+      ADVANCE
+    </div>
+
+
+    <div class="ornamento">
+
+      <span></span>
+
+      <i>✦</i>
+
+      <span></span>
+
+    </div>
+
+
+    <div class="aviso">
+      Acesso restrito
+    </div>
+
+
+    <h1>
+      Área Administrativa
+    </h1>
+
+
+    <p class="descricao">
+
+      Ambiente exclusivo para gerenciamento,
+      segurança e administração da plataforma LUX Advance.
+
+    </p>
+
+
+    <div class="campo">
+
+      <label for="codigoEntrada">
+        Código de acesso
+      </label>
+
+      <input
+        type="password"
+        id="codigoEntrada"
+        placeholder="Digite seu código"
+        autocomplete="off"
+        spellcheck="false"
+      >
+
+    </div>
+
+
+    <button
+      type="button"
+      onclick="verificar()"
+    >
+      ENTRAR NA ADMINISTRAÇÃO
+    </button>
+
+
+    <div
+      class="erro"
+      id="avisoErro"
+    >
+      ❌ Código incorreto. Verifique o código de acesso e tente novamente.
+    </div>
+
+
+    <div class="rodape">
+
+      <strong>LUX Advance</strong>
+
+      <br>
+
+      Área administrativa protegida
+
+      <br>
+
+      Acesso autorizado somente ao responsável pela plataforma.
+
+    </div>
+
+
+  </main>
+
+
+  <script>
+
+    /*
+     * =====================================================
+     * LUX ADVANCE — ACESSO ADMINISTRATIVO
+     * =====================================================
+     */
+
+    const CODIGO_PERMITIDO = "LUXADM01";
+
+
+    /*
+     * IMPORTANTE:
+     * O painel administrativo correto é painel.html.
+     *
+     * O arquivo anterior apontava para admin.html,
+     * causando o erro 404.
+     */
+
+    const PAGINA_ADMIN = "./painel.html";
+
+
+    function verificar(){
+
+      const campo =
+        document.getElementById(
+          "codigoEntrada"
+        );
+
+      const erro =
+        document.getElementById(
+          "avisoErro"
+        );
+
+      const digitado =
+        campo.value.trim();
+
+
+      erro.style.display = "none";
+
+
+      if(
+        digitado === CODIGO_PERMITIDO
+      ){
+
+        window.location.href =
+          PAGINA_ADMIN;
+
+        return;
+
+      }
+
+
+      erro.style.display =
+        "block";
+
+      campo.value = "";
+
+      campo.focus();
+
+    }
+
+
+    document
+      .getElementById("codigoEntrada")
+      .addEventListener(
+        "keydown",
+        function(event){
+
+          if(
+            event.key === "Enter"
+          ){
+
+            verificar();
+
+          }
+
+        }
+      );
+
+  </script>
+
+
 </body>
+
 </html>

@@ -1,7 +1,3 @@
-/* =========================================================
-   LUX — CONFIGURAÇÃO SUPABASE
-   ========================================================= */
-
 const LUX_SUPABASE_URL =
   "https://lardmkeyyifmgbjrcfhn.supabase.co";
 
@@ -14,35 +10,49 @@ const LUX_SUPABASE_ANON_KEY =
    ========================================================= */
 
 if (!window.supabase) {
+
   console.error(
     "Biblioteca Supabase não foi carregada."
   );
+
 }
 
 
 /* =========================================================
-   CRIAR CLIENTE SUPABASE
+   CLIENTE SUPABASE
    ========================================================= */
 
 const luxSupabase =
   window.supabase
     ? window.supabase.createClient(
         LUX_SUPABASE_URL,
-        LUX_SUPABASE_ANON_KEY
+        LUX_SUPABASE_ANON_KEY,
+        {
+          auth: {
+            persistSession: true,
+            autoRefreshToken: true,
+            detectSessionInUrl: true
+          }
+        }
       )
     : null;
 
 
 /* =========================================================
-   DISPONIBILIZAR PARA O AUTH.JS
+   DISPONIBILIZAR SUPABASE NO PROJETO
    ========================================================= */
 
-window.luxSupabase = luxSupabase;
+window.luxSupabase =
+  luxSupabase;
 
 
 /* =========================================================
-   E-MAIL DO ADMINISTRADOR
+   E-MAIL ADMINISTRATIVO
    ========================================================= */
 
 const LUX_ADMIN_EMAIL =
   "Luxcdam@gmail.com";
+
+
+window.LUX_ADMIN_EMAIL =
+  LUX_ADMIN_EMAIL;

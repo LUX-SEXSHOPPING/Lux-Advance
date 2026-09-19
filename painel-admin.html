@@ -1331,10 +1331,6 @@ footer strong{
 }
 
 
-/* =========================================================
-   CELULAR PEQUENO
-   ========================================================= */
-
 @media(max-width:390px){
 
   .estatisticas{
@@ -1351,10 +1347,6 @@ footer strong{
 
 }
 
-
-/* =========================================================
-   SELEÇÃO
-   ========================================================= */
 
 ::selection{
 
@@ -1577,7 +1569,6 @@ footer strong{
 <div>
 
 
-
 <div class="painel">
 
 
@@ -1735,8 +1726,8 @@ footer strong{
         Sessão administrativa
       </span>
 
-      <strong>
-        ATIVA
+      <strong id="statusSessao">
+        VERIFICANDO
       </strong>
 
     </div>
@@ -1817,7 +1808,6 @@ footer strong{
 </main>
 
 
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="./config.js"></script>
@@ -1872,6 +1862,10 @@ function escapeHTML(
 }
 
 
+/* =========================================================
+   VERIFICAÇÃO ADMINISTRATIVA CORRIGIDA
+   ========================================================= */
+
 async function verificarAdmin(){
 
   try{
@@ -1887,30 +1881,92 @@ async function verificarAdmin(){
     }
 
 
+    /*
+      Primeiro verificamos se existe
+      uma sessão ativa.
+    */
+
     const {
-      data,
-      error
+      data: sessaoData,
+      error: sessaoError
+    } =
+      await window.luxSupabase
+      .auth
+      .getSession();
+
+
+    if(sessaoError){
+
+      console.error(
+        "Erro ao verificar sessão:",
+        sessaoError
+      );
+
+      throw sessaoError;
+
+    }
+
+
+    const session =
+      sessaoData?.session;
+
+
+    /*
+      Se não existe sessão, volta
+      para a tela correta de acesso.
+    */
+
+    if(!session){
+
+      console.warn(
+        "Nenhuma sessão administrativa encontrada."
+      );
+
+
+      window.location.href =
+        "./acesso-admin.html";
+
+
+      return null;
+
+    }
+
+
+    /*
+      Agora confirmamos o usuário
+      diretamente no Supabase.
+    */
+
+    const {
+      data: userData,
+      error: userError
     } =
       await window.luxSupabase
       .auth
       .getUser();
 
 
-    if(error){
+    if(userError){
 
-      throw error;
+      console.error(
+        "Erro ao obter usuário:",
+        userError
+      );
+
+      throw userError;
 
     }
 
 
     const user =
-      data?.user;
+      userData?.user;
 
 
     if(!user){
 
       window.location.href =
-        "./acessoadmin.html";
+        "./acesso-admin.html";
+
 
       return null;
 
@@ -1933,10 +1989,32 @@ async function verificarAdmin(){
       .toLowerCase();
 
 
+    console.log(
+      "Usuário autenticado:",
+      email
+    );
+
+
+    console.log(
+      "E-mail administrativo:",
+      adminEmail
+    );
+
+
+    /*
+      Confirma que o usuário autenticado
+      é exatamente o administrador.
+    */
+
     if(
       !adminEmail ||
       email !== adminEmail
     ){
+
+      console.error(
+        "E-mail não autorizado."
+      );
+
 
       await window.luxSupabase
         .auth
@@ -1949,7 +2027,7 @@ async function verificarAdmin(){
 
 
       window.location.href =
-        "./acessoadmin.html";
+        "./acesso-admin.html";
 
 
       return null;
@@ -1957,10 +2035,36 @@ async function verificarAdmin(){
     }
 
 
-    document.getElementById(
-      "statusSupabase"
-    ).textContent =
-      "CONECTADO";
+    /*
+      Tudo validado.
+    */
+
+    const statusSessao =
+      document.getElementById(
+        "statusSessao"
+      );
+
+
+    if(statusSessao){
+
+      statusSessao.textContent =
+        "AUTENTICADA";
+
+    }
+
+
+    const statusSupabase =
+      document.getElementById(
+        "statusSupabase"
+      );
+
+
+    if(statusSupabase){
+
+      statusSupabase.textContent =
+        "CONECTADO";
+
+    }
 
 
     return user;
@@ -1974,14 +2078,39 @@ async function verificarAdmin(){
     );
 
 
-    document.getElementById(
-      "statusSupabase"
-    ).textContent =
-      "ERRO";
+    const statusSupabase =
+      document.getElementById(
+        "statusSupabase"
+      );
+
+
+    if(statusSupabase){
+
+      statusSupabase.textContent =
+        "ERRO";
+
+    }
 
 
     mostrarAlerta(
       "Não foi possível validar o acesso administrativo."
+    );
+
+
+    /*
+      Aguarda um pequeno instante
+      para o usuário conseguir visualizar
+      a mensagem antes do redirecionamento.
+    */
+
+    setTimeout(
+      function(){
+
+        window.location.href =
+          "./acesso-admin.html";
+
+      },
+      1200
     );
 
 
@@ -1992,6 +2121,9 @@ async function verificarAdmin(){
 }
 
 
+/* =========================================================
+   CARREGAR DASHBOARD
+   ========================================================= */
 
 async function carregarDashboard(){
 
@@ -2037,7 +2169,8 @@ async function carregarDashboard(){
         p =>
           String(
             p.tipo || ""
-          ).toLowerCase()
+          )
+          .toLowerCase()
           === "modelo"
       );
 
@@ -2047,7 +2180,8 @@ async function carregarDashboard(){
         p =>
           String(
             p.tipo || ""
-          ).toLowerCase()
+          )
+          .toLowerCase()
           === "usuario"
       );
 
@@ -2057,7 +2191,8 @@ async function carregarDashboard(){
         p =>
           String(
             p.status || ""
-          ).toLowerCase()
+          )
+          .toLowerCase()
           === "pendente"
       );
 
@@ -2067,7 +2202,8 @@ async function carregarDashboard(){
         p =>
           String(
             p.status || ""
-          ).toLowerCase()
+          )
+          .toLowerCase()
           === "ativo"
       );
 
@@ -2131,6 +2267,7 @@ async function carregarDashboard(){
   }catch(error){
 
     console.error(
+      "Erro ao carregar dashboard:",
       error
     );
 
@@ -2165,6 +2302,9 @@ async function carregarDashboard(){
 }
 
 
+/* =========================================================
+   RENDERIZAR MODELOS
+   ========================================================= */
 
 function renderizarModelos(
   dadosModelo,
@@ -2238,7 +2378,8 @@ function renderizarModelos(
         String(
           perfil.status ||
           "pendente"
-        ).toLowerCase();
+        )
+        .toLowerCase();
 
 
       const div =
@@ -2276,6 +2417,16 @@ function renderizarModelos(
       }
 
 
+      const idSeguro =
+        String(
+          perfil.id
+        )
+        .replaceAll(
+          "'",
+          ""
+        );
+
+
       div.innerHTML = `
 
         <div class="modelo-info">
@@ -2303,7 +2454,7 @@ function renderizarModelos(
 
           <button
             class="btn btn-aprovar"
-            onclick="alterarStatus('${escapeHTML(perfil.id)}','ativo')"
+            onclick="alterarStatus('${idSeguro}','ativo')"
           >
             APROVAR
           </button>
@@ -2311,7 +2462,7 @@ function renderizarModelos(
 
           <button
             class="btn btn-rejeitar"
-            onclick="alterarStatus('${escapeHTML(perfil.id)}','bloqueado')"
+            onclick="alterarStatus('${idSeguro}','bloqueado')"
           >
             BLOQUEAR
           </button>
@@ -2331,6 +2482,9 @@ function renderizarModelos(
 }
 
 
+/* =========================================================
+   FILTRO
+   ========================================================= */
 
 function filtrarModelos(){
 
@@ -2369,6 +2523,9 @@ function filtrarModelos(){
 }
 
 
+/* =========================================================
+   ALTERAR STATUS
+   ========================================================= */
 
 async function alterarStatus(
   id,
@@ -2376,6 +2533,22 @@ async function alterarStatus(
 ){
 
   if(!id){
+
+    return;
+
+  }
+
+
+  /*
+    Confirma novamente a sessão antes
+    de permitir uma alteração administrativa.
+  */
+
+  const autorizado =
+    await verificarAdmin();
+
+
+  if(!autorizado){
 
     return;
 
@@ -2442,6 +2615,7 @@ async function alterarStatus(
   }catch(error){
 
     console.error(
+      "Erro ao alterar status:",
       error
     );
 
@@ -2455,6 +2629,9 @@ async function alterarStatus(
 }
 
 
+/* =========================================================
+   SAIR
+   ========================================================= */
 
 async function sair(){
 
@@ -2473,17 +2650,27 @@ async function sair(){
   }catch(error){
 
     console.error(
+      "Erro ao sair:",
       error
     );
 
   }
 
 
+  /*
+    CORRIGIDO:
+    o nome correto é acesso-admin.html
+  */
+
   window.location.href =
-    "./acessoadmin.html";
+    "./acesso-admin.html";
 
 }
 
+
+/* =========================================================
+   INICIAR
+   ========================================================= */
 
 carregarDashboard();
 

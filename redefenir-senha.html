@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>LUX — Nova Senha Administrativa</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- CONFIG -->
+  <script src="./config.js"></script>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+      color: #eee4d8;
+
+      background:
+        linear-gradient(
+          rgba(8,3,7,.76),
+          rgba(8,3,7,.91)
+        ),
+        url("./lux-halloween.jpg")
+        center center /
+        cover
+        fixed
+        no-repeat;
+
+    }
+
+    .container {
+
+      width: 100%;
+      max-width: 460px;
+
+    }
+
+    .painel {
+
+      padding: 38px 30px 30px;
+
+      border:
+        1px solid
+        rgba(201,162,39,.55);
+
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(22,8,14,.97),
+          rgba(6,3,7,.96)
+        );
+
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.75),
+        0 0 45px rgba(201,162,39,.08);
+
+      text-align: center;
+
+      backdrop-filter:
+        blur(12px);
+
+    }
+
+    .icone {
+
+      width: 82px;
+      height: 82px;
+
+      margin: 0 auto 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border:
+        1px solid
+        rgba(241,211,107,.65);
+
+      border-radius: 50%;
+
+      color: #f1d36b;
+
+      background:
+        rgba(201,162,39,.10);
+
+    }
+
+    .icone i {
+      font-size: 31px;
+    }
+
+    .marca {
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: 32px;
+
+      font-weight: 600;
+
+      letter-spacing: 4px;
+
+      color: #f1d36b;
+
+    }
+
+    .subtitulo {
+
+      margin-top: 5px;
+
+      font-size: 16px;
+
+      letter-spacing: 2px;
+
+      color: #cbbfb1;
+
+    }
+
+    .linha {
+
+      width: 90px;
+      height: 1px;
+
+      margin: 22px auto 25px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          #c9a227,
+          transparent
+        );
+
+    }
+
+    h1 {
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: 24px;
+
+      color: #fff1d0;
+
+      margin-bottom: 9px;
+
+    }
+
+    .descricao {
+
+      color: #bfb2a5;
+
+      font-size: 16px;
+
+      line-height: 1.5;
+
+      margin-bottom: 25px;
+
+    }
+
+    .campo {
+
+      position: relative;
+
+      margin-bottom: 16px;
+
+    }
+
+    .campo i {
+
+      position: absolute;
+
+      left: 17px;
+
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: #c9a227;
+
+      z-index: 2;
+
+    }
+
+    .campo input {
+
+      width: 100%;
+
+      height: 55px;
+
+      padding:
+        0 17px
+        0 47px;
+
+      border:
+        1px solid
+        rgba(201,162,39,.30);
+
+      border-radius: 13px;
+
+      outline: none;
+
+      color: #fff;
+
+      background:
+        rgba(255,255,255,.045);
+
+      font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+      font-size: 17px;
+
+    }
+
+    .campo input:focus {
+
+      border-color:
+        rgba(241,211,107,.85);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(201,162,39,.08);
+
+    }
+
+    .campo input::placeholder {
+      color: #8f8378;
+    }
+
+    .botao {
+
+      width: 100%;
+
+      height: 55px;
+
+      border: none;
+
+      border-radius: 13px;
+
+      cursor: pointer;
+
+      color: #170d05;
+
+      background:
+        linear-gradient(
+          135deg,
+          #c9a227,
+          #f1d36b,
+          #c9a227
+        );
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      letter-spacing: 1px;
+
+    }
+
+    .botao:disabled {
+
+      opacity: .6;
+
+      cursor: wait;
+
+    }
+
+    .mensagem {
+
+      min-height: 25px;
+
+      margin-top: 17px;
+
+      font-size: 15px;
+
+      line-height: 1.4;
+
+    }
+
+    .erro {
+      color: #ff9999;
+    }
+
+    .sucesso {
+      color: #e6c86e;
+    }
+
+    .voltar {
+
+      display: block;
+
+      margin-top: 22px;
+
+      color: #9e9287;
+
+      text-decoration: none;
+
+      font-size: 14px;
+
+    }
+
+    .voltar:hover {
+      color: #eee4d8;
+    }
+
+    .rodape {
+
+      margin-top: 22px;
+
+      padding-top: 18px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.07);
+
+      color: #70675f;
+
+      font-size: 12px;
+
+    }
+
+    @media (max-width: 500px) {
+
+      body {
+        padding: 14px;
+      }
+
+      .painel {
+        padding: 30px 21px 27px;
+      }
+
+      .marca {
+        font-size: 28px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <main class="container">
+
+    <section class="painel">
+
+      <div class="icone">
+
+        <i class="fas fa-key"></i>
+
+      </div>
+
+
+      <div class="marca">
+        LUX
+      </div>
+
+
+      <div class="subtitulo">
+        ADVANCE
+      </div>
+
+
+      <div class="linha"></div>
+
+
+      <h1>
+        Nova Senha Administrativa
+      </h1>
+
+
+      <p class="descricao">
+
+        Crie uma nova senha para recuperar o acesso à área administrativa.
+
+      </p>
+
+
+      <form id="formNovaSenha">
+
+        <div class="campo">
+
+          <i class="fas fa-lock"></i>
+
+          <input
+            type="password"
+            id="novaSenha"
+            placeholder="Nova senha"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <i class="fas fa-lock"></i>
+
+          <input
+            type="password"
+            id="confirmarSenha"
+            placeholder="Confirmar nova senha"
+            autocomplete="new-password"
+            minlength="6"
+            required
+          >
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="botao"
+          id="btnSalvar"
+        >
+          <i class="fas fa-check"></i>
+          &nbsp;
+          SALVAR NOVA SENHA
+        </button>
+
+      </form>
+
+
+      <div
+        id="mensagem"
+        class="mensagem"
+      ></div>
+
+
+      <a
+        href="./acesso-admin.html"
+        class="voltar"
+      >
+        <i class="fas fa-arrow-left"></i>
+        Voltar para o acesso administrativo
+      </a>
+
+
+      <div class="rodape">
+
+        LUX Advance © 2026<br>
+
+        Recuperação segura através do Supabase.
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    /* =========================================================
+       LUX — REDEFINIÇÃO DE SENHA ADMINISTRATIVA
+       ========================================================= */
+
+    const form =
+      document.getElementById(
+        "formNovaSenha"
+      );
+
+    const novaSenha =
+      document.getElementById(
+        "novaSenha"
+      );
+
+    const confirmarSenha =
+      document.getElementById(
+        "confirmarSenha"
+      );
+
+    const btnSalvar =
+      document.getElementById(
+        "btnSalvar"
+      );
+
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
+
+
+    function mostrarMensagem(
+      texto,
+      tipo
+    ) {
+
+      mensagem.textContent =
+        texto;
+
+      mensagem.className =
+        "mensagem " +
+        (tipo || "");
+
+    }
+
+
+    /* =========================================================
+       VERIFICA SUPABASE
+       ========================================================= */
+
+    if (!window.luxSupabase) {
+
+      mostrarMensagem(
+        "Supabase não foi inicializado. Verifique o config.js.",
+        "erro"
+      );
+
+    }
+
+
+    /* =========================================================
+       DETECTA SESSÃO DE RECUPERAÇÃO
+       ========================================================= */
+
+    if (window.luxSupabase) {
+
+      window.luxSupabase.auth
+        .onAuthStateChange(
+          async function(
+            event,
+            session
+          ) {
+
+            console.log(
+              "LUX RECUPERAÇÃO:",
+              event
+            );
+
+
+            if (
+              event ===
+              "PASSWORD_RECOVERY"
+            ) {
+
+              console.log(
+                "Sessão de recuperação autorizada."
+              );
+
+              return;
+
+            }
+
+
+            /*
+             * Quando a página é aberta
+             * pelo link do e-mail, o Supabase
+             * cria a sessão de recuperação.
+             */
+
+          }
+        );
+
+    }
+
+
+    /* =========================================================
+       SALVAR NOVA SENHA
+       ========================================================= */
+
+    form.addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+
+        mostrarMensagem(
+          "",
+          ""
+        );
+
+
+        const senha1 =
+          novaSenha.value;
+
+
+        const senha2 =
+          confirmarSenha.value;
+
+
+        if (
+          !senha1 ||
+          senha1.length < 6
+        ) {
+
+          mostrarMensagem(
+            "A nova senha deve possuir pelo menos 6 caracteres.",
+            "erro"
+          );
+
+          return;
+
+        }
+
+
+        if (
+          senha1 !== senha2
+        ) {
+
+          mostrarMensagem(
+            "As senhas não são iguais.",
+            "erro"
+          );
+
+          return;
+
+        }
+
+
+        if (!window.luxSupabase) {
+
+          mostrarMensagem(
+            "Supabase não foi inicializado.",
+            "erro"
+          );
+
+          return;
+
+        }
+
+
+        btnSalvar.disabled =
+          true;
+
+        btnSalvar.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> SALVANDO...';
+
+
+        try {
+
+          /*
+           * ALTERA A SENHA
+           */
+
+          const {
+            data,
+            error
+          } =
+            await window.luxSupabase.auth
+              .updateUser({
+
+                password:
+                  senha1
+
+              });
+
+
+          if (error) {
+
+            console.error(
+              "Erro ao alterar senha:",
+              error
+            );
+
+            throw error;
+
+          }
+
+
+          if (!data?.user) {
+
+            throw new Error(
+              "Não foi possível confirmar a alteração da senha."
+            );
+
+          }
+
+
+          mostrarMensagem(
+            "Senha alterada com sucesso! Redirecionando...",
+            "sucesso"
+          );
+
+
+          /*
+           * FINALIZA A SESSÃO DE RECUPERAÇÃO
+           * E VOLTA PARA O LOGIN ADMINISTRATIVO.
+           */
+
+          setTimeout(
+            async function() {
+
+              await window.luxSupabase.auth
+                .signOut();
+
+
+              window.location.replace(
+                "./acesso-admin.html"
+              );
+
+            },
+            1500
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "LUX RECUPERAÇÃO:",
+            error
+          );
+
+
+          mostrarMensagem(
+            error.message ||
+            "Não foi possível alterar a senha.",
+            "erro"
+          );
+
+
+          btnSalvar.disabled =
+            false;
+
+          btnSalvar.innerHTML =
+            '<i class="fas fa-check"></i> &nbsp; SALVAR NOVA SENHA';
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>

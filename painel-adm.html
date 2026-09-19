@@ -1,468 +1,2026 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#c9a227">
-<meta name="description" content="LUX — Sensualidade &amp; Sofisticação. Conectamos momentos especiais com pessoas extraordinárias.">
-<title>LUX — Sensualidade &amp; Sofisticação</title>
 
-<link rel="manifest" href="manifest.json">
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link rel="dns-prefetch" href="https://wa.me">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700;1,800&amp;display=swap" as="style">
-<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+<title>LUX — Painel Administrativo</title>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700;1,800&amp;display=swap">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
 
 <style>
-:root{
-  --dourado:#c9a227;
-  --dourado-claro:#f0d878;
-  --champanhe:#f5e6c8;
-  --texto-claro:#efe7dd;
-  --texto-suave:#cbbfaf;
-  --vinho:#6e0f2e;
-  --fundo:#0c0809;
-  --painel:rgba(255,255,255,.045);
-  --borda-dourada:rgba(201,162,39,.28);
-}
 
 *{
+  box-sizing:border-box;
   margin:0;
   padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif
 }
 
-html{
-  scroll-behavior:smooth
+:root{
+  --preto:#080506;
+  --preto2:#11090c;
+  --vinho:#210d15;
+  --vinho2:#35121f;
+  --dourado:#d8b45b;
+  --dourado2:#f3d889;
+  --rosa:#ff4da6;
+  --branco:#f7f2e9;
+  --cinza:#bdb5ae;
+  --verde:#63d39b;
+  --vermelho:#e76a7c;
+  --borda:rgba(216,180,91,.25);
 }
 
 body{
-  color:var(--texto-claro);
+
   min-height:100vh;
+
+  font-family:Arial,Helvetica,sans-serif;
+
+  color:var(--branco);
+
   background:
-    radial-gradient(900px 520px at 82% -12%, rgba(110,15,46,.38), transparent 60%),
-    radial-gradient(760px 420px at 8% 112%, rgba(201,162,39,.14), transparent 62%),
-    var(--fundo);
+    linear-gradient(
+      rgba(5,3,4,.82),
+      rgba(8,4,6,.95)
+    ),
+    url("./Halloween-feminina.jpg")
+    center top / cover fixed no-repeat;
+
 }
 
-body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    linear-gradient(115deg, transparent 42%, rgba(201,162,39,.05) 48%, transparent 54%),
-    linear-gradient(-115deg, transparent 62%, rgba(110,15,46,.09) 70%, transparent 78%);
-  z-index:0;
-}
+/* =========================
+   TOPO
+========================= */
 
-/* FUNDO COM LOGO3 - MAIS VISÍVEL */
-body::after{
-  content:'';
-  position:fixed;
-  inset:0;
-  background:url('logo3.png') center/contain no-repeat;
-  opacity:0.35;
-  pointer-events:none;
-  z-index:0;
-  filter:brightness(1.2) saturate(1.3);
-}
+.topbar{
 
-.serif{
-  font-family:'Playfair Display',serif
-}
+  height:76px;
 
-.conteudo{
-  position:relative;
-  z-index:1;
-  max-width:1120px;
-  margin:0 auto;
-  padding:0 22px
-}
-
-/* HEADER */
-
-header{
   display:flex;
+
+  align-items:center;
+
   justify-content:space-between;
-  align-items:center;
-  padding:24px 0;
-  flex-wrap:wrap;
-  gap:16px;
-  position:relative;
-  z-index:10;
+
+  padding:0 28px;
+
+  background:
+    rgba(8,5,6,.94);
+
+  border-bottom:
+    1px solid var(--borda);
+
+  backdrop-filter:blur(12px);
+
+  position:sticky;
+
+  top:0;
+
+  z-index:1000;
+
 }
 
-.logo-header{
+.marca{
+
   display:flex;
+
   align-items:center;
-  gap:14px;
+
+  gap:12px;
+
+}
+
+.logo{
+
+  width:45px;
+
+  height:45px;
+
+  border-radius:50%;
+
+  border:1px solid var(--dourado);
+
+  display:flex;
+
   align-items:center;
-}
 
-.logo-img{
-  width:80px;
-  height:80px;
-  object-fit:contain;
-  filter:brightness(1.3) saturate(1.4) drop-shadow(0 0 12px rgba(201,162,39,.5));
-  transition:all .3s;
-}
-
-.logo-img:hover{
-  filter:brightness(1.5) saturate(1.6) drop-shadow(0 0 20px rgba(201,162,39,.8));
-  transform:scale(1.08);
-}
-
-.logo-lux{
-  font-family:'Playfair Display',serif;
-  font-size:40px;
-  font-weight:800;
-  font-style:italic;
-  letter-spacing:6px;
-  color:var(--champanhe);
-  text-shadow:0 0 24px rgba(201,162,39,.4);
-  position:relative;
-  z-index:11;
-}
-
-.logo-lux::after{
-  content:'';
-  position:absolute;
-  left:2px;
-  right:14px;
-  bottom:-7px;
-  height:1px;
-  background:linear-gradient(90deg,var(--dourado),transparent)
-}
-
-nav{
-  display:flex;
-  flex-wrap:wrap;
-  gap:4px;
-  justify-content:flex-end;
-  position:relative;
-  z-index:11;
-}
-
-nav a{
-  color:var(--texto-suave);
-  text-decoration:none;
-  padding:9px 14px;
-  font-size:14px;
-  letter-spacing:.6px;
-  border:1px solid transparent;
-  border-radius:999px;
-  transition:all .3s;
-  background:rgba(12,8,9,.6);
-  backdrop-filter:blur(4px);
-}
-
-nav a:hover,
-nav a.ativo{
-  color:var(--dourado-claro);
-  border-color:var(--borda-dourada);
-  background:rgba(201,162,39,.12);
-  box-shadow:0 0 16px rgba(201,162,39,.2);
-}
-
-/* HERO */
-
-.hero{
-  text-align:center;
-  padding:54px 10px 64px;
-  position:relative;
-  z-index:2;
-}
-
-.hero .selo{
-  display:inline-block;
-  font-size:12px;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  color:var(--dourado-claro);
-  border:1px solid var(--borda-dourada);
-  border-radius:999px;
-  padding:7px 20px;
-  background:rgba(201,162,39,.08);
-  margin-bottom:26px;
-  backdrop-filter:blur(6px);
-}
-
-.hero h1{
-  font-family:'Playfair Display',serif;
-  font-size:min(92px,17vw);
-  font-style:italic;
-  font-weight:800;
-  line-height:.95;
-  letter-spacing:10px;
-  padding-left:10px;
-  background:linear-gradient(
-    180deg,
-    #fdf3d0 0%,
-    var(--dourado-claro) 45%,
-    var(--dourado) 78%,
-    #8a6d14 100%
-  );
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  filter:drop-shadow(0 0 26px rgba(201,162,39,.3));
-  text-shadow:0 0 40px rgba(201,162,39,.2);
-}
-
-.hero .slogan{
-  font-family:'Playfair Display',serif;
-  font-style:italic;
-  font-size:clamp(17px,2.6vw,24px);
-  color:var(--champanhe);
-  margin-top:10px;
-  letter-spacing:1px;
-  text-shadow:0 2px 12px rgba(0,0,0,.8);
-}
-
-.hero .descricao{
-  max-width:620px;
-  margin:22px auto 0;
-  color:var(--texto-suave);
-  font-size:15px;
-  line-height:1.8;
-  text-shadow:0 1px 6px rgba(0,0,0,.6);
-}
-
-.hero .acoes{
-  display:flex;
-  gap:14px;
   justify-content:center;
+
+  color:var(--dourado2);
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-weight:700;
+
+  font-size:20px;
+
+  box-shadow:
+    0 0 18px rgba(216,180,91,.15);
+
+}
+
+.marca-texto{
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  color:var(--dourado2);
+
+  font-size:20px;
+
+  letter-spacing:1px;
+
+}
+
+.marca-texto span{
+
+  display:block;
+
+  font-family:Arial,sans-serif;
+
+  font-size:9px;
+
+  letter-spacing:3px;
+
+  color:var(--cinza);
+
+  margin-top:2px;
+
+}
+
+.btn-sair{
+
+  border:1px solid var(--dourado);
+
+  color:var(--dourado2);
+
+  background:transparent;
+
+  padding:10px 18px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  font-weight:bold;
+
+}
+
+.btn-sair:hover{
+
+  background:var(--dourado);
+
+  color:#090506;
+
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+
+  width:min(1400px,94%);
+
+  margin:auto;
+
+  padding:35px 0 60px;
+
+}
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.cabecalho{
+
+  margin-bottom:30px;
+
+}
+
+.cabecalho small{
+
+  color:var(--dourado);
+
+  letter-spacing:3px;
+
+  font-size:11px;
+
+}
+
+.cabecalho h1{
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size:42px;
+
+  margin:7px 0;
+
+  color:#fff;
+
+}
+
+.cabecalho p{
+
+  color:var(--cinza);
+
+  max-width:700px;
+
+  line-height:1.6;
+
+}
+
+/* =========================
+   ALERTA
+========================= */
+
+.alerta{
+
+  display:none;
+
+  padding:14px 18px;
+
+  border:1px solid rgba(231,106,124,.4);
+
+  background:rgba(100,20,35,.25);
+
+  color:#ffd5dc;
+
+  border-radius:10px;
+
+  margin-bottom:25px;
+
+}
+
+/* =========================
+   CARDS ESTATÍSTICAS
+========================= */
+
+.estatisticas{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:16px;
+
+  margin-bottom:30px;
+
+}
+
+.stat{
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(34,16,23,.95),
+      rgba(13,7,10,.95)
+    );
+
+  border:1px solid var(--borda);
+
+  border-radius:14px;
+
+  padding:22px;
+
+  min-height:130px;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.2);
+
+}
+
+.stat small{
+
+  color:var(--cinza);
+
+  text-transform:uppercase;
+
+  letter-spacing:1.5px;
+
+  font-size:10px;
+
+}
+
+.stat strong{
+
+  display:block;
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size:38px;
+
+  color:var(--dourado2);
+
+  margin-top:12px;
+
+}
+
+.stat p{
+
+  color:#938a85;
+
+  font-size:12px;
+
+  margin-top:3px;
+
+}
+
+/* =========================
+   GRID PRINCIPAL
+========================= */
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:
+    1.4fr .8fr;
+
+  gap:20px;
+
+}
+
+.painel{
+
+  background:
+    rgba(13,7,10,.92);
+
+  border:
+    1px solid var(--borda);
+
+  border-radius:16px;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,.25);
+
+}
+
+.painel-header{
+
+  padding:20px 22px;
+
+  border-bottom:
+    1px solid rgba(216,180,91,.13);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+}
+
+.painel-header h2{
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  color:var(--dourado2);
+
+  font-size:23px;
+
+}
+
+.painel-header span{
+
+  color:var(--cinza);
+
+  font-size:12px;
+
+}
+
+/* =========================
+   APROVAÇÕES
+========================= */
+
+.lista{
+
+  padding:10px;
+
+}
+
+.modelo{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  padding:17px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.06);
+
+}
+
+.modelo:last-child{
+
+  border-bottom:none;
+
+}
+
+.modelo-info{
+
+  min-width:0;
+
+}
+
+.modelo-info strong{
+
+  display:block;
+
+  color:#fff;
+
+  font-size:15px;
+
+  margin-bottom:5px;
+
+}
+
+.modelo-info span{
+
+  color:#999;
+
+  font-size:12px;
+
+  display:block;
+
+}
+
+.status{
+
+  display:inline-block;
+
+  margin-top:8px;
+
+  padding:4px 8px;
+
+  border-radius:20px;
+
+  font-size:10px;
+
+  text-transform:uppercase;
+
+  letter-spacing:1px;
+
+}
+
+.status-pendente{
+
+  color:#f4cf78;
+
+  background:rgba(216,180,91,.12);
+
+  border:1px solid rgba(216,180,91,.2);
+
+}
+
+.status-ativo{
+
+  color:var(--verde);
+
+  background:rgba(99,211,155,.1);
+
+  border:1px solid rgba(99,211,155,.2);
+
+}
+
+.status-bloqueado{
+
+  color:var(--vermelho);
+
+  background:rgba(231,106,124,.1);
+
+  border:1px solid rgba(231,106,124,.2);
+
+}
+
+.acoes{
+
+  display:flex;
+
+  gap:7px;
+
   flex-wrap:wrap;
-  margin-top:34px;
-  position:relative;
-  z-index:5;
+
+  justify-content:flex-end;
+
 }
 
 .btn{
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  padding:14px 30px;
-  border-radius:999px;
-  font-size:15px;
-  font-weight:600;
-  text-decoration:none;
-  letter-spacing:.5px;
-  transition:all .3s;
+
+  border:1px solid var(--borda);
+
+  background:#160b0f;
+
+  color:#eee;
+
+  padding:8px 11px;
+
+  border-radius:7px;
+
   cursor:pointer;
-  border:1px solid transparent;
-  position:relative;
-  z-index:5;
+
+  font-size:11px;
+
 }
 
-.btn-ouro{
-  background:linear-gradient(
-    135deg,
-    #f0d878,
-    #c9a227 60%,
-    #8a6d14
-  );
-  color:#1a1206;
-  box-shadow:0 8px 28px rgba(201,162,39,.3)
+.btn:hover{
+
+  border-color:var(--dourado);
+
+  color:var(--dourado2);
+
 }
 
-.btn-ouro:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 34px rgba(201,162,39,.45)
+.btn-aprovar{
+
+  border-color:rgba(99,211,155,.35);
+
+  color:var(--verde);
+
 }
 
-.btn-contorno{
-  color:var(--dourado-claro);
-  border-color:var(--borda-dourada);
-  background:rgba(201,162,39,.06);
-  backdrop-filter:blur(4px);
+.btn-rejeitar{
+
+  border-color:rgba(231,106,124,.35);
+
+  color:#ff9baa;
+
 }
 
-.btn-contorno:hover{
-  background:rgba(201,162,39,.14);
-  transform:translateY(-2px);
-  box-shadow:0 0 16px rgba(201,162,39,.2);
+/* =========================
+   BUSCA
+========================= */
+
+.busca{
+
+  padding:16px;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.05);
+
 }
 
-/* BOTÃO PIX */
+.busca input{
 
-.btn-pix{
-  background:linear-gradient(
-    135deg,
-    #f0d878,
-    #c9a227 55%,
-    #8a6d14
-  );
-  color:#1a1206;
-  box-shadow:0 8px 30px rgba(201,162,39,.35);
-  font-weight:700;
+  width:100%;
+
+  padding:13px 14px;
+
+  border-radius:8px;
+
+  border:1px solid rgba(216,180,91,.2);
+
+  background:#090608;
+
+  color:white;
+
+  outline:none;
+
 }
 
-.btn-pix:hover{
-  transform:translateY(-3px);
-  box-shadow:0 14px 38px rgba(201,162,39,.5);
+.busca input:focus{
+
+  border-color:var(--dourado);
+
 }
 
-.pix-info{
-  margin-top:12px;
-  color:var(--texto-suave);
-  font-size:12px;
-  text-shadow:0 1px 4px rgba(0,0,0,.6);
-}
+/* =========================
+   ATALHOS
+========================= */
 
-/* MODAL PIX */
-#pixModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(8px)}
-#pixModal .pix-card{width:100%;max-width:420px;background:linear-gradient(135deg,#1a1206,#120d0f);border:1px solid rgba(201,162,39,.35);border-radius:16px;padding:18px;color:#efe7dd;box-shadow:0 8px 32px rgba(0,0,0,.6)}
-#pixModal h3{font-family:'Playfair Display',serif;font-size:20px}
-#pixModal label{color:#d4c5a9;font-size:13px;font-weight:600}
-#pixModal select,#pixModal input,#pixModal textarea{width:100%;padding:10px;border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,.08);border:1px solid rgba(201,162,39,.2);color:#efe7dd;font-family:'Segoe UI',sans-serif}
-#pixModal select:focus,#pixModal input:focus,#pixModal textarea:focus{outline:none;border-color:rgba(201,162,39,.5);background:rgba(255,255,255,.12)}
+.atalhos{
 
-/* DIFERENCIAIS */
-
-.diferenciais{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:16px;
-  padding:6px 0 10px;
-  position:relative;
-  z-index:2;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+
+  padding:18px;
+
 }
 
-.diferencial{
-  background:var(--painel);
-  border:1px solid var(--borda-dourada);
-  border-radius:18px;
-  padding:26px 20px;
+.atalho{
+
+  text-decoration:none;
+
+  color:#eee;
+
+  border:
+    1px solid rgba(216,180,91,.16);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(38,18,25,.8),
+      rgba(12,7,10,.9)
+    );
+
+  border-radius:10px;
+
+  padding:16px;
+
+  transition:.2s;
+
+}
+
+.atalho:hover{
+
+  border-color:var(--dourado);
+
+  transform:translateY(-2px);
+
+}
+
+.atalho strong{
+
+  display:block;
+
+  color:var(--dourado2);
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  margin-bottom:5px;
+
+}
+
+.atalho span{
+
+  font-size:11px;
+
+  color:#999;
+
+}
+
+/* =========================
+   SEGURANÇA
+========================= */
+
+.seguranca{
+
+  padding:20px;
+
+}
+
+.linha-seguranca{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:13px 0;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.05);
+
+}
+
+.linha-seguranca:last-child{
+
+  border-bottom:none;
+
+}
+
+.linha-seguranca span{
+
+  color:#aaa;
+
+  font-size:12px;
+
+}
+
+.linha-seguranca strong{
+
+  color:var(--verde);
+
+  font-size:11px;
+
+}
+
+/* =========================
+   RODAPÉ
+========================= */
+
+footer{
+
+  margin-top:35px;
+
+  padding-top:25px;
+
+  border-top:
+    1px solid rgba(216,180,91,.12);
+
   text-align:center;
-  backdrop-filter:blur(6px);
-  transition:all .3s
+
+  color:#777;
+
+  font-size:11px;
+
 }
 
-.diferencial:hover{
-  transform:translateY(-4px);
-  border-color:rgba(201,162,39,.5);
-  box-shadow:0 8px 24px rgba(201,162,39,.15);
+footer strong{
+
+  color:var(--dourado);
+
 }
 
-.diferencial i{
-  font-size:26px;
-  color:var(--dourado-claro);
-  margin-bottom:12px
-}
+/* =========================
+   RESPONSIVO
+========================= */
 
-.diferencial h3{
-  font-family:'Playfair Display',serif;
-  font-style:italic;
-  font-size:18px;
-  color:var(--champanhe);
-  margin-bottom:8px
-}
+@media(max-width:1000px){
 
-.diferencial p{
-  font-size:13px;
-  color:var(--texto-suave);
-  line-height:1.6
-}
+  .estatisticas{
 
-@media (max-width: 768px) {
-  .logo-img{
-    width:60px;
-    height:60px;
+    grid-template-columns:
+      repeat(2,1fr);
+
   }
-  .logo-lux{
-    font-size:28px;
+
+  .grid{
+
+    grid-template-columns:1fr;
+
   }
+
 }
+
+@media(max-width:600px){
+
+  .topbar{
+
+    padding:0 15px;
+
+    height:68px;
+
+  }
+
+  .marca-texto{
+
+    font-size:16px;
+
+  }
+
+  .container{
+
+    width:92%;
+
+    padding-top:25px;
+
+  }
+
+  .cabecalho h1{
+
+    font-size:32px;
+
+  }
+
+  .estatisticas{
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+  }
+
+  .stat{
+
+    padding:16px;
+
+    min-height:110px;
+
+  }
+
+  .stat strong{
+
+    font-size:30px;
+
+  }
+
+  .modelo{
+
+    align-items:flex-start;
+
+    flex-direction:column;
+
+  }
+
+  .acoes{
+
+    justify-content:flex-start;
+
+  }
+
+  .atalhos{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+
 </style>
+
 </head>
+
 <body>
-<a href="login.html" style="position:fixed;right:16px;top:16px;z-index:9999;color:#f0d878;text-decoration:none;border:1px solid rgba(201,162,39,.35);padding:9px 13px;border-radius:10px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);">Entrar</a>
-<div class="conteudo">
-<header>
-  <div class="logo-header">
-    <img src="logo3.png" alt="LUX Logo" class="logo-img">
-    <div class="logo-lux">LUX</div>
-  </div>
-  <nav>
-    <a href="index.html" class="ativo">Início</a>
-    <a href="loja.html">Loja</a>
-    <a href="catalago.html">Catálogo</a>
-    <a href="planos.html">Planos</a>
-    <a href="pre-cadastro.html">Pré-Cadastro</a>
-    <a href="lista-espera.html">Agendar</a>
-    <a href="termos.html">Termos</a>
-  </nav>
-</header>
-<section class="hero">
-  <span class="selo">✦ Seleção Premium ✦</span>
-  <h1>LUX</h1>
-  <p class="slogan">Sensualidade &amp; Sofisticação</p>
-  <p class="descricao">Conectamos momentos especiais com pessoas extraordinárias.</p>
-  <div class="acoes">
-    <a href="catalago.html" class="btn btn-ouro"><i class="fas fa-gem"></i>Ver Catálogo</a>
-    <a href="planos.html" class="btn btn-contorno"><i class="fas fa-star"></i>Conhecer Planos</a>
-    <button type="button" id="btnDoarPix" class="btn btn-pix"><i class="fas fa-qrcode"></i>Doar via PIX</button>
-  </div>
-  <p class="pix-info">Contribuição voluntária a partir de R$ 0,50</p>
-</section>
-</div>
 
-<div id="pixModal">
-  <div class="pix-card">
-    <h3 style="margin-bottom:10px;color:#f0d878">Doação via PIX</h3>
-    <label for="pixValor" style="display:block;margin-bottom:6px">Escolha o valor:</label>
-    <select id="pixValor">
-      <option value="5">R$ 5,00</option>
-      <option value="10">R$ 10,00</option>
-      <option value="20">R$ 20,00</option>
-      <option value="50">R$ 50,00</option>
-      <option value="custom">Outro valor</option>
-    </select>
-    <input id="pixValorCustom" type="number" min="0.5" step="0.01" placeholder="Digite o valor (R$)" style="display:none" />
-    <p style="font-size:12px;color:#cbbfaf;margin-bottom:8px">Chave PIX: <strong>ajudaasofia@gmail.com</strong></p>
-    <textarea id="pixTexto" readonly></textarea>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button type="button" id="gerarPixBtn" class="btn btn-ouro">Gerar PIX</button>
-      <button type="button" id="copiarPixBtn" class="btn btn-contorno">Copiar</button>
-      <button type="button" id="fecharPixBtn" class="btn btn-contorno">Fechar</button>
+<!-- =========================
+     TOPO
+========================= -->
+
+<header class="topbar">
+
+  <div class="marca">
+
+    <div class="logo">
+      LUX
     </div>
-  </div>
-</div>
 
-<script src="loja.js"></script>
+    <div class="marca-texto">
+
+      LUX — ADVANCE
+
+      <span>
+        PAINEL EXECUTIVO
+      </span>
+
+    </div>
+
+  </div>
+
+  <button
+    class="btn-sair"
+    onclick="sair()"
+  >
+    SAIR
+  </button>
+
+</header>
+
+
+<main class="container">
+
+  <!-- CABEÇALHO -->
+
+  <section class="cabecalho">
+
+    <small>
+      ADMINISTRAÇÃO • CONTROLE • GESTÃO
+    </small>
+
+    <h1>
+      Painel Executivo
+    </h1>
+
+    <p>
+      Centro de administração da LUX Advance.
+      Gerencie modelos, usuários, aprovações,
+      segurança e operações da plataforma.
+    </p>
+
+  </section>
+
+
+  <div
+    id="alerta"
+    class="alerta"
+  ></div>
+
+
+  <!-- =========================
+       ESTATÍSTICAS
+  ========================= -->
+
+  <section class="estatisticas">
+
+    <div class="stat">
+
+      <small>
+        Modelos
+      </small>
+
+      <strong id="totalModelos">
+        —
+      </strong>
+
+      <p>
+        cadastrados
+      </p>
+
+    </div>
+
+
+    <div class="stat">
+
+      <small>
+        Pendentes
+      </small>
+
+      <strong id="totalPendentes">
+        —
+      </strong>
+
+      <p>
+        aguardando análise
+      </p>
+
+    </div>
+
+
+    <div class="stat">
+
+      <small>
+        Ativos
+      </small>
+
+      <strong id="totalAtivos">
+        —
+      </strong>
+
+      <p>
+        perfis ativos
+      </p>
+
+    </div>
+
+
+    <div class="stat">
+
+      <small>
+        Usuários
+      </small>
+
+      <strong id="totalUsuarios">
+        —
+      </strong>
+
+      <p>
+        contas cadastradas
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       GRID
+  ========================= -->
+
+  <section class="grid">
+
+
+    <!-- =====================
+         MODELOS
+    ====================== -->
+
+    <div class="painel">
+
+      <div class="painel-header">
+
+        <div>
+
+          <h2>
+            Aprovação de Modelos
+          </h2>
+
+          <span>
+            Perfis que aguardam análise administrativa
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="busca">
+
+        <input
+          type="text"
+          id="pesquisa"
+          placeholder="Pesquisar modelo por nome, e-mail ou WhatsApp..."
+          oninput="filtrarModelos()"
+        >
+
+      </div>
+
+
+      <div
+        class="lista"
+        id="listaModelos"
+      >
+
+        <div class="modelo">
+
+          <div class="modelo-info">
+
+            <strong>
+              Carregando...
+            </strong>
+
+            <span>
+              Consultando banco de dados.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================
+         LATERAL
+    ====================== -->
+
+    <div>
+
+
+      <!-- ATALHOS -->
+
+      <div class="painel">
+
+        <div class="painel-header">
+
+          <div>
+
+            <h2>
+              Central de Ações
+            </h2>
+
+            <span>
+              Acessos rápidos
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="atalhos">
+
+          <a
+            class="atalho"
+            href="./index.html"
+          >
+
+            <strong>
+              Página Inicial
+            </strong>
+
+            <span>
+              Visualizar o site
+            </span>
+
+          </a>
+
+
+          <a
+            class="atalho"
+            href="./catalago.html"
+          >
+
+            <strong>
+              Catálogo
+            </strong>
+
+            <span>
+              Ver categorias
+            </span>
+
+          </a>
+
+
+          <a
+            class="atalho"
+            href="./modelos-femininos.html"
+          >
+
+            <strong>
+              Modelos Femininas
+            </strong>
+
+            <span>
+              Acessar catálogo feminino
+            </span>
+
+          </a>
+
+
+          <a
+            class="atalho"
+            href="./modelos-masculinos.html"
+          >
+
+            <strong>
+              Modelos Masculinos
+            </strong>
+
+            <span>
+              Acessar catálogo masculino
+            </span>
+
+          </a>
+
+
+          <a
+            class="atalho"
+            href="./planos.html"
+          >
+
+            <strong>
+              Planos LUX
+            </strong>
+
+            <span>
+              Gerenciar apresentação dos planos
+            </span>
+
+          </a>
+
+
+          <a
+            class="atalho"
+            href="./termos.html"
+          >
+
+            <strong>
+              Termos
+            </strong>
+
+            <span>
+              Consultar regras da plataforma
+            </span>
+
+          </a>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- SEGURANÇA -->
+
+      <div
+        class="painel"
+        style="margin-top:20px;"
+      >
+
+        <div class="painel-header">
+
+          <div>
+
+            <h2>
+              Segurança
+            </h2>
+
+            <span>
+              Estado administrativo
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="seguranca">
+
+
+          <div class="linha-seguranca">
+
+            <span>
+              Sessão administrativa
+            </span>
+
+            <strong>
+              ATIVA
+            </strong>
+
+          </div>
+
+
+          <div class="linha-seguranca">
+
+            <span>
+              Supabase
+            </span>
+
+            <strong id="statusSupabase">
+              VERIFICANDO
+            </strong>
+
+          </div>
+
+
+          <div class="linha-seguranca">
+
+            <span>
+              Conta administrativa
+            </span>
+
+            <strong>
+              LUX
+            </strong>
+
+          </div>
+
+
+          <div class="linha-seguranca">
+
+            <span>
+              Ambiente
+            </span>
+
+            <strong>
+              PRODUÇÃO
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+
+    <strong>
+      LUX ADVANCE
+    </strong>
+
+    — Painel Administrativo
+
+    <br>
+
+    Agência Europeia • Conteúdo para maiores de 18 anos
+
+    <br><br>
+
+    © 2026 LUX Advance — Todos os direitos reservados.
+
+  </footer>
+
+</main>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="./config.js"></script>
+
+<script src="./auth.js"></script>
+
+
 <script>
-(function(){
-const chavePix='ajudaasofia@gmail.com';
-const btnDoarPix=document.getElementById('btnDoarPix');
-const pixModal=document.getElementById('pixModal');
-const pixValor=document.getElementById('pixValor');
-const pixValorCustom=document.getElementById('pixValorCustom');
-const gerarPixBtn=document.getElementById('gerarPixBtn');
-const copiarPixBtn=document.getElementById('copiarPixBtn');
-const fecharPixBtn=document.getElementById('fecharPixBtn');
-const pixTexto=document.getElementById('pixTexto');
-if(!btnDoarPix)return;
-btnDoarPix.addEventListener('click',()=>{pixModal.style.display='flex';pixTexto.value='';});
-pixValor.addEventListener('change',()=>{pixValorCustom.style.display=pixValor.value==='custom'?'block':'none';});
-gerarPixBtn.addEventListener('click',()=>{
- pixTexto.value=chavePix;
-});
-copiarPixBtn.addEventListener('click',async()=>{
- if(!pixTexto.value.trim()){alert('Gere o PIX antes de copiar.');return;}
- try{await navigator.clipboard.writeText(pixTexto.value);alert('PIX copiado com sucesso!');}
- catch{pixTexto.select();document.execCommand('copy');alert('PIX copiado com sucesso!');}
-});
-fecharPixBtn.addEventListener('click',()=>{pixModal.style.display='none';});
-pixModal.addEventListener('click',(e)=>{if(e.target===pixModal)pixModal.style.display='none';});
-})();
+
+/* =========================================================
+   LUX — PAINEL ADMINISTRATIVO
+   ========================================================= */
+
+let modelos = [];
+
+
+/* =========================
+   ELEMENTOS
+========================= */
+
+const lista =
+  document.getElementById(
+    "listaModelos"
+  );
+
+const alerta =
+  document.getElementById(
+    "alerta"
+  );
+
+
+/* =========================
+   ALERTA
+========================= */
+
+function mostrarAlerta(
+  mensagem
+){
+
+  alerta.textContent =
+    mensagem;
+
+  alerta.style.display =
+    "block";
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(
+  valor
+){
+
+  return String(
+    valor ?? ""
+  )
+
+  .replaceAll("&","&amp;")
+
+  .replaceAll("<","&lt;")
+
+  .replaceAll(">","&gt;")
+
+  .replaceAll('"',"&quot;")
+
+  .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================
+   VERIFICAR ADMIN
+========================= */
+
+async function verificarAdmin(){
+
+  try{
+
+    if(
+      !window.luxSupabase
+    ){
+
+      throw new Error(
+        "Supabase não inicializado."
+      );
+
+    }
+
+    const {
+      data,
+      error
+    } =
+      await window.luxSupabase
+      .auth
+      .getUser();
+
+
+    if(error){
+
+      throw error;
+
+    }
+
+
+    const user =
+      data?.user;
+
+
+    if(!user){
+
+      window.location.href =
+        "./acessoadmin.html";
+
+      return null;
+
+    }
+
+
+    const email =
+      String(
+        user.email || ""
+      )
+      .trim()
+      .toLowerCase();
+
+
+    const adminEmail =
+      String(
+        window.LUX_ADMIN_EMAIL || ""
+      )
+      .trim()
+      .toLowerCase();
+
+
+    if(
+      !adminEmail ||
+      email !== adminEmail
+    ){
+
+      await window.luxSupabase
+        .auth
+        .signOut();
+
+      alert(
+        "Acesso administrativo não autorizado."
+      );
+
+      window.location.href =
+        "./acessoadmin.html";
+
+      return null;
+
+    }
+
+
+    document.getElementById(
+      "statusSupabase"
+    ).textContent =
+      "CONECTADO";
+
+
+    return user;
+
+  }catch(error){
+
+    console.error(
+      "Erro administrativo:",
+      error
+    );
+
+    document.getElementById(
+      "statusSupabase"
+    ).textContent =
+      "ERRO";
+
+    mostrarAlerta(
+      "Não foi possível validar o acesso administrativo."
+    );
+
+    return null;
+
+  }
+
+}
+
+
+/* =========================
+   CARREGAR DADOS
+========================= */
+
+async function carregarDashboard(){
+
+  const autorizado =
+    await verificarAdmin();
+
+
+  if(!autorizado){
+
+    return;
+
+  }
+
+
+  try{
+
+    const supabase =
+      window.luxSupabase;
+
+
+    /* =====================
+       TODOS OS PERFIS
+    ====================== */
+
+    const {
+      data: perfis,
+      error: erroPerfis
+    } =
+      await supabase
+      .from("perfis")
+      .select("*");
+
+
+    if(erroPerfis){
+
+      throw erroPerfis;
+
+    }
+
+
+    const todos =
+      perfis || [];
+
+
+    const modelosPerfis =
+      todos.filter(
+        p =>
+          String(
+            p.tipo || ""
+          ).toLowerCase()
+          === "modelo"
+      );
+
+
+    const usuariosPerfis =
+      todos.filter(
+        p =>
+          String(
+            p.tipo || ""
+          ).toLowerCase()
+          === "usuario"
+      );
+
+
+    const pendentes =
+      modelosPerfis.filter(
+        p =>
+          String(
+            p.status || ""
+          ).toLowerCase()
+          === "pendente"
+      );
+
+
+    const ativos =
+      modelosPerfis.filter(
+        p =>
+          String(
+            p.status || ""
+          ).toLowerCase()
+          === "ativo"
+      );
+
+
+    document.getElementById(
+      "totalModelos"
+    ).textContent =
+      modelosPerfis.length;
+
+
+    document.getElementById(
+      "totalPendentes"
+    ).textContent =
+      pendentes.length;
+
+
+    document.getElementById(
+      "totalAtivos"
+    ).textContent =
+      ativos.length;
+
+
+    document.getElementById(
+      "totalUsuarios"
+    ).textContent =
+      usuariosPerfis.length;
+
+
+    /* =====================
+       MODELO COMPLETO
+    ====================== */
+
+    const {
+      data: modelosDados,
+      error: erroModelos
+    } =
+      await supabase
+      .from("modelo_perfis")
+      .select("*");
+
+
+    if(erroModelos){
+
+      console.warn(
+        "Não foi possível carregar modelo_perfis:",
+        erroModelos
+      );
+
+      modelos = [];
+
+    }else{
+
+      modelos =
+        modelosDados || [];
+
+    }
+
+
+    renderizarModelos(
+      modelos,
+      modelosPerfis
+    );
+
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+    mostrarAlerta(
+      "Erro ao carregar os dados administrativos."
+    );
+
+    lista.innerHTML = `
+
+      <div class="modelo">
+
+        <div class="modelo-info">
+
+          <strong>
+            Não foi possível carregar os dados.
+          </strong>
+
+          <span>
+            Verifique as permissões do Supabase.
+          </span>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================
+   RENDERIZAR MODELOS
+========================= */
+
+function renderizarModelos(
+  dadosModelo,
+  dadosPerfis
+){
+
+  if(
+    !dadosPerfis ||
+    dadosPerfis.length === 0
+  ){
+
+    lista.innerHTML = `
+
+      <div class="modelo">
+
+        <div class="modelo-info">
+
+          <strong>
+            Nenhum modelo cadastrado
+          </strong>
+
+          <span>
+            Novos cadastros aparecerão aqui.
+          </span>
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  lista.innerHTML = "";
+
+
+  dadosPerfis.forEach(
+    perfil => {
+
+      const modelo =
+        dadosModelo.find(
+          m =>
+            String(m.id)
+            ===
+            String(perfil.id)
+        ) || {};
+
+
+      const nome =
+        perfil.nome ||
+        modelo.nome ||
+        "Modelo sem nome";
+
+
+      const email =
+        modelo.email ||
+        perfil.email ||
+        "E-mail não informado";
+
+
+      const whatsapp =
+        modelo.whatsapp ||
+        "WhatsApp não informado";
+
+
+      const status =
+        String(
+          perfil.status ||
+          "pendente"
+        ).toLowerCase();
+
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "modelo";
+
+
+      let classeStatus =
+        "status-pendente";
+
+
+      if(
+        status === "ativo"
+      ){
+
+        classeStatus =
+          "status-ativo";
+
+      }
+
+
+      if(
+        status === "bloqueado" ||
+        status === "banido"
+      ){
+
+        classeStatus =
+          "status-bloqueado";
+
+      }
+
+
+      div.innerHTML = `
+
+        <div class="modelo-info">
+
+          <strong>
+            ${escapeHTML(nome)}
+          </strong>
+
+          <span>
+            ${escapeHTML(email)}
+          </span>
+
+          <span>
+            ${escapeHTML(whatsapp)}
+          </span>
+
+          <span class="status ${classeStatus}">
+            ${escapeHTML(status)}
+          </span>
+
+        </div>
+
+
+        <div class="acoes">
+
+          <button
+            class="btn btn-aprovar"
+            onclick="alterarStatus('${escapeHTML(perfil.id)}','ativo')"
+          >
+            APROVAR
+          </button>
+
+
+          <button
+            class="btn btn-rejeitar"
+            onclick="alterarStatus('${escapeHTML(perfil.id)}','bloqueado')"
+          >
+            BLOQUEAR
+          </button>
+
+        </div>
+
+      `;
+
+
+      lista.appendChild(
+        div
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   PESQUISA
+========================= */
+
+function filtrarModelos(){
+
+  const termo =
+    document
+    .getElementById(
+      "pesquisa"
+    )
+    .value
+    .toLowerCase()
+    .trim();
+
+
+  const itens =
+    lista.querySelectorAll(
+      ".modelo"
+    );
+
+
+  itens.forEach(
+    item => {
+
+      const texto =
+        item.textContent
+        .toLowerCase();
+
+
+      item.style.display =
+        texto.includes(termo)
+          ? "flex"
+          : "none";
+
+    }
+  );
+
+}
+
+
+/* =========================
+   ALTERAR STATUS
+========================= */
+
+async function alterarStatus(
+  id,
+  novoStatus
+){
+
+  if(!id){
+
+    return;
+
+  }
+
+
+  const texto =
+    novoStatus === "ativo"
+      ? "aprovar este modelo"
+      : "bloquear este modelo";
+
+
+  const confirmar =
+    confirm(
+      "Deseja realmente " +
+      texto +
+      "?"
+    );
+
+
+  if(!confirmar){
+
+    return;
+
+  }
+
+
+  try{
+
+    const supabase =
+      window.luxSupabase;
+
+
+    const {
+      error
+    } =
+      await supabase
+      .from("perfis")
+      .update({
+        status:
+          novoStatus
+      })
+      .eq(
+        "id",
+        id
+      );
+
+
+    if(error){
+
+      throw error;
+
+    }
+
+
+    alert(
+      novoStatus === "ativo"
+        ? "Modelo aprovado com sucesso."
+        : "Modelo bloqueado com sucesso."
+    );
+
+
+    await carregarDashboard();
+
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+    alert(
+      "Não foi possível alterar o status. Verifique as políticas RLS do Supabase."
+    );
+
+  }
+
+}
+
+
+/* =========================
+   SAIR
+========================= */
+
+async function sair(){
+
+  try{
+
+    if(
+      window.luxSupabase
+    ){
+
+      await window.luxSupabase
+        .auth
+        .signOut();
+
+    }
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+  }
+
+
+  window.location.href =
+    "./acessoadmin.html";
+
+}
+
+
+/* =========================
+   INICIAR
+========================= */
+
+carregarDashboard();
+
 </script>
+
 </body>
+
 </html>

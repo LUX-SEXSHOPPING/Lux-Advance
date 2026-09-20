@@ -40,305 +40,211 @@ body{
 
   padding:20px;
 
-  font-family:Arial,Helvetica,sans-serif;
-
-  color:#fff;
+  font-family:Arial,sans-serif;
 
   background:
-    linear-gradient(
-      rgba(5,3,6,.88),
-      rgba(5,3,6,.96)
+    radial-gradient(
+      circle at center,
+      rgba(80,15,55,.25),
+      transparent 55%
     ),
-    url("./lux-halloween.jpg")
-    center/cover fixed;
+    #080509;
 
+  color:#fff;
 }
 
-.login-box{
+.container{
+  width:100%;
+  max-width:430px;
+}
 
-  width:min(430px,100%);
+.card{
+
+  width:100%;
 
   padding:38px 28px;
 
-  border:1px solid rgba(248,213,138,.22);
+  border-radius:28px;
 
-  border-radius:24px;
+  border:1px solid rgba(248,213,138,.25);
 
-  background:
-    rgba(20,9,17,.96);
+  background:rgba(20,8,17,.97);
 
   box-shadow:
-    0 25px 80px rgba(0,0,0,.65);
+    0 20px 60px rgba(0,0,0,.65),
+    0 0 35px rgba(255,77,166,.08);
 
   text-align:center;
-
 }
 
 .logo{
 
   font-family:Georgia,serif;
 
-  font-size:58px;
+  font-size:64px;
 
   letter-spacing:8px;
 
   color:#f8d58a;
 
-  text-shadow:
-    0 0 25px
-    rgba(248,213,138,.22);
-
+  margin-bottom:8px;
 }
 
-.subtitle{
+.titulo{
 
-  margin-top:8px;
+  font-family:Georgia,serif;
 
-  color:#b9aab6;
+  font-size:25px;
 
-  font-size:13px;
+  color:#f8d58a;
 
-  letter-spacing:1.5px;
-
-  text-transform:uppercase;
-
+  margin-bottom:8px;
 }
 
-.form-area{
+.subtitulo{
 
-  margin-top:30px;
+  color:#aaa;
+
+  font-size:14px;
+
+  line-height:1.5;
+
+  margin-bottom:30px;
+}
+
+.campo{
 
   text-align:left;
 
+  margin-bottom:18px;
 }
 
-label{
+.campo label{
 
   display:block;
 
+  color:#ddd;
+
+  font-size:14px;
+
   margin-bottom:8px;
-
-  color:#d7c9d3;
-
-  font-size:13px;
-
 }
 
-input{
+.campo input{
 
   width:100%;
 
-  height:48px;
+  padding:15px;
 
-  padding:0 14px;
+  border-radius:12px;
 
-  border:1px solid
-    rgba(248,213,138,.18);
-
-  border-radius:10px;
+  border:1px solid rgba(248,213,138,.25);
 
   outline:none;
 
-  color:white;
+  background:#100912;
 
-  background:
-    rgba(255,255,255,.05);
+  color:#fff;
 
+  font-size:16px;
 }
 
-input:focus{
+.campo input:focus{
 
   border-color:#ff4da6;
 
   box-shadow:
-    0 0 0 3px
-    rgba(255,77,166,.08);
-
+    0 0 0 2px rgba(255,77,166,.10);
 }
 
-button{
+.botao{
 
   width:100%;
 
-  height:48px;
-
-  margin-top:16px;
-
   border:0;
 
-  border-radius:10px;
+  border-radius:12px;
 
-  color:#180b11;
+  padding:16px;
+
+  margin-top:5px;
 
   background:
     linear-gradient(
       135deg,
       #f8d58a,
-      #d9aa4b
+      #c99d45
     );
+
+  color:#180d12;
+
+  font-size:16px;
 
   font-weight:bold;
 
   cursor:pointer;
-
 }
 
-button:disabled{
+.botao:disabled{
 
-  opacity:.6;
+  opacity:.65;
 
   cursor:wait;
-
 }
 
-.message{
+.mensagem{
 
   display:none;
 
-  margin-top:15px;
+  margin-top:18px;
 
   padding:12px;
 
   border-radius:10px;
 
-  font-size:13px;
+  font-size:14px;
 
-  line-height:1.5;
-
+  line-height:1.4;
 }
 
-.message.show{
+.erro{
+
   display:block;
+
+  color:#ffb3d6;
+
+  background:rgba(255,30,120,.10);
+
+  border:1px solid rgba(255,30,120,.25);
 }
 
-.error{
+.sucesso{
 
-  color:#ff9d9d;
-
-  background:
-    rgba(255,70,70,.09);
-
-  border:1px solid
-    rgba(255,70,70,.18);
-
-}
-
-.success{
-
-  color:#78e8b5;
-
-  background:
-    rgba(70,211,154,.08);
-
-  border:1px solid
-    rgba(70,211,154,.18);
-
-}
-
-.loading{
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:99999;
-
-  display:none;
-
-  align-items:center;
-
-  justify-content:center;
-
-  background:#080509;
-
-}
-
-.loading.show{
-  display:flex;
-}
-
-.loading-box{
-
-  width:min(90%,420px);
-
-  padding:35px 25px;
-
-  text-align:center;
-
-  border:1px solid
-    rgba(248,213,138,.18);
-
-  border-radius:22px;
-
-  background:
-    rgba(20,10,18,.96);
-
-}
-
-.loading-logo{
-
-  font-family:Georgia,serif;
-
-  font-size:48px;
-
-  letter-spacing:7px;
+  display:block;
 
   color:#f8d58a;
 
+  background:rgba(248,213,138,.08);
+
+  border:1px solid rgba(248,213,138,.20);
 }
 
-.loading-text{
-
-  margin-top:12px;
-
-  color:#b9aab6;
-
-}
-
-.spinner{
-
-  width:38px;
-
-  height:38px;
-
-  margin:25px auto 0;
-
-  border:3px solid
-    rgba(255,255,255,.12);
-
-  border-top-color:#ff4da6;
-
-  border-radius:50%;
-
-  animation:
-    spin 1s linear infinite;
-
-}
-
-@keyframes spin{
-
-  to{
-    transform:rotate(360deg);
-  }
-
-}
-
-.back{
+.voltar{
 
   display:block;
 
-  margin-top:20px;
+  margin-top:22px;
 
-  color:#b9aab6;
+  color:#aaa;
 
   text-decoration:none;
 
-  font-size:12px;
-
+  font-size:13px;
 }
 
-.back:hover{
-  color:#ff79bd;
+.voltar:hover{
+
+  color:#f8d58a;
 }
 
 </style>
@@ -347,358 +253,304 @@ button:disabled{
 
 <body>
 
-<div class="login-box">
+<main class="container">
 
-  <div class="logo">
-    LUX
-  </div>
+<section class="card">
 
-  <div class="subtitle">
-    Acesso administrativo
-  </div>
-
-  <div class="form-area">
-
-    <form id="formAdmin">
-
-      <label for="senhaAdmin">
-        Senha administrativa
-      </label>
-
-      <input
-        id="senhaAdmin"
-        type="password"
-        autocomplete="current-password"
-        placeholder="Digite sua senha"
-        required
-      >
-
-      <button
-        id="btnEntrar"
-        type="submit"
-      >
-        Entrar no painel
-      </button>
-
-    </form>
-
-    <div
-      id="message"
-      class="message"
-    ></div>
-
-  </div>
-
-  <a
-    href="./index.html"
-    class="back"
-  >
-    Voltar para a LUX
-  </a>
-
+<div class="logo">
+LUX
 </div>
 
+<div class="titulo">
+Acesso Administrativo
+</div>
 
-<div
-  id="loading"
-  class="loading"
+<div class="subtitulo">
+Área exclusiva de administração.
+Digite sua senha para continuar.
+</div>
+
+<form id="formAdmin">
+
+<div class="campo">
+
+<label for="senhaAdmin">
+Senha administrativa
+</label>
+
+<input
+  id="senhaAdmin"
+  type="password"
+  autocomplete="current-password"
+  placeholder="Digite sua senha"
+  required
 >
 
-  <div class="loading-box">
-
-    <div class="loading-logo">
-      LUX
-    </div>
-
-    <div class="loading-text">
-      Abrindo painel administrativo...
-    </div>
-
-    <div class="spinner"></div>
-
-  </div>
-
 </div>
 
+<button
+  id="btnEntrar"
+  class="botao"
+  type="submit"
+>
+ENTRAR NO PAINEL
+</button>
+
+</form>
+
+<div
+  id="mensagem"
+  class="mensagem"
+></div>
+
+<a
+  href="./index.html"
+  class="voltar"
+>
+Voltar para o site
+</a>
+
+</section>
+
+</main>
 
 <script>
 
-const supabase = window.luxSupabase;
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
 
-const ADMIN_EMAIL =
-  String(
-    window.LUX_ADMIN_EMAIL || ""
-  )
-  .trim()
-  .toLowerCase();
+    const form =
+      document.getElementById("formAdmin");
 
+    const senhaInput =
+      document.getElementById("senhaAdmin");
 
-const form =
-  document.getElementById(
-    "formAdmin"
-  );
+    const botao =
+      document.getElementById("btnEntrar");
 
-const senha =
-  document.getElementById(
-    "senhaAdmin"
-  );
+    const mensagem =
+      document.getElementById("mensagem");
 
-const btn =
-  document.getElementById(
-    "btnEntrar"
-  );
 
-const message =
-  document.getElementById(
-    "message"
-  );
-
-const loading =
-  document.getElementById(
-    "loading"
-  );
-
-
-function mostrarMensagem(
-  texto,
-  tipo = "error"
-){
-
-  message.textContent =
-    texto;
-
-  message.className =
-    "message show " +
-    tipo;
-
-}
-
-
-function mostrarCarregando(){
-
-  loading.classList.add(
-    "show"
-  );
-
-  btn.disabled = true;
-
-}
-
-
-function esconderCarregando(){
-
-  loading.classList.remove(
-    "show"
-  );
-
-  btn.disabled = false;
-
-}
-
-
-form.addEventListener(
-  "submit",
-  async function(event){
-
-    event.preventDefault();
-
-    message.className =
-      "message";
-
-    const senhaDigitada =
-      senha.value;
-
-    if(!senhaDigitada){
-
-      mostrarMensagem(
-        "Digite sua senha administrativa."
-      );
-
-      return;
-
-    }
-
-    if(!supabase){
-
-      mostrarMensagem(
-        "Supabase não foi inicializado. Verifique o config.js."
-      );
-
-      return;
-
-    }
-
-    if(!ADMIN_EMAIL){
-
-      mostrarMensagem(
-        "E-mail administrativo não configurado no config.js."
-      );
-
-      return;
-
-    }
-
-
-    mostrarCarregando();
-
-
-    try{
-
-      /*
-       * LOGIN DIRETO
-       * Não ficamos esperando outro
-       * getSession() para liberar o painel.
-       */
-
-      const resultado =
-        await supabase.auth.signInWithPassword({
-
-          email:
-            ADMIN_EMAIL,
-
-          password:
-            senhaDigitada
-
-        });
-
-
-      if(resultado.error){
-
-        throw resultado.error;
-
-      }
-
-
-      const usuario =
-        resultado.data?.user;
-
-
-      if(!usuario){
-
-        throw new Error(
-          "A sessão administrativa não foi criada."
-        );
-
-      }
-
-
-      const emailUsuario =
-        String(
-          usuario.email || ""
-        )
-        .trim()
-        .toLowerCase();
-
-
-      if(
-        emailUsuario !==
-        ADMIN_EMAIL
-      ){
-
-        await supabase.auth.signOut();
-
-        throw new Error(
-          "Esta conta não possui permissão administrativa."
-        );
-
-      }
-
-
-      mostrarMensagem(
-        "Acesso autorizado. Abrindo painel...",
-        "success"
-      );
-
-
-      /*
-       * PEQUENO TEMPO APENAS PARA
-       * A SESSÃO SER PERSISTIDA.
-       */
-
-      setTimeout(
-        function(){
-
-          window.location.replace(
-            "./painel-admin.html"
-          );
-
-        },
-        250
-      );
-
-
-    }catch(error){
-
-      console.error(
-        "Erro no acesso administrativo:",
-        error
-      );
-
-      esconderCarregando();
-
-      mostrarMensagem(
-        error?.message ||
-        "Senha incorreta ou erro ao acessar o painel."
-      );
-
-    }
-
-  }
-);
-
-
-/*
- * Se o administrador já estiver
- * autenticado, pode entrar diretamente.
- *
- * Não usamos isso para aguardar o login.
- */
-
-(async function verificarSessaoExistente(){
-
-  try{
-
-    if(!supabase){
-      return;
-    }
-
-    const resultado =
-      await supabase.auth.getSession();
-
-    const session =
-      resultado.data?.session;
-
-    if(!session?.user){
-      return;
-    }
-
-    const email =
-      String(
-        session.user.email || ""
-      )
-      .trim()
-      .toLowerCase();
-
-    if(
-      email === ADMIN_EMAIL
+    function mostrarMensagem(
+      texto,
+      tipo
     ){
 
-      window.location.replace(
-        "./painel-admin.html"
-      );
+      mensagem.textContent = texto;
 
+      mensagem.className =
+        "mensagem " + tipo;
     }
 
-  }catch(error){
 
-    console.warn(
-      "Sessão existente não pôde ser verificada:",
-      error
+    form.addEventListener(
+      "submit",
+      async function(evento){
+
+        evento.preventDefault();
+
+        const senha =
+          senhaInput.value.trim();
+
+
+        if(!senha){
+
+          mostrarMensagem(
+            "Digite a senha administrativa.",
+            "erro"
+          );
+
+          return;
+        }
+
+
+        if(!window.luxSupabase){
+
+          mostrarMensagem(
+            "Erro ao carregar o sistema. Verifique o config.js.",
+            "erro"
+          );
+
+          return;
+        }
+
+
+        const email =
+          window.LUX_ADMIN_EMAIL;
+
+
+        if(!email){
+
+          mostrarMensagem(
+            "E-mail administrativo não configurado no config.js.",
+            "erro"
+          );
+
+          return;
+        }
+
+
+        botao.disabled = true;
+
+        botao.textContent =
+          "ENTRANDO...";
+
+        mensagem.className =
+          "mensagem";
+
+        mensagem.textContent =
+          "";
+
+
+        try{
+
+          const resultado =
+            await window.luxSupabase.auth.signInWithPassword({
+
+              email: email,
+
+              password: senha
+
+            });
+
+
+          if(resultado.error){
+
+            throw resultado.error;
+
+          }
+
+
+          if(
+            !resultado.data ||
+            !resultado.data.user
+          ){
+
+            throw new Error(
+              "Não foi possível confirmar o acesso."
+            );
+
+          }
+
+
+          mostrarMensagem(
+            "Acesso autorizado. Abrindo painel...",
+            "sucesso"
+          );
+
+
+          botao.textContent =
+            "ACESSO AUTORIZADO";
+
+
+          /*
+           * Aguarda a sessão ser persistida
+           * antes de abrir o painel.
+           */
+
+          setTimeout(
+            function(){
+
+              window.location.replace(
+                "./painel-admin.html"
+              );
+
+            },
+            500
+          );
+
+
+        }catch(erro){
+
+          console.error(
+            "Erro no acesso administrativo:",
+            erro
+          );
+
+
+          let texto =
+            "Senha incorreta ou acesso não autorizado.";
+
+
+          if(
+            erro &&
+            erro.message
+          ){
+
+            const erroSupabase =
+              erro.message.toLowerCase();
+
+
+            if(
+              erroSupabase.includes(
+                "invalid login credentials"
+              )
+            ){
+
+              texto =
+                "Senha incorreta. Tente novamente.";
+
+            }
+            else if(
+              erroSupabase.includes(
+                "email not confirmed"
+              )
+            ){
+
+              texto =
+                "O e-mail administrativo ainda não foi confirmado no Supabase.";
+
+            }
+            else if(
+              erroSupabase.includes(
+                "user not found"
+              )
+            ){
+
+              texto =
+                "Usuário administrativo não encontrado.";
+
+            }
+            else if(
+              erroSupabase.includes(
+                "invalid"
+              )
+            ){
+
+              texto =
+                "Dados de acesso inválidos.";
+
+            }
+            else{
+
+              texto =
+                erro.message;
+
+            }
+
+          }
+
+
+          mostrarMensagem(
+            texto,
+            "erro"
+          );
+
+
+          botao.disabled = false;
+
+          botao.textContent =
+            "ENTRAR NO PAINEL";
+
+        }
+
+      }
     );
 
   }
-
-})();
+);
 
 </script>
 

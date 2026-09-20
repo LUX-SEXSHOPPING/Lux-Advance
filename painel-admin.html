@@ -28,7 +28,7 @@
   --bg:#080509;
   --bg2:#120912;
   --card:#180d17;
-  --card2:#21111e;
+  --card2:#241321;
   --pink:#ff4da6;
   --pink2:#ff78bd;
   --gold:#f8d58a;
@@ -42,7 +42,9 @@
   --shadow:0 18px 55px rgba(0,0,0,.45);
 }
 
-html{
+html,
+body{
+  min-height:100%;
   background:var(--bg);
 }
 
@@ -89,22 +91,24 @@ button{
   align-items:center;
   justify-content:center;
 
+  padding:20px;
+
   background:#080509;
 }
 
 .loading-box{
   width:min(92%,430px);
-  padding:36px 25px;
+  padding:35px 25px;
 
   text-align:center;
 
   border:1px solid var(--border);
-  border-radius:24px;
+  border-radius:22px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(31,14,27,.97),
+      rgba(35,17,31,.98),
       rgba(12,7,12,.98)
     );
 
@@ -113,27 +117,27 @@ button{
 
 .loading-logo{
   font-family:Georgia,serif;
-  font-size:52px;
-  letter-spacing:8px;
+  font-size:50px;
+  letter-spacing:7px;
   color:var(--gold);
 
   text-shadow:
-    0 0 25px
-    rgba(248,213,138,.22);
+    0 0 20px rgba(248,213,138,.25);
 }
 
-.loading-box p{
-  margin-top:13px;
+#loadingText{
+  margin-top:12px;
   color:var(--muted);
+  line-height:1.5;
 }
 
 .spinner{
-  width:42px;
-  height:42px;
+  width:38px;
+  height:38px;
 
   margin:25px auto 0;
 
-  border:3px solid rgba(255,255,255,.10);
+  border:3px solid rgba(255,255,255,.12);
   border-top-color:var(--pink);
   border-radius:50%;
 
@@ -146,35 +150,33 @@ button{
   }
 }
 
-.loading-error{
-  margin-top:20px;
-  padding:13px;
-
+#loadingError{
   display:none;
 
-  color:#ff9d9d;
+  margin-top:18px;
+  padding:12px;
 
-  border:1px solid rgba(255,90,90,.25);
+  color:#ff9b9b;
+
+  background:rgba(255,98,98,.08);
+  border:1px solid rgba(255,98,98,.18);
   border-radius:10px;
 
-  background:rgba(255,60,60,.08);
-
+  font-size:13px;
   line-height:1.5;
 }
 
-.loading-error.show{
+#loadingError.show{
   display:block;
 }
 
-.loading-actions{
+#loadingActions{
   display:none;
-  gap:8px;
-  justify-content:center;
   margin-top:15px;
 }
 
-.loading-actions.show{
-  display:flex;
+#loadingActions.show{
+  display:block;
 }
 
 
@@ -200,14 +202,14 @@ button{
   background:
     linear-gradient(
       90deg,
-      rgba(8,4,9,.99),
-      rgba(31,12,26,.97)
+      rgba(10,5,10,.98),
+      rgba(28,12,25,.96)
     );
 
   border-bottom:1px solid var(--border);
 
   box-shadow:
-    0 8px 30px rgba(0,0,0,.45);
+    0 8px 30px rgba(0,0,0,.4);
 }
 
 .brand{
@@ -231,20 +233,20 @@ button{
   color:var(--gold);
 
   font-family:Georgia,serif;
-  font-size:21px;
+  font-size:20px;
   letter-spacing:2px;
 
   background:
     radial-gradient(
       circle,
-      #361429,
+      #311326,
       #0d070d
     );
 }
 
 .brand h1{
   font-family:Georgia,serif;
-  font-size:20px;
+  font-size:21px;
   color:var(--gold);
   letter-spacing:2px;
 }
@@ -255,15 +257,15 @@ button{
 
   color:var(--muted);
 
-  font-size:10px;
-  letter-spacing:1.4px;
+  font-size:11px;
+  letter-spacing:1.5px;
   text-transform:uppercase;
 }
 
 .top-actions{
   display:flex;
   align-items:center;
-  gap:9px;
+  gap:10px;
 }
 
 .admin-email{
@@ -272,41 +274,35 @@ button{
 }
 
 .btn{
-  min-height:40px;
-
-  padding:9px 14px;
-
   border:1px solid var(--border);
   border-radius:10px;
 
+  padding:10px 15px;
+
   color:white;
-  background:rgba(255,255,255,.045);
+  background:rgba(255,255,255,.05);
 
   transition:.2s;
 }
 
 .btn:hover{
-  border-color:rgba(255,77,166,.5);
   transform:translateY(-1px);
+  border-color:rgba(255,77,166,.5);
 }
 
 .btn-pink{
-  border:0;
-
   background:
     linear-gradient(
       135deg,
       #ff4da6,
-      #a92768
+      #a92869
     );
+
+  border:0;
 }
 
 .btn-gold{
-  border:0;
-
   color:#160c10;
-
-  font-weight:bold;
 
   background:
     linear-gradient(
@@ -314,14 +310,17 @@ button{
       var(--gold),
       var(--gold2)
     );
+
+  border:0;
+  font-weight:bold;
 }
 
 .btn-danger{
-  color:#ff9c9c;
+  color:white;
 
-  border-color:rgba(255,80,80,.28);
+  background:rgba(255,60,60,.12);
 
-  background:rgba(255,50,50,.08);
+  border-color:rgba(255,90,90,.3);
 }
 
 
@@ -340,20 +339,20 @@ button{
 
   padding:20px 13px;
 
-  background:rgba(9,5,10,.95);
+  background:rgba(10,5,10,.94);
 
   border-right:1px solid var(--border);
 }
 
 .menu-title{
-  padding:11px 12px;
+  padding:10px 12px;
 
   color:#806e7c;
 
   font-size:10px;
   font-weight:bold;
-  letter-spacing:2px;
 
+  letter-spacing:2px;
   text-transform:uppercase;
 }
 
@@ -370,7 +369,7 @@ button{
   border:1px solid transparent;
   border-radius:11px;
 
-  color:#d6c8d2;
+  color:#d5c7d1;
   background:transparent;
 
   text-align:left;
@@ -383,18 +382,17 @@ button{
   background:
     linear-gradient(
       90deg,
-      rgba(255,77,166,.16),
+      rgba(255,77,166,.15),
       rgba(248,213,138,.05)
     );
 
-  border-color:
-    rgba(255,77,166,.18);
+  border-color:rgba(255,77,166,.18);
 }
 
 .nav-icon{
   width:24px;
-  color:var(--gold);
   text-align:center;
+  color:var(--gold);
 }
 
 .main{
@@ -405,7 +403,7 @@ button{
 
 
 /* =====================================================
-   SECTIONS
+   SEÇÕES
 ===================================================== */
 
 .section{
@@ -439,7 +437,7 @@ button{
 }
 
 .page-subtitle{
-  margin-bottom:22px;
+  margin-bottom:23px;
   color:var(--muted);
   font-size:14px;
 }
@@ -451,6 +449,7 @@ button{
 
 .stats{
   display:grid;
+
   grid-template-columns:
     repeat(4,minmax(0,1fr));
 
@@ -460,8 +459,6 @@ button{
 }
 
 .stat{
-  position:relative;
-
   padding:20px;
 
   border:1px solid var(--border);
@@ -470,8 +467,8 @@ button{
   background:
     linear-gradient(
       145deg,
-      rgba(38,18,33,.95),
-      rgba(17,8,16,.96)
+      rgba(36,18,32,.95),
+      rgba(17,9,16,.95)
     );
 
   box-shadow:var(--shadow);
@@ -480,32 +477,29 @@ button{
 .stat-label{
   color:var(--muted);
 
-  font-size:11px;
-  letter-spacing:1px;
+  font-size:12px;
   text-transform:uppercase;
+  letter-spacing:1px;
 }
 
 .stat-value{
   margin-top:8px;
 
-  color:white;
-
-  font-size:28px;
+  font-size:29px;
   font-weight:bold;
+
+  color:white;
 }
 
 .stat-icon{
-  position:absolute;
-  top:17px;
-  right:18px;
-
+  float:right;
   color:var(--gold);
-  font-size:23px;
+  font-size:24px;
 }
 
 
 /* =====================================================
-   PANELS
+   PAINEL
 ===================================================== */
 
 .panel{
@@ -515,7 +509,7 @@ button{
   border:1px solid var(--border);
   border-radius:17px;
 
-  background:rgba(20,10,18,.92);
+  background:rgba(20,10,18,.91);
 
   box-shadow:var(--shadow);
 }
@@ -538,12 +532,13 @@ button{
 
 
 /* =====================================================
-   FILTERS
+   FILTROS
 ===================================================== */
 
 .filters{
   display:flex;
   flex-wrap:wrap;
+
   gap:10px;
 
   margin-bottom:18px;
@@ -558,15 +553,12 @@ button{
 
   color:white;
 
-  border:1px solid
-    rgba(248,213,138,.17);
-
+  border:1px solid rgba(248,213,138,.17);
   border-radius:9px;
 
   outline:none;
 
-  background:
-    rgba(255,255,255,.045);
+  background:rgba(255,255,255,.045);
 }
 
 .input{
@@ -594,27 +586,25 @@ button{
 }
 
 option{
-  color:white;
   background:#180d17;
+  color:white;
 }
 
 
 /* =====================================================
-   TABLE
+   TABELAS
 ===================================================== */
 
 .table-wrap{
   width:100%;
   overflow-x:auto;
-
   border-radius:12px;
 }
 
 table{
   width:100%;
-  min-width:720px;
-
   border-collapse:collapse;
+  min-width:720px;
 }
 
 th,
@@ -631,9 +621,10 @@ td{
 th{
   color:var(--gold);
 
-  font-size:10px;
-  letter-spacing:1px;
+  font-size:11px;
+
   text-transform:uppercase;
+  letter-spacing:1px;
 }
 
 td{
@@ -652,6 +643,7 @@ tr:hover td{
 
 .badge{
   display:inline-flex;
+
   align-items:center;
   justify-content:center;
 
@@ -661,9 +653,9 @@ tr:hover td{
 
   font-size:10px;
   font-weight:bold;
-  letter-spacing:.5px;
 
   text-transform:uppercase;
+  letter-spacing:.5px;
 }
 
 .badge-green{
@@ -671,8 +663,7 @@ tr:hover td{
 
   background:rgba(70,211,154,.11);
 
-  border:1px solid
-    rgba(70,211,154,.2);
+  border:1px solid rgba(70,211,154,.2);
 }
 
 .badge-red{
@@ -680,8 +671,7 @@ tr:hover td{
 
   background:rgba(255,98,98,.11);
 
-  border:1px solid
-    rgba(255,98,98,.2);
+  border:1px solid rgba(255,98,98,.2);
 }
 
 .badge-gold{
@@ -689,8 +679,7 @@ tr:hover td{
 
   background:rgba(248,213,138,.09);
 
-  border:1px solid
-    rgba(248,213,138,.2);
+  border:1px solid rgba(248,213,138,.2);
 }
 
 .badge-pink{
@@ -698,14 +687,8 @@ tr:hover td{
 
   background:rgba(255,77,166,.1);
 
-  border:1px solid
-    rgba(255,77,166,.2);
+  border:1px solid rgba(255,77,166,.2);
 }
-
-
-/* =====================================================
-   ACTIONS
-===================================================== */
 
 .actions{
   display:flex;
@@ -716,8 +699,9 @@ tr:hover td{
 .small-btn{
   padding:7px 9px;
 
-  border:1px solid var(--border);
   border-radius:7px;
+
+  border:1px solid var(--border);
 
   color:white;
   background:rgba(255,255,255,.04);
@@ -735,37 +719,26 @@ tr:hover td{
   border-color:rgba(255,98,98,.25);
 }
 
-.small-btn.gold{
-  color:var(--gold);
-}
-
 
 /* =====================================================
-   EMPTY
+   MENSAGENS / VAZIO
 ===================================================== */
 
 .empty{
   padding:35px 20px;
 
-  color:var(--muted);
-
   text-align:center;
+
+  color:var(--muted);
   line-height:1.6;
 }
 
 .empty-icon{
   margin-bottom:10px;
 
-  color:var(--gold);
-
-  font-size:34px;
-  opacity:.65;
+  font-size:35px;
+  opacity:.6;
 }
-
-
-/* =====================================================
-   MESSAGES
-===================================================== */
 
 .message{
   display:none;
@@ -787,8 +760,7 @@ tr:hover td{
 
   background:rgba(70,211,154,.08);
 
-  border:1px solid
-    rgba(70,211,154,.18);
+  border:1px solid rgba(70,211,154,.18);
 }
 
 .message.error{
@@ -796,8 +768,7 @@ tr:hover td{
 
   background:rgba(255,98,98,.08);
 
-  border:1px solid
-    rgba(255,98,98,.18);
+  border:1px solid rgba(255,98,98,.18);
 }
 
 
@@ -827,15 +798,14 @@ tr:hover td{
 }
 
 .modal-box{
-  width:min(760px,100%);
+  width:min(750px,100%);
   max-height:90vh;
-  overflow:auto;
+
+  overflow-y:auto;
 
   padding:25px;
 
-  border:1px solid
-    rgba(248,213,138,.22);
-
+  border:1px solid rgba(248,213,138,.22);
   border-radius:20px;
 
   background:
@@ -852,6 +822,7 @@ tr:hover td{
 .modal-header{
   display:flex;
   justify-content:space-between;
+
   gap:15px;
 
   margin-bottom:20px;
@@ -867,8 +838,9 @@ tr:hover td{
   width:35px;
   height:35px;
 
-  border:1px solid var(--border);
   border-radius:50%;
+
+  border:1px solid var(--border);
 
   color:white;
   background:rgba(255,255,255,.05);
@@ -888,12 +860,11 @@ tr:hover td{
 .detail{
   padding:13px;
 
-  border:1px solid
-    rgba(255,255,255,.06);
-
   border-radius:10px;
 
   background:rgba(255,255,255,.035);
+
+  border:1px solid rgba(255,255,255,.06);
 }
 
 .detail.full{
@@ -906,14 +877,15 @@ tr:hover td{
   color:var(--muted);
 
   font-size:10px;
-  letter-spacing:1px;
+
   text-transform:uppercase;
+  letter-spacing:1px;
 }
 
 .detail-value{
   color:white;
-  line-height:1.5;
   word-break:break-word;
+  line-height:1.5;
 }
 
 
@@ -923,6 +895,7 @@ tr:hover td{
 
 .mobile-menu{
   display:none;
+  padding:12px;
 }
 
 @media(max-width:1000px){
@@ -933,7 +906,7 @@ tr:hover td{
   }
 
   .sidebar{
-    width:215px;
+    width:210px;
   }
 
 }
@@ -954,7 +927,6 @@ tr:hover td{
 
   .mobile-menu{
     display:block;
-    margin:12px;
   }
 
   .mobile-menu button{
@@ -969,6 +941,7 @@ tr:hover td{
     margin:0 12px 12px;
 
     border:1px solid var(--border);
+
     border-radius:15px;
   }
 
@@ -990,7 +963,7 @@ tr:hover td{
   }
 
   .stat-value{
-    font-size:22px;
+    font-size:23px;
   }
 
   .page-title{
@@ -1020,11 +993,11 @@ tr:hover td{
   }
 
   .brand h1{
-    font-size:15px;
+    font-size:16px;
   }
 
   .brand small{
-    font-size:8px;
+    font-size:9px;
   }
 
   .brand-mark{
@@ -1036,7 +1009,7 @@ tr:hover td{
 
 
 /* =====================================================
-   STATUS CONEXÃO
+   STATUS DE CONEXÃO
 ===================================================== */
 
 .connection{
@@ -1044,7 +1017,7 @@ tr:hover td{
   align-items:center;
   gap:6px;
 
-  color:#78e8b6;
+  color:#74f0ba;
 
   font-size:11px;
 }
@@ -1058,7 +1031,8 @@ tr:hover td{
   background:#4fe0a2;
 
   box-shadow:
-    0 0 10px rgba(79,224,162,.7);
+    0 0 10px
+    rgba(79,224,162,.7);
 }
 
 </style>
@@ -1092,26 +1066,17 @@ tr:hover td{
 
     <div
       id="loadingError"
-      class="loading-error"
     ></div>
 
     <div
       id="loadingActions"
-      class="loading-actions"
     >
 
       <button
         class="btn btn-pink"
         onclick="goLogin()"
       >
-        Voltar ao acesso
-      </button>
-
-      <button
-        class="btn"
-        onclick="location.reload()"
-      >
-        Tentar novamente
+        Voltar para o acesso
       </button>
 
     </div>
@@ -1156,9 +1121,14 @@ tr:hover td{
 
   <div class="top-actions">
 
-    <span class="connection">
+    <span
+      class="connection"
+    >
+
       <span class="connection-dot"></span>
+
       Online
+
     </span>
 
     <span
@@ -1302,13 +1272,15 @@ tr:hover td{
 
 
 <!-- =====================================================
-     MAIN
+     CONTEÚDO
 ===================================================== -->
 
 <main class="main">
 
 
-<!-- DASHBOARD -->
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
 
 <section
   id="section-dashboard"
@@ -1320,7 +1292,7 @@ tr:hover td{
   </h2>
 
   <p class="page-subtitle">
-    Central administrativa da LUX-ADVANCE.
+    Bem-vindo à central administrativa da LUX.
   </p>
 
 
@@ -1346,7 +1318,7 @@ tr:hover td{
         id="statModelos"
         class="stat-value"
       >
-        —
+        0
       </div>
 
     </div>
@@ -1359,14 +1331,14 @@ tr:hover td{
       </span>
 
       <div class="stat-label">
-        Pendentes
+        Aguardando aprovação
       </div>
 
       <div
         id="statPendentes"
         class="stat-value"
       >
-        —
+        0
       </div>
 
     </div>
@@ -1428,12 +1400,12 @@ tr:hover td{
 
     </div>
 
-    <p style="color:var(--muted);line-height:1.8">
+    <p style="color:var(--muted);line-height:1.8;">
 
-      Controle central da plataforma LUX-ADVANCE.
-      Aqui o administrador poderá acompanhar cadastros,
-      aprovar modelos, analisar reclamações, acompanhar
-      avaliações e visualizar a estrutura dos planos.
+      Este é o centro de controle da plataforma LUX.
+      Aqui você poderá acompanhar os cadastros de modelos,
+      aprovar ou reprovar perfis, visualizar reclamações,
+      acompanhar avaliações e consultar os planos da plataforma.
 
     </p>
 
@@ -1457,18 +1429,11 @@ tr:hover td{
 
     </div>
 
-    <div id="recentModels">
-
-      <div class="empty">
-
-        <div class="empty-icon">
-          ♟
-        </div>
-
-        Carregando...
-
-      </div>
-
+    <div
+      id="recentModels"
+      class="empty"
+    >
+      Carregando...
     </div>
 
   </div>
@@ -1476,7 +1441,9 @@ tr:hover td{
 </section>
 
 
-<!-- MODELOS -->
+<!-- =====================================================
+     MODELOS
+===================================================== -->
 
 <section
   id="section-modelos"
@@ -1488,7 +1455,7 @@ tr:hover td{
   </h2>
 
   <p class="page-subtitle">
-    Gerenciamento de cadastros e aprovação de modelos.
+    Gerencie os cadastros e o processo de aprovação.
   </p>
 
 
@@ -1511,7 +1478,7 @@ tr:hover td{
       >
 
         <option value="">
-          Todos
+          Todos os status
         </option>
 
         <option value="pendente">
@@ -1532,7 +1499,7 @@ tr:hover td{
         class="btn btn-gold"
         onclick="loadModels()"
       >
-        Atualizar
+        Atualizar modelos
       </button>
 
     </div>
@@ -1570,7 +1537,9 @@ tr:hover td{
 
         </thead>
 
-        <tbody id="modelsTable">
+        <tbody
+          id="modelsTable"
+        >
 
           <tr>
 
@@ -1595,7 +1564,9 @@ tr:hover td{
 </section>
 
 
-<!-- USUÁRIOS -->
+<!-- =====================================================
+     USUÁRIOS
+===================================================== -->
 
 <section
   id="section-usuarios"
@@ -1607,7 +1578,7 @@ tr:hover td{
   </h2>
 
   <p class="page-subtitle">
-    Controle da área de usuários da plataforma.
+    Controle e informações dos usuários da plataforma.
   </p>
 
 
@@ -1616,7 +1587,7 @@ tr:hover td{
     <div class="panel-header">
 
       <h3 class="panel-title">
-        Usuários autenticados
+        Gestão de usuários
       </h3>
 
       <span class="badge badge-gold">
@@ -1632,18 +1603,20 @@ tr:hover td{
       </div>
 
       <p>
-        A listagem administrativa completa dos usuários
-        do Supabase Auth deve ser feita através de uma
-        Edge Function com privilégios administrativos.
+        Os usuários autenticados ficam protegidos pelo
+        sistema de autenticação do Supabase.
       </p>
 
-      <br>
-
-      <p style="font-size:12px">
-
-        A chave pública do navegador não deve receber
-        permissão de administrador do Supabase.
-
+      <p
+        style="
+          margin-top:12px;
+          font-size:12px;
+        "
+      >
+        A chave pública do navegador não possui permissão
+        para consultar diretamente todos os usuários do Auth.
+        Essa função deverá utilizar uma Edge Function segura
+        quando for habilitada.
       </p>
 
     </div>
@@ -1653,7 +1626,9 @@ tr:hover td{
 </section>
 
 
-<!-- RECLAMAÇÕES -->
+<!-- =====================================================
+     RECLAMAÇÕES
+===================================================== -->
 
 <section
   id="section-reclamacoes"
@@ -1665,7 +1640,7 @@ tr:hover td{
   </h2>
 
   <p class="page-subtitle">
-    Atendimento de usuários e modelos.
+    Central de atendimento e acompanhamento das ocorrências.
   </p>
 
 
@@ -1677,7 +1652,7 @@ tr:hover td{
         id="reclamacaoSearch"
         class="input"
         type="search"
-        placeholder="Pesquisar..."
+        placeholder="Pesquisar reclamação..."
         oninput="filterComplaints()"
       >
 
@@ -1692,7 +1667,7 @@ tr:hover td{
         </option>
 
         <option value="aberta">
-          Aberta
+          Abertas
         </option>
 
         <option value="em_analise">
@@ -1700,7 +1675,7 @@ tr:hover td{
         </option>
 
         <option value="resolvida">
-          Resolvida
+          Resolvidas
         </option>
 
       </select>
@@ -1715,16 +1690,12 @@ tr:hover td{
     </div>
 
 
-    <div id="complaintsContainer">
+    <div
+      id="complaintsContainer"
+    >
 
       <div class="empty">
-
-        <div class="empty-icon">
-          !
-        </div>
-
         Carregando reclamações...
-
       </div>
 
     </div>
@@ -1734,7 +1705,9 @@ tr:hover td{
 </section>
 
 
-<!-- AVALIAÇÕES -->
+<!-- =====================================================
+     AVALIAÇÕES
+===================================================== -->
 
 <section
   id="section-avaliacoes"
@@ -1746,7 +1719,7 @@ tr:hover td{
   </h2>
 
   <p class="page-subtitle">
-    Acompanhamento das avaliações e estrelas dos perfis.
+    Acompanhamento das avaliações realizadas nos perfis.
   </p>
 
 
@@ -1755,7 +1728,7 @@ tr:hover td{
     <div class="panel-header">
 
       <h3 class="panel-title">
-        Sistema de avaliações
+        Sistema de estrelas
       </h3>
 
       <span class="badge badge-pink">
@@ -1764,22 +1737,25 @@ tr:hover td{
 
     </div>
 
-    <div id="ratingsContainer">
 
-      <div class="empty">
+    <div
+      id="ratingsContainer"
+      class="empty"
+    >
 
-        <div class="empty-icon">
-          ★
-        </div>
-
-        A área administrativa das avaliações está preparada.
-
-        <br><br>
-
-        A leitura será conectada à tabela de avaliações
-        quando o nome da tabela estiver definido no banco.
-
+      <div class="empty-icon">
+        ★
       </div>
+
+      Área preparada para o sistema de avaliações
+      dos perfis.
+
+      <br><br>
+
+      <span style="font-size:12px;">
+        As avaliações poderão ser conectadas à tabela
+        específica do projeto sem alterar a autenticação.
+      </span>
 
     </div>
 
@@ -1788,7 +1764,9 @@ tr:hover td{
 </section>
 
 
-<!-- ASSINATURAS -->
+<!-- =====================================================
+     ASSINATURAS
+===================================================== -->
 
 <section
   id="section-assinaturas"
@@ -1800,7 +1778,7 @@ tr:hover td{
   </h2>
 
   <p class="page-subtitle">
-    Estrutura comercial da LUX-ADVANCE.
+    Visão administrativa dos planos da LUX.
   </p>
 
 
@@ -1865,11 +1843,11 @@ tr:hover td{
     <div class="panel-header">
 
       <h3 class="panel-title">
-        Estrutura financeira
+        Mercado Pago
       </h3>
 
       <span class="badge badge-gold">
-        MERCADO PAGO
+        PAGAMENTOS
       </span>
 
     </div>
@@ -1881,17 +1859,17 @@ tr:hover td{
       </div>
 
       <p>
-        Área administrativa preparada para as assinaturas.
+        A área administrativa dos planos está disponível.
       </p>
 
-      <br>
-
-      <p style="font-size:12px">
-
-        Credenciais privadas do Mercado Pago não devem
-        ficar neste HTML. A comunicação financeira deverá
-        utilizar a Edge Function segura do projeto.
-
+      <p
+        style="
+          margin-top:12px;
+          font-size:12px;
+        "
+      >
+        Dados privados do Mercado Pago devem permanecer
+        somente no backend ou Edge Function.
       </p>
 
     </div>
@@ -1901,7 +1879,9 @@ tr:hover td{
 </section>
 
 
-<!-- CONFIGURAÇÕES -->
+<!-- =====================================================
+     CONFIGURAÇÕES
+===================================================== -->
 
 <section
   id="section-configuracoes"
@@ -1913,7 +1893,7 @@ tr:hover td{
   </h2>
 
   <p class="page-subtitle">
-    Configuração e segurança do painel.
+    Informações da configuração administrativa atual.
   </p>
 
 
@@ -1940,11 +1920,24 @@ tr:hover td{
       <div class="detail">
 
         <div class="detail-label">
+          Supabase
+        </div>
+
+        <div class="detail-value">
+          Conectado
+        </div>
+
+      </div>
+
+
+      <div class="detail">
+
+        <div class="detail-label">
           Sessão
         </div>
 
         <div class="detail-value">
-          Autenticada
+          Persistente
         </div>
 
       </div>
@@ -1953,24 +1946,11 @@ tr:hover td{
       <div class="detail">
 
         <div class="detail-label">
-          Persistência
+          Auto refresh
         </div>
 
         <div class="detail-value">
-          Ativa
-        </div>
-
-      </div>
-
-
-      <div class="detail">
-
-        <div class="detail-label">
-          Auto Refresh
-        </div>
-
-        <div class="detail-value">
-          Ativo
+          Ativado
         </div>
 
       </div>
@@ -1998,22 +1978,28 @@ tr:hover td{
     <div class="panel-header">
 
       <h3 class="panel-title">
-        Segurança administrativa
+        Segurança
       </h3>
 
     </div>
 
-    <p style="color:var(--muted);line-height:1.8">
+    <p
+      style="
+        color:var(--muted);
+        line-height:1.8;
+      "
+    >
 
-      O painel somente libera o conteúdo quando existe
-      uma sessão autenticada e o e-mail da sessão corresponde
-      ao administrador configurado em <strong style="color:var(--gold)">
-      config.js</strong>.
+      O painel verifica se a sessão pertence ao e-mail
+      administrativo definido no <strong
+      style="color:var(--gold);"
+      >config.js</strong>.
 
       <br><br>
 
-      Nenhuma chave service_role ou credencial privada deve
-      ser colocada neste arquivo.
+      A chave pública do Supabase pode permanecer no
+      navegador. Chaves secretas, service role e credenciais
+      privadas do Mercado Pago não devem ser colocadas aqui.
 
     </p>
 
@@ -2074,7 +2060,8 @@ tr:hover td{
    CONFIGURAÇÃO
 ===================================================== */
 
-const supabase = window.luxSupabase;
+const supabase =
+  window.luxSupabase;
 
 const ADMIN_EMAIL =
   String(
@@ -2082,7 +2069,6 @@ const ADMIN_EMAIL =
   )
   .trim()
   .toLowerCase();
-
 
 let currentUser = null;
 
@@ -2101,56 +2087,107 @@ document.addEventListener(
 );
 
 
+/*
+ * ESTA É A PARTE IMPORTANTE.
+ *
+ * O painel NÃO fica esperando indefinidamente
+ * o getSession().
+ *
+ * Primeiro procura a sessão já salva pelo Supabase.
+ * Se encontrar o administrador, abre o painel.
+ *
+ * Depois tenta confirmar a sessão normalmente.
+ */
+
 async function initAdmin(){
 
   try{
 
     if(!supabase){
 
-      throw new Error(
+      showLoadingError(
         "Supabase não foi inicializado. Verifique o config.js."
       );
+
+      return;
+
+    }
+
+    if(!ADMIN_EMAIL){
+
+      showLoadingError(
+        "LUX_ADMIN_EMAIL não está configurado no config.js."
+      );
+
+      return;
 
     }
 
 
-    if(!ADMIN_EMAIL){
+    let user = null;
 
-      throw new Error(
-        "LUX_ADMIN_EMAIL não está configurado no config.js."
-      );
+
+    /*
+     * PRIMEIRO:
+     * procura a sessão salva no navegador.
+     */
+
+    user =
+      findSavedAdminUser();
+
+
+    /*
+     * SE NÃO ENCONTRAR:
+     * tenta o Supabase com limite de tempo.
+     */
+
+    if(!user){
+
+      try{
+
+        const result =
+          await withTimeout(
+            supabase.auth.getSession(),
+            4000
+          );
+
+
+        if(
+          !result.error &&
+          result.data?.session?.user
+        ){
+
+          user =
+            result.data.session.user;
+
+        }
+
+      }catch(error){
+
+        console.warn(
+          "LUX ADMIN: getSession não respondeu.",
+          error
+        );
+
+      }
 
     }
 
 
     /*
-     * IMPORTANTE:
-     * Não deixamos getSession() travar
-     * a tela indefinidamente.
+     * NÃO EXISTE SESSÃO.
      */
 
-    const result =
-      await withTimeout(
-        supabase.auth.getSession(),
-        10000,
-        "O Supabase demorou mais de 10 segundos para responder."
+    if(!user){
+
+      showLoadingError(
+        "Sessão administrativa não encontrada. Faça o login novamente."
       );
 
-
-    if(result.error){
-
-      throw result.error;
-
-    }
-
-
-    const session =
-      result.data?.session;
-
-
-    if(!session?.user){
-
-      goLogin();
+      setTimeout(
+        goLogin,
+        1800
+      );
 
       return;
 
@@ -2159,18 +2196,31 @@ async function initAdmin(){
 
     const email =
       String(
-        session.user.email || ""
+        user.email || ""
       )
       .trim()
       .toLowerCase();
 
 
-    if(email !== ADMIN_EMAIL){
+    /*
+     * CONFERE O ADMINISTRADOR.
+     */
 
-      await supabase.auth.signOut();
+    if(
+      email !== ADMIN_EMAIL
+    ){
 
       showLoadingError(
         "A conta autenticada não possui permissão administrativa."
+      );
+
+      try{
+        await supabase.auth.signOut();
+      }catch(_){}
+
+      setTimeout(
+        goLogin,
+        1800
       );
 
       return;
@@ -2178,33 +2228,56 @@ async function initAdmin(){
     }
 
 
-    currentUser =
-      session.user;
-
-
     /*
-     * MOSTRA O PAINEL PRIMEIRO.
+     * SESSÃO OK.
      *
-     * Nenhuma consulta de tabela pode impedir
-     * que o painel apareça.
+     * ABRE O PAINEL IMEDIATAMENTE.
      */
+
+    currentUser =
+      user;
 
     openAdminSystem();
 
 
     /*
-     * Carregamentos secundários depois
-     * que o painel já está visível.
+     * AGORA SIM carrega os dados.
+     *
+     * Se alguma tabela estiver com problema,
+     * o painel continua aberto.
      */
 
-    loadDashboard()
-      .catch(
-        error =>
-          console.error(
-            "Dashboard:",
-            error
-          )
-      );
+    setTimeout(
+      () => {
+
+        loadDashboard()
+          .catch(
+            error =>
+              console.error(
+                "Erro no dashboard:",
+                error
+              )
+          );
+
+        loadComplaints()
+          .catch(
+            error =>
+              console.error(
+                "Erro nas reclamações:",
+                error
+              )
+          );
+
+      },
+      100
+    );
+
+
+    /*
+     * Confirma a sessão real em segundo plano.
+     */
+
+    validateSessionInBackground();
 
 
   }catch(error){
@@ -2214,10 +2287,233 @@ async function initAdmin(){
       error
     );
 
-
     showLoadingError(
       error?.message ||
       "Não foi possível validar o acesso."
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   ENCONTRAR SESSÃO SALVA
+===================================================== */
+
+function findSavedAdminUser(){
+
+  try{
+
+    /*
+     * O Supabase normalmente utiliza:
+     *
+     * sb-lardmkeyyifmgbjrcfhn-auth-token
+     */
+
+    const knownKeys = [
+
+      "sb-lardmkeyyifmgbjrcfhn-auth-token",
+
+      "supabase.auth.token"
+
+    ];
+
+
+    for(
+      const key of knownKeys
+    ){
+
+      const user =
+        readUserFromStorageKey(
+          key
+        );
+
+      if(user){
+        return user;
+      }
+
+    }
+
+
+    /*
+     * FALLBACK:
+     * procura qualquer chave do Supabase
+     * que contenha auth-token.
+     */
+
+    for(
+      let i = 0;
+      i < localStorage.length;
+      i++
+    ){
+
+      const key =
+        localStorage.key(i);
+
+
+      if(
+        !key ||
+        !key.includes("auth-token")
+      ){
+        continue;
+      }
+
+
+      const user =
+        readUserFromStorageKey(
+          key
+        );
+
+
+      if(user){
+        return user;
+      }
+
+    }
+
+  }catch(error){
+
+    console.warn(
+      "Não foi possível verificar o armazenamento local.",
+      error
+    );
+
+  }
+
+
+  return null;
+
+}
+
+
+/* =====================================================
+   LER USUÁRIO DO STORAGE
+===================================================== */
+
+function readUserFromStorageKey(
+  key
+){
+
+  try{
+
+    const raw =
+      localStorage.getItem(
+        key
+      );
+
+
+    if(!raw){
+      return null;
+    }
+
+
+    const data =
+      JSON.parse(
+        raw
+      );
+
+
+    /*
+     * Formato atual do Supabase.
+     */
+
+    if(
+      data?.user?.email
+    ){
+
+      return data.user;
+
+    }
+
+
+    if(
+      data?.currentSession?.user?.email
+    ){
+
+      return data.currentSession.user;
+
+    }
+
+
+    if(
+      data?.session?.user?.email
+    ){
+
+      return data.session.user;
+
+    }
+
+
+  }catch(_){}
+
+
+  return null;
+
+}
+
+
+/* =====================================================
+   VALIDAÇÃO EM SEGUNDO PLANO
+===================================================== */
+
+async function validateSessionInBackground(){
+
+  try{
+
+    const result =
+      await withTimeout(
+        supabase.auth.getSession(),
+        5000
+      );
+
+
+    const session =
+      result?.data?.session;
+
+
+    /*
+     * Se o Supabase respondeu com uma sessão,
+     * confirma o e-mail.
+     */
+
+    if(
+      session?.user
+    ){
+
+      const email =
+        String(
+          session.user.email || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      if(
+        email !== ADMIN_EMAIL
+      ){
+
+        await supabase.auth.signOut();
+
+        goLogin();
+
+      }
+
+    }
+
+  }catch(error){
+
+    /*
+     * IMPORTANTE:
+     *
+     * Se o getSession travar, NÃO fecha o painel.
+     *
+     * O painel já foi aberto com a sessão persistida.
+     */
+
+    console.warn(
+      "LUX ADMIN: validação em segundo plano demorou.",
+      error
     );
 
   }
@@ -2231,8 +2527,7 @@ async function initAdmin(){
 
 function withTimeout(
   promise,
-  milliseconds,
-  message
+  milliseconds
 ){
 
   return Promise.race([
@@ -2243,10 +2538,14 @@ function withTimeout(
       (_,reject)=>{
 
         setTimeout(
-          ()=>{
+          () => {
+
             reject(
-              new Error(message)
+              new Error(
+                "Tempo limite de validação atingido."
+              )
             );
+
           },
           milliseconds
         );
@@ -2265,43 +2564,79 @@ function withTimeout(
 
 function openAdminSystem(){
 
-  const emailElement =
+  const loading =
     document.getElementById(
-      "adminEmail"
+      "loadingScreen"
     );
 
-  const configElement =
+  const system =
     document.getElementById(
-      "configAdminEmail"
+      "adminSystem"
     );
 
 
-  if(emailElement){
+  if(
+    currentUser
+  ){
 
-    emailElement.textContent =
-      currentUser.email;
+    const email =
+      currentUser.email || "";
+
+
+    const adminEmail =
+      document.getElementById(
+        "adminEmail"
+      );
+
+
+    const configEmail =
+      document.getElementById(
+        "configAdminEmail"
+      );
+
+
+    if(adminEmail){
+
+      adminEmail.textContent =
+        email;
+
+    }
+
+
+    if(configEmail){
+
+      configEmail.textContent =
+        email;
+
+    }
 
   }
 
 
-  if(configElement){
+  /*
+   * ESCONDE A TELA DE CARREGAMENTO.
+   */
 
-    configElement.textContent =
-      currentUser.email;
+  if(loading){
+
+    loading.classList.add(
+      "hidden"
+    );
 
   }
 
 
-  document
-    .getElementById("loadingScreen")
-    .classList
-    .add("hidden");
+  /*
+   * MOSTRA O PAINEL.
+   */
 
+  if(system){
 
-  document
-    .getElementById("adminSystem")
-    .classList
-    .remove("hidden");
+    system.classList.remove(
+      "hidden"
+    );
+
+  }
 
 }
 
@@ -2409,6 +2744,7 @@ async function logout(){
 
   }
 
+
   goLogin();
 
 }
@@ -2421,9 +2757,13 @@ async function logout(){
 function toggleMobileMenu(){
 
   document
-    .getElementById("sidebar")
+    .getElementById(
+      "sidebar"
+    )
     .classList
-    .toggle("open");
+    .toggle(
+      "open"
+    );
 
 }
 
@@ -2434,7 +2774,9 @@ function showSection(
 ){
 
   document
-    .querySelectorAll(".section")
+    .querySelectorAll(
+      ".section"
+    )
     .forEach(
       element =>
         element.classList.remove(
@@ -2459,7 +2801,9 @@ function showSection(
 
 
   document
-    .querySelectorAll(".nav-btn")
+    .querySelectorAll(
+      ".nav-btn"
+    )
     .forEach(
       element =>
         element.classList.remove(
@@ -2478,19 +2822,27 @@ function showSection(
 
 
   document
-    .getElementById("sidebar")
+    .getElementById(
+      "sidebar"
+    )
     .classList
-    .remove("open");
+    .remove(
+      "open"
+    );
 
 
-  if(section === "modelos"){
+  if(
+    section === "modelos"
+  ){
 
     loadModels();
 
   }
 
 
-  if(section === "reclamacoes"){
+  if(
+    section === "reclamacoes"
+  ){
 
     loadComplaints();
 
@@ -2523,38 +2875,7 @@ function showSectionByName(
 
 async function loadDashboard(){
 
-  /*
-   * Mesmo que uma tabela dê erro,
-   * o painel continua funcionando.
-   */
-
-  try{
-
-    await loadModels();
-
-  }catch(error){
-
-    console.error(
-      "Erro nos modelos:",
-      error
-    );
-
-  }
-
-
-  try{
-
-    await loadComplaints();
-
-  }catch(error){
-
-    console.error(
-      "Erro nas reclamações:",
-      error
-    );
-
-  }
-
+  await loadModels();
 
   updateDashboard();
 
@@ -2576,28 +2897,46 @@ function updateDashboard(){
     ).length;
 
 
-  document
-    .getElementById("statModelos")
-    .textContent =
-    total;
+  const modelos =
+    document.getElementById(
+      "statModelos"
+    );
 
 
-  document
-    .getElementById("statPendentes")
-    .textContent =
-    pending;
+  const pendentes =
+    document.getElementById(
+      "statPendentes"
+    );
 
 
-  document
-    .getElementById("statReclamacoes")
-    .textContent =
-    allComplaints.length;
+  const reclamacoes =
+    document.getElementById(
+      "statReclamacoes"
+    );
 
 
-  document
-    .getElementById("statAvaliacoes")
-    .textContent =
-    "—";
+  if(modelos){
+
+    modelos.textContent =
+      total;
+
+  }
+
+
+  if(pendentes){
+
+    pendentes.textContent =
+      pending;
+
+  }
+
+
+  if(reclamacoes){
+
+    reclamacoes.textContent =
+      allComplaints.length || "—";
+
+  }
 
 
   renderRecentModels();
@@ -2617,16 +2956,58 @@ async function loadModels(){
     );
 
 
+  if(tbody){
+
+    tbody.innerHTML = `
+
+      <tr>
+
+        <td colspan="5">
+
+          <div class="empty">
+            Carregando modelos...
+          </div>
+
+        </td>
+
+      </tr>
+
+    `;
+
+  }
+
+
   try{
 
-    const result =
-      await withTimeout(
-        supabase
-          .from("modelo_perfis")
-          .select("*"),
-        10000,
-        "A consulta dos modelos demorou muito."
-      );
+    let result =
+      await supabase
+        .from(
+          "modelo_perfis"
+        )
+        .select("*")
+        .order(
+          "created_at",
+          {
+            ascending:false
+          }
+        );
+
+
+    /*
+     * Compatibilidade com tabelas
+     * que não possuem created_at.
+     */
+
+    if(result.error){
+
+      result =
+        await supabase
+          .from(
+            "modelo_perfis"
+          )
+          .select("*");
+
+    }
 
 
     if(result.error){
@@ -2640,30 +3021,6 @@ async function loadModels(){
       result.data || [];
 
 
-    /*
-     * Ordenação feita no navegador.
-     * Assim não dependemos de created_at.
-     */
-
-    allModels.sort(
-      (a,b)=>{
-
-        const da =
-          new Date(
-            getCreatedAt(a) || 0
-          ).getTime();
-
-        const db =
-          new Date(
-            getCreatedAt(b) || 0
-          ).getTime();
-
-        return db - da;
-
-      }
-    );
-
-
     renderModels(
       allModels
     );
@@ -2675,7 +3032,7 @@ async function loadModels(){
   }catch(error){
 
     console.error(
-      "Erro ao carregar modelo_perfis:",
+      "Erro ao carregar modelos:",
       error
     );
 
@@ -2697,7 +3054,8 @@ async function loadModels(){
                 !
               </div>
 
-              Não foi possível carregar os modelos.
+              Não foi possível carregar
+              os modelos.
 
               <br><br>
 
@@ -2734,9 +3092,7 @@ function renderModels(
 
 
   if(!tbody){
-
     return;
-
   }
 
 
@@ -2775,16 +3131,27 @@ function renderModels(
         model => {
 
           const id =
-            getModelId(model);
+            getModelId(
+              model
+            );
+
 
           const name =
-            getModelName(model);
+            getModelName(
+              model
+            );
+
 
           const email =
-            getModelEmail(model);
+            getModelEmail(
+              model
+            );
+
 
           const status =
-            getStatus(model);
+            getStatus(
+              model
+            );
 
 
           return `
@@ -2792,11 +3159,9 @@ function renderModels(
             <tr>
 
               <td>
-
                 <strong>
                   ${escapeHtml(name)}
                 </strong>
-
               </td>
 
               <td>
@@ -2819,38 +3184,31 @@ function renderModels(
 
                   <button
                     class="small-btn"
-                    onclick='viewModel(${JSON.stringify(model)})'
+                    onclick='viewModel(${safeJson(model)})'
                   >
                     Ver
                   </button>
 
-
                   ${
                     isPending(status)
-                    ?
+                    ? `
+
+                      <button
+                        class="small-btn approve"
+                        onclick="approveModel('${escapeJs(id)}')"
+                      >
+                        Aprovar
+                      </button>
+
+                      <button
+                        class="small-btn reject"
+                        onclick="rejectModel('${escapeJs(id)}')"
+                      >
+                        Reprovar
+                      </button>
 
                     `
-
-                    <button
-                      class="small-btn approve"
-                      onclick="approveModel('${escapeJs(id)}')"
-                    >
-                      Aprovar
-                    </button>
-
-                    <button
-                      class="small-btn reject"
-                      onclick="rejectModel('${escapeJs(id)}')"
-                    >
-                      Reprovar
-                    </button>
-
-                    `
-
-                    :
-
-                    ""
-
+                    : ""
                   }
 
                 </div>
@@ -2872,22 +3230,18 @@ function filterModels(){
 
   const search =
     String(
-      document
-        .getElementById(
-          "modeloSearch"
-        )
-        ?.value || ""
+      document.getElementById(
+        "modeloSearch"
+      )?.value || ""
     )
-    .trim()
-    .toLowerCase();
+    .toLowerCase()
+    .trim();
 
 
-  const status =
-    document
-      .getElementById(
-        "modeloStatus"
-      )
-      ?.value || "";
+  const statusFilter =
+    document.getElementById(
+      "modeloStatus"
+    )?.value || "";
 
 
   const filtered =
@@ -2901,18 +3255,22 @@ function filterModels(){
           .toLowerCase();
 
 
-        const normalized =
+        const status =
           normalizeStatus(
             getStatus(model)
           );
 
 
         return (
+
           (!search ||
             text.includes(search))
+
           &&
-          (!status ||
-            normalized === status)
+
+          (!statusFilter ||
+            status === statusFilter)
+
         );
 
       }
@@ -2935,24 +3293,16 @@ async function approveModel(
 ){
 
   if(!id){
-
-    alert(
-      "Não foi possível identificar o modelo."
-    );
-
     return;
-
   }
 
 
   if(
     !confirm(
-      "Deseja aprovar este cadastro?"
+      "Deseja aprovar este cadastro de modelo?"
     )
   ){
-
     return;
-
   }
 
 
@@ -2965,7 +3315,7 @@ async function approveModel(
       );
 
 
-    if(!result.ok){
+    if(result.error){
 
       throw result.error;
 
@@ -2989,7 +3339,7 @@ async function approveModel(
 
 
     showMessage(
-      "Não foi possível aprovar: " +
+      "Não foi possível aprovar o modelo: " +
       (
         error?.message ||
         "erro desconhecido"
@@ -3011,24 +3361,16 @@ async function rejectModel(
 ){
 
   if(!id){
-
-    alert(
-      "Não foi possível identificar o modelo."
-    );
-
     return;
-
   }
 
 
   if(
     !confirm(
-      "Deseja reprovar este cadastro?"
+      "Deseja reprovar este cadastro de modelo?"
     )
   ){
-
     return;
-
   }
 
 
@@ -3041,7 +3383,7 @@ async function rejectModel(
       );
 
 
-    if(!result.ok){
+    if(result.error){
 
       throw result.error;
 
@@ -3065,7 +3407,7 @@ async function rejectModel(
 
 
     showMessage(
-      "Não foi possível reprovar: " +
+      "Não foi possível reprovar o modelo: " +
       (
         error?.message ||
         "erro desconhecido"
@@ -3079,7 +3421,7 @@ async function rejectModel(
 
 
 /* =====================================================
-   STATUS DO MODELO
+   ATUALIZAR STATUS
 ===================================================== */
 
 async function updateModelStatus(
@@ -3087,61 +3429,53 @@ async function updateModelStatus(
   status
 ){
 
-  /*
-   * Primeiro utiliza status,
-   * que é o campo principal.
-   */
-
   let result =
     await supabase
-      .from("modelo_perfis")
+      .from(
+        "modelo_perfis"
+      )
       .update({
         status:status
       })
-      .eq("id",id);
+      .eq(
+        "id",
+        id
+      );
 
 
   if(!result.error){
 
-    return {
-      ok:true
-    };
+    return result;
 
   }
 
 
   /*
-   * Compatibilidade com estruturas antigas.
+   * Compatibilidade com estruturas
+   * antigas que utilizam situacao.
    */
 
   result =
     await supabase
-      .from("modelo_perfis")
+      .from(
+        "modelo_perfis"
+      )
       .update({
         situacao:status
       })
-      .eq("id",id);
+      .eq(
+        "id",
+        id
+      );
 
 
-  if(!result.error){
-
-    return {
-      ok:true
-    };
-
-  }
-
-
-  return {
-    ok:false,
-    error:result.error
-  };
+  return result;
 
 }
 
 
 /* =====================================================
-   DETALHES MODELO
+   DETALHES DO MODELO
 ===================================================== */
 
 function viewModel(
@@ -3171,13 +3505,16 @@ function viewModel(
   content.innerHTML =
     entries
       .map(
-        ([key,value])=>`
+        ([key,value]) => `
 
-          <div class="detail ${
-            String(value ?? "").length > 100
-            ? "full"
-            : ""
-          }">
+          <div
+            class="detail
+            ${
+              String(value ?? "").length > 100
+              ? "full"
+              : ""
+            }"
+          >
 
             <div class="detail-label">
               ${escapeHtml(
@@ -3218,7 +3555,7 @@ async function loadComplaints(){
   ];
 
 
-  allComplaints = [];
+  let found = false;
 
 
   for(
@@ -3231,7 +3568,7 @@ async function loadComplaints(){
         await supabase
           .from(table)
           .select("*")
-          .limit(200);
+          .limit(100);
 
 
       if(!result.error){
@@ -3239,23 +3576,27 @@ async function loadComplaints(){
         allComplaints =
           result.data || [];
 
+        found = true;
+
         break;
 
       }
 
-    }catch(error){
+    }catch(_){}
 
-      console.error(
-        table,
-        error
-      );
+  }
 
-    }
+
+  if(!found){
+
+    allComplaints = [];
 
   }
 
 
   renderComplaints();
+
+  updateDashboard();
 
 }
 
@@ -3269,9 +3610,7 @@ function renderComplaints(){
 
 
   if(!container){
-
     return;
-
   }
 
 
@@ -3285,14 +3624,8 @@ function renderComplaints(){
           !
         </div>
 
-        Nenhuma reclamação encontrada.
-
-        <br><br>
-
-        <small>
-          Verifique se a tabela de reclamações
-          está acessível pela política RLS.
-        </small>
+        Nenhuma reclamação disponível
+        para exibição.
 
       </div>
 
@@ -3346,7 +3679,7 @@ function renderComplaints(){
           ${
             allComplaints
               .map(
-                complaint=>`
+                complaint => `
 
                   <tr>
 
@@ -3359,7 +3692,7 @@ function renderComplaints(){
                             "titulo",
                             "subject"
                           ]
-                        ) || "—"
+                        )
                       )}
                     </td>
 
@@ -3372,7 +3705,7 @@ function renderComplaints(){
                             "usuario",
                             "nome"
                           ]
-                        ) || "—"
+                        )
                       )}
                     </td>
 
@@ -3383,7 +3716,7 @@ function renderComplaints(){
                           [
                             "email"
                           ]
-                        ) || "—"
+                        )
                       )}
                     </td>
 
@@ -3394,7 +3727,7 @@ function renderComplaints(){
                           [
                             "status"
                           ]
-                        ) || "aberta"
+                        )
                       )}
                     </td>
 
@@ -3404,7 +3737,8 @@ function renderComplaints(){
                           complaint,
                           [
                             "created_at",
-                            "criado_em"
+                            "criado_em",
+                            "data"
                           ]
                         )
                       )}
@@ -3413,8 +3747,8 @@ function renderComplaints(){
                     <td>
 
                       <button
-                        class="small-btn gold"
-                        onclick='viewComplaint(${JSON.stringify(complaint)})'
+                        class="small-btn"
+                        onclick='viewComplaint(${safeJson(complaint)})'
                       >
                         Ver
                       </button>
@@ -3443,22 +3777,18 @@ function filterComplaints(){
 
   const search =
     String(
-      document
-        .getElementById(
-          "reclamacaoSearch"
-        )
-        ?.value || ""
+      document.getElementById(
+        "reclamacaoSearch"
+      )?.value || ""
     )
     .toLowerCase()
     .trim();
 
 
   const status =
-    document
-      .getElementById(
-        "reclamacaoStatus"
-      )
-      ?.value || "";
+    document.getElementById(
+      "reclamacaoStatus"
+    )?.value || "";
 
 
   const filtered =
@@ -3476,7 +3806,9 @@ function filterComplaints(){
           normalizeStatus(
             firstValue(
               item,
-              ["status"]
+              [
+                "status"
+              ]
             )
           );
 
@@ -3497,27 +3829,30 @@ function filterComplaints(){
     );
 
 
-  renderComplaintsList(
+  renderComplaintList(
     filtered
   );
 
 }
 
 
-function renderComplaintsList(
+function renderComplaintList(
   list
 ){
 
-  const original =
+  const old =
     allComplaints;
+
 
   allComplaints =
     list;
 
+
   renderComplaints();
 
+
   allComplaints =
-    original;
+    old;
 
 }
 
@@ -3543,13 +3878,16 @@ function viewComplaint(
       complaint || {}
     )
     .map(
-      ([key,value])=>`
+      ([key,value]) => `
 
-        <div class="detail ${
-          String(value ?? "").length > 100
-          ? "full"
-          : ""
-        }">
+        <div
+          class="detail
+          ${
+            String(value ?? "").length > 100
+            ? "full"
+            : ""
+          }"
+        >
 
           <div class="detail-label">
             ${escapeHtml(
@@ -3586,9 +3924,7 @@ function renderRecentModels(){
 
 
   if(!container){
-
     return;
-
   }
 
 
@@ -3596,15 +3932,11 @@ function renderRecentModels(){
 
     container.innerHTML = `
 
-      <div class="empty">
-
-        <div class="empty-icon">
-          ♟
-        </div>
-
-        Nenhum cadastro encontrado.
-
+      <div class="empty-icon">
+        ♟
       </div>
+
+      Nenhum cadastro encontrado.
 
     `;
 
@@ -3614,7 +3946,10 @@ function renderRecentModels(){
 
 
   const recent =
-    allModels.slice(0,5);
+    allModels.slice(
+      0,
+      5
+    );
 
 
   container.innerHTML = `
@@ -3648,16 +3983,14 @@ function renderRecentModels(){
           ${
             recent
               .map(
-                model=>`
+                model => `
 
                   <tr>
 
                     <td>
-                      <strong>
-                        ${escapeHtml(
-                          getModelName(model)
-                        )}
-                      </strong>
+                      ${escapeHtml(
+                        getModelName(model)
+                      )}
                     </td>
 
                     <td>
@@ -3701,7 +4034,9 @@ function openModal(){
       "detailsModal"
     )
     .classList
-    .add("show");
+    .add(
+      "show"
+    );
 
 }
 
@@ -3713,7 +4048,9 @@ function closeModal(){
       "detailsModal"
     )
     .classList
-    .remove("show");
+    .remove(
+      "show"
+    );
 
 }
 
@@ -3724,7 +4061,7 @@ document
   )
   .addEventListener(
     "click",
-    event=>{
+    event => {
 
       if(
         event.target.id ===
@@ -3740,7 +4077,7 @@ document
 
 
 /* =====================================================
-   ATUALIZAR
+   ATUALIZAR TUDO
 ===================================================== */
 
 async function refreshAll(){
@@ -3751,7 +4088,30 @@ async function refreshAll(){
   );
 
 
-  await loadDashboard();
+  try{
+
+    await loadModels();
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+  }
+
+
+  try{
+
+    await loadComplaints();
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+  }
 
 
   showMessage(
@@ -3778,9 +4138,7 @@ function showMessage(
 
 
   if(!box){
-
     return;
-
   }
 
 
@@ -3798,10 +4156,12 @@ function showMessage(
 
 
   setTimeout(
-    ()=>{
+    () => {
+
       box.classList.remove(
         "show"
       );
+
     },
     5000
   );
@@ -3810,7 +4170,7 @@ function showMessage(
 
 
 /* =====================================================
-   HELPERS
+   HELPERS MODELOS
 ===================================================== */
 
 function getModelId(
@@ -3901,9 +4261,11 @@ function isPending(
   status
 ){
 
-  return normalizeStatus(
-    status
-  ) === "pendente";
+  return (
+    normalizeStatus(
+      status
+    ) === "pendente"
+  );
 
 }
 
@@ -3932,7 +4294,9 @@ function normalizeStatus(
   if(
     [
       "pending",
-      "aguardando"
+      "aguardando",
+      "em_analise",
+      "analise"
     ].includes(value)
   ){
 
@@ -3986,12 +4350,14 @@ function statusBadge(
   let cls =
     "badge-gold";
 
+
   let text =
-    "Pendente";
+    status || "Pendente";
 
 
   if(
-    normalized === "aprovado"
+    normalized ===
+    "aprovado"
   ){
 
     cls =
@@ -4002,7 +4368,8 @@ function statusBadge(
 
   }
   else if(
-    normalized === "reprovado"
+    normalized ===
+    "reprovado"
   ){
 
     cls =
@@ -4013,7 +4380,8 @@ function statusBadge(
 
   }
   else if(
-    normalized === "resolvida"
+    normalized ===
+    "resolvida"
   ){
 
     cls =
@@ -4024,7 +4392,8 @@ function statusBadge(
 
   }
   else if(
-    normalized === "em_analise"
+    normalized ===
+    "em_analise"
   ){
 
     cls =
@@ -4034,15 +4403,13 @@ function statusBadge(
       "Em análise";
 
   }
-  else if(
-    normalized === "aberta"
-  ){
+  else{
 
     cls =
-      "badge-red";
+      "badge-gold";
 
     text =
-      "Aberta";
+      "Pendente";
 
   }
 
@@ -4058,15 +4425,17 @@ function statusBadge(
 }
 
 
+/* =====================================================
+   HELPERS GERAIS
+===================================================== */
+
 function firstValue(
   object,
   keys
 ){
 
   if(!object){
-
     return "";
-
   }
 
 
@@ -4099,14 +4468,14 @@ function formatDate(
 ){
 
   if(!value){
-
     return "—";
-
   }
 
 
   const date =
-    new Date(value);
+    new Date(
+      value
+    );
 
 
   if(
@@ -4133,16 +4502,18 @@ function formatFieldName(
   key
 ){
 
-  return String(key)
-    .replace(
-      /_/g,
-      " "
-    )
-    .replace(
-      /\b\w/g,
-      letter =>
-        letter.toUpperCase()
-    );
+  return String(
+    key
+  )
+  .replace(
+    /_/g,
+    " "
+  )
+  .replace(
+    /\b\w/g,
+    letter =>
+      letter.toUpperCase()
+  );
 
 }
 
@@ -4162,16 +4533,19 @@ function formatValue(
 
 
   if(
-    typeof value === "object"
+    typeof value ===
+    "object"
   ){
 
     return `
 
-      <pre style="
-        white-space:pre-wrap;
-        font-family:Arial,sans-serif;
-        color:#ddd;
-      ">${escapeHtml(
+      <pre
+        style="
+          white-space:pre-wrap;
+          font-family:Arial,sans-serif;
+          color:#ddd;
+        "
+      >${escapeHtml(
         JSON.stringify(
           value,
           null,
@@ -4249,8 +4623,36 @@ function escapeJs(
 }
 
 
+/*
+ * JSON seguro para colocar
+ * dentro de onclick.
+ */
+
+function safeJson(
+  object
+){
+
+  return JSON.stringify(
+    object || {}
+  )
+  .replace(
+    /\\/g,
+    "\\\\"
+  )
+  .replace(
+    /'/g,
+    "\\'"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  );
+
+}
+
+
 /* =====================================================
-   SESSÃO
+   SEGURANÇA DA SESSÃO
 ===================================================== */
 
 if(supabase){
@@ -4259,18 +4661,32 @@ if(supabase){
     (
       event,
       session
-    )=>{
+    ) => {
 
       /*
-       * Não fazemos redirect imediatamente
-       * durante INITIAL_SESSION.
+       * NÃO redirecionar em INITIAL_SESSION.
        *
-       * Isso evita o loop que estava deixando
-       * o painel preso no carregamento.
+       * Essa era uma das causas possíveis
+       * do painel ficar preso na validação.
        */
 
       if(
-        event === "SIGNED_OUT"
+        event ===
+        "INITIAL_SESSION"
+      ){
+
+        return;
+
+      }
+
+
+      /*
+       * Usuário saiu.
+       */
+
+      if(
+        event ===
+        "SIGNED_OUT"
       ){
 
         goLogin();
@@ -4280,8 +4696,20 @@ if(supabase){
       }
 
 
+      /*
+       * Quando houver renovação do token,
+       * apenas confirma o e-mail administrativo.
+       */
+
       if(
-        event === "TOKEN_REFRESHED" &&
+        (
+          event ===
+          "TOKEN_REFRESHED"
+        ||
+          event ===
+          "SIGNED_IN"
+        )
+        &&
         session?.user
       ){
 
@@ -4294,12 +4722,11 @@ if(supabase){
 
 
         if(
-          email !== ADMIN_EMAIL
+          email !==
+          ADMIN_EMAIL
         ){
 
           supabase.auth.signOut();
-
-          return;
 
         }
 
@@ -4310,7 +4737,29 @@ if(supabase){
 
 }
 
+
+/* =====================================================
+   FECHAR MODAL COM ESC
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if(
+      event.key ===
+      "Escape"
+    ){
+
+      closeModal();
+
+    }
+
+  }
+);
+
 </script>
 
 </body>
+
 </html>

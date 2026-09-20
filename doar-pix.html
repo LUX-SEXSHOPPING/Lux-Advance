@@ -837,6 +837,98 @@ input:focus{
   cursor:pointer;
 }
 
+
+/* =========================
+   NOVO CAMPO DE COMPROVANTE
+========================= */
+
+.arquivo-comprovante{
+
+  display:none;
+
+  margin-bottom:15px;
+
+  padding:14px;
+
+  border-radius:12px;
+
+  background:
+  rgba(0,0,0,.28);
+
+  border:1px solid
+  rgba(37,211,102,.18);
+}
+
+.arquivo-comprovante.ativo{
+
+  display:block;
+}
+
+.arquivo-comprovante-titulo{
+
+  display:block;
+
+  margin:0 0 9px;
+
+  color:#25D366;
+
+  font-size:13px;
+
+  font-weight:bold;
+}
+
+#comprovanteArquivo{
+
+  width:100%;
+
+  padding:11px;
+
+  border-radius:10px;
+
+  border:1px dashed
+  rgba(37,211,102,.40);
+
+  background:#090609;
+
+  color:#ccc;
+
+  font-size:12px;
+
+  cursor:pointer;
+}
+
+#comprovanteArquivo:focus{
+
+  border-color:#25D366;
+
+  box-shadow:
+  0 0 0 3px
+  rgba(37,211,102,.07);
+}
+
+.arquivo-nome{
+
+  display:none;
+
+  margin-top:8px;
+
+  color:#aaa;
+
+  font-size:11px;
+
+  line-height:1.4;
+
+  word-break:break-word;
+}
+
+.arquivo-nome.ativo{
+
+  display:block;
+
+  color:#baffd2;
+}
+
+
 .whatsapp{
 
   margin-top:0;
@@ -1254,9 +1346,11 @@ Envie seu comprovante
 
 <p class="comprovante-texto">
 
-Depois de realizar o PIX, envie o
-comprovante pelo WhatsApp para que
-possamos identificar sua contribuição.
+Depois de realizar o PIX, confirme abaixo
+e selecione o comprovante. O WhatsApp
+será aberto com sua identificação e o
+comprovante será compartilhado quando
+o aparelho permitir.
 
 </p>
 
@@ -1278,6 +1372,39 @@ quero enviar o comprovante pelo WhatsApp.
 </div>
 
 
+<!-- =========================
+     ARQUIVO
+========================= -->
+
+<div
+class="arquivo-comprovante"
+id="areaArquivo"
+>
+
+<label
+class="arquivo-comprovante-titulo"
+for="comprovanteArquivo"
+>
+
+📎 Selecione o comprovante
+
+</label>
+
+<input
+type="file"
+id="comprovanteArquivo"
+accept="image/*,.pdf"
+>
+
+<div
+class="arquivo-nome"
+id="nomeArquivo"
+>
+</div>
+
+</div>
+
+
 <button
 type="button"
 class="btn whatsapp"
@@ -1285,16 +1412,16 @@ id="whatsapp"
 disabled
 >
 
-Enviar confirmação pelo WhatsApp
+Enviar comprovante pelo WhatsApp
 
 </button>
 
 
 <p class="aviso-comprovante">
 
-Ao abrir o WhatsApp, a mensagem será
-preenchida automaticamente. Anexe o
-comprovante na conversa antes de enviar.
+Selecione uma imagem ou PDF do comprovante.
+No Android, o sistema tentará compartilhar
+o arquivo diretamente com o WhatsApp.
 
 </p>
 
@@ -1399,6 +1526,28 @@ const botaoWhatsapp =
 document.getElementById(
 "whatsapp"
 );
+
+const areaArquivo =
+document.getElementById(
+"areaArquivo"
+);
+
+const comprovanteArquivo =
+document.getElementById(
+"comprovanteArquivo"
+);
+
+const nomeArquivo =
+document.getElementById(
+"nomeArquivo"
+);
+
+
+/* =========================
+   REGISTRO ATUAL
+========================= */
+
+let registroAtual = null;
 
 
 /* =========================
@@ -1699,7 +1848,7 @@ function gerarPix(
 
 /* =========================================================
    REGISTRO LOCAL DAS DOAÇÕES
-   ========================================================= */
+========================================================= */
 
 function obterDoacoes(){
 
@@ -1877,14 +2026,103 @@ function atualizarDoacao(id, alteracoes){
 
 
 /* =========================
-   CONFIRMAÇÃO
+   CONTROLE DO COMPROVANTE
 ========================= */
 
 confirmarPix.onchange =
 function(){
 
-  botaoWhatsapp.disabled =
-  !this.checked;
+  if(this.checked){
+
+    areaArquivo.classList.add(
+      "ativo"
+    );
+
+    botaoWhatsapp.disabled =
+    false;
+
+  }else{
+
+    areaArquivo.classList.remove(
+      "ativo"
+    );
+
+    botaoWhatsapp.disabled =
+    true;
+
+    comprovanteArquivo.value =
+    "";
+
+    nomeArquivo.textContent =
+    "";
+
+    nomeArquivo.classList.remove(
+      "ativo"
+    );
+
+  }
+
+};
+
+
+/* =========================
+   ARQUIVO SELECIONADO
+========================= */
+
+comprovanteArquivo.onchange =
+function(){
+
+  const arquivo =
+  this.files &&
+  this.files[0];
+
+
+  if(!arquivo){
+
+    nomeArquivo.textContent =
+    "";
+
+    nomeArquivo.classList.remove(
+      "ativo"
+    );
+
+    return;
+
+  }
+
+
+  const tamanhoMaximo =
+  20 * 1024 * 1024;
+
+
+  if(
+    arquivo.size >
+    tamanhoMaximo
+  ){
+
+    this.value =
+    "";
+
+    nomeArquivo.textContent =
+    "O arquivo é muito grande. Escolha um arquivo de até 20 MB.";
+
+    nomeArquivo.classList.add(
+      "ativo"
+    );
+
+    return;
+
+  }
+
+
+  nomeArquivo.textContent =
+  "✓ Comprovante selecionado: " +
+  arquivo.name;
+
+
+  nomeArquivo.classList.add(
+    "ativo"
+  );
 
 };
 
@@ -2021,15 +2259,7 @@ function(event){
     );
 
 
-    /*
-     * REGISTRA A DOAÇÃO
-     *
-     * O status inicial é
-     * "pix_gerado".
-     *
-     * Isso NÃO significa que
-     * o PIX foi pago.
-     */
+    /* REGISTRA A DOAÇÃO */
 
     const registro =
     registrarDoacao({
@@ -2058,21 +2288,39 @@ function(event){
     }
 
 
+    registroAtual =
+    registro;
+
+
     resultado.style.display =
     "block";
 
 
-    /* RESET CONFIRMAÇÃO */
+    /* RESET COMPROVANTE */
 
     confirmarPix.checked =
     false;
+
+    areaArquivo.classList.remove(
+      "ativo"
+    );
+
+    comprovanteArquivo.value =
+    "";
+
+    nomeArquivo.textContent =
+    "";
+
+    nomeArquivo.classList.remove(
+      "ativo"
+    );
 
     botaoWhatsapp.disabled =
     true;
 
 
     mensagem.textContent =
-    "PIX gerado com sucesso. Realize o pagamento e envie o comprovante pelo WhatsApp.";
+    "PIX gerado com sucesso. Realize o pagamento e depois confirme para enviar o comprovante.";
 
     mensagem.className =
     "mensagem sucesso";
@@ -2086,7 +2334,9 @@ function(event){
     });
 
 
-    /* COPIAR PIX */
+    /* =========================
+       COPIAR PIX
+    ========================= */
 
     document
     .getElementById(
@@ -2115,99 +2365,6 @@ function(event){
     };
 
 
-    /* =========================
-       WHATSAPP
-    ========================= */
-
-    botaoWhatsapp.onclick =
-    function(){
-
-      if(
-        !confirmarPix.checked
-      ){
-
-        return;
-
-      }
-
-
-      /*
-       * Atualiza o registro.
-       *
-       * Ainda NÃO é marcado como pago.
-       * O usuário apenas informou que
-       * irá enviar o comprovante.
-       */
-
-      atualizarDoacao(
-        registro.id,
-        {
-
-          status:
-          "comprovante_solicitado",
-
-          comprovante:
-          "solicitado"
-
-        }
-      );
-
-
-      const valorFormatado =
-      valor.toLocaleString(
-        "pt-BR",
-        {
-          minimumFractionDigits:
-          2,
-
-          maximumFractionDigits:
-          2
-        }
-      );
-
-
-      /*
-       * A mensagem inteira é
-       * codificada apenas uma vez.
-       */
-
-      const texto =
-
-`Olá, LUX Advance.
-
-Realizei uma contribuição via PIX.
-
-ID da contribuição: ${registro.id}
-Nome: ${nome}
-E-mail: ${email}
-WhatsApp: ${whatsapp}
-Valor: R$ ${valorFormatado}
-
-Já realizei o pagamento e estou enviando o comprovante nesta conversa.
-
-Por favor, confirme o recebimento.`;
-
-
-      const url =
-
-      "https://wa.me/" +
-      WHATSAPP +
-      "?text=" +
-      encodeURIComponent(
-        texto
-      );
-
-
-      /*
-       * Abre o WhatsApp.
-       */
-
-      window.location.href =
-      url;
-
-    };
-
-
   }catch(error){
 
     console.error(
@@ -2222,6 +2379,226 @@ Por favor, confirme o recebimento.`;
     "mensagem erro";
 
   }
+
+};
+
+
+/* =========================================================
+   WHATSAPP + COMPROVANTE
+========================================================= */
+
+botaoWhatsapp.onclick =
+async function(){
+
+  if(
+    !confirmarPix.checked
+  ){
+
+    return;
+
+  }
+
+
+  if(
+    !registroAtual
+  ){
+
+    mensagem.textContent =
+    "Gere o PIX primeiro antes de enviar o comprovante.";
+
+    mensagem.className =
+    "mensagem erro";
+
+    return;
+
+  }
+
+
+  const arquivo =
+  comprovanteArquivo.files &&
+  comprovanteArquivo.files[0];
+
+
+  /*
+   * EXIGE O COMPROVANTE
+   */
+
+  if(!arquivo){
+
+    mensagem.textContent =
+    "Selecione o comprovante do PIX antes de continuar.";
+
+    mensagem.className =
+    "mensagem erro";
+
+    areaArquivo.classList.add(
+      "ativo"
+    );
+
+    comprovanteArquivo.focus();
+
+    return;
+
+  }
+
+
+  /*
+   * ATUALIZA O REGISTRO
+   */
+
+  atualizarDoacao(
+    registroAtual.id,
+    {
+
+      status:
+      "comprovante_solicitado",
+
+      comprovante:
+      "selecionado",
+
+      nomeArquivo:
+      arquivo.name
+
+    }
+  );
+
+
+  const valorAtual =
+  Number(
+    registroAtual.valor
+  );
+
+
+  const valorFormatado =
+  valorAtual.toLocaleString(
+    "pt-BR",
+    {
+      minimumFractionDigits:
+      2,
+
+      maximumFractionDigits:
+      2
+    }
+  );
+
+
+  /*
+   * MENSAGEM DO WHATSAPP
+   */
+
+  const texto =
+
+`Olá, LUX Advance.
+
+Realizei uma contribuição via PIX.
+
+ID da contribuição: ${registroAtual.id}
+Nome: ${registroAtual.nome}
+E-mail: ${registroAtual.email}
+WhatsApp: ${registroAtual.whatsapp}
+Valor: R$ ${valorFormatado}
+
+Já realizei o pagamento e estou enviando o comprovante nesta conversa.
+
+Por favor, confirme o recebimento.`;
+
+
+  /*
+   * =====================================================
+   * TENTA COMPARTILHAR ARQUIVO + TEXTO
+   * =====================================================
+   */
+
+  try{
+
+    if(
+      navigator.share &&
+      navigator.canShare
+    ){
+
+      const dadosCompartilhamento = {
+        files:
+        [arquivo],
+
+        text:
+        texto
+      };
+
+
+      if(
+        navigator.canShare(
+          dadosCompartilhamento
+        )
+      ){
+
+        await navigator.share(
+          dadosCompartilhamento
+        );
+
+
+        mensagem.textContent =
+        "Comprovante compartilhado. Selecione o WhatsApp na tela de compartilhamento.";
+
+        mensagem.className =
+        "mensagem sucesso";
+
+        return;
+
+      }
+
+    }
+
+  }catch(error){
+
+    /*
+     * O usuário pode cancelar
+     * o compartilhamento.
+     */
+
+    if(
+      error &&
+      error.name ===
+      "AbortError"
+    ){
+
+      return;
+
+    }
+
+    console.warn(
+      "Compartilhamento de arquivo não disponível:",
+      error
+    );
+
+  }
+
+
+  /*
+   * =====================================================
+   * FALLBACK
+   * =====================================================
+   *
+   * Caso o navegador não permita enviar
+   * o arquivo automaticamente, abrimos
+   * o WhatsApp com a mensagem pronta.
+   *
+   * O arquivo continuará selecionado
+   * no aparelho e poderá ser anexado
+   * manualmente na conversa.
+   */
+
+  const url =
+
+  "https://wa.me/" +
+  WHATSAPP +
+  "?text=" +
+  encodeURIComponent(
+    texto
+  );
+
+
+  window.location.href =
+  url;
 
 };
 

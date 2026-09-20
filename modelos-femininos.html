@@ -1,405 +1,1105 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
 <title>LUX — Modelos Femininas</title>
 
 <link rel="stylesheet" href="./app.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap"
+  rel="stylesheet"
+>
 
 <style>
-*{box-sizing:border-box}
 
-html{scroll-behavior:smooth}
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
 
 body{
+
   margin:0;
+
   min-height:100vh;
+
   color:#fff;
-  font-family:"Playfair Display",Georgia,serif;
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
   background:
-    linear-gradient(rgba(8,3,7,.45),rgba(8,2,6,.90)),
-    url("./Halloween-feminina.jpg") center top/cover fixed no-repeat;
+    linear-gradient(
+      rgba(8,3,7,.45),
+      rgba(8,2,6,.90)
+    ),
+    url("./Halloween-feminina.jpg")
+    center top / cover
+    fixed
+    no-repeat;
+
   overflow-x:hidden;
 }
 
 body:before{
+
   content:"";
+
   position:fixed;
+
   inset:0;
+
   pointer-events:none;
+
   background:
-    radial-gradient(circle at 50% 20%,rgba(255,180,70,.10),transparent 32%),
-    radial-gradient(circle at 15% 75%,rgba(255,70,150,.10),transparent 28%);
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(255,180,70,.10),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 15% 75%,
+      rgba(255,70,150,.10),
+      transparent 28%
+    );
+
   z-index:0;
 }
 
+
+/* =========================================================
+   TOPO
+========================================================= */
+
 .topbar{
+
   position:relative;
+
   z-index:10;
+
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   padding:18px 22px;
-  background:linear-gradient(180deg,rgba(5,3,6,.90),rgba(5,3,6,.38));
-  border-bottom:1px solid rgba(248,213,138,.25);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5,3,6,.90),
+      rgba(5,3,6,.38)
+    );
+
+  border-bottom:
+    1px solid
+    rgba(248,213,138,.25);
+
   backdrop-filter:blur(8px);
 }
 
 .marca{
+
   color:#f8d58a;
+
   text-decoration:none;
+
   font-family:"Cinzel",serif;
+
   font-size:20px;
+
   font-weight:700;
+
   letter-spacing:3px;
 }
 
 .entrar,
 .btn-catalogo{
+
   color:#f8d58a;
+
   text-decoration:none;
-  border:1px solid rgba(248,213,138,.65);
-  background:rgba(8,4,9,.72);
+
+  border:
+    1px solid
+    rgba(248,213,138,.65);
+
+  background:
+    rgba(8,4,9,.72);
+
   border-radius:30px;
+
   font-family:"Cinzel",serif;
+
   letter-spacing:1.5px;
+
   transition:.3s;
 }
 
 .entrar{
+
   padding:10px 20px;
+
   font-size:11px;
 }
 
 .entrar:hover,
 .btn-catalogo:hover{
+
   background:#f8d58a;
+
   color:#160b12;
-  box-shadow:0 0 22px rgba(248,213,138,.25);
+
+  box-shadow:
+    0 0 22px
+    rgba(248,213,138,.25);
 }
 
+
+/* =========================================================
+   PÁGINA
+========================================================= */
+
 .pagina{
+
   position:relative;
+
   z-index:2;
+
   width:min(1180px,92%);
+
   margin:auto;
+
   padding:45px 0 70px;
 }
 
+
+/* =========================================================
+   HERO
+========================================================= */
+
 .hero{
+
   text-align:center;
+
   max-width:850px;
-  margin:0 auto 32px;
+
+  margin:
+    0 auto 32px;
 }
 
 .mini-titulo{
+
   color:#f8d58a;
+
   font-family:"Cinzel",serif;
+
   font-size:11px;
+
   letter-spacing:4px;
+
   margin-bottom:12px;
 }
 
 .hero h1{
+
   margin:0;
+
   font-family:"Cinzel",serif;
-  font-size:clamp(30px,6vw,55px);
+
+  font-size:
+    clamp(30px,6vw,55px);
+
   letter-spacing:3px;
-  text-shadow:0 0 22px rgba(0,0,0,.8);
+
+  text-shadow:
+    0 0 22px
+    rgba(0,0,0,.8);
 }
 
-.hero h1 span{color:#f8d58a}
+.hero h1 span{
+  color:#f8d58a;
+}
 
 .hero p{
+
   max-width:650px;
+
   margin:15px auto;
-  color:rgba(255,255,255,.82);
+
+  color:
+    rgba(255,255,255,.82);
+
   line-height:1.7;
 }
 
-.pesquisa-area{
-  max-width:720px;
-  margin:0 auto 30px;
-  padding:4px;
-  border-radius:40px;
-  background:linear-gradient(90deg,rgba(248,213,138,.18),rgba(255,77,166,.18),rgba(248,213,138,.18));
+
+/* =========================================================
+   ÁREA DE FILTROS
+========================================================= */
+
+.filtros-area{
+
+  width:100%;
+
+  margin:
+    0 auto 35px;
+
+  padding:18px;
+
+  border:
+    1px solid
+    rgba(248,213,138,.20);
+
+  border-radius:22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25,10,18,.90),
+      rgba(7,3,8,.86)
+    );
+
+  box-shadow:
+    0 20px 55px
+    rgba(0,0,0,.35),
+
+    inset 0 0 30px
+    rgba(248,213,138,.025);
+
+  backdrop-filter:blur(12px);
+}
+
+.filtros-titulo{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin-bottom:15px;
+
+  color:#f8d58a;
+
+  font-family:"Cinzel",serif;
+
+  font-size:11px;
+
+  font-weight:700;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+}
+
+.filtros-titulo:before{
+
+  content:"";
+
+  width:28px;
+
+  height:1px;
+
+  background:#f8d58a;
+
+  box-shadow:
+    0 0 8px
+    rgba(248,213,138,.35);
+}
+
+
+/* =========================================================
+   GRID DOS FILTROS
+========================================================= */
+
+.filtros-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    minmax(250px,1.4fr)
+    minmax(210px,1fr)
+    minmax(210px,1fr);
+
+  gap:12px;
+}
+
+
+/* =========================================================
+   PESQUISA
+========================================================= */
+
+.pesquisa-box{
+
+  position:relative;
+
+  display:flex;
+
+  align-items:center;
+}
+
+.pesquisa-icone{
+
+  position:absolute;
+
+  left:17px;
+
+  color:#f8d58a;
+
+  font-size:14px;
+
+  pointer-events:none;
 }
 
 #pesquisa{
+
   width:100%;
-  padding:16px 24px;
-  border:1px solid rgba(248,213,138,.35);
-  border-radius:35px;
+
+  height:50px;
+
+  padding:
+    0 18px 0 45px;
+
+  border:
+    1px solid
+    rgba(248,213,138,.30);
+
+  border-radius:13px;
+
   outline:none;
-  background:rgba(8,4,8,.90);
-  color:white;
-  text-align:center;
-  font-family:"Playfair Display",serif;
-  font-size:15px;
+
+  background:
+    rgba(8,4,8,.88);
+
+  color:#fff;
+
+  font-family:
+    "Playfair Display",
+    serif;
+
+  font-size:14px;
+
+  transition:.25s;
 }
 
-.acoes{
+#pesquisa::placeholder{
+
+  color:
+    rgba(255,255,255,.48);
+}
+
+#pesquisa:focus{
+
+  border-color:#f8d58a;
+
+  box-shadow:
+    0 0 18px
+    rgba(248,213,138,.08);
+}
+
+
+/* =========================================================
+   SELECTS
+========================================================= */
+
+.filtro-select{
+
+  width:100%;
+
+  height:50px;
+
+  padding:
+    0 42px 0 16px;
+
+  border:
+    1px solid
+    rgba(248,213,138,.30);
+
+  border-radius:13px;
+
+  outline:none;
+
+  background-color:
+    rgba(8,4,8,.94);
+
+  color:#f8d58a;
+
+  font-family:
+    "Cinzel",
+    serif;
+
+  font-size:10px;
+
+  font-weight:600;
+
+  letter-spacing:1px;
+
+  cursor:pointer;
+
+  transition:.25s;
+
+  appearance:none;
+
+  -webkit-appearance:none;
+
+  background-image:
+    linear-gradient(45deg,transparent 50%,#f8d58a 50%),
+    linear-gradient(135deg,#f8d58a 50%,transparent 50%);
+
+  background-position:
+    calc(100% - 19px) 21px,
+    calc(100% - 14px) 21px;
+
+  background-size:
+    5px 5px,
+    5px 5px;
+
+  background-repeat:no-repeat;
+}
+
+.filtro-select:hover,
+.filtro-select:focus{
+
+  border-color:#f8d58a;
+
+  box-shadow:
+    0 0 18px
+    rgba(248,213,138,.08);
+}
+
+.filtro-select option{
+
+  background:#120b0e;
+
+  color:#f8d58a;
+}
+
+
+/* =========================================================
+   INDICADOR DE RESULTADOS
+========================================================= */
+
+.resultado-filtros{
+
   display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  gap:12px;
+
+  flex-wrap:wrap;
+
+  margin-top:13px;
+
+  padding-top:12px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.06);
+
+  color:
+    rgba(255,255,255,.52);
+
+  font-size:10px;
+
+  letter-spacing:.5px;
+}
+
+.resultado-filtros strong{
+
+  color:#f8d58a;
+
+  font-weight:600;
+}
+
+.limpar-filtros{
+
+  border:0;
+
+  padding:0;
+
+  background:none;
+
+  color:#ff4da6;
+
+  font-family:"Cinzel",serif;
+
+  font-size:9px;
+
+  font-weight:700;
+
+  letter-spacing:1px;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.limpar-filtros:hover{
+
+  color:#fff;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.acoes{
+
+  display:flex;
+
   justify-content:center;
+
   margin-bottom:45px;
 }
 
 .btn-catalogo{
+
   padding:12px 25px;
+
   font-size:11px;
 }
 
+
+/* =========================================================
+   LISTA
+========================================================= */
+
 #listaModelos{
+
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(270px,1fr));
+
   gap:38px;
 }
 
-/* CARD FEMININO */
+
+/* =========================================================
+   CARD FEMININO
+========================================================= */
 
 .modelo-card{
+
   position:relative;
+
   min-height:420px;
-  padding:48px 24px 28px;
+
+  padding:
+    48px 24px 28px;
+
   text-align:center;
+
   overflow:visible;
 
-  border:1px solid rgba(248,213,138,.38);
+  border:
+    1px solid
+    rgba(248,213,138,.38);
 
   border-radius:
     46% 46% 30px 30px /
     22% 22% 30px 30px;
 
   background:
-    radial-gradient(circle at 50% 20%,rgba(255,77,166,.13),transparent 35%),
-    linear-gradient(145deg,rgba(38,13,27,.95),rgba(8,4,10,.97));
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(255,77,166,.13),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(38,13,27,.95),
+      rgba(8,4,10,.97)
+    );
 
   box-shadow:
-    0 22px 50px rgba(0,0,0,.55),
-    inset 0 0 35px rgba(255,77,166,.06);
+    0 22px 50px
+    rgba(0,0,0,.55),
+
+    inset 0 0 35px
+    rgba(255,77,166,.06);
 
   backdrop-filter:blur(7px);
+
   transition:.35s;
 }
 
 .modelo-card:hover{
+
   transform:translateY(-8px);
+
   border-color:#f8d58a;
+
   box-shadow:
-    0 28px 60px rgba(0,0,0,.65),
-    0 0 30px rgba(248,213,138,.12);
+    0 28px 60px
+    rgba(0,0,0,.65),
+
+    0 0 30px
+    rgba(248,213,138,.12);
 }
 
-/* SELO PENDURADO */
+
+/* =========================================================
+   SELO PLANO
+========================================================= */
 
 .selo-plano{
+
   position:absolute;
+
   top:-17px;
+
   left:50%;
-  transform:translateX(-50%) rotate(-3deg);
+
+  transform:
+    translateX(-50%)
+    rotate(-3deg);
+
   z-index:6;
 
   padding:10px 22px;
 
   color:#160b12;
-  background:linear-gradient(135deg,#f8d58a,#b98635,#f8d58a);
 
-  border:2px solid #fff0bd;
-  border-radius:7px 7px 14px 14px;
+  background:
+    linear-gradient(
+      135deg,
+      #f8d58a,
+      #b98635,
+      #f8d58a
+    );
+
+  border:
+    2px solid
+    #fff0bd;
+
+  border-radius:
+    7px 7px 14px 14px;
 
   font-family:"Cinzel",serif;
+
   font-size:10px;
+
   font-weight:700;
+
   letter-spacing:1.5px;
 
   box-shadow:
-    0 7px 18px rgba(0,0,0,.55),
-    0 0 18px rgba(248,213,138,.20);
+    0 7px 18px
+    rgba(0,0,0,.55),
+
+    0 0 18px
+    rgba(248,213,138,.20);
 }
 
 .selo-plano:before{
+
   content:"";
+
   position:absolute;
+
   top:-9px;
+
   left:50%;
+
   width:10px;
+
   height:10px;
-  transform:translateX(-50%);
+
+  transform:
+    translateX(-50%);
+
   border-radius:50%;
+
   background:#27110e;
-  border:2px solid #f8d58a;
+
+  border:
+    2px solid
+    #f8d58a;
 }
 
-/* FOTO */
+
+/* =========================================================
+   FOTO
+========================================================= */
 
 .modelo-foto{
+
   position:relative;
+
   z-index:3;
 
   width:190px;
+
   height:190px;
 
-  margin:0 auto 20px;
+  margin:
+    0 auto 20px;
+
   padding:7px;
 
   border-radius:50%;
 
   background:
-    linear-gradient(135deg,#f8d58a,#ff4da6,#7c4720,#f8d58a);
+    linear-gradient(
+      135deg,
+      #f8d58a,
+      #ff4da6,
+      #7c4720,
+      #f8d58a
+    );
 
   box-shadow:
-    0 0 30px rgba(248,213,138,.18);
+    0 0 30px
+    rgba(248,213,138,.18);
 }
 
 .modelo-foto img{
+
   width:100%;
+
   height:100%;
+
   object-fit:cover;
+
   border-radius:50%;
-  border:4px solid #10070d;
+
+  border:
+    4px solid
+    #10070d;
+
   display:block;
 }
 
 .abobora{
+
   position:absolute;
+
   right:-8px;
+
   bottom:10px;
+
   width:48px;
+
   height:48px;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
   border-radius:50%;
 
   background:#171017;
-  border:2px solid #f8d58a;
+
+  border:
+    2px solid
+    #f8d58a;
 
   font-size:25px;
 
   box-shadow:
-    0 5px 15px rgba(0,0,0,.65),
-    0 0 15px rgba(248,213,138,.16);
+    0 5px 15px
+    rgba(0,0,0,.65),
+
+    0 0 15px
+    rgba(248,213,138,.16);
 }
 
+
+/* =========================================================
+   INFORMAÇÕES
+========================================================= */
+
 .modelo-card h3{
+
   position:relative;
+
   z-index:3;
+
   margin:7px 0;
+
   color:white;
+
   font-family:"Cinzel",serif;
+
   font-size:21px;
+
   letter-spacing:1.5px;
 }
 
 .modelo-info{
-  color:rgba(255,255,255,.70);
+
+  color:
+    rgba(255,255,255,.70);
+
   font-size:14px;
+
   margin:7px;
 }
 
 .modelo-descricao{
+
   max-width:310px;
-  margin:13px auto 20px;
-  color:rgba(255,255,255,.64);
+
+  margin:
+    13px auto 20px;
+
+  color:
+    rgba(255,255,255,.64);
+
   font-size:13px;
+
   line-height:1.6;
 }
 
+
+/* =========================================================
+   BOTÃO PERFIL
+========================================================= */
+
 .btn-perfil{
+
   position:relative;
+
   z-index:3;
+
   display:inline-block;
-  padding:10px 23px;
-  border:1px solid rgba(248,213,138,.60);
+
+  padding:
+    10px 23px;
+
+  border:
+    1px solid
+    rgba(248,213,138,.60);
+
   border-radius:25px;
-  background:rgba(8,4,8,.60);
+
+  background:
+    rgba(8,4,8,.60);
+
   color:#f8d58a;
+
   text-decoration:none;
+
   font-family:"Cinzel",serif;
+
   font-size:10px;
+
   letter-spacing:1.3px;
 }
 
 .btn-perfil:hover{
+
   background:#f8d58a;
+
   color:#160b12;
 }
 
+
+/* =========================================================
+   MENSAGEM
+========================================================= */
+
 .mensagem{
+
   grid-column:1/-1;
-  padding:45px 20px;
+
+  padding:
+    45px 20px;
+
   text-align:center;
-  border:1px solid rgba(248,213,138,.18);
+
+  border:
+    1px solid
+    rgba(248,213,138,.18);
+
   border-radius:30px;
-  background:rgba(8,3,8,.70);
-  color:rgba(255,255,255,.72);
+
+  background:
+    rgba(8,3,8,.70);
+
+  color:
+    rgba(255,255,255,.72);
 }
 
 .mensagem strong{
+
   display:block;
+
   margin-bottom:8px;
+
   color:#f8d58a;
+
   font-family:"Cinzel",serif;
+
   letter-spacing:2px;
 }
 
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
 .rodape{
+
   position:relative;
+
   z-index:2;
-  padding:25px 15px;
+
+  padding:
+    25px 15px;
+
   text-align:center;
-  border-top:1px solid rgba(248,213,138,.18);
-  background:rgba(4,2,5,.72);
-  color:rgba(255,255,255,.58);
+
+  border-top:
+    1px solid
+    rgba(248,213,138,.18);
+
+  background:
+    rgba(4,2,5,.72);
+
+  color:
+    rgba(255,255,255,.58);
+
   font-size:12px;
+
   line-height:1.8;
 }
 
 .rodape strong{
+
   color:#f8d58a;
+
   font-family:"Cinzel",serif;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:850px){
+
+  .filtros-grid{
+
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .pesquisa-box{
+
+    grid-column:1/-1;
+  }
+
 }
 
 @media(max-width:600px){
 
-  .pagina{padding-top:35px}
+  .pagina{
+
+    padding-top:35px;
+  }
+
+  .filtros-area{
+
+    padding:14px;
+
+    border-radius:18px;
+  }
+
+  .filtros-grid{
+
+    grid-template-columns:1fr;
+
+    gap:10px;
+  }
+
+  .pesquisa-box{
+
+    grid-column:auto;
+  }
 
   #listaModelos{
+
     grid-template-columns:1fr;
   }
 
   .modelo-card{
+
     max-width:370px;
+
     width:100%;
+
     margin:auto;
   }
 
   .modelo-foto{
+
     width:175px;
+
     height:175px;
   }
 
+  .resultado-filtros{
+
+    align-items:flex-start;
+
+    flex-direction:column;
+  }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <header class="topbar">
 
-  <a href="./index.html" class="marca">LUX</a>
+  <a
+    href="./index.html"
+    class="marca"
+  >
+    LUX
+  </a>
 
-  <a href="./login.html" class="entrar">
+  <a
+    href="./login.html"
+    class="entrar"
+  >
     ENTRAR
   </a>
 
 </header>
 
+
 <main class="pagina">
+
 
 <section class="hero">
 
@@ -418,39 +1118,137 @@ body:before{
 
 </section>
 
-<div class="pesquisa-area">
 
-  <input
-    type="search"
-    id="pesquisa"
-    placeholder="Pesquisar por nome ou cidade..."
-    autocomplete="off"
-  >
+<!-- ======================================================
+     FILTROS
+====================================================== -->
 
-</div>
+<section class="filtros-area">
+
+  <div class="filtros-titulo">
+    Encontre seu perfil
+  </div>
+
+
+  <div class="filtros-grid">
+
+
+    <div class="pesquisa-box">
+
+      <span class="pesquisa-icone">
+        ◇
+      </span>
+
+      <input
+        type="search"
+        id="pesquisa"
+        placeholder="Pesquisar por nome ou cidade..."
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <select
+      id="filtroPlano"
+      class="filtro-select"
+      aria-label="Filtrar por plano"
+    >
+
+      <option value="">
+        TODOS OS PLANOS
+      </option>
+
+      <option value="LUX ESSENCE">
+        LUX ESSENCE
+      </option>
+
+      <option value="LUX DESFIRE">
+        LUX DESFIRE
+      </option>
+
+      <option value="LUX ELITE">
+        LUX ELITE
+      </option>
+
+      <option value="LUX ROYAL">
+        LUX ROYAL
+      </option>
+
+      <option value="LUX DIAMOND">
+        LUX DIAMOND
+      </option>
+
+    </select>
+
+
+    <select
+      id="filtroCidade"
+      class="filtro-select"
+      aria-label="Filtrar por região ou cidade"
+    >
+
+      <option value="">
+        TODAS AS REGIÕES / CIDADES
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div class="resultado-filtros">
+
+    <span id="contadorResultados">
+      Carregando modelos...
+    </span>
+
+    <button
+      type="button"
+      id="limparFiltros"
+      class="limpar-filtros"
+    >
+      LIMPAR FILTROS
+    </button>
+
+  </div>
+
+</section>
+
 
 <div class="acoes">
 
-  <a href="./catalago.html" class="btn-catalogo">
+  <a
+    href="./catalago.html"
+    class="btn-catalogo"
+  >
     ← VOLTAR AO CATÁLOGO
   </a>
 
 </div>
 
+
 <section id="listaModelos">
 
   <div class="mensagem">
+
     <strong>LUX</strong>
+
     Carregando modelos...
+
   </div>
 
 </section>
 
+
 </main>
+
 
 <footer class="rodape">
 
-<strong>LUX — Sensualidade &amp; Sofisticação</strong>
+<strong>
+  LUX — Sensualidade &amp; Sofisticação
+</strong>
 
 <br>
 
@@ -462,13 +1260,22 @@ Agência Europeia • Conteúdo para maiores de 18 anos
 
 </footer>
 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="./config.js"></script>
+
 <script src="./auth.js"></script>
+
 
 <script>
 
 let modelos=[];
+
+
+/* =========================================================
+   ESCAPAR HTML
+========================================================= */
 
 function escapeHTML(valor){
 
@@ -478,7 +1285,13 @@ function escapeHTML(valor){
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
 }
+
+
+/* =========================================================
+   NOME DO PLANO
+========================================================= */
 
 function nomePlano(modelo){
 
@@ -488,131 +1301,447 @@ function nomePlano(modelo){
     modelo.assinatura ||
     modelo.plano_atual ||
     "LUX ESSENCE"
-  ).toUpperCase();
+  )
+  .trim()
+  .toUpperCase();
 
 }
 
+
+/* =========================================================
+   CIDADE
+========================================================= */
+
+function cidadeModelo(modelo){
+
+  return String(
+    modelo.cidade ||
+    modelo.regiao ||
+    modelo.localizacao ||
+    ""
+  )
+  .trim();
+
+}
+
+
+/* =========================================================
+   NORMALIZAR TEXTO
+========================================================= */
+
+function normalizarTexto(valor){
+
+  return String(valor ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase()
+    .trim();
+
+}
+
+
+/* =========================================================
+   ATUALIZAR CIDADES
+========================================================= */
+
+function atualizarFiltroCidades(){
+
+  const select =
+    document.getElementById(
+      "filtroCidade"
+    );
+
+  if(!select){
+    return;
+  }
+
+  const cidades =
+    modelos
+      .map(modelo =>
+        cidadeModelo(modelo)
+      )
+      .filter(Boolean);
+
+
+  const cidadesUnicas =
+    [...new Set(
+      cidades.map(cidade =>
+        cidade.trim()
+      )
+    )]
+    .sort((a,b) =>
+      a.localeCompare(
+        b,
+        "pt-BR"
+      )
+    );
+
+
+  select.innerHTML = `
+
+    <option value="">
+      TODAS AS REGIÕES / CIDADES
+    </option>
+
+    ${
+      cidadesUnicas
+        .map(cidade => `
+
+          <option value="${escapeHTML(cidade)}">
+            ${escapeHTML(cidade.toUpperCase())}
+          </option>
+
+        `)
+        .join("")
+    }
+
+  `;
+
+}
+
+
+/* =========================================================
+   ATUALIZAR CONTADOR
+========================================================= */
+
+function atualizarContador(
+  quantidade
+){
+
+  const contador =
+    document.getElementById(
+      "contadorResultados"
+    );
+
+  if(!contador){
+    return;
+  }
+
+  contador.innerHTML = `
+
+    <strong>
+      ${quantidade}
+    </strong>
+
+    ${
+      quantidade === 1
+      ? "perfil encontrado"
+      : "perfis encontrados"
+    }
+
+  `;
+
+}
+
+
+/* =========================================================
+   MOSTRAR MODELOS
+========================================================= */
+
 function mostrarModelos(lista){
 
-  const container=document.getElementById("listaModelos");
+  const container =
+    document.getElementById(
+      "listaModelos"
+    );
+
+
+  if(!container){
+    return;
+  }
+
+
+  atualizarContador(
+    lista.length
+  );
+
 
   if(!lista.length){
 
     container.innerHTML=`
+
       <div class="mensagem">
-        <strong>NENHUM PERFIL ENCONTRADO</strong>
-        Tente pesquisar por outro nome ou cidade.
+
+        <strong>
+          NENHUM PERFIL ENCONTRADO
+        </strong>
+
+        Tente pesquisar por outro nome,
+        cidade ou plano.
+
       </div>
+
     `;
 
     return;
   }
 
-  container.innerHTML=lista.map(modelo=>{
 
-    const nome=escapeHTML(
-      modelo.nome ||
-      modelo.nome_profissional ||
-      "Modelo LUX"
-    );
+  container.innerHTML =
+    lista.map(modelo=>{
 
-    const cidade=escapeHTML(
-      modelo.cidade || ""
-    );
+      const nome =
+        escapeHTML(
+          modelo.nome ||
+          modelo.nome_profissional ||
+          "Modelo LUX"
+        );
 
-    const descricao=escapeHTML(
-      modelo.descricao ||
-      "Perfil LUX"
-    );
 
-    const foto=
-      modelo.foto_url ||
-      modelo.foto ||
-      modelo.imagem ||
-      "";
+      const cidade =
+        escapeHTML(
+          cidadeModelo(modelo)
+        );
 
-    const fotoHTML=foto
-      ? `
-        <div class="modelo-foto">
 
-          <img
-            src="${escapeHTML(foto)}"
-            alt="${nome}"
-            loading="lazy"
+      const descricao =
+        escapeHTML(
+          modelo.descricao ||
+          "Perfil LUX"
+        );
+
+
+      const plano =
+        nomePlano(modelo);
+
+
+      const foto =
+        modelo.foto_url ||
+        modelo.foto ||
+        modelo.imagem ||
+        "";
+
+
+      const fotoHTML =
+        foto
+
+        ?
+
+        `
+
+          <div class="modelo-foto">
+
+            <img
+              src="${escapeHTML(foto)}"
+              alt="${nome}"
+              loading="lazy"
+            >
+
+            <div class="abobora">
+              🎃
+            </div>
+
+          </div>
+
+        `
+
+        :
+
+        `
+
+          <div class="modelo-foto">
+
+            <div
+              style="
+                width:100%;
+                height:100%;
+                border-radius:50%;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:#160a10;
+                font-family:Cinzel,serif;
+                color:#f8d58a;
+              "
+            >
+              LUX
+            </div>
+
+            <div class="abobora">
+              🎃
+            </div>
+
+          </div>
+
+        `;
+
+
+      return `
+
+        <article class="modelo-card">
+
+
+          <div class="selo-plano">
+
+            ${escapeHTML(plano)}
+
+          </div>
+
+
+          ${fotoHTML}
+
+
+          <h3>
+            ${nome}
+          </h3>
+
+
+          ${
+            cidade
+
+            ?
+
+            `
+              <div class="modelo-info">
+                ${cidade}
+              </div>
+            `
+
+            :
+
+            ""
+          }
+
+
+          <div class="modelo-descricao">
+
+            ${descricao}
+
+          </div>
+
+
+          <a
+            href="./login.html"
+            class="btn-perfil"
           >
+            VER PERFIL
+          </a>
 
-          <div class="abobora">
-            🎃
-          </div>
 
-        </div>
-      `
-      : `
-        <div class="modelo-foto">
+        </article>
 
-          <div
-            style="
-              width:100%;
-              height:100%;
-              border-radius:50%;
-              display:flex;
-              align-items:center;
-              justify-content:center;
-              background:#160a10;
-              font-family:Cinzel,serif;
-              color:#f8d58a;
-            "
-          >
-            LUX
-          </div>
-
-          <div class="abobora">
-            🎃
-          </div>
-
-        </div>
       `;
 
-    return `
-
-      <article class="modelo-card">
-
-        <div class="selo-plano">
-          ${escapeHTML(nomePlano(modelo))}
-        </div>
-
-        ${fotoHTML}
-
-        <h3>${nome}</h3>
-
-        ${
-          cidade
-          ? `<div class="modelo-info">${cidade}</div>`
-          : ""
-        }
-
-        <div class="modelo-descricao">
-          ${descricao}
-        </div>
-
-        <a
-          href="./login.html"
-          class="btn-perfil"
-        >
-          VER PERFIL
-        </a>
-
-      </article>
-
-    `;
-
-  }).join("");
+    })
+    .join("");
 
 }
 
+
+/* =========================================================
+   APLICAR FILTROS
+========================================================= */
+
+function aplicarFiltros(){
+
+  const pesquisa =
+    document
+      .getElementById(
+        "pesquisa"
+      )
+      ?.value || "";
+
+
+  const plano =
+    document
+      .getElementById(
+        "filtroPlano"
+      )
+      ?.value || "";
+
+
+  const cidade =
+    document
+      .getElementById(
+        "filtroCidade"
+      )
+      ?.value || "";
+
+
+  const termo =
+    normalizarTexto(
+      pesquisa
+    );
+
+
+  const planoFiltro =
+    normalizarTexto(
+      plano
+    );
+
+
+  const cidadeFiltro =
+    normalizarTexto(
+      cidade
+    );
+
+
+  const filtrados =
+    modelos.filter(modelo=>{
+
+      const nome =
+        normalizarTexto(
+          modelo.nome ||
+          modelo.nome_profissional ||
+          ""
+        );
+
+
+      const cidadeModeloTexto =
+        normalizarTexto(
+          cidadeModelo(modelo)
+        );
+
+
+      const planoModelo =
+        normalizarTexto(
+          nomePlano(modelo)
+        );
+
+
+      const correspondePesquisa =
+        !termo ||
+        nome.includes(termo) ||
+        cidadeModeloTexto.includes(termo);
+
+
+      const correspondePlano =
+        !planoFiltro ||
+        planoModelo === planoFiltro;
+
+
+      const correspondeCidade =
+        !cidadeFiltro ||
+        cidadeModeloTexto === cidadeFiltro;
+
+
+      return (
+        correspondePesquisa &&
+        correspondePlano &&
+        correspondeCidade
+      );
+
+    });
+
+
+  mostrarModelos(
+    filtrados
+  );
+
+}
+
+
+/* =========================================================
+   CARREGAR MODELOS
+========================================================= */
+
 async function carregarModelos(){
 
-  const container=document.getElementById("listaModelos");
+  const container =
+    document.getElementById(
+      "listaModelos"
+    );
+
 
   try{
 
@@ -624,69 +1753,150 @@ async function carregarModelos(){
 
     }
 
-    const {data,error}=await window.luxSupabase
-      .from("modelo_perfis")
-      .select("*");
 
-    if(error) throw error;
+    const {
+      data,
+      error
+    } =
+      await window.luxSupabase
 
-    modelos=data || [];
+        .from("modelo_perfis")
 
-    mostrarModelos(modelos);
+        .select("*");
+
+
+    if(error){
+      throw error;
+    }
+
+
+    modelos =
+      data || [];
+
+
+    atualizarFiltroCidades();
+
+
+    mostrarModelos(
+      modelos
+    );
+
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
+
+
+    atualizarContador(
+      0
+    );
+
 
     container.innerHTML=`
+
       <div class="mensagem">
-        <strong>LUX</strong>
-        Não foi possível carregar os modelos neste momento.
+
+        <strong>
+          LUX
+        </strong>
+
+        Não foi possível carregar
+        os modelos neste momento.
+
       </div>
+
     `;
 
   }
 
 }
 
+
+/* =========================================================
+   EVENTOS DOS FILTROS
+========================================================= */
+
 document
-.getElementById("pesquisa")
-.addEventListener("input",function(){
+  .getElementById(
+    "pesquisa"
+  )
+  .addEventListener(
+    "input",
+    aplicarFiltros
+  );
 
-  const termo=this.value.toLowerCase().trim();
 
-  if(!termo){
+document
+  .getElementById(
+    "filtroPlano"
+  )
+  .addEventListener(
+    "change",
+    aplicarFiltros
+  );
 
-    mostrarModelos(modelos);
 
-    return;
-  }
+document
+  .getElementById(
+    "filtroCidade"
+  )
+  .addEventListener(
+    "change",
+    aplicarFiltros
+  );
 
-  const filtrados=modelos.filter(modelo=>{
 
-    const nome=String(
-      modelo.nome ||
-      modelo.nome_profissional ||
-      ""
-    ).toLowerCase();
+/* =========================================================
+   LIMPAR FILTROS
+========================================================= */
 
-    const cidade=String(
-      modelo.cidade ||
-      ""
-    ).toLowerCase();
+document
+  .getElementById(
+    "limparFiltros"
+  )
+  .addEventListener(
+    "click",
+    function(){
 
-    return nome.includes(termo) ||
-           cidade.includes(termo);
+      document
+        .getElementById(
+          "pesquisa"
+        )
+        .value="";
 
-  });
 
-  mostrarModelos(filtrados);
+      document
+        .getElementById(
+          "filtroPlano"
+        )
+        .value="";
 
-});
+
+      document
+        .getElementById(
+          "filtroCidade"
+        )
+        .value="";
+
+
+      mostrarModelos(
+        modelos
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   INICIAR
+========================================================= */
 
 carregarModelos();
 
 </script>
 
 </body>
+
 </html>

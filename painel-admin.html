@@ -655,6 +655,20 @@ main{
         border-color .22s ease,
         background .22s ease;
 
+    cursor:pointer;
+
+    width:100%;
+
+    text-align:left;
+
+    color:inherit;
+
+    appearance:none;
+
+    -webkit-appearance:none;
+
+    -webkit-tap-highlight-color:transparent;
+
 }
 
 
@@ -678,6 +692,8 @@ main{
         1px solid
         rgba(245,213,140,.10);
 
+    pointer-events:none;
+
 }
 
 
@@ -695,6 +711,14 @@ main{
             rgba(245,213,140,.045),
             rgba(255,255,255,.01)
         );
+
+}
+
+
+.admin-card:active{
+
+    transform:
+        scale(.98);
 
 }
 
@@ -1894,7 +1918,11 @@ footer{
 <section class="admin-menu">
 
 
-    <div class="admin-card">
+    <button
+        type="button"
+        class="admin-card"
+        data-modulo="modelos"
+    >
 
         <div class="admin-icon">
             ◈
@@ -1908,10 +1936,14 @@ footer{
             Cadastros, aprovação e perfis
         </span>
 
-    </div>
+    </button>
 
 
-    <div class="admin-card">
+    <button
+        type="button"
+        class="admin-card"
+        data-modulo="usuarios"
+    >
 
         <div class="admin-icon">
             ◉
@@ -1925,10 +1957,14 @@ footer{
             Contas e controle de acesso
         </span>
 
-    </div>
+    </button>
 
 
-    <div class="admin-card">
+    <button
+        type="button"
+        class="admin-card"
+        data-modulo="reclamacoes"
+    >
 
         <div class="admin-icon">
             !
@@ -1942,10 +1978,14 @@ footer{
             Atendimento e ocorrências
         </span>
 
-    </div>
+    </button>
 
 
-    <div class="admin-card">
+    <button
+        type="button"
+        class="admin-card"
+        data-modulo="planos"
+    >
 
         <div class="admin-icon">
             ◆
@@ -1959,10 +1999,14 @@ footer{
             ESSENCE · DESFIRE · ELITE · ROYAL
         </span>
 
-    </div>
+    </button>
 
 
-    <div class="admin-card">
+    <button
+        type="button"
+        class="admin-card"
+        data-modulo="pagamentos"
+    >
 
         <div class="admin-icon">
             $
@@ -1976,10 +2020,14 @@ footer{
             Controle financeiro
         </span>
 
-    </div>
+    </button>
 
 
-    <div class="admin-card">
+    <button
+        type="button"
+        class="admin-card"
+        data-modulo="assinaturas"
+    >
 
         <div class="admin-icon">
             ◷
@@ -1993,10 +2041,14 @@ footer{
             Planos e status de assinatura
         </span>
 
-    </div>
+    </button>
 
 
-    <div class="admin-card">
+    <button
+        type="button"
+        class="admin-card"
+        data-modulo="avaliacoes"
+    >
 
         <div class="admin-icon">
             ★
@@ -2010,10 +2062,14 @@ footer{
             Notas e reputação dos perfis
         </span>
 
-    </div>
+    </button>
 
 
-    <div class="admin-card">
+    <button
+        type="button"
+        class="admin-card"
+        data-modulo="doacoes"
+    >
 
         <div class="admin-icon">
             ♡
@@ -2027,7 +2083,7 @@ footer{
             Registros e acompanhamento
         </span>
 
-    </div>
+    </button>
 
 
 </section>
@@ -2137,7 +2193,10 @@ footer{
      GESTÃO DE MODELOS
 ====================================================== -->
 
-<section class="panel">
+<section
+    id="gestao-modelos"
+    class="panel"
+>
 
 
     <div class="panel-head">
@@ -2273,7 +2332,7 @@ footer{
 
 
 <!-- ======================================================
-     MODAL
+     MODAL DA FICHA
 ====================================================== -->
 
 <div
@@ -2372,7 +2431,6 @@ document.addEventListener(
     async function(){
 
         try{
-
 
             if(!window.luxSupabase){
 
@@ -2539,11 +2597,354 @@ document.addEventListener(
 
 
 <!-- ======================================================
-     NÃO ALTERAR:
      MOTOR FUNCIONAL DO PAINEL
 ====================================================== -->
 
 <script src="./painel-admin.js"></script>
+
+
+<!-- ======================================================
+     CONTROLE DOS MÓDULOS
+====================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const cards =
+            document.querySelectorAll(
+                ".admin-card[data-modulo]"
+            );
+
+
+        cards.forEach(
+            function(card){
+
+                card.addEventListener(
+                    "click",
+                    function(){
+
+                        const modulo =
+                            card.getAttribute(
+                                "data-modulo"
+                            );
+
+
+                        /* =================================
+                           GESTÃO DE MODELOS
+                        ================================= */
+
+                        if(
+                            modulo ===
+                            "modelos"
+                        ){
+
+                            const destino =
+                                document.getElementById(
+                                    "gestao-modelos"
+                                );
+
+
+                            if(destino){
+
+                                destino.scrollIntoView({
+                                    behavior:"smooth",
+                                    block:"start"
+                                });
+
+                            }
+
+                            return;
+
+                        }
+
+
+                        /* =================================
+                           OUTROS MÓDULOS
+                        ================================= */
+
+                        const modulos = {
+
+                            usuarios: {
+
+                                titulo:
+                                    "USUÁRIOS",
+
+                                texto:
+                                    "Área de gerenciamento de usuários do LUX-ADVANCE."
+
+                            },
+
+
+                            reclamacoes: {
+
+                                titulo:
+                                    "RECLAMAÇÕES",
+
+                                texto:
+                                    "Área de gerenciamento de reclamações e ocorrências."
+
+                            },
+
+
+                            planos: {
+
+                                titulo:
+                                    "PLANOS LUX",
+
+                                texto:
+                                    "Área de gerenciamento dos planos LUX-ESSENCE, LUX-DESFIRE, LUX-ELITE e LUX-ROYAL."
+
+                            },
+
+
+                            pagamentos: {
+
+                                titulo:
+                                    "PAGAMENTOS",
+
+                                texto:
+                                    "Área de controle financeiro e pagamentos."
+
+                            },
+
+
+                            assinaturas: {
+
+                                titulo:
+                                    "ASSINATURAS",
+
+                                texto:
+                                    "Área de controle dos planos e status das assinaturas."
+
+                            },
+
+
+                            avaliacoes: {
+
+                                titulo:
+                                    "AVALIAÇÕES",
+
+                                texto:
+                                    "Área de notas e reputação dos perfis."
+
+                            },
+
+
+                            doacoes: {
+
+                                titulo:
+                                    "DOAÇÕES",
+
+                                texto:
+                                    "Área de registros e acompanhamento das doações."
+
+                            }
+
+                        };
+
+
+                        const moduloSelecionado =
+                            modulos[modulo];
+
+
+                        if(!moduloSelecionado){
+
+                            return;
+
+                        }
+
+
+                        /* =================================
+                           USA O MODAL DO PAINEL-ADMIN.JS
+                        ================================= */
+
+                        if(
+                            typeof abrirModuloAdmin ===
+                            "function"
+                        ){
+
+                            abrirModuloAdmin(
+                                moduloSelecionado.titulo,
+                                moduloSelecionado.texto
+                            );
+
+                            return;
+
+                        }
+
+
+                        /* =================================
+                           SEGURANÇA:
+                           CASO A FUNÇÃO NÃO EXISTA
+                        ================================= */
+
+                        let modal =
+                            document.getElementById(
+                                "modal-modulo-direto"
+                            );
+
+
+                        if(!modal){
+
+                            modal =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            modal.id =
+                                "modal-modulo-direto";
+
+
+                            modal.style.cssText = `
+                                position:fixed;
+                                inset:0;
+                                z-index:999999;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                padding:20px;
+                                background:rgba(0,0,0,.86);
+                                backdrop-filter:blur(10px);
+                            `;
+
+
+                            modal.innerHTML = `
+
+                                <div
+                                    style="
+                                        width:100%;
+                                        max-width:480px;
+                                        padding:30px;
+                                        border:1px solid rgba(245,213,140,.25);
+                                        border-radius:18px;
+                                        background:#120b0e;
+                                        color:#fff;
+                                        box-shadow:0 25px 80px rgba(0,0,0,.7);
+                                    "
+                                >
+
+                                    <div
+                                        style="
+                                            color:#f5d58c;
+                                            font-size:10px;
+                                            letter-spacing:3px;
+                                            margin-bottom:12px;
+                                        "
+                                    >
+                                        LUX-ADVANCE
+                                    </div>
+
+
+                                    <h2
+                                        id="modal-direto-titulo"
+                                        style="
+                                            color:#f5d58c;
+                                            margin:0 0 12px;
+                                        "
+                                    ></h2>
+
+
+                                    <p
+                                        id="modal-direto-texto"
+                                        style="
+                                            color:#aaa;
+                                            line-height:1.6;
+                                        "
+                                    ></p>
+
+
+                                    <button
+                                        id="modal-direto-fechar"
+                                        type="button"
+                                        style="
+                                            margin-top:22px;
+                                            padding:11px 20px;
+                                            border:1px solid #f5d58c;
+                                            border-radius:9px;
+                                            background:transparent;
+                                            color:#f5d58c;
+                                            cursor:pointer;
+                                        "
+                                    >
+                                        FECHAR
+                                    </button>
+
+                                </div>
+
+                            `;
+
+
+                            document.body.appendChild(
+                                modal
+                            );
+
+
+                            document
+                                .getElementById(
+                                    "modal-direto-fechar"
+                                )
+                                .addEventListener(
+                                    "click",
+                                    function(){
+
+                                        modal.remove();
+
+                                    }
+                                );
+
+                        }
+
+
+                        document
+                            .getElementById(
+                                "modal-direto-titulo"
+                            )
+                            .textContent =
+                                moduloSelecionado.titulo;
+
+
+                        document
+                            .getElementById(
+                                "modal-direto-texto"
+                            )
+                            .textContent =
+                                moduloSelecionado.texto;
+
+
+                        modal.style.display =
+                            "flex";
+
+                    }
+                );
+
+
+                /* =================================
+                   SUPORTE PARA TOQUE NO CELULAR
+                ================================= */
+
+                card.addEventListener(
+                    "touchend",
+                    function(){
+
+                        card.click();
+
+                    },
+                    {
+                        passive:true
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+</script>
 
 
 </body>

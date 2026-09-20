@@ -6,31 +6,31 @@
 <meta charset="UTF-8">
 
 <meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
 >
 
 <title>LUX — Central Administrativa</title>
 
 <meta
-  name="theme-color"
-  content="#080609"
+    name="theme-color"
+    content="#070508"
 >
 
 <link
-  rel="preconnect"
-  href="https://fonts.googleapis.com"
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
 >
 
 <link
-  rel="preconnect"
-  href="https://fonts.gstatic.com"
-  crossorigin
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
 >
 
 <link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
-  rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
 >
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -40,1195 +40,1705 @@
 
 <style>
 
+/* =========================================================
+   LUX-ADVANCE
+   EXECUTIVE ADMIN CENTER
+========================================================= */
+
 :root{
 
-  --bg:#070508;
-  --bg2:#0d080c;
+    --black:#050405;
+    --black-2:#09070a;
+    --black-3:#100b0f;
 
-  --panel:#120b10;
-  --panel2:#180d14;
+    --wine:#160b12;
+    --wine-2:#21101a;
 
-  --gold:#f8d58a;
-  --gold2:#caa866;
+    --gold:#f5d58c;
+    --gold-soft:#c9a96b;
 
-  --pink:#ff4da6;
+    --pink:#ff4da6;
 
-  --text:#f8f1f5;
-  --muted:#a99da6;
+    --white:#f8f3f6;
+    --text:#e8e0e5;
+    --muted:#968b94;
+    --muted-2:#665d65;
 
-  --green:#65d7a2;
-  --red:#ff718d;
+    --green:#68d8a4;
+    --red:#ff718d;
+    --blue:#86b8ff;
+    --yellow:#f1cb72;
 
-  --border:rgba(248,213,138,.18);
-  --border2:rgba(255,255,255,.08);
+    --border:
+        rgba(245,213,140,.16);
 
-  --shadow:
-    0 20px 70px rgba(0,0,0,.45);
+    --border-light:
+        rgba(255,255,255,.07);
+
+    --glass:
+        rgba(255,255,255,.025);
+
+    --shadow:
+        0 24px 80px rgba(0,0,0,.48);
 
 }
 
 
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
 
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
 
 }
 
 
 html{
 
-  scroll-behavior:smooth;
+    scroll-behavior:smooth;
 
 }
 
 
 body{
 
-  min-height:100vh;
+    min-height:100vh;
 
-  background:
+    color:var(--text);
 
-    radial-gradient(
-      circle at 85% 0%,
-      rgba(255,77,166,.09),
-      transparent 30%
-    ),
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
 
-    radial-gradient(
-      circle at 10% 20%,
-      rgba(248,213,138,.06),
-      transparent 28%
-    ),
+    background:
 
-    var(--bg);
+        radial-gradient(
+            circle at 82% -10%,
+            rgba(255,77,166,.10),
+            transparent 32%
+        ),
 
-  color:var(--text);
+        radial-gradient(
+            circle at 0% 25%,
+            rgba(245,213,140,.055),
+            transparent 30%
+        ),
 
-  font-family:
-    Inter,
-    Arial,
-    sans-serif;
+        linear-gradient(
+            135deg,
+            #050405 0%,
+            #090609 48%,
+            #050405 100%
+        );
+
+}
+
+
+button,
+input,
+select,
+textarea{
+
+    font:inherit;
 
 }
 
 
 button{
 
-  font:inherit;
-  cursor:pointer;
+    cursor:pointer;
 
 }
 
 
-/* =========================
-   TOPO
-========================= */
+::-webkit-scrollbar{
+
+    width:7px;
+
+}
+
+
+::-webkit-scrollbar-track{
+
+    background:#070508;
+
+}
+
+
+::-webkit-scrollbar-thumb{
+
+    background:#30252d;
+
+    border-radius:20px;
+
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
 
 .topbar{
 
-  position:sticky;
-  top:0;
+    position:sticky;
 
-  z-index:1000;
+    top:0;
 
-  background:
-    rgba(7,5,8,.94);
+    z-index:1000;
 
-  backdrop-filter:
-    blur(18px);
+    border-bottom:
+        1px solid
+        var(--border-light);
 
-  border-bottom:
-    1px solid var(--border2);
+    background:
+        rgba(5,4,5,.91);
+
+    backdrop-filter:
+        blur(22px);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.25);
 
 }
 
 
 .topbar-inner{
 
-  width:
-    min(1280px, calc(100% - 30px));
+    width:
+        min(1380px,calc(100% - 36px));
 
-  min-height:88px;
+    min-height:82px;
 
-  margin:auto;
+    margin:auto;
 
-  display:flex;
+    display:flex;
 
-  align-items:center;
+    align-items:center;
 
-  justify-content:space-between;
+    justify-content:space-between;
 
-  gap:20px;
+    gap:20px;
 
 }
 
 
 .brand{
 
-  display:flex;
+    display:flex;
 
-  align-items:center;
+    align-items:center;
 
-  gap:14px;
-
-}
-
-
-.brand-logo{
-
-  width:52px;
-  height:52px;
-
-  border-radius:50%;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  border:
-    1px solid
-    rgba(248,213,138,.45);
-
-  color:var(--gold);
-
-  font-family:
-    "Playfair Display",
-    serif;
-
-  font-size:21px;
-
-  letter-spacing:1px;
-
-  box-shadow:
-    inset 0 0 30px
-    rgba(248,213,138,.05);
+    gap:14px;
 
 }
 
 
-.brand-title{
+.brand-mark{
 
-  color:var(--gold);
+    position:relative;
 
-  font-family:
-    "Playfair Display",
-    serif;
+    width:50px;
 
-  font-size:31px;
+    height:50px;
 
-  line-height:1;
+    display:flex;
 
-}
+    align-items:center;
 
+    justify-content:center;
 
-.brand-subtitle{
+    border:
+        1px solid
+        rgba(245,213,140,.43);
 
-  margin-top:6px;
+    border-radius:50%;
 
-  color:#9e949d;
+    color:var(--gold);
 
-  font-size:10px;
+    font-family:
+        "Playfair Display",
+        serif;
 
-  letter-spacing:2px;
+    font-size:18px;
 
-  text-transform:uppercase;
+    letter-spacing:1px;
 
-}
-
-
-.top-actions{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:15px;
+    box-shadow:
+        inset 0 0 20px rgba(245,213,140,.04),
+        0 0 25px rgba(245,213,140,.04);
 
 }
 
 
-.online{
+.brand-mark::after{
 
-  display:flex;
+    content:"";
 
-  align-items:center;
+    position:absolute;
 
-  gap:7px;
+    inset:5px;
 
-  color:var(--green);
+    border:
+        1px solid
+        rgba(245,213,140,.10);
 
-  font-size:11px;
-
-  font-weight:600;
-
-  letter-spacing:1px;
-
-  text-transform:uppercase;
+    border-radius:50%;
 
 }
 
 
-.online::before{
+.brand-name{
 
-  content:"";
+    color:var(--gold);
 
-  width:7px;
-  height:7px;
+    font-family:
+        "Playfair Display",
+        serif;
 
-  border-radius:50%;
+    font-size:28px;
 
-  background:var(--green);
+    line-height:1;
 
-  box-shadow:
-    0 0 12px
-    rgba(101,215,162,.8);
-
-}
-
-
-.btn-sair{
-
-  border:
-    1px solid
-    rgba(248,213,138,.32);
-
-  background:
-    rgba(248,213,138,.04);
-
-  color:var(--gold);
-
-  border-radius:12px;
-
-  padding:12px 20px;
-
-  font-weight:700;
+    letter-spacing:2px;
 
 }
 
 
-.btn-sair:hover{
+.brand-sub{
 
-  background:
-    rgba(248,213,138,.10);
+    margin-top:6px;
 
-  border-color:
-    var(--gold);
+    color:var(--muted);
+
+    font-size:9px;
+
+    font-weight:600;
+
+    letter-spacing:2.2px;
+
+    text-transform:uppercase;
 
 }
 
 
-/* =========================
-   CONTEÚDO
-========================= */
+.header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+
+.session{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:var(--green);
+
+    font-size:10px;
+
+    font-weight:700;
+
+    letter-spacing:1.3px;
+
+    text-transform:uppercase;
+
+}
+
+
+.session-dot{
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 12px
+        rgba(104,216,164,.85);
+
+}
+
+
+.logout{
+
+    padding:10px 17px;
+
+    border:
+        1px solid
+        rgba(245,213,140,.25);
+
+    border-radius:10px;
+
+    background:
+        rgba(245,213,140,.035);
+
+    color:var(--gold);
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:.8px;
+
+    transition:.2s;
+
+}
+
+
+.logout:hover{
+
+    border-color:
+        rgba(245,213,140,.65);
+
+    background:
+        rgba(245,213,140,.08);
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
 
 main{
 
-  width:
-    min(1280px, calc(100% - 30px));
+    width:
+        min(1380px,calc(100% - 36px));
 
-  margin:auto;
+    margin:auto;
 
-  padding:
-    45px 0 70px;
+    padding:
+        46px 0 80px;
 
 }
 
 
+/* =========================================================
+   HERO
+========================================================= */
+
 .hero{
 
-  padding-bottom:28px;
+    position:relative;
+
+    overflow:hidden;
+
+    padding:
+        8px 0 35px;
+
+}
+
+
+.hero::after{
+
+    content:"LUX";
+
+    position:absolute;
+
+    right:-15px;
+
+    top:-40px;
+
+    color:
+        rgba(245,213,140,.018);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(130px,20vw,270px);
+
+    font-weight:700;
+
+    pointer-events:none;
 
 }
 
 
 .eyebrow{
 
-  margin-bottom:10px;
+    position:relative;
 
-  color:var(--pink);
+    z-index:1;
 
-  font-size:12px;
+    margin-bottom:12px;
 
-  font-weight:800;
+    color:var(--pink);
 
-  letter-spacing:3px;
+    font-size:10px;
 
-  text-transform:uppercase;
+    font-weight:800;
+
+    letter-spacing:3.5px;
+
+    text-transform:uppercase;
 
 }
 
 
 .hero h1{
 
-  margin-bottom:12px;
+    position:relative;
 
-  color:var(--gold);
+    z-index:1;
 
-  font-family:
-    "Playfair Display",
-    serif;
+    margin-bottom:12px;
 
-  font-size:
-    clamp(38px,6vw,64px);
+    color:var(--gold);
 
-  font-weight:600;
+    font-family:
+        "Playfair Display",
+        serif;
 
-  line-height:1;
+    font-size:
+        clamp(40px,6vw,70px);
+
+    font-weight:600;
+
+    line-height:.98;
+
+}
+
+
+.hero-description{
+
+    position:relative;
+
+    z-index:1;
+
+    max-width:760px;
+
+    color:var(--muted);
+
+    font-size:14px;
+
+    line-height:1.8;
 
 }
 
 
-.hero p{
-
-  max-width:780px;
-
-  color:var(--muted);
-
-  font-size:16px;
-
-  line-height:1.8;
-
-}
-
+/* =========================================================
+   SYSTEM BAR
+========================================================= */
 
 .system-bar{
 
-  margin-top:22px;
+    position:relative;
 
-  padding:14px 17px;
+    z-index:2;
 
-  display:flex;
+    margin-top:25px;
 
-  flex-wrap:wrap;
+    padding:13px 16px;
 
-  gap:10px 22px;
+    display:flex;
 
-  border:
-    1px solid
-    var(--border2);
+    align-items:center;
 
-  border-radius:14px;
+    flex-wrap:wrap;
 
-  background:
-    rgba(255,255,255,.025);
+    gap:9px 25px;
 
-}
+    border:
+        1px solid
+        var(--border-light);
 
+    border-radius:12px;
 
-.system-bar span{
-
-  color:#91868f;
-
-  font-size:12px;
+    background:
+        rgba(255,255,255,.018);
 
 }
 
 
-.system-bar strong{
+.system-item{
 
-  color:#eee5eb;
+    display:flex;
 
-}
+    align-items:center;
 
+    gap:6px;
 
-/* =========================
-   INDICADORES
-========================= */
+    color:var(--muted);
 
-.stats{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(4,minmax(0,1fr));
-
-  gap:14px;
-
-  margin-bottom:22px;
+    font-size:10px;
 
 }
 
 
-.stat{
+.system-item strong{
 
-  position:relative;
-
-  overflow:hidden;
-
-  min-height:145px;
-
-  padding:22px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius:22px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.025),
-      transparent
-    ),
-    var(--panel);
-
-  box-shadow:
-    var(--shadow);
+    color:#ddd3d9;
 
 }
 
 
-.stat::after{
+/* =========================================================
+   ADMIN MODULES
+========================================================= */
 
-  content:"";
+.section-label{
 
-  position:absolute;
+    margin-bottom:12px;
 
-  width:130px;
-  height:130px;
+    color:#706670;
 
-  right:-50px;
-  bottom:-70px;
+    font-size:9px;
 
-  border-radius:50%;
+    font-weight:800;
 
-  border:
-    1px solid
-    rgba(248,213,138,.13);
+    letter-spacing:2.4px;
 
-}
-
-
-.stat-label{
-
-  color:#9f949e;
-
-  font-size:11px;
-
-  font-weight:700;
-
-  letter-spacing:1.5px;
-
-  text-transform:uppercase;
+    text-transform:uppercase;
 
 }
 
 
-.stat-value{
+.admin-menu{
 
-  margin-top:12px;
+    display:grid;
 
-  color:var(--gold);
+    grid-template-columns:
+        repeat(4,minmax(0,1fr));
 
-  font-family:
-    "Playfair Display",
-    serif;
+    gap:10px;
 
-  font-size:42px;
-
-  line-height:1;
+    margin-bottom:30px;
 
 }
 
 
-/* =========================
-   ÁREA DE GESTÃO
-========================= */
+.admin-card{
 
-.workspace{
+    position:relative;
 
-  overflow:hidden;
+    min-height:105px;
 
-  border:
-    1px solid
-    var(--border);
+    padding:17px;
 
-  border-radius:24px;
+    overflow:hidden;
 
-  background:
-    rgba(15,9,13,.86);
+    border:
+        1px solid
+        var(--border-light);
 
-  box-shadow:
-    var(--shadow);
+    border-radius:15px;
 
-}
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.028),
+            rgba(255,255,255,.008)
+        );
 
-
-.workspace-head{
-
-  padding:23px;
-
-  border-bottom:
-    1px solid
-    var(--border2);
+    transition:
+        transform .22s ease,
+        border-color .22s ease,
+        background .22s ease;
 
 }
 
 
-.workspace-head h2{
+.admin-card::after{
 
-  margin-bottom:7px;
+    content:"";
 
-  color:var(--gold);
+    position:absolute;
 
-  font-family:
-    "Playfair Display",
-    serif;
+    width:80px;
 
-  font-size:27px;
+    height:80px;
 
-}
+    right:-40px;
 
+    bottom:-40px;
 
-.workspace-head p{
+    border-radius:50%;
 
-  color:var(--muted);
-
-  font-size:13px;
-
-  line-height:1.6;
+    border:
+        1px solid
+        rgba(245,213,140,.10);
 
 }
 
 
-/* =========================
-   FILTROS
-========================= */
+.admin-card:hover{
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(245,213,140,.28);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(245,213,140,.045),
+            rgba(255,255,255,.01)
+        );
+
+}
+
+
+.admin-icon{
+
+    margin-bottom:10px;
+
+    color:var(--gold);
+
+    font-size:17px;
+
+}
+
+
+.admin-card strong{
+
+    display:block;
+
+    color:#eee7eb;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+.admin-card span{
+
+    display:block;
+
+    margin-top:5px;
+
+    color:var(--muted-2);
+
+    font-size:9px;
+
+    line-height:1.4;
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,minmax(0,1fr));
+
+    gap:12px;
+
+    margin-bottom:28px;
+
+}
+
+
+.metric{
+
+    position:relative;
+
+    overflow:hidden;
+
+    min-height:138px;
+
+    padding:20px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.03),
+            rgba(255,255,255,.008)
+        );
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.22);
+
+}
+
+
+.metric::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:110px;
+
+    height:110px;
+
+    right:-55px;
+
+    top:-55px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(245,213,140,.11);
+
+}
+
+
+.metric-label{
+
+    color:#8f858d;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+
+}
+
+
+.metric-value{
+
+    margin-top:13px;
+
+    color:var(--gold);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:42px;
+
+    line-height:1;
+
+}
+
+
+.metric-line{
+
+    margin-top:12px;
+
+    width:35px;
+
+    height:1px;
+
+    background:
+        rgba(245,213,140,.45);
+
+}
+
+
+/* =========================================================
+   MAIN PANEL
+========================================================= */
+
+.panel{
+
+    overflow:hidden;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:21px;
+
+    background:
+        rgba(12,8,11,.82);
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.panel-head{
+
+    padding:23px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    border-bottom:
+        1px solid
+        var(--border-light);
+
+}
+
+
+.panel-title h2{
+
+    margin-bottom:6px;
+
+    color:var(--gold);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:26px;
+
+    font-weight:600;
+
+}
+
+
+.panel-title p{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.6;
+
+}
+
+
+.panel-tag{
+
+    padding:7px 11px;
+
+    border:
+        1px solid
+        rgba(245,213,140,.16);
+
+    border-radius:999px;
+
+    color:var(--gold-soft);
+
+    background:
+        rgba(245,213,140,.035);
+
+    font-size:9px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
 
 .filters{
 
-  padding:20px 23px;
+    padding:18px 23px;
 
-  border-bottom:
-    1px solid
-    var(--border2);
+    border-bottom:
+        1px solid
+        var(--border-light);
 
 }
 
 
-.filters-title{
+.filter-label{
 
-  margin-bottom:13px;
+    margin-bottom:10px;
 
-  color:#ddd3db;
+    color:#756b73;
 
-  font-size:11px;
+    font-size:9px;
 
-  font-weight:800;
+    font-weight:800;
 
-  letter-spacing:1.8px;
+    letter-spacing:1.7px;
 
-  text-transform:uppercase;
+    text-transform:uppercase;
 
 }
 
 
 .filter-row{
 
-  display:flex;
+    display:flex;
 
-  flex-wrap:wrap;
+    flex-wrap:wrap;
 
-  gap:9px;
+    gap:8px;
 
 }
 
 
 .btn-filtro{
 
-  border:
-    1px solid
-    rgba(248,213,138,.20);
+    padding:9px 16px;
 
-  background:transparent;
+    border:
+        1px solid
+        rgba(245,213,140,.17);
 
-  color:#c9bec7;
+    border-radius:999px;
 
-  border-radius:999px;
+    background:
+        transparent;
 
-  padding:10px 18px;
+    color:#b8adb5;
 
-  font-weight:700;
+    font-size:10px;
 
-  transition:.2s;
+    font-weight:700;
+
+    transition:.2s;
 
 }
 
 
 .btn-filtro:hover{
 
-  color:var(--gold);
+    color:var(--gold);
 
-  border-color:
-    rgba(248,213,138,.55);
+    border-color:
+        rgba(245,213,140,.4);
 
 }
 
 
 .btn-filtro.ativo{
 
-  color:#120b0e;
+    color:#120c0f;
 
-  background:var(--gold);
+    background:var(--gold);
 
-  border-color:var(--gold);
+    border-color:var(--gold);
 
 }
 
 
-/* =========================
-   LISTA
-========================= */
+/* =========================================================
+   RECORDS
+========================================================= */
 
 .records{
 
-  padding:23px;
+    padding:23px;
 
 }
 
 
 #lista-precadastros{
 
-  display:grid;
+    display:grid;
 
-  grid-template-columns:
-    repeat(3,minmax(0,1fr));
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
 
-  gap:15px;
+    gap:13px;
 
 }
 
 
 .card-registro{
 
-  padding:17px;
+    position:relative;
 
-  border:
-    1px solid
-    var(--border2);
+    padding:18px;
 
-  border-radius:17px;
+    border:
+        1px solid
+        var(--border-light);
 
-  background:
-    linear-gradient(
-      160deg,
-      rgba(255,255,255,.025),
-      rgba(255,255,255,.01)
-    );
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            150deg,
+            rgba(255,255,255,.026),
+            rgba(255,255,255,.008)
+        );
+
+    transition:
+        border-color .2s,
+        transform .2s;
+
+}
+
+
+.card-registro:hover{
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(245,213,140,.23);
 
 }
 
 
 .card-registro h4{
 
-  margin-bottom:8px;
+    margin-bottom:11px;
 
-  color:#f5e9f0;
+    color:#f5edf1;
 
-  font-size:17px;
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:19px;
+
+    font-weight:600;
 
 }
 
 
 .card-registro p{
 
-  margin:7px 0;
+    margin:7px 0;
 
-  color:#9f949d;
+    color:#91868f;
 
-  font-size:13px;
-
-}
-
-
-.card-registro img{
-
-  max-width:100%;
-
-  border-radius:10px;
-
-  margin-top:8px;
+    font-size:11px;
 
 }
 
 
-.card-registro video{
+.card-registro strong{
 
-  width:100%;
-
-  max-height:300px;
-
-  border-radius:10px;
-
-  margin-top:8px;
+    font-weight:700;
 
 }
 
 
 .card-registro .btn{
 
-  margin-top:10px;
+    width:100%;
 
-  border:
-    1px solid
-    rgba(248,213,138,.24);
+    margin-top:11px;
 
-  background:
-    rgba(248,213,138,.06);
+    padding:10px;
 
-  color:var(--gold);
+    border:
+        1px solid
+        rgba(245,213,140,.22);
 
-  border-radius:10px;
+    border-radius:9px;
 
-  padding:10px 13px;
+    background:
+        rgba(245,213,140,.045);
 
-  font-weight:700;
+    color:var(--gold);
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:.8px;
 
 }
 
 
+.card-registro .btn:hover{
+
+    background:
+        rgba(245,213,140,.10);
+
+    border-color:
+        rgba(245,213,140,.45);
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
 .status-pendente{
 
-  color:#f5cf76;
+    color:var(--yellow);
 
 }
 
 
 .status-aprovado{
 
-  color:var(--green);
+    color:var(--green);
 
 }
 
 
 .status-rejeitado{
 
-  color:var(--red);
+    color:var(--red);
 
 }
 
 
-/* =========================
+/* =========================================================
    MODAL
-========================= */
+========================================================= */
 
 .modal{
 
-  position:fixed;
+    position:fixed;
 
-  inset:0;
+    inset:0;
 
-  z-index:5000;
+    z-index:5000;
 
-  display:none;
+    display:none;
 
-  align-items:center;
+    align-items:center;
 
-  justify-content:center;
+    justify-content:center;
 
-  padding:18px;
+    padding:15px;
 
-  background:
-    rgba(0,0,0,.84);
+    background:
+        rgba(0,0,0,.86);
 
-  backdrop-filter:
-    blur(9px);
+    backdrop-filter:
+        blur(12px);
 
 }
 
 
 .modal-content{
 
-  width:
-    min(820px,100%);
+    width:
+        min(850px,100%);
 
-  max-height:92vh;
+    max-height:92vh;
 
-  overflow:auto;
+    overflow:auto;
 
-  border:
-    1px solid
-    var(--border);
+    border:
+        1px solid
+        var(--border);
 
-  border-radius:22px;
+    border-radius:20px;
 
-  background:#100a0e;
+    background:
+        linear-gradient(
+            145deg,
+            #130b10,
+            #090609
+        );
 
-  box-shadow:
-    0 30px 100px
-    rgba(0,0,0,.65);
+    box-shadow:
+        0 35px 120px
+        rgba(0,0,0,.7);
 
 }
 
 
 .modal-head{
 
-  position:sticky;
+    position:sticky;
 
-  top:0;
+    top:0;
 
-  z-index:2;
+    z-index:2;
 
-  padding:17px 20px;
+    padding:17px 20px;
 
-  display:flex;
+    display:flex;
 
-  align-items:center;
+    align-items:center;
 
-  justify-content:space-between;
+    justify-content:space-between;
 
-  border-bottom:
-    1px solid
-    var(--border2);
+    border-bottom:
+        1px solid
+        var(--border-light);
 
-  background:
-    rgba(16,10,14,.97);
+    background:
+        rgba(13,8,12,.97);
 
 }
 
 
 .modal-head strong{
 
-  color:var(--gold);
+    color:var(--gold);
 
-  font-family:
-    "Playfair Display",
-    serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
-  font-size:21px;
+    font-size:21px;
 
 }
 
 
 .modal-close{
 
-  width:38px;
-  height:38px;
+    width:36px;
 
-  border:
-    1px solid
-    var(--border2);
+    height:36px;
 
-  border-radius:50%;
+    border:
+        1px solid
+        var(--border-light);
 
-  background:transparent;
+    border-radius:50%;
 
-  color:#ddd;
+    background:
+        rgba(255,255,255,.025);
 
-  font-size:20px;
+    color:#ddd;
+
+    font-size:20px;
+
+}
+
+
+.modal-close:hover{
+
+    color:var(--gold);
+
+    border-color:
+        rgba(245,213,140,.35);
 
 }
 
 
 #corpo-ficha{
 
-  padding:23px;
-
-}
-
-
-#corpo-ficha p{
-
-  margin-bottom:12px;
-
-  color:#c4b9c1;
-
-  line-height:1.6;
+    padding:23px;
 
 }
 
 
 .modal-actions{
 
-  position:sticky;
+    position:sticky;
 
-  bottom:0;
+    bottom:0;
 
-  padding:15px 20px;
+    padding:14px 20px;
 
-  display:flex;
+    display:flex;
 
-  flex-wrap:wrap;
+    flex-wrap:wrap;
 
-  justify-content:flex-end;
+    justify-content:flex-end;
 
-  gap:9px;
+    gap:8px;
 
-  border-top:
-    1px solid
-    var(--border2);
+    border-top:
+        1px solid
+        var(--border-light);
 
-  background:
-    rgba(16,10,14,.98);
+    background:
+        rgba(12,8,11,.98);
 
 }
 
 
 .btn{
 
-  border:0;
+    padding:10px 15px;
 
-  border-radius:10px;
+    border-radius:9px;
 
-  padding:10px 15px;
+    font-size:10px;
 
-  font-weight:700;
+    font-weight:800;
+
+    letter-spacing:.5px;
 
 }
 
 
 .btn-principal{
 
-  background:var(--gold);
+    border:0;
 
-  color:#120b0e;
+    background:var(--gold);
+
+    color:#120b0e;
 
 }
 
 
 .btn-danger{
 
-  background:#7f2948;
+    border:0;
 
-  color:#fff;
+    background:#76263f;
+
+    color:#fff;
 
 }
 
 
 .btn-secundario{
 
-  background:#21171e;
+    border:
+        1px solid
+        var(--border-light);
 
-  color:#eee;
+    background:
+        rgba(255,255,255,.035);
 
-  border:
-    1px solid
-    var(--border2);
+    color:#ddd4d9;
 
 }
 
 
-/* =========================
-   RODAPÉ
-========================= */
+/* =========================================================
+   FOOTER
+========================================================= */
 
 footer{
 
-  width:
-    min(1280px,calc(100% - 30px));
+    width:
+        min(1380px,calc(100% - 36px));
 
-  margin:auto;
+    margin:auto;
 
-  padding:22px 0 35px;
+    padding:25px 0 40px;
 
-  color:#625a62;
+    color:#514a51;
 
-  text-align:center;
+    text-align:center;
 
-  font-size:11px;
+    font-size:9px;
 
-  letter-spacing:1.2px;
+    font-weight:600;
 
-  text-transform:uppercase;
+    letter-spacing:2px;
+
+    text-transform:uppercase;
 
 }
 
 
-/* =========================
-   RESPONSIVO
-========================= */
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media(max-width:1050px){
 
-  .stats{
+    .admin-menu{
 
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
 
-  }
+    }
 
-  #lista-precadastros{
 
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
+    .dashboard-grid{
 
-  }
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+    }
+
+
+    #lista-precadastros{
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+    }
 
 }
 
+
+/* =========================================================
+   CELULAR
+========================================================= */
 
 @media(max-width:700px){
 
-  .topbar-inner,
-  main,
-  footer{
+    .topbar-inner,
+    main,
+    footer{
 
-    width:
-      calc(100% - 22px);
+        width:
+            calc(100% - 22px);
 
-  }
+    }
 
 
-  .topbar-inner{
+    .topbar-inner{
 
-    min-height:78px;
+        min-height:74px;
 
-  }
+    }
 
 
-  .brand-logo{
+    .brand-mark{
 
-    width:44px;
-    height:44px;
+        width:43px;
 
-    font-size:18px;
+        height:43px;
 
-  }
+        font-size:16px;
 
+    }
 
-  .brand-title{
 
-    font-size:26px;
+    .brand-name{
 
-  }
+        font-size:24px;
 
+    }
 
-  .brand-subtitle{
 
-    font-size:9px;
+    .brand-sub{
 
-    letter-spacing:1.4px;
+        font-size:7px;
 
-  }
+        letter-spacing:1.5px;
 
+    }
 
-  .online{
 
-    display:none;
+    .session{
 
-  }
+        display:none;
 
+    }
 
-  .btn-sair{
 
-    padding:10px 14px;
+    .logout{
 
-  }
+        padding:9px 12px;
 
+        font-size:9px;
 
-  main{
+    }
 
-    padding-top:30px;
 
-  }
+    main{
 
+        padding-top:31px;
 
-  .hero h1{
+    }
 
-    font-size:42px;
 
-  }
+    .hero{
 
+        padding-bottom:25px;
 
-  .hero p{
+    }
 
-    font-size:14px;
 
-  }
+    .hero h1{
 
+        font-size:42px;
 
-  .stats{
+    }
 
-    gap:10px;
 
-  }
+    .hero-description{
 
+        font-size:12px;
 
-  .stat{
+        line-height:1.7;
 
-    min-height:120px;
+    }
 
-    padding:16px;
 
-    border-radius:18px;
+    .system-bar{
 
-  }
+        gap:8px 15px;
 
+    }
 
-  .stat-label{
 
-    font-size:9px;
+    .admin-menu{
 
-    letter-spacing:1px;
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
 
-  }
+        gap:8px;
 
+    }
 
-  .stat-value{
 
-    font-size:33px;
+    .admin-card{
 
-  }
+        min-height:90px;
 
+        padding:14px;
 
-  .workspace-head{
+    }
 
-    padding:18px;
 
-  }
+    .admin-icon{
 
+        font-size:15px;
 
-  .filters,
-  .records{
+    }
 
-    padding:16px;
 
-  }
+    .admin-card strong{
 
+        font-size:11px;
 
-  #lista-precadastros{
+    }
 
-    grid-template-columns:1fr;
 
-  }
+    .admin-card span{
+
+        font-size:8px;
+
+    }
+
+
+    .dashboard-grid{
+
+        gap:8px;
+
+    }
+
+
+    .metric{
+
+        min-height:115px;
+
+        padding:15px;
+
+        border-radius:15px;
+
+    }
+
+
+    .metric-value{
+
+        font-size:34px;
+
+    }
+
+
+    .panel{
+
+        border-radius:17px;
+
+    }
+
+
+    .panel-head{
+
+        padding:18px;
+
+    }
+
+
+    .panel-title h2{
+
+        font-size:22px;
+
+    }
+
+
+    .panel-tag{
+
+        display:none;
+
+    }
+
+
+    .filters{
+
+        padding:15px 18px;
+
+    }
+
+
+    .records{
+
+        padding:14px;
+
+    }
+
+
+    #lista-precadastros{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .modal-actions{
+
+        justify-content:stretch;
+
+    }
+
+
+    .modal-actions .btn{
+
+        flex:1;
+
+        min-width:120px;
+
+    }
 
 }
 
 
-@media(max-width:430px){
+/* =========================================================
+   CELULARES PEQUENOS
+========================================================= */
 
-  .brand-title{
+@media(max-width:390px){
 
-    font-size:23px;
+    .hero h1{
 
-  }
+        font-size:36px;
 
-
-  .hero h1{
-
-    font-size:36px;
-
-  }
+    }
 
 
-  .stats{
+    .admin-card{
 
-    grid-template-columns:
-      repeat(2,1fr);
+        min-height:82px;
 
-  }
+        padding:12px;
+
+    }
 
 
-  .stat-value{
+    .metric-value{
 
-    font-size:29px;
+        font-size:30px;
 
-  }
+    }
+
+
+    .brand-name{
+
+        font-size:22px;
+
+    }
 
 }
 
@@ -1240,562 +1750,800 @@ footer{
 <body>
 
 
+<!-- ======================================================
+     HEADER
+====================================================== -->
+
 <header class="topbar">
 
-  <div class="topbar-inner">
+    <div class="topbar-inner">
 
 
-    <div class="brand">
-
-      <div class="brand-logo">
-        LX
-      </div>
+        <div class="brand">
 
 
-      <div>
+            <div class="brand-mark">
+                LX
+            </div>
 
-        <div class="brand-title">
-          LUX
+
+            <div>
+
+                <div class="brand-name">
+                    LUX
+                </div>
+
+
+                <div class="brand-sub">
+                    LUX-ADVANCE · ADMIN CENTER
+                </div>
+
+            </div>
+
+
         </div>
 
-        <div class="brand-subtitle">
-          LUX-ADVANCE · ADMINISTRAÇÃO
+
+        <div class="header-right">
+
+
+            <div class="session">
+
+                <span class="session-dot"></span>
+
+                <span id="statusOnline">
+                    Verificando sessão
+                </span>
+
+            </div>
+
+
+            <button
+                id="btnSair"
+                class="logout"
+                type="button"
+            >
+                SAIR
+            </button>
+
+
         </div>
 
-      </div>
 
     </div>
-
-
-    <div class="top-actions">
-
-
-      <div
-        id="statusOnline"
-        class="online"
-      >
-        Verificando sessão
-      </div>
-
-
-      <button
-        id="btnSair"
-        class="btn-sair"
-        type="button"
-      >
-        SAIR
-      </button>
-
-
-    </div>
-
-
-  </div>
 
 </header>
 
 
 
+<!-- ======================================================
+     MAIN
+====================================================== -->
+
 <main>
 
 
-  <section class="hero">
+<!-- ======================================================
+     HERO
+====================================================== -->
 
+<section class="hero">
 
     <div class="eyebrow">
-      Área restrita
+        LUX-ADVANCE · ÁREA RESTRITA
     </div>
 
 
     <h1>
-      Central Administrativa
+        Central Administrativa
     </h1>
 
 
-    <p>
-      Gestão central da LUX-ADVANCE.
-      Acompanhe modelos, usuários,
-      reclamações, planos, pagamentos,
-      pedidos, avaliações e doações
-      em um único ambiente.
+    <p class="hero-description">
+
+        Um centro de controle desenvolvido
+        para administrar a operação LUX com
+        organização, segurança e visão geral
+        do ecossistema.
+
     </p>
 
 
     <div class="system-bar">
 
-      <span>
-        <strong>Ambiente:</strong>
-        LUX-ADVANCE
-      </span>
+
+        <div class="system-item">
+            <strong>Ambiente:</strong>
+            LUX-ADVANCE
+        </div>
 
 
-      <span>
-        <strong>Banco:</strong>
-        Supabase
-      </span>
+        <div class="system-item">
+            <strong>Banco:</strong>
+            Supabase
+        </div>
 
 
-      <span>
-        <strong>Controle:</strong>
-        Administrativo
-      </span>
+        <div class="system-item">
+            <strong>Controle:</strong>
+            Administrativo
+        </div>
 
 
-      <span>
-        <strong>Dados:</strong>
-        Tempo real
-      </span>
+        <div class="system-item">
+            <strong>Status:</strong>
+            Operacional
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     MÓDULOS
+====================================================== -->
+
+<div class="section-label">
+    Gestão do sistema
+</div>
+
+
+<section class="admin-menu">
+
+
+    <div class="admin-card">
+
+        <div class="admin-icon">
+            ◈
+        </div>
+
+        <strong>
+            Gestão de modelos
+        </strong>
+
+        <span>
+            Cadastros, aprovação e perfis
+        </span>
 
     </div>
 
 
-  </section>
+    <div class="admin-card">
 
+        <div class="admin-icon">
+            ◉
+        </div>
 
+        <strong>
+            Usuários
+        </strong>
 
-  <section class="stats">
-
-
-    <article class="stat">
-
-      <div class="stat-label">
-        Total de modelos
-      </div>
-
-      <div
-        id="resumoTotal"
-        class="stat-value"
-      >
-        0
-      </div>
-
-    </article>
-
-
-    <article class="stat">
-
-      <div class="stat-label">
-        Pendentes
-      </div>
-
-      <div
-        id="resumoPendentes"
-        class="stat-value"
-      >
-        0
-      </div>
-
-    </article>
-
-
-    <article class="stat">
-
-      <div class="stat-label">
-        Aprovados
-      </div>
-
-      <div
-        id="resumoAprovados"
-        class="stat-value"
-      >
-        0
-      </div>
-
-    </article>
-
-
-    <article class="stat">
-
-      <div class="stat-label">
-        Rejeitados
-      </div>
-
-      <div
-        id="resumoRejeitados"
-        class="stat-value"
-      >
-        0
-      </div>
-
-    </article>
-
-
-  </section>
-
-
-
-  <section class="workspace">
-
-
-    <div class="workspace-head">
-
-      <h2>
-        Gestão de modelos
-      </h2>
-
-      <p>
-        Analise os perfis e realize
-        as ações administrativas disponíveis.
-      </p>
+        <span>
+            Contas e controle de acesso
+        </span>
 
     </div>
 
 
+    <div class="admin-card">
+
+        <div class="admin-icon">
+            !
+        </div>
+
+        <strong>
+            Reclamações
+        </strong>
+
+        <span>
+            Atendimento e ocorrências
+        </span>
+
+    </div>
+
+
+    <div class="admin-card">
+
+        <div class="admin-icon">
+            ◆
+        </div>
+
+        <strong>
+            Planos LUX
+        </strong>
+
+        <span>
+            ESSENCE · DESFIRE · ELITE · ROYAL
+        </span>
+
+    </div>
+
+
+    <div class="admin-card">
+
+        <div class="admin-icon">
+            $
+        </div>
+
+        <strong>
+            Pagamentos
+        </strong>
+
+        <span>
+            Controle financeiro
+        </span>
+
+    </div>
+
+
+    <div class="admin-card">
+
+        <div class="admin-icon">
+            ◷
+        </div>
+
+        <strong>
+            Assinaturas
+        </strong>
+
+        <span>
+            Planos e status de assinatura
+        </span>
+
+    </div>
+
+
+    <div class="admin-card">
+
+        <div class="admin-icon">
+            ★
+        </div>
+
+        <strong>
+            Avaliações
+        </strong>
+
+        <span>
+            Notas e reputação dos perfis
+        </span>
+
+    </div>
+
+
+    <div class="admin-card">
+
+        <div class="admin-icon">
+            ♡
+        </div>
+
+        <strong>
+            Doações
+        </strong>
+
+        <span>
+            Registros e acompanhamento
+        </span>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ======================================================
+     INDICADORES
+====================================================== -->
+
+<div class="section-label">
+    Visão geral
+</div>
+
+
+<section class="dashboard-grid">
+
+
+    <article class="metric">
+
+        <div class="metric-label">
+            Total de modelos
+        </div>
+
+
+        <div
+            id="resumoTotal"
+            class="metric-value"
+        >
+            0
+        </div>
+
+
+        <div class="metric-line"></div>
+
+    </article>
+
+
+
+    <article class="metric">
+
+        <div class="metric-label">
+            Pendentes
+        </div>
+
+
+        <div
+            id="resumoPendentes"
+            class="metric-value"
+        >
+            0
+        </div>
+
+
+        <div class="metric-line"></div>
+
+    </article>
+
+
+
+    <article class="metric">
+
+        <div class="metric-label">
+            Aprovados
+        </div>
+
+
+        <div
+            id="resumoAprovados"
+            class="metric-value"
+        >
+            0
+        </div>
+
+
+        <div class="metric-line"></div>
+
+    </article>
+
+
+
+    <article class="metric">
+
+        <div class="metric-label">
+            Rejeitados
+        </div>
+
+
+        <div
+            id="resumoRejeitados"
+            class="metric-value"
+        >
+            0
+        </div>
+
+
+        <div class="metric-line"></div>
+
+    </article>
+
+
+</section>
+
+
+
+<!-- ======================================================
+     GESTÃO DE MODELOS
+====================================================== -->
+
+<section class="panel">
+
+
+    <div class="panel-head">
+
+
+        <div class="panel-title">
+
+            <h2>
+                Gestão de modelos
+            </h2>
+
+
+            <p>
+                Consulte as fichas recebidas e
+                realize as ações administrativas.
+            </p>
+
+        </div>
+
+
+        <div class="panel-tag">
+            Módulo principal
+        </div>
+
+
+    </div>
+
+
+
+    <!-- FILTROS -->
 
     <div class="filters">
 
 
-      <div class="filters-title">
-        Filtrar modelos
-      </div>
+        <div class="filter-label">
+            Status dos cadastros
+        </div>
 
 
-      <div class="filter-row">
+        <div class="filter-row">
 
 
-        <button
-          class="btn-filtro ativo"
-          data-filtro="todos"
-          type="button"
-        >
-          Todos
-        </button>
+            <button
+                class="btn-filtro ativo"
+                data-filtro="todos"
+                type="button"
+            >
+                Todos
+            </button>
 
 
-        <button
-          class="btn-filtro"
-          data-filtro="pendente"
-          type="button"
-        >
-          Pendentes
-        </button>
+            <button
+                class="btn-filtro"
+                data-filtro="pendente"
+                type="button"
+            >
+                Pendentes
+            </button>
 
 
-        <button
-          class="btn-filtro"
-          data-filtro="aprovado"
-          type="button"
-        >
-          Aprovados
-        </button>
+            <button
+                class="btn-filtro"
+                data-filtro="aprovado"
+                type="button"
+            >
+                Aprovados
+            </button>
 
 
-        <button
-          class="btn-filtro"
-          data-filtro="rejeitado"
-          type="button"
-        >
-          Rejeitados
-        </button>
+            <button
+                class="btn-filtro"
+                data-filtro="rejeitado"
+                type="button"
+            >
+                Rejeitados
+            </button>
 
 
-      </div>
+        </div>
 
 
     </div>
 
 
+
+    <!-- REGISTROS -->
 
     <div class="records">
 
 
-      <div id="lista-precadastros">
+        <div id="lista-precadastros">
 
-        <div
-          style="
-            grid-column:1/-1;
-            padding:45px 20px;
-            text-align:center;
-            color:#777;
-          "
-        >
-          Carregando registros...
+
+            <div
+                style="
+                    grid-column:1/-1;
+                    padding:50px 20px;
+                    text-align:center;
+                    color:#777;
+                "
+            >
+
+                Carregando registros...
+
+            </div>
+
+
         </div>
-
-      </div>
 
 
     </div>
 
 
-  </section>
+</section>
 
 
 </main>
 
 
 
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+
 <footer>
 
-  LUX-ADVANCE ·
-  Central Administrativa ·
-  Ambiente restrito
+    LUX-ADVANCE ·
+    CENTRAL ADMINISTRATIVA ·
+    ACESSO RESTRITO
 
 </footer>
 
 
 
+<!-- ======================================================
+     MODAL
+====================================================== -->
+
 <div
-  id="modal-ver-ficha"
-  class="modal"
+    id="modal-ver-ficha"
+    class="modal"
 >
 
 
-  <div class="modal-content">
+    <div class="modal-content">
 
 
-    <div class="modal-head">
+        <div class="modal-head">
 
 
-      <strong>
-        Ficha da modelo
-      </strong>
+            <strong>
+                Ficha da modelo
+            </strong>
 
 
-      <button
-        type="button"
-        class="modal-close"
-        onclick="fecharModalFicha()"
-      >
-        ×
-      </button>
+            <button
+                type="button"
+                class="modal-close"
+                onclick="fecharModalFicha()"
+            >
+                ×
+            </button>
+
+
+        </div>
+
+
+        <div id="corpo-ficha">
+
+            Carregando ficha...
+
+        </div>
+
+
+        <div class="modal-actions">
+
+
+            <button
+                id="botao-rejeitar"
+                type="button"
+                class="btn btn-danger"
+            >
+                REJEITAR
+            </button>
+
+
+            <button
+                id="botao-aprovar"
+                type="button"
+                class="btn btn-principal"
+            >
+                APROVAR
+            </button>
+
+
+            <button
+                type="button"
+                class="btn btn-secundario"
+                onclick="imprimirFicha()"
+            >
+                IMPRIMIR
+            </button>
+
+
+            <button
+                type="button"
+                class="btn btn-secundario"
+                onclick="fecharModalFicha()"
+            >
+                FECHAR
+            </button>
+
+
+        </div>
 
 
     </div>
-
-
-
-    <div id="corpo-ficha">
-
-      Carregando ficha...
-
-    </div>
-
-
-
-    <div class="modal-actions">
-
-
-      <button
-        id="botao-rejeitar"
-        type="button"
-        class="btn btn-danger"
-      >
-        REJEITAR
-      </button>
-
-
-      <button
-        id="botao-aprovar"
-        type="button"
-        class="btn btn-principal"
-      >
-        APROVAR
-      </button>
-
-
-      <button
-        type="button"
-        class="btn btn-secundario"
-        onclick="imprimirFicha()"
-      >
-        IMPRIMIR
-      </button>
-
-
-      <button
-        type="button"
-        class="btn btn-secundario"
-        onclick="fecharModalFicha()"
-      >
-        FECHAR
-      </button>
-
-
-    </div>
-
-
-  </div>
 
 
 </div>
 
 
 
-<script src="./painel-admin.js"></script>
-
+<!-- ======================================================
+     PROTEÇÃO DA ÁREA ADMINISTRATIVA
+====================================================== -->
 
 <script>
 
-/*
-  PROTEÇÃO DO PAINEL ADMINISTRATIVO
-*/
-
 document.addEventListener(
-  "DOMContentLoaded",
-  async function(){
-
-    try{
-
-      if(!window.luxSupabase){
-
-        console.error(
-          "Supabase não inicializado."
-        );
-
-        window.location.replace(
-          "./acesso-admin.html"
-        );
-
-        return;
-
-      }
-
-
-      const {
-
-        data:{
-          session
-
-        }
-
-      } =
-        await window.luxSupabase
-        .auth
-        .getSession();
-
-
-      if(
-        !session ||
-        !session.user
-      ){
-
-        window.location.replace(
-          "./acesso-admin.html"
-        );
-
-        return;
-
-      }
-
-
-      const email =
-        (
-          session.user.email || ""
-        )
-        .trim()
-        .toLowerCase();
-
-
-      const adminEmail =
-        (
-          window.LUX_ADMIN_EMAIL || ""
-        )
-        .trim()
-        .toLowerCase();
-
-
-      if(
-        !adminEmail ||
-        email !== adminEmail
-      ){
-
-        await window.luxSupabase
-          .auth
-          .signOut();
-
-        window.location.replace(
-          "./acesso-admin.html"
-        );
-
-        return;
-
-      }
-
-
-      const status =
-        document.getElementById(
-          "statusOnline"
-        );
-
-
-      if(status){
-
-        status.textContent =
-          "Administrador conectado";
-
-      }
-
-
-    }catch(error){
-
-      console.error(
-        "Erro na proteção administrativa:",
-        error
-      );
-
-      window.location.replace(
-        "./acesso-admin.html"
-      );
-
-    }
-
-  }
-);
-
-
-
-/*
-  SAIR
-*/
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function(){
-
-    const botao =
-      document.getElementById(
-        "btnSair"
-      );
-
-
-    if(!botao) return;
-
-
-    botao.addEventListener(
-      "click",
-      async function(){
+    "DOMContentLoaded",
+    async function(){
 
         try{
 
-          if(window.luxSupabase){
 
-            await window.luxSupabase
-              .auth
-              .signOut();
+            if(!window.luxSupabase){
 
-          }
+                console.error(
+                    "Supabase não inicializado."
+                );
+
+                window.location.replace(
+                    "./acesso-admin.html"
+                );
+
+                return;
+
+            }
+
+
+            const resposta =
+                await window.luxSupabase
+                .auth
+                .getSession();
+
+
+            const session =
+                resposta &&
+                resposta.data &&
+                resposta.data.session;
+
+
+            if(
+                !session ||
+                !session.user
+            ){
+
+                window.location.replace(
+                    "./acesso-admin.html"
+                );
+
+                return;
+
+            }
+
+
+            const email =
+                (
+                    session.user.email || ""
+                )
+                .trim()
+                .toLowerCase();
+
+
+            const adminEmail =
+                (
+                    window.LUX_ADMIN_EMAIL || ""
+                )
+                .trim()
+                .toLowerCase();
+
+
+            if(
+                !adminEmail ||
+                email !== adminEmail
+            ){
+
+                await window.luxSupabase
+                    .auth
+                    .signOut();
+
+
+                window.location.replace(
+                    "./acesso-admin.html"
+                );
+
+                return;
+
+            }
+
+
+            const status =
+                document.getElementById(
+                    "statusOnline"
+                );
+
+
+            if(status){
+
+                status.textContent =
+                    "Administrador conectado";
+
+            }
+
 
         }catch(error){
 
-          console.error(
-            error
-          );
+            console.error(
+                "Erro na autenticação administrativa:",
+                error
+            );
+
+
+            window.location.replace(
+                "./acesso-admin.html"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   BOTÃO SAIR
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const botao =
+            document.getElementById(
+                "btnSair"
+            );
+
+
+        if(!botao){
+
+            return;
 
         }
 
 
-        window.location.replace(
-          "./acesso-admin.html"
+        botao.addEventListener(
+            "click",
+            async function(){
+
+                try{
+
+                    if(window.luxSupabase){
+
+                        await window.luxSupabase
+                            .auth
+                            .signOut();
+
+                    }
+
+                }catch(error){
+
+                    console.error(error);
+
+                }
+
+
+                window.location.replace(
+                    "./acesso-admin.html"
+                );
+
+            }
         );
 
-      }
-    );
-
-  }
+    }
 );
 
 </script>
+
+
+
+<!-- ======================================================
+     NÃO ALTERAR:
+     MOTOR FUNCIONAL DO PAINEL
+====================================================== -->
+
+<script src="./painel-admin.js"></script>
 
 
 </body>

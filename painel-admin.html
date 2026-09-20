@@ -25,56 +25,81 @@
 }
 
 :root{
+
   --bg:#080509;
-  --bg2:#120912;
-  --card:#180d17;
-  --card2:#241321;
+  --bg2:#100910;
+
+  --card:rgba(24,13,22,.94);
+
   --pink:#ff4da6;
-  --pink2:#ff78bd;
+  --pink2:#ff79bd;
+
   --gold:#f8d58a;
-  --gold2:#d7a947;
+  --gold2:#d9aa4b;
+
   --white:#fff;
-  --muted:#b8a9b5;
-  --green:#4fe0a2;
-  --red:#ff6868;
-  --orange:#ffb04d;
+
+  --muted:#b9aab6;
+
+  --green:#46d39a;
+  --red:#ff6262;
+  --orange:#ffad4d;
+
   --border:rgba(248,213,138,.18);
-  --shadow:0 18px 55px rgba(0,0,0,.45);
+
+  --shadow:
+    0 15px 50px rgba(0,0,0,.45);
+
 }
 
 html,
 body{
+
   min-height:100%;
-  background:var(--bg);
+
 }
 
 body{
+
   min-height:100vh;
-  font-family:Arial,Helvetica,sans-serif;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
   color:var(--white);
 
   background:
+
     linear-gradient(
-      rgba(8,5,9,.86),
-      rgba(8,5,9,.97)
+      rgba(8,5,9,.84),
+      rgba(8,5,9,.96)
     ),
+
     url("./lux-halloween.jpg")
     center/cover fixed;
+
 }
 
 button,
 input,
-select,
-textarea{
+select{
+
   font:inherit;
+
 }
 
 button{
+
   cursor:pointer;
+
 }
 
 .hidden{
+
   display:none!important;
+
 }
 
 
@@ -83,100 +108,87 @@ button{
 ===================================================== */
 
 #loadingScreen{
+
   position:fixed;
+
   inset:0;
+
   z-index:99999;
 
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
-  padding:20px;
-
   background:#080509;
+
 }
 
 .loading-box{
-  width:min(92%,430px);
+
+  width:min(90%,420px);
+
   padding:35px 25px;
 
   text-align:center;
 
   border:1px solid var(--border);
+
   border-radius:22px;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(35,17,31,.98),
-      rgba(12,7,12,.98)
-    );
+    rgba(20,10,18,.95);
 
   box-shadow:var(--shadow);
+
 }
 
 .loading-logo{
+
   font-family:Georgia,serif;
-  font-size:50px;
+
+  font-size:48px;
+
   letter-spacing:7px;
+
   color:var(--gold);
 
-  text-shadow:
-    0 0 20px rgba(248,213,138,.25);
 }
 
-#loadingText{
+.loading-box p{
+
   margin-top:12px;
+
   color:var(--muted);
-  line-height:1.5;
+
 }
 
 .spinner{
+
   width:38px;
+
   height:38px;
 
   margin:25px auto 0;
 
-  border:3px solid rgba(255,255,255,.12);
+  border:3px solid
+    rgba(255,255,255,.12);
+
   border-top-color:var(--pink);
+
   border-radius:50%;
 
   animation:spin 1s linear infinite;
+
 }
 
 @keyframes spin{
+
   to{
     transform:rotate(360deg);
   }
-}
 
-#loadingError{
-  display:none;
-
-  margin-top:18px;
-  padding:12px;
-
-  color:#ff9b9b;
-
-  background:rgba(255,98,98,.08);
-  border:1px solid rgba(255,98,98,.18);
-  border-radius:10px;
-
-  font-size:13px;
-  line-height:1.5;
-}
-
-#loadingError.show{
-  display:block;
-}
-
-#loadingActions{
-  display:none;
-  margin-top:15px;
-}
-
-#loadingActions.show{
-  display:block;
 }
 
 
@@ -185,14 +197,19 @@ button{
 ===================================================== */
 
 .topbar{
+
   position:sticky;
+
   top:0;
+
   z-index:1000;
 
   min-height:76px;
 
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
   gap:15px;
@@ -200,97 +217,131 @@ button{
   padding:12px 22px;
 
   background:
+
     linear-gradient(
       90deg,
       rgba(10,5,10,.98),
       rgba(28,12,25,.96)
     );
 
-  border-bottom:1px solid var(--border);
+  border-bottom:
+    1px solid var(--border);
 
   box-shadow:
     0 8px 30px rgba(0,0,0,.4);
+
 }
 
 .brand{
+
   display:flex;
+
   align-items:center;
+
   gap:13px;
+
 }
 
 .brand-mark{
+
   width:48px;
+
   height:48px;
 
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
   border-radius:50%;
 
-  border:1px solid rgba(248,213,138,.4);
+  border:
+    1px solid
+    rgba(248,213,138,.4);
 
   color:var(--gold);
 
   font-family:Georgia,serif;
+
   font-size:20px;
+
   letter-spacing:2px;
 
   background:
+
     radial-gradient(
       circle,
       #311326,
       #0d070d
     );
+
 }
 
 .brand h1{
+
   font-family:Georgia,serif;
+
   font-size:21px;
+
   color:var(--gold);
+
   letter-spacing:2px;
+
 }
 
 .brand small{
+
   display:block;
+
   margin-top:3px;
 
   color:var(--muted);
 
   font-size:11px;
+
   letter-spacing:1.5px;
+
   text-transform:uppercase;
+
 }
 
 .top-actions{
+
   display:flex;
+
   align-items:center;
+
   gap:10px;
+
 }
 
 .admin-email{
+
   color:var(--muted);
+
   font-size:12px;
+
 }
 
 .btn{
-  border:1px solid var(--border);
+
+  border:
+    1px solid var(--border);
+
   border-radius:10px;
 
   padding:10px 15px;
 
   color:white;
-  background:rgba(255,255,255,.05);
 
-  transition:.2s;
-}
+  background:
+    rgba(255,255,255,.05);
 
-.btn:hover{
-  transform:translateY(-1px);
-  border-color:rgba(255,77,166,.5);
 }
 
 .btn-pink{
+
   background:
     linear-gradient(
       135deg,
@@ -299,9 +350,11 @@ button{
     );
 
   border:0;
+
 }
 
 .btn-gold{
+
   color:#160c10;
 
   background:
@@ -312,15 +365,21 @@ button{
     );
 
   border:0;
+
   font-weight:bold;
+
 }
 
 .btn-danger{
+
   color:white;
 
-  background:rgba(255,60,60,.12);
+  background:
+    rgba(255,60,60,.12);
 
-  border-color:rgba(255,90,90,.3);
+  border-color:
+    rgba(255,90,90,.3);
+
 }
 
 
@@ -329,125 +388,157 @@ button{
 ===================================================== */
 
 .layout{
+
   display:flex;
-  min-height:calc(100vh - 76px);
+
+  min-height:
+    calc(100vh - 76px);
+
 }
 
 .sidebar{
+
   width:245px;
+
   flex-shrink:0;
 
   padding:20px 13px;
 
-  background:rgba(10,5,10,.94);
+  background:
+    rgba(10,5,10,.94);
 
-  border-right:1px solid var(--border);
+  border-right:
+    1px solid var(--border);
+
 }
 
 .menu-title{
+
   padding:10px 12px;
 
   color:#806e7c;
 
   font-size:10px;
+
   font-weight:bold;
 
   letter-spacing:2px;
+
   text-transform:uppercase;
+
 }
 
 .nav-btn{
+
   width:100%;
 
   display:flex;
+
   align-items:center;
+
   gap:11px;
 
   margin-bottom:5px;
+
   padding:12px 13px;
 
-  border:1px solid transparent;
+  border:
+    1px solid transparent;
+
   border-radius:11px;
 
   color:#d5c7d1;
+
   background:transparent;
 
   text-align:left;
+
 }
 
 .nav-btn:hover,
 .nav-btn.active{
+
   color:white;
 
   background:
+
     linear-gradient(
       90deg,
       rgba(255,77,166,.15),
       rgba(248,213,138,.05)
     );
 
-  border-color:rgba(255,77,166,.18);
+  border-color:
+    rgba(255,77,166,.18);
+
 }
 
 .nav-icon{
+
   width:24px;
+
   text-align:center;
+
   color:var(--gold);
+
 }
 
 .main{
+
   flex:1;
+
   min-width:0;
+
   padding:25px;
+
 }
 
 
 /* =====================================================
-   SEÇÕES
+   SECTIONS
 ===================================================== */
 
 .section{
+
   display:none;
+
 }
 
 .section.active{
+
   display:block;
-  animation:fade .2s ease;
-}
 
-@keyframes fade{
-  from{
-    opacity:0;
-    transform:translateY(5px);
-  }
-
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
 }
 
 .page-title{
+
   margin-bottom:5px;
 
   font-family:Georgia,serif;
+
   font-size:28px;
 
   color:var(--gold);
+
 }
 
 .page-subtitle{
+
   margin-bottom:23px;
+
   color:var(--muted);
+
   font-size:14px;
+
 }
 
 
 /* =====================================================
-   STATS
+   CARDS
 ===================================================== */
 
 .stats{
+
   display:grid;
 
   grid-template-columns:
@@ -456,15 +547,19 @@ button{
   gap:15px;
 
   margin-bottom:22px;
+
 }
 
 .stat{
+
   padding:20px;
 
   border:1px solid var(--border);
+
   border-radius:17px;
 
   background:
+
     linear-gradient(
       145deg,
       rgba(36,18,32,.95),
@@ -472,179 +567,209 @@ button{
     );
 
   box-shadow:var(--shadow);
+
 }
 
 .stat-label{
+
   color:var(--muted);
 
   font-size:12px;
+
   text-transform:uppercase;
+
   letter-spacing:1px;
+
 }
 
 .stat-value{
+
   margin-top:8px;
 
   font-size:29px;
+
   font-weight:bold;
 
   color:white;
+
 }
 
 .stat-icon{
+
   float:right;
+
   color:var(--gold);
+
   font-size:24px;
+
 }
 
-
-/* =====================================================
-   PAINEL
-===================================================== */
-
 .panel{
+
   margin-bottom:20px;
+
   padding:20px;
 
   border:1px solid var(--border);
+
   border-radius:17px;
 
-  background:rgba(20,10,18,.91);
+  background:
+    rgba(20,10,18,.91);
 
   box-shadow:var(--shadow);
+
 }
 
 .panel-header{
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
   gap:15px;
 
   margin-bottom:17px;
+
 }
 
 .panel-title{
+
   font-family:Georgia,serif;
+
   color:var(--gold);
+
   font-size:19px;
+
 }
 
 
 /* =====================================================
-   FILTROS
+   FILTERS
 ===================================================== */
 
 .filters{
+
   display:flex;
+
   flex-wrap:wrap;
 
   gap:10px;
 
   margin-bottom:18px;
+
 }
 
 .input,
-.select,
-.textarea{
+.select{
+
   min-height:42px;
 
   padding:10px 13px;
 
   color:white;
 
-  border:1px solid rgba(248,213,138,.17);
+  border:
+    1px solid
+    rgba(248,213,138,.17);
+
   border-radius:9px;
 
   outline:none;
 
-  background:rgba(255,255,255,.045);
+  background:
+    rgba(255,255,255,.045);
+
 }
 
 .input{
+
   min-width:230px;
+
 }
 
 .select{
+
   min-width:150px;
-}
 
-.textarea{
-  width:100%;
-  min-height:120px;
-  resize:vertical;
-}
-
-.input:focus,
-.select:focus,
-.textarea:focus{
-  border-color:var(--pink);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(255,77,166,.08);
 }
 
 option{
+
   background:#180d17;
+
   color:white;
+
 }
 
 
 /* =====================================================
-   TABELAS
+   TABLE
 ===================================================== */
 
 .table-wrap{
+
   width:100%;
+
   overflow-x:auto;
+
   border-radius:12px;
+
 }
 
 table{
+
   width:100%;
+
   border-collapse:collapse;
+
   min-width:720px;
+
 }
 
 th,
 td{
+
   padding:13px 12px;
 
   border-bottom:
-    1px solid rgba(255,255,255,.07);
+    1px solid
+    rgba(255,255,255,.07);
 
   text-align:left;
+
   vertical-align:middle;
+
 }
 
 th{
+
   color:var(--gold);
 
   font-size:11px;
 
   text-transform:uppercase;
+
   letter-spacing:1px;
+
 }
 
 td{
+
   color:#ddd2db;
+
   font-size:13px;
+
 }
-
-tr:hover td{
-  background:rgba(255,77,166,.035);
-}
-
-
-/* =====================================================
-   BADGES
-===================================================== */
 
 .badge{
+
   display:inline-flex;
 
   align-items:center;
+
   justify-content:center;
 
   padding:5px 9px;
@@ -652,123 +777,180 @@ tr:hover td{
   border-radius:50px;
 
   font-size:10px;
+
   font-weight:bold;
 
   text-transform:uppercase;
-  letter-spacing:.5px;
+
 }
 
 .badge-green{
+
   color:#74f0ba;
 
-  background:rgba(70,211,154,.11);
+  background:
+    rgba(70,211,154,.11);
 
-  border:1px solid rgba(70,211,154,.2);
+  border:
+    1px solid
+    rgba(70,211,154,.2);
+
 }
 
 .badge-red{
+
   color:#ff9292;
 
-  background:rgba(255,98,98,.11);
+  background:
+    rgba(255,98,98,.11);
 
-  border:1px solid rgba(255,98,98,.2);
+  border:
+    1px solid
+    rgba(255,98,98,.2);
+
 }
 
 .badge-gold{
+
   color:var(--gold);
 
-  background:rgba(248,213,138,.09);
+  background:
+    rgba(248,213,138,.09);
 
-  border:1px solid rgba(248,213,138,.2);
+  border:
+    1px solid
+    rgba(248,213,138,.2);
+
 }
 
 .badge-pink{
+
   color:#ff8fc5;
 
-  background:rgba(255,77,166,.1);
+  background:
+    rgba(255,77,166,.1);
 
-  border:1px solid rgba(255,77,166,.2);
+  border:
+    1px solid
+    rgba(255,77,166,.2);
+
 }
 
 .actions{
+
   display:flex;
+
   flex-wrap:wrap;
+
   gap:6px;
+
 }
 
 .small-btn{
+
   padding:7px 9px;
 
   border-radius:7px;
 
-  border:1px solid var(--border);
+  border:
+    1px solid var(--border);
 
   color:white;
-  background:rgba(255,255,255,.04);
+
+  background:
+    rgba(255,255,255,.04);
 
   font-size:11px;
+
 }
 
 .small-btn.approve{
+
   color:#74f0ba;
-  border-color:rgba(70,211,154,.25);
+
+  border-color:
+    rgba(70,211,154,.25);
+
 }
 
 .small-btn.reject{
+
   color:#ff9292;
-  border-color:rgba(255,98,98,.25);
+
+  border-color:
+    rgba(255,98,98,.25);
+
 }
 
 
 /* =====================================================
-   MENSAGENS / VAZIO
+   EMPTY
 ===================================================== */
 
 .empty{
+
   padding:35px 20px;
 
   text-align:center;
 
   color:var(--muted);
-  line-height:1.6;
+
 }
 
 .empty-icon{
+
   margin-bottom:10px;
 
   font-size:35px;
+
   opacity:.6;
+
 }
 
 .message{
+
   display:none;
 
   margin-bottom:15px;
+
   padding:12px 14px;
 
   border-radius:10px;
 
   font-size:13px;
+
 }
 
 .message.show{
+
   display:block;
+
 }
 
 .message.success{
+
   color:#79e8b5;
 
-  background:rgba(70,211,154,.08);
+  background:
+    rgba(70,211,154,.08);
 
-  border:1px solid rgba(70,211,154,.18);
+  border:
+    1px solid
+    rgba(70,211,154,.18);
+
 }
 
 .message.error{
+
   color:#ff9b9b;
 
-  background:rgba(255,98,98,.08);
+  background:
+    rgba(255,98,98,.08);
 
-  border:1px solid rgba(255,98,98,.18);
+  border:
+    1px solid
+    rgba(255,98,98,.18);
+
 }
 
 
@@ -777,35 +959,48 @@ tr:hover td{
 ===================================================== */
 
 .modal{
+
   position:fixed;
+
   inset:0;
+
   z-index:9999;
 
   display:none;
 
   align-items:center;
+
   justify-content:center;
 
   padding:20px;
 
-  background:rgba(0,0,0,.78);
+  background:
+    rgba(0,0,0,.78);
 
   backdrop-filter:blur(7px);
+
 }
 
 .modal.show{
+
   display:flex;
+
 }
 
 .modal-box{
-  width:min(750px,100%);
+
+  width:min(700px,100%);
+
   max-height:90vh;
 
   overflow-y:auto;
 
   padding:25px;
 
-  border:1px solid rgba(248,213,138,.22);
+  border:
+    1px solid
+    rgba(248,213,138,.22);
+
   border-radius:20px;
 
   background:
@@ -815,63 +1010,84 @@ tr:hover td{
       #100911
     );
 
-  box-shadow:
-    0 25px 90px rgba(0,0,0,.65);
 }
 
 .modal-header{
+
   display:flex;
+
   justify-content:space-between;
 
   gap:15px;
 
   margin-bottom:20px;
+
 }
 
 .modal-title{
+
   font-family:Georgia,serif;
+
   font-size:23px;
+
   color:var(--gold);
+
 }
 
 .close{
+
   width:35px;
+
   height:35px;
 
   border-radius:50%;
 
-  border:1px solid var(--border);
+  border:
+    1px solid var(--border);
 
   color:white;
-  background:rgba(255,255,255,.05);
+
+  background:
+    rgba(255,255,255,.05);
 
   font-size:20px;
+
 }
 
 .detail-grid{
+
   display:grid;
 
   grid-template-columns:
     repeat(2,minmax(0,1fr));
 
   gap:10px;
+
 }
 
 .detail{
+
   padding:13px;
 
   border-radius:10px;
 
-  background:rgba(255,255,255,.035);
+  background:
+    rgba(255,255,255,.035);
 
-  border:1px solid rgba(255,255,255,.06);
+  border:
+    1px solid
+    rgba(255,255,255,.06);
+
 }
 
 .detail.full{
+
   grid-column:1/-1;
+
 }
 
 .detail-label{
+
   margin-bottom:5px;
 
   color:var(--muted);
@@ -879,13 +1095,124 @@ tr:hover td{
   font-size:10px;
 
   text-transform:uppercase;
+
   letter-spacing:1px;
+
 }
 
 .detail-value{
+
   color:white;
+
   word-break:break-word;
+
   line-height:1.5;
+
+}
+
+
+/* =====================================================
+   PRÉ-CADASTROS
+===================================================== */
+
+.precadastro-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+
+  gap:15px;
+
+}
+
+.card-registro{
+
+  padding:18px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:15px;
+
+  background:
+    rgba(255,255,255,.035);
+
+}
+
+.card-registro h4{
+
+  margin-bottom:10px;
+
+  color:var(--gold);
+
+  font-family:Georgia,serif;
+
+}
+
+.card-registro p{
+
+  margin:6px 0;
+
+  color:#ddd2db;
+
+  font-size:13px;
+
+}
+
+.status-pendente{
+
+  color:var(--gold);
+
+}
+
+.status-aprovado{
+
+  color:#74f0ba;
+
+}
+
+.status-rejeitado{
+
+  color:#ff9292;
+
+}
+
+.ficha-fotos{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:10px;
+
+  margin-top:10px;
+
+}
+
+.ficha-fotos img{
+
+  width:110px;
+
+  height:110px;
+
+  object-fit:cover;
+
+  border-radius:10px;
+
+  border:
+    1px solid var(--border);
+
+}
+
+.ficha-video{
+
+  width:100%;
+
+  max-height:350px;
+
+  margin-top:10px;
+
 }
 
 
@@ -894,19 +1221,25 @@ tr:hover td{
 ===================================================== */
 
 .mobile-menu{
+
   display:none;
-  padding:12px;
+
 }
 
 @media(max-width:1000px){
 
   .stats{
+
     grid-template-columns:
       repeat(2,minmax(0,1fr));
+
   }
 
-  .sidebar{
-    width:210px;
+  .precadastro-grid{
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
   }
 
 }
@@ -914,131 +1247,154 @@ tr:hover td{
 @media(max-width:750px){
 
   .topbar{
+
     padding:10px 13px;
+
   }
 
   .admin-email{
+
     display:none;
+
   }
 
   .layout{
+
     display:block;
+
   }
 
   .mobile-menu{
+
     display:block;
+
+    margin:12px;
+
   }
 
   .mobile-menu button{
+
     width:100%;
+
   }
 
   .sidebar{
+
     display:none;
 
     width:auto;
 
     margin:0 12px 12px;
 
-    border:1px solid var(--border);
+    border:
+      1px solid var(--border);
 
     border-radius:15px;
+
   }
 
   .sidebar.open{
+
     display:block;
+
   }
 
   .main{
+
     padding:15px 12px;
+
   }
 
   .stats{
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+      1fr 1fr;
+
     gap:10px;
+
   }
 
   .stat{
+
     padding:15px;
+
   }
 
   .stat-value{
+
     font-size:23px;
+
   }
 
   .page-title{
+
     font-size:24px;
+
   }
 
   .panel{
+
     padding:14px;
+
   }
 
   .input{
-    width:100%;
+
     min-width:100%;
+
   }
 
   .select{
+
     flex:1;
+
     min-width:130px;
+
   }
 
   .detail-grid{
+
     grid-template-columns:1fr;
+
   }
 
   .detail.full{
+
     grid-column:auto;
+
+  }
+
+  .precadastro-grid{
+
+    grid-template-columns:1fr;
+
   }
 
   .brand h1{
+
     font-size:16px;
+
   }
 
   .brand small{
+
     font-size:9px;
+
   }
 
   .brand-mark{
+
     width:42px;
+
     height:42px;
+
   }
 
-}
-
-
-/* =====================================================
-   STATUS DE CONEXÃO
-===================================================== */
-
-.connection{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-
-  color:#74f0ba;
-
-  font-size:11px;
-}
-
-.connection-dot{
-  width:7px;
-  height:7px;
-
-  border-radius:50%;
-
-  background:#4fe0a2;
-
-  box-shadow:
-    0 0 10px
-    rgba(79,224,162,.7);
 }
 
 </style>
 
 </head>
-
 
 <body>
 
@@ -1056,30 +1412,10 @@ tr:hover td{
     </div>
 
     <p id="loadingText">
-      Verificando acesso administrativo...
+      Abrindo painel administrativo...
     </p>
 
-    <div
-      id="loadingSpinner"
-      class="spinner"
-    ></div>
-
-    <div
-      id="loadingError"
-    ></div>
-
-    <div
-      id="loadingActions"
-    >
-
-      <button
-        class="btn btn-pink"
-        onclick="goLogin()"
-      >
-        Voltar para o acesso
-      </button>
-
-    </div>
+    <div class="spinner"></div>
 
   </div>
 
@@ -1122,16 +1458,6 @@ tr:hover td{
   <div class="top-actions">
 
     <span
-      class="connection"
-    >
-
-      <span class="connection-dot"></span>
-
-      Online
-
-    </span>
-
-    <span
       id="adminEmail"
       class="admin-email"
     >
@@ -1172,108 +1498,111 @@ tr:hover td{
 <div class="layout">
 
 
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
-
 <aside
   id="sidebar"
   class="sidebar"
 >
 
-  <div class="menu-title">
-    Principal
-  </div>
 
-  <button
-    class="nav-btn active"
-    data-section="dashboard"
-    onclick="showSection('dashboard',this)"
-  >
-    <span class="nav-icon">⌂</span>
-    Dashboard
-  </button>
+<div class="menu-title">
+  Principal
+</div>
 
-
-  <div class="menu-title">
-    Cadastros
-  </div>
-
-  <button
-    class="nav-btn"
-    data-section="modelos"
-    onclick="showSection('modelos',this)"
-  >
-    <span class="nav-icon">♟</span>
-    Modelos
-  </button>
-
-  <button
-    class="nav-btn"
-    data-section="usuarios"
-    onclick="showSection('usuarios',this)"
-  >
-    <span class="nav-icon">♙</span>
-    Usuários
-  </button>
+<button
+  class="nav-btn active"
+  data-section="dashboard"
+  onclick="showSection('dashboard',this)"
+>
+  <span class="nav-icon">⌂</span>
+  Dashboard
+</button>
 
 
-  <div class="menu-title">
-    Atendimento
-  </div>
+<div class="menu-title">
+  Cadastros
+</div>
 
-  <button
-    class="nav-btn"
-    data-section="reclamacoes"
-    onclick="showSection('reclamacoes',this)"
-  >
-    <span class="nav-icon">!</span>
-    Reclamações
-  </button>
+<button
+  class="nav-btn"
+  data-section="precadastros"
+  onclick="showSection('precadastros',this)"
+>
+  <span class="nav-icon">☷</span>
+  Pré-cadastros
+</button>
 
-  <button
-    class="nav-btn"
-    data-section="avaliacoes"
-    onclick="showSection('avaliacoes',this)"
-  >
-    <span class="nav-icon">★</span>
-    Avaliações
-  </button>
+<button
+  class="nav-btn"
+  data-section="modelos"
+  onclick="showSection('modelos',this)"
+>
+  <span class="nav-icon">♟</span>
+  Modelos
+</button>
 
-
-  <div class="menu-title">
-    Financeiro
-  </div>
-
-  <button
-    class="nav-btn"
-    data-section="assinaturas"
-    onclick="showSection('assinaturas',this)"
-  >
-    <span class="nav-icon">$</span>
-    Planos / Assinaturas
-  </button>
+<button
+  class="nav-btn"
+  data-section="usuarios"
+  onclick="showSection('usuarios',this)"
+>
+  <span class="nav-icon">♙</span>
+  Usuários
+</button>
 
 
-  <div class="menu-title">
-    Sistema
-  </div>
+<div class="menu-title">
+  Atendimento
+</div>
 
-  <button
-    class="nav-btn"
-    data-section="configuracoes"
-    onclick="showSection('configuracoes',this)"
-  >
-    <span class="nav-icon">⚙</span>
-    Configurações
-  </button>
+<button
+  class="nav-btn"
+  data-section="reclamacoes"
+  onclick="showSection('reclamacoes',this)"
+>
+  <span class="nav-icon">!</span>
+  Reclamações
+</button>
+
+<button
+  class="nav-btn"
+  data-section="avaliacoes"
+  onclick="showSection('avaliacoes',this)"
+>
+  <span class="nav-icon">★</span>
+  Avaliações
+</button>
+
+
+<div class="menu-title">
+  Financeiro
+</div>
+
+<button
+  class="nav-btn"
+  data-section="assinaturas"
+  onclick="showSection('assinaturas',this)"
+>
+  <span class="nav-icon">$</span>
+  Planos / Assinaturas
+</button>
+
+
+<div class="menu-title">
+  Sistema
+</div>
+
+<button
+  class="nav-btn"
+  data-section="configuracoes"
+  onclick="showSection('configuracoes',this)"
+>
+  <span class="nav-icon">⚙</span>
+  Configurações
+</button>
+
 
 </aside>
 
-
-<!-- =====================================================
-     CONTEÚDO
-===================================================== -->
 
 <main class="main">
 
@@ -1287,156 +1616,234 @@ tr:hover td{
   class="section active"
 >
 
-  <h2 class="page-title">
-    Painel de Controle
-  </h2>
+<h2 class="page-title">
+  Painel de Controle
+</h2>
 
-  <p class="page-subtitle">
-    Bem-vindo à central administrativa da LUX.
-  </p>
-
-
-  <div
-    id="globalMessage"
-    class="message"
-  ></div>
+<p class="page-subtitle">
+  Central administrativa da LUX.
+</p>
 
 
-  <div class="stats">
-
-    <div class="stat">
-
-      <span class="stat-icon">
-        ♟
-      </span>
-
-      <div class="stat-label">
-        Modelos
-      </div>
-
-      <div
-        id="statModelos"
-        class="stat-value"
-      >
-        0
-      </div>
-
-    </div>
+<div
+  id="globalMessage"
+  class="message"
+></div>
 
 
-    <div class="stat">
-
-      <span class="stat-icon">
-        ✓
-      </span>
-
-      <div class="stat-label">
-        Aguardando aprovação
-      </div>
-
-      <div
-        id="statPendentes"
-        class="stat-value"
-      >
-        0
-      </div>
-
-    </div>
+<div class="stats">
 
 
-    <div class="stat">
+<div class="stat">
 
-      <span class="stat-icon">
-        !
-      </span>
+<span class="stat-icon">
+♟
+</span>
 
-      <div class="stat-label">
-        Reclamações
-      </div>
+<div class="stat-label">
+Modelos
+</div>
 
-      <div
-        id="statReclamacoes"
-        class="stat-value"
-      >
-        —
-      </div>
+<div
+  id="statModelos"
+  class="stat-value"
+>
+0
+</div>
 
-    </div>
-
-
-    <div class="stat">
-
-      <span class="stat-icon">
-        ★
-      </span>
-
-      <div class="stat-label">
-        Avaliações
-      </div>
-
-      <div
-        id="statAvaliacoes"
-        class="stat-value"
-      >
-        —
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 
-  <div class="panel">
+<div class="stat">
 
-    <div class="panel-header">
+<span class="stat-icon">
+✓
+</span>
 
-      <h3 class="panel-title">
-        Central administrativa
-      </h3>
+<div class="stat-label">
+Pré-cadastros pendentes
+</div>
 
-      <span class="badge badge-gold">
-        LUX ADMIN
-      </span>
+<div
+  id="statPendentes"
+  class="stat-value"
+>
+0
+</div>
 
-    </div>
-
-    <p style="color:var(--muted);line-height:1.8;">
-
-      Este é o centro de controle da plataforma LUX.
-      Aqui você poderá acompanhar os cadastros de modelos,
-      aprovar ou reprovar perfis, visualizar reclamações,
-      acompanhar avaliações e consultar os planos da plataforma.
-
-    </p>
-
-  </div>
+</div>
 
 
-  <div class="panel">
+<div class="stat">
 
-    <div class="panel-header">
+<span class="stat-icon">
+!
+</span>
 
-      <h3 class="panel-title">
-        Cadastros recentes
-      </h3>
+<div class="stat-label">
+Reclamações
+</div>
 
-      <button
-        class="btn"
-        onclick="showSectionByName('modelos')"
-      >
-        Ver modelos
-      </button>
+<div
+  id="statReclamacoes"
+  class="stat-value"
+>
+—
+</div>
 
-    </div>
+</div>
 
-    <div
-      id="recentModels"
-      class="empty"
-    >
-      Carregando...
-    </div>
 
-  </div>
+<div class="stat">
+
+<span class="stat-icon">
+★
+</span>
+
+<div class="stat-label">
+Avaliações
+</div>
+
+<div
+  id="statAvaliacoes"
+  class="stat-value"
+>
+—
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<h3 class="panel-title">
+Central administrativa
+</h3>
+
+<span class="badge badge-gold">
+LUX ADMIN
+</span>
+
+</div>
+
+<p
+style="
+color:var(--muted);
+line-height:1.7;
+"
+>
+
+Painel administrativo da LUX-ADVANCE.
+Aqui você poderá acompanhar pré-cadastros,
+modelos, reclamações, avaliações e planos.
+
+</p>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<h3 class="panel-title">
+Pré-cadastros recentes
+</h3>
+
+<button
+class="btn"
+onclick="showSectionByName('precadastros')"
+>
+Ver pré-cadastros
+</button>
+
+</div>
+
+<div
+id="recentPreCadastros"
+class="empty"
+>
+Carregando...
+</div>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     PRÉ-CADASTROS
+===================================================== -->
+
+<section
+id="section-precadastros"
+class="section"
+>
+
+<h2 class="page-title">
+Pré-cadastros
+</h2>
+
+<p class="page-subtitle">
+Gerenciamento das fichas recebidas pela LUX.
+</p>
+
+
+<div class="panel">
+
+
+<div class="filters">
+
+<button
+class="btn btn-gold btn-filtro"
+data-filtro="todos"
+onclick="filtrarPreCadastros('todos',this)"
+>
+Todos
+</button>
+
+<button
+class="btn btn-filtro"
+data-filtro="pendente"
+onclick="filtrarPreCadastros('pendente',this)"
+>
+Pendentes
+</button>
+
+<button
+class="btn btn-filtro"
+data-filtro="aprovado"
+onclick="filtrarPreCadastros('aprovado',this)"
+>
+Aprovados
+</button>
+
+<button
+class="btn btn-filtro"
+data-filtro="rejeitado"
+onclick="filtrarPreCadastros('rejeitado',this)"
+>
+Rejeitados
+</button>
+
+</div>
+
+
+<div
+id="lista-precadastros"
+class="precadastro-grid"
+>
+
+</div>
+
+
+</div>
 
 </section>
 
@@ -1446,120 +1853,120 @@ tr:hover td{
 ===================================================== -->
 
 <section
-  id="section-modelos"
-  class="section"
+id="section-modelos"
+class="section"
 >
 
-  <h2 class="page-title">
-    Modelos
-  </h2>
+<h2 class="page-title">
+Modelos
+</h2>
 
-  <p class="page-subtitle">
-    Gerencie os cadastros e o processo de aprovação.
-  </p>
-
-
-  <div class="panel">
-
-    <div class="filters">
-
-      <input
-        id="modeloSearch"
-        class="input"
-        type="search"
-        placeholder="Pesquisar modelo..."
-        oninput="filterModels()"
-      >
-
-      <select
-        id="modeloStatus"
-        class="select"
-        onchange="filterModels()"
-      >
-
-        <option value="">
-          Todos os status
-        </option>
-
-        <option value="pendente">
-          Pendentes
-        </option>
-
-        <option value="aprovado">
-          Aprovados
-        </option>
-
-        <option value="reprovado">
-          Reprovados
-        </option>
-
-      </select>
-
-      <button
-        class="btn btn-gold"
-        onclick="loadModels()"
-      >
-        Atualizar modelos
-      </button>
-
-    </div>
+<p class="page-subtitle">
+Gerencie os cadastros de modelos.
+</p>
 
 
-    <div class="table-wrap">
+<div class="panel">
 
-      <table>
 
-        <thead>
+<div class="filters">
 
-          <tr>
+<input
+id="modeloSearch"
+class="input"
+type="search"
+placeholder="Pesquisar modelo..."
+oninput="filterModels()"
+>
 
-            <th>
-              Modelo
-            </th>
+<select
+id="modeloStatus"
+class="select"
+onchange="filterModels()"
+>
 
-            <th>
-              E-mail
-            </th>
+<option value="">
+Todos os status
+</option>
 
-            <th>
-              Status
-            </th>
+<option value="pendente">
+Pendentes
+</option>
 
-            <th>
-              Cadastro
-            </th>
+<option value="aprovado">
+Aprovados
+</option>
 
-            <th>
-              Ações
-            </th>
+<option value="reprovado">
+Reprovados
+</option>
 
-          </tr>
+</select>
 
-        </thead>
+<button
+class="btn btn-gold"
+onclick="loadModels()"
+>
+Atualizar
+</button>
 
-        <tbody
-          id="modelsTable"
-        >
+</div>
 
-          <tr>
 
-            <td colspan="5">
+<div class="table-wrap">
 
-              <div class="empty">
-                Carregando modelos...
-              </div>
+<table>
 
-            </td>
+<thead>
 
-          </tr>
+<tr>
 
-        </tbody>
+<th>
+Modelo
+</th>
 
-      </table>
+<th>
+E-mail
+</th>
 
-    </div>
+<th>
+Status
+</th>
 
-  </div>
+<th>
+Cadastro
+</th>
+
+<th>
+Ações
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="modelsTable">
+
+<tr>
+
+<td colspan="5">
+
+<div class="empty">
+Carregando...
+</div>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+</div>
 
 </section>
 
@@ -1569,59 +1976,34 @@ tr:hover td{
 ===================================================== -->
 
 <section
-  id="section-usuarios"
-  class="section"
+id="section-usuarios"
+class="section"
 >
 
-  <h2 class="page-title">
-    Usuários
-  </h2>
+<h2 class="page-title">
+Usuários
+</h2>
 
-  <p class="page-subtitle">
-    Controle e informações dos usuários da plataforma.
-  </p>
+<p class="page-subtitle">
+Gerenciamento administrativo dos usuários.
+</p>
 
 
-  <div class="panel">
+<div class="panel">
 
-    <div class="panel-header">
+<div class="empty">
 
-      <h3 class="panel-title">
-        Gestão de usuários
-      </h3>
+<div class="empty-icon">
+♙
+</div>
 
-      <span class="badge badge-gold">
-        SUPABASE AUTH
-      </span>
+Os usuários autenticados pelo Supabase
+devem ser administrados por uma função
+administrativa segura.
 
-    </div>
+</div>
 
-    <div class="empty">
-
-      <div class="empty-icon">
-        ♙
-      </div>
-
-      <p>
-        Os usuários autenticados ficam protegidos pelo
-        sistema de autenticação do Supabase.
-      </p>
-
-      <p
-        style="
-          margin-top:12px;
-          font-size:12px;
-        "
-      >
-        A chave pública do navegador não possui permissão
-        para consultar diretamente todos os usuários do Auth.
-        Essa função deverá utilizar uma Edge Function segura
-        quando for habilitada.
-      </p>
-
-    </div>
-
-  </div>
+</div>
 
 </section>
 
@@ -1631,76 +2013,35 @@ tr:hover td{
 ===================================================== -->
 
 <section
-  id="section-reclamacoes"
-  class="section"
+id="section-reclamacoes"
+class="section"
 >
 
-  <h2 class="page-title">
-    Reclamações
-  </h2>
+<h2 class="page-title">
+Reclamações
+</h2>
 
-  <p class="page-subtitle">
-    Central de atendimento e acompanhamento das ocorrências.
-  </p>
-
-
-  <div class="panel">
-
-    <div class="filters">
-
-      <input
-        id="reclamacaoSearch"
-        class="input"
-        type="search"
-        placeholder="Pesquisar reclamação..."
-        oninput="filterComplaints()"
-      >
-
-      <select
-        id="reclamacaoStatus"
-        class="select"
-        onchange="filterComplaints()"
-      >
-
-        <option value="">
-          Todos os status
-        </option>
-
-        <option value="aberta">
-          Abertas
-        </option>
-
-        <option value="em_analise">
-          Em análise
-        </option>
-
-        <option value="resolvida">
-          Resolvidas
-        </option>
-
-      </select>
-
-      <button
-        class="btn"
-        onclick="loadComplaints()"
-      >
-        Atualizar
-      </button>
-
-    </div>
+<p class="page-subtitle">
+Central de atendimento.
+</p>
 
 
-    <div
-      id="complaintsContainer"
-    >
+<div class="panel">
 
-      <div class="empty">
-        Carregando reclamações...
-      </div>
+<div
+id="complaintsContainer"
+class="empty"
+>
 
-    </div>
+<div class="empty-icon">
+!
+</div>
 
-  </div>
+Carregando reclamações...
+
+</div>
+
+</div>
 
 </section>
 
@@ -1710,56 +2051,34 @@ tr:hover td{
 ===================================================== -->
 
 <section
-  id="section-avaliacoes"
-  class="section"
+id="section-avaliacoes"
+class="section"
 >
 
-  <h2 class="page-title">
-    Avaliações
-  </h2>
+<h2 class="page-title">
+Avaliações
+</h2>
 
-  <p class="page-subtitle">
-    Acompanhamento das avaliações realizadas nos perfis.
-  </p>
-
-
-  <div class="panel">
-
-    <div class="panel-header">
-
-      <h3 class="panel-title">
-        Sistema de estrelas
-      </h3>
-
-      <span class="badge badge-pink">
-        LUX RATING
-      </span>
-
-    </div>
+<p class="page-subtitle">
+Sistema de avaliações dos perfis.
+</p>
 
 
-    <div
-      id="ratingsContainer"
-      class="empty"
-    >
+<div class="panel">
 
-      <div class="empty-icon">
-        ★
-      </div>
+<div
+class="empty"
+>
 
-      Área preparada para o sistema de avaliações
-      dos perfis.
+<div class="empty-icon">
+★
+</div>
 
-      <br><br>
+Central de avaliações LUX.
 
-      <span style="font-size:12px;">
-        As avaliações poderão ser conectadas à tabela
-        específica do projeto sem alterar a autenticação.
-      </span>
+</div>
 
-    </div>
-
-  </div>
+</div>
 
 </section>
 
@@ -1769,112 +2088,91 @@ tr:hover td{
 ===================================================== -->
 
 <section
-  id="section-assinaturas"
-  class="section"
+id="section-assinaturas"
+class="section"
 >
 
-  <h2 class="page-title">
-    Planos e Assinaturas
-  </h2>
+<h2 class="page-title">
+Planos e Assinaturas
+</h2>
 
-  <p class="page-subtitle">
-    Visão administrativa dos planos da LUX.
-  </p>
-
-
-  <div class="stats">
-
-    <div class="stat">
-
-      <div class="stat-label">
-        LUX ESSENCE
-      </div>
-
-      <div class="stat-value">
-        FREE
-      </div>
-
-    </div>
+<p class="page-subtitle">
+Planos da LUX-ADVANCE.
+</p>
 
 
-    <div class="stat">
-
-      <div class="stat-label">
-        LUX DESFIRE
-      </div>
-
-      <div class="stat-value">
-        R$ 29,90
-      </div>
-
-    </div>
+<div class="stats">
 
 
-    <div class="stat">
+<div class="stat">
 
-      <div class="stat-label">
-        LUX ELITE
-      </div>
+<div class="stat-label">
+LUX ESSENCE
+</div>
 
-      <div class="stat-value">
-        R$ 59,90
-      </div>
+<div class="stat-value">
+FREE
+</div>
 
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-label">
-        LUX ROYAL
-      </div>
-
-      <div class="stat-value">
-        R$ 99,90
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 
-  <div class="panel">
+<div class="stat">
 
-    <div class="panel-header">
+<div class="stat-label">
+LUX DESFIRE
+</div>
 
-      <h3 class="panel-title">
-        Mercado Pago
-      </h3>
+<div class="stat-value">
+R$ 29,90
+</div>
 
-      <span class="badge badge-gold">
-        PAGAMENTOS
-      </span>
+</div>
 
-    </div>
 
-    <div class="empty">
+<div class="stat">
 
-      <div class="empty-icon">
-        $
-      </div>
+<div class="stat-label">
+LUX ELITE
+</div>
 
-      <p>
-        A área administrativa dos planos está disponível.
-      </p>
+<div class="stat-value">
+R$ 59,90
+</div>
 
-      <p
-        style="
-          margin-top:12px;
-          font-size:12px;
-        "
-      >
-        Dados privados do Mercado Pago devem permanecer
-        somente no backend ou Edge Function.
-      </p>
+</div>
 
-    </div>
 
-  </div>
+<div class="stat">
+
+<div class="stat-label">
+LUX ROYAL
+</div>
+
+<div class="stat-value">
+R$ 99,90
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="panel">
+
+<div class="empty">
+
+<div class="empty-icon">
+$
+</div>
+
+Integração financeira preparada
+para Mercado Pago.
+
+</div>
+
+</div>
 
 </section>
 
@@ -1884,126 +2182,82 @@ tr:hover td{
 ===================================================== -->
 
 <section
-  id="section-configuracoes"
-  class="section"
+id="section-configuracoes"
+class="section"
 >
 
-  <h2 class="page-title">
-    Configurações
-  </h2>
+<h2 class="page-title">
+Configurações
+</h2>
 
-  <p class="page-subtitle">
-    Informações da configuração administrativa atual.
-  </p>
-
-
-  <div class="panel">
-
-    <div class="detail-grid">
-
-      <div class="detail">
-
-        <div class="detail-label">
-          Administrador
-        </div>
-
-        <div
-          id="configAdminEmail"
-          class="detail-value"
-        >
-          —
-        </div>
-
-      </div>
+<p class="page-subtitle">
+Configurações administrativas.
+</p>
 
 
-      <div class="detail">
+<div class="panel">
 
-        <div class="detail-label">
-          Supabase
-        </div>
-
-        <div class="detail-value">
-          Conectado
-        </div>
-
-      </div>
+<div class="detail-grid">
 
 
-      <div class="detail">
+<div class="detail">
 
-        <div class="detail-label">
-          Sessão
-        </div>
+<div class="detail-label">
+Administrador
+</div>
 
-        <div class="detail-value">
-          Persistente
-        </div>
+<div
+id="configAdminEmail"
+class="detail-value"
+>
+—
+</div>
 
-      </div>
-
-
-      <div class="detail">
-
-        <div class="detail-label">
-          Auto refresh
-        </div>
-
-        <div class="detail-value">
-          Ativado
-        </div>
-
-      </div>
+</div>
 
 
-      <div class="detail full">
+<div class="detail">
 
-        <div class="detail-label">
-          Projeto
-        </div>
+<div class="detail-label">
+Sistema
+</div>
 
-        <div class="detail-value">
-          LUX — LUX-ADVANCE
-        </div>
+<div class="detail-value">
+LUX-ADVANCE
+</div>
 
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 
-  <div class="panel">
+<div class="detail">
 
-    <div class="panel-header">
+<div class="detail-label">
+Tema
+</div>
 
-      <h3 class="panel-title">
-        Segurança
-      </h3>
+<div class="detail-value">
+Halloween Edition
+</div>
 
-    </div>
+</div>
 
-    <p
-      style="
-        color:var(--muted);
-        line-height:1.8;
-      "
-    >
 
-      O painel verifica se a sessão pertence ao e-mail
-      administrativo definido no <strong
-      style="color:var(--gold);"
-      >config.js</strong>.
+<div class="detail">
 
-      <br><br>
+<div class="detail-label">
+Supabase
+</div>
 
-      A chave pública do Supabase pode permanecer no
-      navegador. Chaves secretas, service role e credenciais
-      privadas do Mercado Pago não devem ser colocadas aqui.
+<div class="detail-value">
+Conectado
+</div>
 
-    </p>
+</div>
 
-  </div>
+
+</div>
+
+</div>
 
 </section>
 
@@ -2020,36 +2274,71 @@ tr:hover td{
 ===================================================== -->
 
 <div
-  id="detailsModal"
-  class="modal"
+id="modal-ver-ficha"
+class="modal"
 >
 
-  <div class="modal-box">
+<div class="modal-box">
 
-    <div class="modal-header">
+<div class="modal-header">
 
-      <h3
-        id="modalTitle"
-        class="modal-title"
-      >
-        Detalhes
-      </h3>
+<h3
+id="modalTitle"
+class="modal-title"
+>
+Ficha
+</h3>
 
-      <button
-        class="close"
-        onclick="closeModal()"
-      >
-        ×
-      </button>
+<button
+class="close"
+onclick="fecharModalFicha()"
+>
+×
+</button>
 
-    </div>
+</div>
 
-    <div
-      id="modalContent"
-      class="detail-grid"
-    ></div>
 
-  </div>
+<div
+id="corpo-ficha"
+class="detail-grid"
+>
+</div>
+
+
+<div
+style="
+display:flex;
+gap:10px;
+margin-top:20px;
+flex-wrap:wrap;
+"
+>
+
+<button
+id="botao-aprovar"
+class="btn btn-gold"
+>
+Aprovar
+</button>
+
+<button
+id="botao-rejeitar"
+class="btn btn-danger"
+>
+Rejeitar
+</button>
+
+<button
+class="btn"
+onclick="imprimirFicha()"
+>
+Imprimir
+</button>
+
+</div>
+
+</div>
 
 </div>
 
@@ -2057,8 +2346,8 @@ tr:hover td{
 <script>
 
 /* =====================================================
-   CONFIGURAÇÃO
-===================================================== */
+   LUX ADMIN
+   ===================================================== */
 
 const supabase =
   window.luxSupabase;
@@ -2070,124 +2359,198 @@ const ADMIN_EMAIL =
   .trim()
   .toLowerCase();
 
+
 let currentUser = null;
 
 let allModels = [];
 
-let allComplaints = [];
+let listaPreCadastros = [];
+
+let filtroStatus = "todos";
+
+let indiceSelecionado = null;
 
 
 /* =====================================================
    INICIALIZAÇÃO
-===================================================== */
+   ===================================================== */
 
 document.addEventListener(
   "DOMContentLoaded",
-  initAdmin
+  iniciarPainel
 );
 
 
-/*
- * ESTA É A PARTE IMPORTANTE.
- *
- * O painel NÃO fica esperando indefinidamente
- * o getSession().
- *
- * Primeiro procura a sessão já salva pelo Supabase.
- * Se encontrar o administrador, abre o painel.
- *
- * Depois tenta confirmar a sessão normalmente.
- */
+async function iniciarPainel(){
 
-async function initAdmin(){
+  /*
+   * PRIMEIRO:
+   * mostramos o painel.
+   *
+   * Isso impede que uma espera do
+   * Supabase deixe a tela congelada.
+   */
+
+  abrirInterface();
+
+
+  /*
+   * Recuperamos o administrador
+   * salvo pelo acesso-admin.
+   */
+
+  const adminMarcado =
+    localStorage.getItem(
+      "lux_admin_access"
+    );
+
+
+  if(
+    adminMarcado &&
+    ADMIN_EMAIL &&
+    adminMarcado.toLowerCase() ===
+    ADMIN_EMAIL
+  ){
+
+    document
+      .getElementById("adminEmail")
+      .textContent =
+      ADMIN_EMAIL;
+
+    document
+      .getElementById("configAdminEmail")
+      .textContent =
+      ADMIN_EMAIL;
+
+  }
+
+
+  /*
+   * Agora tentamos validar a sessão
+   * sem bloquear o painel.
+   */
+
+  validarSessaoSemBloqueio();
+
+
+  /*
+   * Carregamos os dados.
+   */
+
+  carregarListaPreCadastros();
+
+  loadModels();
+
+  loadComplaints();
+
+}
+
+
+/* =====================================================
+   ABRIR INTERFACE
+===================================================== */
+
+function abrirInterface(){
+
+  document
+    .getElementById(
+      "loadingScreen"
+    )
+    .classList
+    .add("hidden");
+
+
+  document
+    .getElementById(
+      "adminSystem"
+    )
+    .classList
+    .remove("hidden");
+
+}
+
+
+/* =====================================================
+   VALIDAÇÃO SEM TRAVAR A TELA
+===================================================== */
+
+async function validarSessaoSemBloqueio(){
+
+  /*
+   * Se a sessão demorar, não deixamos
+   * o painel preso.
+   */
+
+  if(!supabase){
+
+    console.warn(
+      "Supabase não disponível."
+    );
+
+    return;
+
+  }
+
 
   try{
 
-    if(!supabase){
+    const timeout =
+      new Promise(
+        (_,reject)=>{
 
-      showLoadingError(
-        "Supabase não foi inicializado. Verifique o config.js."
-      );
-
-      return;
-
-    }
-
-    if(!ADMIN_EMAIL){
-
-      showLoadingError(
-        "LUX_ADMIN_EMAIL não está configurado no config.js."
-      );
-
-      return;
-
-    }
-
-
-    let user = null;
-
-
-    /*
-     * PRIMEIRO:
-     * procura a sessão salva no navegador.
-     */
-
-    user =
-      findSavedAdminUser();
-
-
-    /*
-     * SE NÃO ENCONTRAR:
-     * tenta o Supabase com limite de tempo.
-     */
-
-    if(!user){
-
-      try{
-
-        const result =
-          await withTimeout(
-            supabase.auth.getSession(),
+          setTimeout(
+            ()=>{
+              reject(
+                new Error(
+                  "TIMEOUT_SESSAO"
+                )
+              );
+            },
             4000
           );
 
-
-        if(
-          !result.error &&
-          result.data?.session?.user
-        ){
-
-          user =
-            result.data.session.user;
-
         }
+      );
 
-      }catch(error){
 
-        console.warn(
-          "LUX ADMIN: getSession não respondeu.",
-          error
+    const sessao =
+      await Promise.race([
+
+        supabase.auth.getSession(),
+
+        timeout
+
+      ]);
+
+
+    const session =
+      sessao?.data?.session;
+
+
+    if(!session?.user){
+
+      /*
+       * Se não houver sessão e não houver
+       * marcação de acesso, voltamos.
+       */
+
+      const acesso =
+        localStorage.getItem(
+          "lux_admin_access"
+        );
+
+
+      if(
+        !acesso ||
+        acesso.toLowerCase() !==
+        ADMIN_EMAIL
+      ){
+
+        window.location.replace(
+          "./acesso-admin.html"
         );
 
       }
-
-    }
-
-
-    /*
-     * NÃO EXISTE SESSÃO.
-     */
-
-    if(!user){
-
-      showLoadingError(
-        "Sessão administrativa não encontrada. Faça o login novamente."
-      );
-
-      setTimeout(
-        goLogin,
-        1800
-      );
 
       return;
 
@@ -2196,31 +2559,25 @@ async function initAdmin(){
 
     const email =
       String(
-        user.email || ""
+        session.user.email || ""
       )
       .trim()
       .toLowerCase();
 
 
-    /*
-     * CONFERE O ADMINISTRADOR.
-     */
-
     if(
+      ADMIN_EMAIL &&
       email !== ADMIN_EMAIL
     ){
 
-      showLoadingError(
-        "A conta autenticada não possui permissão administrativa."
+      await supabase.auth.signOut();
+
+      localStorage.removeItem(
+        "lux_admin_access"
       );
 
-      try{
-        await supabase.auth.signOut();
-      }catch(_){}
-
-      setTimeout(
-        goLogin,
-        1800
+      window.location.replace(
+        "./acesso-admin.html"
       );
 
       return;
@@ -2228,496 +2585,45 @@ async function initAdmin(){
     }
 
 
-    /*
-     * SESSÃO OK.
-     *
-     * ABRE O PAINEL IMEDIATAMENTE.
-     */
-
     currentUser =
-      user;
-
-    openAdminSystem();
+      session.user;
 
 
-    /*
-     * AGORA SIM carrega os dados.
-     *
-     * Se alguma tabela estiver com problema,
-     * o painel continua aberto.
-     */
+    document
+      .getElementById(
+        "adminEmail"
+      )
+      .textContent =
+      session.user.email;
 
-    setTimeout(
-      () => {
 
-        loadDashboard()
-          .catch(
-            error =>
-              console.error(
-                "Erro no dashboard:",
-                error
-              )
-          );
+    document
+      .getElementById(
+        "configAdminEmail"
+      )
+      .textContent =
+      session.user.email;
 
-        loadComplaints()
-          .catch(
-            error =>
-              console.error(
-                "Erro nas reclamações:",
-                error
-              )
-          );
 
-      },
-      100
+    localStorage.setItem(
+      "lux_admin_access",
+      email
     );
 
-
-    /*
-     * Confirma a sessão real em segundo plano.
-     */
-
-    validateSessionInBackground();
-
-
-  }catch(error){
-
-    console.error(
-      "Erro no acesso administrativo:",
-      error
-    );
-
-    showLoadingError(
-      error?.message ||
-      "Não foi possível validar o acesso."
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   ENCONTRAR SESSÃO SALVA
-===================================================== */
-
-function findSavedAdminUser(){
-
-  try{
-
-    /*
-     * O Supabase normalmente utiliza:
-     *
-     * sb-lardmkeyyifmgbjrcfhn-auth-token
-     */
-
-    const knownKeys = [
-
-      "sb-lardmkeyyifmgbjrcfhn-auth-token",
-
-      "supabase.auth.token"
-
-    ];
-
-
-    for(
-      const key of knownKeys
-    ){
-
-      const user =
-        readUserFromStorageKey(
-          key
-        );
-
-      if(user){
-        return user;
-      }
-
-    }
-
-
-    /*
-     * FALLBACK:
-     * procura qualquer chave do Supabase
-     * que contenha auth-token.
-     */
-
-    for(
-      let i = 0;
-      i < localStorage.length;
-      i++
-    ){
-
-      const key =
-        localStorage.key(i);
-
-
-      if(
-        !key ||
-        !key.includes("auth-token")
-      ){
-        continue;
-      }
-
-
-      const user =
-        readUserFromStorageKey(
-          key
-        );
-
-
-      if(user){
-        return user;
-      }
-
-    }
-
-  }catch(error){
-
-    console.warn(
-      "Não foi possível verificar o armazenamento local.",
-      error
-    );
-
-  }
-
-
-  return null;
-
-}
-
-
-/* =====================================================
-   LER USUÁRIO DO STORAGE
-===================================================== */
-
-function readUserFromStorageKey(
-  key
-){
-
-  try{
-
-    const raw =
-      localStorage.getItem(
-        key
-      );
-
-
-    if(!raw){
-      return null;
-    }
-
-
-    const data =
-      JSON.parse(
-        raw
-      );
-
-
-    /*
-     * Formato atual do Supabase.
-     */
-
-    if(
-      data?.user?.email
-    ){
-
-      return data.user;
-
-    }
-
-
-    if(
-      data?.currentSession?.user?.email
-    ){
-
-      return data.currentSession.user;
-
-    }
-
-
-    if(
-      data?.session?.user?.email
-    ){
-
-      return data.session.user;
-
-    }
-
-
-  }catch(_){}
-
-
-  return null;
-
-}
-
-
-/* =====================================================
-   VALIDAÇÃO EM SEGUNDO PLANO
-===================================================== */
-
-async function validateSessionInBackground(){
-
-  try{
-
-    const result =
-      await withTimeout(
-        supabase.auth.getSession(),
-        5000
-      );
-
-
-    const session =
-      result?.data?.session;
-
-
-    /*
-     * Se o Supabase respondeu com uma sessão,
-     * confirma o e-mail.
-     */
-
-    if(
-      session?.user
-    ){
-
-      const email =
-        String(
-          session.user.email || ""
-        )
-        .trim()
-        .toLowerCase();
-
-
-      if(
-        email !== ADMIN_EMAIL
-      ){
-
-        await supabase.auth.signOut();
-
-        goLogin();
-
-      }
-
-    }
 
   }catch(error){
 
     /*
      * IMPORTANTE:
-     *
-     * Se o getSession travar, NÃO fecha o painel.
-     *
-     * O painel já foi aberto com a sessão persistida.
+     * timeout não derruba o painel.
      */
 
     console.warn(
-      "LUX ADMIN: validação em segundo plano demorou.",
+      "Validação de sessão:",
       error
     );
 
   }
-
-}
-
-
-/* =====================================================
-   TIMEOUT
-===================================================== */
-
-function withTimeout(
-  promise,
-  milliseconds
-){
-
-  return Promise.race([
-
-    promise,
-
-    new Promise(
-      (_,reject)=>{
-
-        setTimeout(
-          () => {
-
-            reject(
-              new Error(
-                "Tempo limite de validação atingido."
-              )
-            );
-
-          },
-          milliseconds
-        );
-
-      }
-    )
-
-  ]);
-
-}
-
-
-/* =====================================================
-   ABRIR PAINEL
-===================================================== */
-
-function openAdminSystem(){
-
-  const loading =
-    document.getElementById(
-      "loadingScreen"
-    );
-
-  const system =
-    document.getElementById(
-      "adminSystem"
-    );
-
-
-  if(
-    currentUser
-  ){
-
-    const email =
-      currentUser.email || "";
-
-
-    const adminEmail =
-      document.getElementById(
-        "adminEmail"
-      );
-
-
-    const configEmail =
-      document.getElementById(
-        "configAdminEmail"
-      );
-
-
-    if(adminEmail){
-
-      adminEmail.textContent =
-        email;
-
-    }
-
-
-    if(configEmail){
-
-      configEmail.textContent =
-        email;
-
-    }
-
-  }
-
-
-  /*
-   * ESCONDE A TELA DE CARREGAMENTO.
-   */
-
-  if(loading){
-
-    loading.classList.add(
-      "hidden"
-    );
-
-  }
-
-
-  /*
-   * MOSTRA O PAINEL.
-   */
-
-  if(system){
-
-    system.classList.remove(
-      "hidden"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   ERRO DE CARREGAMENTO
-===================================================== */
-
-function showLoadingError(
-  message
-){
-
-  const text =
-    document.getElementById(
-      "loadingText"
-    );
-
-  const spinner =
-    document.getElementById(
-      "loadingSpinner"
-    );
-
-  const error =
-    document.getElementById(
-      "loadingError"
-    );
-
-  const actions =
-    document.getElementById(
-      "loadingActions"
-    );
-
-
-  if(text){
-
-    text.textContent =
-      "Não foi possível abrir o painel.";
-
-  }
-
-
-  if(spinner){
-
-    spinner.style.display =
-      "none";
-
-  }
-
-
-  if(error){
-
-    error.textContent =
-      message;
-
-    error.classList.add(
-      "show"
-    );
-
-  }
-
-
-  if(actions){
-
-    actions.classList.add(
-      "show"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-function goLogin(){
-
-  window.location.replace(
-    "./acesso-admin.html"
-  );
 
 }
 
@@ -2727,6 +2633,11 @@ function goLogin(){
 ===================================================== */
 
 async function logout(){
+
+  localStorage.removeItem(
+    "lux_admin_access"
+  );
+
 
   try{
 
@@ -2738,14 +2649,14 @@ async function logout(){
 
   }catch(error){
 
-    console.error(
-      error
-    );
+    console.warn(error);
 
   }
 
 
-  goLogin();
+  window.location.replace(
+    "./acesso-admin.html"
+  );
 
 }
 
@@ -2754,34 +2665,16 @@ async function logout(){
    MENU
 ===================================================== */
 
-function toggleMobileMenu(){
-
-  document
-    .getElementById(
-      "sidebar"
-    )
-    .classList
-    .toggle(
-      "open"
-    );
-
-}
-
-
 function showSection(
   section,
   button
 ){
 
   document
-    .querySelectorAll(
-      ".section"
-    )
+    .querySelectorAll(".section")
     .forEach(
-      element =>
-        element.classList.remove(
-          "active"
-        )
+      el =>
+        el.classList.remove("active")
     );
 
 
@@ -2801,14 +2694,10 @@ function showSection(
 
 
   document
-    .querySelectorAll(
-      ".nav-btn"
-    )
+    .querySelectorAll(".nav-btn")
     .forEach(
-      element =>
-        element.classList.remove(
-          "active"
-        )
+      el =>
+        el.classList.remove("active")
     );
 
 
@@ -2822,27 +2711,26 @@ function showSection(
 
 
   document
-    .getElementById(
-      "sidebar"
-    )
+    .getElementById("sidebar")
     .classList
-    .remove(
-      "open"
-    );
+    .remove("open");
 
 
-  if(
-    section === "modelos"
-  ){
+  if(section === "precadastros"){
+
+    carregarListaPreCadastros();
+
+  }
+
+
+  if(section === "modelos"){
 
     loadModels();
 
   }
 
 
-  if(
-    section === "reclamacoes"
-  ){
+  if(section === "reclamacoes"){
 
     loadComplaints();
 
@@ -2869,77 +2757,660 @@ function showSectionByName(
 }
 
 
-/* =====================================================
-   DASHBOARD
-===================================================== */
+function toggleMobileMenu(){
 
-async function loadDashboard(){
-
-  await loadModels();
-
-  updateDashboard();
+  document
+    .getElementById("sidebar")
+    .classList
+    .toggle("open");
 
 }
 
 
-function updateDashboard(){
+/* =====================================================
+   PRÉ-CADASTROS
+===================================================== */
 
-  const total =
-    allModels.length;
+async function carregarListaPreCadastros(){
+
+  try{
+
+    listaPreCadastros =
+      JSON.parse(
+        localStorage.getItem(
+          "fichasPreCadastro"
+        ) || "[]"
+      );
 
 
-  const pending =
-    allModels.filter(
-      model =>
-        normalizeStatus(
-          getStatus(model)
-        ) === "pendente"
-    ).length;
+    aplicarFiltroERenderizar();
 
 
-  const modelos =
-    document.getElementById(
-      "statModelos"
+    atualizarDashboardPreCadastros();
+
+
+  }catch(error){
+
+    console.error(
+      "Erro:",
+      error
+    );
+
+  }
+
+}
+
+
+function filtrarPreCadastros(
+  status,
+  botao
+){
+
+  filtroStatus =
+    status;
+
+
+  document
+    .querySelectorAll(
+      ".btn-filtro"
+    )
+    .forEach(
+      b =>
+        b.classList.remove(
+          "btn-gold"
+        )
     );
 
 
+  if(botao){
+
+    botao.classList.add(
+      "btn-gold"
+    );
+
+  }
+
+
+  aplicarFiltroERenderizar();
+
+}
+
+
+function aplicarFiltroERenderizar(){
+
+  let dados =
+    [...listaPreCadastros];
+
+
+  if(
+    filtroStatus !==
+    "todos"
+  ){
+
+    dados =
+      dados.filter(
+        ficha =>
+          String(
+            ficha.status ||
+            "pendente"
+          )
+          .toLowerCase() ===
+          filtroStatus
+      );
+
+  }
+
+
+  desenharListaPreCadastros(
+    dados
+  );
+
+}
+
+
+function desenharListaPreCadastros(
+  lista
+){
+
+  const container =
+    document.getElementById(
+      "lista-precadastros"
+    );
+
+
+  if(!container){
+
+    return;
+
+  }
+
+
+  if(!lista.length){
+
+    container.innerHTML = `
+
+      <div
+        class="empty"
+        style="grid-column:1/-1"
+      >
+
+        <div class="empty-icon">
+          ☷
+        </div>
+
+        Nenhum registro encontrado.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    lista
+      .map(
+        (ficha,index)=>`
+
+          <div class="card-registro">
+
+            <h4>
+              ${escapeHtml(
+                ficha.nome ||
+                "Sem nome"
+              )}
+            </h4>
+
+            <p>
+              📱
+              ${escapeHtml(
+                ficha.whatsapp ||
+                "—"
+              )}
+            </p>
+
+            <p>
+              📅
+              ${escapeHtml(
+                ficha.dataEnvio ||
+                "—"
+              )}
+            </p>
+
+            <p>
+              Status:
+
+              <span
+                class="status-${
+                  ficha.status ||
+                  "pendente"
+                }"
+              >
+                ${
+                  String(
+                    ficha.status ||
+                    "pendente"
+                  )
+                  .toUpperCase()
+                }
+              </span>
+
+            </p>
+
+            <button
+              class="btn"
+              style="margin-top:10px"
+              onclick="abrirVerFicha(${listaPreCadastros.indexOf(ficha)})"
+            >
+              Ver ficha completa
+            </button>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+}
+
+
+function abrirVerFicha(
+  indice
+){
+
+  indiceSelecionado =
+    indice;
+
+
+  const d =
+    listaPreCadastros[
+      indice
+    ];
+
+
+  if(!d){
+
+    return;
+
+  }
+
+
+  document
+    .getElementById(
+      "modalTitle"
+    )
+    .textContent =
+    d.nome ||
+    "Ficha de pré-cadastro";
+
+
+  const fotos =
+    Array.isArray(
+      d.fotos
+    )
+      ? d.fotos
+      : [];
+
+
+  document
+    .getElementById(
+      "corpo-ficha"
+    )
+    .innerHTML = `
+
+      <div class="detail">
+
+        <div class="detail-label">
+          Nome / Apelido
+        </div>
+
+        <div class="detail-value">
+          ${escapeHtml(
+            d.nome || "—"
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="detail">
+
+        <div class="detail-label">
+          WhatsApp
+        </div>
+
+        <div class="detail-value">
+          ${escapeHtml(
+            d.whatsapp || "—"
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="detail">
+
+        <div class="detail-label">
+          Idade
+        </div>
+
+        <div class="detail-value">
+          ${escapeHtml(
+            d.idade || "—"
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="detail">
+
+        <div class="detail-label">
+          Altura
+        </div>
+
+        <div class="detail-value">
+          ${escapeHtml(
+            d.altura || "—"
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="detail">
+
+        <div class="detail-label">
+          Cidade / UF
+        </div>
+
+        <div class="detail-value">
+          ${escapeHtml(
+            d.cidade || "—"
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="detail">
+
+        <div class="detail-label">
+          Status
+        </div>
+
+        <div class="detail-value">
+          ${escapeHtml(
+            d.status ||
+            "pendente"
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="detail full">
+
+        <div class="detail-label">
+          Informações
+        </div>
+
+        <div class="detail-value">
+          ${escapeHtml(
+            d.sobre || "—"
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="detail full">
+
+        <div class="detail-label">
+          Fotos
+        </div>
+
+        <div class="detail-value">
+
+          ${
+            fotos.length
+
+              ? `
+
+                <div class="ficha-fotos">
+
+                  ${
+                    fotos
+                      .map(
+                        url => `
+
+                          <img
+                            src="${escapeHtml(
+                              url
+                            )}"
+                            alt="Foto"
+                          >
+
+                        `
+                      )
+                      .join("")
+                  }
+
+                </div>
+
+              `
+
+              : "Nenhuma foto enviada."
+          }
+
+        </div>
+
+      </div>
+
+
+      <div class="detail full">
+
+        <div class="detail-label">
+          Vídeo
+        </div>
+
+        <div class="detail-value">
+
+          ${
+            d.video
+
+              ? `
+
+                <video
+                  class="ficha-video"
+                  controls
+                  src="${escapeHtml(
+                    d.video
+                  )}"
+                ></video>
+
+              `
+
+              : "Nenhum vídeo enviado."
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+
+  document
+    .getElementById(
+      "modal-ver-ficha"
+    )
+    .classList
+    .add("show");
+
+}
+
+
+function fecharModalFicha(){
+
+  document
+    .getElementById(
+      "modal-ver-ficha"
+    )
+    .classList
+    .remove("show");
+
+
+  indiceSelecionado =
+    null;
+
+}
+
+
+async function salvarAlteracoes(){
+
+  localStorage.setItem(
+    "fichasPreCadastro",
+    JSON.stringify(
+      listaPreCadastros
+    )
+  );
+
+
+  aplicarFiltroERenderizar();
+
+  atualizarDashboardPreCadastros();
+
+}
+
+
+document.addEventListener(
+  "click",
+  async function(event){
+
+    if(
+      event.target.id ===
+      "botao-aprovar" &&
+      indiceSelecionado !== null
+    ){
+
+      listaPreCadastros[
+        indiceSelecionado
+      ].status =
+        "aprovado";
+
+
+      await salvarAlteracoes();
+
+      fecharModalFicha();
+
+      mostrarMensagem(
+        "Pré-cadastro aprovado.",
+        "success"
+      );
+
+    }
+
+
+    if(
+      event.target.id ===
+      "botao-rejeitar" &&
+      indiceSelecionado !== null
+    ){
+
+      listaPreCadastros[
+        indiceSelecionado
+      ].status =
+        "rejeitado";
+
+
+      await salvarAlteracoes();
+
+      fecharModalFicha();
+
+      mostrarMensagem(
+        "Pré-cadastro rejeitado.",
+        "success"
+      );
+
+    }
+
+  }
+);
+
+
+function atualizarDashboardPreCadastros(){
+
   const pendentes =
+    listaPreCadastros.filter(
+      ficha =>
+        String(
+          ficha.status ||
+          "pendente"
+        )
+        .toLowerCase() ===
+        "pendente"
+    ).length;
+
+
+  const elemento =
     document.getElementById(
       "statPendentes"
     );
 
 
-  const reclamacoes =
+  if(elemento){
+
+    elemento.textContent =
+      pendentes;
+
+  }
+
+
+  const recent =
     document.getElementById(
-      "statReclamacoes"
+      "recentPreCadastros"
     );
 
 
-  if(modelos){
+  if(!recent){
 
-    modelos.textContent =
-      total;
-
-  }
-
-
-  if(pendentes){
-
-    pendentes.textContent =
-      pending;
+    return;
 
   }
 
 
-  if(reclamacoes){
+  if(!listaPreCadastros.length){
 
-    reclamacoes.textContent =
-      allComplaints.length || "—";
+    recent.innerHTML = `
+
+      <div class="empty-icon">
+        ☷
+      </div>
+
+      Nenhum pré-cadastro encontrado.
+
+    `;
+
+    return;
 
   }
 
 
-  renderRecentModels();
+  recent.innerHTML =
+    listaPreCadastros
+      .slice(0,5)
+      .map(
+        ficha => `
+
+          <div
+            style="
+              padding:12px;
+              border-bottom:
+                1px solid
+                rgba(255,255,255,.06);
+            "
+          >
+
+            <strong
+              style="color:var(--gold)"
+            >
+              ${escapeHtml(
+                ficha.nome ||
+                "Sem nome"
+              )}
+            </strong>
+
+            <br>
+
+            <span
+              style="
+                color:var(--muted);
+                font-size:12px;
+              "
+            >
+
+              ${escapeHtml(
+                ficha.whatsapp ||
+                "—"
+              )}
+
+              •
+
+              ${escapeHtml(
+                ficha.status ||
+                "pendente"
+              )}
+
+            </span>
+
+          </div>
+
+        `
+      )
+      .join("");
 
 }
 
@@ -2956,69 +3427,53 @@ async function loadModels(){
     );
 
 
-  if(tbody){
+  if(!tbody){
+
+    return;
+
+  }
+
+
+  if(!supabase){
 
     tbody.innerHTML = `
 
       <tr>
-
         <td colspan="5">
 
           <div class="empty">
-            Carregando modelos...
+            Supabase não disponível.
           </div>
 
         </td>
-
       </tr>
 
     `;
+
+    return;
 
   }
 
 
   try{
 
-    let result =
+    const resultado =
       await supabase
         .from(
           "modelo_perfis"
         )
-        .select("*")
-        .order(
-          "created_at",
-          {
-            ascending:false
-          }
-        );
+        .select("*");
 
 
-    /*
-     * Compatibilidade com tabelas
-     * que não possuem created_at.
-     */
+    if(resultado.error){
 
-    if(result.error){
-
-      result =
-        await supabase
-          .from(
-            "modelo_perfis"
-          )
-          .select("*");
-
-    }
-
-
-    if(result.error){
-
-      throw result.error;
+      throw resultado.error;
 
     }
 
 
     allModels =
-      result.data || [];
+      resultado.data || [];
 
 
     renderModels(
@@ -3026,7 +3481,12 @@ async function loadModels(){
     );
 
 
-    updateDashboard();
+    document
+      .getElementById(
+        "statModelos"
+      )
+      .textContent =
+      allModels.length;
 
 
   }catch(error){
@@ -3037,44 +3497,37 @@ async function loadModels(){
     );
 
 
-    allModels = [];
+    tbody.innerHTML = `
 
+      <tr>
 
-    if(tbody){
+        <td colspan="5">
 
-      tbody.innerHTML = `
+          <div class="empty">
 
-        <tr>
-
-          <td colspan="5">
-
-            <div class="empty">
-
-              <div class="empty-icon">
-                !
-              </div>
-
-              Não foi possível carregar
-              os modelos.
-
-              <br><br>
-
-              <small>
-                ${escapeHtml(
-                  error?.message ||
-                  "Erro desconhecido."
-                )}
-              </small>
-
+            <div class="empty-icon">
+              !
             </div>
 
-          </td>
+            Não foi possível carregar
+            os modelos.
 
-        </tr>
+            <br><br>
 
-      `;
+            <small>
+              ${escapeHtml(
+                error.message ||
+                "Erro desconhecido."
+              )}
+            </small>
 
-    }
+          </div>
+
+        </td>
+
+      </tr>
+
+    `;
 
   }
 
@@ -3091,11 +3544,6 @@ function renderModels(
     );
 
 
-  if(!tbody){
-    return;
-  }
-
-
   if(!models.length){
 
     tbody.innerHTML = `
@@ -3105,10 +3553,6 @@ function renderModels(
         <td colspan="5">
 
           <div class="empty">
-
-            <div class="empty-icon">
-              ♟
-            </div>
 
             Nenhum modelo cadastrado.
 
@@ -3131,27 +3575,32 @@ function renderModels(
         model => {
 
           const id =
-            getModelId(
-              model
-            );
+            model.id || "";
 
 
-          const name =
-            getModelName(
-              model
-            );
+          const nome =
+            model.nome ||
+            model.nome_completo ||
+            model.nome_artistico ||
+            model.login ||
+            "Modelo";
 
 
           const email =
-            getModelEmail(
-              model
-            );
+            model.email ||
+            "—";
 
 
           const status =
-            getStatus(
-              model
-            );
+            model.status ||
+            model.situacao ||
+            "pendente";
+
+
+          const data =
+            model.created_at ||
+            model.criado_em ||
+            "";
 
 
           return `
@@ -3160,7 +3609,7 @@ function renderModels(
 
               <td>
                 <strong>
-                  ${escapeHtml(name)}
+                  ${escapeHtml(nome)}
                 </strong>
               </td>
 
@@ -3173,9 +3622,7 @@ function renderModels(
               </td>
 
               <td>
-                ${formatDate(
-                  getCreatedAt(model)
-                )}
+                ${formatDate(data)}
               </td>
 
               <td>
@@ -3184,31 +3631,34 @@ function renderModels(
 
                   <button
                     class="small-btn"
-                    onclick='viewModel(${safeJson(model)})'
+                    onclick='viewModel(${JSON.stringify(model)})'
                   >
                     Ver
                   </button>
 
                   ${
-                    isPending(status)
-                    ? `
+                    normalizeStatus(status) ===
+                    "pendente"
 
-                      <button
-                        class="small-btn approve"
-                        onclick="approveModel('${escapeJs(id)}')"
-                      >
-                        Aprovar
-                      </button>
+                      ? `
 
-                      <button
-                        class="small-btn reject"
-                        onclick="rejectModel('${escapeJs(id)}')"
-                      >
-                        Reprovar
-                      </button>
+                        <button
+                          class="small-btn approve"
+                          onclick="alterarStatusModelo('${escapeJs(id)}','aprovado')"
+                        >
+                          Aprovar
+                        </button>
 
-                    `
-                    : ""
+                        <button
+                          class="small-btn reject"
+                          onclick="alterarStatusModelo('${escapeJs(id)}','reprovado')"
+                        >
+                          Reprovar
+                        </button>
+
+                      `
+
+                      : ""
                   }
 
                 </div>
@@ -3228,7 +3678,7 @@ function renderModels(
 
 function filterModels(){
 
-  const search =
+  const busca =
     String(
       document.getElementById(
         "modeloSearch"
@@ -3238,38 +3688,40 @@ function filterModels(){
     .trim();
 
 
-  const statusFilter =
+  const status =
     document.getElementById(
       "modeloStatus"
     )?.value || "";
 
 
-  const filtered =
+  const filtrados =
     allModels.filter(
-      model => {
+      modelo => {
 
-        const text =
+        const texto =
           JSON.stringify(
-            model
+            modelo
           )
           .toLowerCase();
 
 
-        const status =
+        const modeloStatus =
           normalizeStatus(
-            getStatus(model)
+            modelo.status ||
+            modelo.situacao ||
+            "pendente"
           );
 
 
         return (
 
-          (!search ||
-            text.includes(search))
+          (!busca ||
+            texto.includes(busca))
 
           &&
 
-          (!statusFilter ||
-            status === statusFilter)
+          (!status ||
+            modeloStatus === status)
 
         );
 
@@ -3278,205 +3730,86 @@ function filterModels(){
 
 
   renderModels(
-    filtered
+    filtrados
   );
 
 }
 
 
-/* =====================================================
-   APROVAR
-===================================================== */
-
-async function approveModel(
-  id
-){
-
-  if(!id){
-    return;
-  }
-
-
-  if(
-    !confirm(
-      "Deseja aprovar este cadastro de modelo?"
-    )
-  ){
-    return;
-  }
-
-
-  try{
-
-    const result =
-      await updateModelStatus(
-        id,
-        "aprovado"
-      );
-
-
-    if(result.error){
-
-      throw result.error;
-
-    }
-
-
-    showMessage(
-      "Modelo aprovado com sucesso.",
-      "success"
-    );
-
-
-    await loadModels();
-
-
-  }catch(error){
-
-    console.error(
-      error
-    );
-
-
-    showMessage(
-      "Não foi possível aprovar o modelo: " +
-      (
-        error?.message ||
-        "erro desconhecido"
-      ),
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   REPROVAR
-===================================================== */
-
-async function rejectModel(
-  id
-){
-
-  if(!id){
-    return;
-  }
-
-
-  if(
-    !confirm(
-      "Deseja reprovar este cadastro de modelo?"
-    )
-  ){
-    return;
-  }
-
-
-  try{
-
-    const result =
-      await updateModelStatus(
-        id,
-        "reprovado"
-      );
-
-
-    if(result.error){
-
-      throw result.error;
-
-    }
-
-
-    showMessage(
-      "Modelo reprovado.",
-      "success"
-    );
-
-
-    await loadModels();
-
-
-  }catch(error){
-
-    console.error(
-      error
-    );
-
-
-    showMessage(
-      "Não foi possível reprovar o modelo: " +
-      (
-        error?.message ||
-        "erro desconhecido"
-      ),
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   ATUALIZAR STATUS
-===================================================== */
-
-async function updateModelStatus(
+async function alterarStatusModelo(
   id,
   status
 ){
 
-  let result =
-    await supabase
-      .from(
-        "modelo_perfis"
-      )
-      .update({
-        status:status
-      })
-      .eq(
-        "id",
-        id
-      );
+  if(!id){
 
-
-  if(!result.error){
-
-    return result;
+    return;
 
   }
 
 
-  /*
-   * Compatibilidade com estruturas
-   * antigas que utilizam situacao.
-   */
+  try{
 
-  result =
-    await supabase
-      .from(
-        "modelo_perfis"
-      )
-      .update({
-        situacao:status
-      })
-      .eq(
-        "id",
-        id
-      );
+    let resultado =
+      await supabase
+        .from(
+          "modelo_perfis"
+        )
+        .update({
+          status:status
+        })
+        .eq(
+          "id",
+          id
+        );
 
 
-  return result;
+    if(resultado.error){
+
+      resultado =
+        await supabase
+          .from(
+            "modelo_perfis"
+          )
+          .update({
+            situacao:status
+          })
+          .eq(
+            "id",
+            id
+          );
+
+    }
+
+
+    if(resultado.error){
+
+      throw resultado.error;
+
+    }
+
+
+    mostrarMensagem(
+      "Status do modelo atualizado.",
+      "success"
+    );
+
+
+    loadModels();
+
+
+  }catch(error){
+
+    mostrarMensagem(
+      error.message ||
+      "Erro ao atualizar modelo.",
+      "error"
+    );
+
+  }
 
 }
 
-
-/* =====================================================
-   DETALHES DO MODELO
-===================================================== */
 
 function viewModel(
   model
@@ -3487,53 +3820,65 @@ function viewModel(
       "modalTitle"
     )
     .textContent =
-    getModelName(model);
+    model.nome ||
+    model.nome_artistico ||
+    "Modelo";
 
 
-  const content =
-    document.getElementById(
-      "modalContent"
-    );
-
-
-  const entries =
+  document
+    .getElementById(
+      "corpo-ficha"
+    )
+    .innerHTML =
     Object.entries(
-      model || {}
-    );
+      model
+    )
+    .map(
+      ([chave,valor])=>`
 
+        <div class="detail">
 
-  content.innerHTML =
-    entries
-      .map(
-        ([key,value]) => `
-
-          <div
-            class="detail
-            ${
-              String(value ?? "").length > 100
-              ? "full"
-              : ""
-            }"
-          >
-
-            <div class="detail-label">
-              ${escapeHtml(
-                formatFieldName(key)
-              )}
-            </div>
-
-            <div class="detail-value">
-              ${formatValue(value)}
-            </div>
-
+          <div class="detail-label">
+            ${escapeHtml(
+              chave
+            )}
           </div>
 
-        `
-      )
-      .join("");
+          <div class="detail-value">
+            ${formatValue(
+              valor
+            )}
+          </div>
+
+        </div>
+
+      `
+    )
+    .join("");
 
 
-  openModal();
+  document
+    .getElementById(
+      "botao-aprovar"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "botao-rejeitar"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "modal-ver-ficha"
+    )
+    .classList
+    .add("show");
 
 }
 
@@ -3544,65 +3889,6 @@ function viewModel(
 
 async function loadComplaints(){
 
-  const tables = [
-
-    "reclamacoes",
-
-    "reclamacoes_usuarios",
-
-    "reclamacoes_modelos"
-
-  ];
-
-
-  let found = false;
-
-
-  for(
-    const table of tables
-  ){
-
-    try{
-
-      const result =
-        await supabase
-          .from(table)
-          .select("*")
-          .limit(100);
-
-
-      if(!result.error){
-
-        allComplaints =
-          result.data || [];
-
-        found = true;
-
-        break;
-
-      }
-
-    }catch(_){}
-
-  }
-
-
-  if(!found){
-
-    allComplaints = [];
-
-  }
-
-
-  renderComplaints();
-
-  updateDashboard();
-
-}
-
-
-function renderComplaints(){
-
   const container =
     document.getElementById(
       "complaintsContainer"
@@ -3610,11 +3896,64 @@ function renderComplaints(){
 
 
   if(!container){
+
     return;
+
   }
 
 
-  if(!allComplaints.length){
+  if(!supabase){
+
+    return;
+
+  }
+
+
+  const tabelas = [
+    "reclamacoes",
+    "reclamacoes_usuarios",
+    "reclamacoes_modelos"
+  ];
+
+
+  let encontrados = [];
+
+
+  for(
+    const tabela of tabelas
+  ){
+
+    try{
+
+      const resultado =
+        await supabase
+          .from(tabela)
+          .select("*")
+          .limit(100);
+
+
+      if(!resultado.error){
+
+        encontrados =
+          resultado.data || [];
+
+        break;
+
+      }
+
+    }catch(error){
+
+      console.warn(
+        tabela,
+        error
+      );
+
+    }
+
+  }
+
+
+  if(!encontrados.length){
 
     container.innerHTML = `
 
@@ -3624,8 +3963,7 @@ function renderComplaints(){
           !
         </div>
 
-        Nenhuma reclamação disponível
-        para exibição.
+        Nenhuma reclamação encontrada.
 
       </div>
 
@@ -3666,10 +4004,6 @@ function renderComplaints(){
               Data
             </th>
 
-            <th>
-              Ação
-            </th>
-
           </tr>
 
         </thead>
@@ -3677,82 +4011,46 @@ function renderComplaints(){
         <tbody>
 
           ${
-            allComplaints
+            encontrados
               .map(
-                complaint => `
+                item => `
 
                   <tr>
 
                     <td>
                       ${escapeHtml(
-                        firstValue(
-                          complaint,
-                          [
-                            "assunto",
-                            "titulo",
-                            "subject"
-                          ]
-                        )
+                        item.assunto ||
+                        "—"
                       )}
                     </td>
 
                     <td>
                       ${escapeHtml(
-                        firstValue(
-                          complaint,
-                          [
-                            "login",
-                            "usuario",
-                            "nome"
-                          ]
-                        )
+                        item.login ||
+                        item.usuario ||
+                        "—"
                       )}
                     </td>
 
                     <td>
                       ${escapeHtml(
-                        firstValue(
-                          complaint,
-                          [
-                            "email"
-                          ]
-                        )
+                        item.email ||
+                        "—"
                       )}
                     </td>
 
                     <td>
                       ${statusBadge(
-                        firstValue(
-                          complaint,
-                          [
-                            "status"
-                          ]
-                        )
+                        item.status ||
+                        "pendente"
                       )}
                     </td>
 
                     <td>
                       ${formatDate(
-                        firstValue(
-                          complaint,
-                          [
-                            "created_at",
-                            "criado_em",
-                            "data"
-                          ]
-                        )
+                        item.created_at ||
+                        item.criado_em
                       )}
-                    </td>
-
-                    <td>
-
-                      <button
-                        class="small-btn"
-                        onclick='viewComplaint(${safeJson(complaint)})'
-                      >
-                        Ver
-                      </button>
-
                     </td>
 
                   </tr>
@@ -3770,351 +4068,30 @@ function renderComplaints(){
 
   `;
 
-}
-
-
-function filterComplaints(){
-
-  const search =
-    String(
-      document.getElementById(
-        "reclamacaoSearch"
-      )?.value || ""
-    )
-    .toLowerCase()
-    .trim();
-
-
-  const status =
-    document.getElementById(
-      "reclamacaoStatus"
-    )?.value || "";
-
-
-  const filtered =
-    allComplaints.filter(
-      item => {
-
-        const text =
-          JSON.stringify(
-            item
-          )
-          .toLowerCase();
-
-
-        const itemStatus =
-          normalizeStatus(
-            firstValue(
-              item,
-              [
-                "status"
-              ]
-            )
-          );
-
-
-        return (
-
-          (!search ||
-            text.includes(search))
-
-          &&
-
-          (!status ||
-            itemStatus === status)
-
-        );
-
-      }
-    );
-
-
-  renderComplaintList(
-    filtered
-  );
-
-}
-
-
-function renderComplaintList(
-  list
-){
-
-  const old =
-    allComplaints;
-
-
-  allComplaints =
-    list;
-
-
-  renderComplaints();
-
-
-  allComplaints =
-    old;
-
-}
-
-
-function viewComplaint(
-  complaint
-){
 
   document
     .getElementById(
-      "modalTitle"
+      "statReclamacoes"
     )
     .textContent =
-    "Reclamação";
-
-
-  document
-    .getElementById(
-      "modalContent"
-    )
-    .innerHTML =
-    Object.entries(
-      complaint || {}
-    )
-    .map(
-      ([key,value]) => `
-
-        <div
-          class="detail
-          ${
-            String(value ?? "").length > 100
-            ? "full"
-            : ""
-          }"
-        >
-
-          <div class="detail-label">
-            ${escapeHtml(
-              formatFieldName(key)
-            )}
-          </div>
-
-          <div class="detail-value">
-            ${formatValue(value)}
-          </div>
-
-        </div>
-
-      `
-    )
-    .join("");
-
-
-  openModal();
+    encontrados.length;
 
 }
 
 
 /* =====================================================
-   RECENTES
-===================================================== */
-
-function renderRecentModels(){
-
-  const container =
-    document.getElementById(
-      "recentModels"
-    );
-
-
-  if(!container){
-    return;
-  }
-
-
-  if(!allModels.length){
-
-    container.innerHTML = `
-
-      <div class="empty-icon">
-        ♟
-      </div>
-
-      Nenhum cadastro encontrado.
-
-    `;
-
-    return;
-
-  }
-
-
-  const recent =
-    allModels.slice(
-      0,
-      5
-    );
-
-
-  container.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>
-              Modelo
-            </th>
-
-            <th>
-              Status
-            </th>
-
-            <th>
-              Cadastro
-            </th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          ${
-            recent
-              .map(
-                model => `
-
-                  <tr>
-
-                    <td>
-                      ${escapeHtml(
-                        getModelName(model)
-                      )}
-                    </td>
-
-                    <td>
-                      ${statusBadge(
-                        getStatus(model)
-                      )}
-                    </td>
-
-                    <td>
-                      ${formatDate(
-                        getCreatedAt(model)
-                      )}
-                    </td>
-
-                  </tr>
-
-                `
-              )
-              .join("")
-          }
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-function openModal(){
-
-  document
-    .getElementById(
-      "detailsModal"
-    )
-    .classList
-    .add(
-      "show"
-    );
-
-}
-
-
-function closeModal(){
-
-  document
-    .getElementById(
-      "detailsModal"
-    )
-    .classList
-    .remove(
-      "show"
-    );
-
-}
-
-
-document
-  .getElementById(
-    "detailsModal"
-  )
-  .addEventListener(
-    "click",
-    event => {
-
-      if(
-        event.target.id ===
-        "detailsModal"
-      ){
-
-        closeModal();
-
-      }
-
-    }
-  );
-
-
-/* =====================================================
-   ATUALIZAR TUDO
+   ATUALIZAÇÃO
 ===================================================== */
 
 async function refreshAll(){
 
-  showMessage(
-    "Atualizando informações...",
-    "success"
-  );
+  carregarListaPreCadastros();
 
+  loadModels();
 
-  try{
+  loadComplaints();
 
-    await loadModels();
-
-  }catch(error){
-
-    console.error(
-      error
-    );
-
-  }
-
-
-  try{
-
-    await loadComplaints();
-
-  }catch(error){
-
-    console.error(
-      error
-    );
-
-  }
-
-
-  showMessage(
+  mostrarMensagem(
     "Painel atualizado.",
     "success"
   );
@@ -4123,12 +4100,54 @@ async function refreshAll(){
 
 
 /* =====================================================
+   MODAL
+===================================================== */
+
+document
+  .getElementById(
+    "modal-ver-ficha"
+  )
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target.id ===
+        "modal-ver-ficha"
+      ){
+
+        fecharModalFicha();
+
+      }
+
+    }
+  );
+
+
+function imprimirFicha(){
+
+  if(
+    indiceSelecionado ===
+    null
+  ){
+
+    return;
+
+  }
+
+
+  window.print();
+
+}
+
+
+/* =====================================================
    MENSAGEM
 ===================================================== */
 
-function showMessage(
-  message,
-  type
+function mostrarMensagem(
+  texto,
+  tipo="success"
 ){
 
   const box =
@@ -4138,201 +4157,55 @@ function showMessage(
 
 
   if(!box){
+
     return;
+
   }
 
 
   box.textContent =
-    message;
+    texto;
 
 
   box.className =
     "message show " +
-    (
-      type === "error"
-      ? "error"
-      : "success"
-    );
+    tipo;
 
 
   setTimeout(
-    () => {
-
+    ()=>{
       box.classList.remove(
         "show"
       );
-
     },
-    5000
+    4000
   );
 
 }
 
 
 /* =====================================================
-   HELPERS MODELOS
+   HELPERS
 ===================================================== */
-
-function getModelId(
-  model
-){
-
-  return firstValue(
-    model,
-    [
-      "id",
-      "modelo_id",
-      "usuario_id"
-    ]
-  );
-
-}
-
-
-function getModelName(
-  model
-){
-
-  return firstValue(
-    model,
-    [
-      "nome",
-      "name",
-      "nome_completo",
-      "nome_artistico",
-      "login",
-      "email"
-    ]
-  ) || "Modelo";
-
-}
-
-
-function getModelEmail(
-  model
-){
-
-  return firstValue(
-    model,
-    [
-      "email",
-      "e_mail",
-      "email_usuario"
-    ]
-  ) || "—";
-
-}
-
-
-function getStatus(
-  model
-){
-
-  return firstValue(
-    model,
-    [
-      "status",
-      "situacao",
-      "estado"
-    ]
-  ) || "pendente";
-
-}
-
-
-function getCreatedAt(
-  model
-){
-
-  return firstValue(
-    model,
-    [
-      "created_at",
-      "criado_em",
-      "data_cadastro",
-      "created"
-    ]
-  );
-
-}
-
-
-function isPending(
-  status
-){
-
-  return (
-    normalizeStatus(
-      status
-    ) === "pendente"
-  );
-
-}
-
 
 function normalizeStatus(
   status
 ){
 
-  const value =
-    String(
-      status || ""
-    )
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(
-      /[\u0300-\u036f]/g,
-      ""
-    )
-    .replace(
-      /\s+/g,
-      "_"
-    );
-
-
-  if(
-    [
-      "pending",
-      "aguardando",
-      "em_analise",
-      "analise"
-    ].includes(value)
-  ){
-
-    return "pendente";
-
-  }
-
-
-  if(
-    [
-      "approved",
-      "ativo",
-      "active"
-    ].includes(value)
-  ){
-
-    return "aprovado";
-
-  }
-
-
-  if(
-    [
-      "rejected",
-      "recusado",
-      "negado",
-      "inativo"
-    ].includes(value)
-  ){
-
-    return "reprovado";
-
-  }
-
-
-  return value || "pendente";
+  return String(
+    status ||
+    "pendente"
+  )
+  .toLowerCase()
+  .normalize("NFD")
+  .replace(
+    /[\u0300-\u036f]/g,
+    ""
+  )
+  .replace(
+    /\s+/g,
+    "_"
+  );
 
 }
 
@@ -4341,83 +4214,70 @@ function statusBadge(
   status
 ){
 
-  const normalized =
+  const normalizado =
     normalizeStatus(
       status
     );
 
 
-  let cls =
+  let classe =
     "badge-gold";
 
 
-  let text =
-    status || "Pendente";
+  let texto =
+    status ||
+    "Pendente";
 
 
   if(
-    normalized ===
+    normalizado ===
     "aprovado"
   ){
 
-    cls =
+    classe =
       "badge-green";
 
-    text =
+    texto =
       "Aprovado";
 
   }
-  else if(
-    normalized ===
-    "reprovado"
+
+
+  if(
+    normalizado ===
+    "reprovado" ||
+    normalizado ===
+    "rejeitado"
   ){
 
-    cls =
+    classe =
       "badge-red";
 
-    text =
+    texto =
       "Reprovado";
 
   }
-  else if(
-    normalized ===
+
+
+  if(
+    normalizado ===
     "resolvida"
   ){
 
-    cls =
+    classe =
       "badge-green";
-
-    text =
-      "Resolvida";
-
-  }
-  else if(
-    normalized ===
-    "em_analise"
-  ){
-
-    cls =
-      "badge-pink";
-
-    text =
-      "Em análise";
-
-  }
-  else{
-
-    cls =
-      "badge-gold";
-
-    text =
-      "Pendente";
 
   }
 
 
   return `
 
-    <span class="badge ${cls}">
-      ${escapeHtml(text)}
+    <span
+      class="badge ${classe}"
+    >
+      ${escapeHtml(
+        texto
+      )}
     </span>
 
   `;
@@ -4425,106 +4285,48 @@ function statusBadge(
 }
 
 
-/* =====================================================
-   HELPERS GERAIS
-===================================================== */
-
-function firstValue(
-  object,
-  keys
-){
-
-  if(!object){
-    return "";
-  }
-
-
-  for(
-    const key of keys
-  ){
-
-    if(
-      object[key] !== undefined &&
-      object[key] !== null &&
-      String(
-        object[key]
-      ).trim() !== ""
-    ){
-
-      return object[key];
-
-    }
-
-  }
-
-
-  return "";
-
-}
-
-
 function formatDate(
-  value
+  valor
 ){
 
-  if(!value){
+  if(!valor){
+
     return "—";
+
   }
 
 
-  const date =
-    new Date(
-      value
-    );
+  const data =
+    new Date(valor);
 
 
   if(
     Number.isNaN(
-      date.getTime()
+      data.getTime()
     )
   ){
 
     return escapeHtml(
-      String(value)
+      valor
     );
 
   }
 
 
-  return date.toLocaleString(
+  return data.toLocaleString(
     "pt-BR"
   );
 
 }
 
 
-function formatFieldName(
-  key
-){
-
-  return String(
-    key
-  )
-  .replace(
-    /_/g,
-    " "
-  )
-  .replace(
-    /\b\w/g,
-    letter =>
-      letter.toUpperCase()
-  );
-
-}
-
-
 function formatValue(
-  value
+  valor
 ){
 
   if(
-    value === null ||
-    value === undefined
+    valor === null ||
+    valor === undefined
   ){
 
     return "—";
@@ -4533,44 +4335,35 @@ function formatValue(
 
 
   if(
-    typeof value ===
+    typeof valor ===
     "object"
   ){
 
-    return `
-
-      <pre
-        style="
-          white-space:pre-wrap;
-          font-family:Arial,sans-serif;
-          color:#ddd;
-        "
-      >${escapeHtml(
-        JSON.stringify(
-          value,
-          null,
-          2
-        )
-      )}</pre>
-
-    `;
+    return escapeHtml(
+      JSON.stringify(
+        valor,
+        null,
+        2
+      )
+    );
 
   }
 
 
   return escapeHtml(
-    String(value)
+    String(valor)
   );
 
 }
 
 
 function escapeHtml(
-  value
+  valor
 ){
 
   return String(
-    value ?? ""
+    valor ??
+    ""
   )
   .replace(
     /&/g,
@@ -4597,11 +4390,12 @@ function escapeHtml(
 
 
 function escapeJs(
-  value
+  valor
 ){
 
   return String(
-    value ?? ""
+    valor ??
+    ""
   )
   .replace(
     /\\/g,
@@ -4623,112 +4417,27 @@ function escapeJs(
 }
 
 
-/*
- * JSON seguro para colocar
- * dentro de onclick.
- */
-
-function safeJson(
-  object
-){
-
-  return JSON.stringify(
-    object || {}
-  )
-  .replace(
-    /\\/g,
-    "\\\\"
-  )
-  .replace(
-    /'/g,
-    "\\'"
-  )
-  .replace(
-    /"/g,
-    "&quot;"
-  );
-
-}
-
-
 /* =====================================================
-   SEGURANÇA DA SESSÃO
+   SEGURANÇA DE SESSÃO
 ===================================================== */
 
 if(supabase){
 
   supabase.auth.onAuthStateChange(
-    (
-      event,
-      session
-    ) => {
-
-      /*
-       * NÃO redirecionar em INITIAL_SESSION.
-       *
-       * Essa era uma das causas possíveis
-       * do painel ficar preso na validação.
-       */
-
-      if(
-        event ===
-        "INITIAL_SESSION"
-      ){
-
-        return;
-
-      }
-
-
-      /*
-       * Usuário saiu.
-       */
+    function(event,session){
 
       if(
         event ===
         "SIGNED_OUT"
       ){
 
-        goLogin();
+        localStorage.removeItem(
+          "lux_admin_access"
+        );
 
-        return;
-
-      }
-
-
-      /*
-       * Quando houver renovação do token,
-       * apenas confirma o e-mail administrativo.
-       */
-
-      if(
-        (
-          event ===
-          "TOKEN_REFRESHED"
-        ||
-          event ===
-          "SIGNED_IN"
-        )
-        &&
-        session?.user
-      ){
-
-        const email =
-          String(
-            session.user.email || ""
-          )
-          .trim()
-          .toLowerCase();
-
-
-        if(
-          email !==
-          ADMIN_EMAIL
-        ){
-
-          supabase.auth.signOut();
-
-        }
+        window.location.replace(
+          "./acesso-admin.html"
+        );
 
       }
 
@@ -4736,27 +4445,6 @@ if(supabase){
   );
 
 }
-
-
-/* =====================================================
-   FECHAR MODAL COM ESC
-===================================================== */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if(
-      event.key ===
-      "Escape"
-    ){
-
-      closeModal();
-
-    }
-
-  }
-);
 
 </script>
 

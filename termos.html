@@ -24,7 +24,7 @@
 
   <link
     rel="preconnect"
-    href="https://fonts.gstatic.com"
+    href="https://fonts.googleapis.com"
     crossorigin
   >
 
@@ -36,16 +36,29 @@
   <style>
 
     :root{
-      --fundo:#080607;
-      --fundo2:#120b0e;
+      --fundo:#050405;
+      --fundo2:#10090d;
+      --painel:#0c080a;
+      --painel2:#130c10;
+
       --dourado:#d8b45a;
-      --dourado2:#f2d98a;
+      --dourado2:#f4dc91;
+      --dourado3:#b88e35;
+
       --rosa:#ff4da6;
-      --texto:#f5f1eb;
-      --texto2:#cfc8c2;
-      --borda:rgba(216,180,90,.35);
-      --card:rgba(15,10,12,.90);
+      --rosa2:#ff78ba;
+
+      --texto:#f6f1ea;
+      --texto2:#c9c1bb;
+      --texto3:#918982;
+
+      --borda:rgba(216,180,90,.24);
+      --bordaForte:rgba(216,180,90,.42);
+
+      --sombra:
+        0 30px 100px rgba(0,0,0,.58);
     }
+
 
     *{
       box-sizing:border-box;
@@ -53,7 +66,14 @@
       padding:0;
     }
 
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+
     body{
+
       min-height:100vh;
 
       font-family:
@@ -64,68 +84,137 @@
       color:var(--texto);
 
       background:
-        linear-gradient(
-          rgba(0,0,0,.82),
-          rgba(0,0,0,.94)
+
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(216,180,90,.08),
+          transparent 32%
         ),
+
+        linear-gradient(
+          rgba(0,0,0,.78),
+          rgba(0,0,0,.96)
+        ),
+
         url("./Halloween-feminina.jpg")
         center top / cover
         fixed
         no-repeat;
 
-      line-height:1.75;
+      line-height:1.8;
+
+      letter-spacing:.1px;
     }
+
+
+    body::before{
+
+      content:"";
+
+      position:fixed;
+
+      inset:0;
+
+      pointer-events:none;
+
+      background:
+        radial-gradient(
+          circle at 50% 15%,
+          transparent 0,
+          rgba(0,0,0,.20) 55%,
+          rgba(0,0,0,.72) 100%
+        );
+
+      z-index:-1;
+    }
+
 
     a{
+
       color:var(--dourado2);
+
       text-decoration:none;
+
     }
 
+
     a:hover{
+
       color:#fff;
+
     }
+
+
+    /* =========================================================
+       TOPO
+    ========================================================= */
 
     .topbar{
 
       position:sticky;
+
       top:0;
+
       z-index:1000;
 
       display:flex;
+
       justify-content:space-between;
+
       align-items:center;
 
-      padding:16px 6%;
+      gap:20px;
+
+      padding:
+        15px clamp(18px,5vw,70px);
 
       background:
-        rgba(5,4,5,.94);
+        rgba(5,4,5,.88);
 
       border-bottom:
         1px solid
-        var(--borda);
+        var(--bordaForte);
 
-      backdrop-filter:blur(12px);
+      backdrop-filter:
+        blur(18px);
+
+      box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.28);
     }
 
+
     .marca{
+
+      display:inline-flex;
+
+      flex-direction:column;
 
       font-family:
         "Playfair Display",
         serif;
 
-      font-size:25px;
+      font-size:27px;
+
       font-weight:700;
 
-      letter-spacing:2px;
+      line-height:.85;
+
+      letter-spacing:3px;
 
       color:var(--dourado2);
+
+      text-shadow:
+        0 0 25px
+        rgba(216,180,90,.14);
     }
+
 
     .submarca{
 
       display:block;
 
-      margin-top:2px;
+      margin-top:7px;
 
       font-family:
         Montserrat,
@@ -133,40 +222,56 @@
 
       font-size:8px;
 
-      letter-spacing:3px;
+      line-height:1;
+
+      letter-spacing:4px;
 
       color:#aaa19b;
     }
+
 
     .btn-voltar{
 
       display:inline-flex;
 
       align-items:center;
+
       justify-content:center;
 
-      min-height:40px;
+      min-height:42px;
 
-      padding:8px 18px;
+      padding:
+        9px 19px;
 
       border:
         1px solid
-        var(--dourado);
+        rgba(216,180,90,.55);
 
       border-radius:30px;
 
       color:var(--dourado2);
 
-      font-size:12px;
-      font-weight:600;
+      font-size:10px;
 
-      letter-spacing:1px;
+      font-weight:700;
+
+      letter-spacing:1.5px;
 
       background:
-        rgba(216,180,90,.06);
+        linear-gradient(
+          135deg,
+          rgba(216,180,90,.10),
+          rgba(216,180,90,.025)
+        );
 
-      transition:.25s;
+      transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
+
+      white-space:nowrap;
     }
+
 
     .btn-voltar:hover{
 
@@ -174,34 +279,92 @@
         var(--dourado);
 
       color:#080607;
+
+      transform:
+        translateY(-1px);
+
+      box-shadow:
+        0 8px 25px
+        rgba(216,180,90,.18);
     }
+
+
+    /* =========================================================
+       CONTAINER
+    ========================================================= */
 
     .container{
 
-      width:min(1000px,92%);
+      width:min(1040px,92%);
 
       margin:0 auto;
 
-      padding:65px 0 80px;
+      padding:
+        72px 0 90px;
     }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
 
     .hero{
 
+      position:relative;
+
       text-align:center;
 
-      margin-bottom:45px;
+      margin-bottom:48px;
+
+      padding:
+        20px 10px 28px;
     }
+
+
+    .hero::before{
+
+      content:"";
+
+      position:absolute;
+
+      left:50%;
+
+      top:0;
+
+      width:1px;
+
+      height:28px;
+
+      transform:
+        translateX(-50%);
+
+      background:
+        linear-gradient(
+          to bottom,
+          transparent,
+          var(--dourado)
+        );
+    }
+
 
     .hero .linha{
 
-      width:70px;
+      width:90px;
+
       height:1px;
 
-      margin:0 auto 20px;
+      margin:
+        10px auto 22px;
 
       background:
-        var(--dourado);
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--dourado),
+          transparent
+        );
     }
+
 
     .hero h1{
 
@@ -210,81 +373,216 @@
         serif;
 
       font-size:
-        clamp(36px,7vw,62px);
+        clamp(38px,7vw,68px);
 
       font-weight:600;
+
+      line-height:1.05;
 
       color:var(--dourado2);
 
       letter-spacing:1px;
+
+      text-shadow:
+        0 8px 35px
+        rgba(0,0,0,.45);
     }
+
 
     .hero p{
 
-      margin-top:12px;
+      max-width:720px;
 
-      color:var(--texto2);
+      margin:
+        16px auto 0;
 
-      font-size:13px;
+      color:var(--texto3);
 
-      letter-spacing:2px;
+      font-size:10px;
+
+      line-height:1.7;
+
+      letter-spacing:2.4px;
 
       text-transform:uppercase;
     }
 
+
+    /* =========================================================
+       AVISO
+    ========================================================= */
+
     .aviso{
+
+      position:relative;
 
       margin-bottom:30px;
 
-      padding:20px 22px;
+      padding:
+        22px 24px 22px 28px;
 
       border:
         1px solid
-        rgba(216,180,90,.45);
+        rgba(216,180,90,.30);
 
       border-left:
-        4px solid
+        3px solid
         var(--dourado);
 
-      border-radius:12px;
+      border-radius:14px;
 
       background:
-        rgba(216,180,90,.07);
+        linear-gradient(
+          135deg,
+          rgba(216,180,90,.085),
+          rgba(216,180,90,.025)
+        );
 
-      color:#ddd4c9;
+      box-shadow:
+        0 12px 40px
+        rgba(0,0,0,.22);
 
-      font-size:13px;
+      color:#d9d1c8;
+
+      font-size:12px;
+
+      line-height:1.8;
     }
+
+
+    .aviso::before{
+
+      content:"LUX";
+
+      position:absolute;
+
+      right:20px;
+
+      top:14px;
+
+      font-family:
+        "Playfair Display",
+        serif;
+
+      font-size:10px;
+
+      letter-spacing:3px;
+
+      color:
+        rgba(216,180,90,.25);
+    }
+
+
+    .aviso strong{
+
+      color:var(--dourado2);
+
+      font-size:10px;
+
+      letter-spacing:1.8px;
+    }
+
+
+    /* =========================================================
+       PAINEL DOS TERMOS
+    ========================================================= */
 
     .termos{
 
-      padding:30px;
+      position:relative;
+
+      padding:
+        clamp(22px,4vw,48px);
 
       border:
         1px solid
         var(--borda);
 
-      border-radius:18px;
+      border-radius:22px;
 
       background:
-        var(--card);
+
+        linear-gradient(
+          145deg,
+          rgba(19,12,16,.96),
+          rgba(8,6,8,.96)
+        );
 
       box-shadow:
-        0 20px 70px
-        rgba(0,0,0,.45);
+        var(--sombra);
+
+      overflow:hidden;
     }
+
+
+    .termos::before{
+
+      content:"";
+
+      position:absolute;
+
+      top:0;
+
+      left:8%;
+
+      right:8%;
+
+      height:1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(216,180,90,.55),
+          transparent
+        );
+    }
+
+
+    .termos::after{
+
+      content:"LUX ADVANCE";
+
+      position:absolute;
+
+      top:28px;
+
+      right:30px;
+
+      font-family:
+        "Playfair Display",
+        serif;
+
+      font-size:9px;
+
+      letter-spacing:3px;
+
+      color:
+        rgba(216,180,90,.16);
+
+      pointer-events:none;
+    }
+
+
+    /* =========================================================
+       SEÇÕES
+    ========================================================= */
 
     section{
 
-      padding:
-        0 0 30px;
+      position:relative;
 
-      margin-bottom:30px;
+      padding:
+        0 0 34px;
+
+      margin:
+        0 0 34px;
 
       border-bottom:
         1px solid
-        rgba(255,255,255,.08);
+        rgba(255,255,255,.075);
     }
+
 
     section:last-child{
 
@@ -295,96 +593,196 @@
       padding-bottom:0;
     }
 
+
     h2{
 
-      margin-bottom:15px;
+      display:flex;
+
+      align-items:center;
+
+      gap:13px;
+
+      margin-bottom:17px;
 
       font-family:
         "Playfair Display",
         serif;
 
-      font-size:25px;
+      font-size:
+        clamp(21px,3vw,27px);
+
+      line-height:1.25;
 
       color:var(--dourado2);
 
       font-weight:600;
+
+      letter-spacing:.2px;
     }
+
+
+    h2::before{
+
+      content:"";
+
+      flex:0 0 24px;
+
+      width:24px;
+
+      height:1px;
+
+      background:
+        var(--dourado);
+    }
+
 
     h3{
 
       margin:
-        22px 0 8px;
+        24px 0 10px;
 
-      font-size:15px;
+      font-size:12px;
 
       color:#f3dca1;
 
-      letter-spacing:.3px;
+      letter-spacing:1px;
+
+      text-transform:uppercase;
     }
+
 
     p{
 
-      margin-bottom:13px;
+      margin-bottom:14px;
 
       color:var(--texto2);
 
-      font-size:14px;
+      font-size:13px;
+
+      line-height:1.9;
     }
+
+
+    p:last-child{
+
+      margin-bottom:0;
+    }
+
 
     ul{
 
       margin:
-        10px 0 15px 22px;
+        12px 0 18px 7px;
+
+      padding-left:25px;
     }
+
 
     li{
 
-      margin-bottom:8px;
+      position:relative;
+
+      margin-bottom:9px;
+
+      padding-left:4px;
 
       color:var(--texto2);
 
-      font-size:14px;
+      font-size:13px;
+
+      line-height:1.8;
     }
+
+
+    li::marker{
+
+      color:var(--dourado);
+    }
+
 
     strong{
 
       color:#f3eadf;
+
+      font-weight:600;
     }
+
+
+    /* =========================================================
+       DESTAQUES
+    ========================================================= */
 
     .destaque{
 
-      padding:18px;
+      position:relative;
+
+      padding:
+        19px 20px 19px 22px;
 
       margin:
-        18px 0;
+        20px 0;
 
-      border-radius:12px;
+      border-radius:13px;
 
       background:
-        rgba(255,77,166,.06);
+        linear-gradient(
+          135deg,
+          rgba(255,77,166,.075),
+          rgba(255,77,166,.025)
+        );
 
       border:
         1px solid
-        rgba(255,77,166,.20);
+        rgba(255,77,166,.18);
+
+      box-shadow:
+        inset 3px 0 0
+        rgba(255,77,166,.55);
     }
+
+
+    .destaque strong{
+
+      color:var(--rosa2);
+    }
+
+
+    /* =========================================================
+       DATA
+    ========================================================= */
 
     .data{
 
-      margin-top:35px;
+      margin-top:42px;
+
+      padding-top:20px;
 
       text-align:center;
 
-      color:#9d9690;
+      border-top:
+        1px solid
+        rgba(255,255,255,.06);
 
-      font-size:11px;
+      color:#88817b;
 
-      letter-spacing:1px;
+      font-size:9px;
+
+      letter-spacing:1.6px;
+
+      text-transform:uppercase;
     }
+
+
+    /* =========================================================
+       RODAPÉ
+    ========================================================= */
 
     footer{
 
+      position:relative;
+
       padding:
-        30px 20px 45px;
+        42px 20px 50px;
 
       text-align:center;
 
@@ -393,14 +791,42 @@
         var(--borda);
 
       background:
-        rgba(0,0,0,.65);
+        linear-gradient(
+          rgba(0,0,0,.82),
+          rgba(0,0,0,.94)
+        );
+
+      overflow:hidden;
     }
+
+
+    footer::before{
+
+      content:"";
+
+      position:absolute;
+
+      top:0;
+
+      left:50%;
+
+      width:100px;
+
+      height:1px;
+
+      transform:
+        translateX(-50%);
+
+      background:
+        var(--dourado);
+    }
+
 
     footer strong{
 
       display:block;
 
-      margin-bottom:6px;
+      margin-bottom:9px;
 
       font-family:
         "Playfair Display",
@@ -408,84 +834,309 @@
 
       color:var(--dourado2);
 
-      font-size:20px;
+      font-size:23px;
+
+      letter-spacing:1px;
     }
+
 
     footer span{
 
       display:block;
 
-      color:#96908b;
+      color:#89827d;
 
-      font-size:11px;
+      font-size:9px;
 
-      margin-top:4px;
+      letter-spacing:.7px;
+
+      margin-top:5px;
     }
+
 
     .voltar-final{
 
       display:inline-flex;
 
-      margin-top:20px;
+      align-items:center;
 
-      padding:10px 20px;
+      justify-content:center;
+
+      margin-top:23px;
+
+      padding:
+        11px 22px;
 
       border:
         1px solid
-        var(--dourado);
+        rgba(216,180,90,.48);
 
       border-radius:25px;
 
-      font-size:11px;
+      font-size:9px;
 
-      letter-spacing:1px;
+      font-weight:700;
+
+      letter-spacing:1.5px;
 
       color:var(--dourado2);
+
+      background:
+        rgba(216,180,90,.04);
+
+      transition:.25s;
     }
 
-    @media(max-width:600px){
+
+    .voltar-final:hover{
+
+      background:
+        var(--dourado);
+
+      color:#080607;
+    }
+
+
+    /* =========================================================
+       RESPONSIVO
+    ========================================================= */
+
+    @media(max-width:700px){
+
+      body{
+
+        background:
+          linear-gradient(
+            rgba(0,0,0,.84),
+            rgba(0,0,0,.97)
+          ),
+          url("./Halloween-feminina.jpg")
+          center top / cover
+          fixed
+          no-repeat;
+      }
+
 
       .topbar{
 
         padding:
-          14px 4%;
+          13px 4%;
+
+        gap:12px;
       }
+
 
       .marca{
 
         font-size:21px;
+
+        letter-spacing:2px;
       }
+
+
+      .submarca{
+
+        font-size:7px;
+
+        letter-spacing:3px;
+
+        margin-top:6px;
+      }
+
+
+      .btn-voltar{
+
+        min-height:38px;
+
+        padding:
+          8px 14px;
+
+        font-size:9px;
+
+        letter-spacing:1px;
+      }
+
 
       .container{
 
         width:94%;
 
         padding:
-          45px 0 60px;
+          48px 0 60px;
       }
+
+
+      .hero{
+
+        margin-bottom:34px;
+
+        padding-top:15px;
+      }
+
+
+      .hero h1{
+
+        font-size:
+          clamp(35px,11vw,48px);
+      }
+
+
+      .hero p{
+
+        font-size:8px;
+
+        letter-spacing:1.5px;
+
+        line-height:1.8;
+      }
+
+
+      .aviso{
+
+        padding:
+          18px 18px 18px 21px;
+
+        font-size:11px;
+
+        line-height:1.8;
+      }
+
 
       .termos{
 
-        padding:21px;
+        padding:
+          24px 18px;
+
+        border-radius:17px;
       }
+
+
+      .termos::after{
+
+        display:none;
+      }
+
+
+      section{
+
+        padding-bottom:28px;
+
+        margin-bottom:28px;
+      }
+
 
       h2{
 
-        font-size:22px;
+        font-size:21px;
+
+        gap:10px;
       }
+
+
+      h2::before{
+
+        flex-basis:17px;
+
+        width:17px;
+      }
+
+
+      h3{
+
+        font-size:10px;
+
+        margin-top:20px;
+      }
+
 
       p,
       li{
 
-        font-size:13px;
+        font-size:12px;
+
+        line-height:1.85;
       }
+
+
+      ul{
+
+        padding-left:22px;
+
+        margin-left:0;
+      }
+
+
+      .destaque{
+
+        padding:
+          16px 16px 16px 18px;
+
+        font-size:12px;
+      }
+
+
+      .data{
+
+        margin-top:32px;
+
+        font-size:8px;
+      }
+
+
+      footer{
+
+        padding:
+          35px 18px 42px;
+      }
+
+
+      footer strong{
+
+        font-size:21px;
+      }
+
+
+      footer span{
+
+        font-size:8px;
+      }
+
+    }
+
+
+    @media(max-width:380px){
+
+      .topbar{
+
+        padding-left:3%;
+
+        padding-right:3%;
+      }
+
+
+      .marca{
+
+        font-size:19px;
+      }
+
 
       .btn-voltar{
 
         padding:
-          8px 13px;
+          7px 11px;
+      }
 
-        font-size:10px;
+
+      .container{
+
+        width:95%;
+      }
+
+
+      .termos{
+
+        padding:
+          21px 15px;
       }
 
     }

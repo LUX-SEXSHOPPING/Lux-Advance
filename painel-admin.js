@@ -558,7 +558,7 @@ function atualizarResumo() {
 
 // =============================================================
 // GESTÃO DOS MÓDULOS
-// TOQUE MAIS PRECISO NO CELULAR
+// TOQUE MAIS PRECISO E PROTEGIDO NO CELULAR
 // =============================================================
 
 function ativarModulosAdmin() {
@@ -574,11 +574,18 @@ function ativarModulosAdmin() {
         let inicioY = 0;
         let inicioTempo = 0;
         let movimento = false;
+        let pressionando = false;
 
+
+        // ---------------------------------------------------------
+        // INÍCIO DO TOQUE
+        // ---------------------------------------------------------
 
         card.addEventListener(
             "pointerdown",
             function(evento) {
+
+                pressionando = true;
 
                 inicioX =
                     evento.clientX;
@@ -598,9 +605,17 @@ function ativarModulosAdmin() {
         );
 
 
+        // ---------------------------------------------------------
+        // MOVIMENTO
+        // ---------------------------------------------------------
+
         card.addEventListener(
             "pointermove",
             function(evento) {
+
+                if (!pressionando) {
+                    return;
+                }
 
                 const distanciaX =
                     Math.abs(
@@ -614,9 +629,10 @@ function ativarModulosAdmin() {
                         inicioY
                     );
 
+
                 if (
-                    distanciaX > 10 ||
-                    distanciaY > 10
+                    distanciaX > 15 ||
+                    distanciaY > 15
                 ) {
 
                     movimento = true;
@@ -630,13 +646,25 @@ function ativarModulosAdmin() {
         );
 
 
+        // ---------------------------------------------------------
+        // FINAL DO TOQUE
+        // ---------------------------------------------------------
+
         card.addEventListener(
             "pointerup",
             function(evento) {
 
+                if (!pressionando) {
+                    return;
+                }
+
+                pressionando = false;
+
+
                 const duracao =
                     Date.now() -
                     inicioTempo;
+
 
                 const distanciaX =
                     Math.abs(
@@ -653,8 +681,8 @@ function ativarModulosAdmin() {
 
                 if (
                     movimento ||
-                    distanciaX > 10 ||
-                    distanciaY > 10
+                    distanciaX > 15 ||
+                    distanciaY > 15
                 ) {
 
                     return;
@@ -663,7 +691,16 @@ function ativarModulosAdmin() {
 
 
                 if (
-                    duracao > 800
+                    duracao > 600
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    duracao < 40
                 ) {
 
                     return;
@@ -691,11 +728,35 @@ function ativarModulosAdmin() {
         );
 
 
+        // ---------------------------------------------------------
+        // CANCELAMENTO
+        // ---------------------------------------------------------
+
         card.addEventListener(
             "pointercancel",
             function() {
 
+                pressionando = false;
                 movimento = true;
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        // ---------------------------------------------------------
+        // SE O DEDO SAIR DO CARD
+        // ---------------------------------------------------------
+
+        card.addEventListener(
+            "pointerleave",
+            function() {
+
+                if (pressionando) {
+                    movimento = true;
+                }
 
             },
             {

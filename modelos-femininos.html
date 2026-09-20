@@ -12,7 +12,7 @@
 
 <title>LUX — Modelos Femininas</title>
 
-<link rel="stylesheet" href="./app.css">
+<link rel="stylesheet" href="app.css">
 
 <link
   href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap"
@@ -37,25 +37,20 @@ body{
 
   color:#fff;
 
-  font-family:
-    "Playfair Display",
-    Georgia,
-    serif;
+  font-family:"Playfair Display",Georgia,serif;
 
   background:
     linear-gradient(
-      rgba(8,3,7,.45),
-      rgba(8,2,6,.90)
+      rgba(5,2,7,.58),
+      rgba(3,2,5,.97)
     ),
     url("./Halloween-feminina.jpg")
-    center top / cover
-    fixed
-    no-repeat;
+    center top / cover fixed no-repeat;
 
   overflow-x:hidden;
 }
 
-body:before{
+body::before{
 
   content:"";
 
@@ -65,151 +60,197 @@ body:before{
 
   pointer-events:none;
 
+  z-index:0;
+
   background:
     radial-gradient(
-      circle at 50% 20%,
-      rgba(255,180,70,.10),
-      transparent 32%
+      circle at 12% 15%,
+      rgba(255,60,150,.16),
+      transparent 25%
     ),
     radial-gradient(
-      circle at 15% 75%,
-      rgba(255,70,150,.10),
-      transparent 28%
+      circle at 88% 20%,
+      rgba(248,213,138,.10),
+      transparent 25%
     );
-
-  z-index:0;
 }
 
-
-/* =========================================================
-   TOPO
-========================================================= */
-
-.topbar{
-
-  position:relative;
-
-  z-index:10;
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  padding:18px 22px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(5,3,6,.90),
-      rgba(5,3,6,.38)
-    );
-
-  border-bottom:
-    1px solid
-    rgba(248,213,138,.25);
-
-  backdrop-filter:blur(8px);
-}
-
-.marca{
-
-  color:#f8d58a;
-
-  text-decoration:none;
-
-  font-family:"Cinzel",serif;
-
-  font-size:20px;
-
-  font-weight:700;
-
-  letter-spacing:3px;
-}
-
-.entrar,
-.btn-catalogo{
-
-  color:#f8d58a;
-
-  text-decoration:none;
-
-  border:
-    1px solid
-    rgba(248,213,138,.65);
-
-  background:
-    rgba(8,4,9,.72);
-
-  border-radius:30px;
-
-  font-family:"Cinzel",serif;
-
-  letter-spacing:1.5px;
-
-  transition:.3s;
-}
-
-.entrar{
-
-  padding:10px 20px;
-
-  font-size:11px;
-}
-
-.entrar:hover,
-.btn-catalogo:hover{
-
-  background:#f8d58a;
-
-  color:#160b12;
-
-  box-shadow:
-    0 0 22px
-    rgba(248,213,138,.25);
-}
-
-
-/* =========================================================
-   PÁGINA
-========================================================= */
-
-.pagina{
+.page{
 
   position:relative;
 
   z-index:2;
 
-  width:min(1180px,92%);
+  width:min(1250px,92%);
 
   margin:auto;
 
-  padding:45px 0 70px;
+  padding:22px 0 70px;
 }
 
 
-/* =========================================================
+/* =====================================================
+   TOPO
+===================================================== */
+
+.topbar{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:8px 0 20px;
+
+  border-bottom:
+    1px solid
+    rgba(248,213,138,.18);
+
+  margin-bottom:45px;
+}
+
+.logo{
+
+  color:#f8d58a;
+
+  text-decoration:none;
+
+  font-family:"Cinzel",serif;
+
+  font-size:29px;
+
+  letter-spacing:6px;
+
+  font-weight:700;
+}
+
+.top-actions{
+
+  display:flex;
+
+  gap:10px;
+}
+
+.btn{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:11px 20px;
+
+  border:1px solid
+    rgba(248,213,138,.58);
+
+  border-radius:30px;
+
+  background:
+    rgba(5,3,8,.78);
+
+  color:#f8d58a;
+
+  text-decoration:none;
+
+  font-family:"Cinzel",serif;
+
+  font-size:10px;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
+
+  transition:.3s;
+
+  backdrop-filter:blur(10px);
+}
+
+.btn:hover{
+
+  background:#f8d58a;
+
+  color:#10090d;
+
+  transform:translateY(-2px);
+}
+
+
+/* =====================================================
    HERO
-========================================================= */
+===================================================== */
 
 .hero{
 
-  text-align:center;
+  position:relative;
 
-  max-width:850px;
+  min-height:300px;
 
-  margin:
-    0 auto 32px;
+  display:flex;
+
+  align-items:center;
+
+  overflow:hidden;
+
+  border-radius:30px;
+
+  border:1px solid
+    rgba(255,110,180,.38);
+
+  margin-bottom:28px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(15,3,12,.96),
+      rgba(25,5,17,.62),
+      rgba(5,2,7,.25)
+    ),
+    url("./Halloween-feminina.jpg")
+    center / cover;
+
+  box-shadow:
+    0 25px 70px
+    rgba(0,0,0,.60);
 }
 
-.mini-titulo{
+.hero::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,70,160,.12),
+      transparent 55%
+    );
+
+  pointer-events:none;
+}
+
+.hero-content{
+
+  position:relative;
+
+  z-index:2;
+
+  max-width:650px;
+
+  padding:42px;
+}
+
+.eyebrow{
 
   color:#f8d58a;
 
   font-family:"Cinzel",serif;
 
-  font-size:11px;
+  font-size:10px;
 
   letter-spacing:4px;
 
@@ -220,561 +261,187 @@ body:before{
 
   margin:0;
 
-  font-family:"Cinzel",serif;
-
   font-size:
-    clamp(30px,6vw,55px);
+    clamp(36px,6vw,64px);
 
-  letter-spacing:3px;
+  font-weight:500;
 
-  text-shadow:
-    0 0 22px
-    rgba(0,0,0,.8);
-}
+  font-style:italic;
 
-.hero h1 span{
-  color:#f8d58a;
+  line-height:1.05;
 }
 
 .hero p{
 
-  max-width:650px;
+  margin:18px 0 0;
 
-  margin:15px auto;
-
-  color:
-    rgba(255,255,255,.82);
+  color:rgba(255,255,255,.76);
 
   line-height:1.7;
+
+  max-width:580px;
 }
 
 
-/* =========================================================
-   ÁREA DE FILTROS
-========================================================= */
+/* =====================================================
+   FILTROS
+===================================================== */
 
-.filtros-area{
+.filters{
+
+  display:grid;
+
+  grid-template-columns:
+    1.5fr 1fr 1fr;
+
+  gap:12px;
+
+  margin-bottom:30px;
+}
+
+.field{
 
   width:100%;
 
-  margin:
-    0 auto 35px;
+  padding:14px 16px;
 
-  padding:18px;
+  border-radius:16px;
 
-  border:
-    1px solid
-    rgba(248,213,138,.20);
+  border:1px solid
+    rgba(248,213,138,.22);
 
-  border-radius:22px;
+  outline:none;
+
+  color:#fff;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(25,10,18,.90),
-      rgba(7,3,8,.86)
-    );
+    rgba(10,6,12,.82);
 
-  box-shadow:
-    0 20px 55px
-    rgba(0,0,0,.35),
-
-    inset 0 0 30px
-    rgba(248,213,138,.025);
+  font-family:"Playfair Display",serif;
 
   backdrop-filter:blur(12px);
 }
 
-.filtros-titulo{
+.field:focus{
 
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-  margin-bottom:15px;
-
-  color:#f8d58a;
-
-  font-family:"Cinzel",serif;
-
-  font-size:11px;
-
-  font-weight:700;
-
-  letter-spacing:2px;
-
-  text-transform:uppercase;
-}
-
-.filtros-titulo:before{
-
-  content:"";
-
-  width:28px;
-
-  height:1px;
-
-  background:#f8d58a;
+  border-color:
+    rgba(248,213,138,.70);
 
   box-shadow:
-    0 0 8px
-    rgba(248,213,138,.35);
-}
-
-
-/* =========================================================
-   GRID DOS FILTROS
-========================================================= */
-
-.filtros-grid{
-
-  display:grid;
-
-  grid-template-columns:
-    minmax(250px,1.4fr)
-    minmax(210px,1fr)
-    minmax(210px,1fr);
-
-  gap:12px;
-}
-
-
-/* =========================================================
-   PESQUISA
-========================================================= */
-
-.pesquisa-box{
-
-  position:relative;
-
-  display:flex;
-
-  align-items:center;
-}
-
-.pesquisa-icone{
-
-  position:absolute;
-
-  left:17px;
-
-  color:#f8d58a;
-
-  font-size:14px;
-
-  pointer-events:none;
-}
-
-#pesquisa{
-
-  width:100%;
-
-  height:50px;
-
-  padding:
-    0 18px 0 45px;
-
-  border:
-    1px solid
-    rgba(248,213,138,.30);
-
-  border-radius:13px;
-
-  outline:none;
-
-  background:
-    rgba(8,4,8,.88);
-
-  color:#fff;
-
-  font-family:
-    "Playfair Display",
-    serif;
-
-  font-size:14px;
-
-  transition:.25s;
-}
-
-#pesquisa::placeholder{
-
-  color:
-    rgba(255,255,255,.48);
-}
-
-#pesquisa:focus{
-
-  border-color:#f8d58a;
-
-  box-shadow:
-    0 0 18px
+    0 0 20px
     rgba(248,213,138,.08);
 }
 
-
-/* =========================================================
-   SELECTS
-========================================================= */
-
-.filtro-select{
-
-  width:100%;
-
-  height:50px;
-
-  padding:
-    0 42px 0 16px;
-
-  border:
-    1px solid
-    rgba(248,213,138,.30);
-
-  border-radius:13px;
-
-  outline:none;
-
-  background-color:
-    rgba(8,4,8,.94);
-
-  color:#f8d58a;
-
-  font-family:
-    "Cinzel",
-    serif;
-
-  font-size:10px;
-
-  font-weight:600;
-
-  letter-spacing:1px;
+select.field{
 
   cursor:pointer;
-
-  transition:.25s;
-
-  appearance:none;
-
-  -webkit-appearance:none;
-
-  background-image:
-    linear-gradient(45deg,transparent 50%,#f8d58a 50%),
-    linear-gradient(135deg,#f8d58a 50%,transparent 50%);
-
-  background-position:
-    calc(100% - 19px) 21px,
-    calc(100% - 14px) 21px;
-
-  background-size:
-    5px 5px,
-    5px 5px;
-
-  background-repeat:no-repeat;
-}
-
-.filtro-select:hover,
-.filtro-select:focus{
-
-  border-color:#f8d58a;
-
-  box-shadow:
-    0 0 18px
-    rgba(248,213,138,.08);
-}
-
-.filtro-select option{
-
-  background:#120b0e;
-
-  color:#f8d58a;
 }
 
 
-/* =========================================================
-   INDICADOR DE RESULTADOS
-========================================================= */
+/* =====================================================
+   TÍTULO DOS RESULTADOS
+===================================================== */
 
-.resultado-filtros{
+.result-head{
 
   display:flex;
+
+  align-items:end;
 
   justify-content:space-between;
 
-  align-items:center;
-
-  gap:12px;
-
-  flex-wrap:wrap;
-
-  margin-top:13px;
-
-  padding-top:12px;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.06);
-
-  color:
-    rgba(255,255,255,.52);
-
-  font-size:10px;
-
-  letter-spacing:.5px;
+  margin-bottom:20px;
 }
 
-.resultado-filtros strong{
+.result-head h2{
 
-  color:#f8d58a;
+  margin:0;
 
-  font-weight:600;
+  font-size:25px;
+
+  font-weight:500;
 }
 
-.limpar-filtros{
+.result-head span{
 
-  border:0;
+  color:rgba(255,255,255,.48);
 
-  padding:0;
-
-  background:none;
-
-  color:#ff4da6;
-
-  font-family:"Cinzel",serif;
-
-  font-size:9px;
-
-  font-weight:700;
-
-  letter-spacing:1px;
-
-  cursor:pointer;
-
-  transition:.2s;
-}
-
-.limpar-filtros:hover{
-
-  color:#fff;
+  font-size:12px;
 }
 
 
-/* =========================================================
-   AÇÕES
-========================================================= */
+/* =====================================================
+   GRID
+===================================================== */
 
-.acoes{
-
-  display:flex;
-
-  justify-content:center;
-
-  margin-bottom:45px;
-}
-
-.btn-catalogo{
-
-  padding:12px 25px;
-
-  font-size:11px;
-}
-
-
-/* =========================================================
-   LISTA
-========================================================= */
-
-#listaModelos{
+.grid{
 
   display:grid;
 
   grid-template-columns:
-    repeat(auto-fit,minmax(270px,1fr));
+    repeat(3,1fr);
 
-  gap:38px;
+  gap:22px;
 }
 
 
-/* =========================================================
-   CARD FEMININO
-========================================================= */
+/* =====================================================
+   CARD
+===================================================== */
 
-.modelo-card{
+.card{
 
   position:relative;
 
-  min-height:420px;
+  min-height:470px;
 
-  padding:
-    48px 24px 28px;
+  overflow:hidden;
 
-  text-align:center;
+  border-radius:24px;
 
-  overflow:visible;
+  background:#0b080d;
 
-  border:
-    1px solid
-    rgba(248,213,138,.38);
-
-  border-radius:
-    46% 46% 30px 30px /
-    22% 22% 30px 30px;
-
-  background:
-    radial-gradient(
-      circle at 50% 20%,
-      rgba(255,77,166,.13),
-      transparent 35%
-    ),
-    linear-gradient(
-      145deg,
-      rgba(38,13,27,.95),
-      rgba(8,4,10,.97)
-    );
+  border:1px solid
+    rgba(255,105,175,.42);
 
   box-shadow:
-    0 22px 50px
-    rgba(0,0,0,.55),
+    0 18px 45px
+    rgba(0,0,0,.52);
 
-    inset 0 0 35px
-    rgba(255,77,166,.06);
-
-  backdrop-filter:blur(7px);
-
-  transition:.35s;
+  transition:.4s;
 }
 
-.modelo-card:hover{
+.card:hover{
 
   transform:translateY(-8px);
 
-  border-color:#f8d58a;
+  border-color:
+    rgba(255,150,205,.90);
 
   box-shadow:
-    0 28px 60px
-    rgba(0,0,0,.65),
-
-    0 0 30px
-    rgba(248,213,138,.12);
+    0 30px 65px
+    rgba(0,0,0,.70),
+    0 0 28px
+    rgba(255,70,160,.12);
 }
 
+.card-photo{
 
-/* =========================================================
-   SELO PLANO
-========================================================= */
-
-.selo-plano{
-
-  position:absolute;
-
-  top:-17px;
-
-  left:50%;
-
-  transform:
-    translateX(-50%)
-    rotate(-3deg);
-
-  z-index:6;
-
-  padding:10px 22px;
-
-  color:#160b12;
-
-  background:
-    linear-gradient(
-      135deg,
-      #f8d58a,
-      #b98635,
-      #f8d58a
-    );
-
-  border:
-    2px solid
-    #fff0bd;
-
-  border-radius:
-    7px 7px 14px 14px;
-
-  font-family:"Cinzel",serif;
-
-  font-size:10px;
-
-  font-weight:700;
-
-  letter-spacing:1.5px;
-
-  box-shadow:
-    0 7px 18px
-    rgba(0,0,0,.55),
-
-    0 0 18px
-    rgba(248,213,138,.20);
-}
-
-.selo-plano:before{
-
-  content:"";
-
-  position:absolute;
-
-  top:-9px;
-
-  left:50%;
-
-  width:10px;
-
-  height:10px;
-
-  transform:
-    translateX(-50%);
-
-  border-radius:50%;
-
-  background:#27110e;
-
-  border:
-    2px solid
-    #f8d58a;
-}
-
-
-/* =========================================================
-   FOTO
-========================================================= */
-
-.modelo-foto{
+  height:330px;
 
   position:relative;
 
-  z-index:3;
-
-  width:190px;
-
-  height:190px;
-
-  margin:
-    0 auto 20px;
-
-  padding:7px;
-
-  border-radius:50%;
+  overflow:hidden;
 
   background:
     linear-gradient(
       135deg,
-      #f8d58a,
-      #ff4da6,
-      #7c4720,
-      #f8d58a
+      #21101b,
+      #080609
     );
-
-  box-shadow:
-    0 0 30px
-    rgba(248,213,138,.18);
 }
 
-.modelo-foto img{
+.card-photo img{
 
   width:100%;
 
@@ -782,26 +449,50 @@ body:before{
 
   object-fit:cover;
 
-  border-radius:50%;
-
-  border:
-    4px solid
-    #10070d;
-
   display:block;
+
+  transition:.6s;
 }
 
-.abobora{
+.card:hover .card-photo img{
+
+  transform:scale(1.06);
+}
+
+.card-photo::after{
+
+  content:"";
 
   position:absolute;
 
-  right:-8px;
+  inset:0;
 
-  bottom:10px;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 45%,
+      rgba(5,2,7,.92) 100%
+    );
+}
 
-  width:48px;
 
-  height:48px;
+/* coração */
+
+.favorite{
+
+  position:absolute;
+
+  z-index:5;
+
+  top:15px;
+
+  right:15px;
+
+  width:42px;
+
+  height:42px;
+
+  border-radius:50%;
 
   display:flex;
 
@@ -809,264 +500,192 @@ body:before{
 
   justify-content:center;
 
-  border-radius:50%;
+  color:#fff;
 
-  background:#171017;
+  background:
+    rgba(5,3,8,.68);
 
-  border:
-    2px solid
-    #f8d58a;
+  border:1px solid
+    rgba(255,255,255,.25);
 
-  font-size:25px;
+  font-size:22px;
 
-  box-shadow:
-    0 5px 15px
-    rgba(0,0,0,.65),
-
-    0 0 15px
-    rgba(248,213,138,.16);
+  backdrop-filter:blur(8px);
 }
 
 
-/* =========================================================
-   INFORMAÇÕES
-========================================================= */
+/* conteúdo */
 
-.modelo-card h3{
+.card-content{
 
-  position:relative;
-
-  z-index:3;
-
-  margin:7px 0;
-
-  color:white;
-
-  font-family:"Cinzel",serif;
-
-  font-size:21px;
-
-  letter-spacing:1.5px;
+  padding:18px 20px 22px;
 }
 
-.modelo-info{
+.card-name{
 
-  color:
-    rgba(255,255,255,.70);
+  margin:0 0 6px;
 
-  font-size:14px;
+  font-size:22px;
 
-  margin:7px;
+  font-weight:500;
 }
 
-.modelo-descricao{
+.card-location{
 
-  max-width:310px;
-
-  margin:
-    13px auto 20px;
-
-  color:
-    rgba(255,255,255,.64);
+  color:rgba(255,255,255,.65);
 
   font-size:13px;
 
-  line-height:1.6;
+  margin-bottom:14px;
 }
 
+.tags{
 
-/* =========================================================
-   BOTÃO PERFIL
-========================================================= */
+  display:flex;
 
-.btn-perfil{
+  flex-wrap:wrap;
 
-  position:relative;
+  gap:7px;
+}
 
-  z-index:3;
+.tag{
 
-  display:inline-block;
+  padding:6px 10px;
 
-  padding:
-    10px 23px;
-
-  border:
-    1px solid
-    rgba(248,213,138,.60);
-
-  border-radius:25px;
-
-  background:
-    rgba(8,4,8,.60);
-
-  color:#f8d58a;
-
-  text-decoration:none;
-
-  font-family:"Cinzel",serif;
+  border-radius:20px;
 
   font-size:10px;
 
-  letter-spacing:1.3px;
+  border:1px solid
+    rgba(255,140,195,.38);
+
+  color:#ffc0dc;
+
+  background:
+    rgba(255,70,160,.06);
 }
 
-.btn-perfil:hover{
+.tag.plan{
 
-  background:#f8d58a;
+  color:#f8d58a;
 
-  color:#160b12;
+  border-color:
+    rgba(248,213,138,.42);
 }
 
 
-/* =========================================================
-   MENSAGEM
-========================================================= */
+/* =====================================================
+   ESTADO
+===================================================== */
 
-.mensagem{
+.status{
 
   grid-column:1/-1;
 
-  padding:
-    45px 20px;
-
   text-align:center;
 
-  border:
-    1px solid
-    rgba(248,213,138,.18);
+  padding:60px 20px;
 
-  border-radius:30px;
-
-  background:
-    rgba(8,3,8,.70);
-
-  color:
-    rgba(255,255,255,.72);
-}
-
-.mensagem strong{
-
-  display:block;
-
-  margin-bottom:8px;
-
-  color:#f8d58a;
-
-  font-family:"Cinzel",serif;
-
-  letter-spacing:2px;
+  color:rgba(255,255,255,.58);
 }
 
 
-/* =========================================================
+/* =====================================================
    RODAPÉ
-========================================================= */
+===================================================== */
 
-.rodape{
-
-  position:relative;
-
-  z-index:2;
-
-  padding:
-    25px 15px;
+footer{
 
   text-align:center;
 
-  border-top:
-    1px solid
-    rgba(248,213,138,.18);
+  margin-top:60px;
 
-  background:
-    rgba(4,2,5,.72);
+  padding-top:25px;
 
-  color:
-    rgba(255,255,255,.58);
+  border-top:1px solid
+    rgba(248,213,138,.15);
+
+  color:rgba(255,255,255,.42);
 
   font-size:12px;
 
-  line-height:1.8;
-}
-
-.rodape strong{
-
-  color:#f8d58a;
-
-  font-family:"Cinzel",serif;
+  letter-spacing:1px;
 }
 
 
-/* =========================================================
-   MOBILE
-========================================================= */
+/* =====================================================
+   RESPONSIVO
+===================================================== */
 
-@media(max-width:850px){
+@media(max-width:900px){
 
-  .filtros-grid{
+  .grid{
 
     grid-template-columns:
-      1fr 1fr;
+      repeat(2,1fr);
   }
 
-  .pesquisa-box{
+  .filters{
+
+    grid-template-columns:1fr 1fr;
+  }
+
+  .filters input{
 
     grid-column:1/-1;
   }
-
 }
 
 @media(max-width:600px){
 
-  .pagina{
+  .page{
 
-    padding-top:35px;
+    width:94%;
   }
 
-  .filtros-area{
+  .topbar{
 
-    padding:14px;
-
-    border-radius:18px;
+    margin-bottom:28px;
   }
 
-  .filtros-grid{
+  .logo{
+
+    font-size:23px;
+  }
+
+  .hero{
+
+    min-height:370px;
+  }
+
+  .hero-content{
+
+    padding:28px;
+  }
+
+  .hero h1{
+
+    font-size:42px;
+  }
+
+  .filters{
 
     grid-template-columns:1fr;
-
-    gap:10px;
   }
 
-  .pesquisa-box{
+  .filters input{
 
     grid-column:auto;
   }
 
-  #listaModelos{
+  .grid{
 
     grid-template-columns:1fr;
   }
 
-  .modelo-card{
+  .card{
 
-    max-width:370px;
-
-    width:100%;
-
-    margin:auto;
-  }
-
-  .modelo-foto{
-
-    width:175px;
-
-    height:175px;
-  }
-
-  .resultado-filtros{
-
-    align-items:flex-start;
-
-    flex-direction:column;
+    min-height:450px;
   }
 
 }
@@ -1075,677 +694,418 @@ body:before{
 
 </head>
 
-
 <body>
 
+<main class="page">
 
 <header class="topbar">
 
-  <a
-    href="./index.html"
-    class="marca"
-  >
-    LUX
-  </a>
+<a class="logo" href="index.html">LUX</a>
 
-  <a
-    href="./login.html"
-    class="entrar"
-  >
-    ENTRAR
-  </a>
+<div class="top-actions">
+
+<a class="btn" href="catalago.html">
+CATÁLOGO
+</a>
+
+<a class="btn" href="login.html">
+ENTRAR
+</a>
+
+</div>
 
 </header>
 
 
-<main class="pagina">
-
-
 <section class="hero">
 
-  <div class="mini-titulo">
-    LUX ADVANCE
-  </div>
+<div class="hero-content">
 
-  <h1>
-    Modelos <span>Femininas</span>
-  </h1>
+<div class="eyebrow">
+LUX — FEMININA
+</div>
 
-  <p>
-    Conheça os perfis disponíveis na experiência LUX.
-    Encontre uma presença que combine com o momento.
-  </p>
+<h1>
+Elegância que desperta desejos.
+</h1>
 
-</section>
+<p>
+Explore os perfis femininos disponíveis na plataforma LUX
+e encontre uma experiência marcada por presença,
+sofisticação e exclusividade.
+</p>
 
-
-<!-- ======================================================
-     FILTROS
-====================================================== -->
-
-<section class="filtros-area">
-
-  <div class="filtros-titulo">
-    Encontre seu perfil
-  </div>
-
-
-  <div class="filtros-grid">
-
-
-    <div class="pesquisa-box">
-
-      <span class="pesquisa-icone">
-        ◇
-      </span>
-
-      <input
-        type="search"
-        id="pesquisa"
-        placeholder="Pesquisar por nome ou cidade..."
-        autocomplete="off"
-      >
-
-    </div>
-
-
-    <select
-      id="filtroPlano"
-      class="filtro-select"
-      aria-label="Filtrar por plano"
-    >
-
-      <option value="">
-        TODOS OS PLANOS
-      </option>
-
-      <option value="LUX ESSENCE">
-        LUX ESSENCE
-      </option>
-
-      <option value="LUX DESFIRE">
-        LUX DESFIRE
-      </option>
-
-      <option value="LUX ELITE">
-        LUX ELITE
-      </option>
-
-      <option value="LUX ROYAL">
-        LUX ROYAL
-      </option>
-
-      <option value="LUX DIAMOND">
-        LUX DIAMOND
-      </option>
-
-    </select>
-
-
-    <select
-      id="filtroCidade"
-      class="filtro-select"
-      aria-label="Filtrar por região ou cidade"
-    >
-
-      <option value="">
-        TODAS AS REGIÕES / CIDADES
-      </option>
-
-    </select>
-
-  </div>
-
-
-  <div class="resultado-filtros">
-
-    <span id="contadorResultados">
-      Carregando modelos...
-    </span>
-
-    <button
-      type="button"
-      id="limparFiltros"
-      class="limpar-filtros"
-    >
-      LIMPAR FILTROS
-    </button>
-
-  </div>
+</div>
 
 </section>
 
 
-<div class="acoes">
+<section class="filters">
 
-  <a
-    href="./catalago.html"
-    class="btn-catalogo"
-  >
-    ← VOLTAR AO CATÁLOGO
-  </a>
+<input
+  id="busca"
+  class="field"
+  type="search"
+  placeholder="Pesquisar por nome..."
+>
+
+<select id="filtroPlano" class="field">
+
+<option value="">
+Todos os planos
+</option>
+
+</select>
+
+<select id="filtroLocalizacao" class="field">
+
+<option value="">
+Todas as regiões / cidades
+</option>
+
+</select>
+
+</section>
+
+
+<div class="result-head">
+
+<h2>
+Modelos Femininas
+</h2>
+
+<span id="contador">
+Carregando...
+</span>
 
 </div>
 
 
-<section id="listaModelos">
+<section
+  id="lista"
+  class="grid"
+>
 
-  <div class="mensagem">
-
-    <strong>LUX</strong>
-
-    Carregando modelos...
-
-  </div>
+<div class="status">
+Carregando modelos...
+</div>
 
 </section>
 
 
-</main>
+<footer>
 
-
-<footer class="rodape">
-
-<strong>
-  LUX — Sensualidade &amp; Sofisticação
-</strong>
-
-<br>
-
-Agência Europeia • Conteúdo para maiores de 18 anos
-
-<br>
-
-© 2026 LUX Advance — Todos os direitos reservados.
+LUX — Sensualidade &amp; Sofisticação
 
 </footer>
+
+</main>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="./config.js"></script>
 
-<script src="./auth.js"></script>
-
-
 <script>
 
-let modelos=[];
+const busca =
+  document.getElementById("busca");
+
+const filtroPlano =
+  document.getElementById("filtroPlano");
+
+const filtroLocalizacao =
+  document.getElementById("filtroLocalizacao");
+
+const lista =
+  document.getElementById("lista");
+
+const contador =
+  document.getElementById("contador");
+
+let modelos = [];
 
 
-/* =========================================================
-   ESCAPAR HTML
-========================================================= */
+function valor(obj, campos){
 
-function escapeHTML(valor){
+  for(const campo of campos){
 
-  return String(valor ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    if(
+      obj &&
+      obj[campo] !== undefined &&
+      obj[campo] !== null &&
+      String(obj[campo]).trim() !== ""
+    ){
 
-}
+      return String(obj[campo]).trim();
+    }
 
-
-/* =========================================================
-   NOME DO PLANO
-========================================================= */
-
-function nomePlano(modelo){
-
-  return String(
-    modelo.plano ||
-    modelo.nome_plano ||
-    modelo.assinatura ||
-    modelo.plano_atual ||
-    "LUX ESSENCE"
-  )
-  .trim()
-  .toUpperCase();
-
-}
-
-
-/* =========================================================
-   CIDADE
-========================================================= */
-
-function cidadeModelo(modelo){
-
-  return String(
-    modelo.cidade ||
-    modelo.regiao ||
-    modelo.localizacao ||
-    ""
-  )
-  .trim();
-
-}
-
-
-/* =========================================================
-   NORMALIZAR TEXTO
-========================================================= */
-
-function normalizarTexto(valor){
-
-  return String(valor ?? "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .toLowerCase()
-    .trim();
-
-}
-
-
-/* =========================================================
-   ATUALIZAR CIDADES
-========================================================= */
-
-function atualizarFiltroCidades(){
-
-  const select =
-    document.getElementById(
-      "filtroCidade"
-    );
-
-  if(!select){
-    return;
   }
 
-  const cidades =
-    modelos
-      .map(modelo =>
-        cidadeModelo(modelo)
-      )
-      .filter(Boolean);
+  return "";
+}
 
 
-  const cidadesUnicas =
+function nomeModelo(m){
+
+  return valor(m,[
+    "nome_profissional",
+    "nome",
+    "nome_completo",
+    "nome_social"
+  ]) || "Modelo LUX";
+}
+
+
+function fotoModelo(m){
+
+  return valor(m,[
+    "foto_url",
+    "foto",
+    "imagem",
+    "avatar",
+    "foto_perfil"
+  ]) || "./Halloween-feminina.jpg";
+}
+
+
+function cidadeModelo(m){
+
+  return valor(m,[
+    "cidade",
+    "cidade_nome"
+  ]);
+}
+
+
+function regiaoModelo(m){
+
+  return valor(m,[
+    "regiao",
+    "regiao_nome",
+    "regiao_atual"
+  ]);
+}
+
+
+function planoModelo(m){
+
+  return (
+    valor(m,[
+      "plano",
+      "nome_plano",
+      "assinatura",
+      "plano_atual"
+    ]) || "LUX ESSENCE"
+  ).toUpperCase();
+}
+
+
+function localModelo(m){
+
+  const regiao =
+    regiaoModelo(m);
+
+  const cidade =
+    cidadeModelo(m);
+
+  if(regiao && cidade)
+    return regiao + " — " + cidade;
+
+  return cidade || regiao || "Localização não informada";
+}
+
+
+function descricaoModelo(m){
+
+  return valor(m,[
+    "descricao",
+    "bio",
+    "sobre"
+  ]);
+}
+
+
+function preencherFiltros(){
+
+  const planos =
     [...new Set(
-      cidades.map(cidade =>
-        cidade.trim()
-      )
+      modelos.map(planoModelo)
+    )].sort();
+
+  planos.forEach(plano=>{
+
+    const option =
+      document.createElement("option");
+
+    option.value=plano;
+
+    option.textContent=plano;
+
+    filtroPlano.appendChild(option);
+
+  });
+
+
+  const locais =
+    [...new Set(
+      modelos.map(localModelo)
     )]
-    .sort((a,b) =>
-      a.localeCompare(
-        b,
-        "pt-BR"
-      )
-    );
+    .filter(Boolean)
+    .sort();
 
+  locais.forEach(local=>{
 
-  select.innerHTML = `
+    const option =
+      document.createElement("option");
 
-    <option value="">
-      TODAS AS REGIÕES / CIDADES
-    </option>
+    option.value=local;
 
-    ${
-      cidadesUnicas
-        .map(cidade => `
+    option.textContent=local;
 
-          <option value="${escapeHTML(cidade)}">
-            ${escapeHTML(cidade.toUpperCase())}
-          </option>
+    filtroLocalizacao.appendChild(option);
 
-        `)
-        .join("")
-    }
-
-  `;
+  });
 
 }
 
 
-/* =========================================================
-   ATUALIZAR CONTADOR
-========================================================= */
+function render(){
 
-function atualizarContador(
-  quantidade
-){
+  const texto =
+    busca.value
+      .toLowerCase()
+      .trim();
 
-  const contador =
-    document.getElementById(
-      "contadorResultados"
+  const plano =
+    filtroPlano.value;
+
+  const local =
+    filtroLocalizacao.value;
+
+
+  const filtrados =
+    modelos.filter(m=>{
+
+      const nome =
+        nomeModelo(m)
+        .toLowerCase();
+
+      const okBusca =
+        !texto ||
+        nome.includes(texto);
+
+      const okPlano =
+        !plano ||
+        planoModelo(m)===plano;
+
+      const okLocal =
+        !local ||
+        localModelo(m)===local;
+
+      return (
+        okBusca &&
+        okPlano &&
+        okLocal
+      );
+
+    });
+
+
+  contador.textContent =
+    filtrados.length +
+    (
+      filtrados.length===1
+      ? " perfil"
+      : " perfis"
     );
 
-  if(!contador){
-    return;
-  }
 
-  contador.innerHTML = `
+  if(!filtrados.length){
 
-    <strong>
-      ${quantidade}
-    </strong>
-
-    ${
-      quantidade === 1
-      ? "perfil encontrado"
-      : "perfis encontrados"
-    }
-
-  `;
-
-}
-
-
-/* =========================================================
-   MOSTRAR MODELOS
-========================================================= */
-
-function mostrarModelos(lista){
-
-  const container =
-    document.getElementById(
-      "listaModelos"
-    );
-
-
-  if(!container){
-    return;
-  }
-
-
-  atualizarContador(
-    lista.length
-  );
-
-
-  if(!lista.length){
-
-    container.innerHTML=`
-
-      <div class="mensagem">
-
-        <strong>
-          NENHUM PERFIL ENCONTRADO
-        </strong>
-
-        Tente pesquisar por outro nome,
-        cidade ou plano.
-
+    lista.innerHTML=`
+      <div class="status">
+        Nenhum perfil encontrado.
       </div>
-
     `;
 
     return;
   }
 
 
-  container.innerHTML =
-    lista.map(modelo=>{
+  lista.innerHTML =
+    filtrados.map(m=>{
 
       const nome =
-        escapeHTML(
-          modelo.nome ||
-          modelo.nome_profissional ||
-          "Modelo LUX"
-        );
-
-
-      const cidade =
-        escapeHTML(
-          cidadeModelo(modelo)
-        );
-
-
-      const descricao =
-        escapeHTML(
-          modelo.descricao ||
-          "Perfil LUX"
-        );
-
-
-      const plano =
-        nomePlano(modelo);
-
+        nomeModelo(m);
 
       const foto =
-        modelo.foto_url ||
-        modelo.foto ||
-        modelo.imagem ||
-        "";
+        fotoModelo(m);
 
+      const localizacao =
+        localModelo(m);
 
-      const fotoHTML =
-        foto
-
-        ?
-
-        `
-
-          <div class="modelo-foto">
-
-            <img
-              src="${escapeHTML(foto)}"
-              alt="${nome}"
-              loading="lazy"
-            >
-
-            <div class="abobora">
-              🎃
-            </div>
-
-          </div>
-
-        `
-
-        :
-
-        `
-
-          <div class="modelo-foto">
-
-            <div
-              style="
-                width:100%;
-                height:100%;
-                border-radius:50%;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                background:#160a10;
-                font-family:Cinzel,serif;
-                color:#f8d58a;
-              "
-            >
-              LUX
-            </div>
-
-            <div class="abobora">
-              🎃
-            </div>
-
-          </div>
-
-        `;
-
+      const plano =
+        planoModelo(m);
 
       return `
 
-        <article class="modelo-card">
+        <article class="card">
 
+          <div class="card-photo">
 
-          <div class="selo-plano">
+            <img
+              src="${foto}"
+              alt="${nome}"
+              onerror="this.src='./Halloween-feminina.jpg'"
+            >
 
-            ${escapeHTML(plano)}
-
-          </div>
-
-
-          ${fotoHTML}
-
-
-          <h3>
-            ${nome}
-          </h3>
-
-
-          ${
-            cidade
-
-            ?
-
-            `
-              <div class="modelo-info">
-                ${cidade}
-              </div>
-            `
-
-            :
-
-            ""
-          }
-
-
-          <div class="modelo-descricao">
-
-            ${descricao}
+            <div class="favorite">
+              ♡
+            </div>
 
           </div>
 
+          <div class="card-content">
 
-          <a
-            href="./login.html"
-            class="btn-perfil"
-          >
-            VER PERFIL
-          </a>
+            <h3 class="card-name">
+              ${nome}
+            </h3>
 
+            <div class="card-location">
+              ${localizacao}
+            </div>
+
+            <div class="tags">
+
+              <span class="tag">
+                Feminina
+              </span>
+
+              <span class="tag plan">
+                ${plano}
+              </span>
+
+            </div>
+
+          </div>
 
         </article>
 
       `;
 
-    })
-    .join("");
+    }).join("");
 
 }
 
 
-/* =========================================================
-   APLICAR FILTROS
-========================================================= */
-
-function aplicarFiltros(){
-
-  const pesquisa =
-    document
-      .getElementById(
-        "pesquisa"
-      )
-      ?.value || "";
-
-
-  const plano =
-    document
-      .getElementById(
-        "filtroPlano"
-      )
-      ?.value || "";
-
-
-  const cidade =
-    document
-      .getElementById(
-        "filtroCidade"
-      )
-      ?.value || "";
-
-
-  const termo =
-    normalizarTexto(
-      pesquisa
-    );
-
-
-  const planoFiltro =
-    normalizarTexto(
-      plano
-    );
-
-
-  const cidadeFiltro =
-    normalizarTexto(
-      cidade
-    );
-
-
-  const filtrados =
-    modelos.filter(modelo=>{
-
-      const nome =
-        normalizarTexto(
-          modelo.nome ||
-          modelo.nome_profissional ||
-          ""
-        );
-
-
-      const cidadeModeloTexto =
-        normalizarTexto(
-          cidadeModelo(modelo)
-        );
-
-
-      const planoModelo =
-        normalizarTexto(
-          nomePlano(modelo)
-        );
-
-
-      const correspondePesquisa =
-        !termo ||
-        nome.includes(termo) ||
-        cidadeModeloTexto.includes(termo);
-
-
-      const correspondePlano =
-        !planoFiltro ||
-        planoModelo === planoFiltro;
-
-
-      const correspondeCidade =
-        !cidadeFiltro ||
-        cidadeModeloTexto === cidadeFiltro;
-
-
-      return (
-        correspondePesquisa &&
-        correspondePlano &&
-        correspondeCidade
-      );
-
-    });
-
-
-  mostrarModelos(
-    filtrados
-  );
-
-}
-
-
-/* =========================================================
-   CARREGAR MODELOS
-========================================================= */
-
-async function carregarModelos(){
-
-  const container =
-    document.getElementById(
-      "listaModelos"
-    );
-
+async function carregar(){
 
   try{
 
-    if(!window.luxSupabase){
+    if(
+      !window.luxSupabase
+    ){
 
       throw new Error(
         "Supabase não foi inicializado."
@@ -1754,56 +1114,39 @@ async function carregarModelos(){
     }
 
 
-    const {
-      data,
-      error
-    } =
+    const {data,error} =
       await window.luxSupabase
-
         .from("modelo_perfis")
-
         .select("*");
 
 
-    if(error){
+    if(error)
       throw error;
-    }
 
 
     modelos =
-      data || [];
+      Array.isArray(data)
+      ? data
+      : [];
 
 
-    atualizarFiltroCidades();
+    preencherFiltros();
 
-
-    mostrarModelos(
-      modelos
-    );
+    render();
 
 
   }catch(error){
 
-    console.error(
-      error
-    );
+    console.error(error);
 
+    contador.textContent="Erro";
 
-    atualizarContador(
-      0
-    );
+    lista.innerHTML=`
 
-
-    container.innerHTML=`
-
-      <div class="mensagem">
-
-        <strong>
-          LUX
-        </strong>
+      <div class="status">
 
         Não foi possível carregar
-        os modelos neste momento.
+        os modelos no momento.
 
       </div>
 
@@ -1814,89 +1157,24 @@ async function carregarModelos(){
 }
 
 
-/* =========================================================
-   EVENTOS DOS FILTROS
-========================================================= */
+busca.addEventListener(
+  "input",
+  render
+);
 
-document
-  .getElementById(
-    "pesquisa"
-  )
-  .addEventListener(
-    "input",
-    aplicarFiltros
-  );
+filtroPlano.addEventListener(
+  "change",
+  render
+);
 
+filtroLocalizacao.addEventListener(
+  "change",
+  render
+);
 
-document
-  .getElementById(
-    "filtroPlano"
-  )
-  .addEventListener(
-    "change",
-    aplicarFiltros
-  );
-
-
-document
-  .getElementById(
-    "filtroCidade"
-  )
-  .addEventListener(
-    "change",
-    aplicarFiltros
-  );
-
-
-/* =========================================================
-   LIMPAR FILTROS
-========================================================= */
-
-document
-  .getElementById(
-    "limparFiltros"
-  )
-  .addEventListener(
-    "click",
-    function(){
-
-      document
-        .getElementById(
-          "pesquisa"
-        )
-        .value="";
-
-
-      document
-        .getElementById(
-          "filtroPlano"
-        )
-        .value="";
-
-
-      document
-        .getElementById(
-          "filtroCidade"
-        )
-        .value="";
-
-
-      mostrarModelos(
-        modelos
-      );
-
-    }
-  );
-
-
-/* =========================================================
-   INICIAR
-========================================================= */
-
-carregarModelos();
+carregar();
 
 </script>
 
 </body>
-
 </html>

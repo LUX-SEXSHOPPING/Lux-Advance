@@ -692,11 +692,6 @@ function abrirGestaoModelos() {
 
     fecharModuloAdmin();
 
-    const destino =
-        document.getElementById(
-            "lista-precadastros"
-        );
-
     const painel =
         document.querySelector(
             ".panel"
@@ -1032,7 +1027,7 @@ function abrirModuloPlanos() {
 
     mostrarModulo(
         "Planos LUX",
-        "ESSENCE · DESFIRE · ELITE · ROYAL",
+        "ESSENCE · DESFIRE · ELITE · ROYAL · DIAMOND",
         `
 
         <div style="
@@ -1063,6 +1058,12 @@ function abrirModuloPlanos() {
                 "LUX-ROYAL",
                 "R$ 99,90",
                 "Plano mensal"
+            )}
+
+            ${criarBloco(
+                "LUX-DIAMOND",
+                "R$ 149,90",
+                "Inclui ROYAL · segurança presencial · logística"
             )}
 
         </div>
@@ -1175,6 +1176,12 @@ function abrirModuloAssinaturas() {
                 "Assinatura mensal"
             )}
 
+            ${criarBloco(
+                "DIAMOND",
+                "R$ 149,90",
+                "Inclui ROYAL · acompanhamento presencial · logística"
+            )}
+
         </div>
 
 
@@ -1267,65 +1274,592 @@ function abrirModuloAvaliacoes() {
 
 
 // =============================================================
+// DOAÇÕES — LOCALSTORAGE
+// =============================================================
+
+function obterDoacoesAdmin() {
+
+    try {
+
+        const dados =
+            localStorage.getItem("luxDoacoes");
+
+        if (!dados) {
+            return [];
+        }
+
+        const lista =
+            JSON.parse(dados);
+
+        return Array.isArray(lista)
+            ? lista
+            : [];
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar doações:",
+            erro
+        );
+
+        return [];
+
+    }
+
+}
+
+
+// =============================================================
+// FORMATAR MOEDA
+// =============================================================
+
+function formatarMoedaAdmin(valor) {
+
+    const numero =
+        Number(valor);
+
+    if (!Number.isFinite(numero)) {
+        return "R$ 0,00";
+    }
+
+    return numero.toLocaleString(
+        "pt-BR",
+        {
+            style: "currency",
+            currency: "BRL"
+        }
+    );
+
+}
+
+
+// =============================================================
+// FORMATAR DATA
+// =============================================================
+
+function formatarDataAdmin(valor) {
+
+    if (!valor) {
+        return "—";
+    }
+
+    try {
+
+        const data =
+            new Date(valor);
+
+        if (Number.isNaN(data.getTime())) {
+            return String(valor);
+        }
+
+        return data.toLocaleString(
+            "pt-BR",
+            {
+                dateStyle: "short",
+                timeStyle: "short"
+            }
+        );
+
+    } catch (erro) {
+
+        return String(valor);
+
+    }
+
+}
+
+
+// =============================================================
+// STATUS DA DOAÇÃO
+// =============================================================
+
+function textoStatusDoacao(status) {
+
+    const mapa = {
+
+        pix_gerado:
+            "PIX GERADO",
+
+        comprovante_solicitado:
+            "COMPROVANTE SOLICITADO",
+
+        comprovante_recebido:
+            "COMPROVANTE RECEBIDO",
+
+        pago:
+            "PAGO",
+
+        confirmado:
+            "CONFIRMADO",
+
+        cancelado:
+            "CANCELADO",
+
+        pendente:
+            "PENDENTE"
+
+    };
+
+    return mapa[status]
+        || String(status || "PENDENTE")
+            .replace(/_/g, " ")
+            .toUpperCase();
+
+}
+
+
+// =============================================================
+// COR DO STATUS
+// =============================================================
+
+function corStatusDoacao(status) {
+
+    if (
+        status === "pago" ||
+        status === "confirmado" ||
+        status === "comprovante_recebido"
+    ) {
+
+        return "#8ff0b0";
+
+    }
+
+    if (
+        status === "cancelado"
+    ) {
+
+        return "#ff7d8d";
+
+    }
+
+    if (
+        status === "comprovante_solicitado"
+    ) {
+
+        return "#f5d58c";
+
+    }
+
+    return "#ff4da6";
+
+}
+
+
+// =============================================================
 // DOAÇÕES
 // =============================================================
 
 function abrirModuloDoacoes() {
 
+    const doacoes =
+        obterDoacoesAdmin();
+
+    const totalRegistros =
+        doacoes.length;
+
+    const totalArrecadado =
+        doacoes.reduce(
+            (total, item) => {
+
+                const valor =
+                    Number(item.valor);
+
+                return total +
+                    (
+                        Number.isFinite(valor)
+                            ? valor
+                            : 0
+                    );
+
+            },
+            0
+        );
+
+    const pixGerados =
+        doacoes.filter(
+            item =>
+                !item.status ||
+                item.status === "pix_gerado"
+        ).length;
+
+    const comprovantesSolicitados =
+        doacoes.filter(
+            item =>
+                item.status ===
+                "comprovante_solicitado"
+        ).length;
+
+
+    const listaOrdenada =
+        [...doacoes].sort(
+            (a, b) => {
+
+                const dataA =
+                    new Date(
+                        a.data ||
+                        a.atualizadoEm ||
+                        0
+                    ).getTime();
+
+                const dataB =
+                    new Date(
+                        b.data ||
+                        b.atualizadoEm ||
+                        0
+                    ).getTime();
+
+                return dataB - dataA;
+
+            }
+        );
+
+
+    const registrosHTML =
+        listaOrdenada.length
+        ?
+        listaOrdenada.map(item => {
+
+            const status =
+                item.status ||
+                "pix_gerado";
+
+            const nome =
+                item.nome ||
+                "Não informado";
+
+            const email =
+                item.email ||
+                "—";
+
+            const whatsapp =
+                item.whatsapp ||
+                "—";
+
+            const valor =
+                formatarMoedaAdmin(
+                    item.valor
+                );
+
+            const data =
+                formatarDataAdmin(
+                    item.data ||
+                    item.atualizadoEm
+                );
+
+            const id =
+                item.id ||
+                "—";
+
+            const comprovante =
+                item.comprovante ||
+                "pendente";
+
+            return `
+
+                <div style="
+                    padding:18px;
+                    border:1px solid rgba(245,213,140,.12);
+                    border-radius:15px;
+                    background:rgba(255,255,255,.025);
+                    margin-bottom:12px;
+                ">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:flex-start;
+                        gap:12px;
+                        flex-wrap:wrap;
+                    ">
+
+                        <div>
+
+                            <div style="
+                                color:#f5d58c;
+                                font-family:'Playfair Display',serif;
+                                font-size:20px;
+                                margin-bottom:5px;
+                            ">
+                                ${escaparHTML(nome)}
+                            </div>
+
+                            <div style="
+                                color:#8e838b;
+                                font-size:10px;
+                                word-break:break-word;
+                            ">
+                                ID: ${escaparHTML(id)}
+                            </div>
+
+                        </div>
+
+
+                        <div style="
+                            color:${corStatusDoacao(status)};
+                            font-size:9px;
+                            font-weight:800;
+                            letter-spacing:1px;
+                            border:1px solid ${corStatusDoacao(status)};
+                            border-radius:20px;
+                            padding:7px 10px;
+                        ">
+                            ${escaparHTML(
+                                textoStatusDoacao(status)
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <div style="
+                        display:grid;
+                        grid-template-columns:
+                            repeat(auto-fit,minmax(160px,1fr));
+                        gap:10px;
+                        margin-top:16px;
+                    ">
+
+                        ${criarBloco(
+                            "VALOR",
+                            valor,
+                            "Valor registrado"
+                        )}
+
+                        ${criarBloco(
+                            "WHATSAPP",
+                            whatsapp,
+                            "Contato informado"
+                        )}
+
+                        ${criarBloco(
+                            "COMPROVANTE",
+                            String(comprovante).toUpperCase(),
+                            "Situação do comprovante"
+                        )}
+
+                    </div>
+
+
+                    <div style="
+                        margin-top:12px;
+                        padding-top:12px;
+                        border-top:1px solid rgba(255,255,255,.06);
+                        color:#8e838b;
+                        font-size:10px;
+                        line-height:1.7;
+                    ">
+
+                        <div>
+                            <strong style="color:#bbb;">
+                                E-mail:
+                            </strong>
+                            ${escaparHTML(email)}
+                        </div>
+
+                        <div>
+                            <strong style="color:#bbb;">
+                                Data:
+                            </strong>
+                            ${escaparHTML(data)}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("")
+        :
+        `
+
+            <div style="
+                padding:45px 20px;
+                text-align:center;
+                border:1px dashed rgba(245,213,140,.16);
+                border-radius:15px;
+                color:#8e838b;
+            ">
+
+                <div style="
+                    font-size:34px;
+                    color:#f5d58c;
+                    margin-bottom:12px;
+                ">
+                    ◇
+                </div>
+
+                <div style="
+                    color:#aaa;
+                    font-size:13px;
+                    margin-bottom:7px;
+                ">
+                    Nenhuma contribuição registrada.
+                </div>
+
+                <div style="
+                    font-size:10px;
+                    line-height:1.6;
+                ">
+                    As contribuições geradas pelo
+                    doar-pix.html aparecerão aqui
+                    neste mesmo dispositivo.
+                </div>
+
+            </div>
+
+        `;
+
+
     mostrarModulo(
         "Doações",
-        "Registros e acompanhamento",
+        "PIX · Registros e acompanhamento",
         `
 
         <div style="
+            display:flex;
+            justify-content:flex-end;
+            margin-bottom:14px;
+        ">
+
+            <button
+                type="button"
+                onclick="abrirModuloDoacoes()"
+                style="
+                    border:1px solid rgba(245,213,140,.20);
+                    background:rgba(245,213,140,.05);
+                    color:#f5d58c;
+                    padding:10px 14px;
+                    border-radius:10px;
+                    font-size:10px;
+                    font-weight:800;
+                    letter-spacing:.5px;
+                "
+            >
+                ↻ ATUALIZAR
+            </button>
+
+        </div>
+
+
+        <div style="
             display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+            grid-template-columns:
+                repeat(auto-fit,minmax(180px,1fr));
             gap:12px;
         ">
 
             ${criarBloco(
                 "PIX",
                 "ATIVO",
-                "Sistema de doação"
+                "Sistema de contribuição"
             )}
 
             ${criarBloco(
                 "MÍNIMO",
-                "R$ 5,00",
+                "R$ 0,50",
                 "Valor mínimo"
             )}
 
             ${criarBloco(
-                "CONTROLE",
-                "ADMIN",
-                "Acompanhamento"
+                "REGISTROS",
+                String(totalRegistros),
+                "Contribuições registradas"
+            )}
+
+            ${criarBloco(
+                "TOTAL",
+                formatarMoedaAdmin(
+                    totalArrecadado
+                ),
+                "Soma dos registros"
+            )}
+
+            ${criarBloco(
+                "PIX GERADOS",
+                String(pixGerados),
+                "Aguardando confirmação"
+            )}
+
+            ${criarBloco(
+                "COMPROVANTES",
+                String(comprovantesSolicitados),
+                "Solicitados pelo atendimento"
             )}
 
         </div>
 
 
         <div style="
-            margin-top:20px;
-            padding:20px;
-            border:1px solid rgba(255,255,255,.07);
-            border-radius:14px;
+            margin-top:22px;
         ">
 
-            <h3 style="
-                color:#f5d58c;
-                margin-bottom:10px;
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                gap:10px;
+                margin-bottom:12px;
+                flex-wrap:wrap;
             ">
-                Controle de doações
-            </h3>
 
-            <p style="
+                <div>
+
+                    <h3 style="
+                        color:#f5d58c;
+                        margin:0 0 5px;
+                    ">
+                        Registros de contribuições
+                    </h3>
+
+                    <p style="
+                        color:#8e838b;
+                        font-size:10px;
+                        margin:0;
+                    ">
+                        Últimos registros encontrados neste dispositivo.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            ${registrosHTML}
+
+        </div>
+
+
+        <div style="
+            margin-top:20px;
+            padding:16px;
+            border:1px solid rgba(255,77,166,.12);
+            border-radius:14px;
+            background:rgba(255,77,166,.025);
+        ">
+
+            <div style="
+                color:#ff4da6;
+                font-size:9px;
+                font-weight:800;
+                letter-spacing:1px;
+                margin-bottom:7px;
+            ">
+                ATENÇÃO
+            </div>
+
+            <div style="
                 color:#999;
-                font-size:12px;
+                font-size:10px;
                 line-height:1.7;
             ">
-                Área destinada ao acompanhamento
-                dos registros de doações recebidas.
-            </p>
+                Os registros atuais são armazenados
+                localmente no navegador através do
+                localStorage. Eles ainda não representam
+                uma confirmação bancária ou de pagamento.
+                A confirmação financeira real será integrada
+                posteriormente ao backend/Supabase.
+            </div>
 
         </div>
 

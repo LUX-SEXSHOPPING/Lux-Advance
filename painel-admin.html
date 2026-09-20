@@ -35,366 +35,133 @@
 
     body {
       min-height: 100vh;
-      padding: 20px;
-
       background:
         radial-gradient(
-          circle at top center,
+          circle at top,
           rgba(80, 15, 55, 0.25),
           transparent 55%
         ),
         #080509;
     }
 
-    .container {
+    .topo {
       width: 100%;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    /* =====================================================
-       ACESSO
-       ===================================================== */
-
-    #areaAcesso {
-      min-height: calc(100vh - 40px);
-
+      padding: 20px;
+      border-bottom: 1px solid rgba(248, 213, 138, 0.20);
+      background: rgba(12, 6, 10, 0.96);
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      gap: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
-    .card-acesso {
-      width: 100%;
-      max-width: 430px;
-
-      padding: 38px 28px;
-
-      border-radius: 28px;
-
-      border: 1px solid rgba(248, 213, 138, 0.25);
-
-      background: rgba(20, 8, 17, 0.97);
-
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.65),
-        0 0 35px rgba(255, 77, 166, 0.08);
-
-      text-align: center;
-    }
-
-    .logo {
+    .marca {
       font-family: Georgia, serif;
-      font-size: 64px;
-      letter-spacing: 8px;
       color: #f8d58a;
-      margin-bottom: 8px;
+      font-size: 25px;
+      letter-spacing: 4px;
+    }
+
+    .submarca {
+      color: #aaa;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .btn-sair {
+      border: 1px solid rgba(248, 213, 138, 0.30);
+      background: transparent;
+      color: #f8d58a;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 25px 18px 50px;
     }
 
     .titulo {
       font-family: Georgia, serif;
-      font-size: 25px;
       color: #f8d58a;
+      font-size: 28px;
       margin-bottom: 8px;
     }
 
-    .subtitulo {
+    .descricao {
       color: #aaa;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 30px;
-    }
-
-    .campo {
-      text-align: left;
-      margin-bottom: 18px;
-    }
-
-    .campo label {
-      display: block;
-      color: #ddd;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-
-    .campo input {
-      width: 100%;
-      padding: 15px;
-
-      border-radius: 12px;
-
-      border: 1px solid rgba(248, 213, 138, 0.25);
-
-      outline: none;
-
-      background: #100912;
-
-      color: #fff;
-
-      font-size: 16px;
-    }
-
-    .campo input:focus {
-      border-color: #ff4da6;
-
-      box-shadow:
-        0 0 0 2px rgba(255, 77, 166, 0.10);
-    }
-
-    .botao {
-      width: 100%;
-
-      border: 0;
-
-      border-radius: 12px;
-
-      padding: 16px;
-
-      margin-top: 5px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #f8d58a,
-          #c99d45
-        );
-
-      color: #180d12;
-
-      font-size: 16px;
-
-      font-weight: bold;
-
-      cursor: pointer;
-    }
-
-    .botao:disabled {
-      opacity: 0.65;
-      cursor: wait;
-    }
-
-    .mensagem {
-      display: none;
-
-      margin-top: 18px;
-
-      padding: 12px;
-
-      border-radius: 10px;
-
-      font-size: 14px;
-
-      line-height: 1.4;
-    }
-
-    .erro {
-      display: block;
-
-      color: #ffb3d6;
-
-      background:
-        rgba(255, 30, 120, 0.10);
-
-      border:
-        1px solid rgba(255, 30, 120, 0.25);
-    }
-
-    .sucesso {
-      display: block;
-
-      color: #f8d58a;
-
-      background:
-        rgba(248, 213, 138, 0.08);
-
-      border:
-        1px solid rgba(248, 213, 138, 0.20);
-    }
-
-
-    /* =====================================================
-       PAINEL ADMINISTRATIVO
-       ===================================================== */
-
-    #painelAdmin {
-      display: none;
-    }
-
-    .topo-admin {
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-      gap: 15px;
-
       margin-bottom: 25px;
-
-      padding: 22px;
-
-      border-radius: 20px;
-
-      border:
-        1px solid rgba(248, 213, 138, 0.20);
-
-      background:
-        rgba(20, 8, 17, 0.96);
-    }
-
-    .marca-admin h1 {
-      margin: 0;
-
-      font-family: Georgia, serif;
-
-      color: #f8d58a;
-
-      letter-spacing: 3px;
-    }
-
-    .marca-admin p {
-      margin: 6px 0 0;
-
-      color: #aaa;
-
-      font-size: 13px;
-    }
-
-    .btn-sair {
-      border: 1px solid rgba(255, 77, 166, 0.35);
-
-      background: rgba(255, 77, 166, 0.08);
-
-      color: #ffb3d6;
-
-      padding: 11px 16px;
-
-      border-radius: 10px;
-
-      cursor: pointer;
-
-      font-weight: bold;
-    }
-
-    .btn-sair:hover {
-      background: rgba(255, 77, 166, 0.18);
-    }
-
-    .painel-card {
-      padding: 22px;
-
-      border-radius: 20px;
-
-      border:
-        1px solid rgba(248, 213, 138, 0.18);
-
-      background:
-        rgba(20, 8, 17, 0.96);
-
-      margin-bottom: 22px;
-    }
-
-    .painel-card h2 {
-      margin-top: 0;
-
-      color: #f8d58a;
-
-      font-family: Georgia, serif;
+      line-height: 1.5;
     }
 
     .filtros {
       display: flex;
-
       flex-wrap: wrap;
-
-      gap: 8px;
-
-      margin-bottom: 20px;
+      gap: 10px;
+      margin-bottom: 25px;
     }
 
     .btn-filtro {
-      border:
-        1px solid rgba(248, 213, 138, 0.20);
-
-      background:
-        rgba(255, 255, 255, 0.03);
-
-      color: #ccc;
-
-      padding: 10px 14px;
-
+      border: 1px solid rgba(248, 213, 138, 0.25);
+      background: #120a10;
+      color: #ddd;
       border-radius: 10px;
-
+      padding: 10px 15px;
       cursor: pointer;
     }
 
     .btn-filtro.ativo {
-      background:
-        linear-gradient(
-          135deg,
-          #f8d58a,
-          #c99d45
-        );
-
+      background: #f8d58a;
       color: #180d12;
-
-      font-weight: bold;
     }
 
     #lista-precadastros {
       display: grid;
-
-      grid-template-columns:
-        repeat(
-          auto-fit,
-          minmax(240px, 1fr)
-        );
-
-      gap: 15px;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(250px, 1fr)
+      );
+      gap: 16px;
     }
 
     .card-registro {
+      background: rgba(20, 8, 17, 0.96);
+      border: 1px solid rgba(248, 213, 138, 0.18);
+      border-radius: 18px;
       padding: 18px;
-
-      border-radius: 16px;
-
-      border:
-        1px solid rgba(248, 213, 138, 0.15);
-
-      background:
-        rgba(255, 255, 255, 0.025);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, .35);
     }
 
     .card-registro h4 {
-      margin-top: 0;
-
       color: #f8d58a;
-
-      font-size: 18px;
+      margin: 0 0 12px;
+      font-size: 19px;
     }
 
     .card-registro p {
-      color: #bbb;
-
+      color: #ccc;
       font-size: 14px;
-
       line-height: 1.5;
+      margin: 7px 0;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 15px;
+      cursor: pointer;
+      font-weight: bold;
     }
 
     .btn-secundario {
-      border:
-        1px solid rgba(248, 213, 138, 0.25);
-
-      background:
-        rgba(248, 213, 138, 0.07);
-
-      color: #f8d58a;
-
-      padding: 10px 14px;
-
-      border-radius: 10px;
-
-      cursor: pointer;
+      background: #f8d58a;
+      color: #180d12;
     }
 
     .status-pendente {
@@ -402,168 +169,96 @@
     }
 
     .status-aprovado {
-      color: #75e6a4;
+      color: #7dffb2;
     }
 
     .status-rejeitado {
-      color: #ff7b9c;
+      color: #ff8da9;
     }
 
-
-    /* =====================================================
-       MODAL
-       ===================================================== */
-
-    #modal-ver-ficha {
+    .modal {
       display: none;
-
       position: fixed;
-
       inset: 0;
-
-      z-index: 9999;
-
+      z-index: 100;
+      background: rgba(0, 0, 0, .78);
       align-items: center;
-
       justify-content: center;
-
-      padding: 20px;
-
-      background:
-        rgba(0, 0, 0, 0.78);
+      padding: 18px;
     }
 
     .modal-conteudo {
       width: 100%;
-
-      max-width: 700px;
-
+      max-width: 650px;
       max-height: 90vh;
-
       overflow-y: auto;
-
-      padding: 25px;
-
-      border-radius: 20px;
-
       background: #140811;
-
-      border:
-        1px solid rgba(248, 213, 138, 0.25);
+      border: 1px solid rgba(248, 213, 138, .25);
+      border-radius: 20px;
+      padding: 22px;
     }
 
     .modal-conteudo h3 {
       color: #f8d58a;
-
-      font-family: Georgia, serif;
+      margin-top: 0;
     }
 
-    #corpo-ficha p {
-      color: #ccc;
-
+    #corpo-ficha {
+      color: #ddd;
       line-height: 1.6;
     }
 
     #corpo-ficha img {
-      width: 120px;
-
-      height: 120px;
-
-      object-fit: cover;
-
+      width: 100%;
+      max-width: 220px;
       border-radius: 12px;
-
-      margin: 5px;
+      margin: 6px;
     }
 
     #corpo-ficha video {
       width: 100%;
-
       max-width: 500px;
-
       border-radius: 12px;
     }
 
-    .acoes-ficha {
+    .acoes {
       display: flex;
-
       flex-wrap: wrap;
-
       gap: 10px;
-
       margin-top: 20px;
     }
 
-    .btn-aprovar {
-      border: 0;
-
-      padding: 12px 18px;
-
-      border-radius: 10px;
-
-      background: #2e9b61;
-
-      color: #fff;
-
-      font-weight: bold;
-
-      cursor: pointer;
+    #botao-aprovar {
+      background: #d9fbe6;
+      color: #102017;
     }
 
-    .btn-rejeitar {
-      border: 0;
-
-      padding: 12px 18px;
-
-      border-radius: 10px;
-
-      background: #a83255;
-
-      color: #fff;
-
-      font-weight: bold;
-
-      cursor: pointer;
+    #botao-rejeitar {
+      background: #ffd7df;
+      color: #301018;
     }
 
     .btn-fechar {
-      border:
-        1px solid rgba(255,255,255,0.15);
-
-      padding: 12px 18px;
-
-      border-radius: 10px;
-
-      background: #21131d;
-
+      background: #333;
       color: #fff;
-
-      cursor: pointer;
     }
 
+    @media (max-width: 600px) {
 
-    @media (max-width: 650px) {
-
-      body {
-        padding: 12px;
-      }
-
-      .topo-admin {
-        flex-direction: column;
-
+      .topo {
         align-items: flex-start;
       }
 
-      .btn-sair {
-        width: 100%;
+      .marca {
+        font-size: 21px;
       }
 
-      .card-acesso {
-        padding: 30px 20px;
+      .titulo {
+        font-size: 24px;
       }
 
-      .logo {
-        font-size: 54px;
+      .modal-conteudo {
+        padding: 17px;
       }
 
     }
@@ -572,169 +267,102 @@
 
 </head>
 
-
 <body>
 
+  <header class="topo">
 
-  <div class="container">
+    <div>
 
-
-    <!-- ==================================================
-         ÁREA DE SENHA
-         ================================================== -->
-
-    <section id="areaAcesso">
-
-      <div class="card-acesso">
-
-        <div class="logo">
-          LUX
-        </div>
-
-        <div class="titulo">
-          Acesso Administrativo
-        </div>
-
-        <div class="subtitulo">
-          Área exclusiva de administração.
-          Digite sua senha para continuar.
-        </div>
-
-        <form id="formAdmin">
-
-          <div class="campo">
-
-            <label for="senhaAdmin">
-              Senha administrativa
-            </label>
-
-            <input
-              id="senhaAdmin"
-              type="password"
-              autocomplete="current-password"
-              placeholder="Digite sua senha"
-              required
-            >
-
-          </div>
-
-          <button
-            id="btnEntrar"
-            class="botao"
-            type="submit"
-          >
-            ENTRAR NO PAINEL
-          </button>
-
-        </form>
-
-        <div
-          id="mensagem"
-          class="mensagem"
-        ></div>
-
+      <div class="marca">
+        LUX
       </div>
+
+      <div class="submarca">
+        Painel Administrativo
+      </div>
+
+    </div>
+
+    <button
+      type="button"
+      class="btn-sair"
+      id="btnSair"
+    >
+      SAIR
+    </button>
+
+  </header>
+
+
+  <main class="container">
+
+    <h1 class="titulo">
+      Painel Administrativo
+    </h1>
+
+    <p class="descricao">
+      Gerencie os pré-cadastros enviados para a LUX.
+    </p>
+
+
+    <div class="filtros">
+
+      <button
+        type="button"
+        class="btn-filtro ativo"
+        data-filtro="todos"
+      >
+        Todos
+      </button>
+
+      <button
+        type="button"
+        class="btn-filtro"
+        data-filtro="pendente"
+      >
+        Pendentes
+      </button>
+
+      <button
+        type="button"
+        class="btn-filtro"
+        data-filtro="aprovado"
+      >
+        Aprovados
+      </button>
+
+      <button
+        type="button"
+        class="btn-filtro"
+        data-filtro="rejeitado"
+      >
+        Rejeitados
+      </button>
+
+    </div>
+
+
+    <section id="lista-precadastros">
+
+      <p
+        style="
+          grid-column:1/-1;
+          text-align:center;
+          color:#777;
+        "
+      >
+        Carregando registros...
+      </p>
 
     </section>
 
-
-    <!-- ==================================================
-         PAINEL ADMINISTRATIVO
-         ================================================== -->
-
-    <section id="painelAdmin">
+  </main>
 
 
-      <header class="topo-admin">
-
-        <div class="marca-admin">
-
-          <h1>
-            LUX
-          </h1>
-
-          <p>
-            PAINEL ADMINISTRATIVO
-          </p>
-
-        </div>
-
-        <button
-          id="btnSair"
-          class="btn-sair"
-          type="button"
-        >
-          SAIR
-        </button>
-
-      </header>
-
-
-      <div class="painel-card">
-
-        <h2>
-          Pré-cadastros de modelos
-        </h2>
-
-        <div class="filtros">
-
-          <button
-            class="btn-filtro ativo"
-            data-filtro="todos"
-            type="button"
-          >
-            Todos
-          </button>
-
-          <button
-            class="btn-filtro"
-            data-filtro="pendente"
-            type="button"
-          >
-            Pendentes
-          </button>
-
-          <button
-            class="btn-filtro"
-            data-filtro="aprovado"
-            type="button"
-          >
-            Aprovados
-          </button>
-
-          <button
-            class="btn-filtro"
-            data-filtro="rejeitado"
-            type="button"
-          >
-            Rejeitados
-          </button>
-
-        </div>
-
-
-        <div id="lista-precadastros">
-
-          <p>
-            Carregando registros...
-          </p>
-
-        </div>
-
-      </div>
-
-
-    </section>
-
-
-  </div>
-
-
-  <!-- ====================================================
-       MODAL DA FICHA
-       ==================================================== -->
-
-  <div id="modal-ver-ficha">
+  <div
+    id="modal-ver-ficha"
+    class="modal"
+  >
 
     <div class="modal-conteudo">
 
@@ -744,30 +372,38 @@
 
       <div id="corpo-ficha"></div>
 
-      <div class="acoes-ficha">
+      <div class="acoes">
 
         <button
-          id="botao-aprovar"
-          class="btn-aprovar"
           type="button"
+          class="btn"
+          id="botao-aprovar"
         >
           APROVAR
         </button>
 
         <button
-          id="botao-rejeitar"
-          class="btn-rejeitar"
           type="button"
+          class="btn"
+          id="botao-rejeitar"
         >
           REJEITAR
         </button>
 
         <button
-          class="btn-fechar"
           type="button"
+          class="btn btn-fechar"
           onclick="fecharModalFicha()"
         >
           FECHAR
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secundario"
+          onclick="imprimirFicha()"
+        >
+          IMPRIMIR
         </button>
 
       </div>
@@ -779,733 +415,116 @@
 
   <script>
 
-    /* =====================================================
-       ACESSO ADMINISTRATIVO
-       ===================================================== */
-
-    const form =
-      document.getElementById("formAdmin");
-
-    const senhaInput =
-      document.getElementById("senhaAdmin");
-
-    const botao =
-      document.getElementById("btnEntrar");
-
-    const mensagem =
-      document.getElementById("mensagem");
-
-    const areaAcesso =
-      document.getElementById("areaAcesso");
-
-    const painelAdmin =
-      document.getElementById("painelAdmin");
-
-
-    function mostrarMensagem(texto, tipo) {
-
-      mensagem.textContent = texto;
-
-      mensagem.className =
-        "mensagem " + tipo;
-
-    }
-
-
-    form.addEventListener(
-      "submit",
-      async function(evento) {
-
-        evento.preventDefault();
-
-
-        const senha =
-          senhaInput.value.trim();
-
-
-        if (!senha) {
-
-          mostrarMensagem(
-            "Digite a senha administrativa.",
-            "erro"
-          );
-
-          return;
-
-        }
-
-
-        if (!window.luxSupabase) {
-
-          mostrarMensagem(
-            "Erro ao carregar o Supabase. Verifique o config.js.",
-            "erro"
-          );
-
-          return;
-
-        }
-
-
-        const email =
-          window.LUX_ADMIN_EMAIL;
-
-
-        if (!email) {
-
-          mostrarMensagem(
-            "E-mail administrativo não configurado.",
-            "erro"
-          );
-
-          return;
-
-        }
-
-
-        botao.disabled = true;
-
-        botao.textContent =
-          "ENTRANDO...";
-
-
-        mensagem.className =
-          "mensagem";
-
-        mensagem.textContent =
-          "";
-
-
-        try {
-
-
-          /*
-           * LOGIN DIRETO.
-           *
-           * Não usa getSession().
-           * Não usa polling.
-           * Não fica verificando acesso.
-           */
-
-          const resultado =
-            await window.luxSupabase.auth.signInWithPassword({
-
-              email: email,
-
-              password: senha
-
-            });
-
-
-          if (resultado.error) {
-
-            throw resultado.error;
-
-          }
-
-
-          if (
-            !resultado.data ||
-            !resultado.data.user
-          ) {
-
-            throw new Error(
-              "Usuário administrativo não encontrado."
-            );
-
-          }
-
-
-          /*
-           * SENHA CORRETA.
-           *
-           * NÃO redirecionamos.
-           *
-           * O painel abre imediatamente
-           * nesta mesma página.
-           */
-
-          mostrarMensagem(
-            "Acesso autorizado.",
-            "sucesso"
-          );
-
-
-          areaAcesso.style.display =
-            "none";
-
-
-          painelAdmin.style.display =
-            "block";
-
-
-          document.title =
-            "LUX — Painel Administrativo";
-
-
-          await carregarListaPreCadastros();
-
-
-        } catch (erro) {
-
-          console.error(
-            "Erro no acesso administrativo:",
-            erro
-          );
-
-
-          let texto =
-            "Senha incorreta ou acesso não autorizado.";
-
-
-          if (
-            erro &&
-            erro.message
-          ) {
-
-            const erroTexto =
-              erro.message.toLowerCase();
-
-
-            if (
-              erroTexto.includes(
-                "invalid login credentials"
-              )
-            ) {
-
-              texto =
-                "Senha incorreta. Tente novamente.";
-
-            }
-            else if (
-              erroTexto.includes(
-                "email not confirmed"
-              )
-            ) {
-
-              texto =
-                "O e-mail administrativo ainda não foi confirmado no Supabase.";
-
-            }
-            else if (
-              erroTexto.includes(
-                "user not found"
-              )
-            ) {
-
-              texto =
-                "Usuário administrativo não encontrado.";
-
-            }
-
-          }
-
-
-          mostrarMensagem(
-            texto,
-            "erro"
-          );
-
-
-          botao.disabled = false;
-
-          botao.textContent =
-            "ENTRAR NO PAINEL";
-
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       PAINEL — PRÉ-CADASTROS
-       ===================================================== */
-
-    let listaPreCadastros = [];
-
-    let filtroStatus = "todos";
-
-    let indiceSelecionado = null;
-
+    /*
+     * PROTEÇÃO DO PAINEL
+     *
+     * O painel só abre se existir uma
+     * sessão administrativa válida.
+     */
 
     document.addEventListener(
       "DOMContentLoaded",
-      function() {
+      async function(){
 
-        ativarBotoesFiltro();
+        try{
 
-        document
-          .getElementById("btnSair")
-          .addEventListener(
-            "click",
-            sairAdministrador
-          );
+          if(!window.luxSupabase){
 
-      }
-    );
+            document.body.innerHTML =
+              "<p style='padding:30px;color:#fff'>Erro ao carregar o Supabase. Verifique o config.js.</p>";
+
+            return;
+          }
 
 
-    async function carregarListaPreCadastros() {
-
-      try {
-
-        listaPreCadastros =
-          JSON.parse(
-            localStorage.getItem(
-              "fichasPreCadastro"
-            ) || "[]"
-          );
+          const resposta =
+            await window.luxSupabase.auth.getSession();
 
 
-        aplicarFiltroERenderizar();
+          const sessao =
+            resposta.data
+              ? resposta.data.session
+              : null;
 
 
-      } catch (erro) {
+          if(!sessao || !sessao.user){
 
-        console.error(
-          "Erro ao carregar:",
-          erro
-        );
+            window.location.replace(
+              "./acesso-admin.html"
+            );
 
-
-        document.getElementById(
-          "lista-precadastros"
-        ).innerHTML =
-          "<p>Erro ao carregar os registros.</p>";
-
-      }
-
-    }
+            return;
+          }
 
 
-    function ativarBotoesFiltro() {
+          const emailUsuario =
+            (
+              sessao.user.email || ""
+            ).toLowerCase().trim();
 
-      document
-        .querySelectorAll(".btn-filtro")
-        .forEach(
-          function(botaoFiltro) {
 
-            botaoFiltro.addEventListener(
+          const emailAdmin =
+            (
+              window.LUX_ADMIN_EMAIL || ""
+            ).toLowerCase().trim();
+
+
+          if(
+            !emailAdmin ||
+            emailUsuario !== emailAdmin
+          ){
+
+            await window.luxSupabase.auth.signOut();
+
+            window.location.replace(
+              "./acesso-admin.html"
+            );
+
+            return;
+          }
+
+
+          const btnSair =
+            document.getElementById("btnSair");
+
+
+          if(btnSair){
+
+            btnSair.addEventListener(
               "click",
-              function() {
+              async function(){
 
-                document
-                  .querySelectorAll(
-                    ".btn-filtro"
-                  )
-                  .forEach(
-                    function(item) {
+                await window.luxSupabase.auth.signOut();
 
-                      item.classList.remove(
-                        "ativo"
-                      );
-
-                    }
-                  );
-
-
-                botaoFiltro.classList.add(
-                  "ativo"
+                window.location.replace(
+                  "./acesso-admin.html"
                 );
-
-
-                filtroStatus =
-                  botaoFiltro.dataset.filtro;
-
-
-                aplicarFiltroERenderizar();
 
               }
             );
 
           }
-        );
 
-    }
+        }catch(erro){
 
-
-    function aplicarFiltroERenderizar() {
-
-      let dados =
-        [...listaPreCadastros];
-
-
-      if (
-        filtroStatus !== "todos"
-      ) {
-
-        dados =
-          dados.filter(
-            function(ficha) {
-
-              return ficha.status ===
-                filtroStatus;
-
-            }
+          console.error(
+            "Erro ao validar acesso administrativo:",
+            erro
           );
 
-      }
-
-
-      desenharLista(dados);
-
-    }
-
-
-    function desenharLista(lista) {
-
-      const container =
-        document.getElementById(
-          "lista-precadastros"
-        );
-
-
-      if (!lista.length) {
-
-        container.innerHTML = `
-          <p style="
-            grid-column:1/-1;
-            text-align:center;
-            color:#777;
-          ">
-            Nenhum registro encontrado.
-          </p>
-        `;
-
-        return;
-
-      }
-
-
-      container.innerHTML =
-        lista
-          .map(
-            function(ficha) {
-
-              const indice =
-                listaPreCadastros.indexOf(
-                  ficha
-                );
-
-
-              return `
-                <div class="card-registro">
-
-                  <h4>
-                    ${ficha.nome || "Sem nome"}
-                  </h4>
-
-                  <p>
-                    📱 ${ficha.whatsapp || "—"}
-                  </p>
-
-                  <p>
-                    📅 ${ficha.dataEnvio || "—"}
-                  </p>
-
-                  <p>
-                    Status:
-                    <span class="status-${ficha.status || "pendente"}">
-                      ${(ficha.status || "pendente").toUpperCase()}
-                    </span>
-                  </p>
-
-                  <button
-                    class="btn-secundario"
-                    type="button"
-                    onclick="abrirVerFicha(${indice})"
-                  >
-                    VER FICHA COMPLETA
-                  </button>
-
-                </div>
-              `;
-
-            }
-          )
-          .join("");
-
-    }
-
-
-    function abrirVerFicha(indice) {
-
-      indiceSelecionado =
-        indice;
-
-
-      const dados =
-        listaPreCadastros[indice];
-
-
-      if (!dados) {
-        return;
-      }
-
-
-      document.getElementById(
-        "corpo-ficha"
-      ).innerHTML = `
-
-        <p>
-          <strong>Nome/Apelido:</strong>
-          ${dados.nome || "—"}
-        </p>
-
-        <p>
-          <strong>WhatsApp:</strong>
-          ${dados.whatsapp || "—"}
-        </p>
-
-        <p>
-          <strong>Idade:</strong>
-          ${dados.idade || "—"} anos
-        </p>
-
-        <p>
-          <strong>Altura:</strong>
-          ${dados.altura || "—"} m
-        </p>
-
-        <p>
-          <strong>Cidade/UF:</strong>
-          ${dados.cidade || "—"}
-        </p>
-
-        <p>
-          <strong>Informações:</strong><br>
-          ${dados.sobre || "—"}
-        </p>
-
-        ${
-          dados.fotos &&
-          dados.fotos.length
-            ? `
-              <p>
-                <strong>Fotos:</strong>
-              </p>
-
-              ${dados.fotos
-                .map(
-                  function(url) {
-
-                    return `
-                      <img
-                        src="${url}"
-                        alt="Foto"
-                      >
-                    `;
-
-                  }
-                )
-                .join("")}
-            `
-            : `
-              <p>
-                <strong>Fotos:</strong>
-                Nenhuma
-              </p>
-            `
-        }
-
-        ${
-          dados.video
-            ? `
-              <p>
-                <strong>Vídeo:</strong>
-              </p>
-
-              <video
-                controls
-                src="${dados.video}"
-              ></video>
-            `
-            : `
-              <p>
-                <strong>Vídeo:</strong>
-                Nenhum enviado
-              </p>
-            `
-        }
-
-      `;
-
-
-      document.getElementById(
-        "modal-ver-ficha"
-      ).style.display =
-        "flex";
-
-    }
-
-
-    function fecharModalFicha() {
-
-      document.getElementById(
-        "modal-ver-ficha"
-      ).style.display =
-        "none";
-
-
-      indiceSelecionado =
-        null;
-
-    }
-
-
-    async function salvarAlteracoes() {
-
-      localStorage.setItem(
-        "fichasPreCadastro",
-        JSON.stringify(
-          listaPreCadastros
-        )
-      );
-
-
-      aplicarFiltroERenderizar();
-
-    }
-
-
-    document.addEventListener(
-      "click",
-      async function(evento) {
-
-
-        if (
-          evento.target.id ===
-            "botao-aprovar" &&
-          indiceSelecionado !== null
-        ) {
-
-          listaPreCadastros[
-            indiceSelecionado
-          ].status =
-            "aprovado";
-
-
-          await salvarAlteracoes();
-
-          fecharModalFicha();
-
-        }
-
-
-        if (
-          evento.target.id ===
-            "botao-rejeitar" &&
-          indiceSelecionado !== null
-        ) {
-
-          listaPreCadastros[
-            indiceSelecionado
-          ].status =
-            "rejeitado";
-
-
-          await salvarAlteracoes();
-
-          fecharModalFicha();
+          window.location.replace(
+            "./acesso-admin.html"
+          );
 
         }
 
       }
     );
-
-
-    function imprimirFicha() {
-
-      if (
-        indiceSelecionado === null
-      ) {
-        return;
-      }
-
-
-      window.print();
-
-    }
-
-
-    window.addEventListener(
-      "click",
-      function(evento) {
-
-        const modal =
-          document.getElementById(
-            "modal-ver-ficha"
-          );
-
-
-        if (
-          evento.target === modal
-        ) {
-
-          fecharModalFicha();
-
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       SAIR
-       ===================================================== */
-
-    async function sairAdministrador() {
-
-      try {
-
-        if (
-          window.luxSupabase
-        ) {
-
-          await window.luxSupabase.auth.signOut();
-
-        }
-
-      } catch (erro) {
-
-        console.error(
-          erro
-        );
-
-      }
-
-
-      painelAdmin.style.display =
-        "none";
-
-
-      areaAcesso.style.display =
-        "flex";
-
-
-      senhaInput.value =
-        "";
-
-
-      botao.disabled =
-        false;
-
-
-      botao.textContent =
-        "ENTRAR NO PAINEL";
-
-
-      mensagem.className =
-        "mensagem";
-
-
-      mensagem.textContent =
-        "";
-
-    }
 
   </script>
+
+
+  <script src="./painel-admin.js"></script>
 
 </body>
 

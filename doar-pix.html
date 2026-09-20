@@ -2,10 +2,13 @@
 <html lang="pt-BR">
 
 <head>
+
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>LUX — Doação PIX</title>
 
@@ -23,31 +26,46 @@ body{
 
 body{
 
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:
+  Arial,
+  Helvetica,
+  sans-serif;
 
   color:#fff;
 
   background:
-    linear-gradient(
-      rgba(8,3,7,.88),
-      rgba(8,3,7,.96)
-    ),
-    url("./lux-halloween.jpg")
-    center/cover fixed no-repeat;
+
+  radial-gradient(
+    circle at 50% 0%,
+    rgba(255,77,166,.10),
+    transparent 35%
+  ),
+
+  linear-gradient(
+    rgba(8,3,7,.88),
+    rgba(8,3,7,.97)
+  ),
+
+  url("./lux-halloween.jpg")
+  center/cover fixed no-repeat;
 
   min-height:100vh;
 
-  padding:20px;
+  padding:20px 14px 40px;
 }
 
 
-/* TOPO */
+/* =========================
+   TOPO
+========================= */
 
 .topo{
 
-  max-width:720px;
+  width:100%;
 
-  margin:0 auto 20px;
+  max-width:760px;
+
+  margin:0 auto 18px;
 
   display:flex;
 
@@ -56,7 +74,11 @@ body{
 
 .voltar{
 
-  display:inline-block;
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:7px;
 
   padding:11px 18px;
 
@@ -67,49 +89,103 @@ body{
   text-decoration:none;
 
   border:1px solid
-  rgba(248,213,138,.45);
+  rgba(248,213,138,.40);
 
   background:
-  rgba(0,0,0,.45);
+  rgba(0,0,0,.48);
+
+  transition:.25s;
+}
+
+.voltar:hover{
+
+  background:
+  rgba(248,213,138,.10);
+
+  border-color:#f8d58a;
 }
 
 
-/* CARD */
+/* =========================
+   CONTAINER
+========================= */
 
 .container{
 
   width:100%;
 
-  max-width:720px;
+  max-width:760px;
 
   margin:auto;
 }
 
+
+/* =========================
+   CARD PRINCIPAL
+========================= */
+
 .card{
 
-  padding:30px 22px;
+  position:relative;
 
-  border-radius:25px;
+  overflow:hidden;
+
+  padding:34px 24px;
+
+  border-radius:28px;
 
   background:
+
   linear-gradient(
     145deg,
-    rgba(30,12,22,.98),
-    rgba(8,4,7,.98)
+    rgba(31,12,23,.98),
+    rgba(8,4,7,.99)
   );
 
   border:1px solid
-  rgba(248,213,138,.35);
+  rgba(248,213,138,.32);
 
   box-shadow:
-  0 20px 60px
-  rgba(0,0,0,.65);
+
+  0 25px 80px
+  rgba(0,0,0,.72),
+
+  inset 0 1px 0
+  rgba(255,255,255,.04);
+}
+
+.card::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:220px;
+
+  height:220px;
+
+  top:-120px;
+
+  right:-100px;
+
+  border-radius:50%;
+
+  background:
+  rgba(255,77,166,.08);
+
+  filter:blur(10px);
+
+  pointer-events:none;
 }
 
 
-/* TÍTULO */
+/* =========================
+   CABEÇALHO
+========================= */
 
 h1{
+
+  position:relative;
 
   margin:0;
 
@@ -117,44 +193,64 @@ h1{
 
   color:#f8d58a;
 
-  font-family:Georgia,serif;
+  font-family:
+  Georgia,
+  serif;
 
   font-style:italic;
 
   font-size:42px;
+
+  letter-spacing:.5px;
+
+  text-shadow:
+  0 3px 20px
+  rgba(248,213,138,.18);
 }
 
 .subtitulo{
+
+  position:relative;
+
+  max-width:580px;
 
   text-align:center;
 
   color:#c9c1c5;
 
-  line-height:1.6;
+  line-height:1.7;
 
   margin:
-  12px auto 28px;
+  12px auto 30px;
 
+  font-size:15px;
 }
 
 
-/* CHAVE */
+/* =========================
+   CHAVE PIX
+========================= */
 
 .pix{
 
-  padding:22px;
+  padding:23px;
 
-  border-radius:18px;
+  border-radius:20px;
 
   text-align:center;
 
   background:
-  rgba(255,77,166,.06);
+
+  linear-gradient(
+    145deg,
+    rgba(255,77,166,.07),
+    rgba(248,213,138,.035)
+  );
 
   border:1px solid
   rgba(248,213,138,.25);
 
-  margin-bottom:28px;
+  margin-bottom:30px;
 }
 
 .pix h2{
@@ -164,6 +260,8 @@ h1{
   color:#f8d58a;
 
   font-family:Georgia,serif;
+
+  font-size:25px;
 }
 
 .pix p{
@@ -171,6 +269,10 @@ h1{
   color:#aaa;
 
   font-size:14px;
+
+  line-height:1.5;
+
+  margin-bottom:18px;
 }
 
 .btn{
@@ -179,7 +281,7 @@ h1{
 
   border:0;
 
-  border-radius:12px;
+  border-radius:13px;
 
   padding:15px;
 
@@ -188,11 +290,23 @@ h1{
   font-weight:bold;
 
   cursor:pointer;
+
+  transition:
+  transform .2s,
+  opacity .2s,
+  box-shadow .2s;
+}
+
+.btn:hover{
+
+  transform:translateY(-1px);
+
+  opacity:.95;
 }
 
 .btn-chave{
 
-  max-width:320px;
+  max-width:340px;
 
   color:#f8d58a;
 
@@ -222,7 +336,7 @@ h1{
   border:1px solid
   rgba(255,77,166,.35);
 
-  border-radius:12px;
+  border-radius:13px;
 
   padding:6px;
 }
@@ -231,20 +345,22 @@ h1{
 
   flex:1;
 
-  padding:10px;
+  padding:11px;
 
   color:#ff4da6;
 
   font-weight:bold;
 
   word-break:break-all;
+
+  font-size:14px;
 }
 
 .btn-copiar{
 
   width:auto;
 
-  padding:11px 15px;
+  padding:11px 16px;
 
   background:#ff4da6;
 
@@ -252,15 +368,38 @@ h1{
 }
 
 
-/* FORM */
+/* =========================
+   FORMULÁRIO
+========================= */
 
-h3{
+.formulario-titulo{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin:0 0 18px;
 
   color:#f8d58a;
 
   font-family:Georgia,serif;
 
   font-size:24px;
+}
+
+.formulario-titulo::before{
+
+  content:"";
+
+  width:4px;
+
+  height:27px;
+
+  border-radius:5px;
+
+  background:#ff4da6;
 }
 
 label{
@@ -295,11 +434,112 @@ input{
   font-size:16px;
 
   outline:none;
+
+  transition:.2s;
 }
 
 input:focus{
 
   border-color:#ff4da6;
+
+  box-shadow:
+  0 0 0 3px
+  rgba(255,77,166,.07);
+}
+
+
+/* VALOR */
+
+.valor-area{
+
+  position:relative;
+}
+
+.valor-prefixo{
+
+  position:absolute;
+
+  left:14px;
+
+  top:50%;
+
+  transform:translateY(-50%);
+
+  color:#f8d58a;
+
+  font-weight:bold;
+
+  pointer-events:none;
+
+  z-index:2;
+}
+
+#valor{
+
+  padding-left:42px;
+}
+
+.valor-info{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-top:7px;
+
+  color:#888;
+
+  font-size:12px;
+}
+
+
+/* VALORES RÁPIDOS */
+
+.valores-rapidos{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:8px;
+
+  margin-top:12px;
+}
+
+.valor-btn{
+
+  flex:1;
+
+  min-width:70px;
+
+  padding:9px 12px;
+
+  border-radius:10px;
+
+  border:1px solid
+  rgba(248,213,138,.20);
+
+  background:#140a0f;
+
+  color:#ddd;
+
+  cursor:pointer;
+
+  font-weight:bold;
+
+  transition:.2s;
+}
+
+.valor-btn:hover{
+
+  color:#f8d58a;
+
+  border-color:#f8d58a;
+
+  background:
+  rgba(248,213,138,.06);
 }
 
 .btn-pix{
@@ -309,26 +549,81 @@ input:focus{
   color:#13090c;
 
   background:
+
   linear-gradient(
     135deg,
     #f8d58a,
     #c9a227
   );
+
+  box-shadow:
+  0 8px 25px
+  rgba(201,162,39,.18);
 }
 
 
-/* RESULTADO */
+/* =========================
+   MENSAGEM
+========================= */
+
+.mensagem{
+
+  display:none;
+
+  margin-top:20px;
+
+  padding:13px 15px;
+
+  border-radius:11px;
+
+  text-align:center;
+
+  line-height:1.5;
+
+  font-size:14px;
+}
+
+.erro{
+
+  display:block;
+
+  color:#ffb4bd;
+
+  background:
+  rgba(180,20,50,.18);
+
+  border:1px solid
+  rgba(255,100,120,.18);
+}
+
+.sucesso{
+
+  display:block;
+
+  color:#baffd2;
+
+  background:
+  rgba(30,130,70,.16);
+
+  border:1px solid
+  rgba(100,220,140,.16);
+}
+
+
+/* =========================
+   RESULTADO
+========================= */
 
 .resultado{
 
   display:none;
 
-  margin-top:30px;
+  margin-top:32px;
 
-  padding-top:25px;
+  padding-top:28px;
 
   border-top:1px solid
-  rgba(248,213,138,.2);
+  rgba(248,213,138,.20);
 
   text-align:center;
 }
@@ -338,7 +633,23 @@ input:focus{
   color:#f8d58a;
 
   font-family:Georgia,serif;
+
+  font-size:28px;
+
+  margin-bottom:8px;
 }
+
+.resultado-intro{
+
+  color:#aaa;
+
+  line-height:1.6;
+
+  font-size:14px;
+}
+
+
+/* QR CODE */
 
 #qrcode{
 
@@ -346,7 +657,7 @@ input:focus{
 
   justify-content:center;
 
-  margin:20px 0;
+  margin:22px 0;
 }
 
 #qrcode img{
@@ -355,8 +666,15 @@ input:focus{
 
   padding:10px;
 
-  border-radius:12px;
+  border-radius:14px;
+
+  box-shadow:
+  0 10px 35px
+  rgba(0,0,0,.35);
 }
+
+
+/* CÓDIGO */
 
 .codigo{
 
@@ -375,6 +693,8 @@ input:focus{
   font-size:12px;
 
   word-break:break-all;
+
+  line-height:1.5;
 }
 
 .btn-copia{
@@ -389,61 +709,209 @@ input:focus{
   rgba(248,213,138,.3);
 }
 
+
+/* =========================
+   CAIXA COMPROVANTE
+========================= */
+
+.comprovante-box{
+
+  margin-top:25px;
+
+  padding:20px;
+
+  border-radius:17px;
+
+  text-align:left;
+
+  background:
+
+  linear-gradient(
+    145deg,
+    rgba(37,211,102,.07),
+    rgba(0,0,0,.20)
+  );
+
+  border:1px solid
+  rgba(37,211,102,.28);
+}
+
+.comprovante-topo{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:11px;
+
+  margin-bottom:9px;
+}
+
+.comprovante-icone{
+
+  width:38px;
+
+  height:38px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:
+  rgba(37,211,102,.13);
+
+  color:#25D366;
+
+  font-size:20px;
+
+  font-weight:bold;
+}
+
+.comprovante-titulo{
+
+  margin:0;
+
+  color:#fff;
+
+  font-size:17px;
+}
+
+.comprovante-texto{
+
+  margin:0 0 15px;
+
+  color:#aaa;
+
+  font-size:13px;
+
+  line-height:1.6;
+}
+
+.confirmacao{
+
+  display:flex;
+
+  align-items:flex-start;
+
+  gap:10px;
+
+  padding:12px;
+
+  border-radius:11px;
+
+  background:
+  rgba(0,0,0,.25);
+
+  margin-bottom:15px;
+}
+
+.confirmacao input{
+
+  width:19px;
+
+  height:19px;
+
+  margin:1px 0 0;
+
+  accent-color:#25D366;
+
+  flex:none;
+}
+
+.confirmacao label{
+
+  margin:0;
+
+  color:#ddd;
+
+  font-size:13px;
+
+  line-height:1.45;
+
+  font-weight:normal;
+
+  cursor:pointer;
+}
+
 .whatsapp{
 
-  margin-top:20px;
+  margin-top:0;
 
   background:#25D366;
 
   color:white;
+
+  box-shadow:
+  0 8px 22px
+  rgba(37,211,102,.15);
 }
 
-.mensagem{
+.whatsapp:disabled{
 
-  display:none;
+  opacity:.45;
 
-  margin-top:15px;
+  cursor:not-allowed;
 
-  padding:12px;
+  transform:none;
+}
 
-  border-radius:10px;
+.aviso-comprovante{
+
+  margin-top:11px;
+
+  color:#777;
+
+  font-size:11px;
+
+  line-height:1.5;
 
   text-align:center;
 }
 
-.erro{
 
-  display:block;
+/* =========================
+   RODAPÉ
+========================= */
 
-  color:#ffb4bd;
+.rodape{
 
-  background:rgba(180,20,50,.2);
+  text-align:center;
+
+  margin-top:22px;
+
+  color:#666;
+
+  font-size:11px;
+
+  line-height:1.5;
 }
 
-.sucesso{
 
-  display:block;
-
-  color:#baffd2;
-
-  background:rgba(30,130,70,.2);
-}
-
-
-/* CELULAR */
+/* =========================
+   CELULAR
+========================= */
 
 @media(max-width:600px){
 
   body{
-    padding:12px;
+    padding:12px 10px 30px;
   }
 
   .card{
-    padding:25px 17px;
+    padding:27px 16px;
+    border-radius:23px;
   }
 
   h1{
     font-size:34px;
+  }
+
+  .subtitulo{
+    font-size:14px;
   }
 
   .chave-box{
@@ -454,9 +922,23 @@ input:focus{
     width:100%;
   }
 
+  .valores-rapidos{
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+  }
+
+  .valor-btn{
+    min-width:0;
+    padding:9px 5px;
+    font-size:12px;
+  }
+
 }
 
 </style>
+
 </head>
 
 
@@ -465,7 +947,10 @@ input:focus{
 
 <div class="topo">
 
-<a href="./index.html" class="voltar">
+<a
+  href="./index.html"
+  class="voltar"
+>
 ← Voltar
 </a>
 
@@ -490,7 +975,9 @@ a experiência LUX funcionando.
 </p>
 
 
-<!-- CHAVE PIX -->
+<!-- =========================
+     CHAVE PIX
+========================= -->
 
 <section class="pix">
 
@@ -499,15 +986,16 @@ Chave PIX
 </h2>
 
 <p>
-Clique abaixo para visualizar
-a chave de contribuição.
+Utilize esta chave para realizar
+sua contribuição.
 </p>
 
 
 <button
 type="button"
 class="btn btn-chave"
-id="mostrarChave">
+id="mostrarChave"
+>
 
 Visualizar chave PIX
 
@@ -516,7 +1004,8 @@ Visualizar chave PIX
 
 <div
 class="chave"
-id="chave">
+id="chave"
+>
 
 <div class="chave-box">
 
@@ -527,7 +1016,8 @@ ajudaasofia@gmail.com
 <button
 type="button"
 class="btn btn-copiar"
-id="copiarChave">
+id="copiarChave"
+>
 
 Copiar
 
@@ -540,9 +1030,11 @@ Copiar
 </section>
 
 
-<!-- FORMULÁRIO -->
+<!-- =========================
+     FORMULÁRIO
+========================= -->
 
-<h3>
+<h3 class="formulario-titulo">
 Dados da contribuição
 </h3>
 
@@ -558,6 +1050,7 @@ Nome
 id="nome"
 type="text"
 placeholder="Seu nome"
+autocomplete="name"
 required
 >
 
@@ -570,6 +1063,7 @@ E-mail
 id="email"
 type="email"
 placeholder="seu@email.com"
+autocomplete="email"
 required
 >
 
@@ -582,6 +1076,7 @@ WhatsApp
 id="whatsapp"
 type="tel"
 placeholder="(51) 99999-9999"
+autocomplete="tel"
 required
 >
 
@@ -590,19 +1085,96 @@ required
 Valor da contribuição
 </label>
 
+
+<div class="valor-area">
+
+<span class="valor-prefixo">
+R$
+</span>
+
 <input
 id="valor"
 type="number"
 min="0.50"
 step="0.01"
-placeholder="5,00"
+inputmode="decimal"
+placeholder="0,50"
 required
 >
+
+</div>
+
+
+<div class="valor-info">
+
+<span>
+Mínimo: R$ 0,50
+</span>
+
+<span>
+Escolha qualquer valor
+</span>
+
+</div>
+
+
+<div class="valores-rapidos">
+
+<button
+type="button"
+class="valor-btn"
+data-valor="0.50"
+>
+R$ 0,50
+</button>
+
+<button
+type="button"
+class="valor-btn"
+data-valor="5"
+>
+R$ 5
+</button>
+
+<button
+type="button"
+class="valor-btn"
+data-valor="10"
+>
+R$ 10
+</button>
+
+<button
+type="button"
+class="valor-btn"
+data-valor="20"
+>
+R$ 20
+</button>
+
+<button
+type="button"
+class="valor-btn"
+data-valor="50"
+>
+R$ 50
+</button>
+
+<button
+type="button"
+class="valor-btn"
+data-valor="100"
+>
+R$ 100
+</button>
+
+</div>
 
 
 <button
 class="btn btn-pix"
-type="submit">
+type="submit"
+>
 
 Gerar PIX
 
@@ -614,55 +1186,130 @@ Gerar PIX
 
 <div
 id="mensagem"
-class="mensagem">
+class="mensagem"
+>
 </div>
 
 
-<!-- RESULTADO -->
+<!-- =========================
+     RESULTADO
+========================= -->
 
 <section
 id="resultado"
-class="resultado">
+class="resultado"
+>
 
 <h2>
-PIX gerado
+PIX pronto
 </h2>
 
-<p>
+<p class="resultado-intro">
+
 Escaneie o QR Code ou copie
-o código PIX.
+o código PIX para realizar sua contribuição.
+
 </p>
 
 
 <div id="qrcode"></div>
 
 
-<div class="codigo"
-id="codigoPix">
+<div
+class="codigo"
+id="codigoPix"
+>
 </div>
 
 
 <button
 type="button"
 class="btn btn-copia"
-id="copiarPix">
+id="copiarPix"
+>
 
 Copiar PIX
 
 </button>
 
 
+<!-- =========================
+     COMPROVANTE
+========================= -->
+
+<div class="comprovante-box">
+
+<div class="comprovante-topo">
+
+<div class="comprovante-icone">
+✓
+</div>
+
+<h3 class="comprovante-titulo">
+Envie seu comprovante
+</h3>
+
+</div>
+
+
+<p class="comprovante-texto">
+
+Depois de realizar o PIX, envie o
+comprovante pelo WhatsApp para que
+possamos identificar sua contribuição.
+
+</p>
+
+
+<div class="confirmacao">
+
+<input
+type="checkbox"
+id="confirmouPix"
+>
+
+<label for="confirmouPix">
+
+Já realizei o pagamento via PIX e
+quero enviar o comprovante pelo WhatsApp.
+
+</label>
+
+</div>
+
+
 <button
 type="button"
 class="btn whatsapp"
-id="whatsapp">
+id="whatsapp"
+disabled
+>
 
 Enviar confirmação pelo WhatsApp
 
 </button>
 
 
+<p class="aviso-comprovante">
+
+Ao abrir o WhatsApp, a mensagem será
+preenchida automaticamente. Anexe o
+comprovante na conversa antes de enviar.
+
+</p>
+
+</div>
+
+
 </section>
+
+
+<div class="rodape">
+
+LUX — Contribuição via PIX<br>
+Obrigado por apoiar o projeto.
+
+</div>
 
 
 </section>
@@ -670,12 +1317,16 @@ Enviar confirmação pelo WhatsApp
 </main>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+></script>
 
 
 <script>
 
-/* CONFIGURAÇÃO */
+/* =========================
+   CONFIGURAÇÃO
+========================= */
 
 const CHAVE_PIX =
 "ajudaasofia@gmail.com";
@@ -690,7 +1341,9 @@ const WHATSAPP =
 "5551980612941";
 
 
-/* ELEMENTOS */
+/* =========================
+   ELEMENTOS
+========================= */
 
 const mostrarChave =
 document.getElementById(
@@ -732,21 +1385,56 @@ document.getElementById(
 "qrcode"
 );
 
+const campoValor =
+document.getElementById(
+"valor"
+);
 
-/* MOSTRAR CHAVE */
+const confirmarPix =
+document.getElementById(
+"confirmouPix"
+);
+
+const botaoWhatsapp =
+document.getElementById(
+"whatsapp"
+);
+
+
+/* =========================
+   MOSTRAR CHAVE
+========================= */
 
 mostrarChave.onclick =
 function(){
 
-  chave.style.display =
-  chave.style.display === "block"
-  ? "none"
-  : "block";
+  if(
+    chave.style.display ===
+    "block"
+  ){
+
+    chave.style.display =
+    "none";
+
+    this.textContent =
+    "Visualizar chave PIX";
+
+  }else{
+
+    chave.style.display =
+    "block";
+
+    this.textContent =
+    "Ocultar chave PIX";
+
+  }
 
 };
 
 
-/* COPIAR */
+/* =========================
+   COPIAR
+========================= */
 
 async function copiar(texto){
 
@@ -765,11 +1453,20 @@ async function copiar(texto){
     "textarea"
     );
 
-    campo.value = texto;
+    campo.value =
+    texto;
+
+    campo.style.position =
+    "fixed";
+
+    campo.style.opacity =
+    "0";
 
     document.body.appendChild(
     campo
     );
+
+    campo.focus();
 
     campo.select();
 
@@ -790,28 +1487,58 @@ copiarChave.onclick =
 async function(){
 
   await copiar(
-  CHAVE_PIX
+    CHAVE_PIX
   );
 
   this.textContent =
   "Copiado!";
 
   setTimeout(
-  () => {
-    this.textContent =
-    "Copiar";
-  },
-  1500
+    () => {
+
+      this.textContent =
+      "Copiar";
+
+    },
+    1500
   );
 
 };
 
 
-/* CRC16 */
+/* =========================
+   VALORES RÁPIDOS
+========================= */
+
+document
+.querySelectorAll(
+  ".valor-btn"
+)
+.forEach(
+  function(botao){
+
+    botao.onclick =
+    function(){
+
+      campoValor.value =
+      this.dataset.valor;
+
+      campoValor.focus();
+
+    };
+
+  }
+);
+
+
+/* =========================
+   CRC16
+========================= */
 
 function crc16(texto){
 
-  let crc = 0xFFFF;
+  let crc =
+  0xFFFF;
 
   for(
     let i=0;
@@ -859,21 +1586,35 @@ function crc16(texto){
 }
 
 
-/* CAMPO PIX */
+/* =========================
+   CAMPO PIX
+========================= */
 
-function campo(id,valor){
+function campo(
+  id,
+  valor
+){
 
   return id +
-  String(valor.length)
-  .padStart(2,"0") +
+  String(
+    valor.length
+  )
+  .padStart(
+    2,
+    "0"
+  ) +
   valor;
 
 }
 
 
-/* PAYLOAD */
+/* =========================
+   PAYLOAD PIX
+========================= */
 
-function gerarPix(valor){
+function gerarPix(
+  valor
+){
 
   const conta =
 
@@ -923,14 +1664,18 @@ function gerarPix(valor){
 
     campo(
       "59",
-      NOME
-      .substring(0,25)
+      NOME.substring(
+        0,
+        25
+      )
     ) +
 
     campo(
       "60",
-      CIDADE
-      .substring(0,15)
+      CIDADE.substring(
+        0,
+        15
+      )
     ) +
 
     campo(
@@ -952,7 +1697,22 @@ function gerarPix(valor){
 }
 
 
-/* GERAR PIX */
+/* =========================
+   CONFIRMAÇÃO
+========================= */
+
+confirmarPix.onchange =
+function(){
+
+  botaoWhatsapp.disabled =
+  !this.checked;
+
+};
+
+
+/* =========================
+   GERAR PIX
+========================= */
 
 form.onsubmit =
 function(event){
@@ -962,32 +1722,38 @@ function(event){
 
   const nome =
   document
-  .getElementById("nome")
+  .getElementById(
+    "nome"
+  )
   .value
   .trim();
 
 
   const email =
   document
-  .getElementById("email")
+  .getElementById(
+    "email"
+  )
   .value
   .trim();
 
 
   const whatsapp =
   document
-  .getElementById("whatsapp")
+  .getElementById(
+    "whatsapp"
+  )
   .value
   .trim();
 
 
   const valor =
   Number(
-    document
-    .getElementById("valor")
-    .value
+    campoValor.value
   );
 
+
+  /* DADOS */
 
   if(
     !nome ||
@@ -996,7 +1762,7 @@ function(event){
   ){
 
     mensagem.textContent =
-    "Preencha todos os dados.";
+    "Preencha todos os dados antes de continuar.";
 
     mensagem.className =
     "mensagem erro";
@@ -1006,16 +1772,22 @@ function(event){
   }
 
 
+  /* VALOR */
+
   if(
-    !Number.isFinite(valor) ||
+    !Number.isFinite(
+      valor
+    ) ||
     valor < 0.50
   ){
 
     mensagem.textContent =
-    "O valor mínimo é R$ 0,50.";
+    "O valor mínimo da contribuição é R$ 0,50.";
 
     mensagem.className =
     "mensagem erro";
+
+    campoValor.focus();
 
     return;
 
@@ -1024,8 +1796,12 @@ function(event){
 
   try{
 
+    /* GERA PIX */
+
     const payload =
-    gerarPix(valor);
+    gerarPix(
+      valor
+    );
 
 
     codigoPix.textContent =
@@ -1042,7 +1818,7 @@ function(event){
     ){
 
       throw new Error(
-      "QR Code não carregado."
+        "QR Code não carregado. Verifique sua conexão com a internet."
       );
 
     }
@@ -1051,9 +1827,17 @@ function(event){
     new QRCode(
       qrcode,
       {
-        text:payload,
-        width:230,
-        height:230
+        text:
+        payload,
+
+        width:
+        230,
+
+        height:
+        230,
+
+        correctLevel:
+        QRCode.CorrectLevel.M
       }
     );
 
@@ -1062,17 +1846,31 @@ function(event){
     "block";
 
 
+    /* RESET CONFIRMAÇÃO */
+
+    confirmarPix.checked =
+    false;
+
+    botaoWhatsapp.disabled =
+    true;
+
+
     mensagem.textContent =
-    "PIX gerado com sucesso.";
+    "PIX gerado com sucesso. Realize o pagamento e envie o comprovante pelo WhatsApp.";
 
     mensagem.className =
     "mensagem sucesso";
 
 
     resultado.scrollIntoView({
-      behavior:"smooth"
+      behavior:
+      "smooth",
+      block:
+      "start"
     });
 
+
+    /* COPIAR PIX */
 
     document
     .getElementById(
@@ -1082,65 +1880,107 @@ function(event){
     async function(){
 
       await copiar(
-      payload
+        payload
       );
 
       this.textContent =
       "PIX copiado!";
 
       setTimeout(
-      () => {
-        this.textContent =
-        "Copiar PIX";
-      },
-      1500
+        () => {
+
+          this.textContent =
+          "Copiar PIX";
+
+        },
+        1500
       );
 
     };
 
 
-    document
-    .getElementById(
-      "whatsapp"
-    )
-    .onclick =
+    /* =========================
+       WHATSAPP
+    ========================= */
+
+    botaoWhatsapp.onclick =
     function(){
+
+      if(
+        !confirmarPix.checked
+      ){
+
+        return;
+
+      }
+
+
+      const valorFormatado =
+      valor.toLocaleString(
+        "pt-BR",
+        {
+          minimumFractionDigits:
+          2,
+
+          maximumFractionDigits:
+          2
+        }
+      );
+
+
+      /*
+       * IMPORTANTE:
+       * A mensagem inteira é codificada
+       * apenas uma vez.
+       */
 
       const texto =
 
-      "Olá, LUX Advance.%0A%0A" +
+`Olá, LUX Advance.
 
-      "Realizei uma contribuição via PIX.%0A%0A" +
+Realizei uma contribuição via PIX.
 
-      "Nome: " +
-      encodeURIComponent(nome) +
+Nome: ${nome}
+E-mail: ${email}
+WhatsApp: ${whatsapp}
+Valor: R$ ${valorFormatado}
 
-      "%0AValor: R$ " +
+Já realizei o pagamento e estou enviando o comprovante nesta conversa.
+
+Por favor, confirme o recebimento.`;
+
+      
+      const url =
+
+      "https://wa.me/" +
+      WHATSAPP +
+      "?text=" +
       encodeURIComponent(
-        valor.toFixed(2)
-      ) +
-
-      "%0AWhatsApp: " +
-      encodeURIComponent(
-        whatsapp
+        texto
       );
 
 
-      window.open(
-        "https://wa.me/" +
-        WHATSAPP +
-        "?text=" +
-        texto,
-        "_blank"
-      );
+      /*
+       * Tenta abrir o WhatsApp.
+       * No celular, normalmente abrirá
+       * diretamente o aplicativo.
+       */
+
+      window.location.href =
+      url;
 
     };
 
+
   }catch(error){
+
+    console.error(
+      error
+    );
 
     mensagem.textContent =
     error.message ||
-    "Erro ao gerar PIX.";
+    "Erro ao gerar o PIX.";
 
     mensagem.className =
     "mensagem erro";
@@ -1153,4 +1993,5 @@ function(event){
 
 
 </body>
+
 </html>

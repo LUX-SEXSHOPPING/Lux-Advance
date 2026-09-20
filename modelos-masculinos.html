@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
 <meta charset="UTF-8">
@@ -11,7 +12,7 @@
 
 <title>LUX — Modelos Masculinos</title>
 
-<link rel="stylesheet" href="./app.css">
+<link rel="stylesheet" href="app.css">
 
 <link
   href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap"
@@ -36,27 +37,20 @@ body{
 
   color:#fff;
 
-  font-family:
-    "Playfair Display",
-    Georgia,
-    serif;
+  font-family:"Playfair Display",Georgia,serif;
 
   background:
-
     linear-gradient(
-      rgba(4,5,7,.48),
-      rgba(3,3,5,.94)
+      rgba(3,5,10,.60),
+      rgba(2,3,7,.97)
     ),
-
     url("./Halloween-feminina.jpg")
-    center top / cover
-    fixed
-    no-repeat;
+    center top / cover fixed no-repeat;
 
   overflow-x:hidden;
 }
 
-body:before{
+body::before{
 
   content:"";
 
@@ -66,672 +60,368 @@ body:before{
 
   pointer-events:none;
 
+  z-index:0;
+
   background:
 
     radial-gradient(
-      circle at 50% 20%,
-      rgba(190,190,190,.08),
-      transparent 32%
+      circle at 10% 15%,
+      rgba(60,140,255,.14),
+      transparent 27%
     ),
 
     radial-gradient(
-      circle at 85% 70%,
-      rgba(248,213,138,.08),
-      transparent 28%
+      circle at 90% 20%,
+      rgba(248,213,138,.10),
+      transparent 25%
     );
-
-  z-index:0;
 }
 
-
-/* =========================
-   TOPO
-========================= */
-
-.topbar{
-
-  position:relative;
-
-  z-index:10;
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  padding:18px 22px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(3,3,5,.96),
-      rgba(3,3,5,.48)
-    );
-
-  border-bottom:
-    1px solid
-    rgba(248,213,138,.25);
-
-  backdrop-filter:blur(10px);
-}
-
-.marca{
-
-  color:#f8d58a;
-
-  text-decoration:none;
-
-  font-family:"Cinzel",serif;
-
-  font-weight:700;
-
-  font-size:20px;
-
-  letter-spacing:3px;
-
-  transition:.3s;
-}
-
-.marca:hover{
-
-  text-shadow:
-    0 0 15px
-    rgba(248,213,138,.45);
-}
-
-.entrar{
-
-  padding:10px 20px;
-
-  color:#f8d58a;
-
-  text-decoration:none;
-
-  border:
-    1px solid
-    rgba(248,213,138,.65);
-
-  border-radius:30px;
-
-  background:
-    rgba(5,5,7,.78);
-
-  font-family:"Cinzel",serif;
-
-  font-size:11px;
-
-  letter-spacing:1.5px;
-
-  transition:.3s;
-}
-
-.entrar:hover{
-
-  background:#f8d58a;
-
-  color:#080808;
-
-  box-shadow:
-    0 0 20px
-    rgba(248,213,138,.22);
-}
-
-
-/* =========================
-   CONTEÚDO
-========================= */
-
-.pagina{
+.page{
 
   position:relative;
 
   z-index:2;
 
-  width:min(1180px,92%);
+  width:min(1250px,92%);
 
   margin:auto;
 
-  padding:45px 0 70px;
+  padding:22px 0 70px;
 }
 
-.hero{
 
-  text-align:center;
+/* TOPO */
 
-  max-width:850px;
+.topbar{
 
-  margin:0 auto 32px;
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:8px 0 20px;
+
+  border-bottom:
+    1px solid
+    rgba(180,210,245,.20);
+
+  margin-bottom:45px;
 }
 
-.mini-titulo{
+.logo{
 
   color:#f8d58a;
 
+  text-decoration:none;
+
   font-family:"Cinzel",serif;
 
-  font-size:11px;
+  font-size:29px;
+
+  letter-spacing:6px;
+
+  font-weight:700;
+}
+
+.top-actions{
+
+  display:flex;
+
+  gap:10px;
+}
+
+.btn{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:11px 20px;
+
+  border:1px solid
+    rgba(175,210,245,.55);
+
+  border-radius:30px;
+
+  background:
+    rgba(4,7,13,.80);
+
+  color:#d7e9ff;
+
+  text-decoration:none;
+
+  font-family:"Cinzel",serif;
+
+  font-size:10px;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
+
+  transition:.3s;
+}
+
+.btn:hover{
+
+  background:#d7e9ff;
+
+  color:#07101a;
+
+  transform:translateY(-2px);
+}
+
+
+/* HERO */
+
+.hero{
+
+  position:relative;
+
+  min-height:300px;
+
+  display:flex;
+
+  align-items:center;
+
+  overflow:hidden;
+
+  border-radius:30px;
+
+  border:1px solid
+    rgba(120,180,245,.42);
+
+  margin-bottom:28px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3,7,14,.96),
+      rgba(6,15,27,.65),
+      rgba(4,5,10,.25)
+    ),
+    url("./Halloween-feminina.jpg")
+    center / cover;
+
+  box-shadow:
+    0 25px 70px
+    rgba(0,0,0,.65);
+}
+
+.hero::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(40,130,255,.13),
+      transparent 55%
+    );
+}
+
+.hero-content{
+
+  position:relative;
+
+  z-index:2;
+
+  max-width:650px;
+
+  padding:42px;
+}
+
+.eyebrow{
+
+  color:#d9eaff;
+
+  font-family:"Cinzel",serif;
+
+  font-size:10px;
 
   letter-spacing:4px;
 
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
 
 .hero h1{
 
   margin:0;
 
-  font-family:"Cinzel",serif;
+  font-size:
+    clamp(36px,6vw,64px);
 
-  font-size:clamp(30px,6vw,55px);
+  font-weight:500;
 
-  letter-spacing:3px;
+  font-style:italic;
 
-  text-shadow:
-    0 0 22px
-    rgba(0,0,0,.8);
-}
-
-.hero h1 span{
-
-  color:#f8d58a;
+  line-height:1.05;
 }
 
 .hero p{
 
-  max-width:650px;
+  margin:18px 0 0;
 
-  margin:15px auto;
-
-  color:
-    rgba(255,255,255,.75);
+  color:rgba(255,255,255,.76);
 
   line-height:1.7;
+
+  max-width:580px;
 }
 
 
-/* =========================
-   PESQUISA
-========================= */
+/* FILTROS */
 
-.pesquisa-area{
-
-  max-width:720px;
-
-  margin:0 auto 18px;
-
-  padding:4px;
-
-  border-radius:40px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(248,213,138,.13),
-      rgba(150,150,150,.13),
-      rgba(248,213,138,.13)
-    );
-
-  box-shadow:
-    0 10px 35px
-    rgba(0,0,0,.20);
-}
-
-#pesquisa{
-
-  width:100%;
-
-  padding:16px 24px;
-
-  border:
-    1px solid
-    rgba(248,213,138,.32);
-
-  border-radius:35px;
-
-  outline:none;
-
-  background:
-    rgba(4,4,6,.94);
-
-  color:#fff;
-
-  text-align:center;
-
-  font-family:"Playfair Display",serif;
-
-  font-size:15px;
-
-  transition:.3s;
-}
-
-#pesquisa::placeholder{
-
-  color:
-    rgba(255,255,255,.48);
-}
-
-#pesquisa:focus{
-
-  border-color:
-    rgba(248,213,138,.72);
-
-  box-shadow:
-    0 0 20px
-    rgba(248,213,138,.08);
-}
-
-
-/* =========================
-   FILTROS
-========================= */
-
-.filtros-area{
-
-  width:100%;
-
-  margin:0 auto 30px;
-
-  padding:18px;
-
-  border:
-    1px solid
-    rgba(248,213,138,.20);
-
-  border-radius:22px;
-
-  background:
-
-    linear-gradient(
-      145deg,
-      rgba(20,20,23,.88),
-      rgba(5,5,7,.82)
-    );
-
-  box-shadow:
-    0 18px 45px
-    rgba(0,0,0,.30),
-
-    inset
-    0 0 30px
-    rgba(248,213,138,.025);
-
-  backdrop-filter:blur(10px);
-}
-
-.filtros-titulo{
-
-  margin:0 0 13px;
-
-  text-align:center;
-
-  color:
-    rgba(248,213,138,.82);
-
-  font-family:"Cinzel",serif;
-
-  font-size:10px;
-
-  letter-spacing:2px;
-}
-
-.filtros-grid{
+.filters{
 
   display:grid;
 
   grid-template-columns:
-    repeat(2,1fr);
+    1.5fr 1fr 1fr;
 
-  gap:14px;
+  gap:12px;
+
+  margin-bottom:30px;
 }
 
-.filtro-item{
-
-  position:relative;
-}
-
-.filtro-item label{
-
-  display:block;
-
-  margin:0 0 7px 4px;
-
-  color:
-    rgba(255,255,255,.62);
-
-  font-family:"Cinzel",serif;
-
-  font-size:9px;
-
-  letter-spacing:1.5px;
-}
-
-.filtro-item select{
+.field{
 
   width:100%;
 
-  min-height:48px;
+  padding:14px 16px;
 
-  padding:0 42px 0 16px;
+  border-radius:16px;
 
-  border:
-    1px solid
-    rgba(248,213,138,.30);
-
-  border-radius:14px;
+  border:1px solid
+    rgba(150,195,240,.24);
 
   outline:none;
 
   color:#fff;
 
   background:
-    rgba(5,5,7,.92);
+    rgba(5,9,16,.85);
 
-  font-family:
-    "Playfair Display",
-    Georgia,
-    serif;
-
-  font-size:13px;
-
-  cursor:pointer;
-
-  appearance:none;
-
-  -webkit-appearance:none;
-
-  transition:.3s;
+  font-family:"Playfair Display",serif;
 }
 
-.filtro-item:after{
-
-  content:"⌄";
-
-  position:absolute;
-
-  right:17px;
-
-  bottom:11px;
-
-  color:#f8d58a;
-
-  font-size:18px;
-
-  pointer-events:none;
-}
-
-.filtro-item select:hover{
+.field:focus{
 
   border-color:
-    rgba(248,213,138,.60);
+    rgba(170,215,255,.72);
 }
 
-.filtro-item select:focus{
+select.field{
 
-  border-color:#f8d58a;
-
-  box-shadow:
-    0 0 18px
-    rgba(248,213,138,.08);
-}
-
-.filtro-item select option{
-
-  color:#fff;
-
-  background:#09090b;
+  cursor:pointer;
 }
 
 
-/* =========================
-   BOTÃO
-========================= */
+/* CABEÇALHO */
 
-.acoes{
+.result-head{
 
   display:flex;
 
-  justify-content:center;
+  align-items:end;
 
-  margin-bottom:45px;
+  justify-content:space-between;
+
+  margin-bottom:20px;
 }
 
-.btn-catalogo{
+.result-head h2{
 
-  padding:12px 25px;
+  margin:0;
 
-  color:#f8d58a;
+  font-size:25px;
 
-  text-decoration:none;
-
-  border:
-    1px solid
-    rgba(248,213,138,.58);
-
-  border-radius:30px;
-
-  background:
-    rgba(4,4,6,.75);
-
-  font-family:"Cinzel",serif;
-
-  font-size:11px;
-
-  letter-spacing:1.5px;
-
-  transition:.3s;
+  font-weight:500;
 }
 
-.btn-catalogo:hover{
+.result-head span{
 
-  background:#f8d58a;
+  color:rgba(255,255,255,.48);
 
-  color:#090909;
-
-  box-shadow:
-    0 0 22px
-    rgba(248,213,138,.16);
+  font-size:12px;
 }
 
 
-/* =========================
-   GRID
-========================= */
+/* GRID */
 
-#listaModelos{
+.grid{
 
   display:grid;
 
   grid-template-columns:
-    repeat(auto-fit,minmax(270px,1fr));
+    repeat(3,1fr);
 
-  gap:38px;
+  gap:22px;
 }
 
 
-/* =========================
-   CARD MASCULINO
-========================= */
+/* CARD */
 
-.modelo-card{
+.card{
 
   position:relative;
 
-  min-height:420px;
+  min-height:470px;
 
-  padding:48px 24px 28px;
+  overflow:hidden;
 
-  text-align:center;
+  border-radius:24px;
 
-  overflow:visible;
+  background:#070a10;
 
-  border:
-    1px solid
-    rgba(248,213,138,.32);
-
-  border-radius:
-    24px
-    24px
-    50px
-    50px;
-
-  background:
-
-    linear-gradient(
-      145deg,
-      rgba(22,23,26,.97),
-      rgba(5,5,7,.98)
-    );
+  border:1px solid
+    rgba(120,180,245,.44);
 
   box-shadow:
+    0 18px 45px
+    rgba(0,0,0,.58);
 
-    0 22px 50px
-    rgba(0,0,0,.62),
-
-    inset
-    0 0 30px
-    rgba(248,213,138,.035);
-
-  backdrop-filter:blur(7px);
-
-  transition:.35s;
+  transition:.4s;
 }
 
-.modelo-card:hover{
+.card:hover{
 
   transform:translateY(-8px);
 
   border-color:
-    rgba(248,213,138,.75);
+    rgba(175,220,255,.95);
 
   box-shadow:
-
     0 30px 65px
-    rgba(0,0,0,.72),
-
-    0 0 28px
-    rgba(248,213,138,.10);
+    rgba(0,0,0,.75),
+    0 0 30px
+    rgba(60,145,255,.15);
 }
 
+.card-photo{
 
-/* =========================
-   SELO DO PLANO
-========================= */
-
-.selo-plano{
-
-  position:absolute;
-
-  top:-17px;
-
-  left:50%;
-
-  transform:
-    translateX(-50%)
-    rotate(3deg);
-
-  z-index:6;
-
-  padding:10px 22px;
-
-  color:#120e08;
-
-  background:
-    linear-gradient(
-      135deg,
-      #f8d58a,
-      #9c7434,
-      #f8d58a
-    );
-
-  border:
-    2px solid
-    #fff0bd;
-
-  border-radius:
-    8px
-    8px
-    15px
-    15px;
-
-  font-family:"Cinzel",serif;
-
-  font-size:10px;
-
-  font-weight:700;
-
-  letter-spacing:1.5px;
-
-  white-space:nowrap;
-
-  box-shadow:
-    0 7px 18px
-    rgba(0,0,0,.65),
-
-    0 0 15px
-    rgba(248,213,138,.10);
-}
-
-.selo-plano:before{
-
-  content:"";
-
-  position:absolute;
-
-  top:-9px;
-
-  left:50%;
-
-  width:10px;
-
-  height:10px;
-
-  transform:translateX(-50%);
-
-  border-radius:50%;
-
-  background:#080808;
-
-  border:
-    2px solid
-    #f8d58a;
-}
-
-
-/* =========================
-   FOTO
-========================= */
-
-.modelo-foto{
+  height:330px;
 
   position:relative;
 
-  width:190px;
-
-  height:190px;
-
-  margin:0 auto 20px;
-
-  padding:7px;
-
-  border-radius:50%;
+  overflow:hidden;
 
   background:
-
     linear-gradient(
       135deg,
-      #f8d58a,
-      #656565,
-      #171717,
-      #f8d58a
+      #101a28,
+      #05070b
     );
-
-  box-shadow:
-    0 0 30px
-    rgba(248,213,138,.13);
 }
 
-.modelo-foto img{
+.card-photo img{
 
   width:100%;
 
@@ -741,29 +431,45 @@ body:before{
 
   display:block;
 
-  border-radius:50%;
-
-  border:
-    4px solid
-    #070709;
+  transition:.6s;
 }
 
+.card:hover .card-photo img{
 
-/* =========================
-   ABÓBORA
-========================= */
+  transform:scale(1.06);
+}
 
-.abobora{
+.card-photo::after{
+
+  content:"";
 
   position:absolute;
 
-  right:-8px;
+  inset:0;
 
-  bottom:10px;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 45%,
+      rgba(2,4,8,.94) 100%
+    );
+}
 
-  width:48px;
+.favorite{
 
-  height:48px;
+  position:absolute;
+
+  z-index:5;
+
+  top:15px;
+
+  right:15px;
+
+  width:42px;
+
+  height:42px;
+
+  border-radius:50%;
 
   display:flex;
 
@@ -771,684 +477,480 @@ body:before{
 
   justify-content:center;
 
-  border-radius:50%;
+  color:#d7e9ff;
 
   background:
-    #101014;
+    rgba(3,6,12,.72);
 
-  border:
-    2px solid
-    #f8d58a;
+  border:1px solid
+    rgba(180,215,250,.30);
 
-  font-size:25px;
-
-  box-shadow:
-    0 5px 15px
-    rgba(0,0,0,.75),
-
-    0 0 12px
-    rgba(248,213,138,.08);
+  font-size:22px;
 }
 
+.card-content{
 
-/* =========================
-   TEXTOS
-========================= */
-
-.modelo-card h3{
-
-  margin:7px 0;
-
-  color:#fff;
-
-  font-family:"Cinzel",serif;
-
-  font-size:21px;
-
-  letter-spacing:1.5px;
+  padding:18px 20px 22px;
 }
 
-.modelo-info{
+.card-name{
 
-  color:
-    rgba(255,255,255,.65);
+  margin:0 0 6px;
 
-  font-size:14px;
+  font-size:22px;
 
-  margin:7px;
+  font-weight:500;
 }
 
-.modelo-descricao{
+.card-location{
 
-  max-width:310px;
-
-  margin:13px auto 20px;
-
-  color:
-    rgba(255,255,255,.58);
+  color:rgba(255,255,255,.65);
 
   font-size:13px;
 
-  line-height:1.6;
+  margin-bottom:14px;
 }
 
-.btn-perfil{
+.tags{
 
-  display:inline-block;
+  display:flex;
 
-  padding:10px 23px;
+  flex-wrap:wrap;
 
-  border:
-    1px solid
-    rgba(248,213,138,.58);
+  gap:7px;
+}
 
-  border-radius:25px;
+.tag{
 
-  background:
-    rgba(5,5,7,.7);
+  padding:6px 10px;
 
-  color:#f8d58a;
-
-  text-decoration:none;
-
-  font-family:"Cinzel",serif;
+  border-radius:20px;
 
   font-size:10px;
 
-  letter-spacing:1.3px;
+  border:1px solid
+    rgba(145,200,255,.38);
 
-  transition:.3s;
+  color:#c7e3ff;
+
+  background:
+    rgba(60,140,255,.06);
 }
 
-.btn-perfil:hover{
+.tag.plan{
 
-  background:#f8d58a;
+  color:#f8d58a;
 
-  color:#090909;
-
-  box-shadow:
-    0 0 18px
-    rgba(248,213,138,.16);
+  border-color:
+    rgba(248,213,138,.42);
 }
 
-
-/* =========================
-   MENSAGEM
-========================= */
-
-.mensagem{
+.status{
 
   grid-column:1/-1;
 
-  padding:45px 20px;
+  text-align:center;
+
+  padding:60px 20px;
+
+  color:rgba(255,255,255,.58);
+}
+
+footer{
 
   text-align:center;
 
-  border:
-    1px solid
-    rgba(248,213,138,.18);
+  margin-top:60px;
 
-  border-radius:30px;
+  padding-top:25px;
 
-  background:
-    rgba(5,5,7,.75);
+  border-top:1px solid
+    rgba(180,210,245,.15);
 
-  color:
-    rgba(255,255,255,.70);
-}
-
-.mensagem strong{
-
-  display:block;
-
-  margin-bottom:8px;
-
-  color:#f8d58a;
-
-  font-family:"Cinzel",serif;
-
-  letter-spacing:2px;
-}
-
-
-/* =========================
-   RODAPÉ
-========================= */
-
-.rodape{
-
-  position:relative;
-
-  z-index:2;
-
-  padding:25px 15px;
-
-  text-align:center;
-
-  border-top:
-    1px solid
-    rgba(248,213,138,.18);
-
-  background:
-    rgba(3,3,5,.78);
-
-  color:
-    rgba(255,255,255,.55);
+  color:rgba(255,255,255,.42);
 
   font-size:12px;
 
-  line-height:1.8;
-}
-
-.rodape strong{
-
-  color:#f8d58a;
-
-  font-family:"Cinzel",serif;
+  letter-spacing:1px;
 }
 
 
-/* =========================
-   CELULAR
-========================= */
+/* RESPONSIVO */
 
-@media(max-width:700px){
+@media(max-width:900px){
 
-  .pagina{
-    padding-top:35px;
+  .grid{
+
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
-  .filtros-grid{
+  .filters{
 
-    grid-template-columns:1fr;
-
-    gap:12px;
+    grid-template-columns:1fr 1fr;
   }
 
-  .filtros-area{
+  .filters input{
 
-    padding:15px;
+    grid-column:1/-1;
   }
-
-  #listaModelos{
-
-    grid-template-columns:1fr;
-  }
-
-  .modelo-card{
-
-    width:100%;
-
-    max-width:370px;
-
-    margin:auto;
-  }
-
-  .modelo-foto{
-
-    width:175px;
-
-    height:175px;
-  }
-
 }
 
-@media(max-width:400px){
+@media(max-width:600px){
 
-  .topbar{
+  .page{
 
-    padding:15px;
+    width:94%;
   }
 
-  .marca{
+  .logo{
 
-    font-size:18px;
+    font-size:23px;
   }
 
-  .entrar{
+  .hero{
 
-    padding:9px 15px;
+    min-height:370px;
+  }
 
-    font-size:10px;
+  .hero-content{
+
+    padding:28px;
   }
 
   .hero h1{
 
-    font-size:31px;
+    font-size:42px;
   }
 
-}
+  .filters{
 
+    grid-template-columns:1fr;
+  }
 
-/* =========================
-   REDUÇÃO DE MOVIMENTO
-========================= */
+  .filters input{
 
-@media(prefers-reduced-motion:reduce){
+    grid-column:auto;
+  }
 
-  *,
-  *:before,
-  *:after{
+  .grid{
 
-    scroll-behavior:auto !important;
-
-    transition:none !important;
-
-    animation:none !important;
+    grid-template-columns:1fr;
   }
 
 }
 
 </style>
+
 </head>
 
 <body>
 
+<main class="page">
+
 <header class="topbar">
 
-  <a
-    href="./index.html"
-    class="marca"
-  >
-    LUX
-  </a>
+<a class="logo" href="index.html">
+LUX
+</a>
 
-  <a
-    href="./login.html"
-    class="entrar"
-  >
-    ENTRAR
-  </a>
+<div class="top-actions">
+
+<a class="btn" href="catalago.html">
+CATÁLOGO
+</a>
+
+<a class="btn" href="login.html">
+ENTRAR
+</a>
+
+</div>
 
 </header>
 
 
-<main class="pagina">
-
-
 <section class="hero">
 
-  <div class="mini-titulo">
-    LUX ADVANCE
-  </div>
+<div class="hero-content">
 
-  <h1>
-    Modelos <span>Masculinos</span>
-  </h1>
+<div class="eyebrow">
+LUX — MASCULINA
+</div>
 
-  <p>
-    Conheça os perfis disponíveis na experiência LUX.
-    Encontre uma presença que combine com o momento.
-  </p>
+<h1>
+Presença, atitude e sofisticação.
+</h1>
+
+<p>
+Explore os perfis masculinos disponíveis na plataforma LUX
+e descubra homens com personalidade, presença e estilo.
+</p>
+
+</div>
 
 </section>
 
 
-<!-- PESQUISA -->
+<section class="filters">
 
-<div class="pesquisa-area">
+<input
+  id="busca"
+  class="field"
+  type="search"
+  placeholder="Pesquisar por nome..."
+>
 
-  <input
-    type="search"
-    id="pesquisa"
-    placeholder="Pesquisar por nome ou cidade..."
-    autocomplete="off"
-  >
+<select id="filtroPlano" class="field">
 
-</div>
+<option value="">
+Todos os planos
+</option>
 
+</select>
 
-<!-- FILTROS -->
+<select id="filtroLocalizacao" class="field">
 
-<div class="filtros-area">
+<option value="">
+Todas as regiões / cidades
+</option>
 
-  <div class="filtros-titulo">
-    FILTRAR EXPERIÊNCIA LUX
-  </div>
-
-  <div class="filtros-grid">
-
-    <div class="filtro-item">
-
-      <label for="filtroPlano">
-        PLANO
-      </label>
-
-      <select id="filtroPlano">
-
-        <option value="">
-          TODOS OS PLANOS
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="filtro-item">
-
-      <label for="filtroLocalizacao">
-        REGIÃO / CIDADE
-      </label>
-
-      <select id="filtroLocalizacao">
-
-        <option value="">
-          TODAS AS REGIÕES / CIDADES
-        </option>
-
-      </select>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- BOTÃO -->
-
-<div class="acoes">
-
-  <a
-    href="./catalago.html"
-    class="btn-catalogo"
-  >
-    ← VOLTAR AO CATÁLOGO
-  </a>
-
-</div>
-
-
-<!-- MODELOS -->
-
-<section id="listaModelos">
-
-  <div class="mensagem">
-
-    <strong>
-      LUX
-    </strong>
-
-    Carregando modelos...
-
-  </div>
+</select>
 
 </section>
 
+
+<div class="result-head">
+
+<h2>
+Modelos Masculinos
+</h2>
+
+<span id="contador">
+Carregando...
+</span>
+
+</div>
+
+
+<section id="lista" class="grid">
+
+<div class="status">
+Carregando modelos...
+</div>
+
+</section>
+
+
+<footer>
+LUX — Sensualidade &amp; Sofisticação
+</footer>
 
 </main>
-
-
-<footer class="rodape">
-
-<strong>
-  LUX — Sensualidade &amp; Sofisticação
-</strong>
-
-<br>
-
-Agência Europeia • Conteúdo para maiores de 18 anos
-
-<br>
-
-© 2026 LUX Advance — Todos os direitos reservados.
-
-</footer>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="./config.js"></script>
 
-<script src="./auth.js"></script>
-
-
 <script>
+
+const busca=document.getElementById("busca");
+
+const filtroPlano=
+  document.getElementById("filtroPlano");
+
+const filtroLocalizacao=
+  document.getElementById("filtroLocalizacao");
+
+const lista=
+  document.getElementById("lista");
+
+const contador=
+  document.getElementById("contador");
 
 let modelos=[];
 
 
-/* =========================
-   SEGURANÇA
-========================= */
+function valor(obj,campos){
 
-function escapeHTML(valor){
+  for(const campo of campos){
 
-  return String(valor ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    if(
+      obj &&
+      obj[campo]!==undefined &&
+      obj[campo]!==null &&
+      String(obj[campo]).trim()!==""
+    ){
 
-}
+      return String(obj[campo]).trim();
 
+    }
 
-/* =========================
-   NORMALIZAÇÃO
-========================= */
+  }
 
-function normalizar(valor){
-
-  return String(valor ?? "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .toLowerCase()
-    .trim();
+  return "";
 
 }
 
 
-/* =========================
-   PLANO
-========================= */
+function nomeModelo(m){
 
-function nomePlano(modelo){
+  return valor(m,[
+    "nome_profissional",
+    "nome",
+    "nome_completo",
+    "nome_social"
+  ]) || "Modelo LUX";
 
-  return String(
+}
 
-    modelo.plano ||
 
-    modelo.nome_plano ||
+function fotoModelo(m){
 
-    modelo.assinatura ||
+  return valor(m,[
+    "foto_url",
+    "foto",
+    "imagem",
+    "avatar",
+    "foto_perfil"
+  ]) || "./Halloween-feminina.jpg";
 
-    modelo.plano_atual ||
+}
 
-    "LUX ESSENCE"
 
+function cidadeModelo(m){
+
+  return valor(m,[
+    "cidade",
+    "cidade_nome"
+  ]);
+
+}
+
+
+function regiaoModelo(m){
+
+  return valor(m,[
+    "regiao",
+    "regiao_nome",
+    "regiao_atual"
+  ]);
+
+}
+
+
+function planoModelo(m){
+
+  return (
+    valor(m,[
+      "plano",
+      "nome_plano",
+      "assinatura",
+      "plano_atual"
+    ]) || "LUX ESSENCE"
   ).toUpperCase();
 
 }
 
 
-/* =========================
-   REGIÃO
-========================= */
+function localModelo(m){
 
-function nomeRegiao(modelo){
+  const regiao=regiaoModelo(m);
 
-  return String(
+  const cidade=cidadeModelo(m);
 
-    modelo.regiao ||
+  if(regiao && cidade)
+    return regiao+" — "+cidade;
 
-    modelo.regiao_nome ||
-
-    modelo.regiao_atual ||
-
-    ""
-
-  ).trim();
+  return cidade || regiao ||
+    "Localização não informada";
 
 }
 
 
-/* =========================
-   CIDADE
-========================= */
+function preencherFiltros(){
 
-function nomeCidade(modelo){
+  [...new Set(
+    modelos.map(planoModelo)
+  )]
+  .sort()
+  .forEach(plano=>{
 
-  return String(
-
-    modelo.cidade ||
-
-    modelo.cidade_nome ||
-
-    ""
-
-  ).trim();
-
-}
-
-
-/* =========================
-   LOCALIZAÇÃO
-========================= */
-
-function nomeLocalizacao(modelo){
-
-  const regiao=
-    nomeRegiao(modelo);
-
-  const cidade=
-    nomeCidade(modelo);
-
-  if(regiao && cidade){
-
-    return `${regiao} — ${cidade}`;
-
-  }
-
-  return cidade || regiao || "";
-
-}
-
-
-/* =========================
-   FILTRO DE PLANOS
-========================= */
-
-function preencherFiltroPlanos(){
-
-  const select=
-    document.getElementById("filtroPlano");
-
-  const planos=[
-    ...new Set(
-
-      modelos
-        .map(modelo=>nomePlano(modelo))
-        .filter(Boolean)
-
-    )
-  ];
-
-  planos.sort((a,b)=>
-    a.localeCompare(b,"pt-BR")
-  );
-
-  select.innerHTML=`
-
-    <option value="">
-      TODOS OS PLANOS
-    </option>
-
-  `;
-
-  planos.forEach(plano=>{
-
-    const option=
+    const o=
       document.createElement("option");
 
-    option.value=plano;
+    o.value=plano;
 
-    option.textContent=plano;
+    o.textContent=plano;
 
-    select.appendChild(option);
+    filtroPlano.appendChild(o);
+
+  });
+
+
+  [...new Set(
+    modelos.map(localModelo)
+  )]
+  .filter(Boolean)
+  .sort()
+  .forEach(local=>{
+
+    const o=
+      document.createElement("option");
+
+    o.value=local;
+
+    o.textContent=local;
+
+    filtroLocalizacao.appendChild(o);
 
   });
 
 }
 
 
-/* =========================
-   FILTRO DE REGIÃO / CIDADE
-========================= */
+function render(){
 
-function preencherFiltroLocalizacao(){
+  const texto=
+    busca.value.toLowerCase().trim();
 
-  const select=
-    document.getElementById(
-      "filtroLocalizacao"
-    );
+  const plano=
+    filtroPlano.value;
 
-  const locais=[
-    ...new Set(
-
-      modelos
-        .map(modelo=>nomeLocalizacao(modelo))
-        .filter(Boolean)
-
-    )
-  ];
-
-  locais.sort((a,b)=>
-    a.localeCompare(b,"pt-BR")
-  );
-
-  select.innerHTML=`
-
-    <option value="">
-      TODAS AS REGIÕES / CIDADES
-    </option>
-
-  `;
-
-  locais.forEach(local=>{
-
-    const option=
-      document.createElement("option");
-
-    option.value=local;
-
-    option.textContent=local;
-
-    select.appendChild(option);
-
-  });
-
-}
+  const local=
+    filtroLocalizacao.value;
 
 
-/* =========================
-   MOSTRAR MODELOS
-========================= */
+  const filtrados=
+    modelos.filter(m=>{
 
-function mostrarModelos(lista){
+      const nome=
+        nomeModelo(m).toLowerCase();
 
-  const container=
-    document.getElementById(
-      "listaModelos"
+      return (
+        (!texto || nome.includes(texto)) &&
+        (!plano || planoModelo(m)===plano) &&
+        (!local || localModelo(m)===local)
+      );
+
+    });
+
+
+  contador.textContent=
+    filtrados.length+
+    (
+      filtrados.length===1
+      ? " perfil"
+      : " perfis"
     );
 
 
-  if(!lista.length){
+  if(!filtrados.length){
 
-    container.innerHTML=`
-
-      <div class="mensagem">
-
-        <strong>
-          NENHUM PERFIL ENCONTRADO
-        </strong>
-
-        Tente pesquisar por outro nome
-        ou cidade.
-
+    lista.innerHTML=`
+      <div class="status">
+        Nenhum perfil encontrado.
       </div>
-
     `;
 
     return;
@@ -1456,153 +958,58 @@ function mostrarModelos(lista){
   }
 
 
-  container.innerHTML=
-    lista.map(modelo=>{
+  lista.innerHTML=
+    filtrados.map(m=>{
 
+      const nome=nomeModelo(m);
 
-      const nome=
-        escapeHTML(
+      const foto=fotoModelo(m);
 
-          modelo.nome ||
+      const local=localModelo(m);
 
-          modelo.nome_profissional ||
-
-          "Modelo LUX"
-
-        );
-
-
-      const cidade=
-        escapeHTML(
-          nomeCidade(modelo)
-        );
-
-
-      const descricao=
-        escapeHTML(
-
-          modelo.descricao ||
-
-          "Perfil LUX"
-
-        );
-
-
-      const foto=
-
-        modelo.foto_url ||
-
-        modelo.foto ||
-
-        modelo.imagem ||
-
-        "";
-
-
-      const fotoHTML=
-
-        foto
-
-        ? `
-
-          <div class="modelo-foto">
-
-            <img
-              src="${escapeHTML(foto)}"
-              alt="${nome}"
-              loading="lazy"
-            >
-
-            <div class="abobora">
-              🎃
-            </div>
-
-          </div>
-
-        `
-
-        : `
-
-          <div class="modelo-foto">
-
-            <div
-              style="
-                width:100%;
-                height:100%;
-                border-radius:50%;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                background:#09090b;
-                color:#f8d58a;
-                font-family:Cinzel,serif;
-              "
-            >
-              LUX
-            </div>
-
-            <div class="abobora">
-              🎃
-            </div>
-
-          </div>
-
-        `;
-
+      const plano=planoModelo(m);
 
       return `
 
-        <article class="modelo-card">
+        <article class="card">
 
-          <div class="selo-plano">
+          <div class="card-photo">
 
-            ${escapeHTML(
-              nomePlano(modelo)
-            )}
+            <img
+              src="${foto}"
+              alt="${nome}"
+              onerror="this.src='./Halloween-feminina.jpg'"
+            >
 
-          </div>
-
-
-          ${fotoHTML}
-
-
-          <h3>
-            ${nome}
-          </h3>
-
-
-          ${
-            cidade
-
-            ? `
-
-              <div class="modelo-info">
-
-                ${cidade}
-
-              </div>
-
-            `
-
-            : ""
-
-          }
-
-
-          <div class="modelo-descricao">
-
-            ${descricao}
+            <div class="favorite">
+              ♡
+            </div>
 
           </div>
 
+          <div class="card-content">
 
-          <a
-            href="./login.html"
-            class="btn-perfil"
-          >
-            VER PERFIL
-          </a>
+            <h3 class="card-name">
+              ${nome}
+            </h3>
 
+            <div class="card-location">
+              ${local}
+            </div>
+
+            <div class="tags">
+
+              <span class="tag">
+                Masculino
+              </span>
+
+              <span class="tag plan">
+                ${plano}
+              </span>
+
+            </div>
+
+          </div>
 
         </article>
 
@@ -1613,136 +1020,7 @@ function mostrarModelos(lista){
 }
 
 
-/* =========================
-   APLICAR FILTROS
-========================= */
-
-function aplicarFiltros(){
-
-  const pesquisa=
-    normalizar(
-
-      document.getElementById(
-        "pesquisa"
-      ).value
-
-    );
-
-
-  const planoSelecionado=
-    normalizar(
-
-      document.getElementById(
-        "filtroPlano"
-      ).value
-
-    );
-
-
-  const localSelecionado=
-    normalizar(
-
-      document.getElementById(
-        "filtroLocalizacao"
-      ).value
-
-    );
-
-
-  const filtrados=
-    modelos.filter(modelo=>{
-
-
-      const nome=
-        normalizar(
-
-          modelo.nome ||
-
-          modelo.nome_profissional ||
-
-          ""
-
-        );
-
-
-      const cidade=
-        normalizar(
-          nomeCidade(modelo)
-        );
-
-
-      const regiao=
-        normalizar(
-          nomeRegiao(modelo)
-        );
-
-
-      const localizacao=
-        normalizar(
-          nomeLocalizacao(modelo)
-        );
-
-
-      const plano=
-        normalizar(
-          nomePlano(modelo)
-        );
-
-
-      const correspondePesquisa=
-
-        !pesquisa ||
-
-        nome.includes(pesquisa) ||
-
-        cidade.includes(pesquisa) ||
-
-        regiao.includes(pesquisa);
-
-
-      const correspondePlano=
-
-        !planoSelecionado ||
-
-        plano === planoSelecionado;
-
-
-      const correspondeLocal=
-
-        !localSelecionado ||
-
-        localizacao === localSelecionado;
-
-
-      return(
-
-        correspondePesquisa &&
-
-        correspondePlano &&
-
-        correspondeLocal
-
-      );
-
-    });
-
-
-  mostrarModelos(filtrados);
-
-}
-
-
-/* =========================
-   CARREGAR MODELOS
-========================= */
-
-async function carregarModelos(){
-
-  const container=
-    document.getElementById(
-      "listaModelos"
-    );
-
+async function carregar(){
 
   try{
 
@@ -1754,45 +1032,34 @@ async function carregarModelos(){
 
     }
 
-
     const {data,error}=
-
       await window.luxSupabase
-
         .from("modelo_perfis")
-
         .select("*");
 
+    if(error)
+      throw error;
 
-    if(error) throw error;
+    modelos=
+      Array.isArray(data)
+      ? data
+      : [];
 
+    preencherFiltros();
 
-    modelos=data || [];
-
-
-    preencherFiltroPlanos();
-
-    preencherFiltroLocalizacao();
-
-    mostrarModelos(modelos);
-
+    render();
 
   }catch(error){
 
     console.error(error);
 
+    contador.textContent="Erro";
 
-    container.innerHTML=`
+    lista.innerHTML=`
 
-      <div class="mensagem">
-
-        <strong>
-          LUX
-        </strong>
-
-        Não foi possível carregar os modelos
-        neste momento.
-
+      <div class="status">
+        Não foi possível carregar
+        os modelos no momento.
       </div>
 
     `;
@@ -1802,39 +1069,19 @@ async function carregarModelos(){
 }
 
 
-/* =========================
-   EVENTOS
-========================= */
+busca.addEventListener("input",render);
 
-document
-  .getElementById("pesquisa")
-  .addEventListener(
-    "input",
-    aplicarFiltros
-  );
+filtroPlano.addEventListener(
+  "change",
+  render
+);
 
+filtroLocalizacao.addEventListener(
+  "change",
+  render
+);
 
-document
-  .getElementById("filtroPlano")
-  .addEventListener(
-    "change",
-    aplicarFiltros
-  );
-
-
-document
-  .getElementById("filtroLocalizacao")
-  .addEventListener(
-    "change",
-    aplicarFiltros
-  );
-
-
-/* =========================
-   INICIAR
-========================= */
-
-carregarModelos();
+carregar();
 
 </script>
 

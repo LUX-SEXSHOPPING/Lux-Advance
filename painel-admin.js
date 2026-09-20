@@ -1,150 +1,525 @@
-// ============================================================
-// LUX-ADVANCE
-// PAINEL ADMINISTRATIVO
-// VERSÃO CORRIGIDA E OTIMIZADA
-// ============================================================
+// =============================================================
+// LUX-ADVANCE — PAINEL ADMINISTRATIVO
+// FUNCIONALIDADE DOS MÓDULOS
+// =============================================================
 
 let listaPreCadastros = [];
 let filtroStatus = "todos";
 let indiceSelecionado = null;
 
 
-// ============================================================
+// =============================================================
 // INICIALIZAÇÃO
-// ============================================================
+// =============================================================
 
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async () => {
 
-    console.log("LUX-ADVANCE | Painel administrativo iniciado.");
+    await carregarListaPreCadastros();
 
     ativarBotoesFiltro();
 
-    await carregarListaPreCadastros();
+    ativarModulosAdmin();
+
+    atualizarResumo();
 
 });
 
 
-// ============================================================
+// =============================================================
 // CARREGAR PRÉ-CADASTROS
-// ============================================================
+// =============================================================
 
 async function carregarListaPreCadastros() {
 
-    const container =
-        document.getElementById("lista-precadastros");
-
-    if (!container) {
-
-        console.error(
-            "LUX: elemento #lista-precadastros não encontrado."
-        );
-
-        return;
-
-    }
-
-
-    container.innerHTML = `
-        <div
-            style="
-                grid-column:1/-1;
-                padding:50px 20px;
-                text-align:center;
-                color:#999;
-            "
-        >
-            Carregando registros...
-        </div>
-    `;
-
+    const container = document.getElementById("lista-precadastros");
 
     try {
-
-        /*
-         * Mantemos o sistema atual.
-         * Os pré-cadastros continuam sendo
-         * recuperados do localStorage.
-         */
 
         const dadosSalvos =
             localStorage.getItem("fichasPreCadastro");
 
+        listaPreCadastros =
+            dadosSalvos
+                ? JSON.parse(dadosSalvos)
+                : [];
 
-        if (!dadosSalvos) {
-
+        if (!Array.isArray(listaPreCadastros)) {
             listaPreCadastros = [];
-
-        } else {
-
-            const dados =
-                JSON.parse(dadosSalvos);
-
-            listaPreCadastros =
-                Array.isArray(dados)
-                    ? dados
-                    : [];
-
         }
 
-
-        atualizarResumo();
-
         aplicarFiltroERenderizar();
-
 
     } catch (erro) {
 
         console.error(
-            "LUX: erro ao carregar pré-cadastros:",
+            "Erro ao carregar pré-cadastros:",
             erro
         );
 
+        if (container) {
 
-        listaPreCadastros = [];
-
-        atualizarResumo();
-
-
-        container.innerHTML = `
-            <div
-                style="
+            container.innerHTML = `
+                <div style="
                     grid-column:1/-1;
-                    padding:45px 20px;
                     text-align:center;
-                "
-            >
-
-                <div
-                    style="
-                        color:#ff718d;
-                        font-weight:700;
-                        margin-bottom:8px;
-                    "
-                >
-                    Não foi possível carregar os registros.
+                    padding:30px;
+                ">
+                    <p>
+                        Não foi possível carregar os registros.
+                    </p>
                 </div>
+            `;
 
-                <div
-                    style="
-                        color:#888;
-                        font-size:13px;
-                    "
-                >
-                    Verifique os dados cadastrados
-                    e tente novamente.
-                </div>
-
-            </div>
-        `;
+        }
 
     }
 
 }
 
 
-// ============================================================
+// =============================================================
+// FILTROS
+// =============================================================
+
+function ativarBotoesFiltro() {
+
+    const botoes =
+        document.querySelectorAll(".btn-filtro");
+
+    botoes.forEach(botao => {
+
+        botao.addEventListener("click", () => {
+
+            botoes.forEach(item => {
+                item.classList.remove("ativo");
+            });
+
+            botao.classList.add("ativo");
+
+            filtroStatus =
+                botao.dataset.filtro || "todos";
+
+            aplicarFiltroERenderizar();
+
+        });
+
+    });
+
+}
+
+
+// =============================================================
+// FILTRAR E RENDERIZAR
+// =============================================================
+
+function aplicarFiltroERenderizar() {
+
+    let dados = [...listaPreCadastros];
+
+    dados = dados.map(item => {
+
+        if (!item.status) {
+            item.status = "pendente";
+        }
+
+        return item;
+
+    });
+
+
+    if (filtroStatus !== "todos") {
+
+        dados = dados.filter(item =>
+            item.status === filtroStatus
+        );
+
+    }
+
+
+    desenharLista(dados);
+
+    atualizarResumo();
+
+}
+
+
+// =============================================================
+// DESENHAR LISTA
+// =============================================================
+
+function desenharLista(lista) {
+
+    const container =
+        document.getElementById(
+            "lista-precadastros"
+        );
+
+    if (!container) return;
+
+
+    if (!lista.length) {
+
+        container.innerHTML = `
+            <div style="
+                grid-column:1/-1;
+                text-align:center;
+                padding:35px 20px;
+                opacity:.75;
+            ">
+                <div style="
+                    font-size:32px;
+                    margin-bottom:10px;
+                ">
+                    ◇
+                </div>
+
+                <p>
+                    Nenhum registro encontrado.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        lista.map(registro => {
+
+            const indiceOriginal =
+                listaPreCadastros.indexOf(registro);
+
+            const status =
+                registro.status || "pendente";
+
+
+            return `
+                <div class="card-registro">
+
+                    <h4>
+                        ${escaparHTML(
+                            registro.nome ||
+                            "Sem nome"
+                        )}
+                    </h4>
+
+                    <p>
+                        📱
+                        ${escaparHTML(
+                            registro.whatsapp || "—"
+                        )}
+                    </p>
+
+                    <p>
+                        📅
+                        ${escaparHTML(
+                            registro.dataEnvio || "—"
+                        )}
+                    </p>
+
+                    <p>
+                        Status:
+
+                        <span class="status-${status}">
+                            ${status.toUpperCase()}
+                        </span>
+                    </p>
+
+                    <button
+                        type="button"
+                        class="btn btn-secundario"
+                        style="margin-top:8px"
+                        data-indice="${indiceOriginal}"
+                        onclick="abrirVerFichaPorIndice(${indiceOriginal})"
+                    >
+                        Ver ficha completa
+                    </button>
+
+                </div>
+            `;
+
+        }).join("");
+
+}
+
+
+// =============================================================
+// ABRIR FICHA
+// =============================================================
+
+function abrirVerFichaPorIndice(indice) {
+
+    if (
+        indice === null ||
+        indice === undefined ||
+        !listaPreCadastros[indice]
+    ) {
+        return;
+    }
+
+
+    indiceSelecionado = indice;
+
+    const dados =
+        listaPreCadastros[indice];
+
+
+    const corpo =
+        document.getElementById(
+            "corpo-ficha"
+        );
+
+    const modal =
+        document.getElementById(
+            "modal-ver-ficha"
+        );
+
+
+    if (!corpo || !modal) return;
+
+
+    const fotos =
+        Array.isArray(dados.fotos)
+            ? dados.fotos
+            : [];
+
+
+    corpo.innerHTML = `
+
+        <p>
+            <strong>Nome/Apelido:</strong>
+            ${escaparHTML(
+                dados.nome || "—"
+            )}
+        </p>
+
+        <p>
+            <strong>WhatsApp:</strong>
+            ${escaparHTML(
+                dados.whatsapp || "—"
+            )}
+        </p>
+
+        <p>
+            <strong>Idade:</strong>
+            ${escaparHTML(
+                dados.idade || "—"
+            )}
+            ${dados.idade ? "anos" : ""}
+        </p>
+
+        <p>
+            <strong>Altura:</strong>
+            ${escaparHTML(
+                dados.altura || "—"
+            )}
+        </p>
+
+        <p>
+            <strong>Cidade/UF:</strong>
+            ${escaparHTML(
+                dados.cidade || "—"
+            )}
+        </p>
+
+        <p>
+            <strong>Informações:</strong>
+            <br>
+
+            ${escaparHTML(
+                dados.sobre || "—"
+            )}
+        </p>
+
+        ${
+            fotos.length
+            ?
+
+            `
+                <p>
+                    <strong>Fotos:</strong>
+                </p>
+
+                <div style="
+                    display:flex;
+                    flex-wrap:wrap;
+                    gap:10px;
+                ">
+
+                    ${fotos.map(url => `
+                        <img
+                            src="${escaparAtributo(url)}"
+                            alt="Foto do perfil"
+                            style="
+                                width:120px;
+                                height:120px;
+                                object-fit:cover;
+                                border-radius:10px;
+                            "
+                        >
+                    `).join("")}
+
+                </div>
+            `
+
+            :
+
+            `
+                <p>
+                    <strong>Fotos:</strong>
+                    Nenhuma enviada.
+                </p>
+            `
+        }
+
+
+        ${
+            dados.video
+
+            ?
+
+            `
+                <p>
+                    <strong>Vídeo:</strong>
+                </p>
+
+                <video
+                    controls
+                    style="
+                        width:100%;
+                        max-width:500px;
+                        border-radius:10px;
+                    "
+                    src="${escaparAtributo(
+                        dados.video
+                    )}"
+                ></video>
+            `
+
+            :
+
+            `
+                <p>
+                    <strong>Vídeo:</strong>
+                    Nenhum enviado.
+                </p>
+            `
+        }
+
+    `;
+
+
+    modal.style.display = "flex";
+
+}
+
+
+// =============================================================
+// FECHAR MODAL
+// =============================================================
+
+function fecharModalFicha() {
+
+    const modal =
+        document.getElementById(
+            "modal-ver-ficha"
+        );
+
+    if (modal) {
+        modal.style.display = "none";
+    }
+
+    indiceSelecionado = null;
+
+}
+
+
+// =============================================================
+// SALVAR ALTERAÇÕES
+// =============================================================
+
+async function salvarAlteracoes() {
+
+    localStorage.setItem(
+        "fichasPreCadastro",
+        JSON.stringify(
+            listaPreCadastros
+        )
+    );
+
+    aplicarFiltroERenderizar();
+
+}
+
+
+// =============================================================
+// APROVAR / REJEITAR
+// =============================================================
+
+document.addEventListener(
+    "click",
+    async evento => {
+
+        if (
+            evento.target.id ===
+            "botao-aprovar"
+        ) {
+
+            if (
+                indiceSelecionado === null ||
+                !listaPreCadastros[
+                    indiceSelecionado
+                ]
+            ) {
+                return;
+            }
+
+
+            listaPreCadastros[
+                indiceSelecionado
+            ].status = "aprovado";
+
+
+            await salvarAlteracoes();
+
+            fecharModalFicha();
+
+        }
+
+
+        if (
+            evento.target.id ===
+            "botao-rejeitar"
+        ) {
+
+            if (
+                indiceSelecionado === null ||
+                !listaPreCadastros[
+                    indiceSelecionado
+                ]
+            ) {
+                return;
+            }
+
+
+            listaPreCadastros[
+                indiceSelecionado
+            ].status = "rejeitado";
+
+
+            await salvarAlteracoes();
+
+            fecharModalFicha();
+
+        }
+
+    }
+);
+
+
+// =============================================================
 // RESUMO
-// ============================================================
+// =============================================================
 
 function atualizarResumo() {
 
@@ -155,7 +530,7 @@ function atualizarResumo() {
     const pendentes =
         listaPreCadastros.filter(
             item =>
-                normalizarStatus(item.status)
+                (item.status || "pendente")
                 === "pendente"
         ).length;
 
@@ -163,38 +538,33 @@ function atualizarResumo() {
     const aprovados =
         listaPreCadastros.filter(
             item =>
-                normalizarStatus(item.status)
-                === "aprovado"
+                item.status === "aprovado"
         ).length;
 
 
     const rejeitados =
         listaPreCadastros.filter(
             item =>
-                normalizarStatus(item.status)
-                === "rejeitado"
+                item.status === "rejeitado"
         ).length;
 
 
-    atualizarNumero(
+    atualizarElemento(
         "resumoTotal",
         total
     );
 
-
-    atualizarNumero(
+    atualizarElemento(
         "resumoPendentes",
         pendentes
     );
 
-
-    atualizarNumero(
+    atualizarElemento(
         "resumoAprovados",
         aprovados
     );
 
-
-    atualizarNumero(
+    atualizarElemento(
         "resumoRejeitados",
         rejeitados
     );
@@ -202,92 +572,216 @@ function atualizarResumo() {
 }
 
 
-// ============================================================
-// ATUALIZAR NÚMERO
-// ============================================================
+// =============================================================
+// MÓDULOS DO PAINEL
+// =============================================================
 
-function atualizarNumero(id, valor) {
+function ativarModulosAdmin() {
 
-    const elemento =
-        document.getElementById(id);
-
-
-    if (elemento) {
-
-        elemento.textContent =
-            String(valor);
-
-    }
-
-}
-
-
-// ============================================================
-// NORMALIZAR STATUS
-// ============================================================
-
-function normalizarStatus(status) {
-
-    if (!status) {
-
-        return "pendente";
-
-    }
-
-
-    return String(status)
-        .trim()
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-
-}
-
-
-// ============================================================
-// FILTROS
-// ============================================================
-
-function ativarBotoesFiltro() {
-
-    const botoes =
+    const cards =
         document.querySelectorAll(
-            ".btn-filtro"
+            ".modulo-card, .admin-card, [data-modulo]"
         );
 
 
-    botoes.forEach(function (botao) {
+    cards.forEach(card => {
 
-        botao.addEventListener(
+        card.style.cursor = "pointer";
+
+
+        card.addEventListener(
             "click",
-            function () {
+            evento => {
 
-                const filtro =
-                    botao.dataset.filtro
-                    || "todos";
+                if (
+                    evento.target.closest(
+                        "button, a"
+                    )
+                ) {
+                    return;
+                }
 
 
-                filtroStatus =
-                    filtro;
+                const titulo =
+                    (
+                        card.innerText || ""
+                    ).toLowerCase();
 
 
-                botoes.forEach(
-                    function (item) {
+                // -----------------------------------------
+                // GESTÃO DE MODELOS
+                // -----------------------------------------
 
-                        item.classList.remove(
-                            "ativo"
+                if (
+                    titulo.includes(
+                        "gestão de modelos"
+                    ) ||
+                    titulo.includes(
+                        "gestao de modelos"
+                    )
+                ) {
+
+                    const destino =
+                        document.getElementById(
+                            "lista-precadastros"
                         );
 
+
+                    if (destino) {
+
+                        destino.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
                     }
-                );
+
+                    return;
+                }
 
 
-                botao.classList.add(
-                    "ativo"
-                );
+                // -----------------------------------------
+                // USUÁRIOS
+                // -----------------------------------------
+
+                if (
+                    titulo.includes(
+                        "usuários"
+                    ) ||
+                    titulo.includes(
+                        "usuarios"
+                    )
+                ) {
+
+                    abrirModuloAdmin(
+                        "Usuários",
+                        "A área de usuários foi selecionada."
+                    );
+
+                    return;
+                }
 
 
-                aplicarFiltroERenderizar();
+                // -----------------------------------------
+                // RECLAMAÇÕES
+                // -----------------------------------------
+
+                if (
+                    titulo.includes(
+                        "reclamações"
+                    ) ||
+                    titulo.includes(
+                        "reclamacoes"
+                    )
+                ) {
+
+                    abrirModuloAdmin(
+                        "Reclamações",
+                        "A área de reclamações foi selecionada."
+                    );
+
+                    return;
+                }
+
+
+                // -----------------------------------------
+                // PLANOS
+                // -----------------------------------------
+
+                if (
+                    titulo.includes(
+                        "planos lux"
+                    )
+                ) {
+
+                    abrirModuloAdmin(
+                        "Planos LUX",
+                        "A área de planos foi selecionada."
+                    );
+
+                    return;
+                }
+
+
+                // -----------------------------------------
+                // PAGAMENTOS
+                // -----------------------------------------
+
+                if (
+                    titulo.includes(
+                        "pagamentos"
+                    )
+                ) {
+
+                    abrirModuloAdmin(
+                        "Pagamentos",
+                        "A área de pagamentos foi selecionada."
+                    );
+
+                    return;
+                }
+
+
+                // -----------------------------------------
+                // ASSINATURAS
+                // -----------------------------------------
+
+                if (
+                    titulo.includes(
+                        "assinaturas"
+                    )
+                ) {
+
+                    abrirModuloAdmin(
+                        "Assinaturas",
+                        "A área de assinaturas foi selecionada."
+                    );
+
+                    return;
+                }
+
+
+                // -----------------------------------------
+                // AVALIAÇÕES
+                // -----------------------------------------
+
+                if (
+                    titulo.includes(
+                        "avaliações"
+                    ) ||
+                    titulo.includes(
+                        "avaliacoes"
+                    )
+                ) {
+
+                    abrirModuloAdmin(
+                        "Avaliações",
+                        "A área de avaliações foi selecionada."
+                    );
+
+                    return;
+                }
+
+
+                // -----------------------------------------
+                // DOAÇÕES
+                // -----------------------------------------
+
+                if (
+                    titulo.includes(
+                        "doações"
+                    ) ||
+                    titulo.includes(
+                        "doacoes"
+                    )
+                ) {
+
+                    abrirModuloAdmin(
+                        "Doações",
+                        "A área de doações foi selecionada."
+                    );
+
+                }
 
             }
         );
@@ -297,728 +791,145 @@ function ativarBotoesFiltro() {
 }
 
 
-// ============================================================
-// FILTRAR E RENDERIZAR
-// ============================================================
+// =============================================================
+// MODAL DE MÓDULO
+// =============================================================
 
-function aplicarFiltroERenderizar() {
+function abrirModuloAdmin(
+    titulo,
+    mensagem
+) {
 
-    let dados =
-        [...listaPreCadastros];
-
-
-    if (filtroStatus !== "todos") {
-
-        dados =
-            dados.filter(function (item) {
-
-                return (
-                    normalizarStatus(
-                        item.status
-                    )
-                    === filtroStatus
-                );
-
-            });
-
-    }
-
-
-    desenharLista(dados);
-
-}
-
-
-// ============================================================
-// DESENHAR LISTA
-// ============================================================
-
-function desenharLista(lista) {
-
-    const container =
+    let modal =
         document.getElementById(
-            "lista-precadastros"
+            "modal-modulo-admin"
         );
 
 
-    if (!container) {
+    if (!modal) {
 
-        return;
+        modal =
+            document.createElement("div");
 
-    }
+        modal.id =
+            "modal-modulo-admin";
 
-
-    /*
-     * NENHUM REGISTRO
-     */
-
-    if (!lista.length) {
-
-        let mensagem =
-            "Nenhum registro encontrado.";
-
-
-        if (
-            filtroStatus === "pendente"
-        ) {
-
-            mensagem =
-                "Nenhuma modelo pendente.";
-
-        }
+        modal.style.cssText = `
+            position:fixed;
+            inset:0;
+            z-index:99999;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+            background:rgba(0,0,0,.78);
+            backdrop-filter:blur(8px);
+        `;
 
 
-        if (
-            filtroStatus === "aprovado"
-        ) {
+        modal.innerHTML = `
 
-            mensagem =
-                "Nenhuma modelo aprovada.";
+            <div style="
+                width:100%;
+                max-width:480px;
+                padding:30px;
+                border:1px solid rgba(248,213,138,.25);
+                border-radius:18px;
+                background:#120b0e;
+                color:#fff;
+                box-shadow:0 25px 80px rgba(0,0,0,.6);
+            ">
 
-        }
+                <div style="
+                    color:#f8d58a;
+                    font-size:12px;
+                    letter-spacing:3px;
+                    margin-bottom:12px;
+                ">
+                    LUX-ADVANCE
+                </div>
 
-
-        if (
-            filtroStatus === "rejeitado"
-        ) {
-
-            mensagem =
-                "Nenhuma modelo rejeitada.";
-
-        }
-
-
-        container.innerHTML = `
-
-            <div
-                style="
-                    grid-column:1/-1;
-                    padding:55px 20px;
-                    text-align:center;
-                "
-            >
-
-                <div
+                <h2
+                    id="titulo-modulo-admin"
                     style="
-                        width:58px;
-                        height:58px;
-                        margin:0 auto 16px;
-                        border-radius:50%;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                        border:1px solid rgba(248,213,138,.20);
+                        margin:0 0 12px;
                         color:#f8d58a;
-                        font-size:24px;
                     "
-                >
-                    ✦
-                </div>
+                ></h2>
 
-                <div
+                <p
+                    id="texto-modulo-admin"
                     style="
-                        color:#e8dfe5;
-                        font-size:16px;
-                        font-weight:600;
-                        margin-bottom:7px;
+                        color:#bbb;
+                        line-height:1.6;
                     "
-                >
-                    ${mensagem}
-                </div>
+                ></p>
 
-                <div
+                <button
+                    type="button"
+                    id="fechar-modulo-admin"
                     style="
-                        color:#777;
-                        font-size:12px;
-                    "
-                >
-                    Os registros aparecerão
-                    automaticamente nesta área.
-                </div>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    /*
-     * EXISTEM REGISTROS
-     */
-
-    container.innerHTML =
-        lista.map(function (item) {
-
-            const indice =
-                listaPreCadastros.indexOf(
-                    item
-                );
-
-
-            const status =
-                normalizarStatus(
-                    item.status
-                );
-
-
-            const nome =
-                escaparHTML(
-                    item.nome
-                    || item.apelido
-                    || "Sem nome"
-                );
-
-
-            const whatsapp =
-                escaparHTML(
-                    item.whatsapp
-                    || item.telefone
-                    || "—"
-                );
-
-
-            const cidade =
-                escaparHTML(
-                    item.cidade
-                    || "—"
-                );
-
-
-            const data =
-                escaparHTML(
-                    item.dataEnvio
-                    || item.created_at
-                    || "—"
-                );
-
-
-            return `
-
-                <article class="card-registro">
-
-                    <h4>
-                        ${nome}
-                    </h4>
-
-
-                    <p>
-                        📱 ${whatsapp}
-                    </p>
-
-
-                    <p>
-                        📍 ${cidade}
-                    </p>
-
-
-                    <p>
-                        📅 ${data}
-                    </p>
-
-
-                    <p>
-                        Status:
-
-                        <strong
-                            class="status-${status}"
-                        >
-                            ${status.toUpperCase()}
-                        </strong>
-                    </p>
-
-
-                    <button
-                        type="button"
-                        class="btn"
-                        onclick="abrirVerFicha(${indice})"
-                    >
-                        VER FICHA
-                    </button>
-
-                </article>
-
-            `;
-
-        }).join("");
-
-}
-
-
-// ============================================================
-// SEGURANÇA BÁSICA DE HTML
-// ============================================================
-
-function escaparHTML(valor) {
-
-    return String(valor)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-// ============================================================
-// ABRIR FICHA
-// ============================================================
-
-function abrirVerFicha(indice) {
-
-    if (
-        indice === null ||
-        indice === undefined
-    ) {
-
-        return;
-
-    }
-
-
-    const dados =
-        listaPreCadastros[indice];
-
-
-    if (!dados) {
-
-        return;
-
-    }
-
-
-    indiceSelecionado =
-        indice;
-
-
-    const corpo =
-        document.getElementById(
-            "corpo-ficha"
-        );
-
-
-    if (!corpo) {
-
-        return;
-
-    }
-
-
-    const nome =
-        escaparHTML(
-            dados.nome
-            || dados.apelido
-            || "Sem nome"
-        );
-
-
-    const whatsapp =
-        escaparHTML(
-            dados.whatsapp
-            || dados.telefone
-            || "—"
-        );
-
-
-    const idade =
-        escaparHTML(
-            dados.idade
-            || "—"
-        );
-
-
-    const altura =
-        escaparHTML(
-            dados.altura
-            || "—"
-        );
-
-
-    const cidade =
-        escaparHTML(
-            dados.cidade
-            || "—"
-        );
-
-
-    const sobre =
-        escaparHTML(
-            dados.sobre
-            || dados.descricao
-            || "—"
-        );
-
-
-    const status =
-        normalizarStatus(
-            dados.status
-        );
-
-
-    let fotosHTML =
-        `
-            <p>
-                <strong>Fotos:</strong>
-                Nenhuma foto enviada.
-            </p>
-        `;
-
-
-    if (
-        Array.isArray(dados.fotos)
-        &&
-        dados.fotos.length
-    ) {
-
-        fotosHTML = `
-
-            <p>
-                <strong>Fotos:</strong>
-            </p>
-
-            <div
-                style="
-                    display:grid;
-                    grid-template-columns:
-                        repeat(auto-fit,minmax(120px,1fr));
-                    gap:10px;
-                "
-            >
-
-                ${
-                    dados.fotos
-                        .map(function (url) {
-
-                            return `
-                                <img
-                                    src="${escaparHTML(url)}"
-                                    alt="Foto"
-                                    style="
-                                        width:100%;
-                                        aspect-ratio:1;
-                                        object-fit:cover;
-                                        border-radius:12px;
-                                        border:
-                                          1px solid
-                                          rgba(248,213,138,.15);
-                                    "
-                                >
-                            `;
-
-                        })
-                        .join("")
-                }
-
-            </div>
-
-        `;
-
-    }
-
-
-    let videoHTML =
-        `
-            <p>
-                <strong>Vídeo:</strong>
-                Nenhum vídeo enviado.
-            </p>
-        `;
-
-
-    if (dados.video) {
-
-        videoHTML = `
-
-            <p>
-                <strong>Vídeo:</strong>
-            </p>
-
-            <video
-                controls
-                style="
-                    width:100%;
-                    max-height:360px;
-                    border-radius:12px;
-                "
-                src="${escaparHTML(dados.video)}"
-            ></video>
-
-        `;
-
-    }
-
-
-    corpo.innerHTML = `
-
-        <div
-            style="
-                display:grid;
-                gap:14px;
-            "
-        >
-
-            <div
-                style="
-                    padding:17px;
-                    border-radius:14px;
-                    background:rgba(255,255,255,.025);
-                    border:1px solid rgba(255,255,255,.07);
-                "
-            >
-
-                <div
-                    style="
+                        margin-top:20px;
+                        padding:12px 20px;
+                        border-radius:10px;
+                        border:1px solid #f8d58a;
+                        background:transparent;
                         color:#f8d58a;
-                        font-family:Playfair Display,serif;
-                        font-size:24px;
-                        margin-bottom:8px;
+                        cursor:pointer;
                     "
                 >
-                    ${nome}
-                </div>
-
-                <div
-                    style="
-                        color:#888;
-                        font-size:12px;
-                        text-transform:uppercase;
-                        letter-spacing:1px;
-                    "
-                >
-                    Status:
-                    <strong
-                        class="status-${status}"
-                    >
-                        ${status}
-                    </strong>
-                </div>
+                    FECHAR
+                </button>
 
             </div>
 
-
-            <p>
-                <strong>WhatsApp:</strong>
-                ${whatsapp}
-            </p>
+        `;
 
 
-            <p>
-                <strong>Idade:</strong>
-                ${idade}
-            </p>
+        document.body.appendChild(modal);
 
 
-            <p>
-                <strong>Altura:</strong>
-                ${altura}
-            </p>
-
-
-            <p>
-                <strong>Cidade/UF:</strong>
-                ${cidade}
-            </p>
-
-
-            <p>
-                <strong>Informações:</strong><br>
-                ${sobre}
-            </p>
-
-
-            ${fotosHTML}
-
-
-            ${videoHTML}
-
-        </div>
-
-    `;
-
-
-    const modal =
-        document.getElementById(
-            "modal-ver-ficha"
-        );
-
-
-    if (modal) {
-
-        modal.style.display =
-            "flex";
-
-    }
-
-}
-
-
-// ============================================================
-// FECHAR MODAL
-// ============================================================
-
-function fecharModalFicha() {
-
-    const modal =
-        document.getElementById(
-            "modal-ver-ficha"
-        );
-
-
-    if (modal) {
-
-        modal.style.display =
-            "none";
-
-    }
-
-
-    indiceSelecionado =
-        null;
-
-}
-
-
-// ============================================================
-// SALVAR
-// ============================================================
-
-async function salvarAlteracoes() {
-
-    try {
-
-        localStorage.setItem(
-            "fichasPreCadastro",
-            JSON.stringify(
-                listaPreCadastros
+        document
+            .getElementById(
+                "fechar-modulo-admin"
             )
-        );
-
-
-        atualizarResumo();
-
-        aplicarFiltroERenderizar();
-
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao salvar alterações:",
-            erro
-        );
+            .addEventListener(
+                "click",
+                () => {
+                    modal.remove();
+                }
+            );
 
     }
+
+
+    document.getElementById(
+        "titulo-modulo-admin"
+    ).textContent = titulo;
+
+
+    document.getElementById(
+        "texto-modulo-admin"
+    ).textContent = mensagem;
+
+
+    modal.style.display = "flex";
 
 }
 
 
-// ============================================================
-// APROVAR / REJEITAR
-// ============================================================
+// =============================================================
+// FECHAR MODAL AO CLICAR FORA
+// =============================================================
 
 document.addEventListener(
     "click",
-    async function (evento) {
-
-
-        if (
-            evento.target.id
-            === "botao-aprovar"
-        ) {
-
-            if (
-                indiceSelecionado === null
-            ) {
-
-                return;
-
-            }
-
-
-            listaPreCadastros[
-                indiceSelecionado
-            ].status =
-                "aprovado";
-
-
-            await salvarAlteracoes();
-
-
-            fecharModalFicha();
-
-
-            return;
-
-        }
-
-
-        if (
-            evento.target.id
-            === "botao-rejeitar"
-        ) {
-
-            if (
-                indiceSelecionado === null
-            ) {
-
-                return;
-
-            }
-
-
-            listaPreCadastros[
-                indiceSelecionado
-            ].status =
-                "rejeitado";
-
-
-            await salvarAlteracoes();
-
-
-            fecharModalFicha();
-
-
-        }
-
-    }
-);
-
-
-// ============================================================
-// IMPRIMIR
-// ============================================================
-
-function imprimirFicha() {
-
-    if (
-        indiceSelecionado === null
-    ) {
-
-        return;
-
-    }
-
-
-    window.print();
-
-}
-
-
-// ============================================================
-// FECHAR MODAL CLICANDO FORA
-// ============================================================
-
-window.addEventListener(
-    "click",
-    function (evento) {
+    evento => {
 
         const modal =
             document.getElementById(
                 "modal-ver-ficha"
             );
-
 
         if (
             modal &&
@@ -1033,16 +944,83 @@ window.addEventListener(
 );
 
 
-// ============================================================
-// EXPOR FUNÇÕES
-// PARA OS BOTÕES DO HTML
-// ============================================================
+// =============================================================
+// ESC
+// =============================================================
 
-window.abrirVerFicha =
-    abrirVerFicha;
+document.addEventListener(
+    "keydown",
+    evento => {
 
-window.fecharModalFicha =
-    fecharModalFicha;
+        if (evento.key === "Escape") {
 
-window.imprimirFicha =
-    imprimirFicha;
+            fecharModalFicha();
+
+            const modal =
+                document.getElementById(
+                    "modal-modulo-admin"
+                );
+
+            if (modal) {
+                modal.remove();
+            }
+
+        }
+
+    }
+);
+
+
+// =============================================================
+// UTILITÁRIOS
+// =============================================================
+
+function atualizarElemento(
+    id,
+    valor
+) {
+
+    const elemento =
+        document.getElementById(id);
+
+    if (elemento) {
+        elemento.textContent = valor;
+    }
+
+}
+
+
+function escaparHTML(valor) {
+
+    return String(valor)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function escaparAtributo(valor) {
+
+    return escaparHTML(valor);
+
+}
+
+
+// =============================================================
+// IMPRESSÃO
+// =============================================================
+
+function imprimirFicha() {
+
+    if (
+        indiceSelecionado === null
+    ) {
+        return;
+    }
+
+    window.print();
+
+}

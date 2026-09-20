@@ -3,4450 +3,498 @@
 
 <head>
 
-<meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<title>LUX — Painel Administrativo</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="./config.js"></script>
-
-<style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-:root{
-
-  --bg:#080509;
-  --bg2:#100910;
-
-  --card:rgba(24,13,22,.94);
-
-  --pink:#ff4da6;
-  --pink2:#ff79bd;
-
-  --gold:#f8d58a;
-  --gold2:#d9aa4b;
-
-  --white:#fff;
-
-  --muted:#b9aab6;
-
-  --green:#46d39a;
-  --red:#ff6262;
-  --orange:#ffad4d;
-
-  --border:rgba(248,213,138,.18);
-
-  --shadow:
-    0 15px 50px rgba(0,0,0,.45);
-
-}
-
-html,
-body{
-
-  min-height:100%;
-
-}
-
-body{
-
-  min-height:100vh;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-  color:var(--white);
-
-  background:
-
-    linear-gradient(
-      rgba(8,5,9,.84),
-      rgba(8,5,9,.96)
-    ),
-
-    url("./lux-halloween.jpg")
-    center/cover fixed;
-
-}
-
-button,
-input,
-select{
-
-  font:inherit;
-
-}
-
-button{
-
-  cursor:pointer;
-
-}
-
-.hidden{
-
-  display:none!important;
-
-}
-
-
-/* =====================================================
-   LOADING
-===================================================== */
-
-#loadingScreen{
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:99999;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  background:#080509;
-
-}
-
-.loading-box{
-
-  width:min(90%,420px);
-
-  padding:35px 25px;
-
-  text-align:center;
-
-  border:1px solid var(--border);
-
-  border-radius:22px;
-
-  background:
-    rgba(20,10,18,.95);
-
-  box-shadow:var(--shadow);
-
-}
-
-.loading-logo{
-
-  font-family:Georgia,serif;
-
-  font-size:48px;
-
-  letter-spacing:7px;
-
-  color:var(--gold);
-
-}
-
-.loading-box p{
-
-  margin-top:12px;
-
-  color:var(--muted);
-
-}
-
-.spinner{
-
-  width:38px;
-
-  height:38px;
-
-  margin:25px auto 0;
-
-  border:3px solid
-    rgba(255,255,255,.12);
-
-  border-top-color:var(--pink);
-
-  border-radius:50%;
-
-  animation:spin 1s linear infinite;
-
-}
-
-@keyframes spin{
-
-  to{
-    transform:rotate(360deg);
-  }
-
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.topbar{
-
-  position:sticky;
-
-  top:0;
-
-  z-index:1000;
-
-  min-height:76px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:15px;
-
-  padding:12px 22px;
-
-  background:
-
-    linear-gradient(
-      90deg,
-      rgba(10,5,10,.98),
-      rgba(28,12,25,.96)
-    );
-
-  border-bottom:
-    1px solid var(--border);
-
-  box-shadow:
-    0 8px 30px rgba(0,0,0,.4);
-
-}
-
-.brand{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:13px;
-
-}
-
-.brand-mark{
-
-  width:48px;
-
-  height:48px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  border-radius:50%;
-
-  border:
-    1px solid
-    rgba(248,213,138,.4);
-
-  color:var(--gold);
-
-  font-family:Georgia,serif;
-
-  font-size:20px;
-
-  letter-spacing:2px;
-
-  background:
-
-    radial-gradient(
-      circle,
-      #311326,
-      #0d070d
-    );
-
-}
-
-.brand h1{
-
-  font-family:Georgia,serif;
-
-  font-size:21px;
-
-  color:var(--gold);
-
-  letter-spacing:2px;
-
-}
-
-.brand small{
-
-  display:block;
-
-  margin-top:3px;
-
-  color:var(--muted);
-
-  font-size:11px;
-
-  letter-spacing:1.5px;
-
-  text-transform:uppercase;
-
-}
-
-.top-actions{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-}
-
-.admin-email{
-
-  color:var(--muted);
-
-  font-size:12px;
-
-}
-
-.btn{
-
-  border:
-    1px solid var(--border);
-
-  border-radius:10px;
-
-  padding:10px 15px;
-
-  color:white;
-
-  background:
-    rgba(255,255,255,.05);
-
-}
-
-.btn-pink{
-
-  background:
-    linear-gradient(
-      135deg,
-      #ff4da6,
-      #a92869
-    );
-
-  border:0;
-
-}
-
-.btn-gold{
-
-  color:#160c10;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--gold),
-      var(--gold2)
-    );
-
-  border:0;
-
-  font-weight:bold;
-
-}
-
-.btn-danger{
-
-  color:white;
-
-  background:
-    rgba(255,60,60,.12);
-
-  border-color:
-    rgba(255,90,90,.3);
-
-}
-
-
-/* =====================================================
-   LAYOUT
-===================================================== */
-
-.layout{
-
-  display:flex;
-
-  min-height:
-    calc(100vh - 76px);
-
-}
-
-.sidebar{
-
-  width:245px;
-
-  flex-shrink:0;
-
-  padding:20px 13px;
-
-  background:
-    rgba(10,5,10,.94);
-
-  border-right:
-    1px solid var(--border);
-
-}
-
-.menu-title{
-
-  padding:10px 12px;
-
-  color:#806e7c;
-
-  font-size:10px;
-
-  font-weight:bold;
-
-  letter-spacing:2px;
-
-  text-transform:uppercase;
-
-}
-
-.nav-btn{
-
-  width:100%;
-
-  display:flex;
-
-  align-items:center;
-
-  gap:11px;
-
-  margin-bottom:5px;
-
-  padding:12px 13px;
-
-  border:
-    1px solid transparent;
-
-  border-radius:11px;
-
-  color:#d5c7d1;
-
-  background:transparent;
-
-  text-align:left;
-
-}
-
-.nav-btn:hover,
-.nav-btn.active{
-
-  color:white;
-
-  background:
-
-    linear-gradient(
-      90deg,
-      rgba(255,77,166,.15),
-      rgba(248,213,138,.05)
-    );
-
-  border-color:
-    rgba(255,77,166,.18);
-
-}
-
-.nav-icon{
-
-  width:24px;
-
-  text-align:center;
-
-  color:var(--gold);
-
-}
-
-.main{
-
-  flex:1;
-
-  min-width:0;
-
-  padding:25px;
-
-}
-
-
-/* =====================================================
-   SECTIONS
-===================================================== */
-
-.section{
-
-  display:none;
-
-}
-
-.section.active{
-
-  display:block;
-
-}
-
-.page-title{
-
-  margin-bottom:5px;
-
-  font-family:Georgia,serif;
-
-  font-size:28px;
-
-  color:var(--gold);
-
-}
-
-.page-subtitle{
-
-  margin-bottom:23px;
-
-  color:var(--muted);
-
-  font-size:14px;
-
-}
-
-
-/* =====================================================
-   CARDS
-===================================================== */
-
-.stats{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(4,minmax(0,1fr));
-
-  gap:15px;
-
-  margin-bottom:22px;
-
-}
-
-.stat{
-
-  padding:20px;
-
-  border:1px solid var(--border);
-
-  border-radius:17px;
-
-  background:
-
-    linear-gradient(
-      145deg,
-      rgba(36,18,32,.95),
-      rgba(17,9,16,.95)
-    );
-
-  box-shadow:var(--shadow);
-
-}
-
-.stat-label{
-
-  color:var(--muted);
-
-  font-size:12px;
-
-  text-transform:uppercase;
-
-  letter-spacing:1px;
-
-}
-
-.stat-value{
-
-  margin-top:8px;
-
-  font-size:29px;
-
-  font-weight:bold;
-
-  color:white;
-
-}
-
-.stat-icon{
-
-  float:right;
-
-  color:var(--gold);
-
-  font-size:24px;
-
-}
-
-.panel{
-
-  margin-bottom:20px;
-
-  padding:20px;
-
-  border:1px solid var(--border);
-
-  border-radius:17px;
-
-  background:
-    rgba(20,10,18,.91);
-
-  box-shadow:var(--shadow);
-
-}
-
-.panel-header{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:15px;
-
-  margin-bottom:17px;
-
-}
-
-.panel-title{
-
-  font-family:Georgia,serif;
-
-  color:var(--gold);
-
-  font-size:19px;
-
-}
-
-
-/* =====================================================
-   FILTERS
-===================================================== */
-
-.filters{
-
-  display:flex;
-
-  flex-wrap:wrap;
-
-  gap:10px;
-
-  margin-bottom:18px;
-
-}
-
-.input,
-.select{
-
-  min-height:42px;
-
-  padding:10px 13px;
-
-  color:white;
-
-  border:
-    1px solid
-    rgba(248,213,138,.17);
-
-  border-radius:9px;
-
-  outline:none;
-
-  background:
-    rgba(255,255,255,.045);
-
-}
-
-.input{
-
-  min-width:230px;
-
-}
-
-.select{
-
-  min-width:150px;
-
-}
-
-option{
-
-  background:#180d17;
-
-  color:white;
-
-}
-
-
-/* =====================================================
-   TABLE
-===================================================== */
-
-.table-wrap{
-
-  width:100%;
-
-  overflow-x:auto;
-
-  border-radius:12px;
-
-}
-
-table{
-
-  width:100%;
-
-  border-collapse:collapse;
-
-  min-width:720px;
-
-}
-
-th,
-td{
-
-  padding:13px 12px;
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.07);
-
-  text-align:left;
-
-  vertical-align:middle;
-
-}
-
-th{
-
-  color:var(--gold);
-
-  font-size:11px;
-
-  text-transform:uppercase;
-
-  letter-spacing:1px;
-
-}
-
-td{
-
-  color:#ddd2db;
-
-  font-size:13px;
-
-}
-
-.badge{
-
-  display:inline-flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:5px 9px;
-
-  border-radius:50px;
-
-  font-size:10px;
-
-  font-weight:bold;
-
-  text-transform:uppercase;
-
-}
-
-.badge-green{
-
-  color:#74f0ba;
-
-  background:
-    rgba(70,211,154,.11);
-
-  border:
-    1px solid
-    rgba(70,211,154,.2);
-
-}
-
-.badge-red{
-
-  color:#ff9292;
-
-  background:
-    rgba(255,98,98,.11);
-
-  border:
-    1px solid
-    rgba(255,98,98,.2);
-
-}
-
-.badge-gold{
-
-  color:var(--gold);
-
-  background:
-    rgba(248,213,138,.09);
-
-  border:
-    1px solid
-    rgba(248,213,138,.2);
-
-}
-
-.badge-pink{
-
-  color:#ff8fc5;
-
-  background:
-    rgba(255,77,166,.1);
-
-  border:
-    1px solid
-    rgba(255,77,166,.2);
-
-}
-
-.actions{
-
-  display:flex;
-
-  flex-wrap:wrap;
-
-  gap:6px;
-
-}
-
-.small-btn{
-
-  padding:7px 9px;
-
-  border-radius:7px;
-
-  border:
-    1px solid var(--border);
-
-  color:white;
-
-  background:
-    rgba(255,255,255,.04);
-
-  font-size:11px;
-
-}
-
-.small-btn.approve{
-
-  color:#74f0ba;
-
-  border-color:
-    rgba(70,211,154,.25);
-
-}
-
-.small-btn.reject{
-
-  color:#ff9292;
-
-  border-color:
-    rgba(255,98,98,.25);
-
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.empty{
-
-  padding:35px 20px;
-
-  text-align:center;
-
-  color:var(--muted);
-
-}
-
-.empty-icon{
-
-  margin-bottom:10px;
-
-  font-size:35px;
-
-  opacity:.6;
-
-}
-
-.message{
-
-  display:none;
-
-  margin-bottom:15px;
-
-  padding:12px 14px;
-
-  border-radius:10px;
-
-  font-size:13px;
-
-}
-
-.message.show{
-
-  display:block;
-
-}
-
-.message.success{
-
-  color:#79e8b5;
-
-  background:
-    rgba(70,211,154,.08);
-
-  border:
-    1px solid
-    rgba(70,211,154,.18);
-
-}
-
-.message.error{
-
-  color:#ff9b9b;
-
-  background:
-    rgba(255,98,98,.08);
-
-  border:
-    1px solid
-    rgba(255,98,98,.18);
-
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-.modal{
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:9999;
-
-  display:none;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:20px;
-
-  background:
-    rgba(0,0,0,.78);
-
-  backdrop-filter:blur(7px);
-
-}
-
-.modal.show{
-
-  display:flex;
-
-}
-
-.modal-box{
-
-  width:min(700px,100%);
-
-  max-height:90vh;
-
-  overflow-y:auto;
-
-  padding:25px;
-
-  border:
-    1px solid
-    rgba(248,213,138,.22);
-
-  border-radius:20px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #241320,
-      #100911
-    );
-
-}
-
-.modal-header{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  gap:15px;
-
-  margin-bottom:20px;
-
-}
-
-.modal-title{
-
-  font-family:Georgia,serif;
-
-  font-size:23px;
-
-  color:var(--gold);
-
-}
-
-.close{
-
-  width:35px;
-
-  height:35px;
-
-  border-radius:50%;
-
-  border:
-    1px solid var(--border);
-
-  color:white;
-
-  background:
-    rgba(255,255,255,.05);
-
-  font-size:20px;
-
-}
-
-.detail-grid{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-
-  gap:10px;
-
-}
-
-.detail{
-
-  padding:13px;
-
-  border-radius:10px;
-
-  background:
-    rgba(255,255,255,.035);
-
-  border:
-    1px solid
-    rgba(255,255,255,.06);
-
-}
-
-.detail.full{
-
-  grid-column:1/-1;
-
-}
-
-.detail-label{
-
-  margin-bottom:5px;
-
-  color:var(--muted);
-
-  font-size:10px;
-
-  text-transform:uppercase;
-
-  letter-spacing:1px;
-
-}
-
-.detail-value{
-
-  color:white;
-
-  word-break:break-word;
-
-  line-height:1.5;
-
-}
-
-
-/* =====================================================
-   PRÉ-CADASTROS
-===================================================== */
-
-.precadastro-grid{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,minmax(0,1fr));
-
-  gap:15px;
-
-}
-
-.card-registro{
-
-  padding:18px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:15px;
-
-  background:
-    rgba(255,255,255,.035);
-
-}
-
-.card-registro h4{
-
-  margin-bottom:10px;
-
-  color:var(--gold);
-
-  font-family:Georgia,serif;
-
-}
-
-.card-registro p{
-
-  margin:6px 0;
-
-  color:#ddd2db;
-
-  font-size:13px;
-
-}
-
-.status-pendente{
-
-  color:var(--gold);
-
-}
-
-.status-aprovado{
-
-  color:#74f0ba;
-
-}
-
-.status-rejeitado{
-
-  color:#ff9292;
-
-}
-
-.ficha-fotos{
-
-  display:flex;
-
-  flex-wrap:wrap;
-
-  gap:10px;
-
-  margin-top:10px;
-
-}
-
-.ficha-fotos img{
-
-  width:110px;
-
-  height:110px;
-
-  object-fit:cover;
-
-  border-radius:10px;
-
-  border:
-    1px solid var(--border);
-
-}
-
-.ficha-video{
-
-  width:100%;
-
-  max-height:350px;
-
-  margin-top:10px;
-
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-.mobile-menu{
-
-  display:none;
-
-}
-
-@media(max-width:1000px){
-
-  .stats{
-
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
-
-  }
-
-  .precadastro-grid{
-
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
-
-  }
-
-}
-
-@media(max-width:750px){
-
-  .topbar{
-
-    padding:10px 13px;
-
-  }
-
-  .admin-email{
-
-    display:none;
-
-  }
-
-  .layout{
-
-    display:block;
-
-  }
-
-  .mobile-menu{
-
-    display:block;
-
-    margin:12px;
-
-  }
-
-  .mobile-menu button{
-
-    width:100%;
-
-  }
-
-  .sidebar{
-
-    display:none;
-
-    width:auto;
-
-    margin:0 12px 12px;
-
-    border:
-      1px solid var(--border);
-
-    border-radius:15px;
-
-  }
-
-  .sidebar.open{
-
-    display:block;
-
-  }
-
-  .main{
-
-    padding:15px 12px;
-
-  }
-
-  .stats{
-
-    grid-template-columns:
-      1fr 1fr;
-
-    gap:10px;
-
-  }
-
-  .stat{
-
-    padding:15px;
-
-  }
-
-  .stat-value{
-
-    font-size:23px;
-
-  }
-
-  .page-title{
-
-    font-size:24px;
-
-  }
-
-  .panel{
-
-    padding:14px;
-
-  }
-
-  .input{
-
-    min-width:100%;
-
-  }
-
-  .select{
-
-    flex:1;
-
-    min-width:130px;
-
-  }
-
-  .detail-grid{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .detail.full{
-
-    grid-column:auto;
-
-  }
-
-  .precadastro-grid{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .brand h1{
-
-    font-size:16px;
-
-  }
-
-  .brand small{
-
-    font-size:9px;
-
-  }
-
-  .brand-mark{
-
-    width:42px;
-
-    height:42px;
-
-  }
-
-}
-
-</style>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>LUX — Acesso Administrativo</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="./config.js"></script>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      font-family: Arial, sans-serif;
+      background: #080509;
+      color: #fff;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(80, 15, 55, 0.25),
+          transparent 55%
+        ),
+        #080509;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 430px;
+    }
+
+    .card {
+      width: 100%;
+      padding: 38px 28px;
+      border-radius: 28px;
+      border: 1px solid rgba(248, 213, 138, 0.25);
+      background: rgba(20, 8, 17, 0.97);
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.65),
+        0 0 35px rgba(255, 77, 166, 0.08);
+      text-align: center;
+    }
+
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 64px;
+      letter-spacing: 8px;
+      color: #f8d58a;
+      margin-bottom: 8px;
+    }
+
+    .titulo {
+      font-family: Georgia, serif;
+      font-size: 25px;
+      color: #f8d58a;
+      margin-bottom: 8px;
+    }
+
+    .subtitulo {
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 30px;
+    }
+
+    .campo {
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    .campo label {
+      display: block;
+      color: #ddd;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .campo input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(248, 213, 138, 0.25);
+      outline: none;
+      background: #100912;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .campo input:focus {
+      border-color: #ff4da6;
+      box-shadow: 0 0 0 2px rgba(255, 77, 166, 0.10);
+    }
+
+    .botao {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 5px;
+      background: linear-gradient(
+        135deg,
+        #f8d58a,
+        #c99d45
+      );
+      color: #180d12;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .botao:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .mensagem {
+      display: none;
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .erro {
+      display: block;
+      color: #ffb3d6;
+      background: rgba(255, 30, 120, 0.10);
+      border: 1px solid rgba(255, 30, 120, 0.25);
+    }
+
+    .sucesso {
+      display: block;
+      color: #f8d58a;
+      background: rgba(248, 213, 138, 0.08);
+      border: 1px solid rgba(248, 213, 138, 0.20);
+    }
+
+    .voltar {
+      display: block;
+      margin-top: 22px;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .voltar:hover {
+      color: #f8d58a;
+    }
+
+  </style>
 
 </head>
 
 <body>
 
+  <main class="container">
 
-<!-- =====================================================
-     LOADING
-===================================================== -->
+    <section class="card">
 
-<div id="loadingScreen">
-
-  <div class="loading-box">
-
-    <div class="loading-logo">
-      LUX
-    </div>
-
-    <p id="loadingText">
-      Abrindo painel administrativo...
-    </p>
-
-    <div class="spinner"></div>
-
-  </div>
-
-</div>
-
-
-<!-- =====================================================
-     SISTEMA
-===================================================== -->
-
-<div
-  id="adminSystem"
-  class="hidden"
->
-
-
-<header class="topbar">
-
-  <div class="brand">
-
-    <div class="brand-mark">
-      L
-    </div>
-
-    <div>
-
-      <h1>
-        LUX — ADMIN
-      </h1>
-
-      <small>
-        Central de Gestão • Halloween Edition
-      </small>
-
-    </div>
-
-  </div>
-
-
-  <div class="top-actions">
-
-    <span
-      id="adminEmail"
-      class="admin-email"
-    >
-      Administrador
-    </span>
-
-    <button
-      class="btn"
-      onclick="refreshAll()"
-    >
-      ↻ Atualizar
-    </button>
-
-    <button
-      class="btn btn-danger"
-      onclick="logout()"
-    >
-      Sair
-    </button>
-
-  </div>
-
-</header>
-
-
-<div class="mobile-menu">
-
-  <button
-    class="btn btn-pink"
-    onclick="toggleMobileMenu()"
-  >
-    ☰ Menu administrativo
-  </button>
-
-</div>
-
-
-<div class="layout">
-
-
-<aside
-  id="sidebar"
-  class="sidebar"
->
-
-
-<div class="menu-title">
-  Principal
-</div>
-
-<button
-  class="nav-btn active"
-  data-section="dashboard"
-  onclick="showSection('dashboard',this)"
->
-  <span class="nav-icon">⌂</span>
-  Dashboard
-</button>
-
-
-<div class="menu-title">
-  Cadastros
-</div>
-
-<button
-  class="nav-btn"
-  data-section="precadastros"
-  onclick="showSection('precadastros',this)"
->
-  <span class="nav-icon">☷</span>
-  Pré-cadastros
-</button>
-
-<button
-  class="nav-btn"
-  data-section="modelos"
-  onclick="showSection('modelos',this)"
->
-  <span class="nav-icon">♟</span>
-  Modelos
-</button>
-
-<button
-  class="nav-btn"
-  data-section="usuarios"
-  onclick="showSection('usuarios',this)"
->
-  <span class="nav-icon">♙</span>
-  Usuários
-</button>
-
-
-<div class="menu-title">
-  Atendimento
-</div>
-
-<button
-  class="nav-btn"
-  data-section="reclamacoes"
-  onclick="showSection('reclamacoes',this)"
->
-  <span class="nav-icon">!</span>
-  Reclamações
-</button>
-
-<button
-  class="nav-btn"
-  data-section="avaliacoes"
-  onclick="showSection('avaliacoes',this)"
->
-  <span class="nav-icon">★</span>
-  Avaliações
-</button>
-
-
-<div class="menu-title">
-  Financeiro
-</div>
-
-<button
-  class="nav-btn"
-  data-section="assinaturas"
-  onclick="showSection('assinaturas',this)"
->
-  <span class="nav-icon">$</span>
-  Planos / Assinaturas
-</button>
-
-
-<div class="menu-title">
-  Sistema
-</div>
-
-<button
-  class="nav-btn"
-  data-section="configuracoes"
-  onclick="showSection('configuracoes',this)"
->
-  <span class="nav-icon">⚙</span>
-  Configurações
-</button>
-
-
-</aside>
-
-
-<main class="main">
-
-
-<!-- =====================================================
-     DASHBOARD
-===================================================== -->
-
-<section
-  id="section-dashboard"
-  class="section active"
->
-
-<h2 class="page-title">
-  Painel de Controle
-</h2>
-
-<p class="page-subtitle">
-  Central administrativa da LUX.
-</p>
-
-
-<div
-  id="globalMessage"
-  class="message"
-></div>
-
-
-<div class="stats">
-
-
-<div class="stat">
-
-<span class="stat-icon">
-♟
-</span>
-
-<div class="stat-label">
-Modelos
-</div>
-
-<div
-  id="statModelos"
-  class="stat-value"
->
-0
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<span class="stat-icon">
-✓
-</span>
-
-<div class="stat-label">
-Pré-cadastros pendentes
-</div>
-
-<div
-  id="statPendentes"
-  class="stat-value"
->
-0
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<span class="stat-icon">
-!
-</span>
-
-<div class="stat-label">
-Reclamações
-</div>
-
-<div
-  id="statReclamacoes"
-  class="stat-value"
->
-—
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<span class="stat-icon">
-★
-</span>
-
-<div class="stat-label">
-Avaliações
-</div>
-
-<div
-  id="statAvaliacoes"
-  class="stat-value"
->
-—
-</div>
-
-</div>
-
-
-</div>
-
-
-<div class="panel">
-
-<div class="panel-header">
-
-<h3 class="panel-title">
-Central administrativa
-</h3>
-
-<span class="badge badge-gold">
-LUX ADMIN
-</span>
-
-</div>
-
-<p
-style="
-color:var(--muted);
-line-height:1.7;
-"
->
-
-Painel administrativo da LUX-ADVANCE.
-Aqui você poderá acompanhar pré-cadastros,
-modelos, reclamações, avaliações e planos.
-
-</p>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panel-header">
-
-<h3 class="panel-title">
-Pré-cadastros recentes
-</h3>
-
-<button
-class="btn"
-onclick="showSectionByName('precadastros')"
->
-Ver pré-cadastros
-</button>
-
-</div>
-
-<div
-id="recentPreCadastros"
-class="empty"
->
-Carregando...
-</div>
-
-</div>
-
-
-</section>
-
-
-<!-- =====================================================
-     PRÉ-CADASTROS
-===================================================== -->
-
-<section
-id="section-precadastros"
-class="section"
->
-
-<h2 class="page-title">
-Pré-cadastros
-</h2>
-
-<p class="page-subtitle">
-Gerenciamento das fichas recebidas pela LUX.
-</p>
-
-
-<div class="panel">
-
-
-<div class="filters">
-
-<button
-class="btn btn-gold btn-filtro"
-data-filtro="todos"
-onclick="filtrarPreCadastros('todos',this)"
->
-Todos
-</button>
-
-<button
-class="btn btn-filtro"
-data-filtro="pendente"
-onclick="filtrarPreCadastros('pendente',this)"
->
-Pendentes
-</button>
-
-<button
-class="btn btn-filtro"
-data-filtro="aprovado"
-onclick="filtrarPreCadastros('aprovado',this)"
->
-Aprovados
-</button>
-
-<button
-class="btn btn-filtro"
-data-filtro="rejeitado"
-onclick="filtrarPreCadastros('rejeitado',this)"
->
-Rejeitados
-</button>
-
-</div>
-
-
-<div
-id="lista-precadastros"
-class="precadastro-grid"
->
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     MODELOS
-===================================================== -->
-
-<section
-id="section-modelos"
-class="section"
->
-
-<h2 class="page-title">
-Modelos
-</h2>
-
-<p class="page-subtitle">
-Gerencie os cadastros de modelos.
-</p>
-
-
-<div class="panel">
-
-
-<div class="filters">
-
-<input
-id="modeloSearch"
-class="input"
-type="search"
-placeholder="Pesquisar modelo..."
-oninput="filterModels()"
->
-
-<select
-id="modeloStatus"
-class="select"
-onchange="filterModels()"
->
-
-<option value="">
-Todos os status
-</option>
-
-<option value="pendente">
-Pendentes
-</option>
-
-<option value="aprovado">
-Aprovados
-</option>
-
-<option value="reprovado">
-Reprovados
-</option>
-
-</select>
-
-<button
-class="btn btn-gold"
-onclick="loadModels()"
->
-Atualizar
-</button>
-
-</div>
-
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>
-Modelo
-</th>
-
-<th>
-E-mail
-</th>
-
-<th>
-Status
-</th>
-
-<th>
-Cadastro
-</th>
-
-<th>
-Ações
-</th>
-
-</tr>
-
-</thead>
-
-<tbody id="modelsTable">
-
-<tr>
-
-<td colspan="5">
-
-<div class="empty">
-Carregando...
-</div>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     USUÁRIOS
-===================================================== -->
-
-<section
-id="section-usuarios"
-class="section"
->
-
-<h2 class="page-title">
-Usuários
-</h2>
-
-<p class="page-subtitle">
-Gerenciamento administrativo dos usuários.
-</p>
-
-
-<div class="panel">
-
-<div class="empty">
-
-<div class="empty-icon">
-♙
-</div>
-
-Os usuários autenticados pelo Supabase
-devem ser administrados por uma função
-administrativa segura.
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     RECLAMAÇÕES
-===================================================== -->
-
-<section
-id="section-reclamacoes"
-class="section"
->
-
-<h2 class="page-title">
-Reclamações
-</h2>
-
-<p class="page-subtitle">
-Central de atendimento.
-</p>
-
-
-<div class="panel">
-
-<div
-id="complaintsContainer"
-class="empty"
->
-
-<div class="empty-icon">
-!
-</div>
-
-Carregando reclamações...
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     AVALIAÇÕES
-===================================================== -->
-
-<section
-id="section-avaliacoes"
-class="section"
->
-
-<h2 class="page-title">
-Avaliações
-</h2>
-
-<p class="page-subtitle">
-Sistema de avaliações dos perfis.
-</p>
-
-
-<div class="panel">
-
-<div
-class="empty"
->
-
-<div class="empty-icon">
-★
-</div>
-
-Central de avaliações LUX.
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     ASSINATURAS
-===================================================== -->
-
-<section
-id="section-assinaturas"
-class="section"
->
-
-<h2 class="page-title">
-Planos e Assinaturas
-</h2>
-
-<p class="page-subtitle">
-Planos da LUX-ADVANCE.
-</p>
-
-
-<div class="stats">
-
-
-<div class="stat">
-
-<div class="stat-label">
-LUX ESSENCE
-</div>
-
-<div class="stat-value">
-FREE
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-label">
-LUX DESFIRE
-</div>
-
-<div class="stat-value">
-R$ 29,90
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-label">
-LUX ELITE
-</div>
-
-<div class="stat-value">
-R$ 59,90
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-label">
-LUX ROYAL
-</div>
-
-<div class="stat-value">
-R$ 99,90
-</div>
-
-</div>
-
-
-</div>
-
-
-<div class="panel">
-
-<div class="empty">
-
-<div class="empty-icon">
-$
-</div>
-
-Integração financeira preparada
-para Mercado Pago.
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     CONFIGURAÇÕES
-===================================================== -->
-
-<section
-id="section-configuracoes"
-class="section"
->
-
-<h2 class="page-title">
-Configurações
-</h2>
-
-<p class="page-subtitle">
-Configurações administrativas.
-</p>
-
-
-<div class="panel">
-
-<div class="detail-grid">
-
-
-<div class="detail">
-
-<div class="detail-label">
-Administrador
-</div>
-
-<div
-id="configAdminEmail"
-class="detail-value"
->
-—
-</div>
-
-</div>
-
-
-<div class="detail">
-
-<div class="detail-label">
-Sistema
-</div>
-
-<div class="detail-value">
-LUX-ADVANCE
-</div>
-
-</div>
-
-
-<div class="detail">
-
-<div class="detail-label">
-Tema
-</div>
-
-<div class="detail-value">
-Halloween Edition
-</div>
-
-</div>
-
-
-<div class="detail">
-
-<div class="detail-label">
-Supabase
-</div>
-
-<div class="detail-value">
-Conectado
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-</main>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     MODAL
-===================================================== -->
-
-<div
-id="modal-ver-ficha"
-class="modal"
->
-
-<div class="modal-box">
-
-<div class="modal-header">
-
-<h3
-id="modalTitle"
-class="modal-title"
->
-Ficha
-</h3>
-
-<button
-class="close"
-onclick="fecharModalFicha()"
->
-×
-</button>
-
-</div>
-
-
-<div
-id="corpo-ficha"
-class="detail-grid"
->
-</div>
-
-
-<div
-style="
-display:flex;
-gap:10px;
-margin-top:20px;
-flex-wrap:wrap;
-"
->
-
-<button
-id="botao-aprovar"
-class="btn btn-gold"
->
-Aprovar
-</button>
-
-<button
-id="botao-rejeitar"
-class="btn btn-danger"
->
-Rejeitar
-</button>
-
-<button
-class="btn"
-onclick="imprimirFicha()"
->
-Imprimir
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<script>
-
-/* =====================================================
-   LUX ADMIN
-   ===================================================== */
-
-const supabase =
-  window.luxSupabase;
-
-const ADMIN_EMAIL =
-  String(
-    window.LUX_ADMIN_EMAIL || ""
-  )
-  .trim()
-  .toLowerCase();
-
-
-let currentUser = null;
-
-let allModels = [];
-
-let listaPreCadastros = [];
-
-let filtroStatus = "todos";
-
-let indiceSelecionado = null;
-
-
-/* =====================================================
-   INICIALIZAÇÃO
-   ===================================================== */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  iniciarPainel
-);
-
-
-async function iniciarPainel(){
-
-  /*
-   * PRIMEIRO:
-   * mostramos o painel.
-   *
-   * Isso impede que uma espera do
-   * Supabase deixe a tela congelada.
-   */
-
-  abrirInterface();
-
-
-  /*
-   * Recuperamos o administrador
-   * salvo pelo acesso-admin.
-   */
-
-  const adminMarcado =
-    localStorage.getItem(
-      "lux_admin_access"
-    );
-
-
-  if(
-    adminMarcado &&
-    ADMIN_EMAIL &&
-    adminMarcado.toLowerCase() ===
-    ADMIN_EMAIL
-  ){
-
-    document
-      .getElementById("adminEmail")
-      .textContent =
-      ADMIN_EMAIL;
-
-    document
-      .getElementById("configAdminEmail")
-      .textContent =
-      ADMIN_EMAIL;
-
-  }
-
-
-  /*
-   * Agora tentamos validar a sessão
-   * sem bloquear o painel.
-   */
-
-  validarSessaoSemBloqueio();
-
-
-  /*
-   * Carregamos os dados.
-   */
-
-  carregarListaPreCadastros();
-
-  loadModels();
-
-  loadComplaints();
-
-}
-
-
-/* =====================================================
-   ABRIR INTERFACE
-===================================================== */
-
-function abrirInterface(){
-
-  document
-    .getElementById(
-      "loadingScreen"
-    )
-    .classList
-    .add("hidden");
-
-
-  document
-    .getElementById(
-      "adminSystem"
-    )
-    .classList
-    .remove("hidden");
-
-}
-
-
-/* =====================================================
-   VALIDAÇÃO SEM TRAVAR A TELA
-===================================================== */
-
-async function validarSessaoSemBloqueio(){
-
-  /*
-   * Se a sessão demorar, não deixamos
-   * o painel preso.
-   */
-
-  if(!supabase){
-
-    console.warn(
-      "Supabase não disponível."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const timeout =
-      new Promise(
-        (_,reject)=>{
-
-          setTimeout(
-            ()=>{
-              reject(
-                new Error(
-                  "TIMEOUT_SESSAO"
-                )
-              );
-            },
-            4000
-          );
-
-        }
-      );
-
-
-    const sessao =
-      await Promise.race([
-
-        supabase.auth.getSession(),
-
-        timeout
-
-      ]);
-
-
-    const session =
-      sessao?.data?.session;
-
-
-    if(!session?.user){
-
-      /*
-       * Se não houver sessão e não houver
-       * marcação de acesso, voltamos.
-       */
-
-      const acesso =
-        localStorage.getItem(
-          "lux_admin_access"
-        );
-
-
-      if(
-        !acesso ||
-        acesso.toLowerCase() !==
-        ADMIN_EMAIL
-      ){
-
-        window.location.replace(
-          "./acesso-admin.html"
-        );
-
-      }
-
-      return;
-
-    }
-
-
-    const email =
-      String(
-        session.user.email || ""
-      )
-      .trim()
-      .toLowerCase();
-
-
-    if(
-      ADMIN_EMAIL &&
-      email !== ADMIN_EMAIL
-    ){
-
-      await supabase.auth.signOut();
-
-      localStorage.removeItem(
-        "lux_admin_access"
-      );
-
-      window.location.replace(
-        "./acesso-admin.html"
-      );
-
-      return;
-
-    }
-
-
-    currentUser =
-      session.user;
-
-
-    document
-      .getElementById(
-        "adminEmail"
-      )
-      .textContent =
-      session.user.email;
-
-
-    document
-      .getElementById(
-        "configAdminEmail"
-      )
-      .textContent =
-      session.user.email;
-
-
-    localStorage.setItem(
-      "lux_admin_access",
-      email
-    );
-
-
-  }catch(error){
-
-    /*
-     * IMPORTANTE:
-     * timeout não derruba o painel.
-     */
-
-    console.warn(
-      "Validação de sessão:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout(){
-
-  localStorage.removeItem(
-    "lux_admin_access"
-  );
-
-
-  try{
-
-    if(supabase){
-
-      await supabase.auth.signOut();
-
-    }
-
-  }catch(error){
-
-    console.warn(error);
-
-  }
-
-
-  window.location.replace(
-    "./acesso-admin.html"
-  );
-
-}
-
-
-/* =====================================================
-   MENU
-===================================================== */
-
-function showSection(
-  section,
-  button
-){
-
-  document
-    .querySelectorAll(".section")
-    .forEach(
-      el =>
-        el.classList.remove("active")
-    );
-
-
-  const target =
-    document.getElementById(
-      "section-" + section
-    );
-
-
-  if(target){
-
-    target.classList.add(
-      "active"
-    );
-
-  }
-
-
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(
-      el =>
-        el.classList.remove("active")
-    );
-
-
-  if(button){
-
-    button.classList.add(
-      "active"
-    );
-
-  }
-
-
-  document
-    .getElementById("sidebar")
-    .classList
-    .remove("open");
-
-
-  if(section === "precadastros"){
-
-    carregarListaPreCadastros();
-
-  }
-
-
-  if(section === "modelos"){
-
-    loadModels();
-
-  }
-
-
-  if(section === "reclamacoes"){
-
-    loadComplaints();
-
-  }
-
-}
-
-
-function showSectionByName(
-  section
-){
-
-  const button =
-    document.querySelector(
-      `.nav-btn[data-section="${section}"]`
-    );
-
-
-  showSection(
-    section,
-    button
-  );
-
-}
-
-
-function toggleMobileMenu(){
-
-  document
-    .getElementById("sidebar")
-    .classList
-    .toggle("open");
-
-}
-
-
-/* =====================================================
-   PRÉ-CADASTROS
-===================================================== */
-
-async function carregarListaPreCadastros(){
-
-  try{
-
-    listaPreCadastros =
-      JSON.parse(
-        localStorage.getItem(
-          "fichasPreCadastro"
-        ) || "[]"
-      );
-
-
-    aplicarFiltroERenderizar();
-
-
-    atualizarDashboardPreCadastros();
-
-
-  }catch(error){
-
-    console.error(
-      "Erro:",
-      error
-    );
-
-  }
-
-}
-
-
-function filtrarPreCadastros(
-  status,
-  botao
-){
-
-  filtroStatus =
-    status;
-
-
-  document
-    .querySelectorAll(
-      ".btn-filtro"
-    )
-    .forEach(
-      b =>
-        b.classList.remove(
-          "btn-gold"
-        )
-    );
-
-
-  if(botao){
-
-    botao.classList.add(
-      "btn-gold"
-    );
-
-  }
-
-
-  aplicarFiltroERenderizar();
-
-}
-
-
-function aplicarFiltroERenderizar(){
-
-  let dados =
-    [...listaPreCadastros];
-
-
-  if(
-    filtroStatus !==
-    "todos"
-  ){
-
-    dados =
-      dados.filter(
-        ficha =>
-          String(
-            ficha.status ||
-            "pendente"
-          )
-          .toLowerCase() ===
-          filtroStatus
-      );
-
-  }
-
-
-  desenharListaPreCadastros(
-    dados
-  );
-
-}
-
-
-function desenharListaPreCadastros(
-  lista
-){
-
-  const container =
-    document.getElementById(
-      "lista-precadastros"
-    );
-
-
-  if(!container){
-
-    return;
-
-  }
-
-
-  if(!lista.length){
-
-    container.innerHTML = `
-
-      <div
-        class="empty"
-        style="grid-column:1/-1"
-      >
-
-        <div class="empty-icon">
-          ☷
-        </div>
-
-        Nenhum registro encontrado.
-
+      <div class="logo">
+        LUX
       </div>
 
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    lista
-      .map(
-        (ficha,index)=>`
-
-          <div class="card-registro">
-
-            <h4>
-              ${escapeHtml(
-                ficha.nome ||
-                "Sem nome"
-              )}
-            </h4>
-
-            <p>
-              📱
-              ${escapeHtml(
-                ficha.whatsapp ||
-                "—"
-              )}
-            </p>
-
-            <p>
-              📅
-              ${escapeHtml(
-                ficha.dataEnvio ||
-                "—"
-              )}
-            </p>
-
-            <p>
-              Status:
-
-              <span
-                class="status-${
-                  ficha.status ||
-                  "pendente"
-                }"
-              >
-                ${
-                  String(
-                    ficha.status ||
-                    "pendente"
-                  )
-                  .toUpperCase()
-                }
-              </span>
-
-            </p>
-
-            <button
-              class="btn"
-              style="margin-top:10px"
-              onclick="abrirVerFicha(${listaPreCadastros.indexOf(ficha)})"
-            >
-              Ver ficha completa
-            </button>
-
-          </div>
-
-        `
-      )
-      .join("");
-
-}
-
-
-function abrirVerFicha(
-  indice
-){
-
-  indiceSelecionado =
-    indice;
-
-
-  const d =
-    listaPreCadastros[
-      indice
-    ];
-
-
-  if(!d){
-
-    return;
-
-  }
-
-
-  document
-    .getElementById(
-      "modalTitle"
-    )
-    .textContent =
-    d.nome ||
-    "Ficha de pré-cadastro";
-
-
-  const fotos =
-    Array.isArray(
-      d.fotos
-    )
-      ? d.fotos
-      : [];
-
-
-  document
-    .getElementById(
-      "corpo-ficha"
-    )
-    .innerHTML = `
-
-      <div class="detail">
-
-        <div class="detail-label">
-          Nome / Apelido
-        </div>
-
-        <div class="detail-value">
-          ${escapeHtml(
-            d.nome || "—"
-          )}
-        </div>
-
+      <div class="titulo">
+        Acesso Administrativo
       </div>
 
-
-      <div class="detail">
-
-        <div class="detail-label">
-          WhatsApp
-        </div>
-
-        <div class="detail-value">
-          ${escapeHtml(
-            d.whatsapp || "—"
-          )}
-        </div>
-
+      <div class="subtitulo">
+        Área exclusiva de administração.
+        Digite sua senha para continuar.
       </div>
 
-
-      <div class="detail">
-
-        <div class="detail-label">
-          Idade
-        </div>
-
-        <div class="detail-value">
-          ${escapeHtml(
-            d.idade || "—"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail">
-
-        <div class="detail-label">
-          Altura
-        </div>
-
-        <div class="detail-value">
-          ${escapeHtml(
-            d.altura || "—"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail">
-
-        <div class="detail-label">
-          Cidade / UF
-        </div>
-
-        <div class="detail-value">
-          ${escapeHtml(
-            d.cidade || "—"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail">
-
-        <div class="detail-label">
-          Status
-        </div>
-
-        <div class="detail-value">
-          ${escapeHtml(
-            d.status ||
-            "pendente"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail full">
-
-        <div class="detail-label">
-          Informações
-        </div>
-
-        <div class="detail-value">
-          ${escapeHtml(
-            d.sobre || "—"
-          )}
-        </div>
-
-      </div>
-
-
-      <div class="detail full">
-
-        <div class="detail-label">
-          Fotos
-        </div>
-
-        <div class="detail-value">
-
-          ${
-            fotos.length
-
-              ? `
-
-                <div class="ficha-fotos">
-
-                  ${
-                    fotos
-                      .map(
-                        url => `
-
-                          <img
-                            src="${escapeHtml(
-                              url
-                            )}"
-                            alt="Foto"
-                          >
-
-                        `
-                      )
-                      .join("")
-                  }
-
-                </div>
-
-              `
-
-              : "Nenhuma foto enviada."
-          }
-
-        </div>
-
-      </div>
-
-
-      <div class="detail full">
-
-        <div class="detail-label">
-          Vídeo
-        </div>
-
-        <div class="detail-value">
-
-          ${
-            d.video
-
-              ? `
-
-                <video
-                  class="ficha-video"
-                  controls
-                  src="${escapeHtml(
-                    d.video
-                  )}"
-                ></video>
-
-              `
-
-              : "Nenhum vídeo enviado."
-          }
-
-        </div>
-
-      </div>
-
-    `;
-
-
-  document
-    .getElementById(
-      "modal-ver-ficha"
-    )
-    .classList
-    .add("show");
-
-}
-
-
-function fecharModalFicha(){
-
-  document
-    .getElementById(
-      "modal-ver-ficha"
-    )
-    .classList
-    .remove("show");
-
-
-  indiceSelecionado =
-    null;
-
-}
-
-
-async function salvarAlteracoes(){
-
-  localStorage.setItem(
-    "fichasPreCadastro",
-    JSON.stringify(
-      listaPreCadastros
-    )
-  );
-
-
-  aplicarFiltroERenderizar();
-
-  atualizarDashboardPreCadastros();
-
-}
-
-
-document.addEventListener(
-  "click",
-  async function(event){
-
-    if(
-      event.target.id ===
-      "botao-aprovar" &&
-      indiceSelecionado !== null
-    ){
-
-      listaPreCadastros[
-        indiceSelecionado
-      ].status =
-        "aprovado";
-
-
-      await salvarAlteracoes();
-
-      fecharModalFicha();
-
-      mostrarMensagem(
-        "Pré-cadastro aprovado.",
-        "success"
-      );
-
-    }
-
-
-    if(
-      event.target.id ===
-      "botao-rejeitar" &&
-      indiceSelecionado !== null
-    ){
-
-      listaPreCadastros[
-        indiceSelecionado
-      ].status =
-        "rejeitado";
-
-
-      await salvarAlteracoes();
-
-      fecharModalFicha();
-
-      mostrarMensagem(
-        "Pré-cadastro rejeitado.",
-        "success"
-      );
-
-    }
-
-  }
-);
-
-
-function atualizarDashboardPreCadastros(){
-
-  const pendentes =
-    listaPreCadastros.filter(
-      ficha =>
-        String(
-          ficha.status ||
-          "pendente"
-        )
-        .toLowerCase() ===
-        "pendente"
-    ).length;
-
-
-  const elemento =
-    document.getElementById(
-      "statPendentes"
-    );
-
-
-  if(elemento){
-
-    elemento.textContent =
-      pendentes;
-
-  }
-
-
-  const recent =
-    document.getElementById(
-      "recentPreCadastros"
-    );
-
-
-  if(!recent){
-
-    return;
-
-  }
-
-
-  if(!listaPreCadastros.length){
-
-    recent.innerHTML = `
-
-      <div class="empty-icon">
-        ☷
-      </div>
-
-      Nenhum pré-cadastro encontrado.
-
-    `;
-
-    return;
-
-  }
-
-
-  recent.innerHTML =
-    listaPreCadastros
-      .slice(0,5)
-      .map(
-        ficha => `
-
-          <div
-            style="
-              padding:12px;
-              border-bottom:
-                1px solid
-                rgba(255,255,255,.06);
-            "
+      <form id="formAdmin">
+
+        <div class="campo">
+
+          <label for="senhaAdmin">
+            Senha administrativa
+          </label>
+
+          <input
+            id="senhaAdmin"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Digite sua senha"
+            required
           >
 
-            <strong
-              style="color:var(--gold)"
-            >
-              ${escapeHtml(
-                ficha.nome ||
-                "Sem nome"
-              )}
-            </strong>
+        </div>
 
-            <br>
+        <button
+          id="btnEntrar"
+          class="botao"
+          type="submit"
+        >
+          ENTRAR NO PAINEL
+        </button>
 
-            <span
-              style="
-                color:var(--muted);
-                font-size:12px;
-              "
-            >
+      </form>
 
-              ${escapeHtml(
-                ficha.whatsapp ||
-                "—"
-              )}
+      <div
+        id="mensagem"
+        class="mensagem"
+      ></div>
 
-              •
+      <a
+        href="./index.html"
+        class="voltar"
+      >
+        Voltar para o site
+      </a>
 
-              ${escapeHtml(
-                ficha.status ||
-                "pendente"
-              )}
+    </section>
 
-            </span>
+  </main>
 
-          </div>
 
-        `
-      )
-      .join("");
+  <script>
 
-}
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
 
+        const form =
+          document.getElementById("formAdmin");
 
-/* =====================================================
-   MODELOS
-===================================================== */
+        const senhaInput =
+          document.getElementById("senhaAdmin");
 
-async function loadModels(){
+        const botao =
+          document.getElementById("btnEntrar");
 
-  const tbody =
-    document.getElementById(
-      "modelsTable"
-    );
+        const mensagem =
+          document.getElementById("mensagem");
 
 
-  if(!tbody){
+        function mostrarMensagem(
+          texto,
+          tipo
+        ) {
 
-    return;
+          mensagem.textContent = texto;
 
-  }
-
-
-  if(!supabase){
-
-    tbody.innerHTML = `
-
-      <tr>
-        <td colspan="5">
-
-          <div class="empty">
-            Supabase não disponível.
-          </div>
-
-        </td>
-      </tr>
-
-    `;
-
-    return;
-
-  }
-
-
-  try{
-
-    const resultado =
-      await supabase
-        .from(
-          "modelo_perfis"
-        )
-        .select("*");
-
-
-    if(resultado.error){
-
-      throw resultado.error;
-
-    }
-
-
-    allModels =
-      resultado.data || [];
-
-
-    renderModels(
-      allModels
-    );
-
-
-    document
-      .getElementById(
-        "statModelos"
-      )
-      .textContent =
-      allModels.length;
-
-
-  }catch(error){
-
-    console.error(
-      "Erro ao carregar modelos:",
-      error
-    );
-
-
-    tbody.innerHTML = `
-
-      <tr>
-
-        <td colspan="5">
-
-          <div class="empty">
-
-            <div class="empty-icon">
-              !
-            </div>
-
-            Não foi possível carregar
-            os modelos.
-
-            <br><br>
-
-            <small>
-              ${escapeHtml(
-                error.message ||
-                "Erro desconhecido."
-              )}
-            </small>
-
-          </div>
-
-        </td>
-
-      </tr>
-
-    `;
-
-  }
-
-}
-
-
-function renderModels(
-  models
-){
-
-  const tbody =
-    document.getElementById(
-      "modelsTable"
-    );
-
-
-  if(!models.length){
-
-    tbody.innerHTML = `
-
-      <tr>
-
-        <td colspan="5">
-
-          <div class="empty">
-
-            Nenhum modelo cadastrado.
-
-          </div>
-
-        </td>
-
-      </tr>
-
-    `;
-
-    return;
-
-  }
-
-
-  tbody.innerHTML =
-    models
-      .map(
-        model => {
-
-          const id =
-            model.id || "";
-
-
-          const nome =
-            model.nome ||
-            model.nome_completo ||
-            model.nome_artistico ||
-            model.login ||
-            "Modelo";
-
-
-          const email =
-            model.email ||
-            "—";
-
-
-          const status =
-            model.status ||
-            model.situacao ||
-            "pendente";
-
-
-          const data =
-            model.created_at ||
-            model.criado_em ||
-            "";
-
-
-          return `
-
-            <tr>
-
-              <td>
-                <strong>
-                  ${escapeHtml(nome)}
-                </strong>
-              </td>
-
-              <td>
-                ${escapeHtml(email)}
-              </td>
-
-              <td>
-                ${statusBadge(status)}
-              </td>
-
-              <td>
-                ${formatDate(data)}
-              </td>
-
-              <td>
-
-                <div class="actions">
-
-                  <button
-                    class="small-btn"
-                    onclick='viewModel(${JSON.stringify(model)})'
-                  >
-                    Ver
-                  </button>
-
-                  ${
-                    normalizeStatus(status) ===
-                    "pendente"
-
-                      ? `
-
-                        <button
-                          class="small-btn approve"
-                          onclick="alterarStatusModelo('${escapeJs(id)}','aprovado')"
-                        >
-                          Aprovar
-                        </button>
-
-                        <button
-                          class="small-btn reject"
-                          onclick="alterarStatusModelo('${escapeJs(id)}','reprovado')"
-                        >
-                          Reprovar
-                        </button>
-
-                      `
-
-                      : ""
-                  }
-
-                </div>
-
-              </td>
-
-            </tr>
-
-          `;
+          mensagem.className =
+            "mensagem " + tipo;
 
         }
-      )
-      .join("");
 
-}
 
+        form.addEventListener(
+          "submit",
+          async function (evento) {
 
-function filterModels(){
+            evento.preventDefault();
 
-  const busca =
-    String(
-      document.getElementById(
-        "modeloSearch"
-      )?.value || ""
-    )
-    .toLowerCase()
-    .trim();
+            const senha =
+              senhaInput.value.trim();
 
 
-  const status =
-    document.getElementById(
-      "modeloStatus"
-    )?.value || "";
+            if (!senha) {
 
+              mostrarMensagem(
+                "Digite a senha administrativa.",
+                "erro"
+              );
 
-  const filtrados =
-    allModels.filter(
-      modelo => {
+              return;
+            }
 
-        const texto =
-          JSON.stringify(
-            modelo
-          )
-          .toLowerCase();
 
+            if (
+              !window.luxSupabase
+            ) {
 
-        const modeloStatus =
-          normalizeStatus(
-            modelo.status ||
-            modelo.situacao ||
-            "pendente"
-          );
+              mostrarMensagem(
+                "Erro ao carregar o sistema. Verifique o config.js.",
+                "erro"
+              );
 
+              return;
+            }
 
-        return (
 
-          (!busca ||
-            texto.includes(busca))
+            botao.disabled = true;
 
-          &&
+            botao.textContent =
+              "ENTRANDO...";
 
-          (!status ||
-            modeloStatus === status)
+            mensagem.className =
+              "mensagem";
 
-        );
+            mensagem.textContent =
+              "";
 
-      }
-    );
 
+            try {
 
-  renderModels(
-    filtrados
-  );
+              /*
+               * O e-mail administrativo
+               * vem diretamente do config.js
+               */
 
-}
+              const email =
+                window.LUX_ADMIN_EMAIL;
 
 
-async function alterarStatusModelo(
-  id,
-  status
-){
+              if (!email) {
 
-  if(!id){
+                throw new Error(
+                  "E-mail administrativo não configurado no config.js."
+                );
 
-    return;
+              }
 
-  }
 
+              /*
+               * LOGIN DIRETO
+               *
+               * Não fazemos getSession(),
+               * não fazemos polling,
+               * não ficamos verificando acesso.
+               *
+               * Se a senha estiver correta,
+               * o Supabase cria a sessão e
+               * abrimos o painel imediatamente.
+               */
 
-  try{
+              const resultado =
+                await window.luxSupabase.auth.signInWithPassword({
 
-    let resultado =
-      await supabase
-        .from(
-          "modelo_perfis"
-        )
-        .update({
-          status:status
-        })
-        .eq(
-          "id",
-          id
-        );
+                  email: email,
 
+                  password: senha
 
-    if(resultado.error){
+                });
 
-      resultado =
-        await supabase
-          .from(
-            "modelo_perfis"
-          )
-          .update({
-            situacao:status
-          })
-          .eq(
-            "id",
-            id
-          );
 
-    }
+              if (resultado.error) {
 
+                throw resultado.error;
 
-    if(resultado.error){
+              }
 
-      throw resultado.error;
 
-    }
+              if (
+                !resultado.data ||
+                !resultado.data.user
+              ) {
 
+                throw new Error(
+                  "Não foi possível confirmar o acesso."
+                );
 
-    mostrarMensagem(
-      "Status do modelo atualizado.",
-      "success"
-    );
+              }
 
 
-    loadModels();
+              /*
+               * SENHA CORRETA
+               *
+               * Abre diretamente o painel.
+               */
 
+              mostrarMensagem(
+                "Acesso autorizado. Abrindo painel...",
+                "sucesso"
+              );
 
-  }catch(error){
 
-    mostrarMensagem(
-      error.message ||
-      "Erro ao atualizar modelo.",
-      "error"
-    );
+              botao.textContent =
+                "ACESSO AUTORIZADO";
 
-  }
 
-}
+              /*
+               * Pequeno intervalo apenas
+               * para o navegador gravar a sessão.
+               */
 
+              setTimeout(
+                function () {
 
-function viewModel(
-  model
-){
+                  window.location.href =
+                    "./painel-admin.html";
 
-  document
-    .getElementById(
-      "modalTitle"
-    )
-    .textContent =
-    model.nome ||
-    model.nome_artistico ||
-    "Modelo";
+                },
+                300
+              );
 
 
-  document
-    .getElementById(
-      "corpo-ficha"
-    )
-    .innerHTML =
-    Object.entries(
-      model
-    )
-    .map(
-      ([chave,valor])=>`
+            } catch (erro) {
 
-        <div class="detail">
+              console.error(
+                "Erro no acesso administrativo:",
+                erro
+              );
 
-          <div class="detail-label">
-            ${escapeHtml(
-              chave
-            )}
-          </div>
 
-          <div class="detail-value">
-            ${formatValue(
-              valor
-            )}
-          </div>
+              let texto =
+                "Senha incorreta ou acesso não autorizado.";
 
-        </div>
 
-      `
-    )
-    .join("");
+              if (
+                erro &&
+                erro.message
+              ) {
 
+                const erroSupabase =
+                  erro.message.toLowerCase();
 
-  document
-    .getElementById(
-      "botao-aprovar"
-    )
-    .style.display =
-    "none";
 
+                if (
+                  erroSupabase.includes(
+                    "invalid login credentials"
+                  )
+                ) {
 
-  document
-    .getElementById(
-      "botao-rejeitar"
-    )
-    .style.display =
-    "none";
+                  texto =
+                    "Senha incorreta. Tente novamente.";
 
+                }
+                else if (
+                  erroSupabase.includes(
+                    "email not confirmed"
+                  )
+                ) {
 
-  document
-    .getElementById(
-      "modal-ver-ficha"
-    )
-    .classList
-    .add("show");
+                  texto =
+                    "O e-mail administrativo ainda não foi confirmado no Supabase.";
 
-}
+                }
+                else if (
+                  erroSupabase.includes(
+                    "user not found"
+                  )
+                ) {
 
+                  texto =
+                    "Usuário administrativo não encontrado.";
 
-/* =====================================================
-   RECLAMAÇÕES
-===================================================== */
+                }
+                else if (
+                  erroSupabase.includes(
+                    "invalid"
+                  )
+                ) {
 
-async function loadComplaints(){
+                  texto =
+                    "Dados de acesso inválidos.";
 
-  const container =
-    document.getElementById(
-      "complaintsContainer"
-    );
+                }
+              }
 
 
-  if(!container){
+              mostrarMensagem(
+                texto,
+                "erro"
+              );
 
-    return;
 
-  }
+              botao.disabled = false;
 
+              botao.textContent =
+                "ENTRAR NO PAINEL";
 
-  if(!supabase){
+            }
 
-    return;
-
-  }
-
-
-  const tabelas = [
-    "reclamacoes",
-    "reclamacoes_usuarios",
-    "reclamacoes_modelos"
-  ];
-
-
-  let encontrados = [];
-
-
-  for(
-    const tabela of tabelas
-  ){
-
-    try{
-
-      const resultado =
-        await supabase
-          .from(tabela)
-          .select("*")
-          .limit(100);
-
-
-      if(!resultado.error){
-
-        encontrados =
-          resultado.data || [];
-
-        break;
-
-      }
-
-    }catch(error){
-
-      console.warn(
-        tabela,
-        error
-      );
-
-    }
-
-  }
-
-
-  if(!encontrados.length){
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">
-          !
-        </div>
-
-        Nenhuma reclamação encontrada.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML = `
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>
-              Assunto
-            </th>
-
-            <th>
-              Login
-            </th>
-
-            <th>
-              E-mail
-            </th>
-
-            <th>
-              Status
-            </th>
-
-            <th>
-              Data
-            </th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          ${
-            encontrados
-              .map(
-                item => `
-
-                  <tr>
-
-                    <td>
-                      ${escapeHtml(
-                        item.assunto ||
-                        "—"
-                      )}
-                    </td>
-
-                    <td>
-                      ${escapeHtml(
-                        item.login ||
-                        item.usuario ||
-                        "—"
-                      )}
-                    </td>
-
-                    <td>
-                      ${escapeHtml(
-                        item.email ||
-                        "—"
-                      )}
-                    </td>
-
-                    <td>
-                      ${statusBadge(
-                        item.status ||
-                        "pendente"
-                      )}
-                    </td>
-
-                    <td>
-                      ${formatDate(
-                        item.created_at ||
-                        item.criado_em
-                      )}
-                    </td>
-
-                  </tr>
-
-                `
-              )
-              .join("")
           }
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-  `;
-
-
-  document
-    .getElementById(
-      "statReclamacoes"
-    )
-    .textContent =
-    encontrados.length;
-
-}
-
-
-/* =====================================================
-   ATUALIZAÇÃO
-===================================================== */
-
-async function refreshAll(){
-
-  carregarListaPreCadastros();
-
-  loadModels();
-
-  loadComplaints();
-
-  mostrarMensagem(
-    "Painel atualizado.",
-    "success"
-  );
-
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-document
-  .getElementById(
-    "modal-ver-ficha"
-  )
-  .addEventListener(
-    "click",
-    function(event){
-
-      if(
-        event.target.id ===
-        "modal-ver-ficha"
-      ){
-
-        fecharModalFicha();
-
-      }
-
-    }
-  );
-
-
-function imprimirFicha(){
-
-  if(
-    indiceSelecionado ===
-    null
-  ){
-
-    return;
-
-  }
-
-
-  window.print();
-
-}
-
-
-/* =====================================================
-   MENSAGEM
-===================================================== */
-
-function mostrarMensagem(
-  texto,
-  tipo="success"
-){
-
-  const box =
-    document.getElementById(
-      "globalMessage"
-    );
-
-
-  if(!box){
-
-    return;
-
-  }
-
-
-  box.textContent =
-    texto;
-
-
-  box.className =
-    "message show " +
-    tipo;
-
-
-  setTimeout(
-    ()=>{
-      box.classList.remove(
-        "show"
-      );
-    },
-    4000
-  );
-
-}
-
-
-/* =====================================================
-   HELPERS
-===================================================== */
-
-function normalizeStatus(
-  status
-){
-
-  return String(
-    status ||
-    "pendente"
-  )
-  .toLowerCase()
-  .normalize("NFD")
-  .replace(
-    /[\u0300-\u036f]/g,
-    ""
-  )
-  .replace(
-    /\s+/g,
-    "_"
-  );
-
-}
-
-
-function statusBadge(
-  status
-){
-
-  const normalizado =
-    normalizeStatus(
-      status
-    );
-
-
-  let classe =
-    "badge-gold";
-
-
-  let texto =
-    status ||
-    "Pendente";
-
-
-  if(
-    normalizado ===
-    "aprovado"
-  ){
-
-    classe =
-      "badge-green";
-
-    texto =
-      "Aprovado";
-
-  }
-
-
-  if(
-    normalizado ===
-    "reprovado" ||
-    normalizado ===
-    "rejeitado"
-  ){
-
-    classe =
-      "badge-red";
-
-    texto =
-      "Reprovado";
-
-  }
-
-
-  if(
-    normalizado ===
-    "resolvida"
-  ){
-
-    classe =
-      "badge-green";
-
-  }
-
-
-  return `
-
-    <span
-      class="badge ${classe}"
-    >
-      ${escapeHtml(
-        texto
-      )}
-    </span>
-
-  `;
-
-}
-
-
-function formatDate(
-  valor
-){
-
-  if(!valor){
-
-    return "—";
-
-  }
-
-
-  const data =
-    new Date(valor);
-
-
-  if(
-    Number.isNaN(
-      data.getTime()
-    )
-  ){
-
-    return escapeHtml(
-      valor
-    );
-
-  }
-
-
-  return data.toLocaleString(
-    "pt-BR"
-  );
-
-}
-
-
-function formatValue(
-  valor
-){
-
-  if(
-    valor === null ||
-    valor === undefined
-  ){
-
-    return "—";
-
-  }
-
-
-  if(
-    typeof valor ===
-    "object"
-  ){
-
-    return escapeHtml(
-      JSON.stringify(
-        valor,
-        null,
-        2
-      )
-    );
-
-  }
-
-
-  return escapeHtml(
-    String(valor)
-  );
-
-}
-
-
-function escapeHtml(
-  valor
-){
-
-  return String(
-    valor ??
-    ""
-  )
-  .replace(
-    /&/g,
-    "&amp;"
-  )
-  .replace(
-    /</g,
-    "&lt;"
-  )
-  .replace(
-    />/g,
-    "&gt;"
-  )
-  .replace(
-    /"/g,
-    "&quot;"
-  )
-  .replace(
-    /'/g,
-    "&#039;"
-  );
-
-}
-
-
-function escapeJs(
-  valor
-){
-
-  return String(
-    valor ??
-    ""
-  )
-  .replace(
-    /\\/g,
-    "\\\\"
-  )
-  .replace(
-    /'/g,
-    "\\'"
-  )
-  .replace(
-    /\n/g,
-    "\\n"
-  )
-  .replace(
-    /\r/g,
-    "\\r"
-  );
-
-}
-
-
-/* =====================================================
-   SEGURANÇA DE SESSÃO
-===================================================== */
-
-if(supabase){
-
-  supabase.auth.onAuthStateChange(
-    function(event,session){
-
-      if(
-        event ===
-        "SIGNED_OUT"
-      ){
-
-        localStorage.removeItem(
-          "lux_admin_access"
-        );
-
-        window.location.replace(
-          "./acesso-admin.html"
         );
 
       }
+    );
 
-    }
-  );
-
-}
-
-</script>
+  </script>
 
 </body>
 

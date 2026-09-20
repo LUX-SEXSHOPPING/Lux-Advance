@@ -10,6 +10,11 @@
     content="width=device-width, initial-scale=1.0"
   >
 
+  <meta
+    name="theme-color"
+    content="#080509"
+  >
+
   <title>LUX — Painel Administrativo</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -18,247 +23,1401 @@
 
   <style>
 
+    /* =========================================================
+       LUX-ADVANCE
+       PAINEL ADMINISTRATIVO
+       ========================================================= */
+
+    :root {
+
+      --lux-black: #080509;
+      --lux-black-2: #100812;
+      --lux-card: rgba(22, 10, 19, .94);
+
+      --lux-gold: #f8d58a;
+      --lux-gold-2: #c99d45;
+
+      --lux-pink: #ff4da6;
+
+      --lux-text: #f7f2f4;
+      --lux-muted: #aaa0a6;
+
+      --lux-border:
+        rgba(248, 213, 138, .18);
+
+      --lux-shadow:
+        0 20px 60px rgba(0,0,0,.45);
+
+      --lux-radius: 20px;
+
+    }
+
+
     * {
       box-sizing: border-box;
     }
 
+
     html,
     body {
+
       margin: 0;
       padding: 0;
+
       width: 100%;
       min-height: 100%;
-      font-family: Arial, sans-serif;
-      background: #080509;
-      color: #fff;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background:
+        var(--lux-black);
+
+      color:
+        var(--lux-text);
+
     }
+
 
     body {
+
       min-height: 100vh;
+
       background:
+
         radial-gradient(
-          circle at top,
-          rgba(80, 15, 55, 0.25),
-          transparent 55%
+          circle at 15% 0%,
+          rgba(255,77,166,.09),
+          transparent 30%
         ),
-        #080509;
+
+        radial-gradient(
+          circle at 85% 5%,
+          rgba(248,213,138,.08),
+          transparent 28%
+        ),
+
+        linear-gradient(
+          180deg,
+          #0a0509 0%,
+          #080509 45%,
+          #050306 100%
+        );
+
     }
+
+
+    /* =========================================================
+       BARRA SUPERIOR
+       ========================================================= */
 
     .topo {
-      width: 100%;
-      padding: 20px;
-      border-bottom: 1px solid rgba(248, 213, 138, 0.20);
-      background: rgba(12, 6, 10, 0.96);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
+
       position: sticky;
+
       top: 0;
-      z-index: 10;
+
+      z-index: 50;
+
+      width: 100%;
+
+      min-height: 76px;
+
+      padding:
+        14px
+        clamp(16px, 4vw, 42px);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+      border-bottom:
+        1px solid var(--lux-border);
+
+      background:
+        rgba(8,5,9,.91);
+
+      backdrop-filter:
+        blur(18px);
+
+      -webkit-backdrop-filter:
+        blur(18px);
+
+      box-shadow:
+        0 8px 35px rgba(0,0,0,.25);
+
     }
+
+
+    .marca-area {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+
+      min-width: 0;
+
+    }
+
+
+    .marca-logo {
+
+      width: 45px;
+      height: 45px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border:
+        1px solid
+        rgba(248,213,138,.38);
+
+      border-radius: 50%;
+
+      color:
+        var(--lux-gold);
+
+      font-family:
+        Georgia,
+        serif;
+
+      font-size: 17px;
+
+      font-weight: bold;
+
+      letter-spacing: 2px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(248,213,138,.12),
+          rgba(255,77,166,.04)
+        );
+
+      box-shadow:
+        0 0 25px
+        rgba(248,213,138,.08);
+
+      flex-shrink: 0;
+
+    }
+
 
     .marca {
-      font-family: Georgia, serif;
-      color: #f8d58a;
-      font-size: 25px;
-      letter-spacing: 4px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      color:
+        var(--lux-gold);
+
+      font-size:
+        clamp(20px, 4vw, 27px);
+
+      letter-spacing:
+        4px;
+
+      white-space:
+        nowrap;
+
     }
+
 
     .submarca {
-      color: #aaa;
-      font-size: 12px;
-      margin-top: 4px;
+
+      color:
+        var(--lux-muted);
+
+      font-size:
+        11px;
+
+      letter-spacing:
+        1.4px;
+
+      text-transform:
+        uppercase;
+
+      margin-top:
+        3px;
+
     }
+
+
+    .topo-acoes {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 9px;
+
+    }
+
+
+    .status-online {
+
+      display: none;
+
+      align-items: center;
+
+      gap: 7px;
+
+      color:
+        #b9f8d0;
+
+      font-size:
+        11px;
+
+      padding:
+        8px 11px;
+
+      border:
+        1px solid
+        rgba(125,255,178,.18);
+
+      border-radius:
+        999px;
+
+      background:
+        rgba(125,255,178,.05);
+
+    }
+
+
+    .status-ponto {
+
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background:
+        #7dffb2;
+
+      box-shadow:
+        0 0 10px
+        rgba(125,255,178,.7);
+
+    }
+
 
     .btn-sair {
-      border: 1px solid rgba(248, 213, 138, 0.30);
-      background: transparent;
-      color: #f8d58a;
-      border-radius: 10px;
-      padding: 10px 14px;
-      cursor: pointer;
+
+      border:
+        1px solid
+        rgba(248,213,138,.30);
+
+      background:
+        rgba(248,213,138,.04);
+
+      color:
+        var(--lux-gold);
+
+      border-radius:
+        10px;
+
+      padding:
+        10px 15px;
+
+      cursor:
+        pointer;
+
+      font-size:
+        12px;
+
+      font-weight:
+        bold;
+
+      letter-spacing:
+        .5px;
+
+      transition:
+        .2s ease;
+
     }
+
+
+    .btn-sair:hover {
+
+      background:
+        rgba(248,213,138,.12);
+
+      border-color:
+        rgba(248,213,138,.55);
+
+    }
+
+
+    /* =========================================================
+       CONTEÚDO
+       ========================================================= */
 
     .container {
+
       width: 100%;
-      max-width: 1150px;
-      margin: 0 auto;
-      padding: 25px 18px 50px;
+
+      max-width:
+        1250px;
+
+      margin:
+        0 auto;
+
+      padding:
+        30px
+        clamp(16px, 4vw, 35px)
+        60px;
+
     }
+
+
+    .cabecalho-painel {
+
+      display: flex;
+
+      align-items: flex-end;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+      margin-bottom: 25px;
+
+    }
+
+
+    .eyebrow {
+
+      color:
+        var(--lux-pink);
+
+      font-size:
+        11px;
+
+      font-weight:
+        bold;
+
+      letter-spacing:
+        2px;
+
+      text-transform:
+        uppercase;
+
+      margin-bottom:
+        8px;
+
+    }
+
 
     .titulo {
-      font-family: Georgia, serif;
-      color: #f8d58a;
-      font-size: 28px;
-      margin-bottom: 8px;
+
+      margin:
+        0 0 8px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      color:
+        var(--lux-gold);
+
+      font-size:
+        clamp(28px, 5vw, 40px);
+
+      font-weight:
+        normal;
+
+      letter-spacing:
+        .5px;
+
     }
+
 
     .descricao {
-      color: #aaa;
-      margin-bottom: 25px;
-      line-height: 1.5;
+
+      margin:
+        0;
+
+      max-width:
+        720px;
+
+      color:
+        var(--lux-muted);
+
+      font-size:
+        14px;
+
+      line-height:
+        1.6;
+
     }
+
+
+    .assinatura {
+
+      color:
+        rgba(248,213,138,.58);
+
+      font-family:
+        Georgia,
+        serif;
+
+      font-size:
+        12px;
+
+      text-align:
+        right;
+
+      white-space:
+        nowrap;
+
+    }
+
+
+    /* =========================================================
+       CARTÕES DE RESUMO
+       ========================================================= */
+
+    .resumo {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0,1fr));
+
+      gap:
+        14px;
+
+      margin-bottom:
+        25px;
+
+    }
+
+
+    .resumo-card {
+
+      position:
+        relative;
+
+      overflow:
+        hidden;
+
+      min-height:
+        115px;
+
+      padding:
+        18px;
+
+      border:
+        1px solid
+        var(--lux-border);
+
+      border-radius:
+        var(--lux-radius);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(28,12,23,.97),
+          rgba(14,7,13,.97)
+        );
+
+      box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.25);
+
+    }
+
+
+    .resumo-card::after {
+
+      content:
+        "";
+
+      position:
+        absolute;
+
+      width:
+        100px;
+
+      height:
+        100px;
+
+      right:
+        -45px;
+
+      bottom:
+        -45px;
+
+      border-radius:
+        50%;
+
+      background:
+        rgba(248,213,138,.06);
+
+    }
+
+
+    .resumo-label {
+
+      color:
+        var(--lux-muted);
+
+      font-size:
+        11px;
+
+      text-transform:
+        uppercase;
+
+      letter-spacing:
+        1px;
+
+    }
+
+
+    .resumo-numero {
+
+      display:
+        block;
+
+      margin-top:
+        13px;
+
+      color:
+        var(--lux-gold);
+
+      font-family:
+        Georgia,
+        serif;
+
+      font-size:
+        30px;
+
+    }
+
+
+    /* =========================================================
+       ÁREA DE FILTROS
+       ========================================================= */
+
+    .controle-area {
+
+      padding:
+        18px;
+
+      margin-bottom:
+        20px;
+
+      border:
+        1px solid
+        var(--lux-border);
+
+      border-radius:
+        var(--lux-radius);
+
+      background:
+        rgba(17,8,14,.72);
+
+      box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.20);
+
+    }
+
+
+    .controle-titulo {
+
+      margin-bottom:
+        12px;
+
+      color:
+        #d8cfd3;
+
+      font-size:
+        12px;
+
+      font-weight:
+        bold;
+
+      text-transform:
+        uppercase;
+
+      letter-spacing:
+        1.3px;
+
+    }
+
 
     .filtros {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 25px;
+
+      display:
+        flex;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        9px;
+
     }
+
+
+    /*
+     * IMPORTANTE:
+     * O JS original usa o caractere -
+     * nos seletores. Por isso mantemos
+     * exatamente esse caractere aqui.
+     */
 
     .btn-filtro {
-      border: 1px solid rgba(248, 213, 138, 0.25);
-      background: #120a10;
-      color: #ddd;
-      border-radius: 10px;
-      padding: 10px 15px;
-      cursor: pointer;
+
+      border:
+        1px solid
+        rgba(248,213,138,.20);
+
+      background:
+        #120a10;
+
+      color:
+        #cfc6ca;
+
+      border-radius:
+        999px;
+
+      padding:
+        10px 16px;
+
+      cursor:
+        pointer;
+
+      font-size:
+        12px;
+
+      font-weight:
+        bold;
+
+      transition:
+        .2s ease;
+
     }
+
+
+    .btn-filtro:hover {
+
+      border-color:
+        rgba(248,213,138,.50);
+
+      color:
+        var(--lux-gold);
+
+    }
+
 
     .btn-filtro.ativo {
-      background: #f8d58a;
-      color: #180d12;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--lux-gold),
+          var(--lux-gold-2)
+        );
+
+      color:
+        #180d12;
+
+      border-color:
+        transparent;
+
     }
+
+
+    /* =========================================================
+       LISTA
+       ========================================================= */
 
     #lista-precadastros {
-      display: grid;
-      grid-template-columns: repeat(
-        auto-fit,
-        minmax(250px, 1fr)
-      );
-      gap: 16px;
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(270px,1fr)
+        );
+
+      gap:
+        16px;
+
     }
+
 
     .card-registro {
-      background: rgba(20, 8, 17, 0.96);
-      border: 1px solid rgba(248, 213, 138, 0.18);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, .35);
+
+      position:
+        relative;
+
+      overflow:
+        hidden;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(25,11,21,.98),
+          rgba(13,7,12,.98)
+        );
+
+      border:
+        1px solid
+        var(--lux-border);
+
+      border-radius:
+        var(--lux-radius);
+
+      padding:
+        20px;
+
+      box-shadow:
+        var(--lux-shadow);
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+
     }
+
+
+    .card-registro:hover {
+
+      transform:
+        translateY(-2px);
+
+      border-color:
+        rgba(248,213,138,.38);
+
+      box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.42);
+
+    }
+
+
+    .card-registro::before {
+
+      content:
+        "";
+
+      position:
+        absolute;
+
+      top:
+        0;
+
+      left:
+        0;
+
+      width:
+        100%;
+
+      height:
+        2px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--lux-gold),
+          transparent
+        );
+
+      opacity:
+        .45;
+
+    }
+
 
     .card-registro h4 {
-      color: #f8d58a;
-      margin: 0 0 12px;
-      font-size: 19px;
+
+      margin:
+        0 0 15px;
+
+      color:
+        var(--lux-gold);
+
+      font-family:
+        Georgia,
+        serif;
+
+      font-size:
+        20px;
+
+      font-weight:
+        normal;
+
     }
+
 
     .card-registro p {
-      color: #ccc;
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 7px 0;
+
+      color:
+        #cfc7ca;
+
+      font-size:
+        13px;
+
+      line-height:
+        1.5;
+
+      margin:
+        8px 0;
+
     }
 
-    .btn {
-      border: 0;
-      border-radius: 10px;
-      padding: 11px 15px;
-      cursor: pointer;
-      font-weight: bold;
+
+    .card-registro .btn {
+
+      margin-top:
+        12px;
+
+      width:
+        100%;
+
     }
 
-    .btn-secundario {
-      background: #f8d58a;
-      color: #180d12;
-    }
 
     .status-pendente {
-      color: #f8d58a;
+
+      color:
+        var(--lux-gold);
+
     }
+
 
     .status-aprovado {
-      color: #7dffb2;
+
+      color:
+        #7dffb2;
+
     }
+
 
     .status-rejeitado {
-      color: #ff8da9;
+
+      color:
+        #ff8da9;
+
     }
+
+
+    /* =========================================================
+       BOTÕES
+       ========================================================= */
+
+    .btn {
+
+      border:
+        0;
+
+      border-radius:
+        10px;
+
+      padding:
+        11px 15px;
+
+      cursor:
+        pointer;
+
+      font-weight:
+        bold;
+
+      font-size:
+        12px;
+
+      transition:
+        .2s ease;
+
+    }
+
+
+    .btn-secundario {
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--lux-gold),
+          var(--lux-gold-2)
+        );
+
+      color:
+        #180d12;
+
+    }
+
+
+    .btn-secundario:hover {
+
+      transform:
+        translateY(-1px);
+
+      filter:
+        brightness(1.08);
+
+    }
+
+
+    /* =========================================================
+       MODAL
+       ========================================================= */
 
     .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      background: rgba(0, 0, 0, .78);
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
+
+      display:
+        none;
+
+      position:
+        fixed;
+
+      inset:
+        0;
+
+      z-index:
+        100;
+
+      background:
+        rgba(0,0,0,.82);
+
+      backdrop-filter:
+        blur(7px);
+
+      -webkit-backdrop-filter:
+        blur(7px);
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      padding:
+        18px;
+
     }
+
 
     .modal-conteudo {
-      width: 100%;
-      max-width: 650px;
-      max-height: 90vh;
-      overflow-y: auto;
-      background: #140811;
-      border: 1px solid rgba(248, 213, 138, .25);
-      border-radius: 20px;
-      padding: 22px;
+
+      width:
+        100%;
+
+      max-width:
+        700px;
+
+      max-height:
+        90vh;
+
+      overflow-y:
+        auto;
+
+      background:
+        linear-gradient(
+          145deg,
+          #1a0b16,
+          #0d070c
+        );
+
+      border:
+        1px solid
+        rgba(248,213,138,.25);
+
+      border-radius:
+        24px;
+
+      padding:
+        25px;
+
+      box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.70);
+
     }
+
+
+    .modal-topo {
+
+      display:
+        flex;
+
+      align-items:
+        flex-start;
+
+      justify-content:
+        space-between;
+
+      gap:
+        15px;
+
+      padding-bottom:
+        16px;
+
+      margin-bottom:
+        18px;
+
+      border-bottom:
+        1px solid
+        rgba(248,213,138,.12);
+
+    }
+
 
     .modal-conteudo h3 {
-      color: #f8d58a;
-      margin-top: 0;
+
+      margin:
+        0;
+
+      color:
+        var(--lux-gold);
+
+      font-family:
+        Georgia,
+        serif;
+
+      font-size:
+        24px;
+
+      font-weight:
+        normal;
+
     }
+
+
+    .modal-subtitulo {
+
+      color:
+        var(--lux-muted);
+
+      font-size:
+        11px;
+
+      margin-top:
+        5px;
+
+    }
+
 
     #corpo-ficha {
-      color: #ddd;
-      line-height: 1.6;
+
+      color:
+        #ddd;
+
+      line-height:
+        1.65;
+
+      font-size:
+        14px;
+
     }
+
+
+    #corpo-ficha strong {
+
+      color:
+        var(--lux-gold);
+
+    }
+
 
     #corpo-ficha img {
-      width: 100%;
-      max-width: 220px;
-      border-radius: 12px;
-      margin: 6px;
+
+      width:
+        100%;
+
+      max-width:
+        220px;
+
+      max-height:
+        300px;
+
+      object-fit:
+        cover;
+
+      border-radius:
+        14px;
+
+      margin:
+        6px;
+
+      border:
+        1px solid
+        rgba(248,213,138,.15);
+
     }
+
 
     #corpo-ficha video {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 12px;
+
+      width:
+        100%;
+
+      max-width:
+        520px;
+
+      border-radius:
+        14px;
+
+      border:
+        1px solid
+        rgba(248,213,138,.15);
+
     }
+
 
     .acoes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
+
+      display:
+        flex;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        9px;
+
+      margin-top:
+        22px;
+
+      padding-top:
+        18px;
+
+      border-top:
+        1px solid
+        rgba(248,213,138,.12);
+
     }
+
 
     #botao-aprovar {
-      background: #d9fbe6;
-      color: #102017;
+
+      background:
+        #d9fbe6;
+
+      color:
+        #102017;
+
     }
+
 
     #botao-rejeitar {
-      background: #ffd7df;
-      color: #301018;
+
+      background:
+        #ffd7df;
+
+      color:
+        #301018;
+
     }
 
+
     .btn-fechar {
-      background: #333;
-      color: #fff;
+
+      background:
+        #30282d;
+
+      color:
+        #fff;
+
     }
+
+
+    /* =========================================================
+       RODAPÉ
+       ========================================================= */
+
+    .rodape {
+
+      text-align:
+        center;
+
+      color:
+        #625960;
+
+      font-size:
+        11px;
+
+      letter-spacing:
+        .8px;
+
+      padding:
+        20px 0 0;
+
+    }
+
+
+    /* =========================================================
+       RESPONSIVO
+       ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .resumo {
+
+        grid-template-columns:
+          repeat(2,1fr);
+
+      }
+
+      .assinatura {
+
+        display:
+          none;
+
+      }
+
+    }
+
 
     @media (max-width: 600px) {
 
       .topo {
-        align-items: flex-start;
+
+        padding:
+          12px 15px;
+
+      }
+
+      .marca-logo {
+
+        width:
+          39px;
+
+        height:
+          39px;
+
       }
 
       .marca {
-        font-size: 21px;
+
+        font-size:
+          20px;
+
+        letter-spacing:
+          3px;
+
       }
 
-      .titulo {
-        font-size: 24px;
+      .submarca {
+
+        font-size:
+          9px;
+
+      }
+
+      .status-online {
+
+        display:
+          none !important;
+
+      }
+
+      .container {
+
+        padding:
+          24px 14px 45px;
+
+      }
+
+      .cabecalho-painel {
+
+        display:
+          block;
+
+      }
+
+      .resumo {
+
+        grid-template-columns:
+          repeat(2,1fr);
+
+        gap:
+          10px;
+
+      }
+
+      .resumo-card {
+
+        min-height:
+          100px;
+
+        padding:
+          15px;
+
+      }
+
+      .resumo-numero {
+
+        font-size:
+          25px;
+
+      }
+
+      #lista-precadastros {
+
+        grid-template-columns:
+          1fr;
+
       }
 
       .modal-conteudo {
-        padding: 17px;
+
+        padding:
+          18px;
+
+        border-radius:
+          19px;
+
+      }
+
+      .acoes .btn {
+
+        flex:
+          1 1 45%;
+
+      }
+
+    }
+
+
+    @media (max-width: 380px) {
+
+      .resumo {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+      .btn-sair {
+
+        padding:
+          9px 10px;
+
+        font-size:
+          10px;
+
       }
 
     }
@@ -267,97 +1426,267 @@
 
 </head>
 
+
 <body>
+
+
+  <!-- =======================================================
+       TOPO
+       ======================================================= -->
 
   <header class="topo">
 
-    <div>
+    <div class="marca-area">
 
-      <div class="marca">
-        LUX
+      <div class="marca-logo">
+        LX
       </div>
 
-      <div class="submarca">
-        Painel Administrativo
+      <div>
+
+        <div class="marca">
+          LUX
+        </div>
+
+        <div class="submarca">
+          LUX-ADVANCE • Administração
+        </div>
+
       </div>
 
     </div>
 
-    <button
-      type="button"
-      class="btn-sair"
-      id="btnSair"
-    >
-      SAIR
-    </button>
+
+    <div class="topo-acoes">
+
+      <div
+        class="status-online"
+        id="statusOnline"
+      >
+
+        <span class="status-ponto"></span>
+
+        Sessão ativa
+
+      </div>
+
+
+      <button
+        type="button"
+        class="btn-sair"
+        id="btnSair"
+      >
+        SAIR
+      </button>
+
+    </div>
 
   </header>
 
 
+
+  <!-- =======================================================
+       CONTEÚDO PRINCIPAL
+       ======================================================= -->
+
   <main class="container">
 
-    <h1 class="titulo">
-      Painel Administrativo
-    </h1>
 
-    <p class="descricao">
-      Gerencie os pré-cadastros enviados para a LUX.
-    </p>
+    <section class="cabecalho-painel">
+
+      <div>
+
+        <div class="eyebrow">
+          Área restrita
+        </div>
+
+        <h1 class="titulo">
+          Central Administrativa
+        </h1>
+
+        <p class="descricao">
+          Gerencie os pré-cadastros da LUX-ADVANCE,
+          visualize fichas, acompanhe os status e
+          realize as ações administrativas disponíveis.
+        </p>
+
+      </div>
 
 
-    <div class="filtros">
+      <div class="assinatura">
+        LUX • ADVANCE
+      </div>
 
-      <button
-        type="button"
-        class="btn-filtro ativo"
-        data-filtro="todos"
-      >
-        Todos
-      </button>
+    </section>
 
-      <button
-        type="button"
-        class="btn-filtro"
-        data-filtro="pendente"
-      >
-        Pendentes
-      </button>
 
-      <button
-        type="button"
-        class="btn-filtro"
-        data-filtro="aprovado"
-      >
-        Aprovados
-      </button>
 
-      <button
-        type="button"
-        class="btn-filtro"
-        data-filtro="rejeitado"
-      >
-        Rejeitados
-      </button>
+    <!-- =====================================================
+         RESUMO
+         ===================================================== -->
 
-    </div>
+    <section class="resumo">
 
+
+      <div class="resumo-card">
+
+        <span class="resumo-label">
+          Total de registros
+        </span>
+
+        <strong
+          class="resumo-numero"
+          id="resumoTotal"
+        >
+          —
+        </strong>
+
+      </div>
+
+
+      <div class="resumo-card">
+
+        <span class="resumo-label">
+          Pendentes
+        </span>
+
+        <strong
+          class="resumo-numero"
+          id="resumoPendentes"
+        >
+          —
+        </strong>
+
+      </div>
+
+
+      <div class="resumo-card">
+
+        <span class="resumo-label">
+          Aprovados
+        </span>
+
+        <strong
+          class="resumo-numero"
+          id="resumoAprovados"
+        >
+          —
+        </strong>
+
+      </div>
+
+
+      <div class="resumo-card">
+
+        <span class="resumo-label">
+          Rejeitados
+        </span>
+
+        <strong
+          class="resumo-numero"
+          id="resumoRejeitados"
+        >
+          —
+        </strong>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FILTROS
+         ===================================================== -->
+
+    <section class="controle-area">
+
+      <div class="controle-titulo">
+        Filtrar pré-cadastros
+      </div>
+
+
+      <div class="filtros">
+
+
+        <button
+          type="button"
+          class="btn-filtro ativo"
+          data-filtro="todos"
+        >
+          Todos
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-filtro"
+          data-filtro="pendente"
+        >
+          Pendentes
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-filtro"
+          data-filtro="aprovado"
+        >
+          Aprovados
+        </button>
+
+
+        <button
+          type="button"
+          class="btn-filtro"
+          data-filtro="rejeitado"
+        >
+          Rejeitados
+        </button>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LISTA
+         ===================================================== -->
 
     <section id="lista-precadastros">
 
-      <p
+      <div
         style="
           grid-column:1/-1;
           text-align:center;
           color:#777;
+          padding:35px;
         "
       >
         Carregando registros...
-      </p>
+      </div>
 
     </section>
 
+
+
+    <footer class="rodape">
+
+      LUX-ADVANCE • Painel Administrativo
+
+    </footer>
+
+
   </main>
 
+
+
+  <!-- =======================================================
+       MODAL DA FICHA
+       ======================================================= -->
 
   <div
     id="modal-ver-ficha"
@@ -366,13 +1695,29 @@
 
     <div class="modal-conteudo">
 
-      <h3>
-        Ficha completa
-      </h3>
+
+      <div class="modal-topo">
+
+        <div>
+
+          <h3>
+            Ficha completa
+          </h3>
+
+          <div class="modal-subtitulo">
+            Informações do pré-cadastro
+          </div>
+
+        </div>
+
+      </div>
+
 
       <div id="corpo-ficha"></div>
 
+
       <div class="acoes">
+
 
         <button
           type="button"
@@ -382,6 +1727,7 @@
           APROVAR
         </button>
 
+
         <button
           type="button"
           class="btn"
@@ -389,6 +1735,7 @@
         >
           REJEITAR
         </button>
+
 
         <button
           type="button"
@@ -398,6 +1745,7 @@
           FECHAR
         </button>
 
+
         <button
           type="button"
           class="btn btn-secundario"
@@ -406,6 +1754,7 @@
           IMPRIMIR
         </button>
 
+
       </div>
 
     </div>
@@ -413,66 +1762,102 @@
   </div>
 
 
-  <script>
 
-    /*
-     * PROTEÇÃO DO PAINEL
-     *
-     * O painel só abre se existir uma
-     * sessão administrativa válida.
-     */
+  <!-- =======================================================
+       PROTEÇÃO DO PAINEL
+       ======================================================= -->
+
+  <script>
 
     document.addEventListener(
       "DOMContentLoaded",
-      async function(){
+      async function () {
 
-        try{
+        try {
 
-          if(!window.luxSupabase){
+
+          if (!window.luxSupabase) {
 
             document.body.innerHTML =
-              "<p style='padding:30px;color:#fff'>Erro ao carregar o Supabase. Verifique o config.js.</p>";
+
+              "<div style='" +
+              "padding:40px;" +
+              "font-family:Arial;" +
+              "color:#fff;" +
+              "background:#080509;" +
+              "min-height:100vh;" +
+              "'>" +
+
+              "<h2 style='color:#f8d58a'>" +
+              "LUX — Erro de configuração" +
+              "</h2>" +
+
+              "<p>" +
+              "O Supabase não foi inicializado. " +
+              "Verifique o config.js." +
+              "</p>" +
+
+              "</div>";
 
             return;
+
           }
 
 
+
           const resposta =
+
             await window.luxSupabase.auth.getSession();
 
 
+
           const sessao =
+
+            resposta &&
             resposta.data
+
               ? resposta.data.session
+
               : null;
 
 
-          if(!sessao || !sessao.user){
+
+          if (!sessao || !sessao.user) {
 
             window.location.replace(
               "./acesso-admin.html"
             );
 
             return;
+
           }
 
 
+
           const emailUsuario =
+
             (
               sessao.user.email || ""
-            ).toLowerCase().trim();
+            )
+            .toLowerCase()
+            .trim();
+
 
 
           const emailAdmin =
+
             (
               window.LUX_ADMIN_EMAIL || ""
-            ).toLowerCase().trim();
+            )
+            .toLowerCase()
+            .trim();
 
 
-          if(
+
+          if (
             !emailAdmin ||
             emailUsuario !== emailAdmin
-          ){
+          ) {
 
             await window.luxSupabase.auth.signOut();
 
@@ -481,40 +1866,87 @@
             );
 
             return;
+
           }
 
 
+
+          /*
+           * Sessão administrativa confirmada.
+           */
+
+          const statusOnline =
+
+            document.getElementById(
+              "statusOnline"
+            );
+
+
+          if (statusOnline) {
+
+            statusOnline.style.display =
+              "flex";
+
+          }
+
+
+
+          /*
+           * Botão sair.
+           */
+
           const btnSair =
-            document.getElementById("btnSair");
+
+            document.getElementById(
+              "btnSair"
+            );
 
 
-          if(btnSair){
+          if (btnSair) {
 
             btnSair.addEventListener(
               "click",
-              async function(){
+              async function () {
 
-                await window.luxSupabase.auth.signOut();
+
+                btnSair.disabled =
+                  true;
+
+
+                btnSair.textContent =
+                  "SAINDO...";
+
+
+                await
+                  window.luxSupabase.auth.signOut();
+
 
                 window.location.replace(
                   "./acesso-admin.html"
                 );
+
 
               }
             );
 
           }
 
-        }catch(erro){
+
+        }
+
+        catch (erro) {
+
 
           console.error(
             "Erro ao validar acesso administrativo:",
             erro
           );
 
+
           window.location.replace(
             "./acesso-admin.html"
           );
+
 
         }
 
@@ -524,7 +1956,165 @@
   </script>
 
 
+
+  <!-- =======================================================
+       PAINEL ADMIN JS ORIGINAL
+       ======================================================= -->
+
   <script src="./painel-admin.js"></script>
+
+
+
+  <!-- =======================================================
+       ATUALIZAÇÃO DOS INDICADORES
+       Não interfere nas funções existentes.
+       ======================================================= -->
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+
+        function atualizarResumo() {
+
+          try {
+
+
+            const dados =
+
+              JSON.parse(
+                localStorage.getItem(
+                  "fichasPreCadastro"
+                ) || "[]"
+              );
+
+
+            const total =
+              dados.length;
+
+
+            const pendentes =
+              dados.filter(
+                function (item) {
+
+                  return (
+                    (item.status || "pendente")
+                    === "pendente"
+                  );
+
+                }
+              ).length;
+
+
+            const aprovados =
+              dados.filter(
+                function (item) {
+
+                  return (
+                    item.status
+                    === "aprovado"
+                  );
+
+                }
+              ).length;
+
+
+            const rejeitados =
+              dados.filter(
+                function (item) {
+
+                  return (
+                    item.status
+                    === "rejeitado"
+                  );
+
+                }
+              ).length;
+
+
+
+            const totalEl =
+              document.getElementById(
+                "resumoTotal"
+              );
+
+
+            const pendentesEl =
+              document.getElementById(
+                "resumoPendentes"
+              );
+
+
+            const aprovadosEl =
+              document.getElementById(
+                "resumoAprovados"
+              );
+
+
+            const rejeitadosEl =
+              document.getElementById(
+                "resumoRejeitados"
+              );
+
+
+
+            if (totalEl)
+              totalEl.textContent =
+                total;
+
+
+            if (pendentesEl)
+              pendentesEl.textContent =
+                pendentes;
+
+
+            if (aprovadosEl)
+              aprovadosEl.textContent =
+                aprovados;
+
+
+            if (rejeitadosEl)
+              rejeitadosEl.textContent =
+                rejeitados;
+
+
+          }
+
+          catch (erro) {
+
+            console.error(
+              "Erro ao atualizar resumo:",
+              erro
+            );
+
+          }
+
+        }
+
+
+
+        atualizarResumo();
+
+
+
+        /*
+         * Atualiza os números periodicamente
+         * caso alguma alteração seja feita.
+         */
+
+        setInterval(
+          atualizarResumo,
+          1500
+        );
+
+
+      }
+    );
+
+  </script>
+
 
 </body>
 

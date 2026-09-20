@@ -1,277 +1,1358 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>LUX — Catálogo</title>
+<meta charset="UTF-8">
 
-  <link rel="stylesheet" href="app.css">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <style>
-    body{
-      margin:0;
-      min-height:100vh;
-      background:
-        linear-gradient(rgba(0,0,0,.58),rgba(0,0,0,.72)),
-        url("./Halloween-feminina.jpg")
-        center top / cover
-        no-repeat fixed;
-      color:#fff;
-      font-family:Arial,sans-serif;
-    }
+<title>LUX — Catálogo</title>
 
-    .catalogo-page{
-      max-width:1150px;
-      margin:auto;
-      padding:30px 20px 60px;
-    }
+<link rel="stylesheet" href="app.css">
 
-    .catalogo-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:15px;
-      margin-bottom:70px;
-    }
+<link
+  href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap"
+  rel="stylesheet"
+>
 
-    .catalogo-logo{
-      color:#f8d58a;
-      font-family:"Playfair Display",serif;
-      font-size:34px;
-      font-weight:bold;
-      letter-spacing:4px;
-      text-decoration:none;
-    }
+<style>
 
-    .btn-lux{
-      display:inline-block;
-      padding:11px 20px;
-      border:1px solid #d6ad55;
-      border-radius:30px;
-      color:#f8d58a;
-      text-decoration:none;
-      background:rgba(0,0,0,.55);
-      transition:.3s;
-    }
+/* =====================================================
+   BASE
+===================================================== */
 
-    .btn-lux:hover{
-      background:rgba(248,213,138,.15);
-      transform:translateY(-2px);
-    }
+*{
+  box-sizing:border-box;
+}
 
-    .catalogo-hero{
-      text-align:center;
-      margin-bottom:55px;
-    }
+html{
+  scroll-behavior:smooth;
+}
 
-    .catalogo-hero .eyebrow{
-      color:#f8d58a;
-      letter-spacing:5px;
-      font-size:13px;
-      margin-bottom:15px;
-    }
+body{
 
-    .catalogo-hero h1{
-      margin:0;
-      font-family:"Playfair Display",serif;
-      font-size:clamp(38px,7vw,70px);
-      font-style:italic;
-      color:#fff;
-    }
+  margin:0;
 
-    .catalogo-hero p{
-      color:#ddd;
-      font-size:16px;
-      max-width:650px;
-      margin:18px auto 0;
-      line-height:1.7;
-    }
+  min-height:100vh;
 
-    .categorias{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:28px;
-    }
+  color:#fff;
 
-    .categoria{
-      min-height:430px;
-      position:relative;
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      padding:38px;
-      border:1px solid rgba(248,213,138,.45);
-      border-radius:24px;
-      background:
-        linear-gradient(transparent 25%,rgba(0,0,0,.92)),
-        rgba(10,6,8,.55);
-      box-shadow:0 20px 50px rgba(0,0,0,.5);
-      transition:.35s;
-    }
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
 
-    .categoria:hover{
-      transform:translateY(-7px);
-      border-color:#f8d58a;
-      box-shadow:0 25px 65px rgba(0,0,0,.7);
-    }
+  background:
+    linear-gradient(
+      rgba(5,2,7,.55),
+      rgba(3,2,5,.94)
+    ),
+    url("./Halloween-feminina.jpg")
+    center top / cover
+    fixed
+    no-repeat;
 
-    .categoria-feminina{
-      background:
-        linear-gradient(transparent 15%,rgba(0,0,0,.95)),
-        url("./Halloween-feminina.jpg")
-        center / cover no-repeat;
-    }
+  overflow-x:hidden;
+}
 
-    .categoria-masculina{
-      background:
-        linear-gradient(transparent 15%,rgba(0,0,0,.95)),
-        url("./Halloween-feminina.jpg")
-        center / cover no-repeat;
-    }
 
-    .categoria .numero{
-      color:#f8d58a;
-      font-size:13px;
-      letter-spacing:4px;
-      margin-bottom:10px;
-    }
+/* =====================================================
+   LUZES
+===================================================== */
 
-    .categoria h2{
-      margin:0 0 12px;
-      font-family:"Playfair Display",serif;
-      font-size:34px;
-    }
+body::before{
 
-    .categoria p{
-      color:#ddd;
-      line-height:1.6;
-      margin:0 0 25px;
-    }
+  content:"";
 
-    .categoria .btn-lux{
-      width:max-content;
-    }
+  position:fixed;
 
-    .catalogo-footer{
-      text-align:center;
-      color:#aaa;
-      margin-top:55px;
-      font-size:13px;
-    }
+  inset:0;
 
-    @media(max-width:700px){
-      .categorias{
-        grid-template-columns:1fr;
-      }
+  pointer-events:none;
 
-      .categoria{
-        min-height:350px;
-        padding:28px;
-      }
+  z-index:0;
 
-      .catalogo-top{
-        margin-bottom:50px;
-      }
-    }
-  </style>
+  background:
+
+    radial-gradient(
+      circle at 10% 15%,
+      rgba(255,55,145,.16),
+      transparent 25%
+    ),
+
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(80,130,255,.12),
+      transparent 25%
+    ),
+
+    radial-gradient(
+      circle at 50% 90%,
+      rgba(160,50,255,.10),
+      transparent 30%
+    );
+}
+
+
+/* =====================================================
+   PÁGINA
+===================================================== */
+
+.catalogo-page{
+
+  position:relative;
+
+  z-index:2;
+
+  width:min(1180px,92%);
+
+  margin:auto;
+
+  padding:25px 0 70px;
+}
+
+
+/* =====================================================
+   TOPO
+===================================================== */
+
+.catalogo-top{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:8px 0 22px;
+
+  margin-bottom:65px;
+
+  border-bottom:
+    1px solid
+    rgba(248,213,138,.18);
+}
+
+.catalogo-logo{
+
+  color:#f8d58a;
+
+  font-family:"Cinzel",serif;
+
+  font-size:28px;
+
+  font-weight:700;
+
+  letter-spacing:6px;
+
+  text-decoration:none;
+
+  text-shadow:
+    0 0 18px
+    rgba(248,213,138,.25);
+}
+
+
+/* =====================================================
+   BOTÃO
+===================================================== */
+
+.btn-lux{
+
+  position:relative;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:9px;
+
+  padding:12px 23px;
+
+  border:
+    1px solid
+    rgba(248,213,138,.60);
+
+  border-radius:30px;
+
+  color:#f8d58a;
+
+  text-decoration:none;
+
+  background:
+    rgba(5,3,8,.78);
+
+  font-family:"Cinzel",serif;
+
+  font-size:10px;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
+
+  transition:.35s;
+
+  backdrop-filter:blur(10px);
+}
+
+.btn-lux:hover{
+
+  background:#f8d58a;
+
+  color:#10090d;
+
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 12px 30px
+    rgba(248,213,138,.20);
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.catalogo-hero{
+
+  text-align:center;
+
+  max-width:850px;
+
+  margin:0 auto 58px;
+}
+
+.catalogo-hero .eyebrow{
+
+  color:#f8d58a;
+
+  font-family:"Cinzel",serif;
+
+  letter-spacing:5px;
+
+  font-size:10px;
+
+  margin-bottom:15px;
+}
+
+.catalogo-hero h1{
+
+  margin:0;
+
+  font-size:
+    clamp(38px,7vw,68px);
+
+  font-weight:500;
+
+  font-style:italic;
+
+  line-height:1.1;
+
+  text-shadow:
+    0 5px 30px
+    rgba(0,0,0,.8);
+}
+
+.catalogo-hero p{
+
+  max-width:650px;
+
+  margin:20px auto 0;
+
+  color:
+    rgba(255,255,255,.70);
+
+  font-size:15px;
+
+  line-height:1.8;
+}
+
+
+/* =====================================================
+   LINHA
+===================================================== */
+
+.hero-linha{
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:12px;
+
+  margin-top:25px;
+}
+
+.hero-linha span{
+
+  width:60px;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #f8d58a
+    );
+}
+
+.hero-linha span:last-child{
+
+  background:
+    linear-gradient(
+      90deg,
+      #f8d58a,
+      transparent
+    );
+}
+
+.hero-linha i{
+
+  width:7px;
+
+  height:7px;
+
+  transform:rotate(45deg);
+
+  border:
+    1px solid
+    #f8d58a;
+}
+
+
+/* =====================================================
+   CATEGORIAS
+===================================================== */
+
+.categorias{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:25px;
+}
+
+
+/* =====================================================
+   CARD BASE
+===================================================== */
+
+.categoria{
+
+  position:relative;
+
+  min-height:455px;
+
+  overflow:hidden;
+
+  display:flex;
+
+  align-items:flex-end;
+
+  padding:38px;
+
+  border-radius:30px;
+
+  isolation:isolate;
+
+  background:#100b12;
+
+  border:
+    1px solid
+    rgba(255,255,255,.18);
+
+  box-shadow:
+    0 25px 60px
+    rgba(0,0,0,.58);
+
+  transition:
+    transform .4s,
+    box-shadow .4s,
+    border-color .4s;
+}
+
+
+/* =====================================================
+   FUNDO DOS CARDS
+===================================================== */
+
+.categoria::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:-3;
+
+  background-position:center;
+
+  background-size:cover;
+
+  background-repeat:no-repeat;
+
+  transition:
+    transform .7s,
+    filter .5s;
+}
+
+.categoria::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:-2;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.02),
+      rgba(0,0,0,.15) 35%,
+      rgba(0,0,0,.90) 100%
+    );
+}
+
+.categoria:hover{
+
+  transform:translateY(-8px);
+
+  box-shadow:
+    0 35px 80px
+    rgba(0,0,0,.70);
+}
+
+.categoria:hover::before{
+
+  transform:scale(1.07);
+
+  filter:brightness(1.10);
+}
+
+
+/* =====================================================
+   FEMININA
+===================================================== */
+
+.categoria-feminina{
+
+  border-color:
+    rgba(255,115,175,.42);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,55,145,.20),
+      rgba(15,5,12,.90)
+    );
+}
+
+.categoria-feminina::before{
+
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(255,45,140,.15),
+      rgba(0,0,0,.20)
+    ),
+    url("./Halloween-feminina.jpg");
+}
+
+.categoria-feminina:hover{
+
+  border-color:
+    rgba(255,120,185,.85);
+
+  box-shadow:
+    0 35px 80px
+    rgba(0,0,0,.70),
+    0 0 35px
+    rgba(255,70,155,.12);
+}
+
+
+/* =====================================================
+   MASCULINA
+===================================================== */
+
+.categoria-masculina{
+
+  border-color:
+    rgba(125,175,230,.45);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(50,100,170,.22),
+      rgba(7,10,17,.92)
+    );
+}
+
+.categoria-masculina::before{
+
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(45,100,180,.24),
+      rgba(0,0,0,.25)
+    ),
+    url("./Halloween-feminina.jpg");
+
+  filter:
+    saturate(.65)
+    hue-rotate(170deg);
+}
+
+.categoria-masculina:hover{
+
+  border-color:
+    rgba(155,205,255,.90);
+
+  box-shadow:
+    0 35px 80px
+    rgba(0,0,0,.70),
+    0 0 35px
+    rgba(70,145,255,.14);
+}
+
+
+/* =====================================================
+   LGBTQ+
+===================================================== */
+
+.categoria-lgbtq{
+
+  grid-column:1 / -1;
+
+  min-height:390px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.50);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,0,80,.16),
+      rgba(0,210,130,.14),
+      rgba(80,70,255,.18)
+    );
+}
+
+
+/* FUNDO LGBTQ */
+
+.categoria-lgbtq::before{
+
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(255,0,80,.18),
+      rgba(255,180,0,.10),
+      rgba(0,220,120,.12),
+      rgba(0,150,255,.12),
+      rgba(140,40,255,.20)
+    ),
+    url("./Halloween-feminina.jpg");
+
+  filter:
+    saturate(.85);
+}
+
+
+/* CAMADA ARCO-ÍRIS DENTRO DA CAIXA */
+
+.categoria-lgbtq::after{
+
+  background:
+
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.08),
+      rgba(0,0,0,.35) 45%,
+      rgba(0,0,0,.88) 100%
+    ),
+
+    linear-gradient(
+      90deg,
+      rgba(255,30,80,.18),
+      rgba(255,170,0,.13),
+      rgba(255,235,0,.11),
+      rgba(0,220,120,.13),
+      rgba(0,180,255,.15),
+      rgba(70,80,255,.16),
+      rgba(180,0,255,.18)
+    );
+}
+
+
+/* FAIXA ARCO-ÍRIS INTERNA */
+
+.arco-iris{
+
+  position:absolute;
+
+  z-index:3;
+
+  inset:12px;
+
+  border-radius:22px;
+
+  pointer-events:none;
+
+  border:2px solid transparent;
+
+  background:
+    linear-gradient(
+      rgba(10,5,12,.10),
+      rgba(10,5,12,.10)
+    ) padding-box,
+
+    linear-gradient(
+      90deg,
+      #ff1744,
+      #ff7b00,
+      #ffe600,
+      #00d96b,
+      #00bfff,
+      #4169ff,
+      #b000ff,
+      #ff1744
+    ) border-box;
+
+  opacity:.85;
+
+  box-shadow:
+    inset 0 0 35px
+    rgba(255,255,255,.05),
+
+    0 0 25px
+    rgba(255,100,210,.12);
+}
+
+.categoria-lgbtq:hover{
+
+  border-color:#fff;
+
+  box-shadow:
+    0 35px 80px
+    rgba(0,0,0,.70),
+
+    0 0 45px
+    rgba(255,90,190,.16);
+}
+
+
+/* =====================================================
+   ÍCONES
+===================================================== */
+
+.icone-categoria{
+
+  position:absolute;
+
+  top:30px;
+
+  right:30px;
+
+  width:82px;
+
+  height:82px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:
+    rgba(5,3,8,.72);
+
+  backdrop-filter:blur(12px);
+
+  transition:.4s;
+
+  z-index:6;
+}
+
+.icone-categoria span{
+
+  font-family:Arial,sans-serif;
+
+  font-size:43px;
+
+  line-height:1;
+
+  font-weight:300;
+}
+
+.categoria:hover .icone-categoria{
+
+  transform:
+    scale(1.10)
+    rotate(4deg);
+}
+
+
+/* FEMININO */
+
+.icone-feminino{
+
+  border:
+    2px solid
+    rgba(255,125,185,.75);
+
+  box-shadow:
+    0 0 25px
+    rgba(255,70,155,.16);
+}
+
+.icone-feminino span{
+
+  color:#ff9acb;
+
+  text-shadow:
+    0 0 20px
+    rgba(255,100,180,.50);
+}
+
+
+/* MASCULINO */
+
+.icone-masculino{
+
+  border:
+    2px solid
+    rgba(145,200,255,.75);
+
+  box-shadow:
+    0 0 25px
+    rgba(70,145,255,.17);
+}
+
+.icone-masculino span{
+
+  color:#b9ddff;
+
+  text-shadow:
+    0 0 20px
+    rgba(90,165,255,.55);
+}
+
+
+/* LGBTQ */
+
+.icone-lgbtq{
+
+  padding:3px;
+
+  border:none;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff1744,
+      #ff7b00,
+      #ffe600,
+      #00d96b,
+      #00bfff,
+      #4169ff,
+      #b000ff
+    );
+
+  box-shadow:
+    0 0 30px
+    rgba(255,100,210,.25);
+}
+
+.icone-lgbtq-inner{
+
+  width:100%;
+
+  height:100%;
+
+  border-radius:50%;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:
+    rgba(10,5,13,.94);
+}
+
+.icone-lgbtq-inner span{
+
+  color:#fff;
+
+  font-size:36px;
+
+  text-shadow:
+    0 0 20px
+    rgba(255,255,255,.50);
+}
+
+
+/* =====================================================
+   CONTEÚDO
+===================================================== */
+
+.categoria-conteudo{
+
+  position:relative;
+
+  z-index:7;
+
+  max-width:620px;
+}
+
+.categoria .numero{
+
+  margin-bottom:10px;
+
+  font-family:"Cinzel",serif;
+
+  font-size:10px;
+
+  letter-spacing:3px;
+
+  color:#f8d58a;
+}
+
+.categoria h2{
+
+  margin:0 0 13px;
+
+  font-size:
+    clamp(30px,4vw,40px);
+
+  font-weight:500;
+
+  line-height:1.1;
+
+  text-shadow:
+    0 4px 20px
+    rgba(0,0,0,.90);
+}
+
+.categoria p{
+
+  margin:0 0 25px;
+
+  max-width:540px;
+
+  color:
+    rgba(255,255,255,.78);
+
+  line-height:1.7;
+
+  font-size:14px;
+}
+
+
+/* =====================================================
+   BOTÕES DOS CARDS
+===================================================== */
+
+.categoria .btn-lux{
+
+  position:relative;
+
+  z-index:10;
+}
+
+
+/* FEMININA */
+
+.categoria-feminina .btn-lux{
+
+  border-color:
+    rgba(255,135,190,.70);
+
+  color:#ffb2d7;
+}
+
+
+/* MASCULINA */
+
+.categoria-masculina .btn-lux{
+
+  border-color:
+    rgba(145,200,255,.70);
+
+  color:#b9ddff;
+}
+
+
+/* LGBTQ */
+
+.btn-lgbtq{
+
+  color:#fff;
+
+  border-color:#fff;
+
+  background:
+    rgba(10,5,13,.82);
+
+  overflow:hidden;
+}
+
+.btn-lgbtq::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:-1;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,23,68,.22),
+      rgba(255,123,0,.20),
+      rgba(255,230,0,.18),
+      rgba(0,217,107,.18),
+      rgba(0,191,255,.20),
+      rgba(65,105,255,.20),
+      rgba(176,0,255,.22)
+    );
+
+  opacity:0;
+
+  transition:.3s;
+}
+
+.btn-lgbtq:hover::before{
+
+  opacity:1;
+}
+
+
+/* =====================================================
+   RODAPÉ
+===================================================== */
+
+.catalogo-footer{
+
+  text-align:center;
+
+  margin-top:58px;
+
+  padding-top:25px;
+
+  border-top:
+    1px solid
+    rgba(248,213,138,.15);
+
+  color:
+    rgba(255,255,255,.45);
+
+  font-size:12px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media(max-width:800px){
+
+  .catalogo-page{
+
+    width:92%;
+
+    padding-top:20px;
+  }
+
+  .catalogo-top{
+
+    margin-bottom:50px;
+  }
+
+  .categorias{
+
+    grid-template-columns:1fr;
+
+    gap:22px;
+  }
+
+  .categoria{
+
+    min-height:410px;
+
+    padding:28px;
+  }
+
+  .categoria-lgbtq{
+
+    grid-column:auto;
+
+    min-height:390px;
+  }
+
+  .arco-iris{
+
+    inset:10px;
+
+    border-radius:20px;
+  }
+
+}
+
+
+/* =====================================================
+   CELULAR
+===================================================== */
+
+@media(max-width:500px){
+
+  .catalogo-logo{
+
+    font-size:23px;
+
+    letter-spacing:4px;
+  }
+
+  .btn-lux{
+
+    padding:10px 17px;
+
+    font-size:9px;
+  }
+
+  .catalogo-hero{
+
+    margin-bottom:45px;
+  }
+
+  .catalogo-hero h1{
+
+    font-size:39px;
+  }
+
+  .catalogo-hero p{
+
+    font-size:14px;
+  }
+
+  .categoria{
+
+    min-height:390px;
+
+    padding:24px;
+
+    border-radius:25px;
+  }
+
+  .categoria-lgbtq{
+
+    min-height:390px;
+  }
+
+  .icone-categoria{
+
+    top:20px;
+
+    right:20px;
+
+    width:66px;
+
+    height:66px;
+  }
+
+  .icone-categoria span{
+
+    font-size:35px;
+  }
+
+  .categoria h2{
+
+    font-size:30px;
+  }
+
+  .categoria p{
+
+    font-size:13px;
+  }
+
+  .arco-iris{
+
+    inset:8px;
+
+    border-radius:19px;
+  }
+
+}
+
+
+/* =====================================================
+   REDUZIR ANIMAÇÕES
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+
+    transition:none !important;
+
+    scroll-behavior:auto !important;
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <main class="catalogo-page">
 
-    <header class="catalogo-top">
-
-      <a class="catalogo-logo" href="index.html">
-        LUX
-      </a>
-
-      <a class="btn-lux" href="login.html">
-        Entrar
-      </a>
-
-    </header>
+<main class="catalogo-page">
 
 
-    <section class="catalogo-hero">
+<!-- =====================================================
+     TOPO
+===================================================== -->
 
-      <div class="eyebrow">
-        LUX — CATÁLOGO
-      </div>
+<header class="catalogo-top">
 
-      <h1>
-        Escolha sua experiência
-      </h1>
-
-      <p>
-        Explore as categorias disponíveis na plataforma LUX
-        e encontre os perfis de acordo com sua preferência.
-      </p>
-
-    </section>
+  <a
+    class="catalogo-logo"
+    href="index.html"
+  >
+    LUX
+  </a>
 
 
-    <section class="categorias">
+  <a
+    class="btn-lux"
+    href="login.html"
+  >
+    ENTRAR
+  </a>
 
-      <article class="categoria categoria-feminina">
-
-        <div class="numero">
-          01 — LUX FEMININA
-        </div>
-
-        <h2>
-          Modelos Femininas
-        </h2>
-
-        <p>
-          Explore os perfis femininos disponíveis
-          na plataforma LUX.
-        </p>
-
-        <a
-          class="btn-lux"
-          href="modelos-femininos.html"
-        >
-          Ver modelos
-        </a>
-
-      </article>
+</header>
 
 
-      <article class="categoria categoria-masculina">
+<!-- =====================================================
+     HERO
+===================================================== -->
 
-        <div class="numero">
-          02 — LUX MASCULINA
-        </div>
+<section class="catalogo-hero">
 
-        <h2>
-          Modelos Masculinos
-        </h2>
+  <div class="eyebrow">
+    LUX — CATÁLOGO
+  </div>
 
-        <p>
-          Explore os perfis masculinos disponíveis
-          na plataforma LUX.
-        </p>
+  <h1>
+    Escolha sua experiência
+  </h1>
 
-        <a
-          class="btn-lux"
-          href="modelos-masculinos.html"
-        >
-          Ver modelos
-        </a>
+  <p>
+    Explore as categorias disponíveis na plataforma LUX
+    e encontre os perfis de acordo com sua preferência.
+  </p>
 
-      </article>
+  <div class="hero-linha">
 
-    </section>
+    <span></span>
+
+    <i></i>
+
+    <span></span>
+
+  </div>
+
+</section>
 
 
-    <footer class="catalogo-footer">
-      LUX — Sensualidade & Sofisticação
-    </footer>
+<!-- =====================================================
+     CATEGORIAS
+===================================================== -->
 
-  </main>
+<section class="categorias">
+
+
+<!-- =====================================================
+     FEMININA
+===================================================== -->
+
+<article
+  class="categoria categoria-feminina"
+>
+
+  <div
+    class="icone-categoria icone-feminino"
+  >
+
+    <span>♀</span>
+
+  </div>
+
+
+  <div class="categoria-conteudo">
+
+    <div class="numero">
+      01 — LUX FEMININA
+    </div>
+
+    <h2>
+      Modelos Femininas
+    </h2>
+
+    <p>
+      Explore os perfis femininos disponíveis
+      na plataforma LUX.
+    </p>
+
+    <a
+      class="btn-lux"
+      href="modelos-femininos.html"
+    >
+      VER MODELOS
+    </a>
+
+  </div>
+
+</article>
+
+
+<!-- =====================================================
+     MASCULINA
+===================================================== -->
+
+<article
+  class="categoria categoria-masculina"
+>
+
+  <div
+    class="icone-categoria icone-masculino"
+  >
+
+    <span>♂</span>
+
+  </div>
+
+
+  <div class="categoria-conteudo">
+
+    <div class="numero">
+      02 — LUX MASCULINA
+    </div>
+
+    <h2>
+      Modelos Masculinos
+    </h2>
+
+    <p>
+      Explore os perfis masculinos disponíveis
+      na plataforma LUX.
+    </p>
+
+    <a
+      class="btn-lux"
+      href="modelos-masculinos.html"
+    >
+      VER MODELOS
+    </a>
+
+  </div>
+
+</article>
+
+
+<!-- =====================================================
+     LGBTQ+
+===================================================== -->
+
+<article
+  class="categoria categoria-lgbtq"
+>
+
+  <div class="arco-iris"></div>
+
+
+  <div
+    class="icone-categoria icone-lgbtq"
+  >
+
+    <div class="icone-lgbtq-inner">
+
+      <span>♡</span>
+
+    </div>
+
+  </div>
+
+
+  <div class="categoria-conteudo">
+
+    <div class="numero">
+      03 — LUX LGBTQ+
+    </div>
+
+    <h2>
+      Modelos LGBTQ+
+    </h2>
+
+    <p>
+      Explore os perfis LGBTQ+ disponíveis
+      na plataforma LUX.
+    </p>
+
+    <a
+      class="btn-lux btn-lgbtq"
+      href="modelos-lgbtq.html"
+    >
+      VER MODELOS
+    </a>
+
+  </div>
+
+</article>
+
+
+</section>
+
+
+<!-- =====================================================
+     RODAPÉ
+===================================================== -->
+
+<footer class="catalogo-footer">
+
+  LUX — Sensualidade &amp; Sofisticação
+
+</footer>
+
+
+</main>
+
 
 </body>
+
 </html>

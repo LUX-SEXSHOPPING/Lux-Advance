@@ -24,6 +24,10 @@
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
 
   margin:0;
@@ -41,7 +45,7 @@ body{
 
     linear-gradient(
       rgba(4,5,7,.48),
-      rgba(3,3,5,.93)
+      rgba(3,3,5,.94)
     ),
 
     url("./Halloween-feminina.jpg")
@@ -80,7 +84,9 @@ body:before{
 }
 
 
-/* TOPO */
+/* =========================
+   TOPO
+========================= */
 
 .topbar{
 
@@ -99,15 +105,15 @@ body:before{
   background:
     linear-gradient(
       180deg,
-      rgba(3,3,5,.94),
-      rgba(3,3,5,.45)
+      rgba(3,3,5,.96),
+      rgba(3,3,5,.48)
     );
 
   border-bottom:
     1px solid
     rgba(248,213,138,.25);
 
-  backdrop-filter:blur(8px);
+  backdrop-filter:blur(10px);
 }
 
 .marca{
@@ -123,6 +129,15 @@ body:before{
   font-size:20px;
 
   letter-spacing:3px;
+
+  transition:.3s;
+}
+
+.marca:hover{
+
+  text-shadow:
+    0 0 15px
+    rgba(248,213,138,.45);
 }
 
 .entrar{
@@ -140,13 +155,15 @@ body:before{
   border-radius:30px;
 
   background:
-    rgba(5,5,7,.75);
+    rgba(5,5,7,.78);
 
   font-family:"Cinzel",serif;
 
   font-size:11px;
 
   letter-spacing:1.5px;
+
+  transition:.3s;
 }
 
 .entrar:hover{
@@ -155,10 +172,15 @@ body:before{
 
   color:#080808;
 
+  box-shadow:
+    0 0 20px
+    rgba(248,213,138,.22);
 }
 
 
-/* CONTEÚDO */
+/* =========================
+   CONTEÚDO
+========================= */
 
 .pagina{
 
@@ -191,17 +213,23 @@ body:before{
   font-size:11px;
 
   letter-spacing:4px;
+
+  margin-bottom:10px;
 }
 
 .hero h1{
 
-  margin:10px 0 0;
+  margin:0;
 
   font-family:"Cinzel",serif;
 
   font-size:clamp(30px,6vw,55px);
 
   letter-spacing:3px;
+
+  text-shadow:
+    0 0 22px
+    rgba(0,0,0,.8);
 }
 
 .hero h1 span{
@@ -222,13 +250,15 @@ body:before{
 }
 
 
-/* PESQUISA */
+/* =========================
+   PESQUISA
+========================= */
 
 .pesquisa-area{
 
   max-width:720px;
 
-  margin:0 auto 30px;
+  margin:0 auto 18px;
 
   padding:4px;
 
@@ -237,10 +267,14 @@ body:before{
   background:
     linear-gradient(
       90deg,
-      rgba(248,213,138,.12),
-      rgba(180,180,180,.12),
-      rgba(248,213,138,.12)
+      rgba(248,213,138,.13),
+      rgba(150,150,150,.13),
+      rgba(248,213,138,.13)
     );
+
+  box-shadow:
+    0 10px 35px
+    rgba(0,0,0,.20);
 }
 
 #pesquisa{
@@ -258,7 +292,7 @@ body:before{
   outline:none;
 
   background:
-    rgba(4,4,6,.92);
+    rgba(4,4,6,.94);
 
   color:#fff;
 
@@ -267,10 +301,191 @@ body:before{
   font-family:"Playfair Display",serif;
 
   font-size:15px;
+
+  transition:.3s;
+}
+
+#pesquisa::placeholder{
+
+  color:
+    rgba(255,255,255,.48);
+}
+
+#pesquisa:focus{
+
+  border-color:
+    rgba(248,213,138,.72);
+
+  box-shadow:
+    0 0 20px
+    rgba(248,213,138,.08);
 }
 
 
-/* BOTÃO */
+/* =========================
+   FILTROS
+========================= */
+
+.filtros-area{
+
+  width:100%;
+
+  margin:0 auto 30px;
+
+  padding:18px;
+
+  border:
+    1px solid
+    rgba(248,213,138,.20);
+
+  border-radius:22px;
+
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(20,20,23,.88),
+      rgba(5,5,7,.82)
+    );
+
+  box-shadow:
+    0 18px 45px
+    rgba(0,0,0,.30),
+
+    inset
+    0 0 30px
+    rgba(248,213,138,.025);
+
+  backdrop-filter:blur(10px);
+}
+
+.filtros-titulo{
+
+  margin:0 0 13px;
+
+  text-align:center;
+
+  color:
+    rgba(248,213,138,.82);
+
+  font-family:"Cinzel",serif;
+
+  font-size:10px;
+
+  letter-spacing:2px;
+}
+
+.filtros-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:14px;
+}
+
+.filtro-item{
+
+  position:relative;
+}
+
+.filtro-item label{
+
+  display:block;
+
+  margin:0 0 7px 4px;
+
+  color:
+    rgba(255,255,255,.62);
+
+  font-family:"Cinzel",serif;
+
+  font-size:9px;
+
+  letter-spacing:1.5px;
+}
+
+.filtro-item select{
+
+  width:100%;
+
+  min-height:48px;
+
+  padding:0 42px 0 16px;
+
+  border:
+    1px solid
+    rgba(248,213,138,.30);
+
+  border-radius:14px;
+
+  outline:none;
+
+  color:#fff;
+
+  background:
+    rgba(5,5,7,.92);
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size:13px;
+
+  cursor:pointer;
+
+  appearance:none;
+
+  -webkit-appearance:none;
+
+  transition:.3s;
+}
+
+.filtro-item:after{
+
+  content:"⌄";
+
+  position:absolute;
+
+  right:17px;
+
+  bottom:11px;
+
+  color:#f8d58a;
+
+  font-size:18px;
+
+  pointer-events:none;
+}
+
+.filtro-item select:hover{
+
+  border-color:
+    rgba(248,213,138,.60);
+}
+
+.filtro-item select:focus{
+
+  border-color:#f8d58a;
+
+  box-shadow:
+    0 0 18px
+    rgba(248,213,138,.08);
+}
+
+.filtro-item select option{
+
+  color:#fff;
+
+  background:#09090b;
+}
+
+
+/* =========================
+   BOTÃO
+========================= */
 
 .acoes{
 
@@ -303,6 +518,8 @@ body:before{
   font-size:11px;
 
   letter-spacing:1.5px;
+
+  transition:.3s;
 }
 
 .btn-catalogo:hover{
@@ -310,10 +527,16 @@ body:before{
   background:#f8d58a;
 
   color:#090909;
+
+  box-shadow:
+    0 0 22px
+    rgba(248,213,138,.16);
 }
 
 
-/* GRID */
+/* =========================
+   GRID
+========================= */
 
 #listaModelos{
 
@@ -326,7 +549,9 @@ body:before{
 }
 
 
-/* CARD MASCULINO */
+/* =========================
+   CARD MASCULINO
+========================= */
 
 .modelo-card{
 
@@ -354,7 +579,7 @@ body:before{
 
     linear-gradient(
       145deg,
-      rgba(22,23,26,.96),
+      rgba(22,23,26,.97),
       rgba(5,5,7,.98)
     );
 
@@ -366,6 +591,8 @@ body:before{
     inset
     0 0 30px
     rgba(248,213,138,.035);
+
+  backdrop-filter:blur(7px);
 
   transition:.35s;
 }
@@ -387,7 +614,9 @@ body:before{
 }
 
 
-/* SELO */
+/* =========================
+   SELO DO PLANO
+========================= */
 
 .selo-plano{
 
@@ -433,9 +662,14 @@ body:before{
 
   letter-spacing:1.5px;
 
+  white-space:nowrap;
+
   box-shadow:
     0 7px 18px
-    rgba(0,0,0,.65);
+    rgba(0,0,0,.65),
+
+    0 0 15px
+    rgba(248,213,138,.10);
 }
 
 .selo-plano:before{
@@ -464,7 +698,9 @@ body:before{
 }
 
 
-/* FOTO */
+/* =========================
+   FOTO
+========================= */
 
 .modelo-foto{
 
@@ -513,7 +749,9 @@ body:before{
 }
 
 
-/* ABÓBORA */
+/* =========================
+   ABÓBORA
+========================= */
 
 .abobora{
 
@@ -546,11 +784,16 @@ body:before{
 
   box-shadow:
     0 5px 15px
-    rgba(0,0,0,.75);
+    rgba(0,0,0,.75),
+
+    0 0 12px
+    rgba(248,213,138,.08);
 }
 
 
-/* TEXTOS */
+/* =========================
+   TEXTOS
+========================= */
 
 .modelo-card h3{
 
@@ -613,6 +856,8 @@ body:before{
   font-size:10px;
 
   letter-spacing:1.3px;
+
+  transition:.3s;
 }
 
 .btn-perfil:hover{
@@ -620,10 +865,16 @@ body:before{
   background:#f8d58a;
 
   color:#090909;
+
+  box-shadow:
+    0 0 18px
+    rgba(248,213,138,.16);
 }
 
 
-/* MENSAGEM */
+/* =========================
+   MENSAGEM
+========================= */
 
 .mensagem{
 
@@ -660,7 +911,9 @@ body:before{
 }
 
 
-/* RODAPÉ */
+/* =========================
+   RODAPÉ
+========================= */
 
 .rodape{
 
@@ -695,27 +948,93 @@ body:before{
 }
 
 
-/* CELULAR */
+/* =========================
+   CELULAR
+========================= */
 
-@media(max-width:600px){
+@media(max-width:700px){
 
   .pagina{
     padding-top:35px;
   }
 
+  .filtros-grid{
+
+    grid-template-columns:1fr;
+
+    gap:12px;
+  }
+
+  .filtros-area{
+
+    padding:15px;
+  }
+
   #listaModelos{
+
     grid-template-columns:1fr;
   }
 
   .modelo-card{
+
     width:100%;
+
     max-width:370px;
+
     margin:auto;
   }
 
   .modelo-foto{
+
     width:175px;
+
     height:175px;
+  }
+
+}
+
+@media(max-width:400px){
+
+  .topbar{
+
+    padding:15px;
+  }
+
+  .marca{
+
+    font-size:18px;
+  }
+
+  .entrar{
+
+    padding:9px 15px;
+
+    font-size:10px;
+  }
+
+  .hero h1{
+
+    font-size:31px;
+  }
+
+}
+
+
+/* =========================
+   REDUÇÃO DE MOVIMENTO
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *:before,
+  *:after{
+
+    scroll-behavior:auto !important;
+
+    transition:none !important;
+
+    animation:none !important;
   }
 
 }
@@ -727,17 +1046,25 @@ body:before{
 
 <header class="topbar">
 
-  <a href="./index.html" class="marca">
+  <a
+    href="./index.html"
+    class="marca"
+  >
     LUX
   </a>
 
-  <a href="./login.html" class="entrar">
+  <a
+    href="./login.html"
+    class="entrar"
+  >
     ENTRAR
   </a>
 
 </header>
 
+
 <main class="pagina">
+
 
 <section class="hero">
 
@@ -756,6 +1083,9 @@ body:before{
 
 </section>
 
+
+<!-- PESQUISA -->
+
 <div class="pesquisa-area">
 
   <input
@@ -766,6 +1096,57 @@ body:before{
   >
 
 </div>
+
+
+<!-- FILTROS -->
+
+<div class="filtros-area">
+
+  <div class="filtros-titulo">
+    FILTRAR EXPERIÊNCIA LUX
+  </div>
+
+  <div class="filtros-grid">
+
+    <div class="filtro-item">
+
+      <label for="filtroPlano">
+        PLANO
+      </label>
+
+      <select id="filtroPlano">
+
+        <option value="">
+          TODOS OS PLANOS
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="filtro-item">
+
+      <label for="filtroLocalizacao">
+        REGIÃO / CIDADE
+      </label>
+
+      <select id="filtroLocalizacao">
+
+        <option value="">
+          TODAS AS REGIÕES / CIDADES
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- BOTÃO -->
 
 <div class="acoes">
 
@@ -778,11 +1159,16 @@ body:before{
 
 </div>
 
+
+<!-- MODELOS -->
+
 <section id="listaModelos">
 
   <div class="mensagem">
 
-    <strong>LUX</strong>
+    <strong>
+      LUX
+    </strong>
 
     Carregando modelos...
 
@@ -790,7 +1176,9 @@ body:before{
 
 </section>
 
+
 </main>
+
 
 <footer class="rodape">
 
@@ -808,15 +1196,22 @@ Agência Europeia • Conteúdo para maiores de 18 anos
 
 </footer>
 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="./config.js"></script>
 
 <script src="./auth.js"></script>
 
+
 <script>
 
 let modelos=[];
+
+
+/* =========================
+   SEGURANÇA
+========================= */
 
 function escapeHTML(valor){
 
@@ -829,22 +1224,215 @@ function escapeHTML(valor){
 
 }
 
+
+/* =========================
+   NORMALIZAÇÃO
+========================= */
+
+function normalizar(valor){
+
+  return String(valor ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase()
+    .trim();
+
+}
+
+
+/* =========================
+   PLANO
+========================= */
+
 function nomePlano(modelo){
 
   return String(
+
     modelo.plano ||
+
     modelo.nome_plano ||
+
     modelo.assinatura ||
+
     modelo.plano_atual ||
+
     "LUX ESSENCE"
+
   ).toUpperCase();
 
 }
 
+
+/* =========================
+   REGIÃO
+========================= */
+
+function nomeRegiao(modelo){
+
+  return String(
+
+    modelo.regiao ||
+
+    modelo.regiao_nome ||
+
+    modelo.regiao_atual ||
+
+    ""
+
+  ).trim();
+
+}
+
+
+/* =========================
+   CIDADE
+========================= */
+
+function nomeCidade(modelo){
+
+  return String(
+
+    modelo.cidade ||
+
+    modelo.cidade_nome ||
+
+    ""
+
+  ).trim();
+
+}
+
+
+/* =========================
+   LOCALIZAÇÃO
+========================= */
+
+function nomeLocalizacao(modelo){
+
+  const regiao=
+    nomeRegiao(modelo);
+
+  const cidade=
+    nomeCidade(modelo);
+
+  if(regiao && cidade){
+
+    return `${regiao} — ${cidade}`;
+
+  }
+
+  return cidade || regiao || "";
+
+}
+
+
+/* =========================
+   FILTRO DE PLANOS
+========================= */
+
+function preencherFiltroPlanos(){
+
+  const select=
+    document.getElementById("filtroPlano");
+
+  const planos=[
+    ...new Set(
+
+      modelos
+        .map(modelo=>nomePlano(modelo))
+        .filter(Boolean)
+
+    )
+  ];
+
+  planos.sort((a,b)=>
+    a.localeCompare(b,"pt-BR")
+  );
+
+  select.innerHTML=`
+
+    <option value="">
+      TODOS OS PLANOS
+    </option>
+
+  `;
+
+  planos.forEach(plano=>{
+
+    const option=
+      document.createElement("option");
+
+    option.value=plano;
+
+    option.textContent=plano;
+
+    select.appendChild(option);
+
+  });
+
+}
+
+
+/* =========================
+   FILTRO DE REGIÃO / CIDADE
+========================= */
+
+function preencherFiltroLocalizacao(){
+
+  const select=
+    document.getElementById(
+      "filtroLocalizacao"
+    );
+
+  const locais=[
+    ...new Set(
+
+      modelos
+        .map(modelo=>nomeLocalizacao(modelo))
+        .filter(Boolean)
+
+    )
+  ];
+
+  locais.sort((a,b)=>
+    a.localeCompare(b,"pt-BR")
+  );
+
+  select.innerHTML=`
+
+    <option value="">
+      TODAS AS REGIÕES / CIDADES
+    </option>
+
+  `;
+
+  locais.forEach(local=>{
+
+    const option=
+      document.createElement("option");
+
+    option.value=local;
+
+    option.textContent=local;
+
+    select.appendChild(option);
+
+  });
+
+}
+
+
+/* =========================
+   MOSTRAR MODELOS
+========================= */
+
 function mostrarModelos(lista){
 
   const container=
-    document.getElementById("listaModelos");
+    document.getElementById(
+      "listaModelos"
+    );
+
 
   if(!lista.length){
 
@@ -864,126 +1452,297 @@ function mostrarModelos(lista){
     `;
 
     return;
+
   }
 
-  container.innerHTML=lista.map(modelo=>{
 
-    const nome=escapeHTML(
-      modelo.nome ||
-      modelo.nome_profissional ||
-      "Modelo LUX"
-    );
+  container.innerHTML=
+    lista.map(modelo=>{
 
-    const cidade=escapeHTML(
-      modelo.cidade || ""
-    );
 
-    const descricao=escapeHTML(
-      modelo.descricao ||
-      "Perfil LUX"
-    );
+      const nome=
+        escapeHTML(
 
-    const foto=
-      modelo.foto_url ||
-      modelo.foto ||
-      modelo.imagem ||
-      "";
+          modelo.nome ||
 
-    const fotoHTML=foto
+          modelo.nome_profissional ||
 
-      ? `
+          "Modelo LUX"
 
-        <div class="modelo-foto">
+        );
 
-          <img
-            src="${escapeHTML(foto)}"
-            alt="${nome}"
-            loading="lazy"
+
+      const cidade=
+        escapeHTML(
+          nomeCidade(modelo)
+        );
+
+
+      const descricao=
+        escapeHTML(
+
+          modelo.descricao ||
+
+          "Perfil LUX"
+
+        );
+
+
+      const foto=
+
+        modelo.foto_url ||
+
+        modelo.foto ||
+
+        modelo.imagem ||
+
+        "";
+
+
+      const fotoHTML=
+
+        foto
+
+        ? `
+
+          <div class="modelo-foto">
+
+            <img
+              src="${escapeHTML(foto)}"
+              alt="${nome}"
+              loading="lazy"
+            >
+
+            <div class="abobora">
+              🎃
+            </div>
+
+          </div>
+
+        `
+
+        : `
+
+          <div class="modelo-foto">
+
+            <div
+              style="
+                width:100%;
+                height:100%;
+                border-radius:50%;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:#09090b;
+                color:#f8d58a;
+                font-family:Cinzel,serif;
+              "
+            >
+              LUX
+            </div>
+
+            <div class="abobora">
+              🎃
+            </div>
+
+          </div>
+
+        `;
+
+
+      return `
+
+        <article class="modelo-card">
+
+          <div class="selo-plano">
+
+            ${escapeHTML(
+              nomePlano(modelo)
+            )}
+
+          </div>
+
+
+          ${fotoHTML}
+
+
+          <h3>
+            ${nome}
+          </h3>
+
+
+          ${
+            cidade
+
+            ? `
+
+              <div class="modelo-info">
+
+                ${cidade}
+
+              </div>
+
+            `
+
+            : ""
+
+          }
+
+
+          <div class="modelo-descricao">
+
+            ${descricao}
+
+          </div>
+
+
+          <a
+            href="./login.html"
+            class="btn-perfil"
           >
+            VER PERFIL
+          </a>
 
-          <div class="abobora">
-            🎃
-          </div>
 
-        </div>
-
-      `
-
-      : `
-
-        <div class="modelo-foto">
-
-          <div style="
-            width:100%;
-            height:100%;
-            border-radius:50%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            background:#09090b;
-            color:#f8d58a;
-            font-family:Cinzel,serif;
-          ">
-            LUX
-          </div>
-
-          <div class="abobora">
-            🎃
-          </div>
-
-        </div>
+        </article>
 
       `;
 
-    return `
-
-      <article class="modelo-card">
-
-        <div class="selo-plano">
-
-          ${escapeHTML(nomePlano(modelo))}
-
-        </div>
-
-        ${fotoHTML}
-
-        <h3>
-          ${nome}
-        </h3>
-
-        ${
-          cidade
-          ? `
-            <div class="modelo-info">
-              ${cidade}
-            </div>
-          `
-          : ""
-        }
-
-        <div class="modelo-descricao">
-          ${descricao}
-        </div>
-
-        <a
-          href="./login.html"
-          class="btn-perfil"
-        >
-          VER PERFIL
-        </a>
-
-      </article>
-
-    `;
-
-  }).join("");
+    }).join("");
 
 }
+
+
+/* =========================
+   APLICAR FILTROS
+========================= */
+
+function aplicarFiltros(){
+
+  const pesquisa=
+    normalizar(
+
+      document.getElementById(
+        "pesquisa"
+      ).value
+
+    );
+
+
+  const planoSelecionado=
+    normalizar(
+
+      document.getElementById(
+        "filtroPlano"
+      ).value
+
+    );
+
+
+  const localSelecionado=
+    normalizar(
+
+      document.getElementById(
+        "filtroLocalizacao"
+      ).value
+
+    );
+
+
+  const filtrados=
+    modelos.filter(modelo=>{
+
+
+      const nome=
+        normalizar(
+
+          modelo.nome ||
+
+          modelo.nome_profissional ||
+
+          ""
+
+        );
+
+
+      const cidade=
+        normalizar(
+          nomeCidade(modelo)
+        );
+
+
+      const regiao=
+        normalizar(
+          nomeRegiao(modelo)
+        );
+
+
+      const localizacao=
+        normalizar(
+          nomeLocalizacao(modelo)
+        );
+
+
+      const plano=
+        normalizar(
+          nomePlano(modelo)
+        );
+
+
+      const correspondePesquisa=
+
+        !pesquisa ||
+
+        nome.includes(pesquisa) ||
+
+        cidade.includes(pesquisa) ||
+
+        regiao.includes(pesquisa);
+
+
+      const correspondePlano=
+
+        !planoSelecionado ||
+
+        plano === planoSelecionado;
+
+
+      const correspondeLocal=
+
+        !localSelecionado ||
+
+        localizacao === localSelecionado;
+
+
+      return(
+
+        correspondePesquisa &&
+
+        correspondePlano &&
+
+        correspondeLocal
+
+      );
+
+    });
+
+
+  mostrarModelos(filtrados);
+
+}
+
+
+/* =========================
+   CARREGAR MODELOS
+========================= */
 
 async function carregarModelos(){
 
   const container=
-    document.getElementById("listaModelos");
+    document.getElementById(
+      "listaModelos"
+    );
+
 
   try{
 
@@ -995,28 +1754,41 @@ async function carregarModelos(){
 
     }
 
+
     const {data,error}=
+
       await window.luxSupabase
 
-      .from("modelo_perfis")
+        .from("modelo_perfis")
 
-      .select("*");
+        .select("*");
+
 
     if(error) throw error;
 
+
     modelos=data || [];
 
+
+    preencherFiltroPlanos();
+
+    preencherFiltroLocalizacao();
+
     mostrarModelos(modelos);
+
 
   }catch(error){
 
     console.error(error);
 
+
     container.innerHTML=`
 
       <div class="mensagem">
 
-        <strong>LUX</strong>
+        <strong>
+          LUX
+        </strong>
 
         Não foi possível carregar os modelos
         neste momento.
@@ -1029,51 +1801,38 @@ async function carregarModelos(){
 
 }
 
+
+/* =========================
+   EVENTOS
+========================= */
+
 document
-.getElementById("pesquisa")
-.addEventListener(
-  "input",
-  function(){
+  .getElementById("pesquisa")
+  .addEventListener(
+    "input",
+    aplicarFiltros
+  );
 
-    const termo=
-      this.value
-      .toLowerCase()
-      .trim();
 
-    if(!termo){
+document
+  .getElementById("filtroPlano")
+  .addEventListener(
+    "change",
+    aplicarFiltros
+  );
 
-      mostrarModelos(modelos);
 
-      return;
-    }
+document
+  .getElementById("filtroLocalizacao")
+  .addEventListener(
+    "change",
+    aplicarFiltros
+  );
 
-    const filtrados=
-      modelos.filter(modelo=>{
 
-        const nome=
-          String(
-            modelo.nome ||
-            modelo.nome_profissional ||
-            ""
-          ).toLowerCase();
-
-        const cidade=
-          String(
-            modelo.cidade ||
-            ""
-          ).toLowerCase();
-
-        return(
-          nome.includes(termo) ||
-          cidade.includes(termo)
-        );
-
-      });
-
-    mostrarModelos(filtrados);
-
-  }
-);
+/* =========================
+   INICIAR
+========================= */
 
 carregarModelos();
 

@@ -558,6 +558,7 @@ function atualizarResumo() {
 
 // =============================================================
 // GESTÃO DOS MÓDULOS
+// TOQUE MAIS PRECISO NO CELULAR
 // =============================================================
 
 function ativarModulosAdmin() {
@@ -569,9 +570,106 @@ function ativarModulosAdmin() {
 
     cards.forEach(card => {
 
+        let inicioX = 0;
+        let inicioY = 0;
+        let inicioTempo = 0;
+        let movimento = false;
+
+
         card.addEventListener(
-            "click",
-            function() {
+            "pointerdown",
+            function(evento) {
+
+                inicioX =
+                    evento.clientX;
+
+                inicioY =
+                    evento.clientY;
+
+                inicioTempo =
+                    Date.now();
+
+                movimento = false;
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        card.addEventListener(
+            "pointermove",
+            function(evento) {
+
+                const distanciaX =
+                    Math.abs(
+                        evento.clientX -
+                        inicioX
+                    );
+
+                const distanciaY =
+                    Math.abs(
+                        evento.clientY -
+                        inicioY
+                    );
+
+                if (
+                    distanciaX > 10 ||
+                    distanciaY > 10
+                ) {
+
+                    movimento = true;
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        card.addEventListener(
+            "pointerup",
+            function(evento) {
+
+                const duracao =
+                    Date.now() -
+                    inicioTempo;
+
+                const distanciaX =
+                    Math.abs(
+                        evento.clientX -
+                        inicioX
+                    );
+
+                const distanciaY =
+                    Math.abs(
+                        evento.clientY -
+                        inicioY
+                    );
+
+
+                if (
+                    movimento ||
+                    distanciaX > 10 ||
+                    distanciaY > 10
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    duracao > 800
+                ) {
+
+                    return;
+
+                }
+
 
                 const texto =
                     (
@@ -584,10 +682,24 @@ function ativarModulosAdmin() {
                         ""
                     );
 
+
                 abrirModuloCorrespondente(
                     texto
                 );
 
+            }
+        );
+
+
+        card.addEventListener(
+            "pointercancel",
+            function() {
+
+                movimento = true;
+
+            },
+            {
+                passive: true
             }
         );
 

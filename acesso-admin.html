@@ -3,1780 +3,577 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <meta
-    name="theme-color"
-    content="#080509"
-  >
+<title>LUX — Acesso Administrativo</title>
 
-  <title>LUX — Acesso Administrativo</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
+<script src="./config.js"></script>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+<style>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  >
+html,
+body{
+  width:100%;
+  min-height:100%;
+}
 
-  <style>
+body{
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  min-height:100vh;
 
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
-    }
+  padding:20px;
 
+  font-family:Arial,Helvetica,sans-serif;
 
-    body {
+  color:#fff;
 
-      min-height: 100vh;
+  background:
+    linear-gradient(
+      rgba(5,3,6,.88),
+      rgba(5,3,6,.96)
+    ),
+    url("./lux-halloween.jpg")
+    center/cover fixed;
 
-      display: flex;
+}
 
-      align-items: center;
+.login-box{
 
-      justify-content: center;
+  width:min(430px,100%);
 
-      padding: 24px;
+  padding:38px 28px;
 
-      color: #eee4d8;
+  border:1px solid rgba(248,213,138,.22);
 
-      font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
+  border-radius:24px;
 
-      background:
-        linear-gradient(
-          rgba(5, 2, 7, 0.78),
-          rgba(5, 2, 7, 0.90)
-        ),
-        url("./lux-halloween.jpg")
-        center center / cover
-        fixed;
+  background:
+    rgba(20,9,17,.96);
 
-      overflow-x: hidden;
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.65);
 
-    }
+  text-align:center;
 
+}
 
-    body::before {
+.logo{
 
-      content: "";
+  font-family:Georgia,serif;
 
-      position: fixed;
+  font-size:58px;
 
-      inset: 0;
+  letter-spacing:8px;
 
-      pointer-events: none;
+  color:#f8d58a;
 
-      background:
-        radial-gradient(
-          circle at center,
-          rgba(201, 162, 39, 0.08),
-          transparent 42%
-        );
+  text-shadow:
+    0 0 25px
+    rgba(248,213,138,.22);
 
-      z-index: 0;
+}
 
-    }
+.subtitle{
 
+  margin-top:8px;
 
-    .pagina {
+  color:#b9aab6;
 
-      width: 100%;
+  font-size:13px;
 
-      max-width: 470px;
+  letter-spacing:1.5px;
 
-      position: relative;
+  text-transform:uppercase;
 
-      z-index: 2;
+}
 
-    }
+.form-area{
 
+  margin-top:30px;
 
-    .cartao {
+  text-align:left;
 
-      width: 100%;
+}
 
-      padding: 42px 32px 34px;
+label{
 
-      border: 1px solid
-        rgba(201, 162, 39, 0.50);
+  display:block;
 
-      border-radius: 24px;
+  margin-bottom:8px;
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(14, 8, 14, 0.97),
-          rgba(25, 11, 22, 0.96)
-        );
+  color:#d7c9d3;
 
-      box-shadow:
-        0 30px 90px rgba(0, 0, 0, 0.70),
-        0 0 45px rgba(201, 162, 39, 0.08),
-        inset 0 0 35px
-          rgba(255, 255, 255, 0.015);
+  font-size:13px;
 
-      backdrop-filter: blur(12px);
+}
 
-    }
+input{
 
+  width:100%;
 
-    .marca {
+  height:48px;
 
-      text-align: center;
+  padding:0 14px;
 
-      margin-bottom: 30px;
+  border:1px solid
+    rgba(248,213,138,.18);
 
-    }
+  border-radius:10px;
 
+  outline:none;
 
-    .simbolo {
+  color:white;
 
-      width: 76px;
+  background:
+    rgba(255,255,255,.05);
 
-      height: 76px;
+}
 
-      margin: 0 auto 16px;
+input:focus{
 
-      display: flex;
+  border-color:#ff4da6;
 
-      align-items: center;
+  box-shadow:
+    0 0 0 3px
+    rgba(255,77,166,.08);
 
-      justify-content: center;
+}
 
-      border-radius: 50%;
+button{
 
-      border: 1px solid
-        rgba(201, 162, 39, 0.65);
+  width:100%;
 
-      background:
-        radial-gradient(
-          circle,
-          rgba(201, 162, 39, 0.14),
-          rgba(0, 0, 0, 0.30)
-        );
+  height:48px;
 
-      color: #f1d36b;
+  margin-top:16px;
 
-      font-size: 31px;
+  border:0;
 
-      box-shadow:
-        0 0 25px
-          rgba(201, 162, 39, 0.12);
+  border-radius:10px;
 
-    }
+  color:#180b11;
 
+  background:
+    linear-gradient(
+      135deg,
+      #f8d58a,
+      #d9aa4b
+    );
 
-    .marca h1 {
+  font-weight:bold;
 
-      font-family:
-        "Playfair Display",
-        Georgia,
-        serif;
+  cursor:pointer;
 
-      font-size: 31px;
+}
 
-      letter-spacing: 5px;
+button:disabled{
 
-      font-weight: 600;
+  opacity:.6;
 
-      color: #f1d36b;
+  cursor:wait;
 
-      text-transform: uppercase;
+}
 
-    }
+.message{
 
+  display:none;
 
-    .marca p {
+  margin-top:15px;
 
-      margin-top: 8px;
+  padding:12px;
 
-      color: #cbbfb1;
+  border-radius:10px;
 
-      font-size: 17px;
+  font-size:13px;
 
-      letter-spacing: 1.2px;
+  line-height:1.5;
 
-    }
+}
 
+.message.show{
+  display:block;
+}
 
-    .linha {
+.error{
 
-      width: 80px;
+  color:#ff9d9d;
 
-      height: 1px;
+  background:
+    rgba(255,70,70,.09);
 
-      margin: 17px auto 0;
+  border:1px solid
+    rgba(255,70,70,.18);
 
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          #c9a227,
-          transparent
-        );
+}
 
-    }
+.success{
 
+  color:#78e8b5;
 
-    .tela {
+  background:
+    rgba(70,211,154,.08);
 
-      display: none;
+  border:1px solid
+    rgba(70,211,154,.18);
 
-    }
+}
 
+.loading{
 
-    .tela.ativa {
+  position:fixed;
 
-      display: block;
+  inset:0;
 
-    }
+  z-index:99999;
 
+  display:none;
 
-    .titulo {
+  align-items:center;
 
-      text-align: center;
+  justify-content:center;
 
-      margin-bottom: 24px;
+  background:#080509;
 
-    }
+}
 
+.loading.show{
+  display:flex;
+}
 
-    .titulo h2 {
+.loading-box{
 
-      font-family:
-        "Playfair Display",
-        Georgia,
-        serif;
+  width:min(90%,420px);
 
-      font-size: 25px;
+  padding:35px 25px;
 
-      color: #f7e9cb;
+  text-align:center;
 
-      margin-bottom: 7px;
+  border:1px solid
+    rgba(248,213,138,.18);
 
-    }
+  border-radius:22px;
 
+  background:
+    rgba(20,10,18,.96);
 
-    .titulo p {
+}
 
-      color: #bfb3a7;
+.loading-logo{
 
-      font-size: 16px;
+  font-family:Georgia,serif;
 
-      line-height: 1.45;
+  font-size:48px;
 
-    }
+  letter-spacing:7px;
 
+  color:#f8d58a;
 
-    .campo {
+}
 
-      position: relative;
+.loading-text{
 
-      margin-bottom: 15px;
+  margin-top:12px;
 
-    }
+  color:#b9aab6;
 
+}
 
-    .campo i {
+.spinner{
 
-      position: absolute;
+  width:38px;
 
-      left: 17px;
+  height:38px;
 
-      top: 50%;
+  margin:25px auto 0;
 
-      transform: translateY(-50%);
+  border:3px solid
+    rgba(255,255,255,.12);
 
-      color: #c9a227;
+  border-top-color:#ff4da6;
 
-      font-size: 15px;
+  border-radius:50%;
 
-      z-index: 2;
+  animation:
+    spin 1s linear infinite;
 
-    }
+}
 
+@keyframes spin{
 
-    .campo input {
+  to{
+    transform:rotate(360deg);
+  }
 
-      width: 100%;
+}
 
-      height: 52px;
+.back{
 
-      padding:
-        0 16px 0 47px;
+  display:block;
 
-      border-radius: 13px;
+  margin-top:20px;
 
-      border: 1px solid
-        rgba(201, 162, 39, 0.28);
+  color:#b9aab6;
 
-      outline: none;
+  text-decoration:none;
 
-      background:
-        rgba(0, 0, 0, 0.38);
+  font-size:12px;
 
-      color: #f7e9cb;
+}
 
-      font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
+.back:hover{
+  color:#ff79bd;
+}
 
-      font-size: 17px;
-
-      transition: 0.2s ease;
-
-    }
-
-
-    .campo input::placeholder {
-
-      color: #8e8278;
-
-    }
-
-
-    .campo input:focus {
-
-      border-color: #c9a227;
-
-      box-shadow:
-        0 0 0 3px
-          rgba(201, 162, 39, 0.08);
-
-    }
-
-
-    .botao {
-
-      width: 100%;
-
-      min-height: 53px;
-
-      border: 1px solid
-        rgba(241, 211, 107, 0.65);
-
-      border-radius: 13px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #b28a1d,
-          #e1bd50,
-          #a57a13
-        );
-
-      color: #160f06;
-
-      font-family:
-        "Playfair Display",
-        Georgia,
-        serif;
-
-      font-size: 15px;
-
-      font-weight: 700;
-
-      letter-spacing: 1.1px;
-
-      cursor: pointer;
-
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        opacity 0.2s ease;
-
-    }
-
-
-    .botao:hover {
-
-      transform: translateY(-1px);
-
-      box-shadow:
-        0 9px 25px
-          rgba(201, 162, 39, 0.20);
-
-    }
-
-
-    .botao:disabled {
-
-      cursor: not-allowed;
-
-      opacity: 0.65;
-
-      transform: none;
-
-    }
-
-
-    .link-esqueci {
-
-      display: block;
-
-      width: fit-content;
-
-      margin: 17px auto 0;
-
-      border: 0;
-
-      background: transparent;
-
-      color: #d9bb5d;
-
-      font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-      font-size: 16px;
-
-      cursor: pointer;
-
-      text-decoration: underline;
-
-      text-decoration-color:
-        rgba(217, 187, 93, 0.35);
-
-      text-underline-offset: 3px;
-
-    }
-
-
-    .link-esqueci:hover {
-
-      color: #ffe9a3;
-
-    }
-
-
-    .mensagem {
-
-      min-height: 22px;
-
-      margin-top: 15px;
-
-      text-align: center;
-
-      font-size: 15px;
-
-      line-height: 1.35;
-
-    }
-
-
-    .mensagem.sucesso {
-
-      color: #b9e7b4;
-
-    }
-
-
-    .mensagem.erro {
-
-      color: #ffaaa9;
-
-    }
-
-
-    .mensagem.aviso {
-
-      color: #f1d36b;
-
-    }
-
-
-    .seguranca {
-
-      margin-top: 25px;
-
-      padding-top: 20px;
-
-      border-top: 1px solid
-        rgba(201, 162, 39, 0.16);
-
-      text-align: center;
-
-      color: #82776f;
-
-      font-size: 14px;
-
-      line-height: 1.45;
-
-    }
-
-
-    .seguranca i {
-
-      color: #c9a227;
-
-      margin-right: 5px;
-
-    }
-
-
-    .voltar {
-
-      display: block;
-
-      width: fit-content;
-
-      margin: 21px auto 0;
-
-      border: 0;
-
-      background: transparent;
-
-      color: #9f9389;
-
-      font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-      font-size: 15px;
-
-      cursor: pointer;
-
-    }
-
-
-    .voltar:hover {
-
-      color: #f1d36b;
-
-    }
-
-
-    /* =====================================================
-       MODAL DE RECUPERAÇÃO
-       ===================================================== */
-
-    .modal {
-
-      position: fixed;
-
-      inset: 0;
-
-      z-index: 100;
-
-      display: none;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding: 20px;
-
-      background:
-        rgba(0, 0, 0, 0.78);
-
-      backdrop-filter: blur(8px);
-
-    }
-
-
-    .modal.ativo {
-
-      display: flex;
-
-    }
-
-
-    .modal-caixa {
-
-      width: 100%;
-
-      max-width: 430px;
-
-      padding: 30px 27px;
-
-      border-radius: 21px;
-
-      border: 1px solid
-        rgba(201, 162, 39, 0.45);
-
-      background:
-        linear-gradient(
-          145deg,
-          #100811,
-          #1d0d19
-        );
-
-      box-shadow:
-        0 30px 80px
-          rgba(0, 0, 0, 0.75);
-
-    }
-
-
-    .modal-cabecalho {
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      gap: 15px;
-
-      margin-bottom: 20px;
-
-    }
-
-
-    .modal-cabecalho h3 {
-
-      font-family:
-        "Playfair Display",
-        Georgia,
-        serif;
-
-      color: #f1d36b;
-
-      font-size: 22px;
-
-    }
-
-
-    .fechar-modal {
-
-      width: 35px;
-
-      height: 35px;
-
-      border-radius: 50%;
-
-      border: 1px solid
-        rgba(201, 162, 39, 0.30);
-
-      background: rgba(0, 0, 0, 0.25);
-
-      color: #d7c6b2;
-
-      cursor: pointer;
-
-    }
-
-
-    .modal-texto {
-
-      margin-bottom: 18px;
-
-      color: #bfb3a7;
-
-      font-size: 16px;
-
-      line-height: 1.45;
-
-    }
-
-
-    .mensagem-recuperacao {
-
-      min-height: 22px;
-
-      margin-top: 13px;
-
-      text-align: center;
-
-      font-size: 15px;
-
-      line-height: 1.4;
-
-    }
-
-
-    .mensagem-recuperacao.sucesso {
-
-      color: #b9e7b4;
-
-    }
-
-
-    .mensagem-recuperacao.erro {
-
-      color: #ffaaa9;
-
-    }
-
-
-    /* =====================================================
-       TELA MFA
-       ===================================================== */
-
-    .icone-mfa {
-
-      width: 74px;
-
-      height: 74px;
-
-      margin: 0 auto 20px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      border-radius: 50%;
-
-      border: 1px solid
-        rgba(201, 162, 39, 0.55);
-
-      color: #f1d36b;
-
-      background:
-        rgba(201, 162, 39, 0.07);
-
-      font-size: 29px;
-
-      box-shadow:
-        0 0 28px
-          rgba(201, 162, 39, 0.10);
-
-    }
-
-
-    .campo-mfa {
-
-      margin: 20px 0;
-
-    }
-
-
-    .campo-mfa input {
-
-      width: 100%;
-
-      height: 62px;
-
-      border-radius: 14px;
-
-      border: 1px solid
-        rgba(201, 162, 39, 0.42);
-
-      background:
-        rgba(0, 0, 0, 0.40);
-
-      color: #ffe9a3;
-
-      outline: none;
-
-      text-align: center;
-
-      letter-spacing: 10px;
-
-      font-size: 27px;
-
-      font-family:
-        Arial,
-        sans-serif;
-
-      font-weight: 700;
-
-    }
-
-
-    .campo-mfa input:focus {
-
-      border-color: #f1d36b;
-
-      box-shadow:
-        0 0 0 3px
-          rgba(201, 162, 39, 0.08);
-
-    }
-
-
-    .campo-mfa input::placeholder {
-
-      color: #635a54;
-
-      letter-spacing: 7px;
-
-    }
-
-
-    .texto-mfa {
-
-      text-align: center;
-
-      color: #bfb3a7;
-
-      font-size: 16px;
-
-      line-height: 1.5;
-
-    }
-
-
-    .texto-mfa strong {
-
-      color: #f1d36b;
-
-    }
-
-
-    .mfa-ajuda {
-
-      margin-top: 17px;
-
-      text-align: center;
-
-      color: #847970;
-
-      font-size: 14px;
-
-      line-height: 1.4;
-
-    }
-
-
-    @media (max-width: 520px) {
-
-      body {
-
-        padding: 15px;
-
-      }
-
-      .cartao {
-
-        padding:
-          32px 21px 27px;
-
-        border-radius: 20px;
-
-      }
-
-      .marca h1 {
-
-        font-size: 26px;
-
-        letter-spacing: 4px;
-
-      }
-
-      .titulo h2 {
-
-        font-size: 22px;
-
-      }
-
-      .campo-mfa input {
-
-        font-size: 23px;
-
-        letter-spacing: 7px;
-
-      }
-
-    }
-
-  </style>
+</style>
 
 </head>
 
-
 <body>
 
+<div class="login-box">
 
-  <main class="pagina">
+  <div class="logo">
+    LUX
+  </div>
 
-    <section class="cartao">
+  <div class="subtitle">
+    Acesso administrativo
+  </div>
 
+  <div class="form-area">
 
-      <!-- =================================================
-           MARCA
-           ================================================= -->
+    <form id="formAdmin">
 
-      <div class="marca">
+      <label for="senhaAdmin">
+        Senha administrativa
+      </label>
 
-        <div class="simbolo">
-
-          <i class="fas fa-user-shield"></i>
-
-        </div>
-
-        <h1>LUX</h1>
-
-        <p>Acesso Administrativo</p>
-
-        <div class="linha"></div>
-
-      </div>
-
-
-      <!-- =================================================
-           TELA DE LOGIN
-           ================================================= -->
-
-      <section
-        id="telaLogin"
-        class="tela ativa"
+      <input
+        id="senhaAdmin"
+        type="password"
+        autocomplete="current-password"
+        placeholder="Digite sua senha"
+        required
       >
-
-        <div class="titulo">
-
-          <h2>Painel Administrativo</h2>
-
-          <p>
-            Área restrita para administração
-            da plataforma LUX.
-          </p>
-
-        </div>
-
-
-        <form id="formAdmin">
-
-
-          <div class="campo">
-
-            <i class="fas fa-lock"></i>
-
-            <input
-              type="password"
-              id="senhaAdmin"
-              placeholder="Senha administrativa"
-              autocomplete="current-password"
-              required
-            >
-
-          </div>
-
-
-          <button
-            type="submit"
-            class="botao"
-            id="btnEntrar"
-          >
-
-            <i class="fas fa-right-to-bracket"></i>
-
-            &nbsp;
-
-            ENTRAR NO PAINEL
-
-          </button>
-
-
-        </form>
-
-
-        <button
-          type="button"
-          class="link-esqueci"
-          id="btnEsqueciSenha"
-        >
-
-          Esqueci minha senha
-
-        </button>
-
-
-        <div
-          id="mensagem"
-          class="mensagem"
-        ></div>
-
-
-        <div class="seguranca">
-
-          <i class="fas fa-shield-halved"></i>
-
-          Acesso protegido pelo
-          Supabase Auth e autenticação
-          de dois fatores.
-
-        </div>
-
-
-        <button
-          type="button"
-          class="voltar"
-          id="btnVoltar"
-        >
-
-          <i class="fas fa-arrow-left"></i>
-
-          Voltar para o site
-
-        </button>
-
-
-      </section>
-
-
-      <!-- =================================================
-           TELA MFA
-           ================================================= -->
-
-      <section
-        id="telaMFA"
-        class="tela"
-      >
-
-
-        <div class="icone-mfa">
-
-          <i class="fas fa-shield-halved"></i>
-
-        </div>
-
-
-        <div class="titulo">
-
-          <h2>Verificação em duas etapas</h2>
-
-          <p>
-            Digite o código de 6 dígitos
-            gerado pelo seu aplicativo
-            autenticador.
-          </p>
-
-        </div>
-
-
-        <form id="formMFA">
-
-
-          <div class="campo-mfa">
-
-            <input
-              type="text"
-              id="codigoMFA"
-              inputmode="numeric"
-              autocomplete="one-time-code"
-              maxlength="6"
-              pattern="[0-9]{6}"
-              placeholder="••••••"
-              required
-            >
-
-          </div>
-
-
-          <button
-            type="submit"
-            class="botao"
-            id="btnVerificarMFA"
-          >
-
-            <i class="fas fa-check"></i>
-
-            &nbsp;
-
-            VERIFICAR CÓDIGO
-
-          </button>
-
-
-        </form>
-
-
-        <div
-          id="mensagemMFA"
-          class="mensagem"
-        ></div>
-
-
-        <div class="mfa-ajuda">
-
-          <i class="fas fa-mobile-screen-button"></i>
-
-          Abra o aplicativo autenticador
-          configurado para a conta administrativa.
-
-        </div>
-
-
-        <button
-          type="button"
-          class="voltar"
-          id="btnCancelarMFA"
-        >
-
-          <i class="fas fa-arrow-left"></i>
-
-          Voltar para o login
-
-        </button>
-
-
-      </section>
-
-
-    </section>
-
-  </main>
-
-
-  <!-- =====================================================
-       MODAL RECUPERAÇÃO DE SENHA
-       ===================================================== -->
-
-  <div
-    class="modal"
-    id="modalRecuperacao"
-  >
-
-    <div class="modal-caixa">
-
-
-      <div class="modal-cabecalho">
-
-        <h3>Recuperar senha</h3>
-
-        <button
-          type="button"
-          class="fechar-modal"
-          id="btnFecharModal"
-          aria-label="Fechar"
-        >
-
-          <i class="fas fa-xmark"></i>
-
-        </button>
-
-      </div>
-
-
-      <p class="modal-texto">
-
-        Informe o e-mail administrativo.
-        Enviaremos um link seguro para
-        criar uma nova senha.
-
-      </p>
-
-
-      <div class="campo">
-
-        <i class="fas fa-envelope"></i>
-
-        <input
-          type="email"
-          id="emailRecuperacao"
-          placeholder="E-mail administrativo"
-          autocomplete="email"
-        >
-
-      </div>
-
 
       <button
-        type="button"
-        class="botao"
-        id="btnEnviarRecuperacao"
+        id="btnEntrar"
+        type="submit"
       >
-
-        <i class="fas fa-paper-plane"></i>
-
-        &nbsp;
-
-        ENVIAR LINK
-
+        Entrar no painel
       </button>
 
+    </form>
 
-      <div
-        id="mensagemRecuperacao"
-        class="mensagem-recuperacao"
-      ></div>
-
-
-    </div>
+    <div
+      id="message"
+      class="message"
+    ></div>
 
   </div>
 
+  <a
+    href="./index.html"
+    class="back"
+  >
+    Voltar para a LUX
+  </a>
 
-  <!-- =====================================================
-       SUPABASE
-       ===================================================== -->
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script src="./config.js"></script>
+</div>
 
 
-  <script>
+<div
+  id="loading"
+  class="loading"
+>
 
-    /* =====================================================
-       ELEMENTOS
-       ===================================================== */
+  <div class="loading-box">
 
-    const telaLogin =
-      document.getElementById(
-        "telaLogin"
+    <div class="loading-logo">
+      LUX
+    </div>
+
+    <div class="loading-text">
+      Abrindo painel administrativo...
+    </div>
+
+    <div class="spinner"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const supabase = window.luxSupabase;
+
+const ADMIN_EMAIL =
+  String(
+    window.LUX_ADMIN_EMAIL || ""
+  )
+  .trim()
+  .toLowerCase();
+
+
+const form =
+  document.getElementById(
+    "formAdmin"
+  );
+
+const senha =
+  document.getElementById(
+    "senhaAdmin"
+  );
+
+const btn =
+  document.getElementById(
+    "btnEntrar"
+  );
+
+const message =
+  document.getElementById(
+    "message"
+  );
+
+const loading =
+  document.getElementById(
+    "loading"
+  );
+
+
+function mostrarMensagem(
+  texto,
+  tipo = "error"
+){
+
+  message.textContent =
+    texto;
+
+  message.className =
+    "message show " +
+    tipo;
+
+}
+
+
+function mostrarCarregando(){
+
+  loading.classList.add(
+    "show"
+  );
+
+  btn.disabled = true;
+
+}
+
+
+function esconderCarregando(){
+
+  loading.classList.remove(
+    "show"
+  );
+
+  btn.disabled = false;
+
+}
+
+
+form.addEventListener(
+  "submit",
+  async function(event){
+
+    event.preventDefault();
+
+    message.className =
+      "message";
+
+    const senhaDigitada =
+      senha.value;
+
+    if(!senhaDigitada){
+
+      mostrarMensagem(
+        "Digite sua senha administrativa."
       );
 
-    const telaMFA =
-      document.getElementById(
-        "telaMFA"
+      return;
+
+    }
+
+    if(!supabase){
+
+      mostrarMensagem(
+        "Supabase não foi inicializado. Verifique o config.js."
       );
 
+      return;
 
-    const formAdmin =
-      document.getElementById(
-        "formAdmin"
+    }
+
+    if(!ADMIN_EMAIL){
+
+      mostrarMensagem(
+        "E-mail administrativo não configurado no config.js."
       );
 
-    const senhaAdmin =
-      document.getElementById(
-        "senhaAdmin"
-      );
-
-    const btnEntrar =
-      document.getElementById(
-        "btnEntrar"
-      );
-
-    const mensagem =
-      document.getElementById(
-        "mensagem"
-      );
-
-
-    const formMFA =
-      document.getElementById(
-        "formMFA"
-      );
-
-    const codigoMFA =
-      document.getElementById(
-        "codigoMFA"
-      );
-
-    const btnVerificarMFA =
-      document.getElementById(
-        "btnVerificarMFA"
-      );
-
-    const mensagemMFA =
-      document.getElementById(
-        "mensagemMFA"
-      );
-
-    const btnCancelarMFA =
-      document.getElementById(
-        "btnCancelarMFA"
-      );
-
-
-    const btnVoltar =
-      document.getElementById(
-        "btnVoltar"
-      );
-
-
-    const btnEsqueciSenha =
-      document.getElementById(
-        "btnEsqueciSenha"
-      );
-
-    const modalRecuperacao =
-      document.getElementById(
-        "modalRecuperacao"
-      );
-
-    const btnFecharModal =
-      document.getElementById(
-        "btnFecharModal"
-      );
-
-    const btnEnviarRecuperacao =
-      document.getElementById(
-        "btnEnviarRecuperacao"
-      );
-
-    const emailRecuperacao =
-      document.getElementById(
-        "emailRecuperacao"
-      );
-
-    const mensagemRecuperacao =
-      document.getElementById(
-        "mensagemRecuperacao"
-      );
-
-
-    /* =====================================================
-       VARIÁVEIS MFA
-       ===================================================== */
-
-    let fatorMFA = null;
-
-    let desafioMFA = null;
-
-
-    /* =====================================================
-       MENSAGENS
-       ===================================================== */
-
-    function mostrarMensagem(
-      texto,
-      tipo = ""
-    ) {
-
-      mensagem.textContent =
-        texto;
-
-      mensagem.className =
-        "mensagem " +
-        tipo;
+      return;
 
     }
 
 
-    function mostrarMensagemMFA(
-      texto,
-      tipo = ""
-    ) {
+    mostrarCarregando();
 
-      mensagemMFA.textContent =
-        texto;
 
-      mensagemMFA.className =
-        "mensagem " +
-        tipo;
-
-    }
-
-
-    function mostrarMensagemRecuperacao(
-      texto,
-      tipo = ""
-    ) {
-
-      mensagemRecuperacao.textContent =
-        texto;
-
-      mensagemRecuperacao.className =
-        "mensagem-recuperacao " +
-        tipo;
-
-    }
-
-
-    /* =====================================================
-       TROCAR TELAS
-       ===================================================== */
-
-    function mostrarTelaLogin() {
-
-      telaLogin.classList.add(
-        "ativa"
-      );
-
-      telaMFA.classList.remove(
-        "ativa"
-      );
-
-      codigoMFA.value = "";
-
-      mostrarMensagemMFA(
-        "",
-        ""
-      );
-
-      fatorMFA = null;
-
-      desafioMFA = null;
-
-    }
-
-
-    function mostrarTelaMFA() {
-
-      telaLogin.classList.remove(
-        "ativa"
-      );
-
-      telaMFA.classList.add(
-        "ativa"
-      );
-
-      setTimeout(
-        () => {
-
-          codigoMFA.focus();
-
-        },
-        100
-      );
-
-    }
-
-
-    /* =====================================================
-       ADMINISTRADOR
-       ===================================================== */
-
-    function obterEmailAdmin() {
-
-      return String(
-        window.LUX_ADMIN_EMAIL || ""
-      )
-        .trim()
-        .toLowerCase();
-
-    }
-
-
-    /* =====================================================
-       GARANTIR SESSÃO
-       ===================================================== */
-
-    async function obterSessaoComRetry(
-      supabase
-    ) {
-
-      for (
-        let tentativa = 0;
-        tentativa < 10;
-        tentativa++
-      ) {
-
-        const {
-          data,
-          error
-        } =
-          await supabase.auth.getSession();
-
-
-        if (
-          !error &&
-          data?.session
-        ) {
-
-          return data.session;
-
-        }
-
-
-        await new Promise(
-          resolve =>
-            setTimeout(
-              resolve,
-              300
-            )
-        );
-
-      }
-
-      return null;
-
-    }
-
-
-    /* =====================================================
-       VERIFICAR SE É ADMIN
-       ===================================================== */
-
-    async function verificarAdmin(
-      supabase
-    ) {
-
-      const {
-        data,
-        error
-      } =
-        await supabase.auth.getUser();
-
-
-      if (error || !data?.user) {
-
-        throw new Error(
-          "Sessão administrativa não encontrada."
-        );
-
-      }
-
-
-      const emailUsuario =
-        String(
-          data.user.email || ""
-        )
-          .trim()
-          .toLowerCase();
-
-
-      const emailAdmin =
-        obterEmailAdmin();
-
-
-      if (
-        !emailAdmin ||
-        emailUsuario !== emailAdmin
-      ) {
-
-        await supabase.auth.signOut();
-
-        throw new Error(
-          "Esta conta não possui acesso administrativo."
-        );
-
-      }
-
-
-      return data.user;
-
-    }
-
-
-    /* =====================================================
-       VERIFICAR AAL
-       ===================================================== */
-
-    async function obterAAL(
-      supabase
-    ) {
-
-      const {
-        data,
-        error
-      } =
-        await supabase.auth
-          .mfa
-          .getAuthenticatorAssuranceLevel();
-
-
-      if (error) {
-
-        console.error(
-          "Erro ao verificar AAL:",
-          error
-        );
-
-        throw error;
-
-      }
-
-
-      return data;
-
-    }
-
-
-    /* =====================================================
-       PREPARAR MFA
-       ===================================================== */
-
-    async function prepararMFA(
-      supabase
-    ) {
-
-      const aal =
-        await obterAAL(
-          supabase
-        );
-
-
-      console.log(
-        "LUX ADMIN AAL:",
-        aal
-      );
-
+    try{
 
       /*
-       * Se já estiver em AAL2,
-       * não precisa pedir outro código.
+       * LOGIN DIRETO
+       * Não ficamos esperando outro
+       * getSession() para liberar o painel.
        */
 
-      if (
-        aal?.currentLevel ===
-        "aal2"
-      ) {
+      const resultado =
+        await supabase.auth.signInWithPassword({
 
-        return false;
+          email:
+            ADMIN_EMAIL,
+
+          password:
+            senhaDigitada
+
+        });
+
+
+      if(resultado.error){
+
+        throw resultado.error;
 
       }
 
 
-      /*
-       * Procurar fatores TOTP
-       * já verificados.
-       */
-
-      const {
-        data: fatores,
-        error
-      } =
-        await supabase.auth
-          .mfa
-          .listFactors();
+      const usuario =
+        resultado.data?.user;
 
 
-      if (error) {
-
-        console.error(
-          "Erro ao listar fatores MFA:",
-          error
-        );
-
-        throw error;
-
-      }
-
-
-      const fatoresTotp =
-        fatores?.totp || [];
-
-
-      const fator =
-        fatoresTotp.find(
-          item =>
-            item.status ===
-            "verified"
-        );
-
-
-      /*
-       * Se não existe fator MFA
-       * verificado, não inventamos
-       * outro método.
-       */
-
-      if (!fator) {
-
-        console.warn(
-          "Nenhum fator TOTP verificado encontrado."
-        );
-
-        return false;
-
-      }
-
-
-      /*
-       * Criar desafio.
-       */
-
-      const {
-        data: desafio,
-        error: erroDesafio
-      } =
-        await supabase.auth
-          .mfa
-          .challenge({
-            factorId:
-              fator.id
-          });
-
-
-      if (
-        erroDesafio
-      ) {
-
-        console.error(
-          "Erro ao criar desafio MFA:",
-          erroDesafio
-        );
-
-        throw erroDesafio;
-
-      }
-
-
-      fatorMFA =
-        fator;
-
-      desafioMFA =
-        desafio;
-
-
-      return true;
-
-    }
-
-
-    /* =====================================================
-       ENTRAR NO PAINEL
-       ===================================================== */
-
-    async function entrarNoPainel(
-      supabase
-    ) {
-
-      /*
-       * Confirmar usuário.
-       */
-
-      await verificarAdmin(
-        supabase
-      );
-
-
-      /*
-       * Confirmar nível de
-       * autenticação.
-       */
-
-      const aal =
-        await obterAAL(
-          supabase
-        );
-
-
-      if (
-        aal?.nextLevel ===
-          "aal2" &&
-        aal?.currentLevel !==
-          "aal2"
-      ) {
-
-        throw new Error(
-          "A verificação em duas etapas ainda não foi concluída."
-        );
-
-      }
-
-
-      /*
-       * Confirmar sessão.
-       */
-
-      const session =
-        await obterSessaoComRetry(
-          supabase
-        );
-
-
-      if (!session) {
+      if(!usuario){
 
         throw new Error(
           "A sessão administrativa não foi criada."
@@ -1785,819 +582,125 @@
       }
 
 
-      /*
-       * Tudo confirmado.
-       */
+      const emailUsuario =
+        String(
+          usuario.email || ""
+        )
+        .trim()
+        .toLowerCase();
 
-      mostrarMensagemMFA(
-        "Acesso autorizado. Abrindo painel administrativo...",
-        "sucesso"
+
+      if(
+        emailUsuario !==
+        ADMIN_EMAIL
+      ){
+
+        await supabase.auth.signOut();
+
+        throw new Error(
+          "Esta conta não possui permissão administrativa."
+        );
+
+      }
+
+
+      mostrarMensagem(
+        "Acesso autorizado. Abrindo painel...",
+        "success"
       );
 
 
+      /*
+       * PEQUENO TEMPO APENAS PARA
+       * A SESSÃO SER PERSISTIDA.
+       */
+
       setTimeout(
-        () => {
+        function(){
 
           window.location.replace(
             "./painel-admin.html"
           );
 
         },
-        500
+        250
+      );
+
+
+    }catch(error){
+
+      console.error(
+        "Erro no acesso administrativo:",
+        error
+      );
+
+      esconderCarregando();
+
+      mostrarMensagem(
+        error?.message ||
+        "Senha incorreta ou erro ao acessar o painel."
       );
 
     }
 
+  }
+);
 
-    /* =====================================================
-       LOGIN ADMINISTRATIVO
-       ===================================================== */
 
-    formAdmin.addEventListener(
-      "submit",
-      async function (event) {
+/*
+ * Se o administrador já estiver
+ * autenticado, pode entrar diretamente.
+ *
+ * Não usamos isso para aguardar o login.
+ */
 
-        event.preventDefault();
+(async function verificarSessaoExistente(){
 
+  try{
 
-        mostrarMensagem(
-          "",
-          ""
-        );
+    if(!supabase){
+      return;
+    }
 
+    const resultado =
+      await supabase.auth.getSession();
 
-        const senha =
-          String(
-            senhaAdmin.value || ""
-          ).trim();
+    const session =
+      resultado.data?.session;
 
+    if(!session?.user){
+      return;
+    }
 
-        if (!senha) {
+    const email =
+      String(
+        session.user.email || ""
+      )
+      .trim()
+      .toLowerCase();
 
-          mostrarMensagem(
-            "Informe a senha administrativa.",
-            "erro"
-          );
+    if(
+      email === ADMIN_EMAIL
+    ){
 
-          return;
+      window.location.replace(
+        "./painel-admin.html"
+      );
 
-        }
+    }
 
+  }catch(error){
 
-        if (
-          !window.luxSupabase
-        ) {
-
-          mostrarMensagem(
-            "Supabase não foi inicializado. Verifique o config.js.",
-            "erro"
-          );
-
-          return;
-
-        }
-
-
-        const supabase =
-          window.luxSupabase;
-
-
-        const emailAdmin =
-          obterEmailAdmin();
-
-
-        if (!emailAdmin) {
-
-          mostrarMensagem(
-            "E-mail administrativo não configurado no config.js.",
-            "erro"
-          );
-
-          return;
-
-        }
-
-
-        btnEntrar.disabled =
-          true;
-
-
-        btnEntrar.innerHTML =
-          '<i class="fas fa-spinner fa-spin"></i> AUTENTICANDO...';
-
-
-        try {
-
-
-          /*
-           * LOGIN POR E-MAIL + SENHA
-           */
-
-          const {
-            data,
-            error
-          } =
-            await supabase.auth
-              .signInWithPassword({
-                email:
-                  emailAdmin,
-                password:
-                  senha
-              });
-
-
-          if (error) {
-
-            console.error(
-              "Erro no login administrativo:",
-              error
-            );
-
-
-            const msg =
-              String(
-                error.message || ""
-              )
-                .toLowerCase();
-
-
-            if (
-              msg.includes(
-                "invalid login credentials"
-              )
-            ) {
-
-              throw new Error(
-                "Senha administrativa incorreta."
-              );
-
-            }
-
-
-            if (
-              msg.includes(
-                "email not confirmed"
-              )
-            ) {
-
-              throw new Error(
-                "O e-mail administrativo ainda não foi confirmado no Supabase."
-              );
-
-            }
-
-
-            throw new Error(
-              error.message ||
-              "Não foi possível realizar o login."
-            );
-
-          }
-
-
-          if (
-            !data?.user
-          ) {
-
-            throw new Error(
-              "Usuário administrativo não encontrado."
-            );
-
-          }
-
-
-          /*
-           * Confirmar que o usuário
-           * autenticado é exatamente
-           * o administrador configurado.
-           */
-
-          const emailUsuario =
-            String(
-              data.user.email || ""
-            )
-              .trim()
-              .toLowerCase();
-
-
-          if (
-            emailUsuario !==
-            emailAdmin
-          ) {
-
-            await supabase.auth
-              .signOut();
-
-            throw new Error(
-              "A conta autenticada não corresponde ao administrador."
-            );
-
-          }
-
-
-          /*
-           * Verificar MFA.
-           */
-
-          const precisaMFA =
-            await prepararMFA(
-              supabase
-            );
-
-
-          if (precisaMFA) {
-
-            mostrarMensagem(
-              "",
-              ""
-            );
-
-            mostrarTelaMFA();
-
-            return;
-
-          }
-
-
-          /*
-           * Se não há MFA pendente,
-           * entrar diretamente.
-           */
-
-          await entrarNoPainel(
-            supabase
-          );
-
-
-        } catch (erro) {
-
-          console.error(
-            "Erro administrativo:",
-            erro
-          );
-
-
-          mostrarMensagem(
-            erro.message ||
-            "Não foi possível acessar o painel.",
-            "erro"
-          );
-
-
-          btnEntrar.disabled =
-            false;
-
-
-          btnEntrar.innerHTML =
-            '<i class="fas fa-right-to-bracket"></i>&nbsp; ENTRAR NO PAINEL';
-
-        }
-
-      }
+    console.warn(
+      "Sessão existente não pôde ser verificada:",
+      error
     );
 
+  }
 
-    /* =====================================================
-       VERIFICAR CÓDIGO MFA
-       ===================================================== */
+})();
 
-    formMFA.addEventListener(
-      "submit",
-      async function (event) {
-
-        event.preventDefault();
-
-
-        const codigo =
-          String(
-            codigoMFA.value || ""
-          )
-            .replace(/\D/g, "")
-            .trim();
-
-
-        if (
-          codigo.length !== 6
-        ) {
-
-          mostrarMensagemMFA(
-            "Digite o código de 6 dígitos.",
-            "erro"
-          );
-
-          codigoMFA.focus();
-
-          return;
-
-        }
-
-
-        if (
-          !window.luxSupabase
-        ) {
-
-          mostrarMensagemMFA(
-            "Supabase não foi inicializado.",
-            "erro"
-          );
-
-          return;
-
-        }
-
-
-        if (
-          !fatorMFA ||
-          !desafioMFA
-        ) {
-
-          mostrarMensagemMFA(
-            "O desafio de autenticação expirou. Volte ao login e tente novamente.",
-            "erro"
-          );
-
-          return;
-
-        }
-
-
-        const supabase =
-          window.luxSupabase;
-
-
-        btnVerificarMFA.disabled =
-          true;
-
-
-        btnVerificarMFA.innerHTML =
-          '<i class="fas fa-spinner fa-spin"></i> VERIFICANDO...';
-
-
-        mostrarMensagemMFA(
-          "",
-          ""
-        );
-
-
-        try {
-
-
-          /*
-           * VERIFICAR CÓDIGO TOTP
-           */
-
-          const {
-            error
-          } =
-            await supabase.auth
-              .mfa
-              .verify({
-                factorId:
-                  fatorMFA.id,
-
-                challengeId:
-                  desafioMFA.id,
-
-                code:
-                  codigo
-              });
-
-
-          if (error) {
-
-            console.error(
-              "Erro na verificação MFA:",
-              error
-            );
-
-            throw new Error(
-              "Código de verificação incorreto ou expirado."
-            );
-
-          }
-
-
-          /*
-           * Confirmar AAL2.
-           */
-
-          const aal =
-            await obterAAL(
-              supabase
-            );
-
-
-          console.log(
-            "LUX ADMIN AAL APÓS MFA:",
-            aal
-          );
-
-
-          if (
-            aal?.currentLevel !==
-            "aal2"
-          ) {
-
-            throw new Error(
-              "O código foi processado, mas a autenticação em duas etapas não foi concluída."
-            );
-
-          }
-
-
-          /*
-           * Agora sim:
-           * entrar no painel.
-           */
-
-          await entrarNoPainel(
-            supabase
-          );
-
-
-        } catch (erro) {
-
-          console.error(
-            "Erro MFA:",
-            erro
-          );
-
-
-          mostrarMensagemMFA(
-            erro.message ||
-            "Não foi possível validar o código.",
-            "erro"
-          );
-
-
-          codigoMFA.value = "";
-
-
-          btnVerificarMFA.disabled =
-            false;
-
-
-          btnVerificarMFA.innerHTML =
-            '<i class="fas fa-check"></i>&nbsp; VERIFICAR CÓDIGO';
-
-
-          codigoMFA.focus();
-
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       ACEITAR SOMENTE NÚMEROS NO MFA
-       ===================================================== */
-
-    codigoMFA.addEventListener(
-      "input",
-      function () {
-
-        this.value =
-          this.value
-            .replace(/\D/g, "")
-            .slice(0, 6);
-
-      }
-    );
-
-
-    /* =====================================================
-       CANCELAR MFA
-       ===================================================== */
-
-    btnCancelarMFA.addEventListener(
-      "click",
-      async function () {
-
-        try {
-
-          if (
-            window.luxSupabase
-          ) {
-
-            await window.luxSupabase.auth
-              .signOut();
-
-          }
-
-        } catch (erro) {
-
-          console.error(
-            erro
-          );
-
-        }
-
-
-        senhaAdmin.value =
-          "";
-
-        mostrarTelaLogin();
-
-        mostrarMensagem(
-          "Login cancelado.",
-          "aviso"
-        );
-
-      }
-    );
-
-
-    /* =====================================================
-       VOLTAR PARA O SITE
-       ===================================================== */
-
-    btnVoltar.addEventListener(
-      "click",
-      function () {
-
-        window.location.href =
-          "./index.html";
-
-      }
-    );
-
-
-    /* =====================================================
-       ABRIR RECUPERAÇÃO
-       ===================================================== */
-
-    btnEsqueciSenha.addEventListener(
-      "click",
-      function (event) {
-
-        event.preventDefault();
-
-
-        const emailAdmin =
-          obterEmailAdmin();
-
-
-        emailRecuperacao.value =
-          emailAdmin;
-
-
-        mostrarMensagemRecuperacao(
-          "",
-          ""
-        );
-
-
-        modalRecuperacao.classList.add(
-          "ativo"
-        );
-
-      }
-    );
-
-
-    /* =====================================================
-       FECHAR MODAL
-       ===================================================== */
-
-    btnFecharModal.addEventListener(
-      "click",
-      function () {
-
-        modalRecuperacao.classList.remove(
-          "ativo"
-        );
-
-      }
-    );
-
-
-    /* =====================================================
-       FECHAR CLICANDO FORA
-       ===================================================== */
-
-    modalRecuperacao.addEventListener(
-      "click",
-      function (event) {
-
-        if (
-          event.target ===
-          modalRecuperacao
-        ) {
-
-          modalRecuperacao.classList.remove(
-            "ativo"
-          );
-
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       RECUPERAÇÃO DE SENHA
-       ===================================================== */
-
-    btnEnviarRecuperacao.addEventListener(
-      "click",
-      async function () {
-
-
-        if (
-          !window.luxSupabase
-        ) {
-
-          mostrarMensagemRecuperacao(
-            "Supabase não foi inicializado.",
-            "erro"
-          );
-
-          return;
-
-        }
-
-
-        const supabase =
-          window.luxSupabase;
-
-
-        const email =
-          String(
-            emailRecuperacao.value ||
-            ""
-          )
-            .trim()
-            .toLowerCase();
-
-
-        const emailAdmin =
-          obterEmailAdmin();
-
-
-        if (!email) {
-
-          mostrarMensagemRecuperacao(
-            "Informe o e-mail administrativo.",
-            "erro"
-          );
-
-          return;
-
-        }
-
-
-        if (
-          email !==
-          emailAdmin
-        ) {
-
-          mostrarMensagemRecuperacao(
-            "Informe o e-mail administrativo correto.",
-            "erro"
-          );
-
-          return;
-
-        }
-
-
-        btnEnviarRecuperacao.disabled =
-          true;
-
-
-        btnEnviarRecuperacao.innerHTML =
-          '<i class="fas fa-spinner fa-spin"></i> ENVIANDO...';
-
-
-        try {
-
-
-          /*
-           * IMPORTANTE:
-           * Este é o endereço para onde
-           * o link recebido no e-mail
-           * deve retornar.
-           */
-
-          const redirectUrl =
-            window.location.origin +
-            "/Lux-Advance/redefinir-senha.html";
-
-
-          console.log(
-            "LUX RECUPERAÇÃO:",
-            redirectUrl
-          );
-
-
-          const {
-            error
-          } =
-            await supabase.auth
-              .resetPasswordForEmail(
-                email,
-                {
-                  redirectTo:
-                    redirectUrl
-                }
-              );
-
-
-          if (error) {
-
-            console.error(
-              "Erro recuperação:",
-              error
-            );
-
-            throw error;
-
-          }
-
-
-          mostrarMensagemRecuperacao(
-            "Link enviado. Verifique a caixa de entrada e também a pasta de spam.",
-            "sucesso"
-          );
-
-
-        } catch (erro) {
-
-          console.error(
-            "Erro ao enviar recuperação:",
-            erro
-          );
-
-
-          mostrarMensagemRecuperacao(
-            erro.message ||
-            "Não foi possível enviar o link de recuperação.",
-            "erro"
-          );
-
-
-        } finally {
-
-          btnEnviarRecuperacao.disabled =
-            false;
-
-
-          btnEnviarRecuperacao.innerHTML =
-            '<i class="fas fa-paper-plane"></i>&nbsp; ENVIAR LINK';
-
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       ENTER NO CAMPO MFA
-       ===================================================== */
-
-    codigoMFA.addEventListener(
-      "keydown",
-      function (event) {
-
-        if (
-          event.key ===
-          "Enter"
-        ) {
-
-          event.preventDefault();
-
-          formMFA.requestSubmit();
-
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       ESC FECHA MODAL
-       ===================================================== */
-
-    document.addEventListener(
-      "keydown",
-      function (event) {
-
-        if (
-          event.key ===
-          "Escape"
-        ) {
-
-          modalRecuperacao.classList.remove(
-            "ativo"
-          );
-
-        }
-
-      }
-    );
-
-  </script>
+</script>
 
 </body>
 

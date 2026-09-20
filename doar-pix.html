@@ -1697,6 +1697,185 @@ function gerarPix(
 }
 
 
+/* =========================================================
+   REGISTRO LOCAL DAS DOAÇÕES
+   ========================================================= */
+
+function obterDoacoes(){
+
+  try{
+
+    const dados =
+    localStorage.getItem(
+      "luxDoacoes"
+    );
+
+    if(!dados){
+      return [];
+    }
+
+    const lista =
+    JSON.parse(dados);
+
+    return Array.isArray(lista)
+      ? lista
+      : [];
+
+  }catch(erro){
+
+    console.error(
+      "Erro ao carregar registros de doações:",
+      erro
+    );
+
+    return [];
+
+  }
+
+}
+
+
+function salvarDoacoes(lista){
+
+  try{
+
+    localStorage.setItem(
+      "luxDoacoes",
+      JSON.stringify(lista)
+    );
+
+    return true;
+
+  }catch(erro){
+
+    console.error(
+      "Erro ao salvar registro da doação:",
+      erro
+    );
+
+    return false;
+
+  }
+
+}
+
+
+function gerarIdDoacao(){
+
+  const agora =
+  Date.now();
+
+  const aleatorio =
+  Math.floor(
+    Math.random() *
+    100000
+  );
+
+  return (
+    "DOA-" +
+    agora +
+    "-" +
+    aleatorio
+  );
+
+}
+
+
+function registrarDoacao(dados){
+
+  const doacoes =
+  obterDoacoes();
+
+  const registro = {
+
+    id:
+    gerarIdDoacao(),
+
+    nome:
+    dados.nome,
+
+    email:
+    dados.email,
+
+    whatsapp:
+    dados.whatsapp,
+
+    valor:
+    Number(
+      dados.valor.toFixed(2)
+    ),
+
+    chavePix:
+    CHAVE_PIX,
+
+    status:
+    "pix_gerado",
+
+    comprovante:
+    "pendente",
+
+    data:
+    new Date().toISOString(),
+
+    atualizadoEm:
+    new Date().toISOString()
+
+  };
+
+  doacoes.push(
+    registro
+  );
+
+  const salvo =
+  salvarDoacoes(
+    doacoes
+  );
+
+  if(!salvo){
+    return null;
+  }
+
+  return registro;
+
+}
+
+
+function atualizarDoacao(id, alteracoes){
+
+  const doacoes =
+  obterDoacoes();
+
+  const indice =
+  doacoes.findIndex(
+    item =>
+      String(item.id) ===
+      String(id)
+  );
+
+  if(indice === -1){
+    return null;
+  }
+
+  doacoes[indice] = {
+
+    ...doacoes[indice],
+
+    ...alteracoes,
+
+    atualizadoEm:
+    new Date().toISOString()
+
+  };
+
+  salvarDoacoes(
+    doacoes
+  );
+
+  return doacoes[indice];
+
+}
+
+
 /* =========================
    CONFIRMAÇÃO
 ========================= */
@@ -1842,6 +2021,43 @@ function(event){
     );
 
 
+    /*
+     * REGISTRA A DOAÇÃO
+     *
+     * O status inicial é
+     * "pix_gerado".
+     *
+     * Isso NÃO significa que
+     * o PIX foi pago.
+     */
+
+    const registro =
+    registrarDoacao({
+
+      nome:
+      nome,
+
+      email:
+      email,
+
+      whatsapp:
+      whatsapp,
+
+      valor:
+      valor
+
+    });
+
+
+    if(!registro){
+
+      throw new Error(
+        "Não foi possível registrar a contribuição neste dispositivo."
+      );
+
+    }
+
+
     resultado.style.display =
     "block";
 
@@ -1915,6 +2131,28 @@ function(event){
       }
 
 
+      /*
+       * Atualiza o registro.
+       *
+       * Ainda NÃO é marcado como pago.
+       * O usuário apenas informou que
+       * irá enviar o comprovante.
+       */
+
+      atualizarDoacao(
+        registro.id,
+        {
+
+          status:
+          "comprovante_solicitado",
+
+          comprovante:
+          "solicitado"
+
+        }
+      );
+
+
       const valorFormatado =
       valor.toLocaleString(
         "pt-BR",
@@ -1929,9 +2167,8 @@ function(event){
 
 
       /*
-       * IMPORTANTE:
-       * A mensagem inteira é codificada
-       * apenas uma vez.
+       * A mensagem inteira é
+       * codificada apenas uma vez.
        */
 
       const texto =
@@ -1940,6 +2177,7 @@ function(event){
 
 Realizei uma contribuição via PIX.
 
+ID da contribuição: ${registro.id}
 Nome: ${nome}
 E-mail: ${email}
 WhatsApp: ${whatsapp}
@@ -1949,7 +2187,7 @@ Já realizei o pagamento e estou enviando o comprovante nesta conversa.
 
 Por favor, confirme o recebimento.`;
 
-      
+
       const url =
 
       "https://wa.me/" +
@@ -1961,9 +2199,7 @@ Por favor, confirme o recebimento.`;
 
 
       /*
-       * Tenta abrir o WhatsApp.
-       * No celular, normalmente abrirá
-       * diretamente o aplicativo.
+       * Abre o WhatsApp.
        */
 
       window.location.href =

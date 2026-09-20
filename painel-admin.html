@@ -3,1426 +3,1236 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <meta
-    name="theme-color"
-    content="#080509"
-  >
+<title>LUX — Central Administrativa</title>
 
-  <title>LUX — Painel Administrativo</title>
+<meta
+  name="theme-color"
+  content="#080609"
+>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
 
-  <script src="./config.js"></script>
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
 
-  <style>
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+  rel="stylesheet"
+>
 
-    /* =========================================================
-       LUX-ADVANCE
-       PAINEL ADMINISTRATIVO
-       ========================================================= */
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    :root {
+<script src="./config.js"></script>
 
-      --lux-black: #080509;
-      --lux-black-2: #100812;
-      --lux-card: rgba(22, 10, 19, .94);
 
-      --lux-gold: #f8d58a;
-      --lux-gold-2: #c99d45;
+<style>
 
-      --lux-pink: #ff4da6;
+:root{
 
-      --lux-text: #f7f2f4;
-      --lux-muted: #aaa0a6;
+  --bg:#070508;
+  --bg2:#0d080c;
 
-      --lux-border:
-        rgba(248, 213, 138, .18);
+  --panel:#120b10;
+  --panel2:#180d14;
 
-      --lux-shadow:
-        0 20px 60px rgba(0,0,0,.45);
+  --gold:#f8d58a;
+  --gold2:#caa866;
 
-      --lux-radius: 20px;
+  --pink:#ff4da6;
 
-    }
+  --text:#f8f1f5;
+  --muted:#a99da6;
 
+  --green:#65d7a2;
+  --red:#ff718d;
 
-    * {
-      box-sizing: border-box;
-    }
+  --border:rgba(248,213,138,.18);
+  --border2:rgba(255,255,255,.08);
 
+  --shadow:
+    0 20px 70px rgba(0,0,0,.45);
 
-    html,
-    body {
+}
 
-      margin: 0;
-      padding: 0;
 
-      width: 100%;
-      min-height: 100%;
+*{
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 
-      background:
-        var(--lux-black);
+}
 
-      color:
-        var(--lux-text);
 
-    }
+html{
 
+  scroll-behavior:smooth;
 
-    body {
+}
 
-      min-height: 100vh;
 
-      background:
+body{
 
-        radial-gradient(
-          circle at 15% 0%,
-          rgba(255,77,166,.09),
-          transparent 30%
-        ),
+  min-height:100vh;
 
-        radial-gradient(
-          circle at 85% 5%,
-          rgba(248,213,138,.08),
-          transparent 28%
-        ),
+  background:
 
-        linear-gradient(
-          180deg,
-          #0a0509 0%,
-          #080509 45%,
-          #050306 100%
-        );
+    radial-gradient(
+      circle at 85% 0%,
+      rgba(255,77,166,.09),
+      transparent 30%
+    ),
 
-    }
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(248,213,138,.06),
+      transparent 28%
+    ),
 
+    var(--bg);
 
-    /* =========================================================
-       BARRA SUPERIOR
-       ========================================================= */
+  color:var(--text);
 
-    .topo {
+  font-family:
+    Inter,
+    Arial,
+    sans-serif;
 
-      position: sticky;
+}
 
-      top: 0;
 
-      z-index: 50;
+button{
 
-      width: 100%;
+  font:inherit;
+  cursor:pointer;
 
-      min-height: 76px;
+}
 
-      padding:
-        14px
-        clamp(16px, 4vw, 42px);
 
-      display: flex;
+/* =========================
+   TOPO
+========================= */
 
-      align-items: center;
+.topbar{
 
-      justify-content: space-between;
+  position:sticky;
+  top:0;
 
-      gap: 20px;
+  z-index:1000;
 
-      border-bottom:
-        1px solid var(--lux-border);
+  background:
+    rgba(7,5,8,.94);
 
-      background:
-        rgba(8,5,9,.91);
+  backdrop-filter:
+    blur(18px);
 
-      backdrop-filter:
-        blur(18px);
+  border-bottom:
+    1px solid var(--border2);
 
-      -webkit-backdrop-filter:
-        blur(18px);
+}
 
-      box-shadow:
-        0 8px 35px rgba(0,0,0,.25);
 
-    }
+.topbar-inner{
 
+  width:
+    min(1280px, calc(100% - 30px));
 
-    .marca-area {
+  min-height:88px;
 
-      display: flex;
+  margin:auto;
 
-      align-items: center;
+  display:flex;
 
-      gap: 13px;
+  align-items:center;
 
-      min-width: 0;
+  justify-content:space-between;
 
-    }
+  gap:20px;
 
+}
 
-    .marca-logo {
 
-      width: 45px;
-      height: 45px;
+.brand{
 
-      display: flex;
+  display:flex;
 
-      align-items: center;
+  align-items:center;
 
-      justify-content: center;
+  gap:14px;
 
-      border:
-        1px solid
-        rgba(248,213,138,.38);
+}
 
-      border-radius: 50%;
 
-      color:
-        var(--lux-gold);
+.brand-logo{
 
-      font-family:
-        Georgia,
-        serif;
+  width:52px;
+  height:52px;
 
-      font-size: 17px;
+  border-radius:50%;
 
-      font-weight: bold;
+  display:flex;
 
-      letter-spacing: 2px;
+  align-items:center;
 
-      background:
-        radial-gradient(
-          circle,
-          rgba(248,213,138,.12),
-          rgba(255,77,166,.04)
-        );
+  justify-content:center;
 
-      box-shadow:
-        0 0 25px
-        rgba(248,213,138,.08);
+  border:
+    1px solid
+    rgba(248,213,138,.45);
 
-      flex-shrink: 0;
+  color:var(--gold);
 
-    }
+  font-family:
+    "Playfair Display",
+    serif;
 
+  font-size:21px;
 
-    .marca {
+  letter-spacing:1px;
 
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+  box-shadow:
+    inset 0 0 30px
+    rgba(248,213,138,.05);
 
-      color:
-        var(--lux-gold);
+}
 
-      font-size:
-        clamp(20px, 4vw, 27px);
 
-      letter-spacing:
-        4px;
+.brand-title{
 
-      white-space:
-        nowrap;
+  color:var(--gold);
 
-    }
+  font-family:
+    "Playfair Display",
+    serif;
 
+  font-size:31px;
 
-    .submarca {
+  line-height:1;
 
-      color:
-        var(--lux-muted);
+}
 
-      font-size:
-        11px;
 
-      letter-spacing:
-        1.4px;
+.brand-subtitle{
 
-      text-transform:
-        uppercase;
+  margin-top:6px;
 
-      margin-top:
-        3px;
+  color:#9e949d;
 
-    }
+  font-size:10px;
 
+  letter-spacing:2px;
 
-    .topo-acoes {
+  text-transform:uppercase;
 
-      display: flex;
+}
 
-      align-items: center;
 
-      gap: 9px;
+.top-actions{
 
-    }
+  display:flex;
 
+  align-items:center;
 
-    .status-online {
+  gap:15px;
 
-      display: none;
+}
 
-      align-items: center;
 
-      gap: 7px;
+.online{
 
-      color:
-        #b9f8d0;
+  display:flex;
 
-      font-size:
-        11px;
+  align-items:center;
 
-      padding:
-        8px 11px;
+  gap:7px;
 
-      border:
-        1px solid
-        rgba(125,255,178,.18);
+  color:var(--green);
 
-      border-radius:
-        999px;
+  font-size:11px;
 
-      background:
-        rgba(125,255,178,.05);
+  font-weight:600;
 
-    }
+  letter-spacing:1px;
 
+  text-transform:uppercase;
 
-    .status-ponto {
+}
 
-      width: 7px;
-      height: 7px;
 
-      border-radius: 50%;
+.online::before{
 
-      background:
-        #7dffb2;
+  content:"";
 
-      box-shadow:
-        0 0 10px
-        rgba(125,255,178,.7);
+  width:7px;
+  height:7px;
 
-    }
+  border-radius:50%;
 
+  background:var(--green);
 
-    .btn-sair {
+  box-shadow:
+    0 0 12px
+    rgba(101,215,162,.8);
 
-      border:
-        1px solid
-        rgba(248,213,138,.30);
+}
 
-      background:
-        rgba(248,213,138,.04);
 
-      color:
-        var(--lux-gold);
+.btn-sair{
 
-      border-radius:
-        10px;
+  border:
+    1px solid
+    rgba(248,213,138,.32);
 
-      padding:
-        10px 15px;
+  background:
+    rgba(248,213,138,.04);
 
-      cursor:
-        pointer;
+  color:var(--gold);
 
-      font-size:
-        12px;
+  border-radius:12px;
 
-      font-weight:
-        bold;
+  padding:12px 20px;
 
-      letter-spacing:
-        .5px;
+  font-weight:700;
 
-      transition:
-        .2s ease;
+}
 
-    }
 
+.btn-sair:hover{
 
-    .btn-sair:hover {
+  background:
+    rgba(248,213,138,.10);
 
-      background:
-        rgba(248,213,138,.12);
+  border-color:
+    var(--gold);
 
-      border-color:
-        rgba(248,213,138,.55);
+}
 
-    }
 
+/* =========================
+   CONTEÚDO
+========================= */
 
-    /* =========================================================
-       CONTEÚDO
-       ========================================================= */
+main{
 
-    .container {
+  width:
+    min(1280px, calc(100% - 30px));
 
-      width: 100%;
+  margin:auto;
 
-      max-width:
-        1250px;
+  padding:
+    45px 0 70px;
 
-      margin:
-        0 auto;
+}
 
-      padding:
-        30px
-        clamp(16px, 4vw, 35px)
-        60px;
 
-    }
+.hero{
 
+  padding-bottom:28px;
 
-    .cabecalho-painel {
+}
 
-      display: flex;
 
-      align-items: flex-end;
+.eyebrow{
 
-      justify-content: space-between;
+  margin-bottom:10px;
 
-      gap: 20px;
+  color:var(--pink);
 
-      margin-bottom: 25px;
+  font-size:12px;
 
-    }
+  font-weight:800;
 
+  letter-spacing:3px;
 
-    .eyebrow {
+  text-transform:uppercase;
 
-      color:
-        var(--lux-pink);
+}
 
-      font-size:
-        11px;
 
-      font-weight:
-        bold;
+.hero h1{
 
-      letter-spacing:
-        2px;
+  margin-bottom:12px;
 
-      text-transform:
-        uppercase;
+  color:var(--gold);
 
-      margin-bottom:
-        8px;
+  font-family:
+    "Playfair Display",
+    serif;
 
-    }
+  font-size:
+    clamp(38px,6vw,64px);
 
+  font-weight:600;
 
-    .titulo {
+  line-height:1;
 
-      margin:
-        0 0 8px;
+}
 
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
 
-      color:
-        var(--lux-gold);
+.hero p{
 
-      font-size:
-        clamp(28px, 5vw, 40px);
+  max-width:780px;
 
-      font-weight:
-        normal;
+  color:var(--muted);
 
-      letter-spacing:
-        .5px;
+  font-size:16px;
 
-    }
+  line-height:1.8;
 
+}
 
-    .descricao {
 
-      margin:
-        0;
+.system-bar{
 
-      max-width:
-        720px;
+  margin-top:22px;
 
-      color:
-        var(--lux-muted);
+  padding:14px 17px;
 
-      font-size:
-        14px;
+  display:flex;
 
-      line-height:
-        1.6;
+  flex-wrap:wrap;
 
-    }
+  gap:10px 22px;
 
+  border:
+    1px solid
+    var(--border2);
 
-    .assinatura {
+  border-radius:14px;
 
-      color:
-        rgba(248,213,138,.58);
+  background:
+    rgba(255,255,255,.025);
 
-      font-family:
-        Georgia,
-        serif;
+}
 
-      font-size:
-        12px;
 
-      text-align:
-        right;
+.system-bar span{
 
-      white-space:
-        nowrap;
+  color:#91868f;
 
-    }
+  font-size:12px;
 
+}
 
-    /* =========================================================
-       CARTÕES DE RESUMO
-       ========================================================= */
 
-    .resumo {
+.system-bar strong{
 
-      display:
-        grid;
+  color:#eee5eb;
 
-      grid-template-columns:
-        repeat(4, minmax(0,1fr));
+}
 
-      gap:
-        14px;
 
-      margin-bottom:
-        25px;
+/* =========================
+   INDICADORES
+========================= */
 
-    }
+.stats{
 
+  display:grid;
 
-    .resumo-card {
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
 
-      position:
-        relative;
+  gap:14px;
 
-      overflow:
-        hidden;
+  margin-bottom:22px;
 
-      min-height:
-        115px;
+}
 
-      padding:
-        18px;
 
-      border:
-        1px solid
-        var(--lux-border);
+.stat{
 
-      border-radius:
-        var(--lux-radius);
+  position:relative;
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(28,12,23,.97),
-          rgba(14,7,13,.97)
-        );
+  overflow:hidden;
 
-      box-shadow:
-        0 12px 35px
-        rgba(0,0,0,.25);
+  min-height:145px;
 
-    }
+  padding:22px;
 
+  border:
+    1px solid
+    var(--border);
 
-    .resumo-card::after {
+  border-radius:22px;
 
-      content:
-        "";
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.025),
+      transparent
+    ),
+    var(--panel);
 
-      position:
-        absolute;
+  box-shadow:
+    var(--shadow);
 
-      width:
-        100px;
+}
 
-      height:
-        100px;
 
-      right:
-        -45px;
+.stat::after{
 
-      bottom:
-        -45px;
+  content:"";
 
-      border-radius:
-        50%;
+  position:absolute;
 
-      background:
-        rgba(248,213,138,.06);
+  width:130px;
+  height:130px;
 
-    }
+  right:-50px;
+  bottom:-70px;
 
+  border-radius:50%;
 
-    .resumo-label {
+  border:
+    1px solid
+    rgba(248,213,138,.13);
 
-      color:
-        var(--lux-muted);
+}
 
-      font-size:
-        11px;
 
-      text-transform:
-        uppercase;
+.stat-label{
 
-      letter-spacing:
-        1px;
+  color:#9f949e;
 
-    }
+  font-size:11px;
 
+  font-weight:700;
 
-    .resumo-numero {
+  letter-spacing:1.5px;
 
-      display:
-        block;
+  text-transform:uppercase;
 
-      margin-top:
-        13px;
+}
 
-      color:
-        var(--lux-gold);
 
-      font-family:
-        Georgia,
-        serif;
+.stat-value{
 
-      font-size:
-        30px;
+  margin-top:12px;
 
-    }
+  color:var(--gold);
 
+  font-family:
+    "Playfair Display",
+    serif;
 
-    /* =========================================================
-       ÁREA DE FILTROS
-       ========================================================= */
+  font-size:42px;
 
-    .controle-area {
+  line-height:1;
 
-      padding:
-        18px;
+}
 
-      margin-bottom:
-        20px;
 
-      border:
-        1px solid
-        var(--lux-border);
+/* =========================
+   ÁREA DE GESTÃO
+========================= */
 
-      border-radius:
-        var(--lux-radius);
+.workspace{
 
-      background:
-        rgba(17,8,14,.72);
+  overflow:hidden;
 
-      box-shadow:
-        0 12px 35px
-        rgba(0,0,0,.20);
+  border:
+    1px solid
+    var(--border);
 
-    }
+  border-radius:24px;
 
+  background:
+    rgba(15,9,13,.86);
 
-    .controle-titulo {
+  box-shadow:
+    var(--shadow);
 
-      margin-bottom:
-        12px;
+}
 
-      color:
-        #d8cfd3;
 
-      font-size:
-        12px;
+.workspace-head{
 
-      font-weight:
-        bold;
+  padding:23px;
 
-      text-transform:
-        uppercase;
+  border-bottom:
+    1px solid
+    var(--border2);
 
-      letter-spacing:
-        1.3px;
+}
 
-    }
 
+.workspace-head h2{
 
-    .filtros {
+  margin-bottom:7px;
 
-      display:
-        flex;
+  color:var(--gold);
 
-      flex-wrap:
-        wrap;
+  font-family:
+    "Playfair Display",
+    serif;
 
-      gap:
-        9px;
+  font-size:27px;
 
-    }
+}
 
 
-    /*
-     * IMPORTANTE:
-     * O JS original usa o caractere -
-     * nos seletores. Por isso mantemos
-     * exatamente esse caractere aqui.
-     */
+.workspace-head p{
 
-    .btn-filtro {
+  color:var(--muted);
 
-      border:
-        1px solid
-        rgba(248,213,138,.20);
+  font-size:13px;
 
-      background:
-        #120a10;
+  line-height:1.6;
 
-      color:
-        #cfc6ca;
+}
 
-      border-radius:
-        999px;
 
-      padding:
-        10px 16px;
+/* =========================
+   FILTROS
+========================= */
 
-      cursor:
-        pointer;
+.filters{
 
-      font-size:
-        12px;
+  padding:20px 23px;
 
-      font-weight:
-        bold;
+  border-bottom:
+    1px solid
+    var(--border2);
 
-      transition:
-        .2s ease;
+}
 
-    }
 
+.filters-title{
 
-    .btn-filtro:hover {
+  margin-bottom:13px;
 
-      border-color:
-        rgba(248,213,138,.50);
+  color:#ddd3db;
 
-      color:
-        var(--lux-gold);
+  font-size:11px;
 
-    }
+  font-weight:800;
 
+  letter-spacing:1.8px;
 
-    .btn-filtro.ativo {
+  text-transform:uppercase;
 
-      background:
-        linear-gradient(
-          135deg,
-          var(--lux-gold),
-          var(--lux-gold-2)
-        );
+}
 
-      color:
-        #180d12;
 
-      border-color:
-        transparent;
+.filter-row{
 
-    }
+  display:flex;
 
+  flex-wrap:wrap;
 
-    /* =========================================================
-       LISTA
-       ========================================================= */
+  gap:9px;
 
-    #lista-precadastros {
+}
 
-      display:
-        grid;
 
-      grid-template-columns:
-        repeat(
-          auto-fit,
-          minmax(270px,1fr)
-        );
+.btn-filtro{
 
-      gap:
-        16px;
+  border:
+    1px solid
+    rgba(248,213,138,.20);
 
-    }
+  background:transparent;
 
+  color:#c9bec7;
 
-    .card-registro {
+  border-radius:999px;
 
-      position:
-        relative;
+  padding:10px 18px;
 
-      overflow:
-        hidden;
+  font-weight:700;
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(25,11,21,.98),
-          rgba(13,7,12,.98)
-        );
+  transition:.2s;
 
-      border:
-        1px solid
-        var(--lux-border);
+}
 
-      border-radius:
-        var(--lux-radius);
 
-      padding:
-        20px;
+.btn-filtro:hover{
 
-      box-shadow:
-        var(--lux-shadow);
+  color:var(--gold);
 
-      transition:
-        transform .2s ease,
-        border-color .2s ease,
-        box-shadow .2s ease;
+  border-color:
+    rgba(248,213,138,.55);
 
-    }
+}
 
 
-    .card-registro:hover {
+.btn-filtro.ativo{
 
-      transform:
-        translateY(-2px);
+  color:#120b0e;
 
-      border-color:
-        rgba(248,213,138,.38);
+  background:var(--gold);
 
-      box-shadow:
-        0 20px 50px
-        rgba(0,0,0,.42);
+  border-color:var(--gold);
 
-    }
+}
 
 
-    .card-registro::before {
+/* =========================
+   LISTA
+========================= */
 
-      content:
-        "";
+.records{
 
-      position:
-        absolute;
+  padding:23px;
 
-      top:
-        0;
+}
 
-      left:
-        0;
 
-      width:
-        100%;
+#lista-precadastros{
 
-      height:
-        2px;
+  display:grid;
 
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          var(--lux-gold),
-          transparent
-        );
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
 
-      opacity:
-        .45;
+  gap:15px;
 
-    }
+}
 
 
-    .card-registro h4 {
+.card-registro{
 
-      margin:
-        0 0 15px;
+  padding:17px;
 
-      color:
-        var(--lux-gold);
+  border:
+    1px solid
+    var(--border2);
 
-      font-family:
-        Georgia,
-        serif;
+  border-radius:17px;
 
-      font-size:
-        20px;
+  background:
+    linear-gradient(
+      160deg,
+      rgba(255,255,255,.025),
+      rgba(255,255,255,.01)
+    );
 
-      font-weight:
-        normal;
+}
 
-    }
 
+.card-registro h4{
 
-    .card-registro p {
+  margin-bottom:8px;
 
-      color:
-        #cfc7ca;
+  color:#f5e9f0;
 
-      font-size:
-        13px;
+  font-size:17px;
 
-      line-height:
-        1.5;
+}
 
-      margin:
-        8px 0;
 
-    }
+.card-registro p{
 
+  margin:7px 0;
 
-    .card-registro .btn {
+  color:#9f949d;
 
-      margin-top:
-        12px;
+  font-size:13px;
 
-      width:
-        100%;
+}
 
-    }
 
+.card-registro img{
 
-    .status-pendente {
+  max-width:100%;
 
-      color:
-        var(--lux-gold);
+  border-radius:10px;
 
-    }
+  margin-top:8px;
 
+}
 
-    .status-aprovado {
 
-      color:
-        #7dffb2;
+.card-registro video{
 
-    }
+  width:100%;
 
+  max-height:300px;
 
-    .status-rejeitado {
+  border-radius:10px;
 
-      color:
-        #ff8da9;
+  margin-top:8px;
 
-    }
+}
 
 
-    /* =========================================================
-       BOTÕES
-       ========================================================= */
+.card-registro .btn{
 
-    .btn {
+  margin-top:10px;
 
-      border:
-        0;
+  border:
+    1px solid
+    rgba(248,213,138,.24);
 
-      border-radius:
-        10px;
+  background:
+    rgba(248,213,138,.06);
 
-      padding:
-        11px 15px;
+  color:var(--gold);
 
-      cursor:
-        pointer;
+  border-radius:10px;
 
-      font-weight:
-        bold;
+  padding:10px 13px;
 
-      font-size:
-        12px;
+  font-weight:700;
 
-      transition:
-        .2s ease;
+}
 
-    }
 
+.status-pendente{
 
-    .btn-secundario {
+  color:#f5cf76;
 
-      background:
-        linear-gradient(
-          135deg,
-          var(--lux-gold),
-          var(--lux-gold-2)
-        );
+}
 
-      color:
-        #180d12;
 
-    }
+.status-aprovado{
 
+  color:var(--green);
 
-    .btn-secundario:hover {
+}
 
-      transform:
-        translateY(-1px);
 
-      filter:
-        brightness(1.08);
+.status-rejeitado{
 
-    }
+  color:var(--red);
 
+}
 
-    /* =========================================================
-       MODAL
-       ========================================================= */
 
-    .modal {
+/* =========================
+   MODAL
+========================= */
 
-      display:
-        none;
+.modal{
 
-      position:
-        fixed;
+  position:fixed;
 
-      inset:
-        0;
+  inset:0;
 
-      z-index:
-        100;
+  z-index:5000;
 
-      background:
-        rgba(0,0,0,.82);
+  display:none;
 
-      backdrop-filter:
-        blur(7px);
+  align-items:center;
 
-      -webkit-backdrop-filter:
-        blur(7px);
+  justify-content:center;
 
-      align-items:
-        center;
+  padding:18px;
 
-      justify-content:
-        center;
+  background:
+    rgba(0,0,0,.84);
 
-      padding:
-        18px;
+  backdrop-filter:
+    blur(9px);
 
-    }
+}
 
 
-    .modal-conteudo {
+.modal-content{
 
-      width:
-        100%;
+  width:
+    min(820px,100%);
 
-      max-width:
-        700px;
+  max-height:92vh;
 
-      max-height:
-        90vh;
+  overflow:auto;
 
-      overflow-y:
-        auto;
+  border:
+    1px solid
+    var(--border);
 
-      background:
-        linear-gradient(
-          145deg,
-          #1a0b16,
-          #0d070c
-        );
+  border-radius:22px;
 
-      border:
-        1px solid
-        rgba(248,213,138,.25);
+  background:#100a0e;
 
-      border-radius:
-        24px;
+  box-shadow:
+    0 30px 100px
+    rgba(0,0,0,.65);
 
-      padding:
-        25px;
+}
 
-      box-shadow:
-        0 30px 100px
-        rgba(0,0,0,.70);
 
-    }
+.modal-head{
 
+  position:sticky;
 
-    .modal-topo {
+  top:0;
 
-      display:
-        flex;
+  z-index:2;
 
-      align-items:
-        flex-start;
+  padding:17px 20px;
 
-      justify-content:
-        space-between;
+  display:flex;
 
-      gap:
-        15px;
+  align-items:center;
 
-      padding-bottom:
-        16px;
+  justify-content:space-between;
 
-      margin-bottom:
-        18px;
+  border-bottom:
+    1px solid
+    var(--border2);
 
-      border-bottom:
-        1px solid
-        rgba(248,213,138,.12);
+  background:
+    rgba(16,10,14,.97);
 
-    }
+}
 
 
-    .modal-conteudo h3 {
+.modal-head strong{
 
-      margin:
-        0;
+  color:var(--gold);
 
-      color:
-        var(--lux-gold);
+  font-family:
+    "Playfair Display",
+    serif;
 
-      font-family:
-        Georgia,
-        serif;
+  font-size:21px;
 
-      font-size:
-        24px;
+}
 
-      font-weight:
-        normal;
 
-    }
+.modal-close{
 
+  width:38px;
+  height:38px;
 
-    .modal-subtitulo {
+  border:
+    1px solid
+    var(--border2);
 
-      color:
-        var(--lux-muted);
+  border-radius:50%;
 
-      font-size:
-        11px;
+  background:transparent;
 
-      margin-top:
-        5px;
+  color:#ddd;
 
-    }
+  font-size:20px;
 
+}
 
-    #corpo-ficha {
 
-      color:
-        #ddd;
+#corpo-ficha{
 
-      line-height:
-        1.65;
+  padding:23px;
 
-      font-size:
-        14px;
+}
 
-    }
 
+#corpo-ficha p{
 
-    #corpo-ficha strong {
+  margin-bottom:12px;
 
-      color:
-        var(--lux-gold);
+  color:#c4b9c1;
 
-    }
+  line-height:1.6;
 
+}
 
-    #corpo-ficha img {
 
-      width:
-        100%;
+.modal-actions{
 
-      max-width:
-        220px;
+  position:sticky;
 
-      max-height:
-        300px;
+  bottom:0;
 
-      object-fit:
-        cover;
+  padding:15px 20px;
 
-      border-radius:
-        14px;
+  display:flex;
 
-      margin:
-        6px;
+  flex-wrap:wrap;
 
-      border:
-        1px solid
-        rgba(248,213,138,.15);
+  justify-content:flex-end;
 
-    }
+  gap:9px;
 
+  border-top:
+    1px solid
+    var(--border2);
 
-    #corpo-ficha video {
+  background:
+    rgba(16,10,14,.98);
 
-      width:
-        100%;
+}
 
-      max-width:
-        520px;
 
-      border-radius:
-        14px;
+.btn{
 
-      border:
-        1px solid
-        rgba(248,213,138,.15);
+  border:0;
 
-    }
+  border-radius:10px;
 
+  padding:10px 15px;
 
-    .acoes {
+  font-weight:700;
 
-      display:
-        flex;
+}
 
-      flex-wrap:
-        wrap;
 
-      gap:
-        9px;
+.btn-principal{
 
-      margin-top:
-        22px;
+  background:var(--gold);
 
-      padding-top:
-        18px;
+  color:#120b0e;
 
-      border-top:
-        1px solid
-        rgba(248,213,138,.12);
+}
 
-    }
 
+.btn-danger{
 
-    #botao-aprovar {
+  background:#7f2948;
 
-      background:
-        #d9fbe6;
+  color:#fff;
 
-      color:
-        #102017;
+}
 
-    }
 
+.btn-secundario{
 
-    #botao-rejeitar {
+  background:#21171e;
 
-      background:
-        #ffd7df;
+  color:#eee;
 
-      color:
-        #301018;
+  border:
+    1px solid
+    var(--border2);
 
-    }
+}
 
 
-    .btn-fechar {
+/* =========================
+   RODAPÉ
+========================= */
 
-      background:
-        #30282d;
+footer{
 
-      color:
-        #fff;
+  width:
+    min(1280px,calc(100% - 30px));
 
-    }
+  margin:auto;
 
+  padding:22px 0 35px;
 
-    /* =========================================================
-       RODAPÉ
-       ========================================================= */
+  color:#625a62;
 
-    .rodape {
+  text-align:center;
 
-      text-align:
-        center;
+  font-size:11px;
 
-      color:
-        #625960;
+  letter-spacing:1.2px;
 
-      font-size:
-        11px;
+  text-transform:uppercase;
 
-      letter-spacing:
-        .8px;
+}
 
-      padding:
-        20px 0 0;
 
-    }
+/* =========================
+   RESPONSIVO
+========================= */
 
+@media(max-width:1050px){
 
-    /* =========================================================
-       RESPONSIVO
-       ========================================================= */
+  .stats{
 
-    @media (max-width: 900px) {
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
 
-      .resumo {
+  }
 
-        grid-template-columns:
-          repeat(2,1fr);
+  #lista-precadastros{
 
-      }
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
 
-      .assinatura {
+  }
 
-        display:
-          none;
+}
 
-      }
 
-    }
+@media(max-width:700px){
 
+  .topbar-inner,
+  main,
+  footer{
 
-    @media (max-width: 600px) {
+    width:
+      calc(100% - 22px);
 
-      .topo {
+  }
 
-        padding:
-          12px 15px;
 
-      }
+  .topbar-inner{
 
-      .marca-logo {
+    min-height:78px;
 
-        width:
-          39px;
+  }
 
-        height:
-          39px;
 
-      }
+  .brand-logo{
 
-      .marca {
+    width:44px;
+    height:44px;
 
-        font-size:
-          20px;
+    font-size:18px;
 
-        letter-spacing:
-          3px;
+  }
 
-      }
 
-      .submarca {
+  .brand-title{
 
-        font-size:
-          9px;
+    font-size:26px;
 
-      }
+  }
 
-      .status-online {
 
-        display:
-          none !important;
+  .brand-subtitle{
 
-      }
+    font-size:9px;
 
-      .container {
+    letter-spacing:1.4px;
 
-        padding:
-          24px 14px 45px;
+  }
 
-      }
 
-      .cabecalho-painel {
+  .online{
 
-        display:
-          block;
+    display:none;
 
-      }
+  }
 
-      .resumo {
 
-        grid-template-columns:
-          repeat(2,1fr);
+  .btn-sair{
 
-        gap:
-          10px;
+    padding:10px 14px;
 
-      }
+  }
 
-      .resumo-card {
 
-        min-height:
-          100px;
+  main{
 
-        padding:
-          15px;
+    padding-top:30px;
 
-      }
+  }
 
-      .resumo-numero {
 
-        font-size:
-          25px;
+  .hero h1{
 
-      }
+    font-size:42px;
 
-      #lista-precadastros {
+  }
 
-        grid-template-columns:
-          1fr;
 
-      }
+  .hero p{
 
-      .modal-conteudo {
+    font-size:14px;
 
-        padding:
-          18px;
+  }
 
-        border-radius:
-          19px;
 
-      }
+  .stats{
 
-      .acoes .btn {
+    gap:10px;
 
-        flex:
-          1 1 45%;
+  }
 
-      }
 
-    }
+  .stat{
 
+    min-height:120px;
 
-    @media (max-width: 380px) {
+    padding:16px;
 
-      .resumo {
+    border-radius:18px;
 
-        grid-template-columns:
-          1fr;
+  }
 
-      }
 
-      .btn-sair {
+  .stat-label{
 
-        padding:
-          9px 10px;
+    font-size:9px;
 
-        font-size:
-          10px;
+    letter-spacing:1px;
 
-      }
+  }
 
-    }
 
-  </style>
+  .stat-value{
+
+    font-size:33px;
+
+  }
+
+
+  .workspace-head{
+
+    padding:18px;
+
+  }
+
+
+  .filters,
+  .records{
+
+    padding:16px;
+
+  }
+
+
+  #lista-precadastros{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+
+
+@media(max-width:430px){
+
+  .brand-title{
+
+    font-size:23px;
+
+  }
+
+
+  .hero h1{
+
+    font-size:36px;
+
+  }
+
+
+  .stats{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+
+  .stat-value{
+
+    font-size:29px;
+
+  }
+
+}
+
+</style>
 
 </head>
 
@@ -1430,26 +1240,26 @@
 <body>
 
 
-  <!-- =======================================================
-       TOPO
-       ======================================================= -->
+<header class="topbar">
 
-  <header class="topo">
+  <div class="topbar-inner">
 
-    <div class="marca-area">
 
-      <div class="marca-logo">
+    <div class="brand">
+
+      <div class="brand-logo">
         LX
       </div>
 
+
       <div>
 
-        <div class="marca">
+        <div class="brand-title">
           LUX
         </div>
 
-        <div class="submarca">
-          LUX-ADVANCE • Administração
+        <div class="brand-subtitle">
+          LUX-ADVANCE · ADMINISTRAÇÃO
         </div>
 
       </div>
@@ -1457,190 +1267,223 @@
     </div>
 
 
-    <div class="topo-acoes">
+    <div class="top-actions">
+
 
       <div
-        class="status-online"
         id="statusOnline"
+        class="online"
       >
-
-        <span class="status-ponto"></span>
-
-        Sessão ativa
-
+        Verificando sessão
       </div>
 
 
       <button
-        type="button"
-        class="btn-sair"
         id="btnSair"
+        class="btn-sair"
+        type="button"
       >
         SAIR
       </button>
 
+
     </div>
 
-  </header>
+
+  </div>
+
+</header>
 
 
 
-  <!-- =======================================================
-       CONTEÚDO PRINCIPAL
-       ======================================================= -->
-
-  <main class="container">
+<main>
 
 
-    <section class="cabecalho-painel">
+  <section class="hero">
 
-      <div>
 
-        <div class="eyebrow">
-          Área restrita
-        </div>
+    <div class="eyebrow">
+      Área restrita
+    </div>
 
-        <h1 class="titulo">
-          Central Administrativa
-        </h1>
 
-        <p class="descricao">
-          Gerencie os pré-cadastros da LUX-ADVANCE,
-          visualize fichas, acompanhe os status e
-          realize as ações administrativas disponíveis.
-        </p>
+    <h1>
+      Central Administrativa
+    </h1>
 
+
+    <p>
+      Gestão central da LUX-ADVANCE.
+      Acompanhe modelos, usuários,
+      reclamações, planos, pagamentos,
+      pedidos, avaliações e doações
+      em um único ambiente.
+    </p>
+
+
+    <div class="system-bar">
+
+      <span>
+        <strong>Ambiente:</strong>
+        LUX-ADVANCE
+      </span>
+
+
+      <span>
+        <strong>Banco:</strong>
+        Supabase
+      </span>
+
+
+      <span>
+        <strong>Controle:</strong>
+        Administrativo
+      </span>
+
+
+      <span>
+        <strong>Dados:</strong>
+        Tempo real
+      </span>
+
+    </div>
+
+
+  </section>
+
+
+
+  <section class="stats">
+
+
+    <article class="stat">
+
+      <div class="stat-label">
+        Total de modelos
+      </div>
+
+      <div
+        id="resumoTotal"
+        class="stat-value"
+      >
+        0
+      </div>
+
+    </article>
+
+
+    <article class="stat">
+
+      <div class="stat-label">
+        Pendentes
+      </div>
+
+      <div
+        id="resumoPendentes"
+        class="stat-value"
+      >
+        0
+      </div>
+
+    </article>
+
+
+    <article class="stat">
+
+      <div class="stat-label">
+        Aprovados
+      </div>
+
+      <div
+        id="resumoAprovados"
+        class="stat-value"
+      >
+        0
+      </div>
+
+    </article>
+
+
+    <article class="stat">
+
+      <div class="stat-label">
+        Rejeitados
+      </div>
+
+      <div
+        id="resumoRejeitados"
+        class="stat-value"
+      >
+        0
+      </div>
+
+    </article>
+
+
+  </section>
+
+
+
+  <section class="workspace">
+
+
+    <div class="workspace-head">
+
+      <h2>
+        Gestão de modelos
+      </h2>
+
+      <p>
+        Analise os perfis e realize
+        as ações administrativas disponíveis.
+      </p>
+
+    </div>
+
+
+
+    <div class="filters">
+
+
+      <div class="filters-title">
+        Filtrar modelos
       </div>
 
 
-      <div class="assinatura">
-        LUX • ADVANCE
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         RESUMO
-         ===================================================== -->
-
-    <section class="resumo">
-
-
-      <div class="resumo-card">
-
-        <span class="resumo-label">
-          Total de registros
-        </span>
-
-        <strong
-          class="resumo-numero"
-          id="resumoTotal"
-        >
-          —
-        </strong>
-
-      </div>
-
-
-      <div class="resumo-card">
-
-        <span class="resumo-label">
-          Pendentes
-        </span>
-
-        <strong
-          class="resumo-numero"
-          id="resumoPendentes"
-        >
-          —
-        </strong>
-
-      </div>
-
-
-      <div class="resumo-card">
-
-        <span class="resumo-label">
-          Aprovados
-        </span>
-
-        <strong
-          class="resumo-numero"
-          id="resumoAprovados"
-        >
-          —
-        </strong>
-
-      </div>
-
-
-      <div class="resumo-card">
-
-        <span class="resumo-label">
-          Rejeitados
-        </span>
-
-        <strong
-          class="resumo-numero"
-          id="resumoRejeitados"
-        >
-          —
-        </strong>
-
-      </div>
-
-
-    </section>
-
-
-
-    <!-- =====================================================
-         FILTROS
-         ===================================================== -->
-
-    <section class="controle-area">
-
-      <div class="controle-titulo">
-        Filtrar pré-cadastros
-      </div>
-
-
-      <div class="filtros">
+      <div class="filter-row">
 
 
         <button
-          type="button"
           class="btn-filtro ativo"
           data-filtro="todos"
+          type="button"
         >
           Todos
         </button>
 
 
         <button
-          type="button"
           class="btn-filtro"
           data-filtro="pendente"
+          type="button"
         >
           Pendentes
         </button>
 
 
         <button
-          type="button"
           class="btn-filtro"
           data-filtro="aprovado"
+          type="button"
         >
           Aprovados
         </button>
 
 
         <button
-          type="button"
           class="btn-filtro"
           data-filtro="rejeitado"
+          type="button"
         >
           Rejeitados
         </button>
@@ -1648,472 +1491,311 @@
 
       </div>
 
-    </section>
+
+    </div>
 
 
 
-    <!-- =====================================================
-         LISTA
-         ===================================================== -->
-
-    <section id="lista-precadastros">
-
-      <div
-        style="
-          grid-column:1/-1;
-          text-align:center;
-          color:#777;
-          padding:35px;
-        "
-      >
-        Carregando registros...
-      </div>
-
-    </section>
+    <div class="records">
 
 
+      <div id="lista-precadastros">
 
-    <footer class="rodape">
-
-      LUX-ADVANCE • Painel Administrativo
-
-    </footer>
-
-
-  </main>
-
-
-
-  <!-- =======================================================
-       MODAL DA FICHA
-       ======================================================= -->
-
-  <div
-    id="modal-ver-ficha"
-    class="modal"
-  >
-
-    <div class="modal-conteudo">
-
-
-      <div class="modal-topo">
-
-        <div>
-
-          <h3>
-            Ficha completa
-          </h3>
-
-          <div class="modal-subtitulo">
-            Informações do pré-cadastro
-          </div>
-
+        <div
+          style="
+            grid-column:1/-1;
+            padding:45px 20px;
+            text-align:center;
+            color:#777;
+          "
+        >
+          Carregando registros...
         </div>
 
       </div>
 
 
-      <div id="corpo-ficha"></div>
+    </div>
 
 
-      <div class="acoes">
+  </section>
 
 
-        <button
-          type="button"
-          class="btn"
-          id="botao-aprovar"
-        >
-          APROVAR
-        </button>
+</main>
 
 
-        <button
-          type="button"
-          class="btn"
-          id="botao-rejeitar"
-        >
-          REJEITAR
-        </button>
+
+<footer>
+
+  LUX-ADVANCE ·
+  Central Administrativa ·
+  Ambiente restrito
+
+</footer>
 
 
-        <button
-          type="button"
-          class="btn btn-fechar"
-          onclick="fecharModalFicha()"
-        >
-          FECHAR
-        </button>
+
+<div
+  id="modal-ver-ficha"
+  class="modal"
+>
 
 
-        <button
-          type="button"
-          class="btn btn-secundario"
-          onclick="imprimirFicha()"
-        >
-          IMPRIMIR
-        </button>
+  <div class="modal-content">
 
 
-      </div>
+    <div class="modal-head">
+
+
+      <strong>
+        Ficha da modelo
+      </strong>
+
+
+      <button
+        type="button"
+        class="modal-close"
+        onclick="fecharModalFicha()"
+      >
+        ×
+      </button>
+
 
     </div>
+
+
+
+    <div id="corpo-ficha">
+
+      Carregando ficha...
+
+    </div>
+
+
+
+    <div class="modal-actions">
+
+
+      <button
+        id="botao-rejeitar"
+        type="button"
+        class="btn btn-danger"
+      >
+        REJEITAR
+      </button>
+
+
+      <button
+        id="botao-aprovar"
+        type="button"
+        class="btn btn-principal"
+      >
+        APROVAR
+      </button>
+
+
+      <button
+        type="button"
+        class="btn btn-secundario"
+        onclick="imprimirFicha()"
+      >
+        IMPRIMIR
+      </button>
+
+
+      <button
+        type="button"
+        class="btn btn-secundario"
+        onclick="fecharModalFicha()"
+      >
+        FECHAR
+      </button>
+
+
+    </div>
+
 
   </div>
 
 
+</div>
 
-  <!-- =======================================================
-       PROTEÇÃO DO PAINEL
-       ======================================================= -->
 
-  <script>
 
-    document.addEventListener(
-      "DOMContentLoaded",
-      async function () {
+<script src="./painel-admin.js"></script>
 
-        try {
 
+<script>
 
-          if (!window.luxSupabase) {
+/*
+  PROTEÇÃO DO PAINEL ADMINISTRATIVO
+*/
 
-            document.body.innerHTML =
+document.addEventListener(
+  "DOMContentLoaded",
+  async function(){
 
-              "<div style='" +
-              "padding:40px;" +
-              "font-family:Arial;" +
-              "color:#fff;" +
-              "background:#080509;" +
-              "min-height:100vh;" +
-              "'>" +
+    try{
 
-              "<h2 style='color:#f8d58a'>" +
-              "LUX — Erro de configuração" +
-              "</h2>" +
+      if(!window.luxSupabase){
 
-              "<p>" +
-              "O Supabase não foi inicializado. " +
-              "Verifique o config.js." +
-              "</p>" +
+        console.error(
+          "Supabase não inicializado."
+        );
 
-              "</div>";
+        window.location.replace(
+          "./acesso-admin.html"
+        );
 
-            return;
-
-          }
-
-
-
-          const resposta =
-
-            await window.luxSupabase.auth.getSession();
-
-
-
-          const sessao =
-
-            resposta &&
-            resposta.data
-
-              ? resposta.data.session
-
-              : null;
-
-
-
-          if (!sessao || !sessao.user) {
-
-            window.location.replace(
-              "./acesso-admin.html"
-            );
-
-            return;
-
-          }
-
-
-
-          const emailUsuario =
-
-            (
-              sessao.user.email || ""
-            )
-            .toLowerCase()
-            .trim();
-
-
-
-          const emailAdmin =
-
-            (
-              window.LUX_ADMIN_EMAIL || ""
-            )
-            .toLowerCase()
-            .trim();
-
-
-
-          if (
-            !emailAdmin ||
-            emailUsuario !== emailAdmin
-          ) {
-
-            await window.luxSupabase.auth.signOut();
-
-            window.location.replace(
-              "./acesso-admin.html"
-            );
-
-            return;
-
-          }
-
-
-
-          /*
-           * Sessão administrativa confirmada.
-           */
-
-          const statusOnline =
-
-            document.getElementById(
-              "statusOnline"
-            );
-
-
-          if (statusOnline) {
-
-            statusOnline.style.display =
-              "flex";
-
-          }
-
-
-
-          /*
-           * Botão sair.
-           */
-
-          const btnSair =
-
-            document.getElementById(
-              "btnSair"
-            );
-
-
-          if (btnSair) {
-
-            btnSair.addEventListener(
-              "click",
-              async function () {
-
-
-                btnSair.disabled =
-                  true;
-
-
-                btnSair.textContent =
-                  "SAINDO...";
-
-
-                await
-                  window.luxSupabase.auth.signOut();
-
-
-                window.location.replace(
-                  "./acesso-admin.html"
-                );
-
-
-              }
-            );
-
-          }
-
-
-        }
-
-        catch (erro) {
-
-
-          console.error(
-            "Erro ao validar acesso administrativo:",
-            erro
-          );
-
-
-          window.location.replace(
-            "./acesso-admin.html"
-          );
-
-
-        }
+        return;
 
       }
-    );
-
-  </script>
 
 
+      const {
 
-  <!-- =======================================================
-       PAINEL ADMIN JS ORIGINAL
-       ======================================================= -->
-
-  <script src="./painel-admin.js"></script>
-
-
-
-  <!-- =======================================================
-       ATUALIZAÇÃO DOS INDICADORES
-       Não interfere nas funções existentes.
-       ======================================================= -->
-
-  <script>
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      function () {
-
-
-        function atualizarResumo() {
-
-          try {
-
-
-            const dados =
-
-              JSON.parse(
-                localStorage.getItem(
-                  "fichasPreCadastro"
-                ) || "[]"
-              );
-
-
-            const total =
-              dados.length;
-
-
-            const pendentes =
-              dados.filter(
-                function (item) {
-
-                  return (
-                    (item.status || "pendente")
-                    === "pendente"
-                  );
-
-                }
-              ).length;
-
-
-            const aprovados =
-              dados.filter(
-                function (item) {
-
-                  return (
-                    item.status
-                    === "aprovado"
-                  );
-
-                }
-              ).length;
-
-
-            const rejeitados =
-              dados.filter(
-                function (item) {
-
-                  return (
-                    item.status
-                    === "rejeitado"
-                  );
-
-                }
-              ).length;
-
-
-
-            const totalEl =
-              document.getElementById(
-                "resumoTotal"
-              );
-
-
-            const pendentesEl =
-              document.getElementById(
-                "resumoPendentes"
-              );
-
-
-            const aprovadosEl =
-              document.getElementById(
-                "resumoAprovados"
-              );
-
-
-            const rejeitadosEl =
-              document.getElementById(
-                "resumoRejeitados"
-              );
-
-
-
-            if (totalEl)
-              totalEl.textContent =
-                total;
-
-
-            if (pendentesEl)
-              pendentesEl.textContent =
-                pendentes;
-
-
-            if (aprovadosEl)
-              aprovadosEl.textContent =
-                aprovados;
-
-
-            if (rejeitadosEl)
-              rejeitadosEl.textContent =
-                rejeitados;
-
-
-          }
-
-          catch (erro) {
-
-            console.error(
-              "Erro ao atualizar resumo:",
-              erro
-            );
-
-          }
+        data:{
+          session
 
         }
 
+      } =
+        await window.luxSupabase
+        .auth
+        .getSession();
 
 
-        atualizarResumo();
+      if(
+        !session ||
+        !session.user
+      ){
+
+        window.location.replace(
+          "./acesso-admin.html"
+        );
+
+        return;
+
+      }
 
 
+      const email =
+        (
+          session.user.email || ""
+        )
+        .trim()
+        .toLowerCase();
 
-        /*
-         * Atualiza os números periodicamente
-         * caso alguma alteração seja feita.
-         */
 
-        setInterval(
-          atualizarResumo,
-          1500
+      const adminEmail =
+        (
+          window.LUX_ADMIN_EMAIL || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      if(
+        !adminEmail ||
+        email !== adminEmail
+      ){
+
+        await window.luxSupabase
+          .auth
+          .signOut();
+
+        window.location.replace(
+          "./acesso-admin.html"
+        );
+
+        return;
+
+      }
+
+
+      const status =
+        document.getElementById(
+          "statusOnline"
         );
 
 
+      if(status){
+
+        status.textContent =
+          "Administrador conectado";
+
+      }
+
+
+    }catch(error){
+
+      console.error(
+        "Erro na proteção administrativa:",
+        error
+      );
+
+      window.location.replace(
+        "./acesso-admin.html"
+      );
+
+    }
+
+  }
+);
+
+
+
+/*
+  SAIR
+*/
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    const botao =
+      document.getElementById(
+        "btnSair"
+      );
+
+
+    if(!botao) return;
+
+
+    botao.addEventListener(
+      "click",
+      async function(){
+
+        try{
+
+          if(window.luxSupabase){
+
+            await window.luxSupabase
+              .auth
+              .signOut();
+
+          }
+
+        }catch(error){
+
+          console.error(
+            error
+          );
+
+        }
+
+
+        window.location.replace(
+          "./acesso-admin.html"
+        );
+
       }
     );
 
-  </script>
+  }
+);
+
+</script>
 
 
 </body>

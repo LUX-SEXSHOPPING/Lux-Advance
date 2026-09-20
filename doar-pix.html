@@ -854,9 +854,13 @@ input:focus{
 
   margin-top:0;
 
+  width:100%;
+
   background:#25D366;
 
   color:white;
+
+  border:none;
 
   box-shadow:
   0 8px 22px
@@ -866,18 +870,19 @@ input:focus{
 
   cursor:not-allowed;
 
-  position:relative;
-
-  z-index:10;
-
-  pointer-events:auto;
+  pointer-events:none;
 }
+
+
+/* BOTÃO ATIVO */
 
 .whatsapp.ativo{
 
   opacity:1;
 
   cursor:pointer;
+
+  pointer-events:auto;
 
   background:#25D366;
 
@@ -1363,9 +1368,9 @@ src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
 
 <script>
 
-/* =========================================================
+/* =========================
    CONFIGURAÇÃO
-========================================================= */
+========================= */
 
 const CHAVE_PIX =
 "ajudaasofia@gmail.com";
@@ -1377,72 +1382,99 @@ const CIDADE =
 "SAO PAULO";
 
 /*
- * Número do WhatsApp de destino.
+ * NÚMERO DO WHATSAPP
  *
- * 55 = Brasil
- * 51 = Rio Grande do Sul
+ * Brasil = 55
+ * DDD = 51
+ * Número = 980612941
  *
- * Sem +, espaços, parênteses ou hífen.
+ * Total:
+ * 5551980612941
  */
 
 const WHATSAPP =
 "5551980612941";
 
 
-/* =========================================================
+/* =========================
    ELEMENTOS
-========================================================= */
+========================= */
 
 const mostrarChave =
-document.getElementById("mostrarChave");
+document.getElementById(
+"mostrarChave"
+);
 
 const chave =
-document.getElementById("chave");
+document.getElementById(
+"chave"
+);
 
 const copiarChave =
-document.getElementById("copiarChave");
+document.getElementById(
+"copiarChave"
+);
 
 const form =
-document.getElementById("formPix");
+document.getElementById(
+"formPix"
+);
 
 const resultado =
-document.getElementById("resultado");
+document.getElementById(
+"resultado"
+);
 
 const mensagem =
-document.getElementById("mensagem");
+document.getElementById(
+"mensagem"
+);
 
 const codigoPix =
-document.getElementById("codigoPix");
+document.getElementById(
+"codigoPix"
+);
 
 const qrcode =
-document.getElementById("qrcode");
+document.getElementById(
+"qrcode"
+);
 
 const campoValor =
-document.getElementById("valor");
+document.getElementById(
+"valor"
+);
 
 const confirmarPix =
-document.getElementById("confirmouPix");
+document.getElementById(
+"confirmouPix"
+);
 
 const botaoWhatsapp =
-document.getElementById("whatsapp");
+document.getElementById(
+"whatsapp"
+);
 
 
-/* =========================================================
-   DADOS DA DOAÇÃO ATUAL
-========================================================= */
+/* =========================
+   ESTADO INICIAL
+========================= */
 
-let doacaoAtual = null;
+botaoWhatsapp.classList.remove(
+"ativo"
+);
 
 
-/* =========================================================
+/* =========================
    MOSTRAR CHAVE
-========================================================= */
+========================= */
 
 mostrarChave.onclick =
 function(){
 
   if(
-    chave.style.display === "block"
+    chave.style.display ===
+    "block"
   ){
 
     chave.style.display =
@@ -1464,40 +1496,26 @@ function(){
 };
 
 
-/* =========================================================
+/* =========================
    COPIAR
-========================================================= */
+========================= */
 
 async function copiar(texto){
 
   try{
 
-    if(
-      navigator.clipboard &&
-      navigator.clipboard.writeText
-    ){
+    await navigator
+    .clipboard
+    .writeText(texto);
 
-      await navigator.clipboard.writeText(
-        texto
-      );
-
-      return true;
-
-    }
+    return true;
 
   }catch(e){
 
-    console.log(
-      "Clipboard moderno indisponível."
-    );
-
-  }
-
-
-  try{
-
     const campo =
-    document.createElement("textarea");
+    document.createElement(
+    "textarea"
+    );
 
     campo.value =
     texto;
@@ -1505,14 +1523,11 @@ async function copiar(texto){
     campo.style.position =
     "fixed";
 
-    campo.style.left =
-    "-9999px";
-
-    campo.style.top =
+    campo.style.opacity =
     "0";
 
     document.body.appendChild(
-      campo
+    campo
     );
 
     campo.focus();
@@ -1520,16 +1535,12 @@ async function copiar(texto){
     campo.select();
 
     document.execCommand(
-      "copy"
+    "copy"
     );
 
     campo.remove();
 
     return true;
-
-  }catch(e){
-
-    return false;
 
   }
 
@@ -1539,15 +1550,12 @@ async function copiar(texto){
 copiarChave.onclick =
 async function(){
 
-  const copiou =
   await copiar(
     CHAVE_PIX
   );
 
   this.textContent =
-  copiou
-  ? "Copiado!"
-  : "Erro";
+  "Copiado!";
 
   setTimeout(
     () => {
@@ -1562,12 +1570,14 @@ async function(){
 };
 
 
-/* =========================================================
+/* =========================
    VALORES RÁPIDOS
-========================================================= */
+========================= */
 
 document
-.querySelectorAll(".valor-btn")
+.querySelectorAll(
+  ".valor-btn"
+)
 .forEach(
   function(botao){
 
@@ -1585,9 +1595,9 @@ document
 );
 
 
-/* =========================================================
+/* =========================
    CRC16
-========================================================= */
+========================= */
 
 function crc16(texto){
 
@@ -1595,8 +1605,8 @@ function crc16(texto){
   0xFFFF;
 
   for(
-    let i = 0;
-    i < texto.length;
+    let i=0;
+    i<texto.length;
     i++
   ){
 
@@ -1605,8 +1615,8 @@ function crc16(texto){
     << 8;
 
     for(
-      let j = 0;
-      j < 8;
+      let j=0;
+      j<8;
       j++
     ){
 
@@ -1635,41 +1645,36 @@ function crc16(texto){
   return crc
   .toString(16)
   .toUpperCase()
-  .padStart(
-    4,
-    "0"
-  );
+  .padStart(4,"0");
 
 }
 
 
-/* =========================================================
+/* =========================
    CAMPO PIX
-========================================================= */
+========================= */
 
 function campo(
   id,
   valor
 ){
 
-  return (
-    id +
-    String(
-      valor.length
-    )
-    .padStart(
-      2,
-      "0"
-    ) +
-    valor
-  );
+  return id +
+  String(
+    valor.length
+  )
+  .padStart(
+    2,
+    "0"
+  ) +
+  valor;
 
 }
 
 
-/* =========================================================
+/* =========================
    PAYLOAD PIX
-========================================================= */
+========================= */
 
 function gerarPix(
   valor
@@ -1756,9 +1761,9 @@ function gerarPix(
 }
 
 
-/* =========================================================
+/* =========================
    REGISTRO LOCAL
-========================================================= */
+========================= */
 
 function obterDoacoes(){
 
@@ -1787,7 +1792,7 @@ function obterDoacoes(){
   }catch(erro){
 
     console.error(
-      "Erro ao carregar registros:",
+      "Erro ao carregar registros de doações:",
       erro
     );
 
@@ -1798,9 +1803,7 @@ function obterDoacoes(){
 }
 
 
-function salvarDoacoes(
-  lista
-){
+function salvarDoacoes(lista){
 
   try{
 
@@ -1814,7 +1817,7 @@ function salvarDoacoes(
   }catch(erro){
 
     console.error(
-      "Erro ao salvar registro:",
+      "Erro ao salvar registro da doação:",
       erro
     );
 
@@ -1827,27 +1830,29 @@ function salvarDoacoes(
 
 function gerarIdDoacao(){
 
+  const agora =
+  Date.now();
+
+  const aleatorio =
+  Math.floor(
+    Math.random() *
+    100000
+  );
+
   return (
     "DOA-" +
-    Date.now() +
+    agora +
     "-" +
-    Math.floor(
-      Math.random() * 100000
-    )
+    aleatorio
   );
 
 }
 
 
-function registrarDoacao(
-  dados
-){
+function registrarDoacao(dados){
 
   const doacoes =
   obterDoacoes();
-
-  const agora =
-  new Date().toISOString();
 
   const registro = {
 
@@ -1878,10 +1883,10 @@ function registrarDoacao(
     "pendente",
 
     data:
-    agora,
+    new Date().toISOString(),
 
     atualizadoEm:
-    agora
+    new Date().toISOString()
 
   };
 
@@ -1889,11 +1894,12 @@ function registrarDoacao(
     registro
   );
 
-  if(
-    !salvarDoacoes(
-      doacoes
-    )
-  ){
+  const salvo =
+  salvarDoacoes(
+    doacoes
+  );
+
+  if(!salvo){
 
     return null;
 
@@ -1915,13 +1921,11 @@ function atualizarDoacao(
   const indice =
   doacoes.findIndex(
     item =>
-    String(item.id) ===
-    String(id)
+      String(item.id) ===
+      String(id)
   );
 
-  if(
-    indice === -1
-  ){
+  if(indice === -1){
 
     return null;
 
@@ -1947,130 +1951,349 @@ function atualizarDoacao(
 }
 
 
-/* =========================================================
-   ATIVAÇÃO DO BOTÃO
-========================================================= */
+/* =====================================================
+   ATIVAÇÃO DO BOTÃO WHATSAPP
+===================================================== */
 
 confirmarPix.addEventListener(
-  "change",
-  function(){
+"change",
+function(){
 
-    if(
-      this.checked
-    ){
+  if(
+    this.checked
+  ){
 
-      botaoWhatsapp.classList.add(
-        "ativo"
-      );
+    botaoWhatsapp.classList.add(
+      "ativo"
+    );
 
-      botaoWhatsapp.style.opacity =
-      "1";
+  }else{
 
-      botaoWhatsapp.style.cursor =
-      "pointer";
-
-    }else{
-
-      botaoWhatsapp.classList.remove(
-        "ativo"
-      );
-
-      botaoWhatsapp.style.opacity =
-      ".55";
-
-      botaoWhatsapp.style.cursor =
-      "not-allowed";
-
-    }
+    botaoWhatsapp.classList.remove(
+      "ativo"
+    );
 
   }
-);
+
+});
 
 
-/* =========================================================
-   WHATSAPP
-   EVENTO FICA FORA DO FORMULÁRIO
-========================================================= */
+/* =====================================================
+   GERAR PIX
+===================================================== */
 
-botaoWhatsapp.addEventListener(
-  "click",
-  function(){
+form.onsubmit =
+function(event){
+
+  event.preventDefault();
+
+
+  const nome =
+  document
+  .getElementById(
+    "nome"
+  )
+  .value
+  .trim();
+
+
+  const email =
+  document
+  .getElementById(
+    "email"
+  )
+  .value
+  .trim();
+
+
+  const whatsapp =
+  document
+  .getElementById(
+    "whatsapp"
+  )
+  .value
+  .trim();
+
+
+  const valor =
+  Number(
+    campoValor.value
+  );
+
+
+  /* =========================
+     DADOS
+  ========================= */
+
+  if(
+    !nome ||
+    !email ||
+    !whatsapp
+  ){
+
+    mensagem.textContent =
+    "Preencha todos os dados antes de continuar.";
+
+    mensagem.className =
+    "mensagem erro";
+
+    return;
+
+  }
+
+
+  /* =========================
+     VALOR
+  ========================= */
+
+  if(
+    !Number.isFinite(
+      valor
+    ) ||
+    valor < 0.50
+  ){
+
+    mensagem.textContent =
+    "O valor mínimo da contribuição é R$ 0,50.";
+
+    mensagem.className =
+    "mensagem erro";
+
+    campoValor.focus();
+
+    return;
+
+  }
+
+
+  try{
+
+    /* =========================
+       GERA PIX
+    ========================= */
+
+    const payload =
+    gerarPix(
+      valor
+    );
+
+
+    codigoPix.textContent =
+    payload;
+
+
+    qrcode.innerHTML =
+    "";
+
 
     if(
-      !confirmarPix.checked
+      typeof QRCode ===
+      "undefined"
     ){
 
-      mensagem.textContent =
-      "Marque a confirmação de pagamento para enviar o comprovante pelo WhatsApp.";
-
-      mensagem.className =
-      "mensagem erro";
-
-      return;
+      throw new Error(
+        "QR Code não carregado. Verifique sua conexão com a internet."
+      );
 
     }
 
 
-    if(
-      !doacaoAtual
-    ){
-
-      mensagem.textContent =
-      "Primeiro gere o PIX e depois confirme o pagamento.";
-
-      mensagem.className =
-      "mensagem erro";
-
-      return;
-
-    }
-
-
-    /*
-     * Atualiza o registro local.
-     */
-
-    atualizarDoacao(
-      doacaoAtual.id,
+    new QRCode(
+      qrcode,
       {
 
-        status:
-        "comprovante_solicitado",
+        text:
+        payload,
 
-        comprovante:
-        "solicitado"
+        width:
+        230,
+
+        height:
+        230,
+
+        correctLevel:
+        QRCode.CorrectLevel.M
 
       }
     );
 
 
-    const valorFormatado =
-    Number(
-      doacaoAtual.valor
-    ).toLocaleString(
-      "pt-BR",
-      {
-        minimumFractionDigits:2,
-        maximumFractionDigits:2
-      }
+    /* =========================
+       REGISTRA DOAÇÃO
+    ========================= */
+
+    const registro =
+    registrarDoacao({
+
+      nome:
+      nome,
+
+      email:
+      email,
+
+      whatsapp:
+      whatsapp,
+
+      valor:
+      valor
+
+    });
+
+
+    if(!registro){
+
+      throw new Error(
+        "Não foi possível registrar a contribuição neste dispositivo."
+      );
+
+    }
+
+
+    resultado.style.display =
+    "block";
+
+
+    /* =========================
+       RESET CONFIRMAÇÃO
+    ========================= */
+
+    confirmarPix.checked =
+    false;
+
+    botaoWhatsapp.classList.remove(
+      "ativo"
     );
 
 
-    /*
-     * Mensagem que será aberta
-     * automaticamente no WhatsApp.
-     */
+    mensagem.textContent =
+    "PIX gerado com sucesso. Realize o pagamento e envie o comprovante pelo WhatsApp.";
 
-    const texto =
+    mensagem.className =
+    "mensagem sucesso";
 
+
+    resultado.scrollIntoView({
+
+      behavior:
+      "smooth",
+
+      block:
+      "start"
+
+    });
+
+
+    /* =========================
+       COPIAR PIX
+    ========================= */
+
+    document
+    .getElementById(
+      "copiarPix"
+    )
+    .onclick =
+    async function(){
+
+      await copiar(
+        payload
+      );
+
+      this.textContent =
+      "PIX copiado!";
+
+      setTimeout(
+        () => {
+
+          this.textContent =
+          "Copiar PIX";
+
+        },
+        1500
+      );
+
+    };
+
+
+    /* =====================================================
+       WHATSAPP — NOVO SISTEMA
+    ===================================================== */
+
+    botaoWhatsapp.onclick =
+    function(event){
+
+      event.preventDefault();
+
+
+      /* =========================
+         CONFIRMAÇÃO
+      ========================= */
+
+      if(
+        !confirmarPix.checked
+      ){
+
+        mensagem.textContent =
+        "Marque a confirmação de pagamento para enviar o comprovante pelo WhatsApp.";
+
+        mensagem.className =
+        "mensagem erro";
+
+        return;
+
+      }
+
+
+      /* =========================
+         ATUALIZA REGISTRO
+      ========================= */
+
+      atualizarDoacao(
+        registro.id,
+        {
+
+          status:
+          "comprovante_solicitado",
+
+          comprovante:
+          "solicitado"
+
+        }
+      );
+
+
+      /* =========================
+         VALOR FORMATADO
+      ========================= */
+
+      const valorFormatado =
+      Number(valor)
+      .toLocaleString(
+        "pt-BR",
+        {
+
+          minimumFractionDigits:
+          2,
+
+          maximumFractionDigits:
+          2
+
+        }
+      );
+
+
+      /* =========================
+         TEXTO
+      ========================= */
+
+      const texto =
 `Olá, LUX Advance.
 
 Realizei uma contribuição via PIX.
 
-ID da contribuição: ${doacaoAtual.id}
-Nome: ${doacaoAtual.nome}
-E-mail: ${doacaoAtual.email}
-WhatsApp: ${doacaoAtual.whatsapp}
+ID da contribuição: ${registro.id}
+Nome: ${nome}
+E-mail: ${email}
+WhatsApp: ${whatsapp}
 Valor: R$ ${valorFormatado}
 
 Já realizei o pagamento e estou enviando o comprovante nesta conversa.
@@ -2078,327 +2301,152 @@ Já realizei o pagamento e estou enviando o comprovante nesta conversa.
 Por favor, confirme o recebimento.`;
 
 
-    /*
-     * WhatsApp oficial.
-     *
-     * Não usamos mais window.location.href.
-     */
-
-    const url =
-    "https://api.whatsapp.com/send?phone=" +
-    WHATSAPP +
-    "&text=" +
-    encodeURIComponent(
-      texto
-    );
-
-
-    /*
-     * Tenta abrir o WhatsApp
-     * em uma nova janela/aba.
-     */
-
-    const novaJanela =
-    window.open(
-      url,
-      "_blank"
-    );
-
-
-    /*
-     * Alguns celulares bloqueiam
-     * window.open.
-     *
-     * Nesse caso fazemos o
-     * redirecionamento direto.
-     */
-
-    if(
-      !novaJanela ||
-      novaJanela.closed ||
-      typeof novaJanela.closed === "undefined"
-    ){
-
-      window.location.assign(
-        url
-      );
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   GERAR PIX
-========================================================= */
-
-form.addEventListener(
-  "submit",
-  function(event){
-
-    event.preventDefault();
-
-
-    const nome =
-    document
-    .getElementById("nome")
-    .value
-    .trim();
-
-
-    const email =
-    document
-    .getElementById("email")
-    .value
-    .trim();
-
-
-    const whatsapp =
-    document
-    .getElementById("whatsapp")
-    .value
-    .trim();
-
-
-    const valor =
-    Number(
-      campoValor.value
-    );
-
-
-    /* =========================
-       VALIDA DADOS
-    ========================= */
-
-    if(
-      !nome ||
-      !email ||
-      !whatsapp
-    ){
-
-      mensagem.textContent =
-      "Preencha todos os dados antes de continuar.";
-
-      mensagem.className =
-      "mensagem erro";
-
-      return;
-
-    }
-
-
-    /* =========================
-       VALIDA VALOR
-    ========================= */
-
-    if(
-      !Number.isFinite(valor) ||
-      valor < 0.50
-    ){
-
-      mensagem.textContent =
-      "O valor mínimo da contribuição é R$ 0,50.";
-
-      mensagem.className =
-      "mensagem erro";
-
-      campoValor.focus();
-
-      return;
-
-    }
-
-
-    try{
-
       /* =========================
-         GERA PIX
+         LIMPA O NÚMERO
       ========================= */
 
-      const payload =
-      gerarPix(
-        valor
+      const numero =
+      String(
+        WHATSAPP
+      ).replace(
+        /\D/g,
+        ""
       );
 
 
-      codigoPix.textContent =
-      payload;
+      /* =========================
+         CODIFICA MENSAGEM
+      ========================= */
+
+      const textoCodificado =
+      encodeURIComponent(
+        texto
+      );
 
 
-      qrcode.innerHTML =
-      "";
+      /* =====================================================
+         LINK WHATSAPP
+      ===================================================== */
+
+      const link =
+      "https://wa.me/" +
+      numero +
+      "?text=" +
+      textoCodificado;
 
 
-      if(
-        typeof QRCode ===
-        "undefined"
-      ){
+      /* =====================================================
+         ABERTURA
+      ===================================================== */
 
-        throw new Error(
-          "QR Code não carregado. Verifique sua conexão com a internet."
+      let abriu = false;
+
+
+      try{
+
+        /*
+         * Primeiro tenta abrir
+         * uma nova aba/janela.
+         */
+
+        const janela =
+        window.open(
+          link,
+          "_blank",
+          "noopener,noreferrer"
         );
 
-      }
 
+        if(
+          janela
+        ){
 
-      new QRCode(
-        qrcode,
-        {
-
-          text:
-          payload,
-
-          width:
-          230,
-
-          height:
-          230,
-
-          correctLevel:
-          QRCode.CorrectLevel.M
+          abriu = true;
 
         }
-      );
 
+      }catch(erro){
 
-      /* =========================
-         REGISTRA DOAÇÃO
-      ========================= */
-
-      const registro =
-      registrarDoacao({
-
-        nome:
-        nome,
-
-        email:
-        email,
-
-        whatsapp:
-        whatsapp,
-
-        valor:
-        valor
-
-      });
-
-
-      if(
-        !registro
-      ){
-
-        throw new Error(
-          "Não foi possível registrar a contribuição neste dispositivo."
+        console.error(
+          "Falha ao abrir nova janela:",
+          erro
         );
 
       }
 
 
       /*
-       * Guarda a doação atual.
-       *
-       * O botão WhatsApp usa
-       * exatamente este registro.
+       * Se o navegador bloqueou
+       * a nova janela, usa navegação
+       * direta como segunda tentativa.
        */
 
-      doacaoAtual =
-      registro;
+      if(
+        !abriu
+      ){
+
+        try{
+
+          window.location.assign(
+            link
+          );
+
+          abriu = true;
+
+        }catch(erro){
+
+          console.error(
+            "Falha na navegação:",
+            erro
+          );
+
+        }
+
+      }
 
 
       /* =========================
-         MOSTRA RESULTADO
+         MENSAGEM
       ========================= */
 
-      resultado.style.display =
-      "block";
+      if(
+        abriu
+      ){
 
+        mensagem.textContent =
+        "Abrindo o WhatsApp. Na conversa, anexe o comprovante e envie.";
 
-      /* =========================
-         RESET WHATSAPP
-      ========================= */
+        mensagem.className =
+        "mensagem sucesso";
 
-      confirmarPix.checked =
-      false;
+      }else{
 
-      botaoWhatsapp.classList.remove(
-        "ativo"
-      );
+        mensagem.textContent =
+        "Não foi possível abrir o WhatsApp. Verifique se o aplicativo está instalado e tente novamente.";
 
-      botaoWhatsapp.style.opacity =
-      ".55";
+        mensagem.className =
+        "mensagem erro";
 
-      botaoWhatsapp.style.cursor =
-      "not-allowed";
+      }
 
+    };
 
-      mensagem.textContent =
-      "PIX gerado com sucesso. Realize o pagamento e envie o comprovante pelo WhatsApp.";
+  }catch(error){
 
-      mensagem.className =
-      "mensagem sucesso";
+    console.error(
+      error
+    );
 
+    mensagem.textContent =
+    error.message ||
+    "Erro ao gerar o PIX.";
 
-      resultado.scrollIntoView({
-
-        behavior:
-        "smooth",
-
-        block:
-        "start"
-
-      });
-
-
-      /* =========================
-         COPIAR PIX
-      ========================= */
-
-      document
-      .getElementById("copiarPix")
-      .onclick =
-      async function(){
-
-        const copiou =
-        await copiar(
-          payload
-        );
-
-        this.textContent =
-        copiou
-        ? "PIX copiado!"
-        : "Erro ao copiar";
-
-        setTimeout(
-          () => {
-
-            this.textContent =
-            "Copiar PIX";
-
-          },
-          1500
-        );
-
-      };
-
-
-    }catch(error){
-
-      console.error(
-        error
-      );
-
-      mensagem.textContent =
-      error.message ||
-      "Erro ao gerar o PIX.";
-
-      mensagem.className =
-      "mensagem erro";
-
-    }
+    mensagem.className =
+    "mensagem erro";
 
   }
-);
+
+};
 
 </script>
 

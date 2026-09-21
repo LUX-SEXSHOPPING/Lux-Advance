@@ -45,6 +45,115 @@
           required
         >
 
+        <label for="apelido">Apelido / Nome artístico</label>
+
+        <input
+          type="text"
+          id="apelido"
+          placeholder="Digite seu nome artístico"
+          autocomplete="nickname"
+        >
+
+        <label for="whatsapp">WhatsApp</label>
+
+        <input
+          type="tel"
+          id="whatsapp"
+          placeholder="(00) 00000-0000"
+          autocomplete="tel"
+          required
+        >
+
+        <label for="idade">Idade</label>
+
+        <input
+          type="number"
+          id="idade"
+          placeholder="Digite sua idade"
+          min="18"
+          max="100"
+          required
+        >
+
+        <label for="altura">Altura</label>
+
+        <input
+          type="number"
+          id="altura"
+          placeholder="Altura em centímetros"
+          min="100"
+          max="250"
+        >
+
+        <label for="cidade">Cidade</label>
+
+        <input
+          type="text"
+          id="cidade"
+          placeholder="Digite sua cidade"
+          autocomplete="address-level2"
+          required
+        >
+
+        <label for="estado">Estado</label>
+
+        <input
+          type="text"
+          id="estado"
+          placeholder="Digite seu estado"
+          autocomplete="address-level1"
+        >
+
+        <label for="pais">País</label>
+
+        <input
+          type="text"
+          id="pais"
+          value="Brasil"
+          autocomplete="country-name"
+        >
+
+        <label for="endereco">Endereço</label>
+
+        <input
+          type="text"
+          id="endereco"
+          placeholder="Digite seu endereço"
+          autocomplete="street-address"
+        >
+
+        <label for="corCabelo">Cor do cabelo</label>
+
+        <input
+          type="text"
+          id="corCabelo"
+          placeholder="Ex.: Castanho"
+        >
+
+        <label for="corOlhos">Cor dos olhos</label>
+
+        <input
+          type="text"
+          id="corOlhos"
+          placeholder="Ex.: Castanhos"
+        >
+
+        <label for="idiomas">Idiomas</label>
+
+        <input
+          type="text"
+          id="idiomas"
+          placeholder="Ex.: Português, Espanhol"
+        >
+
+        <label for="descricao">Descrição</label>
+
+        <textarea
+          id="descricao"
+          placeholder="Escreva uma breve descrição sobre você"
+          rows="5"
+        ></textarea>
+
         <label for="email">E-mail</label>
 
         <input
@@ -121,101 +230,289 @@
 
   <script>
 
-    const formulario = document.getElementById("cadastroModeloForm");
-    const mensagem = document.getElementById("mensagem");
-    const botao = document.getElementById("btnCadastrarModelo");
+    const formulario =
+      document.getElementById("cadastroModeloForm");
 
-    formulario.addEventListener("submit", async function(event) {
+    const mensagem =
+      document.getElementById("mensagem");
 
-      event.preventDefault();
+    const botao =
+      document.getElementById("btnCadastrarModelo");
 
-      const nome = document.getElementById("nome").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const senha = document.getElementById("senha").value;
-      const confirmarSenha =
-        document.getElementById("confirmarSenha").value;
 
-      const maioridade =
-        document.getElementById("maioridade").checked;
+    formulario.addEventListener(
+      "submit",
+      async function(event) {
 
-      mensagem.textContent = "";
-      mensagem.className = "login-message";
+        event.preventDefault();
 
-      if (!nome) {
-        mensagem.textContent = "Digite seu nome.";
-        return;
-      }
 
-      if (senha.length < 6) {
-        mensagem.textContent =
-          "A senha precisa ter pelo menos 6 caracteres.";
-        return;
-      }
+        const nome =
+          document.getElementById("nome").value.trim();
 
-      if (senha !== confirmarSenha) {
-        mensagem.textContent =
-          "As senhas não são iguais.";
-        return;
-      }
+        const apelido =
+          document.getElementById("apelido").value.trim();
 
-      if (!maioridade) {
-        mensagem.textContent =
-          "É necessário confirmar que você é maior de 18 anos.";
-        return;
-      }
+        const whatsapp =
+          document.getElementById("whatsapp").value.trim();
 
-      botao.disabled = true;
-      botao.textContent = "Enviando cadastro...";
-
-      try {
-
-        if (typeof window.cadastrar !== "function") {
-          throw new Error(
-            "A função de cadastro não foi carregada. Verifique o auth.js."
+        const idade =
+          Number(
+            document.getElementById("idade").value
           );
+
+        const altura =
+          Number(
+            document.getElementById("altura").value
+          ) || null;
+
+        const cidade =
+          document.getElementById("cidade").value.trim();
+
+        const estado =
+          document.getElementById("estado").value.trim();
+
+        const pais =
+          document.getElementById("pais").value.trim() ||
+          "Brasil";
+
+        const endereco =
+          document.getElementById("endereco").value.trim();
+
+        const corCabelo =
+          document.getElementById("corCabelo").value.trim();
+
+        const corOlhos =
+          document.getElementById("corOlhos").value.trim();
+
+        const idiomas =
+          document.getElementById("idiomas").value.trim();
+
+        const descricao =
+          document.getElementById("descricao").value.trim();
+
+        const email =
+          document.getElementById("email").value.trim();
+
+        const senha =
+          document.getElementById("senha").value;
+
+        const confirmarSenha =
+          document.getElementById("confirmarSenha").value;
+
+        const maioridade =
+          document.getElementById("maioridade").checked;
+
+
+        mensagem.textContent = "";
+        mensagem.className = "login-message";
+
+
+        if (!nome) {
+
+          mensagem.textContent =
+            "Digite seu nome.";
+
+          return;
         }
 
-        const resultado = await window.cadastrar(
-          "modelo",
-          nome,
-          email,
-          senha,
-          {
-            maioridade_confirmada: true
+
+        if (!whatsapp) {
+
+          mensagem.textContent =
+            "Digite seu WhatsApp.";
+
+          return;
+        }
+
+
+        if (!idade || idade < 18) {
+
+          mensagem.textContent =
+            "O cadastro de modelo é permitido somente para maiores de 18 anos.";
+
+          return;
+        }
+
+
+        if (!cidade) {
+
+          mensagem.textContent =
+            "Digite sua cidade.";
+
+          return;
+        }
+
+
+        if (!email) {
+
+          mensagem.textContent =
+            "Digite seu e-mail.";
+
+          return;
+        }
+
+
+        if (senha.length < 6) {
+
+          mensagem.textContent =
+            "A senha precisa ter pelo menos 6 caracteres.";
+
+          return;
+        }
+
+
+        if (senha !== confirmarSenha) {
+
+          mensagem.textContent =
+            "As senhas não são iguais.";
+
+          return;
+        }
+
+
+        if (!maioridade) {
+
+          mensagem.textContent =
+            "É necessário confirmar que você é maior de 18 anos.";
+
+          return;
+        }
+
+
+        botao.disabled = true;
+        botao.textContent =
+          "Enviando cadastro...";
+
+
+        try {
+
+          if (
+            typeof window.cadastrar !== "function"
+          ) {
+
+            throw new Error(
+              "A função de cadastro não foi carregada. Verifique o auth.js."
+            );
+
           }
-        );
 
-        if (!resultado.success) {
-          throw new Error(
-            resultado.error || "Não foi possível realizar o cadastro."
+
+          const resultado =
+            await window.cadastrar(
+              "modelo",
+              nome,
+              email,
+              senha,
+              {
+
+                maioridade_confirmada:
+                  true,
+
+                apelido:
+                  apelido,
+
+                whatsapp:
+                  whatsapp,
+
+                idade:
+                  idade,
+
+                altura_cm:
+                  altura,
+
+                cidade:
+                  cidade,
+
+                estado:
+                  estado,
+
+                pais:
+                  pais,
+
+                endereco:
+                  endereco,
+
+                cor_cabelo:
+                  corCabelo,
+
+                cor_olhos:
+                  corOlhos,
+
+                idiomas:
+                  idiomas,
+
+                descricao:
+                  descricao
+
+              }
+            );
+
+
+          if (
+            !resultado ||
+            !resultado.success
+          ) {
+
+            throw new Error(
+              resultado?.error ||
+              "Não foi possível realizar o cadastro."
+            );
+
+          }
+
+
+          mensagem.className =
+            "login-message success";
+
+
+          mensagem.innerHTML =
+            "Cadastro enviado com sucesso!<br><br>" +
+            "Seu cadastro ficará pendente de análise pela administração da LUX.";
+
+
+          botao.textContent =
+            "Cadastro enviado";
+
+
+          setTimeout(
+            function() {
+
+              window.location.href =
+                "login.html";
+
+            },
+            5000
           );
+
+
+        } catch (erro) {
+
+          console.error(
+            erro
+          );
+
+
+          mensagem.className =
+            "login-message error";
+
+
+          mensagem.textContent =
+            erro.message ||
+            "Erro ao realizar cadastro.";
+
+
+          botao.disabled =
+            false;
+
+
+          botao.textContent =
+            "Solicitar cadastro";
+
         }
 
-        mensagem.className = "login-message success";
-
-        mensagem.innerHTML =
-          "Cadastro enviado com sucesso!<br><br>" +
-          "Seu cadastro ficará pendente de análise pela administração da LUX.";
-
-        botao.textContent = "Cadastro enviado";
-
-        setTimeout(function() {
-          window.location.href = "login.html";
-        }, 5000);
-
-      } catch (erro) {
-
-        console.error(erro);
-
-        mensagem.className = "login-message error";
-        mensagem.textContent =
-          erro.message || "Erro ao realizar cadastro.";
-
-        botao.disabled = false;
-        botao.textContent = "Solicitar cadastro";
       }
-
-    });
+    );
 
   </script>
 

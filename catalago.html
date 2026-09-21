@@ -110,20 +110,37 @@ body::before{
   margin-bottom:45px;
 }
 
+
+/* LOGO LUX */
+
 .logo{
 
-  color:#f8d58a;
+  display:flex;
+
+  align-items:center;
+
+  justify-content:flex-start;
+
+  width:auto;
+
+  height:58px;
 
   text-decoration:none;
-
-  font-family:"Cinzel",serif;
-
-  font-size:29px;
-
-  letter-spacing:6px;
-
-  font-weight:700;
 }
+
+.logo img{
+
+  display:block;
+
+  width:auto;
+
+  height:58px;
+
+  max-width:180px;
+
+  object-fit:contain;
+}
+
 
 .top-actions{
 
@@ -812,7 +829,14 @@ footer{
 
   .logo{
 
-    font-size:23px;
+    height:48px;
+  }
+
+  .logo img{
+
+    height:48px;
+
+    max-width:150px;
   }
 
   .hero{
@@ -852,12 +876,24 @@ footer{
 
 <header class="topbar">
 
+
+<!-- =====================================================
+     LOGO LUX — MESMA LOGO DO CABEÇALHO DA INDEX
+===================================================== -->
+
 <a
   class="logo"
   href="index.html"
+  aria-label="LUX — Início"
 >
-LUX
+
+<img
+  src="./logo4.png"
+  alt="LUX"
+>
+
 </a>
+
 
 <div class="top-actions">
 

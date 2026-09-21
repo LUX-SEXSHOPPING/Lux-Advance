@@ -52,11 +52,6 @@ body{
   overflow-x:hidden;
 }
 
-
-/* =====================================================
-   ARCO-ÍRIS DE FUNDO
-===================================================== */
-
 body::before{
 
   content:"";
@@ -90,11 +85,6 @@ body::before{
     );
 }
 
-
-/* =====================================================
-   PÁGINA
-===================================================== */
-
 .page{
 
   position:relative;
@@ -107,11 +97,6 @@ body::before{
 
   padding:22px 0 70px;
 }
-
-
-/* =====================================================
-   TOPO
-===================================================== */
 
 .topbar{
 
@@ -130,9 +115,6 @@ body::before{
   border-bottom:1px solid
     rgba(255,255,255,.18);
 }
-
-
-/* linha arco-íris */
 
 .topbar::after{
 
@@ -232,11 +214,6 @@ body::before{
     rgba(255,100,210,.16);
 }
 
-
-/* =====================================================
-   HERO
-===================================================== */
-
 .hero{
 
   position:relative;
@@ -258,9 +235,42 @@ body::before{
   background:
 
     linear-gradient(
-      rgba(8,3,12,.72),
-      rgba(8,3,12,.72)
-    ) padding-box,
+      90deg,
+      rgba(5,2,8,.97),
+      rgba(8,3,14,.72),
+      rgba(5,2,8,.35)
+    ),
+
+    url("./Halloween-feminina.jpg");
+
+  background-position:center;
+
+  background-size:cover;
+
+  box-shadow:
+
+    0 25px 70px
+    rgba(0,0,0,.65),
+
+    0 0 45px
+    rgba(255,70,190,.10);
+}
+
+.hero::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+
+  border:1px solid transparent;
+
+  border-radius:30px;
+
+  background:
 
     linear-gradient(
       90deg,
@@ -273,32 +283,12 @@ body::before{
       #b000ff
     ) border-box;
 
-  box-shadow:
+  mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
 
-    0 25px 70px
-    rgba(0,0,0,.65),
-
-    0 0 45px
-    rgba(255,70,190,.10);
-
-  background-image:
-
-    linear-gradient(
-      90deg,
-      rgba(5,2,8,.97),
-      rgba(8,3,14,.72),
-      rgba(5,2,8,.35)
-    ),
-
-    url("./Halloween-feminina.jpg");
-
-  background-position:center;
-
-  background-size:cover;
+  mask-composite:exclude;
 }
-
-
-/* arco-íris luminoso */
 
 .hero::before{
 
@@ -325,9 +315,6 @@ body::before{
 
   mix-blend-mode:screen;
 }
-
-
-/* círculo arco-íris */
 
 .hero-symbol{
 
@@ -457,11 +444,6 @@ body::before{
   max-width:600px;
 }
 
-
-/* =====================================================
-   FILTROS
-===================================================== */
-
 .filters{
 
   display:grid;
@@ -509,11 +491,6 @@ select.field{
   cursor:pointer;
 }
 
-
-/* =====================================================
-   RESULTADO
-===================================================== */
-
 .result-head{
 
   display:flex;
@@ -541,11 +518,6 @@ select.field{
   font-size:12px;
 }
 
-
-/* =====================================================
-   GRID
-===================================================== */
-
 .grid{
 
   display:grid;
@@ -555,11 +527,6 @@ select.field{
 
   gap:22px;
 }
-
-
-/* =====================================================
-   CARD LGBTQ
-===================================================== */
 
 .card{
 
@@ -625,11 +592,6 @@ select.field{
   background:#08050b;
 }
 
-
-/* =====================================================
-   FOTO
-===================================================== */
-
 .card-photo{
 
   height:330px;
@@ -672,11 +634,6 @@ select.field{
       rgba(4,2,7,.94) 100%
     );
 }
-
-
-/* =====================================================
-   MINI ARCO-ÍRIS
-===================================================== */
 
 .rainbow-badge{
 
@@ -731,9 +688,6 @@ select.field{
   font-size:21px;
 }
 
-
-/* coração */
-
 .favorite{
 
   position:absolute;
@@ -768,9 +722,6 @@ select.field{
 
   backdrop-filter:blur(8px);
 }
-
-
-/* conteúdo */
 
 .card-content{
 
@@ -829,11 +780,6 @@ select.field{
     rgba(248,213,138,.45);
 }
 
-
-/* =====================================================
-   STATUS
-===================================================== */
-
 .status{
 
   grid-column:1/-1;
@@ -844,11 +790,6 @@ select.field{
 
   color:rgba(255,255,255,.58);
 }
-
-
-/* =====================================================
-   RODAPÉ
-===================================================== */
 
 footer{
 
@@ -866,9 +807,6 @@ footer{
 
   letter-spacing:1px;
 }
-
-
-/* arco-íris inferior */
 
 footer::before{
 
@@ -901,11 +839,6 @@ footer::before{
     0 0 15px
     rgba(255,100,210,.30);
 }
-
-
-/* =====================================================
-   RESPONSIVO
-===================================================== */
 
 @media(max-width:900px){
 
@@ -1032,7 +965,6 @@ ENTRAR
 
 </header>
 
-
 <section class="hero">
 
 <div class="hero-symbol">
@@ -1042,7 +974,6 @@ ENTRAR
 </div>
 
 </div>
-
 
 <div class="hero-content">
 
@@ -1064,7 +995,6 @@ com liberdade, respeito e personalidade.
 </div>
 
 </section>
-
 
 <section class="filters">
 
@@ -1099,7 +1029,6 @@ Todas as regiões / cidades
 
 </section>
 
-
 <div class="result-head">
 
 <h2>
@@ -1112,7 +1041,6 @@ Carregando...
 
 </div>
 
-
 <section
   id="lista"
   class="grid"
@@ -1124,7 +1052,6 @@ Carregando modelos...
 
 </section>
 
-
 <footer>
 
 LUX — SENSUALIDADE &amp; SOFISTICAÇÃO
@@ -1132,7 +1059,6 @@ LUX — SENSUALIDADE &amp; SOFISTICAÇÃO
 </footer>
 
 </main>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1178,6 +1104,18 @@ function valor(obj,campos){
   }
 
   return "";
+
+}
+
+
+function escapar(texto){
+
+  return String(texto || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
@@ -1261,6 +1199,19 @@ function localModelo(m){
 
 
 function preencherFiltros(){
+
+  filtroPlano.innerHTML=`
+    <option value="">
+      Todos os planos
+    </option>
+  `;
+
+  filtroLocalizacao.innerHTML=`
+    <option value="">
+      Todas as regiões / cidades
+    </option>
+  `;
+
 
   [...new Set(
     modelos.map(planoModelo)
@@ -1357,7 +1308,8 @@ function render(){
 
       <div class="status">
 
-        Nenhum perfil encontrado.
+        Nenhum perfil LGBTQ+ aprovado
+        foi encontrado.
 
       </div>
 
@@ -1372,16 +1324,16 @@ function render(){
     filtrados.map(m=>{
 
       const nome=
-        nomeModelo(m);
+        escapar(nomeModelo(m));
 
       const foto=
         fotoModelo(m);
 
       const local=
-        localModelo(m);
+        escapar(localModelo(m));
 
       const plano=
-        planoModelo(m);
+        escapar(planoModelo(m));
 
 
       return `
@@ -1414,7 +1366,6 @@ function render(){
 
             </div>
 
-
             <div class="card-content">
 
               <h3 class="card-name">
@@ -1424,7 +1375,6 @@ function render(){
               <div class="card-location">
                 ${local}
               </div>
-
 
               <div class="tags">
 
@@ -1467,7 +1417,9 @@ async function carregar(){
     const {data,error}=
       await window.luxSupabase
         .from("modelo_perfis")
-        .select("*");
+        .select("*")
+        .eq("categoria_catalogo","lgbtq")
+        .eq("verificacao_status","aprovado");
 
 
     if(error)

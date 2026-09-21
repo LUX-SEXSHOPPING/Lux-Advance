@@ -283,7 +283,7 @@ body::before{
 
   position:relative;
 
-  min-height:300px;
+  min-height:330px;
 
   overflow:hidden;
 
@@ -293,39 +293,22 @@ body::before{
 
   justify-content:flex-end;
 
-  padding:28px;
+  padding:30px;
 
-  border-radius:26px;
-
-  border:1px solid
-    rgba(248,213,138,.25);
-
-  background:
-    rgba(8,4,10,.82);
+  border-radius:28px;
 
   text-decoration:none;
 
   color:#fff;
 
-  box-shadow:
-    0 20px 50px
-    rgba(0,0,0,.50);
+  transition:
+    transform .45s ease,
+    box-shadow .45s ease,
+    border-color .45s ease;
 
-  transition:.4s;
+  backdrop-filter:blur(12px);
 
-  backdrop-filter:blur(10px);
-}
-
-.category:hover{
-
-  transform:translateY(-8px);
-
-  border-color:
-    rgba(248,213,138,.75);
-
-  box-shadow:
-    0 30px 70px
-    rgba(0,0,0,.70);
+  isolation:isolate;
 }
 
 .category::before{
@@ -336,15 +319,333 @@ body::before{
 
   inset:0;
 
-  background:
-    linear-gradient(
-      180deg,
-      transparent 25%,
-      rgba(0,0,0,.90) 100%
-    );
+  z-index:-2;
 
   pointer-events:none;
 }
+
+.category::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:-1;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.02) 5%,
+      rgba(0,0,0,.18) 35%,
+      rgba(0,0,0,.94) 100%
+    );
+}
+
+.category:hover{
+
+  transform:
+    translateY(-10px)
+    scale(1.015);
+}
+
+
+/* =====================================================
+   CARD FEMININO
+===================================================== */
+
+.category.feminina{
+
+  border:
+    1px solid
+    rgba(255,94,174,.65);
+
+  background:
+
+    radial-gradient(
+      circle at 80% 18%,
+      rgba(255,105,180,.40),
+      transparent 30%
+    ),
+
+    linear-gradient(
+      145deg,
+      rgba(70,7,43,.96),
+      rgba(27,3,20,.94)
+    );
+
+  box-shadow:
+    0 22px 60px
+    rgba(0,0,0,.55),
+    inset 0 0 55px
+    rgba(255,58,157,.10);
+}
+
+.category.feminina::before{
+
+  background:
+
+    radial-gradient(
+      circle at 82% 18%,
+      rgba(255,80,170,.28),
+      transparent 23%
+    ),
+
+    radial-gradient(
+      circle at 15% 80%,
+      rgba(191,36,119,.18),
+      transparent 30%
+    );
+}
+
+.category.feminina:hover{
+
+  border-color:
+    rgba(255,140,205,.95);
+
+  box-shadow:
+    0 32px 80px
+    rgba(0,0,0,.75),
+    0 0 35px
+    rgba(255,65,164,.22);
+}
+
+.category.feminina .category-icon{
+
+  color:#ff9bd0;
+
+  border-color:
+    rgba(255,125,195,.65);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(91,9,56,.85),
+      rgba(29,4,23,.92)
+    );
+
+  box-shadow:
+    0 0 25px
+    rgba(255,68,169,.22);
+}
+
+.category.feminina h2{
+
+  color:#ffd0e8;
+
+  text-shadow:
+    0 0 20px
+    rgba(255,74,171,.28);
+}
+
+
+/* =====================================================
+   CARD MASCULINO
+===================================================== */
+
+.category.masculina{
+
+  border:
+    1px solid
+    rgba(78,156,255,.60);
+
+  background:
+
+    radial-gradient(
+      circle at 82% 17%,
+      rgba(61,145,255,.32),
+      transparent 30%
+    ),
+
+    linear-gradient(
+      145deg,
+      rgba(5,25,58,.97),
+      rgba(3,8,20,.96)
+    );
+
+  box-shadow:
+    0 22px 60px
+    rgba(0,0,0,.58),
+    inset 0 0 55px
+    rgba(36,116,221,.12);
+}
+
+.category.masculina::before{
+
+  background:
+
+    radial-gradient(
+      circle at 82% 18%,
+      rgba(53,145,255,.30),
+      transparent 24%
+    ),
+
+    radial-gradient(
+      circle at 12% 78%,
+      rgba(31,81,155,.18),
+      transparent 32%
+    );
+}
+
+.category.masculina:hover{
+
+  border-color:
+    rgba(105,181,255,.95);
+
+  box-shadow:
+    0 32px 80px
+    rgba(0,0,0,.78),
+    0 0 35px
+    rgba(45,130,255,.22);
+}
+
+.category.masculina .category-icon{
+
+  color:#8bc8ff;
+
+  border-color:
+    rgba(93,166,255,.65);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(7,38,82,.88),
+      rgba(3,9,24,.94)
+    );
+
+  box-shadow:
+    0 0 25px
+    rgba(42,126,255,.20);
+}
+
+.category.masculina h2{
+
+  color:#c5e5ff;
+
+  text-shadow:
+    0 0 20px
+    rgba(69,153,255,.25);
+}
+
+
+/* =====================================================
+   CARD LGBTQ+
+   ARCO-ÍRIS ELEGANTE
+===================================================== */
+
+.category.lgbtq{
+
+  position:relative;
+
+  border:
+    1px solid
+    rgba(255,255,255,.52);
+
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(25,4,28,.96),
+      rgba(5,2,10,.96)
+    );
+
+  box-shadow:
+    0 22px 60px
+    rgba(0,0,0,.58),
+    inset 0 0 65px
+    rgba(255,255,255,.07);
+}
+
+.category.lgbtq::before{
+
+  background:
+
+    linear-gradient(
+      135deg,
+      rgba(255,40,80,.30),
+      rgba(255,150,40,.24),
+      rgba(255,235,55,.20),
+      rgba(60,220,125,.24),
+      rgba(50,145,255,.28),
+      rgba(150,70,255,.30),
+      rgba(240,60,180,.28)
+    );
+
+  opacity:.90;
+
+  filter:
+    blur(1px)
+    saturate(1.25);
+}
+
+.category.lgbtq::after{
+
+  background:
+
+    linear-gradient(
+      180deg,
+      rgba(5,2,10,.12) 0%,
+      rgba(5,2,10,.35) 38%,
+      rgba(4,2,8,.96) 100%
+    );
+}
+
+.category.lgbtq:hover{
+
+  border-color:
+    rgba(255,255,255,.90);
+
+  box-shadow:
+    0 32px 80px
+    rgba(0,0,0,.78),
+    0 0 38px
+    rgba(190,90,255,.24);
+}
+
+.category.lgbtq .category-icon{
+
+  color:#fff;
+
+  border-color:
+    rgba(255,255,255,.72);
+
+  background:
+
+    linear-gradient(
+      135deg,
+      rgba(255,60,100,.60),
+      rgba(255,180,50,.52),
+      rgba(50,210,130,.48),
+      rgba(65,135,255,.56),
+      rgba(175,65,255,.60)
+    );
+
+  box-shadow:
+    0 0 28px
+    rgba(255,255,255,.15);
+
+  text-shadow:
+    0 0 10px
+    rgba(255,255,255,.70);
+}
+
+.category.lgbtq h2{
+
+  color:#fff;
+
+  text-shadow:
+    0 0 12px rgba(255,60,100,.35),
+    0 0 20px rgba(80,150,255,.28),
+    0 0 28px rgba(190,70,255,.25);
+}
+
+
+/* =====================================================
+   ÍCONE DOS CARDS
+===================================================== */
 
 .category-icon{
 
@@ -354,9 +655,9 @@ body::before{
 
   right:25px;
 
-  width:58px;
+  width:62px;
 
-  height:58px;
+  height:62px;
 
   border-radius:50%;
 
@@ -366,15 +667,18 @@ body::before{
 
   justify-content:center;
 
-  font-size:27px;
+  font-size:29px;
 
-  border:1px solid
-    rgba(248,213,138,.40);
+  font-family:Georgia,serif;
 
-  color:#f8d58a;
+  transition:.4s;
+}
 
-  background:
-    rgba(5,3,8,.70);
+.category:hover .category-icon{
+
+  transform:
+    rotate(8deg)
+    scale(1.08);
 }
 
 .category-content{
@@ -386,55 +690,74 @@ body::before{
 
 .category h2{
 
-  margin:0 0 8px;
+  margin:0 0 10px;
 
-  font-size:28px;
+  font-size:30px;
 
   font-weight:500;
+
+  letter-spacing:.3px;
 }
 
 .category p{
 
   margin:0;
 
-  color:rgba(255,255,255,.66);
+  color:rgba(255,255,255,.72);
 
-  line-height:1.6;
+  line-height:1.7;
 
   font-size:14px;
+
+  max-width:310px;
 }
 
-.category.feminina{
+
+/* =====================================================
+   PEQUENO DETALHE DECORATIVO
+===================================================== */
+
+.category-content::before{
+
+  content:"";
+
+  display:block;
+
+  width:48px;
+
+  height:1px;
+
+  margin-bottom:16px;
+
+  background:
+    rgba(248,213,138,.75);
+}
+
+.category.masculina .category-content::before{
+
+  background:
+    rgba(91,169,255,.80);
+}
+
+.category.feminina .category-content::before{
+
+  background:
+    rgba(255,113,188,.85);
+}
+
+.category.lgbtq .category-content::before{
 
   background:
     linear-gradient(
-      rgba(20,3,14,.35),
-      rgba(5,2,8,.90)
-    ),
-    url("./Halloween-feminina.jpg")
-    center / cover;
-}
-
-.category.masculina{
-
-  background:
-    linear-gradient(
-      rgba(3,8,18,.40),
-      rgba(3,5,10,.92)
-    ),
-    url("./Halloween-feminina.jpg")
-    center / cover;
-}
-
-.category.lgbtq{
-
-  background:
-    linear-gradient(
-      rgba(15,3,18,.35),
-      rgba(5,2,8,.92)
-    ),
-    url("./Halloween-feminina.jpg")
-    center / cover;
+      90deg,
+      #ff3d62,
+      #ff9f32,
+      #ffe14b,
+      #42d77c,
+      #4e9cff,
+      #a75cff,
+      #f04cc9
+    );
 }
 
 
@@ -514,7 +837,7 @@ footer{
 
   .category{
 
-    min-height:280px;
+    min-height:300px;
   }
 
 }
@@ -583,6 +906,10 @@ seu estilo e sua preferência.
 <section class="categories">
 
 
+<!-- =====================================================
+     FEMININO
+===================================================== -->
+
 <a
   class="category feminina"
   href="modelos-femininos.html"
@@ -608,6 +935,10 @@ disponíveis na plataforma LUX.
 </a>
 
 
+<!-- =====================================================
+     MASCULINO
+===================================================== -->
+
 <a
   class="category masculina"
   href="modelos-masculinos.html"
@@ -632,6 +963,10 @@ disponíveis na plataforma LUX.
 
 </a>
 
+
+<!-- =====================================================
+     LGBTQ+
+===================================================== -->
 
 <a
   class="category lgbtq"

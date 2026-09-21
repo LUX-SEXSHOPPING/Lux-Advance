@@ -38,18 +38,141 @@
         #080607;
     }
 
+
+    /* =========================================
+       CABEÇALHO
+       ========================================= */
+
     .topbar {
       border-bottom: 1px solid rgba(255, 140, 0, .25);
       box-shadow:
         0 4px 25px rgba(0,0,0,.55);
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+
+      padding:10px 20px;
     }
+
 
     .brand {
       color: #f0d878 !important;
       text-shadow:
         0 0 12px rgba(240,216,120,.25);
+
       letter-spacing: 5px;
+
+      display:flex;
+      align-items:center;
+
+      text-decoration:none;
+
+      height:116px;
+
+      flex-shrink:0;
     }
+
+
+    .brand img {
+
+      display:block;
+
+      width:auto;
+
+      height:116px;
+
+      max-width:260px;
+
+      object-fit:contain;
+
+    }
+
+
+    .top-actions-modelo {
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:flex-end;
+
+      gap:10px;
+
+      flex-wrap:wrap;
+
+    }
+
+
+    .btn-planos {
+
+      display:inline-flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      min-height:44px;
+
+      padding:11px 18px;
+
+      border-radius:28px;
+
+      text-decoration:none;
+
+      font-family:"Cinzel",serif;
+
+      font-size:11px;
+
+      letter-spacing:1.3px;
+
+      text-transform:uppercase;
+
+      color:#130b08;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f0d878,
+          #d88916
+        );
+
+      border:1px solid
+        rgba(240,216,120,.65);
+
+      box-shadow:
+        0 7px 25px
+        rgba(216,137,22,.20);
+
+      transition:.3s;
+
+      white-space:nowrap;
+
+    }
+
+
+    .btn-planos:hover {
+
+      transform:translateY(-2px);
+
+      box-shadow:
+        0 10px 32px
+        rgba(240,216,120,.28);
+
+    }
+
+
+    .btn-sair-top {
+
+      white-space:nowrap;
+
+    }
+
+
+    /* =========================================
+       HERO
+       ========================================= */
 
     .hero {
       position: relative;
@@ -100,6 +223,135 @@
       color: #bdb0b5 !important;
     }
 
+
+    /* =========================================
+       CARD DO PLANO
+       ========================================= */
+
+    .plano-acesso {
+
+      margin-top:18px;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:space-between;
+
+      gap:18px;
+
+      padding:16px 18px;
+
+      border-radius:18px;
+
+      border:1px solid
+        rgba(240,216,120,.22);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(240,216,120,.08),
+          rgba(110,15,46,.10)
+        );
+
+      box-shadow:
+        inset 0 1px
+        rgba(255,255,255,.025);
+
+    }
+
+
+    .plano-acesso-info {
+
+      min-width:0;
+
+    }
+
+
+    .plano-acesso-info small {
+
+      display:block;
+
+      color:#8f8589;
+
+      font-size:11px;
+
+      letter-spacing:1px;
+
+      text-transform:uppercase;
+
+      margin-bottom:5px;
+
+    }
+
+
+    .plano-acesso-info strong {
+
+      color:#f0d878;
+
+      font-family:"Cinzel",serif;
+
+      font-size:15px;
+
+      letter-spacing:.8px;
+
+    }
+
+
+    .plano-acesso-link {
+
+      flex-shrink:0;
+
+      display:inline-flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      padding:9px 14px;
+
+      border-radius:22px;
+
+      border:1px solid
+        rgba(240,216,120,.28);
+
+      background:
+        rgba(255,255,255,.035);
+
+      color:#f0d878;
+
+      text-decoration:none;
+
+      font-family:"Cinzel",serif;
+
+      font-size:10px;
+
+      letter-spacing:1px;
+
+      text-transform:uppercase;
+
+      transition:.3s;
+
+    }
+
+
+    .plano-acesso-link:hover {
+
+      background:
+        rgba(240,216,120,.10);
+
+      border-color:
+        rgba(240,216,120,.55);
+
+      transform:translateY(-1px);
+
+    }
+
+
+    /* =========================================
+       CARD PADRÃO
+       ========================================= */
+
     .card {
       position: relative;
       overflow: hidden;
@@ -128,10 +380,27 @@
       pointer-events: none;
     }
 
+
+    /* =========================================
+       CABEÇALHO DO PERFIL
+       ========================================= */
+
     .profile-head {
       position: relative;
       z-index: 2;
+
+      display:grid;
+
+      grid-template-columns:
+        auto minmax(0,1fr)
+        minmax(230px,280px);
+
+      align-items:start;
+
+      gap:22px;
+
     }
+
 
     #foto {
       background:
@@ -148,6 +417,257 @@
         0 0 30px rgba(255,100,0,.08),
         inset 0 0 25px rgba(0,0,0,.5);
     }
+
+
+    /* =========================================
+       ATUALIZAR FOTO DE PERFIL
+       ========================================= */
+
+    .profile-photo-manager {
+
+      min-width:0;
+
+      padding:16px;
+
+      border-radius:18px;
+
+      border:1px solid
+        rgba(240,216,120,.22);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(240,216,120,.06),
+          rgba(255,102,0,.035)
+        );
+
+      box-shadow:
+        inset 0 1px
+        rgba(255,255,255,.025);
+
+    }
+
+
+    .profile-photo-manager h3 {
+
+      margin:0 0 5px;
+
+      color:#f0d878;
+
+      font-family:"Cinzel",serif;
+
+      font-size:13px;
+
+      letter-spacing:.7px;
+
+    }
+
+
+    .profile-photo-manager p {
+
+      margin:0;
+
+      color:#8f8589;
+
+      font-size:12px;
+
+      line-height:1.55;
+
+    }
+
+
+    .profile-photo-options {
+
+      display:grid;
+
+      grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+      gap:8px;
+
+      margin-top:13px;
+
+      max-height:180px;
+
+      overflow:auto;
+
+      padding-right:2px;
+
+    }
+
+
+    .profile-photo-option {
+
+      position:relative;
+
+      width:100%;
+
+      aspect-ratio:1 / 1;
+
+      padding:0;
+
+      border-radius:12px;
+
+      overflow:hidden;
+
+      cursor:pointer;
+
+      border:1px solid
+        rgba(240,216,120,.18);
+
+      background:#100b0d;
+
+      transition:.25s;
+
+    }
+
+
+    .profile-photo-option:hover {
+
+      transform:translateY(-2px);
+
+      border-color:
+        rgba(240,216,120,.65);
+
+      box-shadow:
+        0 6px 18px
+        rgba(0,0,0,.35);
+
+    }
+
+
+    .profile-photo-option img {
+
+      display:block;
+
+      width:100%;
+
+      height:100%;
+
+      object-fit:cover;
+
+    }
+
+
+    .profile-photo-option.selected {
+
+      border:
+        2px solid #f0d878;
+
+      box-shadow:
+        0 0 18px
+        rgba(240,216,120,.20);
+
+    }
+
+
+    .profile-photo-option.selected::after {
+
+      content:"✓";
+
+      position:absolute;
+
+      top:5px;
+
+      right:5px;
+
+      width:22px;
+
+      height:22px;
+
+      border-radius:50%;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      background:#f0d878;
+
+      color:#120b08;
+
+      font-weight:bold;
+
+      font-size:13px;
+
+    }
+
+
+    .profile-photo-empty {
+
+      grid-column:1 / -1;
+
+      padding:15px 10px;
+
+      text-align:center;
+
+      border:1px dashed
+        rgba(240,216,120,.18);
+
+      border-radius:12px;
+
+      color:#8f8589;
+
+      font-size:12px;
+
+      line-height:1.5;
+
+    }
+
+
+    .profile-photo-manager .photo-action {
+
+      width:100%;
+
+      margin-top:11px;
+
+      min-height:38px;
+
+      border-radius:20px;
+
+      cursor:pointer;
+
+      border:1px solid
+        rgba(240,216,120,.28);
+
+      background:
+        rgba(240,216,120,.07);
+
+      color:#f0d878;
+
+      font-family:"Cinzel",serif;
+
+      font-size:10px;
+
+      letter-spacing:1px;
+
+      text-transform:uppercase;
+
+      transition:.3s;
+
+    }
+
+
+    .profile-photo-manager .photo-action:hover {
+
+      background:
+        rgba(240,216,120,.13);
+
+      border-color:
+        rgba(240,216,120,.55);
+
+    }
+
+
+    .profile-photo-manager .photo-action:disabled {
+
+      opacity:.45;
+
+      cursor:not-allowed;
+
+    }
+
 
     .pill {
       border-color:
@@ -233,6 +753,7 @@
 
       color: #756b70 !important;
     }
+
 
     /* =========================================
        GERENCIAMENTO DE MÍDIAS
@@ -443,7 +964,119 @@
       margin-top: 15px;
     }
 
+
+    /* =========================================
+       RESPONSIVO
+       ========================================= */
+
+    @media (max-width: 900px) {
+
+      .profile-head {
+
+        grid-template-columns:
+          auto minmax(0,1fr);
+
+      }
+
+      .profile-photo-manager {
+
+        grid-column:1 / -1;
+
+      }
+
+    }
+
+
     @media (max-width: 650px) {
+
+      .topbar {
+
+        padding:8px 10px;
+
+        align-items:center;
+
+      }
+
+
+      .brand {
+
+        height:78px;
+
+      }
+
+
+      .brand img {
+
+        height:78px;
+
+        max-width:170px;
+
+      }
+
+
+      .top-actions-modelo {
+
+        gap:7px;
+
+      }
+
+
+      .btn-planos {
+
+        padding:9px 11px;
+
+        font-size:9px;
+
+        letter-spacing:.7px;
+
+      }
+
+
+      .btn-sair-top {
+
+        padding:9px 11px;
+
+        font-size:9px;
+
+      }
+
+
+      .profile-head {
+
+        grid-template-columns:1fr;
+
+      }
+
+
+      #foto {
+
+        margin:auto;
+
+      }
+
+
+      .profile-photo-manager {
+
+        grid-column:auto;
+
+      }
+
+
+      .plano-acesso {
+
+        align-items:flex-start;
+
+        flex-direction:column;
+
+      }
+
+
+      .plano-acesso-link {
+
+        width:100%;
+
+      }
+
 
       .media-limits {
         grid-template-columns: 1fr;
@@ -476,27 +1109,58 @@
   </div>
 
 
+  <!-- =========================================
+       CABEÇALHO
+       ========================================= -->
+
   <header class="topbar">
+
 
     <a
       class="brand"
       href="index.html"
+      aria-label="LUX — Início"
     >
-      LUX
+
+      <img
+        src="./logo4.png"
+        alt="LUX"
+      >
+
     </a>
 
-    <button
-      class="btn ghost"
-      id="btnSair"
-      type="button"
-    >
-      Sair
-    </button>
+
+    <div class="top-actions-modelo">
+
+
+      <a
+        class="btn-planos"
+        href="planos.html"
+      >
+        ✦ Ver Planos
+      </a>
+
+
+      <button
+        class="btn ghost btn-sair-top"
+        id="btnSair"
+        type="button"
+      >
+        Sair
+      </button>
+
+
+    </div>
 
   </header>
 
 
   <main class="container">
+
+
+    <!-- =====================================
+         HERO
+         ===================================== -->
 
     <section class="hero">
 
@@ -518,6 +1182,33 @@
         Carregando...
       </p>
 
+
+      <!-- ACESSO AOS PLANOS -->
+
+      <div class="plano-acesso">
+
+        <div class="plano-acesso-info">
+
+          <small>
+            Seu plano atual
+          </small>
+
+          <strong id="heroPlano">
+            ✦ LUX ESSENCE
+          </strong>
+
+        </div>
+
+
+        <a
+          class="plano-acesso-link"
+          href="planos.html"
+        >
+          ✦ Ver planos e assinar
+        </a>
+
+      </div>
+
     </section>
 
 
@@ -533,6 +1224,7 @@
       hidden
     >
 
+
       <!-- =====================================
            PERFIL
            ===================================== -->
@@ -541,7 +1233,11 @@
 
         <div class="card-body">
 
+
           <div class="profile-head">
+
+
+            <!-- FOTO PRINCIPAL -->
 
             <div
               id="foto"
@@ -563,6 +1259,8 @@
               LUX
             </div>
 
+
+            <!-- INFORMAÇÕES -->
 
             <div>
 
@@ -599,6 +1297,59 @@
 
             </div>
 
+
+            <!-- =================================
+                 CARD ATUALIZAR FOTO
+                 ================================= -->
+
+            <div
+              class="profile-photo-manager"
+            >
+
+              <h3>
+                📷 Foto de perfil
+              </h3>
+
+              <p>
+                Escolha uma das fotos que você
+                já enviou para definir como principal.
+              </p>
+
+
+              <div
+                id="profilePhotoOptions"
+                class="profile-photo-options"
+              >
+
+                <div class="profile-photo-empty">
+                  Carregando suas fotos...
+                </div>
+
+              </div>
+
+
+              <button
+                id="btnAtualizarFoto"
+                class="photo-action"
+                type="button"
+                disabled
+              >
+                ⭐ Usar foto selecionada
+              </button>
+
+
+              <p
+                id="profilePhotoMessage"
+                class="media-note"
+                style="
+                  margin-bottom:0;
+                  display:none;
+                "
+              ></p>
+
+            </div>
+
+
           </div>
 
         </div>
@@ -608,6 +1359,10 @@
 
       <br>
 
+
+      <!-- =====================================
+           INFORMAÇÕES
+           ===================================== -->
 
       <div class="grid">
 
@@ -939,6 +1694,14 @@
 
         <a
           class="btn"
+          href="planos.html"
+        >
+          ✦ Ver planos e assinar
+        </a>
+
+
+        <a
+          class="btn"
           href="index.html"
         >
           ✦ Voltar ao LUX
@@ -978,6 +1741,8 @@
     let planoAtual = "ESSENCE";
     let midiasAtuais = [];
 
+    let fotoSelecionadaPerfil = null;
+
 
     /* =========================================
        LIMITES DOS PLANOS
@@ -1004,17 +1769,6 @@
         fotos: 5,
         videos: 3
       },
-
-      /*
-       * O projeto ainda não definiu oficialmente
-       * o limite de mídia do DIAMOND.
-       *
-       * Mantido em 10 fotos / 5 vídeos
-       * como configuração provisória.
-       *
-       * Pode ser alterado depois sem mexer
-       * no restante do sistema.
-       */
 
       DIAMOND: {
         fotos: 10,
@@ -1110,6 +1864,24 @@
       );
 
 
+    const profilePhotoOptions =
+      document.getElementById(
+        "profilePhotoOptions"
+      );
+
+
+    const btnAtualizarFoto =
+      document.getElementById(
+        "btnAtualizarFoto"
+      );
+
+
+    const profilePhotoMessage =
+      document.getElementById(
+        "profilePhotoMessage"
+      );
+
+
     /* =========================================
        MENSAGENS
        ========================================= */
@@ -1139,6 +1911,40 @@
         true;
 
       mediaMessage.textContent =
+        "";
+
+    }
+
+
+    /* =========================================
+       MENSAGEM FOTO DE PERFIL
+       ========================================= */
+
+    function mostrarMensagemFotoPerfil(
+      texto,
+      erro = false
+    ) {
+
+      profilePhotoMessage.style.display =
+        "block";
+
+      profilePhotoMessage.textContent =
+        texto;
+
+      profilePhotoMessage.style.color =
+        erro
+          ? "#ff9b9b"
+          : "#f0d878";
+
+    }
+
+
+    function esconderMensagemFotoPerfil() {
+
+      profilePhotoMessage.style.display =
+        "none";
+
+      profilePhotoMessage.textContent =
         "";
 
     }
@@ -1252,7 +2058,7 @@
 
 
     /* =========================================
-       FOTO DE PERFIL
+       FOTO DE PERFIL PRINCIPAL
        ========================================= */
 
     function mostrarFotoPerfil(
@@ -1276,7 +2082,8 @@
       }
 
 
-      container.innerHTML = "";
+      container.innerHTML =
+        "";
 
 
       const img =
@@ -1289,7 +2096,8 @@
         url;
 
       img.alt =
-        nome || "Modelo LUX";
+        nome ||
+        "Modelo LUX";
 
       img.loading =
         "lazy";
@@ -1319,7 +2127,7 @@
 
 
     /* =========================================
-       ATUALIZA LIMITES
+       ATUALIZAR LIMITES
        ========================================= */
 
     function atualizarLimites() {
@@ -1364,6 +2172,271 @@
         limite.videos;
 
     }
+
+
+    /* =========================================
+       RENDERIZAR FOTOS PARA ESCOLHA
+       ========================================= */
+
+    function renderizarOpcoesFotoPerfil() {
+
+      profilePhotoOptions.innerHTML =
+        "";
+
+      fotoSelecionadaPerfil =
+        null;
+
+      btnAtualizarFoto.disabled =
+        true;
+
+
+      const fotos =
+        midiasAtuais.filter(
+          item =>
+            item.tipo === "foto"
+        );
+
+
+      if (
+        fotos.length === 0
+      ) {
+
+        profilePhotoOptions.innerHTML = `
+
+          <div class="profile-photo-empty">
+
+            Você ainda não possui fotos
+            cadastradas na sua galeria.
+
+            <br>
+
+            Adicione uma foto abaixo
+            para poder escolhê-la como principal.
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      const fotoPrincipal =
+        modeloAtual?.foto_url ||
+        null;
+
+
+      fotos.forEach(
+        midia => {
+
+          const botao =
+            document.createElement(
+              "button"
+            );
+
+
+          botao.type =
+            "button";
+
+          botao.className =
+            "profile-photo-option";
+
+
+          if (
+            fotoPrincipal &&
+            fotoPrincipal ===
+            midia.url
+          ) {
+
+            botao.classList.add(
+              "selected"
+            );
+
+          }
+
+
+          const img =
+            document.createElement(
+              "img"
+            );
+
+
+          img.src =
+            midia.url;
+
+          img.alt =
+            "Foto disponível para perfil";
+
+          img.loading =
+            "lazy";
+
+
+          botao.appendChild(
+            img
+          );
+
+
+          botao.addEventListener(
+            "click",
+            function() {
+
+              document
+                .querySelectorAll(
+                  ".profile-photo-option"
+                )
+                .forEach(
+                  elemento =>
+                    elemento.classList.remove(
+                      "selected"
+                    )
+                );
+
+
+              botao.classList.add(
+                "selected"
+              );
+
+
+              fotoSelecionadaPerfil =
+                midia;
+
+
+              btnAtualizarFoto.disabled =
+                false;
+
+
+              esconderMensagemFotoPerfil();
+
+            }
+          );
+
+
+          profilePhotoOptions.appendChild(
+            botao
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================================
+       DEFINIR FOTO ESCOLHIDA NO CARD
+       ========================================= */
+
+    async function atualizarFotoSelecionada() {
+
+      if (
+        !fotoSelecionadaPerfil
+      ) {
+
+        mostrarMensagemFotoPerfil(
+          "Selecione uma foto primeiro.",
+          true
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        btnAtualizarFoto.disabled =
+          true;
+
+        btnAtualizarFoto.textContent =
+          "Atualizando...";
+
+
+        esconderMensagemFotoPerfil();
+
+
+        const {
+          error
+        } =
+          await window.luxSupabase
+            .from(
+              "modelo_perfis"
+            )
+            .update({
+              foto_url:
+                fotoSelecionadaPerfil.url,
+
+              atualizado_em:
+                new Date().toISOString()
+            })
+            .eq(
+              "id",
+              usuarioLogado.id
+            );
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        modeloAtual.foto_url =
+          fotoSelecionadaPerfil.url;
+
+
+        mostrarFotoPerfil(
+          fotoSelecionadaPerfil.url,
+          modeloAtual.nome_exibicao
+        );
+
+
+        renderizarOpcoesFotoPerfil();
+
+
+        mostrarMensagemFotoPerfil(
+          "Foto de perfil atualizada com sucesso."
+        );
+
+
+        setTimeout(
+          esconderMensagemFotoPerfil,
+          3000
+        );
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro ao atualizar foto de perfil:",
+          erro
+        );
+
+
+        mostrarMensagemFotoPerfil(
+          erro.message ||
+          "Não foi possível atualizar a foto de perfil.",
+          true
+        );
+
+
+      } finally {
+
+        btnAtualizarFoto.disabled =
+          false;
+
+        btnAtualizarFoto.textContent =
+          "⭐ Usar foto selecionada";
+
+      }
+
+    }
+
+
+    btnAtualizarFoto.addEventListener(
+      "click",
+      atualizarFotoSelecionada
+    );
 
 
     /* =========================================
@@ -1427,6 +2500,9 @@
 
 
       atualizarLimites();
+
+
+      renderizarOpcoesFotoPerfil();
 
 
       renderizarMidias();
@@ -1839,11 +2915,6 @@
 
       if (error) {
 
-        /*
-         * Se o registro no banco falhar,
-         * tentamos apagar o arquivo enviado.
-         */
-
         await window.luxSupabase
           .storage
           .from(
@@ -1904,14 +2975,6 @@
         ].fotos;
 
 
-      /*
-       * Se ainda existe espaço,
-       * adicionamos uma nova foto.
-       *
-       * Se atingiu o limite, não
-       * criamos outra automaticamente.
-       */
-
       if (
         fotos.length >= limite
       ) {
@@ -1930,10 +2993,6 @@
           "perfil"
         );
 
-
-      /*
-       * Define como foto principal.
-       */
 
       const {
         error
@@ -2210,6 +3269,7 @@
             .update({
               foto_url:
                 midia.url,
+
               atualizado_em:
                 new Date().toISOString()
             })
@@ -2234,6 +3294,9 @@
           midia.url,
           modeloAtual.nome_exibicao
         );
+
+
+        renderizarOpcoesFotoPerfil();
 
 
         mostrarMensagemMidia(
@@ -2297,11 +3360,6 @@
         esconderMensagemMidia();
 
 
-        /*
-         * Primeiro apagamos o registro
-         * do banco.
-         */
-
         const {
           error:
           bancoError
@@ -2328,11 +3386,6 @@
         }
 
 
-        /*
-         * Depois apagamos o arquivo
-         * do Storage.
-         */
-
         if (
           midia.storage_path
         ) {
@@ -2348,11 +3401,6 @@
 
         }
 
-
-        /*
-         * Se era a foto principal,
-         * removemos também do perfil.
-         */
 
         if (
           modeloAtual?.foto_url ===
@@ -2370,6 +3418,7 @@
               .update({
                 foto_url:
                   null,
+
                 atualizado_em:
                   new Date().toISOString()
               })
@@ -2681,11 +3730,6 @@
 
         /*
          * PERFIL DE MODELO
-         *
-         * Procuramos primeiro pelo
-         * modelo_perfis. Isso evita que
-         * um tipo antigo em "perfis"
-         * impeça a abertura do painel.
          */
 
         modeloAtual = null;
@@ -2706,11 +3750,6 @@
 
         }
 
-
-        /*
-         * Se não houver modelo_perfis,
-         * então realmente não é modelo.
-         */
 
         if (!modeloAtual) {
 
@@ -2901,15 +3940,27 @@
         };
 
 
+        const nomePlano =
+          nomesSelo[
+            planoAtual
+          ] ||
+          "✦ LUX ESSENCE";
+
+
         document
           .getElementById(
             "seloModelo"
           )
           .textContent =
-          nomesSelo[
-            planoAtual
-          ] ||
-          "✦ LUX ESSENCE";
+          nomePlano;
+
+
+        document
+          .getElementById(
+            "heroPlano"
+          )
+          .textContent =
+          nomePlano;
 
 
         /*
@@ -2925,15 +3976,7 @@
 
 
         /*
-         * =====================================
-         * IMPORTANTE
-         *
-         * O painel é liberado ANTES das mídias.
-         *
-         * Assim, se modelo_midias ou Storage
-         * apresentar algum problema, o painel
-         * principal continua abrindo.
-         * =====================================
+         * LIBERAR PAINEL
          */
 
         document
@@ -2953,9 +3996,7 @@
 
 
         /*
-         * =====================================
-         * CARREGAR MÍDIAS SEM BLOQUEAR O PAINEL
-         * =====================================
+         * CARREGAR MÍDIAS
          */
 
         try {

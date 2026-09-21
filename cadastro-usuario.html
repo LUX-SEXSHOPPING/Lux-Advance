@@ -81,13 +81,20 @@
           required
         >
 
-        <button type="submit" class="btn-primary" id="btnCadastrar">
+        <button
+          type="submit"
+          class="btn-primary"
+          id="btnCadastrar"
+        >
           Criar minha conta
         </button>
 
       </form>
 
-      <div id="mensagem" class="login-message"></div>
+      <div
+        id="mensagem"
+        class="login-message"
+      ></div>
 
       <div class="login-links">
 
@@ -107,99 +114,194 @@
 
   <script>
 
-    const formulario = document.getElementById("cadastroUsuarioForm");
-    const mensagem = document.getElementById("mensagem");
-    const botao = document.getElementById("btnCadastrar");
+    const formulario =
+      document.getElementById(
+        "cadastroUsuarioForm"
+      );
 
-    formulario.addEventListener("submit", async function(event) {
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
 
-      event.preventDefault();
+    const botao =
+      document.getElementById(
+        "btnCadastrar"
+      );
 
-      const nome = document.getElementById("nome").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const senha = document.getElementById("senha").value;
-      const confirmarSenha = document.getElementById("confirmarSenha").value;
 
-      mensagem.textContent = "";
-      mensagem.className = "login-message";
+    formulario.addEventListener(
+      "submit",
+      async function(event) {
 
-      if (!nome) {
-        mensagem.textContent = "Digite seu nome.";
-        return;
-      }
+        event.preventDefault();
 
-      if (senha.length < 6) {
-        mensagem.textContent = "A senha precisa ter pelo menos 6 caracteres.";
-        return;
-      }
 
-      if (senha !== confirmarSenha) {
-        mensagem.textContent = "As senhas não são iguais.";
-        return;
-      }
+        const nome =
+          document
+            .getElementById("nome")
+            .value
+            .trim();
 
-      botao.disabled = true;
-      botao.textContent = "Criando conta...";
 
-      try {
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
 
-        if (typeof window.cadastrar !== "function") {
-          throw new Error(
-            "A função de cadastro não foi carregada. Verifique se auth.js está na raiz do projeto."
-          );
+
+        const senha =
+          document
+            .getElementById("senha")
+            .value;
+
+
+        const confirmarSenha =
+          document
+            .getElementById("confirmarSenha")
+            .value;
+
+
+        mensagem.textContent =
+          "";
+
+        mensagem.className =
+          "login-message";
+
+
+        if (!nome) {
+
+          mensagem.textContent =
+            "Digite seu nome.";
+
+          return;
         }
 
-        const resultado = await window.cadastrar(
-          "usuario",
-          nome,
-          email,
-          senha
-        );
 
-        if (!resultado.success) {
-          throw new Error(resultado.error || "Não foi possível criar a conta.");
+        if (!email) {
+
+          mensagem.textContent =
+            "Digite seu e-mail.";
+
+          return;
         }
 
-        mensagem.className = "login-message success";
 
-        if (resultado.emailConfirmationRequired) {
+        if (senha.length < 6) {
 
-          mensagem.innerHTML =
-            "Conta criada com sucesso!<br><br>" +
-            "Verifique seu e-mail para confirmar a conta antes de entrar.";
+          mensagem.textContent =
+            "A senha precisa ter pelo menos 6 caracteres.";
 
-          botao.textContent = "Conta criada";
+          return;
+        }
 
-          setTimeout(function() {
-            window.location.href = "login.html";
-          }, 5000);
 
-        } else {
+        if (
+          senha !== confirmarSenha
+        ) {
+
+          mensagem.textContent =
+            "As senhas não são iguais.";
+
+          return;
+        }
+
+
+        botao.disabled =
+          true;
+
+        botao.textContent =
+          "Criando conta...";
+
+
+        try {
+
+          if (
+            typeof window.cadastrar !==
+            "function"
+          ) {
+
+            throw new Error(
+              "A função de cadastro não foi carregada. Verifique se auth.js está na raiz do projeto."
+            );
+
+          }
+
+
+          const resultado =
+            await window.cadastrar(
+              "usuario",
+              nome,
+              email,
+              senha
+            );
+
+
+          if (
+            !resultado ||
+            !resultado.success
+          ) {
+
+            throw new Error(
+              resultado?.error ||
+              "Não foi possível criar a conta."
+            );
+
+          }
+
+
+          mensagem.className =
+            "login-message success";
+
 
           mensagem.innerHTML =
             "Conta criada com sucesso!<br><br>" +
             "Você será direcionado para o login.";
 
-          botao.textContent = "Conta criada";
 
-          setTimeout(function() {
-            window.location.href = "login.html";
-          }, 2500);
+          botao.textContent =
+            "Conta criada";
+
+
+          setTimeout(
+            function() {
+
+              window.location.href =
+                "login.html";
+
+            },
+            2500
+          );
+
+
+        } catch (erro) {
+
+          console.error(
+            erro
+          );
+
+
+          mensagem.className =
+            "login-message error";
+
+
+          mensagem.textContent =
+            erro.message ||
+            "Erro ao criar a conta.";
+
+
+          botao.disabled =
+            false;
+
+
+          botao.textContent =
+            "Criar minha conta";
 
         }
 
-      } catch (erro) {
-
-        console.error(erro);
-
-        mensagem.className = "login-message error";
-        mensagem.textContent = erro.message || "Erro ao criar a conta.";
-
-        botao.disabled = false;
-        botao.textContent = "Criar minha conta";
       }
-
-    });
+    );
 
   </script>
 

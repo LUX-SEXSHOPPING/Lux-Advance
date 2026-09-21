@@ -90,10 +90,12 @@ body::before{
 
 
 /* =====================================================
-   TOPO
+   TOPO — LUX
 ===================================================== */
 
 .topbar{
+
+  position:relative;
 
   display:flex;
 
@@ -101,17 +103,23 @@ body::before{
 
   justify-content:space-between;
 
-  padding:8px 0 20px;
+  min-height:105px;
+
+  padding:10px 4px 18px;
 
   border-bottom:
     1px solid
-    rgba(248,213,138,.18);
+    rgba(248,213,138,.20);
 
   margin-bottom:45px;
+
+  gap:30px;
 }
 
 
-/* LOGO LUX */
+/* =====================================================
+   LOGO — GRANDE E VISÍVEL
+===================================================== */
 
 .logo{
 
@@ -121,11 +129,19 @@ body::before{
 
   justify-content:flex-start;
 
+  flex-shrink:0;
+
   width:auto;
 
-  height:58px;
+  height:105px;
+
+  padding:4px 0;
 
   text-decoration:none;
+
+  transition:
+    transform .35s ease,
+    filter .35s ease;
 }
 
 .logo img{
@@ -134,19 +150,55 @@ body::before{
 
   width:auto;
 
-  height:58px;
+  height:105px;
 
-  max-width:180px;
+  max-width:260px;
 
   object-fit:contain;
+
+  object-position:left center;
+
+  filter:
+    drop-shadow(
+      0 0 10px
+      rgba(248,213,138,.18)
+    );
+
+  transition:
+    transform .35s ease,
+    filter .35s ease;
 }
 
+.logo:hover{
+
+  transform:translateY(-2px);
+}
+
+.logo:hover img{
+
+  filter:
+    drop-shadow(
+      0 0 18px
+      rgba(248,213,138,.38)
+    );
+}
+
+
+/* =====================================================
+   BOTÕES DO TOPO
+===================================================== */
 
 .top-actions{
 
   display:flex;
 
-  gap:10px;
+  align-items:center;
+
+  justify-content:flex-end;
+
+  gap:12px;
+
+  flex-shrink:0;
 }
 
 .btn{
@@ -157,7 +209,9 @@ body::before{
 
   justify-content:center;
 
-  padding:11px 20px;
+  min-height:42px;
+
+  padding:11px 22px;
 
   border:1px solid
     rgba(248,213,138,.58);
@@ -179,9 +233,15 @@ body::before{
 
   text-transform:uppercase;
 
+  white-space:nowrap;
+
   transition:.3s;
 
   backdrop-filter:blur(10px);
+
+  box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.25);
 }
 
 .btn:hover{
@@ -191,6 +251,10 @@ body::before{
   color:#10090d;
 
   transform:translateY(-2px);
+
+  box-shadow:
+    0 10px 28px
+    rgba(248,213,138,.18);
 }
 
 
@@ -550,7 +614,6 @@ body::before{
 
 /* =====================================================
    CARD LGBTQ+
-   ARCO-ÍRIS ELEGANTE
 ===================================================== */
 
 .category.lgbtq{
@@ -824,19 +887,48 @@ footer{
 
   .topbar{
 
+    min-height:90px;
+
+    padding:
+      8px
+      0
+      16px;
+
     margin-bottom:28px;
+
+    gap:14px;
   }
 
   .logo{
 
-    height:48px;
+    height:82px;
+
+    max-width:170px;
   }
 
   .logo img{
 
-    height:48px;
+    height:82px;
 
-    max-width:150px;
+    max-width:170px;
+  }
+
+  .top-actions{
+
+    gap:7px;
+  }
+
+  .btn{
+
+    min-height:38px;
+
+    padding:
+      9px
+      13px;
+
+    font-size:9px;
+
+    letter-spacing:1px;
   }
 
   .hero{
@@ -866,6 +958,43 @@ footer{
 
 }
 
+@media(max-width:390px){
+
+  .topbar{
+
+    align-items:center;
+  }
+
+  .logo{
+
+    height:70px;
+
+    max-width:135px;
+  }
+
+  .logo img{
+
+    height:70px;
+
+    max-width:135px;
+  }
+
+  .top-actions{
+
+    gap:5px;
+  }
+
+  .btn{
+
+    padding:
+      8px
+      10px;
+
+    font-size:8px;
+  }
+
+}
+
 </style>
 
 </head>
@@ -878,7 +1007,7 @@ footer{
 
 
 <!-- =====================================================
-     LOGO LUX — MESMA LOGO DO CABEÇALHO DA INDEX
+     LOGO LUX
 ===================================================== -->
 
 <a
@@ -894,6 +1023,10 @@ footer{
 
 </a>
 
+
+<!-- =====================================================
+     OPÇÕES EXISTENTES
+===================================================== -->
 
 <div class="top-actions">
 

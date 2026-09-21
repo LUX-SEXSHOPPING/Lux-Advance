@@ -609,10 +609,6 @@
       <br>
 
 
-      <!-- =====================================
-           INFORMAÇÕES
-           ===================================== -->
-
       <div class="grid">
 
 
@@ -718,199 +714,222 @@
            GERENCIAMENTO DE MÍDIAS
            ===================================== -->
 
-      <section class="media-manager">
+      <div
+        class="card media-manager"
+      >
 
-        <article class="card">
+        <div class="card-body">
 
-          <div class="card-body">
+          <div class="media-header">
 
-            <div class="media-header">
+            <div>
 
-              <div>
+              <h2>
+                ✦ Minhas fotos e vídeos
+              </h2>
 
-                <h2>
-                  📸 Minhas fotos e vídeos
-                </h2>
-
-                <p
-                  class="media-note"
-                  style="margin-bottom:0"
-                >
-                  Gerencie os conteúdos exibidos no seu perfil LUX.
-                </p>
-
-              </div>
-
-            </div>
-
-
-            <!-- LIMITES -->
-
-            <div class="media-limits">
-
-              <div class="media-limit">
-
-                <small>
-                  Fotos utilizadas
-                </small>
-
-                <strong id="contadorFotos">
-                  0 / 2
-                </strong>
-
-              </div>
-
-
-              <div class="media-limit">
-
-                <small>
-                  Vídeos utilizados
-                </small>
-
-                <strong id="contadorVideos">
-                  0 / 1
-                </strong>
-
-              </div>
-
-            </div>
-
-
-            <!-- UPLOAD -->
-
-            <div class="upload-area">
-
-              <h3>
-                ✦ Adicionar conteúdo
-              </h3>
-
-              <p class="media-note">
-
-                O sistema respeita automaticamente
-                o limite do seu plano.
-
-              </p>
-
-
-              <div class="upload-grid">
-
-
-                <div class="upload-box">
-
-                  <strong>
-                    📷 Foto de perfil
-                  </strong>
-
-                  <p class="media-note">
-                    A foto principal também ocupa
-                    uma vaga de foto do plano.
-                  </p>
-
-                  <input
-                    id="inputFotoPerfil"
-                    type="file"
-                    accept="image/*"
-                  >
-
-                </div>
-
-
-                <div class="upload-box">
-
-                  <strong>
-                    🖼️ Fotos da galeria
-                  </strong>
-
-                  <p class="media-note">
-                    Você pode selecionar uma ou
-                    várias fotos de uma vez.
-                  </p>
-
-                  <input
-                    id="inputFotos"
-                    type="file"
-                    accept="image/*"
-                    multiple
-                  >
-
-                </div>
-
-
-                <div class="upload-box">
-
-                  <strong>
-                    🎬 Vídeos
-                  </strong>
-
-                  <p class="media-note">
-                    Adicione seus vídeos dentro
-                    do limite permitido.
-                  </p>
-
-                  <input
-                    id="inputVideos"
-                    type="file"
-                    accept="video/*"
-                    multiple
-                  >
-
-                </div>
-
-
-              </div>
-
-
-              <div
-                id="progresso"
-                class="progress-box"
+              <p
+                class="media-note"
+                style="margin-top:0"
               >
-
-                <p
-                  id="textoProgresso"
-                  class="media-note"
-                >
-                  Enviando...
-                </p>
-
-                <div class="progress-bar">
-
-                  <div
-                    id="barraProgresso"
-                    class="progress-fill"
-                  ></div>
-
-                </div>
-
-              </div>
-
-
-              <div
-                id="mensagemMidia"
-                class="section-message notice"
-                hidden
-              ></div>
-
-            </div>
-
-
-            <!-- GALERIA -->
-
-            <div
-              id="galeriaMidias"
-              class="media-gallery"
-            >
-
-              <div class="empty-media">
-                Carregando suas mídias...
-              </div>
+                Gerencie o conteúdo exibido no seu perfil LUX.
+              </p>
 
             </div>
 
           </div>
 
-        </article>
 
-      </section>
+          <!-- LIMITES -->
+
+          <div
+            class="media-limits"
+            id="mediaLimits"
+          >
+
+            <div class="media-limit">
+
+              <small>
+                Fotos
+              </small>
+
+              <strong id="limiteFotos">
+                0 / 0
+              </strong>
+
+            </div>
+
+
+            <div class="media-limit">
+
+              <small>
+                Vídeos
+              </small>
+
+              <strong id="limiteVideos">
+                0 / 0
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- UPLOAD -->
+
+          <div class="upload-area">
+
+            <h3>
+              Adicionar conteúdo
+            </h3>
+
+            <p class="media-note">
+
+              Seu plano controla automaticamente
+              a quantidade de fotos e vídeos permitidos.
+
+            </p>
+
+
+            <div class="upload-grid">
+
+
+              <div class="upload-box">
+
+                <strong>
+                  📷 Foto de perfil
+                </strong>
+
+                <p class="media-note">
+
+                  Escolha uma das suas fotos
+                  para aparecer como foto principal.
+
+                </p>
+
+                <input
+                  id="inputFotoPerfil"
+                  type="file"
+                  accept="image/*"
+                >
+
+              </div>
+
+
+              <div class="upload-box">
+
+                <strong>
+                  🖼️ Fotos da galeria
+                </strong>
+
+                <p class="media-note">
+
+                  Você pode selecionar várias fotos
+                  de uma vez.
+
+                </p>
+
+                <input
+                  id="inputFotos"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                >
+
+              </div>
+
+
+              <div class="upload-box">
+
+                <strong>
+                  🎬 Vídeos
+                </strong>
+
+                <p class="media-note">
+
+                  Adicione vídeos para complementar
+                  seu perfil.
+
+                </p>
+
+                <input
+                  id="inputVideos"
+                  type="file"
+                  accept="video/*"
+                  multiple
+                >
+
+              </div>
+
+
+            </div>
+
+
+            <div
+              id="progressBox"
+              class="progress-box"
+            >
+
+              <div
+                style="
+                  display:flex;
+                  justify-content:space-between;
+                  gap:10px;
+                  margin-bottom:7px;
+                  color:#a99ca1;
+                  font-size:13px;
+                "
+              >
+
+                <span id="progressText">
+                  Enviando...
+                </span>
+
+                <span id="progressPercent">
+                  0%
+                </span>
+
+              </div>
+
+              <div class="progress-bar">
+
+                <div
+                  id="progressFill"
+                  class="progress-fill"
+                ></div>
+
+              </div>
+
+            </div>
+
+
+            <p
+              id="mediaMessage"
+              class="notice section-message"
+              hidden
+            ></p>
+
+          </div>
+
+
+          <!-- GALERIA -->
+
+          <div
+            id="mediaGallery"
+            class="media-gallery"
+          >
+
+            <div class="empty-media">
+
+              Carregando suas fotos e vídeos...
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
 
 
       <br>
@@ -950,153 +969,101 @@
   <script>
 
     /* =========================================
-       LUX — PAINEL DA MODELO
+       ESTADO
        ========================================= */
 
     let usuarioLogado = null;
-    let modeloAtual = null;
     let perfilAtual = null;
+    let modeloAtual = null;
+    let planoAtual = "ESSENCE";
     let midiasAtuais = [];
 
-    let planoAtual = "ESSENCE";
 
-
-    /*
-     * LIMITES DOS PLANOS
-     */
+    /* =========================================
+       LIMITES DOS PLANOS
+       ========================================= */
 
     const LIMITES_PLANOS = {
 
       ESSENCE: {
         fotos: 2,
-        videos: 1,
-        nome: "LUX ESSENCE"
+        videos: 1
       },
 
       DESFIRE: {
         fotos: 5,
-        videos: 3,
-        nome: "LUX DESFIRE"
+        videos: 3
       },
 
       ELITE: {
         fotos: 5,
-        videos: 3,
-        nome: "LUX ELITE"
+        videos: 3
       },
 
       ROYAL: {
         fotos: 5,
-        videos: 3,
-        nome: "LUX ROYAL"
+        videos: 3
       },
+
+      /*
+       * O projeto ainda não definiu oficialmente
+       * o limite de mídia do DIAMOND.
+       *
+       * Mantido em 10 fotos / 5 vídeos
+       * como configuração provisória.
+       *
+       * Pode ser alterado depois sem mexer
+       * no restante do sistema.
+       */
 
       DIAMOND: {
         fotos: 10,
-        videos: 5,
-        nome: "LUX DIAMOND"
+        videos: 5
       }
 
     };
 
 
-    /*
-     * TIMEOUT PARA EVITAR
-     * "CARREGANDO..." INFINITO
-     */
+    /* =========================================
+       TIMEOUT
+       ========================================= */
 
-    function comTimeout(promessa, tempo = 15000) {
+    function comTimeout(
+      promessa,
+      milissegundos = 15000
+    ) {
 
       return Promise.race([
 
         promessa,
 
-        new Promise((resolve, reject) => {
+        new Promise(
+          (_, reject) => {
 
-          setTimeout(() => {
-
-            reject(
-              new Error(
-                "O Supabase demorou para responder. Verifique sua conexão e tente novamente."
-              )
+            setTimeout(
+              () => reject(
+                new Error(
+                  "O servidor demorou demais para responder."
+                )
+              ),
+              milissegundos
             );
 
-          }, tempo);
-
-        })
+          }
+        )
 
       ]);
 
     }
 
 
-    /*
-     * ELEMENTOS
-     */
+    /* =========================================
+       PLANO
+       ========================================= */
 
-    const mensagem =
-      document.getElementById("mensagem");
-
-    const mensagemMidia =
-      document.getElementById("mensagemMidia");
-
-
-    /*
-     * MOSTRAR MENSAGEM
-     */
-
-    function mostrarMensagem(
-      texto,
-      erro = false
+    function normalizarPlano(
+      modelo
     ) {
-
-      mensagem.hidden = false;
-
-      mensagem.className =
-        erro
-          ? "notice error"
-          : "notice";
-
-      mensagem.textContent =
-        texto;
-
-    }
-
-
-    function mostrarMensagemMidia(
-      texto,
-      erro = false
-    ) {
-
-      mensagemMidia.hidden = false;
-
-      mensagemMidia.className =
-        erro
-          ? "notice error"
-          : "notice";
-
-      mensagemMidia.textContent =
-        texto;
-
-    }
-
-
-    /*
-     * ESCONDER MENSAGEM
-     */
-
-    function esconderMensagemMidia() {
-
-      mensagemMidia.hidden = true;
-
-    }
-
-
-    /*
-     * PLANO
-     */
-
-    function normalizarPlano(modelo) {
 
       const plano =
         String(
@@ -1106,21 +1073,197 @@
           "ESSENCE"
         ).toUpperCase();
 
-      return LIMITES_PLANOS[plano]
-        ? plano
-        : "ESSENCE";
+
+      if (
+        LIMITES_PLANOS[plano]
+      ) {
+
+        return plano;
+
+      }
+
+
+      return "ESSENCE";
 
     }
 
 
-    /*
-     * FOTO PRINCIPAL
-     */
+    /* =========================================
+       ELEMENTOS
+       ========================================= */
 
-    function mostrarFotoPerfil(url, nome) {
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
+
+
+    const mediaMessage =
+      document.getElementById(
+        "mediaMessage"
+      );
+
+
+    const mediaGallery =
+      document.getElementById(
+        "mediaGallery"
+      );
+
+
+    /* =========================================
+       MENSAGENS
+       ========================================= */
+
+    function mostrarMensagemMidia(
+      texto,
+      erro = false
+    ) {
+
+      mediaMessage.hidden =
+        false;
+
+      mediaMessage.className =
+        erro
+          ? "notice error section-message"
+          : "notice section-message";
+
+      mediaMessage.textContent =
+        texto;
+
+    }
+
+
+    function esconderMensagemMidia() {
+
+      mediaMessage.hidden =
+        true;
+
+      mediaMessage.textContent =
+        "";
+
+    }
+
+
+    /* =========================================
+       PROGRESSO
+       ========================================= */
+
+    function iniciarProgresso(
+      texto = "Enviando..."
+    ) {
+
+      const box =
+        document.getElementById(
+          "progressBox"
+        );
+
+      const fill =
+        document.getElementById(
+          "progressFill"
+        );
+
+      const text =
+        document.getElementById(
+          "progressText"
+        );
+
+      const percent =
+        document.getElementById(
+          "progressPercent"
+        );
+
+
+      box.classList.add(
+        "active"
+      );
+
+      text.textContent =
+        texto;
+
+      percent.textContent =
+        "0%";
+
+      fill.style.width =
+        "0%";
+
+    }
+
+
+    function atualizarProgresso(
+      percentual,
+      texto
+    ) {
+
+      const fill =
+        document.getElementById(
+          "progressFill"
+        );
+
+      const percent =
+        document.getElementById(
+          "progressPercent"
+        );
+
+      const text =
+        document.getElementById(
+          "progressText"
+        );
+
+
+      fill.style.width =
+        Math.max(
+          0,
+          Math.min(
+            100,
+            percentual
+          )
+        ) + "%";
+
+
+      percent.textContent =
+        Math.round(
+          percentual
+        ) + "%";
+
+
+      if (texto) {
+
+        text.textContent =
+          texto;
+
+      }
+
+    }
+
+
+    function finalizarProgresso() {
+
+      const box =
+        document.getElementById(
+          "progressBox"
+        );
+
+
+      box.classList.remove(
+        "active"
+      );
+
+    }
+
+
+    /* =========================================
+       FOTO DE PERFIL
+       ========================================= */
+
+    function mostrarFotoPerfil(
+      url,
+      nome
+    ) {
 
       const container =
-        document.getElementById("foto");
+        document.getElementById(
+          "foto"
+        );
 
 
       if (!url) {
@@ -1137,194 +1280,126 @@
 
 
       const img =
-        document.createElement("img");
+        document.createElement(
+          "img"
+        );
 
 
-      img.src = url;
+      img.src =
+        url;
 
       img.alt =
-        nome || "Foto da modelo";
+        nome || "Modelo LUX";
 
-      img.loading = "lazy";
-
-      img.style.width = "190px";
-
-      img.style.height = "235px";
-
-      img.style.objectFit = "cover";
-
-      img.style.borderRadius = "20px";
-
-      img.style.border =
-        "1px solid rgba(255,140,0,.28)";
-
-      img.style.boxShadow =
-        "0 0 30px rgba(255,100,0,.10)";
+      img.loading =
+        "lazy";
 
 
-      container.appendChild(img);
+      img.style.width =
+        "190px";
 
-    }
+      img.style.height =
+        "235px";
 
+      img.style.objectFit =
+        "cover";
 
-    /*
-     * ATUALIZA CONTADORES
-     */
+      img.style.borderRadius =
+        "20px";
 
-    function atualizarContadores() {
-
-      const limite =
-        LIMITES_PLANOS[planoAtual];
-
-
-      if (!limite) {
-        return;
-      }
+      img.style.display =
+        "block";
 
 
-      const quantidadeFotosGaleria =
-        midiasAtuais.filter(
-          item => item.tipo === "foto"
-        ).length;
-
-
-      const temFotoPerfil =
-        !!modeloAtual?.foto_url;
-
-
-      const totalFotos =
-        quantidadeFotosGaleria +
-        (temFotoPerfil ? 1 : 0);
-
-
-      const totalVideos =
-        midiasAtuais.filter(
-          item => item.tipo === "video"
-        ).length;
-
-
-      document
-        .getElementById("contadorFotos")
-        .textContent =
-        `${totalFotos} / ${limite.fotos}`;
-
-
-      document
-        .getElementById("contadorVideos")
-        .textContent =
-        `${totalVideos} / ${limite.videos}`;
-
-    }
-
-
-    /*
-     * VERIFICAR LIMITE
-     */
-
-    function podeAdicionarFotos(quantidade) {
-
-      const limite =
-        LIMITES_PLANOS[planoAtual];
-
-
-      const fotosGaleria =
-        midiasAtuais.filter(
-          item => item.tipo === "foto"
-        ).length;
-
-
-      const fotoPerfil =
-        modeloAtual?.foto_url
-          ? 1
-          : 0;
-
-
-      const total =
-        fotosGaleria +
-        fotoPerfil;
-
-
-      return (
-        total + quantidade <=
-        limite.fotos
+      container.appendChild(
+        img
       );
 
     }
 
 
-    function podeAdicionarVideos(quantidade) {
+    /* =========================================
+       ATUALIZA LIMITES
+       ========================================= */
+
+    function atualizarLimites() {
 
       const limite =
-        LIMITES_PLANOS[planoAtual];
+        LIMITES_PLANOS[
+          planoAtual
+        ];
+
+
+      const fotos =
+        midiasAtuais.filter(
+          item =>
+            item.tipo === "foto"
+        ).length;
 
 
       const videos =
         midiasAtuais.filter(
-          item => item.tipo === "video"
+          item =>
+            item.tipo === "video"
         ).length;
 
 
-      return (
-        videos + quantidade <=
-        limite.videos
-      );
+      document
+        .getElementById(
+          "limiteFotos"
+        )
+        .textContent =
+        fotos +
+        " / " +
+        limite.fotos;
+
+
+      document
+        .getElementById(
+          "limiteVideos"
+        )
+        .textContent =
+        videos +
+        " / " +
+        limite.videos;
 
     }
 
 
-    /*
-     * FORMATAR TAMANHO
-     */
-
-    function formatarTamanho(bytes) {
-
-      if (!bytes) {
-        return "";
-      }
-
-
-      const mb =
-        bytes / (1024 * 1024);
-
-
-      if (mb < 1) {
-
-        return (
-          Math.round(
-            bytes / 1024
-          ) + " KB"
-        );
-
-      }
-
-
-      return (
-        mb.toFixed(1) + " MB"
-      );
-
-    }
-
-
-    /*
-     * CARREGAR MÍDIAS
-     */
+    /* =========================================
+       CARREGAR MÍDIAS
+       ========================================= */
 
     async function carregarMidias() {
 
-      const galeria =
-        document.getElementById(
-          "galeriaMidias"
-        );
+      if (
+        !usuarioLogado
+      ) {
+
+        return;
+
+      }
 
 
-      galeria.innerHTML = "";
+      mediaGallery.innerHTML = `
+
+        <div class="empty-media">
+
+          Carregando suas fotos e vídeos...
+
+        </div>
+
+      `;
 
 
-      const { data, error } =
+      const {
+        data,
+        error
+      } =
         await window.luxSupabase
           .from("modelo_midias")
           .select(
-            "id,modelo_id,tipo,url,storage_path,criado_em"
+            "id, modelo_id, tipo, url, storage_path, criado_em"
           )
           .eq(
             "modelo_id",
@@ -1340,39 +1415,48 @@
 
       if (error) {
 
-        throw new Error(
-          "Não foi possível carregar suas mídias: " +
-          error.message
-        );
+        throw error;
 
       }
 
 
       midiasAtuais =
-        data || [];
+        Array.isArray(data)
+          ? data
+          : [];
 
 
-      atualizarContadores();
+      atualizarLimites();
+
+
+      renderizarMidias();
+
+    }
+
+
+    /* =========================================
+       RENDERIZAR MÍDIAS
+       ========================================= */
+
+    function renderizarMidias() {
+
+      mediaGallery.innerHTML =
+        "";
 
 
       if (
         midiasAtuais.length === 0
       ) {
 
-        const vazio =
-          document.createElement(
-            "div"
-          );
+        mediaGallery.innerHTML = `
 
-        vazio.className =
-          "empty-media";
+          <div class="empty-media">
 
-        vazio.textContent =
-          "Nenhuma foto ou vídeo foi adicionado ainda.";
+            Nenhuma foto ou vídeo cadastrado ainda.
 
-        galeria.appendChild(
-          vazio
-        );
+          </div>
+
+        `;
 
         return;
 
@@ -1387,25 +1471,31 @@
               "div"
             );
 
+
           item.className =
             "media-item";
 
 
-          if (midia.tipo === "foto") {
+          if (
+            midia.tipo ===
+            "foto"
+          ) {
 
             const img =
               document.createElement(
                 "img"
               );
 
+
             img.src =
               midia.url;
 
             img.alt =
-              "Foto da modelo";
+              "Foto do perfil LUX";
 
             img.loading =
               "lazy";
+
 
             item.appendChild(
               img
@@ -1418,6 +1508,7 @@
                 "video"
               );
 
+
             video.src =
               midia.url;
 
@@ -1426,6 +1517,7 @@
 
             video.preload =
               "metadata";
+
 
             item.appendChild(
               video
@@ -1439,13 +1531,14 @@
               "div"
             );
 
+
           info.className =
             "media-item-info";
 
 
           info.textContent =
             midia.tipo === "foto"
-              ? "📷 Foto da galeria"
+              ? "📷 Foto"
               : "🎬 Vídeo";
 
 
@@ -1459,18 +1552,21 @@
               "div"
             );
 
+
           actions.className =
             "media-actions";
 
 
           if (
-            midia.tipo === "foto"
+            midia.tipo ===
+            "foto"
           ) {
 
             const btnPerfil =
               document.createElement(
                 "button"
               );
+
 
             btnPerfil.type =
               "button";
@@ -1479,14 +1575,14 @@
               "media-btn profile";
 
             btnPerfil.textContent =
-              "★ Perfil";
+              "⭐ Perfil";
 
 
             btnPerfil.addEventListener(
               "click",
               () =>
                 definirFotoPerfil(
-                  midia.url
+                  midia
                 )
             );
 
@@ -1502,6 +1598,7 @@
             document.createElement(
               "button"
             );
+
 
           btnExcluir.type =
             "button";
@@ -1532,7 +1629,7 @@
           );
 
 
-          galeria.appendChild(
+          mediaGallery.appendChild(
             item
           );
 
@@ -1542,9 +1639,70 @@
     }
 
 
-    /*
-     * UPLOAD PARA STORAGE
-     */
+    /* =========================================
+       URL STORAGE
+       ========================================= */
+
+    function criarUrlPublica(
+      path
+    ) {
+
+      const {
+        data
+      } =
+        window.luxSupabase
+          .storage
+          .from(
+            "lux-modelos"
+          )
+          .getPublicUrl(
+            path
+          );
+
+
+      return data?.publicUrl ||
+        "";
+
+    }
+
+
+    /* =========================================
+       EXTENSÃO
+       ========================================= */
+
+    function extensaoArquivo(
+      arquivo,
+      padrao
+    ) {
+
+      const nome =
+        arquivo?.name ||
+        "";
+
+
+      const partes =
+        nome.split(".");
+
+
+      if (
+        partes.length > 1
+      ) {
+
+        return partes
+          .pop()
+          .toLowerCase();
+
+      }
+
+
+      return padrao;
+
+    }
+
+
+    /* =========================================
+       UPLOAD GENÉRICO
+       ========================================= */
 
     async function enviarArquivo(
       arquivo,
@@ -1552,39 +1710,72 @@
       prefixo
     ) {
 
+      if (!arquivo) {
+
+        throw new Error(
+          "Arquivo não selecionado."
+        );
+
+      }
+
+
       const extensao =
-        (
-          arquivo.name
-            .split(".")
-            .pop() ||
-          "bin"
-        )
-        .toLowerCase()
-        .replace(
-          /[^a-z0-9]/g,
-          ""
+        extensaoArquivo(
+          arquivo,
+          tipo === "video"
+            ? "mp4"
+            : "jpg"
         );
 
 
       const nome =
-        `${prefixo}-${crypto.randomUUID()}.${extensao}`;
+        prefixo +
+        "-" +
+        crypto.randomUUID() +
+        "." +
+        extensao;
 
 
       const caminho =
-        `${usuarioLogado.id}/${nome}`;
+        usuarioLogado.id +
+        "/" +
+        nome;
 
 
-      const { error } =
+      iniciarProgresso(
+        "Enviando " +
+        (
+          tipo === "video"
+            ? "vídeo"
+            : "foto"
+        ) +
+        "..."
+      );
+
+
+      atualizarProgresso(
+        15,
+        "Preparando arquivo..."
+      );
+
+
+      const {
+        error:
+        uploadError
+      } =
         await window.luxSupabase
           .storage
-          .from("lux-modelos")
+          .from(
+            "lux-modelos"
+          )
           .upload(
             caminho,
             arquivo,
             {
               cacheControl:
                 "3600",
-              upsert: false,
+              upsert:
+                false,
               contentType:
                 arquivo.type ||
                 undefined
@@ -1592,78 +1783,56 @@
           );
 
 
-      if (error) {
+      if (
+        uploadError
+      ) {
 
-        throw new Error(
-          "Falha no upload de " +
-          arquivo.name +
-          ": " +
-          error.message
-        );
+        throw uploadError;
 
       }
 
 
-      const { data: publicData } =
-        window.luxSupabase
-          .storage
-          .from("lux-modelos")
-          .getPublicUrl(
-            caminho
-          );
+      atualizarProgresso(
+        70,
+        "Registrando conteúdo..."
+      );
 
 
       const url =
-        publicData?.publicUrl;
+        criarUrlPublica(
+          caminho
+        );
 
 
       if (!url) {
 
         throw new Error(
-          "O arquivo foi enviado, mas não foi possível obter a URL pública."
+          "Não foi possível gerar a URL pública do arquivo."
         );
 
       }
 
 
-      return {
-        tipo,
-        url,
-        storage_path:
-          caminho
-      };
-
-    }
-
-
-    /*
-     * CADASTRAR MÍDIA NO BANCO
-     */
-
-    async function registrarMidia(
-      media
-    ) {
-
-      const { data, error } =
+      const {
+        data,
+        error
+      } =
         await window.luxSupabase
-          .from("modelo_midias")
+          .from(
+            "modelo_midias"
+          )
           .insert({
-
             modelo_id:
               usuarioLogado.id,
-
             tipo:
-              media.tipo,
-
+              tipo,
             url:
-              media.url,
-
+              url,
             storage_path:
-              media.storage_path
-
+              caminho
           })
           .select(
-            "id,modelo_id,tipo,url,storage_path,criado_em"
+            "id, modelo_id, tipo, url, storage_path, criado_em"
           )
           .single();
 
@@ -1671,25 +1840,29 @@
       if (error) {
 
         /*
-         * Se o Storage recebeu o arquivo,
-         * mas o banco falhou, tenta apagar
-         * o arquivo para não deixar lixo.
+         * Se o registro no banco falhar,
+         * tentamos apagar o arquivo enviado.
          */
 
         await window.luxSupabase
           .storage
-          .from("lux-modelos")
+          .from(
+            "lux-modelos"
+          )
           .remove([
-            media.storage_path
+            caminho
           ]);
 
 
-        throw new Error(
-          "Não foi possível registrar a mídia no perfil: " +
-          error.message
-        );
+        throw error;
 
       }
+
+
+      atualizarProgresso(
+        100,
+        "Concluído."
+      );
 
 
       return data;
@@ -1697,115 +1870,172 @@
     }
 
 
-    /*
-     * ATUALIZAR BARRA
-     */
+    /* =========================================
+       PROCESSAR FOTO DE PERFIL
+       ========================================= */
 
-    function atualizarProgresso(
-      atual,
-      total
+    async function processarFotoPerfil(
+      arquivo
     ) {
 
-      const progresso =
-        document.getElementById(
-          "progresso"
+      if (
+        !arquivo.type.startsWith(
+          "image/"
+        )
+      ) {
+
+        throw new Error(
+          "Escolha uma imagem válida."
         );
 
-      const barra =
-        document.getElementById(
-          "barraProgresso"
+      }
+
+
+      const fotos =
+        midiasAtuais.filter(
+          item =>
+            item.tipo === "foto"
         );
 
-      const texto =
-        document.getElementById(
-          "textoProgresso"
+
+      const limite =
+        LIMITES_PLANOS[
+          planoAtual
+        ].fotos;
+
+
+      /*
+       * Se ainda existe espaço,
+       * adicionamos uma nova foto.
+       *
+       * Se atingiu o limite, não
+       * criamos outra automaticamente.
+       */
+
+      if (
+        fotos.length >= limite
+      ) {
+
+        throw new Error(
+          "O limite de fotos do seu plano já foi atingido. Exclua uma foto antes de adicionar outra."
+        );
+
+      }
+
+
+      const midia =
+        await enviarArquivo(
+          arquivo,
+          "foto",
+          "perfil"
         );
 
 
-      progresso.classList.add(
-        "active"
+      /*
+       * Define como foto principal.
+       */
+
+      const {
+        error
+      } =
+        await window.luxSupabase
+          .from(
+            "modelo_perfis"
+          )
+          .update({
+            foto_url:
+              midia.url,
+            atualizado_em:
+              new Date().toISOString()
+          })
+          .eq(
+            "id",
+            usuarioLogado.id
+          );
+
+
+      if (error) {
+
+        throw error;
+
+      }
+
+
+      modeloAtual.foto_url =
+        midia.url;
+
+
+      mostrarFotoPerfil(
+        midia.url,
+        modeloAtual.nome_exibicao
       );
 
-
-      const percentual =
-        total > 0
-          ? Math.round(
-              (atual / total) * 100
-            )
-          : 0;
-
-
-      barra.style.width =
-        percentual + "%";
-
-
-      texto.textContent =
-        `Enviando ${atual} de ${total}...`;
-
     }
 
 
-    function finalizarProgresso() {
-
-      const progresso =
-        document.getElementById(
-          "progresso"
-        );
-
-      const barra =
-        document.getElementById(
-          "barraProgresso"
-        );
-
-
-      barra.style.width =
-        "100%";
-
-
-      setTimeout(() => {
-
-        progresso.classList.remove(
-          "active"
-        );
-
-        barra.style.width =
-          "0%";
-
-      }, 600);
-
-    }
-
-
-    /*
-     * UPLOAD DE FOTOS DA GALERIA
-     */
+    /* =========================================
+       PROCESSAR FOTOS
+       ========================================= */
 
     async function processarFotos(
       arquivos
     ) {
 
-      if (
-        !arquivos ||
-        arquivos.length === 0
-      ) {
-        return;
-      }
-
-
       const lista =
         Array.from(
-          arquivos
+          arquivos || []
         );
 
 
       if (
-        !podeAdicionarFotos(
-          lista.length
-        )
+        lista.length === 0
+      ) {
+
+        return;
+
+      }
+
+
+      const fotosAtuais =
+        midiasAtuais.filter(
+          item =>
+            item.tipo === "foto"
+        ).length;
+
+
+      const limite =
+        LIMITES_PLANOS[
+          planoAtual
+        ].fotos;
+
+
+      const vagas =
+        limite -
+        fotosAtuais;
+
+
+      if (
+        vagas <= 0
       ) {
 
         throw new Error(
-          `Seu plano ${LIMITES_PLANOS[planoAtual].nome} permite no máximo ${LIMITES_PLANOS[planoAtual].fotos} fotos.`
+          "O limite de fotos do seu plano já foi atingido."
+        );
+
+      }
+
+
+      if (
+        lista.length >
+        vagas
+      ) {
+
+        throw new Error(
+          "Você selecionou " +
+          lista.length +
+          " fotos, mas só possui " +
+          vagas +
+          " vaga(s) disponível(is) no seu plano."
         );
 
       }
@@ -1828,68 +2058,86 @@
         ) {
 
           throw new Error(
-            `O arquivo "${arquivo.name}" não é uma imagem válida.`
+            "Um dos arquivos selecionados não é uma imagem válida."
           );
 
         }
 
 
-        atualizarProgresso(
-          i + 1,
-          lista.length
-        );
-
-
-        const media =
-          await enviarArquivo(
-            arquivo,
-            "foto",
-            "foto"
-          );
-
-
-        await registrarMidia(
-          media
+        await enviarArquivo(
+          arquivo,
+          "foto",
+          "foto"
         );
 
       }
 
-
-      finalizarProgresso();
-
     }
 
 
-    /*
-     * UPLOAD DE VÍDEOS
-     */
+    /* =========================================
+       PROCESSAR VÍDEOS
+       ========================================= */
 
     async function processarVideos(
       arquivos
     ) {
 
-      if (
-        !arquivos ||
-        arquivos.length === 0
-      ) {
-        return;
-      }
-
-
       const lista =
         Array.from(
-          arquivos
+          arquivos || []
         );
 
 
       if (
-        !podeAdicionarVideos(
-          lista.length
-        )
+        lista.length === 0
+      ) {
+
+        return;
+
+      }
+
+
+      const videosAtuais =
+        midiasAtuais.filter(
+          item =>
+            item.tipo === "video"
+        ).length;
+
+
+      const limite =
+        LIMITES_PLANOS[
+          planoAtual
+        ].videos;
+
+
+      const vagas =
+        limite -
+        videosAtuais;
+
+
+      if (
+        vagas <= 0
       ) {
 
         throw new Error(
-          `Seu plano ${LIMITES_PLANOS[planoAtual].nome} permite no máximo ${LIMITES_PLANOS[planoAtual].videos} vídeos.`
+          "O limite de vídeos do seu plano já foi atingido."
+        );
+
+      }
+
+
+      if (
+        lista.length >
+        vagas
+      ) {
+
+        throw new Error(
+          "Você selecionou " +
+          lista.length +
+          " vídeos, mas só possui " +
+          vagas +
+          " vaga(s) disponível(is) no seu plano."
         );
 
       }
@@ -1912,209 +2160,58 @@
         ) {
 
           throw new Error(
-            `O arquivo "${arquivo.name}" não é um vídeo válido.`
+            "Um dos arquivos selecionados não é um vídeo válido."
           );
 
         }
 
 
-        atualizarProgresso(
-          i + 1,
-          lista.length
-        );
-
-
-        const media =
-          await enviarArquivo(
-            arquivo,
-            "video",
-            "video"
-          );
-
-
-        await registrarMidia(
-          media
-        );
-
-      }
-
-
-      finalizarProgresso();
-
-    }
-
-
-    /*
-     * FOTO DE PERFIL
-     */
-
-    async function processarFotoPerfil(
-      arquivo
-    ) {
-
-      if (!arquivo) {
-        return;
-      }
-
-
-      if (
-        !arquivo.type.startsWith(
-          "image/"
-        )
-      ) {
-
-        throw new Error(
-          "Selecione uma imagem válida para a foto de perfil."
-        );
-
-      }
-
-
-      const temFotoAtual =
-        !!modeloAtual?.foto_url;
-
-
-      /*
-       * Trocar foto existente não
-       * consome uma nova vaga.
-       */
-
-      if (
-        !temFotoAtual &&
-        !podeAdicionarFotos(1)
-      ) {
-
-        throw new Error(
-          `Seu plano ${LIMITES_PLANOS[planoAtual].nome} já atingiu o limite de fotos.`
-        );
-
-      }
-
-
-      atualizarProgresso(
-        1,
-        1
-      );
-
-
-      const media =
         await enviarArquivo(
           arquivo,
-          "foto",
-          "perfil"
-        );
-
-
-      const fotoAnterior =
-        modeloAtual?.foto_url || null;
-
-
-      const { error } =
-        await window.luxSupabase
-          .from("modelo_perfis")
-          .update({
-
-            foto_url:
-              media.url,
-
-            atualizado_em:
-              new Date().toISOString()
-
-          })
-          .eq(
-            "id",
-            usuarioLogado.id
-          );
-
-
-      if (error) {
-
-        await window.luxSupabase
-          .storage
-          .from("lux-modelos")
-          .remove([
-            media.storage_path
-          ]);
-
-
-        throw new Error(
-          "Não foi possível atualizar a foto do perfil: " +
-          error.message
+          "video",
+          "video"
         );
 
       }
-
-
-      modeloAtual.foto_url =
-        media.url;
-
-
-      mostrarFotoPerfil(
-        media.url,
-        modeloAtual.nome_exibicao
-      );
-
-
-      /*
-       * Se existia uma foto anterior
-       * e ela estava no bucket LUX,
-       * tenta remover.
-       */
-
-      if (fotoAnterior) {
-
-        const caminhoAnterior =
-          obterCaminhoStorage(
-            fotoAnterior
-          );
-
-
-        if (caminhoAnterior) {
-
-          await window.luxSupabase
-            .storage
-            .from("lux-modelos")
-            .remove([
-              caminhoAnterior
-            ]);
-
-        }
-
-      }
-
-
-      finalizarProgresso();
 
     }
 
 
-    /*
-     * DEFINIR UMA FOTO DA GALERIA
-     * COMO FOTO PRINCIPAL
-     */
+    /* =========================================
+       DEFINIR FOTO DE PERFIL
+       ========================================= */
 
     async function definirFotoPerfil(
-      url
+      midia
     ) {
+
+      if (
+        !midia ||
+        midia.tipo !== "foto"
+      ) {
+
+        return;
+
+      }
+
 
       try {
 
-        mostrarMensagemMidia(
-          "Definindo foto principal..."
-        );
+        esconderMensagemMidia();
 
 
-        const { error } =
+        const {
+          error
+        } =
           await window.luxSupabase
-            .from("modelo_perfis")
+            .from(
+              "modelo_perfis"
+            )
             .update({
-
               foto_url:
-                url,
-
+                midia.url,
               atualizado_em:
                 new Date().toISOString()
-
             })
             .eq(
               "id",
@@ -2130,20 +2227,17 @@
 
 
         modeloAtual.foto_url =
-          url;
+          midia.url;
 
 
         mostrarFotoPerfil(
-          url,
+          midia.url,
           modeloAtual.nome_exibicao
         );
 
 
-        atualizarContadores();
-
-
         mostrarMensagemMidia(
-          "Foto principal atualizada com sucesso."
+          "Foto de perfil atualizada com sucesso."
         );
 
 
@@ -2157,7 +2251,7 @@
 
         mostrarMensagemMidia(
           erro.message ||
-          "Não foi possível definir a foto principal.",
+          "Não foi possível definir a foto de perfil.",
           true
         );
 
@@ -2166,55 +2260,22 @@
     }
 
 
-    /*
-     * OBTER CAMINHO DO STORAGE
-     */
-
-    function obterCaminhoStorage(
-      url
-    ) {
-
-      if (!url) {
-        return null;
-      }
-
-
-      const marcador =
-        "/storage/v1/object/public/lux-modelos/";
-
-
-      const posicao =
-        url.indexOf(
-          marcador
-        );
-
-
-      if (
-        posicao === -1
-      ) {
-
-        return null;
-
-      }
-
-
-      return decodeURIComponent(
-        url.substring(
-          posicao +
-          marcador.length
-        )
-      );
-
-    }
-
-
-    /*
-     * EXCLUIR MÍDIA
-     */
+    /* =========================================
+       EXCLUIR MÍDIA
+       ========================================= */
 
     async function excluirMidia(
       midia
     ) {
+
+      if (
+        !midia
+      ) {
+
+        return;
+
+      }
+
 
       const confirmar =
         window.confirm(
@@ -2222,41 +2283,95 @@
         );
 
 
-      if (!confirmar) {
+      if (
+        !confirmar
+      ) {
+
         return;
+
       }
 
 
       try {
 
-        mostrarMensagemMidia(
-          "Excluindo conteúdo..."
-        );
+        esconderMensagemMidia();
 
 
         /*
-         * Se essa foto também é a
-         * foto principal, remove primeiro
-         * a referência do perfil.
+         * Primeiro apagamos o registro
+         * do banco.
+         */
+
+        const {
+          error:
+          bancoError
+        } =
+          await window.luxSupabase
+            .from(
+              "modelo_midias"
+            )
+            .delete()
+            .eq(
+              "id",
+              midia.id
+            )
+            .eq(
+              "modelo_id",
+              usuarioLogado.id
+            );
+
+
+        if (bancoError) {
+
+          throw bancoError;
+
+        }
+
+
+        /*
+         * Depois apagamos o arquivo
+         * do Storage.
          */
 
         if (
-          midia.tipo === "foto" &&
-          modeloAtual?.foto_url ===
-            midia.url
+          midia.storage_path
         ) {
 
-          const { error } =
-            await window.luxSupabase
-              .from("modelo_perfis")
-              .update({
+          await window.luxSupabase
+            .storage
+            .from(
+              "lux-modelos"
+            )
+            .remove([
+              midia.storage_path
+            ]);
 
+        }
+
+
+        /*
+         * Se era a foto principal,
+         * removemos também do perfil.
+         */
+
+        if (
+          modeloAtual?.foto_url ===
+          midia.url
+        ) {
+
+          const {
+            error:
+            fotoError
+          } =
+            await window.luxSupabase
+              .from(
+                "modelo_perfis"
+              )
+              .update({
                 foto_url:
                   null,
-
                 atualizado_em:
                   new Date().toISOString()
-
               })
               .eq(
                 "id",
@@ -2264,9 +2379,12 @@
               );
 
 
-          if (error) {
+          if (fotoError) {
 
-            throw error;
+            console.error(
+              "Erro ao limpar foto de perfil:",
+              fotoError
+            );
 
           }
 
@@ -2279,49 +2397,6 @@
             null,
             modeloAtual.nome_exibicao
           );
-
-        }
-
-
-        /*
-         * Banco
-         */
-
-        const { error: dbError } =
-          await window.luxSupabase
-            .from("modelo_midias")
-            .delete()
-            .eq(
-              "id",
-              midia.id
-            )
-            .eq(
-              "modelo_id",
-              usuarioLogado.id
-            );
-
-
-        if (dbError) {
-
-          throw dbError;
-
-        }
-
-
-        /*
-         * Storage
-         */
-
-        if (
-          midia.storage_path
-        ) {
-
-          await window.luxSupabase
-            .storage
-            .from("lux-modelos")
-            .remove([
-              midia.storage_path
-            ]);
 
         }
 
@@ -2353,9 +2428,9 @@
     }
 
 
-    /*
-     * EVENTO — FOTO DE PERFIL
-     */
+    /* =========================================
+       EVENTO — FOTO DE PERFIL
+       ========================================= */
 
     document
       .getElementById(
@@ -2406,9 +2481,9 @@
       );
 
 
-    /*
-     * EVENTO — FOTOS
-     */
+    /* =========================================
+       EVENTO — FOTOS
+       ========================================= */
 
     document
       .getElementById(
@@ -2462,9 +2537,9 @@
       );
 
 
-    /*
-     * EVENTO — VÍDEOS
-     */
+    /* =========================================
+       EVENTO — VÍDEOS
+       ========================================= */
 
     document
       .getElementById(
@@ -2518,12 +2593,9 @@
       );
 
 
-    /*
-     * SAIR
-     *
-     * Não depende da função "sair"
-     * do auth.js.
-     */
+    /* =========================================
+       SAIR
+       ========================================= */
 
     document
       .getElementById(
@@ -2535,7 +2607,8 @@
 
           try {
 
-            this.disabled = true;
+            this.disabled =
+              true;
 
             this.textContent =
               "Saindo...";
@@ -2564,9 +2637,9 @@
       );
 
 
-    /*
-     * INICIAR PAINEL
-     */
+    /* =========================================
+       INICIAR PAINEL
+       ========================================= */
 
     async function iniciar() {
 
@@ -2852,14 +2925,15 @@
 
 
         /*
-         * CARREGAR MÍDIAS
-         */
-
-        await carregarMidias();
-
-
-        /*
-         * LIBERA CONTEÚDO
+         * =====================================
+         * IMPORTANTE
+         *
+         * O painel é liberado ANTES das mídias.
+         *
+         * Assim, se modelo_midias ou Storage
+         * apresentar algum problema, o painel
+         * principal continua abrindo.
+         * =====================================
          */
 
         document
@@ -2870,10 +2944,6 @@
           false;
 
 
-        /*
-         * LIMPA CARREGANDO
-         */
-
         document
           .getElementById(
             "mensagem"
@@ -2882,15 +2952,54 @@
           true;
 
 
+        /*
+         * =====================================
+         * CARREGAR MÍDIAS SEM BLOQUEAR O PAINEL
+         * =====================================
+         */
+
+        try {
+
+          await comTimeout(
+            carregarMidias(),
+            10000
+          );
+
+        } catch (erroMidia) {
+
+          console.error(
+            "Erro ao carregar mídias:",
+            erroMidia
+          );
+
+
+          mostrarMensagemMidia(
+
+            "O painel foi carregado, mas as fotos e vídeos não puderam ser carregados agora. " +
+            (
+              erroMidia?.message ||
+              "Tente novamente."
+            ),
+
+            true
+
+          );
+
+        }
+
+
         console.log(
           "LUX — Painel da modelo carregado.",
           {
             usuario:
               usuarioLogado.id,
+
             plano:
               planoAtual,
+
             limite:
               dadosPlano
+
           }
         );
 
@@ -2928,14 +3037,9 @@
     }
 
 
-    /*
-     * INICIAR
-     *
-     * IMPORTANTE:
-     * O listener do botão Sair já foi
-     * registrado acima e não depende
-     * da função "sair()" do auth.js.
-     */
+    /* =========================================
+       INICIAR
+       ========================================= */
 
     iniciar();
 

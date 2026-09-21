@@ -183,6 +183,19 @@ body{
   font-weight:bold;
 
   cursor:pointer;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    opacity .2s ease;
+}
+
+.botao:hover{
+
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 8px 25px rgba(248,213,138,.15);
 }
 
 .botao:disabled{
@@ -190,6 +203,8 @@ body{
   opacity:.65;
 
   cursor:wait;
+
+  transform:none;
 }
 
 .mensagem{
@@ -240,11 +255,52 @@ body{
   text-decoration:none;
 
   font-size:13px;
+
+  transition:
+    color .2s ease;
 }
 
 .voltar:hover{
 
   color:#f8d58a;
+}
+
+.admin-email{
+
+  margin-top:18px;
+
+  color:#666;
+
+  font-size:11px;
+
+  word-break:break-word;
+}
+
+@media(max-width:480px){
+
+  body{
+    padding:14px;
+  }
+
+  .card{
+
+    padding:32px 20px;
+
+    border-radius:22px;
+  }
+
+  .logo{
+
+    font-size:54px;
+
+    letter-spacing:7px;
+  }
+
+  .titulo{
+
+    font-size:22px;
+  }
+
 }
 
 </style>
@@ -303,6 +359,11 @@ ENTRAR NO PAINEL
   class="mensagem"
 ></div>
 
+<div
+  id="adminEmail"
+  class="admin-email"
+></div>
+
 <a
   href="./index.html"
   class="voltar"
@@ -318,7 +379,7 @@ Voltar para o site
 
 document.addEventListener(
   "DOMContentLoaded",
-  function(){
+  async function(){
 
     const form =
       document.getElementById("formAdmin");
@@ -332,24 +393,116 @@ document.addEventListener(
     const mensagem =
       document.getElementById("mensagem");
 
+    const adminEmail =
+      document.getElementById("adminEmail");
+
+
+    /* =====================================================
+       ADMINISTRADOR AUTORIZADO
+       ===================================================== */
+
+    const EMAIL_ADMIN =
+      "luxcdam@gmail.com";
+
+
+    adminEmail.textContent =
+      "Administrador: " + EMAIL_ADMIN;
+
+
+    /* =====================================================
+       MENSAGEM
+       ===================================================== */
 
     function mostrarMensagem(
       texto,
       tipo
     ){
 
-      mensagem.textContent = texto;
+      mensagem.textContent =
+        texto;
 
       mensagem.className =
         "mensagem " + tipo;
+
     }
 
+
+    /* =====================================================
+       VERIFICAR SUPABASE
+       ===================================================== */
+
+    if(!window.luxSupabase){
+
+      mostrarMensagem(
+        "Erro ao carregar o Supabase. Verifique o config.js.",
+        "erro"
+      );
+
+      return;
+
+    }
+
+
+    /* =====================================================
+       VERIFICAR SESSÃO EXISTENTE
+       ===================================================== */
+
+    try{
+
+      const resultado =
+        await window.luxSupabase.auth.getSession();
+
+      const sessao =
+        resultado.data?.session;
+
+      if(
+        sessao &&
+        sessao.user &&
+        sessao.user.email &&
+        sessao.user.email.toLowerCase() ===
+        EMAIL_ADMIN.toLowerCase()
+      ){
+
+        mostrarMensagem(
+          "Sessão administrativa encontrada. Abrindo painel...",
+          "sucesso"
+        );
+
+        setTimeout(
+          function(){
+
+            window.location.replace(
+              "./painel-admin.html"
+            );
+
+          },
+          500
+        );
+
+        return;
+
+      }
+
+    }catch(erro){
+
+      console.warn(
+        "Erro ao verificar sessão:",
+        erro
+      );
+
+    }
+
+
+    /* =====================================================
+       LOGIN
+       ===================================================== */
 
     form.addEventListener(
       "submit",
       async function(evento){
 
         evento.preventDefault();
+
 
         const senha =
           senhaInput.value.trim();
@@ -363,36 +516,12 @@ document.addEventListener(
           );
 
           return;
+
         }
 
 
-        if(!window.luxSupabase){
-
-          mostrarMensagem(
-            "Erro ao carregar o sistema. Verifique o config.js.",
-            "erro"
-          );
-
-          return;
-        }
-
-
-        const email =
-          window.LUX_ADMIN_EMAIL;
-
-
-        if(!email){
-
-          mostrarMensagem(
-            "E-mail administrativo não configurado no config.js.",
-            "erro"
-          );
-
-          return;
-        }
-
-
-        botao.disabled = true;
+        botao.disabled =
+          true;
 
         botao.textContent =
           "ENTRANDO...";
@@ -409,9 +538,11 @@ document.addEventListener(
           const resultado =
             await window.luxSupabase.auth.signInWithPassword({
 
-              email: email,
+              email:
+                EMAIL_ADMIN,
 
-              password: senha
+              password:
+                senha
 
             });
 
@@ -423,17 +554,41 @@ document.addEventListener(
           }
 
 
-          if(
-            !resultado.data ||
-            !resultado.data.user
-          ){
+          const usuario =
+            resultado.data?.user;
+
+
+          if(!usuario){
 
             throw new Error(
-              "Não foi possível confirmar o acesso."
+              "Não foi possível confirmar o usuário."
             );
 
           }
 
+
+          /* =================================================
+             PROTEÇÃO DO E-MAIL ADMINISTRATIVO
+             ================================================= */
+
+          if(
+            !usuario.email ||
+            usuario.email.toLowerCase() !==
+            EMAIL_ADMIN.toLowerCase()
+          ){
+
+            await window.luxSupabase.auth.signOut();
+
+            throw new Error(
+              "Esta conta não possui autorização administrativa."
+            );
+
+          }
+
+
+          /* =================================================
+             ACESSO AUTORIZADO
+             ================================================= */
 
           mostrarMensagem(
             "Acesso autorizado. Abrindo painel...",
@@ -445,11 +600,6 @@ document.addEventListener(
             "ACESSO AUTORIZADO";
 
 
-          /*
-           * Aguarda a sessão ser persistida
-           * antes de abrir o painel.
-           */
-
           setTimeout(
             function(){
 
@@ -458,7 +608,7 @@ document.addEventListener(
               );
 
             },
-            500
+            700
           );
 
 
@@ -490,9 +640,10 @@ document.addEventListener(
             ){
 
               texto =
-                "Senha incorreta. Tente novamente.";
+                "Senha incorreta. Verifique a senha da conta administrativa.";
 
             }
+
             else if(
               erroSupabase.includes(
                 "email not confirmed"
@@ -500,9 +651,10 @@ document.addEventListener(
             ){
 
               texto =
-                "O e-mail administrativo ainda não foi confirmado no Supabase.";
+                "Confirme o e-mail administrativo no Supabase antes de entrar.";
 
             }
+
             else if(
               erroSupabase.includes(
                 "user not found"
@@ -510,19 +662,21 @@ document.addEventListener(
             ){
 
               texto =
-                "Usuário administrativo não encontrado.";
+                "A conta administrativa não foi encontrada.";
 
             }
+
             else if(
               erroSupabase.includes(
-                "invalid"
+                "rate limit"
               )
             ){
 
               texto =
-                "Dados de acesso inválidos.";
+                "Muitas tentativas. Aguarde alguns minutos.";
 
             }
+
             else{
 
               texto =
@@ -539,7 +693,8 @@ document.addEventListener(
           );
 
 
-          botao.disabled = false;
+          botao.disabled =
+            false;
 
           botao.textContent =
             "ENTRAR NO PAINEL";

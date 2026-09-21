@@ -577,10 +577,6 @@ function ativarModulosAdmin() {
         let pressionando = false;
 
 
-        // ---------------------------------------------------------
-        // INÍCIO DO TOQUE
-        // ---------------------------------------------------------
-
         card.addEventListener(
             "pointerdown",
             function(evento) {
@@ -604,10 +600,6 @@ function ativarModulosAdmin() {
             }
         );
 
-
-        // ---------------------------------------------------------
-        // MOVIMENTO
-        // ---------------------------------------------------------
 
         card.addEventListener(
             "pointermove",
@@ -645,10 +637,6 @@ function ativarModulosAdmin() {
             }
         );
 
-
-        // ---------------------------------------------------------
-        // FINAL DO TOQUE
-        // ---------------------------------------------------------
 
         card.addEventListener(
             "pointerup",
@@ -728,10 +716,6 @@ function ativarModulosAdmin() {
         );
 
 
-        // ---------------------------------------------------------
-        // CANCELAMENTO
-        // ---------------------------------------------------------
-
         card.addEventListener(
             "pointercancel",
             function() {
@@ -745,10 +729,6 @@ function ativarModulosAdmin() {
             }
         );
 
-
-        // ---------------------------------------------------------
-        // SE O DEDO SAIR DO CARD
-        // ---------------------------------------------------------
 
         card.addEventListener(
             "pointerleave",
@@ -1137,9 +1117,256 @@ function abrirModuloUsuarios() {
 
 // =============================================================
 // RECLAMAÇÕES
+// SUPABASE — FUNCIONAL
 // =============================================================
 
-function abrirModuloReclamacoes() {
+async function carregarReclamacoesAdmin() {
+
+    if (
+        !window.luxSupabase
+    ) {
+
+        throw new Error(
+            "Supabase não foi inicializado."
+        );
+
+    }
+
+
+    const {
+        data,
+        error
+    } = await window.luxSupabase
+        .from("reclamacoes")
+        .select(`
+            id,
+            usuario_id,
+            nome,
+            email,
+            assunto,
+            mensagem,
+            status,
+            criado_em,
+            atualizado_em
+        `)
+        .order(
+            "criado_em",
+            {
+                ascending: false
+            }
+        );
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao carregar reclamações:",
+            error
+        );
+
+        throw error;
+
+    }
+
+
+    return Array.isArray(data)
+        ? data
+        : [];
+
+}
+
+
+// =============================================================
+// TEXTO DO STATUS DA RECLAMAÇÃO
+// =============================================================
+
+function textoStatusReclamacao(status) {
+
+    const mapa = {
+
+        pendente:
+            "PENDENTE",
+
+        em_analise:
+            "EM ANÁLISE",
+
+        em_analise:
+            "EM ANÁLISE",
+
+        resolvida:
+            "RESOLVIDA",
+
+        arquivada:
+            "ARQUIVADA",
+
+        cancelada:
+            "CANCELADA"
+
+    };
+
+
+    return mapa[
+        String(status || "").toLowerCase()
+    ]
+    ||
+    String(
+        status ||
+        "pendente"
+    )
+    .replace(/_/g, " ")
+    .toUpperCase();
+
+}
+
+
+// =============================================================
+// COR DO STATUS DA RECLAMAÇÃO
+// =============================================================
+
+function corStatusReclamacao(status) {
+
+    const valor =
+        String(
+            status || "pendente"
+        ).toLowerCase();
+
+
+    if (
+        valor === "resolvida"
+    ) {
+
+        return "#8ff0b0";
+
+    }
+
+
+    if (
+        valor === "arquivada" ||
+        valor === "cancelada"
+    ) {
+
+        return "#ff7d8d";
+
+    }
+
+
+    if (
+        valor === "em_analise"
+    ) {
+
+        return "#f5d58c";
+
+    }
+
+
+    return "#ff4da6";
+
+}
+
+
+// =============================================================
+// ESCAPAR VALOR PARA ATRIBUTO
+// =============================================================
+
+function escaparAtributoSeguro(valor) {
+
+    return escaparHTML(
+        String(valor || "")
+    );
+
+}
+
+
+// =============================================================
+// ATUALIZAR STATUS DA RECLAMAÇÃO
+// =============================================================
+
+async function atualizarStatusReclamacao(
+    id,
+    novoStatus
+) {
+
+    if (!id) {
+
+        alert(
+            "Não foi possível identificar a reclamação."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !window.luxSupabase
+    ) {
+
+        alert(
+            "Supabase não foi inicializado."
+        );
+
+        return;
+
+    }
+
+
+    const status =
+        String(
+            novoStatus || "pendente"
+        ).trim();
+
+
+    if (!status) {
+        return;
+    }
+
+
+    const {
+        error
+    } = await window.luxSupabase
+        .from("reclamacoes")
+        .update({
+
+            status:
+                status,
+
+            atualizado_em:
+                new Date().toISOString()
+
+        })
+        .eq(
+            "id",
+            id
+        );
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao atualizar reclamação:",
+            error
+        );
+
+        alert(
+            "Não foi possível atualizar a reclamação.\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    await abrirModuloReclamacoes();
+
+}
+
+
+// =============================================================
+// ABRIR MÓDULO DE RECLAMAÇÕES
+// =============================================================
+
+async function abrirModuloReclamacoes() {
 
     mostrarModulo(
         "Reclamações",
@@ -1147,47 +1374,586 @@ function abrirModuloReclamacoes() {
         `
 
         <div style="
-            display:grid;
-            gap:12px;
+            padding:35px 20px;
+            text-align:center;
+            color:#999;
         ">
 
-            ${criarBloco(
-                "STATUS",
-                "CENTRAL",
-                "Área de atendimento"
-            )}
+            <div style="
+                font-size:34px;
+                color:#f5d58c;
+                margin-bottom:12px;
+            ">
+                ◇
+            </div>
 
             <div style="
-                padding:20px;
-                border:1px solid rgba(255,255,255,.07);
-                border-radius:14px;
-                background:rgba(255,255,255,.02);
+                color:#aaa;
+                font-size:13px;
             ">
-
-                <h3 style="
-                    color:#f5d58c;
-                    margin-bottom:10px;
-                ">
-                    Central de reclamações
-                </h3>
-
-                <p style="
-                    color:#999;
-                    font-size:12px;
-                    line-height:1.7;
-                ">
-                    As reclamações poderão ser acompanhadas
-                    por usuário, login, e-mail, assunto,
-                    mensagem, status, data de criação e
-                    atualização.
-                </p>
-
+                Carregando reclamações...
             </div>
 
         </div>
 
         `
     );
+
+
+    try {
+
+        const reclamacoes =
+            await carregarReclamacoesAdmin();
+
+
+        const total =
+            reclamacoes.length;
+
+
+        const pendentes =
+            reclamacoes.filter(
+                item =>
+                    !item.status ||
+                    item.status === "pendente"
+            ).length;
+
+
+        const emAnalise =
+            reclamacoes.filter(
+                item =>
+                    item.status === "em_analise"
+            ).length;
+
+
+        const resolvidas =
+            reclamacoes.filter(
+                item =>
+                    item.status === "resolvida"
+            ).length;
+
+
+        const registrosHTML =
+            reclamacoes.length
+            ?
+            reclamacoes.map(
+                reclamacao => {
+
+                    const id =
+                        reclamacao.id || "";
+
+
+                    const usuarioId =
+                        reclamacao.usuario_id || "—";
+
+
+                    const nome =
+                        reclamacao.nome ||
+                        "Não informado";
+
+
+                    const email =
+                        reclamacao.email ||
+                        "—";
+
+
+                    const assunto =
+                        reclamacao.assunto ||
+                        "Sem assunto";
+
+
+                    const mensagem =
+                        reclamacao.mensagem ||
+                        "Sem mensagem";
+
+
+                    const status =
+                        reclamacao.status ||
+                        "pendente";
+
+
+                    const criadoEm =
+                        formatarDataAdmin(
+                            reclamacao.criado_em
+                        );
+
+
+                    const atualizadoEm =
+                        formatarDataAdmin(
+                            reclamacao.atualizado_em
+                        );
+
+
+                    const cor =
+                        corStatusReclamacao(
+                            status
+                        );
+
+
+                    return `
+
+                        <div style="
+                            padding:20px;
+                            border:1px solid rgba(245,213,140,.12);
+                            border-radius:15px;
+                            background:rgba(255,255,255,.025);
+                            margin-bottom:14px;
+                        ">
+
+                            <div style="
+                                display:flex;
+                                justify-content:space-between;
+                                align-items:flex-start;
+                                gap:12px;
+                                flex-wrap:wrap;
+                            ">
+
+                                <div style="
+                                    min-width:0;
+                                    flex:1;
+                                ">
+
+                                    <div style="
+                                        color:#f5d58c;
+                                        font-family:'Playfair Display',serif;
+                                        font-size:20px;
+                                        margin-bottom:6px;
+                                        word-break:break-word;
+                                    ">
+                                        ${escaparHTML(
+                                            assunto
+                                        )}
+                                    </div>
+
+                                    <div style="
+                                        color:#8e838b;
+                                        font-size:10px;
+                                        word-break:break-word;
+                                    ">
+                                        ${escaparHTML(
+                                            nome
+                                        )}
+                                    </div>
+
+                                </div>
+
+
+                                <div style="
+                                    color:${cor};
+                                    font-size:9px;
+                                    font-weight:800;
+                                    letter-spacing:1px;
+                                    border:1px solid ${cor};
+                                    border-radius:20px;
+                                    padding:7px 10px;
+                                    white-space:nowrap;
+                                ">
+                                    ${escaparHTML(
+                                        textoStatusReclamacao(
+                                            status
+                                        )
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                            <div style="
+                                display:grid;
+                                grid-template-columns:
+                                    repeat(
+                                        auto-fit,
+                                        minmax(180px,1fr)
+                                    );
+                                gap:10px;
+                                margin-top:16px;
+                            ">
+
+                                ${criarBloco(
+                                    "NOME",
+                                    nome,
+                                    "Reclamante"
+                                )}
+
+                                ${criarBloco(
+                                    "E-MAIL",
+                                    email,
+                                    "E-mail informado"
+                                )}
+
+                                ${criarBloco(
+                                    "CRIADA EM",
+                                    criadoEm,
+                                    "Data do registro"
+                                )}
+
+                                ${criarBloco(
+                                    "ATUALIZADA EM",
+                                    atualizadoEm,
+                                    "Última alteração"
+                                )}
+
+                            </div>
+
+
+                            <div style="
+                                margin-top:14px;
+                                padding:16px;
+                                border:1px solid rgba(255,255,255,.07);
+                                border-radius:12px;
+                                background:rgba(0,0,0,.18);
+                            ">
+
+                                <div style="
+                                    color:#f5d58c;
+                                    font-size:9px;
+                                    font-weight:800;
+                                    letter-spacing:1.5px;
+                                    margin-bottom:8px;
+                                ">
+                                    MENSAGEM
+                                </div>
+
+                                <div style="
+                                    color:#bbb;
+                                    font-size:12px;
+                                    line-height:1.8;
+                                    white-space:pre-wrap;
+                                    word-break:break-word;
+                                ">
+                                    ${escaparHTML(
+                                        mensagem
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                            <div style="
+                                margin-top:14px;
+                                padding-top:14px;
+                                border-top:1px solid rgba(255,255,255,.06);
+                            ">
+
+                                <div style="
+                                    color:#81757e;
+                                    font-size:9px;
+                                    font-weight:800;
+                                    letter-spacing:1px;
+                                    margin-bottom:7px;
+                                ">
+                                    USUÁRIO ID
+                                </div>
+
+                                <div style="
+                                    color:#aaa;
+                                    font-size:10px;
+                                    word-break:break-all;
+                                ">
+                                    ${escaparHTML(
+                                        usuarioId
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                            <div style="
+                                margin-top:16px;
+                                display:flex;
+                                align-items:center;
+                                gap:10px;
+                                flex-wrap:wrap;
+                            ">
+
+                                <label style="
+                                    color:#999;
+                                    font-size:10px;
+                                    font-weight:700;
+                                ">
+                                    ALTERAR STATUS:
+                                </label>
+
+
+                                <select
+                                    data-reclamacao-status="${escaparAtributoSeguro(id)}"
+                                    onchange="
+                                        atualizarStatusReclamacao(
+                                            this.dataset.reclamacaoStatus,
+                                            this.value
+                                        )
+                                    "
+                                    style="
+                                        min-height:40px;
+                                        padding:8px 12px;
+                                        border-radius:10px;
+                                        border:1px solid rgba(245,213,140,.18);
+                                        background:#120a0f;
+                                        color:#eee;
+                                        font-size:11px;
+                                        outline:none;
+                                    "
+                                >
+
+                                    <option
+                                        value="pendente"
+                                        ${status === "pendente" ? "selected" : ""}
+                                    >
+                                        Pendente
+                                    </option>
+
+                                    <option
+                                        value="em_analise"
+                                        ${status === "em_analise" ? "selected" : ""}
+                                    >
+                                        Em análise
+                                    </option>
+
+                                    <option
+                                        value="resolvida"
+                                        ${status === "resolvida" ? "selected" : ""}
+                                    >
+                                        Resolvida
+                                    </option>
+
+                                    <option
+                                        value="arquivada"
+                                        ${status === "arquivada" ? "selected" : ""}
+                                    >
+                                        Arquivada
+                                    </option>
+
+                                    <option
+                                        value="cancelada"
+                                        ${status === "cancelada" ? "selected" : ""}
+                                    >
+                                        Cancelada
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("")
+            :
+            `
+
+                <div style="
+                    padding:45px 20px;
+                    text-align:center;
+                    border:1px dashed rgba(245,213,140,.16);
+                    border-radius:15px;
+                    color:#8e838b;
+                ">
+
+                    <div style="
+                        font-size:34px;
+                        color:#f5d58c;
+                        margin-bottom:12px;
+                    ">
+                        ◇
+                    </div>
+
+                    <div style="
+                        color:#aaa;
+                        font-size:13px;
+                        margin-bottom:7px;
+                    ">
+                        Nenhuma reclamação registrada.
+                    </div>
+
+                    <div style="
+                        font-size:10px;
+                        line-height:1.6;
+                    ">
+                        Não existem registros disponíveis
+                        na tabela de reclamações.
+                    </div>
+
+                </div>
+
+            `;
+
+
+        mostrarModulo(
+            "Reclamações",
+            "Atendimento e ocorrências · Supabase",
+            `
+
+            <div style="
+                display:flex;
+                justify-content:flex-end;
+                margin-bottom:14px;
+            ">
+
+                <button
+                    type="button"
+                    onclick="abrirModuloReclamacoes()"
+                    style="
+                        border:1px solid rgba(245,213,140,.20);
+                        background:rgba(245,213,140,.05);
+                        color:#f5d58c;
+                        padding:10px 14px;
+                        border-radius:10px;
+                        font-size:10px;
+                        font-weight:800;
+                        letter-spacing:.5px;
+                    "
+                >
+                    ↻ ATUALIZAR
+                </button>
+
+            </div>
+
+
+            <div style="
+                display:grid;
+                grid-template-columns:
+                    repeat(
+                        auto-fit,
+                        minmax(170px,1fr)
+                    );
+                gap:12px;
+                margin-bottom:22px;
+            ">
+
+                ${criarBloco(
+                    "TOTAL",
+                    String(total),
+                    "Reclamações registradas"
+                )}
+
+                ${criarBloco(
+                    "PENDENTES",
+                    String(pendentes),
+                    "Aguardando atendimento"
+                )}
+
+                ${criarBloco(
+                    "EM ANÁLISE",
+                    String(emAnalise),
+                    "Em acompanhamento"
+                )}
+
+                ${criarBloco(
+                    "RESOLVIDAS",
+                    String(resolvidas),
+                    "Atendimentos concluídos"
+                )}
+
+            </div>
+
+
+            <div style="
+                margin-bottom:12px;
+            ">
+
+                <h3 style="
+                    color:#f5d58c;
+                    margin:0 0 5px;
+                ">
+                    Central de reclamações
+                </h3>
+
+                <p style="
+                    color:#8e838b;
+                    font-size:10px;
+                    margin:0;
+                    line-height:1.6;
+                ">
+                    Registros carregados diretamente
+                    do Supabase.
+                </p>
+
+            </div>
+
+
+            ${registrosHTML}
+
+            `
+        );
+
+
+    } catch (erro) {
+
+        console.error(
+            "Erro no módulo de reclamações:",
+            erro
+        );
+
+
+        mostrarModulo(
+            "Reclamações",
+            "Atendimento e ocorrências",
+            `
+
+            <div style="
+                padding:30px 20px;
+                border:1px solid rgba(255,77,166,.18);
+                border-radius:15px;
+                background:rgba(255,77,166,.025);
+            ">
+
+                <div style="
+                    color:#ff4da6;
+                    font-size:10px;
+                    font-weight:800;
+                    letter-spacing:1px;
+                    margin-bottom:10px;
+                ">
+                    ERRO AO CARREGAR
+                </div>
+
+                <div style="
+                    color:#ccc;
+                    font-size:13px;
+                    line-height:1.7;
+                ">
+                    Não foi possível carregar as
+                    reclamações do Supabase.
+                </div>
+
+                <div style="
+                    margin-top:12px;
+                    color:#8e838b;
+                    font-size:10px;
+                    line-height:1.6;
+                    word-break:break-word;
+                ">
+                    ${escaparHTML(
+                        erro.message ||
+                        String(erro)
+                    )}
+                </div>
+
+
+                <button
+                    type="button"
+                    onclick="abrirModuloReclamacoes()"
+                    style="
+                        margin-top:18px;
+                        border:1px solid rgba(245,213,140,.20);
+                        background:rgba(245,213,140,.05);
+                        color:#f5d58c;
+                        padding:11px 15px;
+                        border-radius:10px;
+                        font-size:10px;
+                        font-weight:800;
+                    "
+                >
+                    ↻ TENTAR NOVAMENTE
+                </button>
+
+            </div>
+
+            `
+        );
+
+    }
 
 }
 

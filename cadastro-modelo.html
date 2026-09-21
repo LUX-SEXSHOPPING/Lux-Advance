@@ -64,6 +64,31 @@
           required
         >
 
+        <label for="categoriaCatalogo">
+          Como deseja aparecer no catálogo?
+        </label>
+
+        <select
+          id="categoriaCatalogo"
+          required
+        >
+          <option value="">
+            Selecione uma categoria
+          </option>
+
+          <option value="feminino">
+            Modelo Feminino
+          </option>
+
+          <option value="masculino">
+            Modelo Masculino
+          </option>
+
+          <option value="lgbtq">
+            LGBTQ+
+          </option>
+        </select>
+
         <label for="idade">Idade</label>
 
         <input
@@ -256,6 +281,9 @@
         const whatsapp =
           document.getElementById("whatsapp").value.trim();
 
+        const categoriaCatalogo =
+          document.getElementById("categoriaCatalogo").value;
+
         const idade =
           Number(
             document.getElementById("idade").value
@@ -326,6 +354,15 @@
         }
 
 
+        if (!categoriaCatalogo) {
+
+          mensagem.textContent =
+            "Selecione como deseja aparecer no catálogo.";
+
+          return;
+        }
+
+
         if (!idade || idade < 18) {
 
           mensagem.textContent =
@@ -381,6 +418,7 @@
 
 
         botao.disabled = true;
+
         botao.textContent =
           "Enviando cadastro...";
 
@@ -408,6 +446,9 @@
 
                 maioridade_confirmada:
                   true,
+
+                categoria_catalogo:
+                  categoriaCatalogo,
 
                 apelido:
                   apelido,

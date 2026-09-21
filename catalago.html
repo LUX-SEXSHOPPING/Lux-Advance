@@ -21,10 +21,6 @@
 
 <style>
 
-/* =====================================================
-   BASE
-===================================================== */
-
 *{
   box-sizing:border-box;
 }
@@ -41,30 +37,18 @@ body{
 
   color:#fff;
 
-  font-family:
-    "Playfair Display",
-    Georgia,
-    serif;
+  font-family:"Playfair Display",Georgia,serif;
 
   background:
-
     linear-gradient(
-      rgba(5,2,7,.55),
-      rgba(3,2,5,.95)
+      rgba(5,2,7,.58),
+      rgba(3,2,5,.97)
     ),
-
     url("./Halloween-feminina.jpg")
-    center top / cover
-    fixed
-    no-repeat;
+    center top / cover fixed no-repeat;
 
   overflow-x:hidden;
 }
-
-
-/* =====================================================
-   LUZES DE FUNDO
-===================================================== */
 
 body::before{
 
@@ -79,38 +63,25 @@ body::before{
   z-index:0;
 
   background:
-
     radial-gradient(
-      circle at 10% 15%,
-      rgba(255,55,145,.15),
+      circle at 12% 15%,
+      rgba(255,60,150,.16),
       transparent 25%
     ),
-
     radial-gradient(
-      circle at 90% 20%,
-      rgba(255,255,255,.07),
+      circle at 88% 20%,
+      rgba(248,213,138,.10),
       transparent 25%
-    ),
-
-    radial-gradient(
-      circle at 50% 90%,
-      rgba(160,50,255,.09),
-      transparent 30%
     );
 }
 
-
-/* =====================================================
-   PÁGINA
-===================================================== */
-
-.catalogo-page{
+.page{
 
   position:relative;
 
   z-index:2;
 
-  width:min(1180px,92%);
+  width:min(1250px,92%);
 
   margin:auto;
 
@@ -119,12 +90,10 @@ body::before{
 
 
 /* =====================================================
-   CABEÇALHO PREMIUM
+   TOPO
 ===================================================== */
 
-.catalogo-top{
-
-  position:relative;
+.topbar{
 
   display:flex;
 
@@ -132,216 +101,38 @@ body::before{
 
   justify-content:space-between;
 
-  min-height:92px;
+  padding:8px 0 20px;
 
-  margin-bottom:65px;
-
-  padding:10px 18px;
-
-  border:
+  border-bottom:
     1px solid
     rgba(248,213,138,.18);
 
-  border-radius:22px;
-
-  background:
-
-    linear-gradient(
-      135deg,
-      rgba(10,7,12,.86),
-      rgba(5,4,8,.68)
-    );
-
-  box-shadow:
-
-    0 18px 50px
-    rgba(0,0,0,.40),
-
-    inset
-    0 1px 0
-    rgba(255,255,255,.05);
-
-  backdrop-filter:blur(15px);
+  margin-bottom:45px;
 }
 
-
-/* linha dourada */
-
-.catalogo-top::after{
-
-  content:"";
-
-  position:absolute;
-
-  left:7%;
-
-  right:7%;
-
-  bottom:-1px;
-
-  height:1px;
-
-  background:
-
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(248,213,138,.70),
-      transparent
-    );
-
-  opacity:.55;
-}
-
-
-/* =====================================================
-   MARCA LUX — ESQUERDA
-===================================================== */
-
-.catalogo-logo{
-
-  display:flex;
-
-  align-items:center;
+.logo{
 
   color:#f8d58a;
 
+  text-decoration:none;
+
   font-family:"Cinzel",serif;
 
-  font-size:27px;
-
-  font-weight:700;
+  font-size:29px;
 
   letter-spacing:6px;
 
-  text-decoration:none;
-
-  text-shadow:
-
-    0 0 18px
-    rgba(248,213,138,.25);
-
-  transition:.35s;
+  font-weight:700;
 }
 
-.catalogo-logo:hover{
-
-  transform:translateY(-1px);
-
-  text-shadow:
-
-    0 0 28px
-    rgba(248,213,138,.50);
-}
-
-
-/* =====================================================
-   ÁREA DIREITA DO CABEÇALHO
-===================================================== */
-
-.catalogo-top-direita{
+.top-actions{
 
   display:flex;
 
-  align-items:center;
-
-  justify-content:flex-end;
-
-  gap:16px;
+  gap:10px;
 }
 
-
-/* =====================================================
-   LOGO
-===================================================== */
-
-.catalogo-logo-imagem{
-
-  width:64px;
-
-  height:64px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  overflow:hidden;
-
-  flex-shrink:0;
-
-  border-radius:50%;
-
-  border:
-    1px solid
-    rgba(248,213,138,.70);
-
-  background:
-
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.08),
-      rgba(0,0,0,.78)
-    );
-
-  box-shadow:
-
-    0 0 22px
-    rgba(248,213,138,.16),
-
-    0 8px 25px
-    rgba(0,0,0,.50);
-
-  transition:
-
-    transform .35s,
-    box-shadow .35s,
-    border-color .35s;
-}
-
-
-/* imagem da logo */
-
-.catalogo-logo-imagem img{
-
-  width:100%;
-
-  height:100%;
-
-  display:block;
-
-  object-fit:cover;
-}
-
-
-/* efeito da logo */
-
-.catalogo-logo-imagem:hover{
-
-  transform:
-    scale(1.06)
-    rotate(2deg);
-
-  border-color:#f8d58a;
-
-  box-shadow:
-
-    0 0 30px
-    rgba(248,213,138,.30),
-
-    0 10px 30px
-    rgba(0,0,0,.55);
-}
-
-
-/* =====================================================
-   BOTÃO ENTRAR
-===================================================== */
-
-.btn-lux{
-
-  position:relative;
+.btn{
 
   display:inline-flex;
 
@@ -349,22 +140,19 @@ body::before{
 
   justify-content:center;
 
-  gap:9px;
+  padding:11px 20px;
 
-  padding:12px 23px;
-
-  border:
-    1px solid
-    rgba(248,213,138,.60);
+  border:1px solid
+    rgba(248,213,138,.58);
 
   border-radius:30px;
+
+  background:
+    rgba(5,3,8,.78);
 
   color:#f8d58a;
 
   text-decoration:none;
-
-  background:
-    rgba(5,3,8,.78);
 
   font-family:"Cinzel",serif;
 
@@ -374,160 +162,18 @@ body::before{
 
   text-transform:uppercase;
 
-  transition:.35s;
+  transition:.3s;
 
   backdrop-filter:blur(10px);
 }
 
-.btn-lux:hover{
+.btn:hover{
 
   background:#f8d58a;
 
   color:#10090d;
 
-  transform:translateY(-3px);
-
-  box-shadow:
-
-    0 12px 30px
-    rgba(248,213,138,.20);
-}
-
-
-/* =====================================================
-   BOTÃO VOLTAR À PÁGINA INICIAL
-===================================================== */
-
-.voltar-inicio-area{
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
-  margin-top:-38px;
-
-  margin-bottom:55px;
-
-  position:relative;
-
-  z-index:8;
-}
-
-
-.btn-voltar-inicio{
-
-  display:inline-flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  gap:12px;
-
-  min-height:48px;
-
-  padding:12px 24px;
-
-  border:
-    1px solid
-    rgba(248,213,138,.48);
-
-  border-radius:30px;
-
-  color:#f8d58a;
-
-  background:
-
-    linear-gradient(
-      135deg,
-      rgba(248,213,138,.08),
-      rgba(8,5,10,.78)
-    );
-
-  box-shadow:
-
-    0 10px 30px
-    rgba(0,0,0,.35),
-
-    inset
-    0 1px 0
-    rgba(255,255,255,.06);
-
-  font-family:"Cinzel",serif;
-
-  font-size:10px;
-
-  font-weight:600;
-
-  letter-spacing:1.7px;
-
-  text-decoration:none;
-
-  backdrop-filter:blur(12px);
-
-  transition:
-
-    transform .35s,
-    background .35s,
-    border-color .35s,
-    box-shadow .35s,
-    color .35s;
-}
-
-
-.btn-voltar-inicio:hover{
-
-  transform:translateY(-3px);
-
-  color:#10090d;
-
-  background:#f8d58a;
-
-  border-color:#f8d58a;
-
-  box-shadow:
-
-    0 14px 35px
-    rgba(248,213,138,.22);
-}
-
-
-.seta-voltar{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  width:24px;
-
-  height:24px;
-
-  border:
-    1px solid
-    rgba(248,213,138,.45);
-
-  border-radius:50%;
-
-  font-family:Arial,sans-serif;
-
-  font-size:17px;
-
-  line-height:1;
-
-  transition:.35s;
-}
-
-
-.btn-voltar-inicio:hover
-.seta-voltar{
-
-  border-color:#10090d;
-
-  transform:translateX(-3px);
+  transform:translateY(-2px);
 }
 
 
@@ -535,125 +181,87 @@ body::before{
    HERO
 ===================================================== */
 
-.catalogo-hero{
+.hero{
 
-  text-align:center;
+  position:relative;
 
-  max-width:850px;
+  min-height:360px;
 
-  margin:0 auto 58px;
+  display:flex;
+
+  align-items:center;
+
+  overflow:hidden;
+
+  border-radius:30px;
+
+  border:1px solid
+    rgba(255,110,180,.38);
+
+  margin-bottom:35px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(15,3,12,.96),
+      rgba(25,5,17,.62),
+      rgba(5,2,7,.25)
+    ),
+    url("./Halloween-feminina.jpg")
+    center / cover;
+
+  box-shadow:
+    0 25px 70px
+    rgba(0,0,0,.60);
 }
 
-.catalogo-hero .eyebrow{
+.hero-content{
+
+  position:relative;
+
+  z-index:2;
+
+  max-width:720px;
+
+  padding:42px;
+}
+
+.eyebrow{
 
   color:#f8d58a;
 
   font-family:"Cinzel",serif;
 
-  letter-spacing:5px;
-
   font-size:10px;
 
-  margin-bottom:15px;
+  letter-spacing:4px;
 
-  text-shadow:
-
-    0 0 15px
-    rgba(248,213,138,.18);
+  margin-bottom:12px;
 }
 
-.catalogo-hero h1{
+.hero h1{
 
   margin:0;
 
   font-size:
-    clamp(38px,7vw,68px);
+    clamp(38px,6vw,68px);
 
   font-weight:500;
 
   font-style:italic;
 
-  line-height:1.1;
-
-  text-shadow:
-
-    0 5px 30px
-    rgba(0,0,0,.8);
+  line-height:1.05;
 }
 
-.catalogo-hero p{
+.hero p{
 
-  max-width:650px;
+  margin:18px 0 0;
 
-  margin:20px auto 0;
+  color:rgba(255,255,255,.76);
 
-  color:
-    rgba(255,255,255,.70);
+  line-height:1.7;
 
-  font-size:15px;
-
-  line-height:1.8;
-}
-
-
-/* =====================================================
-   LINHA DECORATIVA
-===================================================== */
-
-.hero-linha{
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
-  gap:12px;
-
-  margin-top:25px;
-}
-
-.hero-linha span{
-
-  width:60px;
-
-  height:1px;
-
-  background:
-
-    linear-gradient(
-      90deg,
-      transparent,
-      #f8d58a
-    );
-}
-
-.hero-linha span:last-child{
-
-  background:
-
-    linear-gradient(
-      90deg,
-      #f8d58a,
-      transparent
-    );
-}
-
-.hero-linha i{
-
-  width:7px;
-
-  height:7px;
-
-  transform:rotate(45deg);
-
-  border:
-    1px solid
-    #f8d58a;
-
-  box-shadow:
-    0 0 10px
-    rgba(248,213,138,.25);
+  max-width:600px;
 }
 
 
@@ -661,615 +269,94 @@ body::before{
    CATEGORIAS
 ===================================================== */
 
-.categorias{
+.categories{
 
   display:grid;
 
   grid-template-columns:
-    repeat(2,1fr);
+    repeat(3,1fr);
 
-  gap:25px;
+  gap:22px;
 }
 
-
-/* =====================================================
-   CARD BASE
-===================================================== */
-
-.categoria{
+.category{
 
   position:relative;
 
-  min-height:455px;
+  min-height:300px;
 
   overflow:hidden;
 
   display:flex;
 
-  align-items:flex-end;
+  flex-direction:column;
 
-  padding:38px;
+  justify-content:flex-end;
 
-  border-radius:30px;
+  padding:28px;
 
-  isolation:isolate;
+  border-radius:26px;
 
-  background:#100b12;
-
-  border:
-    1px solid
-    rgba(255,255,255,.18);
-
-  box-shadow:
-
-    0 25px 60px
-    rgba(0,0,0,.58);
-
-  transition:
-
-    transform .4s,
-    box-shadow .4s,
-    border-color .4s;
-}
-
-
-/* =====================================================
-   FUNDO DOS CARDS
-===================================================== */
-
-.categoria::before{
-
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:-3;
-
-  background-position:center;
-
-  background-size:cover;
-
-  background-repeat:no-repeat;
-
-  transition:
-
-    transform .7s,
-    filter .5s;
-}
-
-.categoria::after{
-
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:-2;
+  border:1px solid
+    rgba(248,213,138,.25);
 
   background:
+    rgba(8,4,10,.82);
 
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.02),
-      rgba(0,0,0,.15) 35%,
-      rgba(0,0,0,.90) 100%
-    );
-}
-
-.categoria:hover{
-
-  transform:translateY(-8px);
-
-  box-shadow:
-
-    0 35px 80px
-    rgba(0,0,0,.70);
-}
-
-.categoria:hover::before{
-
-  transform:scale(1.07);
-
-  filter:brightness(1.10);
-}
-
-
-/* =====================================================
-   FEMININA
-===================================================== */
-
-.categoria-feminina{
-
-  border-color:
-    rgba(255,115,175,.42);
-
-  background:
-
-    linear-gradient(
-      145deg,
-      rgba(255,55,145,.20),
-      rgba(15,5,12,.90)
-    );
-}
-
-.categoria-feminina::before{
-
-  background-image:
-
-    linear-gradient(
-      135deg,
-      rgba(255,45,140,.15),
-      rgba(0,0,0,.20)
-    ),
-
-    url("./Halloween-feminina.jpg");
-}
-
-.categoria-feminina:hover{
-
-  border-color:
-    rgba(255,120,185,.85);
-
-  box-shadow:
-
-    0 35px 80px
-    rgba(0,0,0,.70),
-
-    0 0 35px
-    rgba(255,70,155,.12);
-}
-
-
-/* =====================================================
-   MASCULINA — PRETO / GRAFITE / PRATA
-===================================================== */
-
-.categoria-masculina{
-
-  border:
-    1px solid
-    rgba(225,230,238,.48);
-
-  background:
-
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.12),
-      rgba(80,84,92,.20) 30%,
-      rgba(18,19,22,.88) 68%,
-      rgba(3,3,4,.96)
-    );
-
-  box-shadow:
-
-    0 25px 60px
-    rgba(0,0,0,.65),
-
-    inset
-    0 1px 0
-    rgba(255,255,255,.12),
-
-    inset
-    0 -30px 60px
-    rgba(0,0,0,.25);
-}
-
-.categoria-masculina::before{
-
-  background-image:
-
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.28),
-      rgba(170,175,185,.13) 28%,
-      rgba(25,27,30,.34) 58%,
-      rgba(0,0,0,.62)
-    ),
-
-    url("./Halloween-feminina.jpg");
-
-  filter:
-    grayscale(.72)
-    contrast(1.12)
-    brightness(.76);
-
-  opacity:.90;
-}
-
-.categoria-masculina::after{
-
-  background:
-
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,.10),
-      rgba(80,85,95,.06) 28%,
-      rgba(10,10,12,.45) 55%,
-      rgba(0,0,0,.96) 100%
-    );
-}
-
-.categoria-masculina:hover{
-
-  border-color:
-    rgba(245,247,250,.88);
-
-  box-shadow:
-
-    0 35px 80px
-    rgba(0,0,0,.78),
-
-    0 0 38px
-    rgba(220,225,235,.12),
-
-    inset
-    0 1px 0
-    rgba(255,255,255,.18);
-}
-
-.categoria-masculina:hover::before{
-
-  filter:
-    grayscale(.50)
-    contrast(1.12)
-    brightness(.90);
-}
-
-
-/* =====================================================
-   DETALHE PRATA MASCULINO
-===================================================== */
-
-.categoria-masculina .numero{
-
-  color:#e4e7ec;
-
-  text-shadow:
-
-    0 0 14px
-    rgba(255,255,255,.14);
-}
-
-.categoria-masculina h2{
+  text-decoration:none;
 
   color:#fff;
 
-  text-shadow:
-
-    0 3px 22px
-    rgba(0,0,0,.95),
-
-    0 0 18px
-    rgba(255,255,255,.08);
-}
-
-.categoria-masculina p{
-
-  color:
-    rgba(235,238,242,.78);
-}
-
-
-/* =====================================================
-   LGBTQ+
-===================================================== */
-
-.categoria-lgbtq{
-
-  grid-column:1 / -1;
-
-  min-height:390px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.45);
-
-  background:
-
-    linear-gradient(
-      135deg,
-      rgba(255,0,80,.10),
-      rgba(0,210,130,.08),
-      rgba(80,70,255,.11)
-    );
-}
-
-
-/* =====================================================
-   FUNDO LGBTQ
-===================================================== */
-
-.categoria-lgbtq::before{
-
-  background-image:
-
-    linear-gradient(
-      135deg,
-      rgba(255,0,80,.10),
-      rgba(255,180,0,.06),
-      rgba(0,220,120,.08),
-      rgba(0,150,255,.08),
-      rgba(140,40,255,.12)
-    ),
-
-    url("./Halloween-feminina.jpg");
-
-  filter:
-    saturate(.72)
-    brightness(.72);
-}
-
-
-/* =====================================================
-   CAMADA LGBTQ
-===================================================== */
-
-.categoria-lgbtq::after{
-
-  background:
-
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.05),
-      rgba(0,0,0,.28) 45%,
-      rgba(0,0,0,.86) 100%
-    ),
-
-    linear-gradient(
-      90deg,
-      rgba(255,30,80,.07),
-      rgba(255,170,0,.05),
-      rgba(255,235,0,.04),
-      rgba(0,220,120,.05),
-      rgba(0,180,255,.06),
-      rgba(70,80,255,.07),
-      rgba(180,0,255,.08)
-    );
-}
-
-
-/* =====================================================
-   ARCO-ÍRIS INTERNO
-===================================================== */
-
-.arco-iris{
-
-  position:absolute;
-
-  z-index:3;
-
-  inset:12px;
-
-  border-radius:22px;
-
-  pointer-events:none;
-
-  border:2px solid transparent;
-
-  background:
-
-    linear-gradient(
-      rgba(8,5,12,.18),
-      rgba(8,5,12,.18)
-    ) padding-box,
-
-    linear-gradient(
-      90deg,
-      rgba(255,23,68,.65),
-      rgba(255,123,0,.58),
-      rgba(255,230,0,.52),
-      rgba(0,217,107,.58),
-      rgba(0,191,255,.62),
-      rgba(65,105,255,.60),
-      rgba(176,0,255,.65),
-      rgba(255,23,68,.65)
-    ) border-box;
-
-  opacity:.55;
-
   box-shadow:
-
-    inset
-    0 0 35px
-    rgba(255,255,255,.025),
-
-    0 0 20px
-    rgba(255,100,210,.06);
-
-  transition:
-
-    opacity .4s,
-    box-shadow .4s;
-}
-
-.categoria-lgbtq:hover .arco-iris{
-
-  opacity:.72;
-
-  box-shadow:
-
-    inset
-    0 0 40px
-    rgba(255,255,255,.035),
-
-    0 0 28px
-    rgba(255,100,210,.10);
-}
-
-.categoria-lgbtq:hover{
-
-  border-color:
-    rgba(255,255,255,.82);
-
-  box-shadow:
-
-    0 35px 80px
-    rgba(0,0,0,.70),
-
-    0 0 45px
-    rgba(255,90,190,.12);
-}
-
-
-/* =====================================================
-   ÍCONES
-===================================================== */
-
-.icone-categoria{
-
-  position:absolute;
-
-  top:30px;
-
-  right:30px;
-
-  width:82px;
-
-  height:82px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  border-radius:50%;
-
-  background:
-    rgba(5,3,8,.72);
-
-  backdrop-filter:blur(12px);
+    0 20px 50px
+    rgba(0,0,0,.50);
 
   transition:.4s;
 
-  z-index:6;
+  backdrop-filter:blur(10px);
 }
 
-.icone-categoria span{
+.category:hover{
 
-  font-family:Arial,sans-serif;
+  transform:translateY(-8px);
 
-  font-size:43px;
-
-  line-height:1;
-
-  font-weight:300;
-}
-
-.categoria:hover .icone-categoria{
-
-  transform:
-    scale(1.10)
-    rotate(4deg);
-}
-
-
-/* =====================================================
-   ÍCONE FEMININO
-===================================================== */
-
-.icone-feminino{
-
-  border:
-    2px solid
-    rgba(255,125,185,.75);
+  border-color:
+    rgba(248,213,138,.75);
 
   box-shadow:
-
-    0 0 25px
-    rgba(255,70,155,.16);
+    0 30px 70px
+    rgba(0,0,0,.70);
 }
 
-.icone-feminino span{
+.category::before{
 
-  color:#ff9acb;
+  content:"";
 
-  text-shadow:
+  position:absolute;
 
-    0 0 20px
-    rgba(255,100,180,.50);
-}
-
-
-/* =====================================================
-   ÍCONE MASCULINO
-===================================================== */
-
-.icone-masculino{
-
-  border:
-    2px solid
-    rgba(225,230,238,.78);
+  inset:0;
 
   background:
-
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.16),
-      rgba(10,11,13,.86)
-    );
-
-  box-shadow:
-
-    0 0 25px
-    rgba(220,225,235,.13),
-
-    inset
-    0 0 20px
-    rgba(255,255,255,.07);
-}
-
-.icone-masculino span{
-
-  color:#f1f3f6;
-
-  text-shadow:
-
-    0 0 18px
-    rgba(255,255,255,.40),
-
-    0 2px 8px
-    rgba(0,0,0,.80);
-}
-
-
-/* =====================================================
-   ÍCONE LGBTQ
-===================================================== */
-
-.icone-lgbtq{
-
-  padding:3px;
-
-  border:none;
-
-  background:
-
     linear-gradient(
-      135deg,
-      rgba(255,23,68,.72),
-      rgba(255,123,0,.66),
-      rgba(255,230,0,.62),
-      rgba(0,217,107,.66),
-      rgba(0,191,255,.70),
-      rgba(65,105,255,.68),
-      rgba(176,0,255,.72)
+      180deg,
+      transparent 25%,
+      rgba(0,0,0,.90) 100%
     );
 
-  box-shadow:
-
-    0 0 25px
-    rgba(255,100,210,.15);
+  pointer-events:none;
 }
 
-.icone-lgbtq-inner{
+.category-icon{
 
-  width:100%;
+  position:absolute;
 
-  height:100%;
+  top:25px;
+
+  right:25px;
+
+  width:58px;
+
+  height:58px;
 
   border-radius:50%;
 
@@ -1279,204 +366,75 @@ body::before{
 
   justify-content:center;
 
+  font-size:27px;
+
+  border:1px solid
+    rgba(248,213,138,.40);
+
+  color:#f8d58a;
+
   background:
-    rgba(10,5,13,.92);
+    rgba(5,3,8,.70);
 }
 
-.icone-lgbtq-inner span{
-
-  color:#fff;
-
-  font-size:36px;
-
-  text-shadow:
-
-    0 0 20px
-    rgba(255,255,255,.50);
-}
-
-
-/* =====================================================
-   CONTEÚDO
-===================================================== */
-
-.categoria-conteudo{
+.category-content{
 
   position:relative;
 
-  z-index:7;
-
-  max-width:620px;
+  z-index:2;
 }
 
-.categoria .numero{
+.category h2{
 
-  margin-bottom:10px;
+  margin:0 0 8px;
 
-  font-family:"Cinzel",serif;
-
-  font-size:10px;
-
-  letter-spacing:3px;
-
-  color:#f8d58a;
-}
-
-.categoria h2{
-
-  margin:0 0 13px;
-
-  font-size:
-    clamp(30px,4vw,40px);
+  font-size:28px;
 
   font-weight:500;
-
-  line-height:1.1;
-
-  text-shadow:
-
-    0 4px 20px
-    rgba(0,0,0,.90);
 }
 
-.categoria p{
+.category p{
 
-  margin:0 0 25px;
+  margin:0;
 
-  max-width:540px;
+  color:rgba(255,255,255,.66);
 
-  color:
-    rgba(255,255,255,.78);
-
-  line-height:1.7;
+  line-height:1.6;
 
   font-size:14px;
 }
 
-
-/* =====================================================
-   BOTÕES DOS CARDS
-===================================================== */
-
-.categoria .btn-lux{
-
-  position:relative;
-
-  z-index:10;
-}
-
-
-/* =====================================================
-   BOTÃO FEMININO
-===================================================== */
-
-.categoria-feminina .btn-lux{
-
-  border-color:
-    rgba(255,135,190,.70);
-
-  color:#ffb2d7;
+.category.feminina{
 
   background:
-    rgba(20,5,15,.72);
-}
-
-
-/* =====================================================
-   BOTÃO MASCULINO
-===================================================== */
-
-.categoria-masculina .btn-lux{
-
-  border-color:
-    rgba(225,230,238,.68);
-
-  color:#eef1f5;
-
-  background:
-
     linear-gradient(
-      135deg,
-      rgba(255,255,255,.12),
-      rgba(20,21,24,.72)
-    );
-
-  box-shadow:
-
-    inset
-    0 1px 0
-    rgba(255,255,255,.08);
+      rgba(20,3,14,.35),
+      rgba(5,2,8,.90)
+    ),
+    url("./Halloween-feminina.jpg")
+    center / cover;
 }
 
-.categoria-masculina .btn-lux:hover{
+.category.masculina{
 
   background:
-
     linear-gradient(
-      135deg,
-      #f2f3f5,
-      #aeb3bb
-    );
-
-  color:#090a0c;
-
-  border-color:#fff;
-
-  box-shadow:
-
-    0 12px 30px
-    rgba(220,225,235,.18);
+      rgba(3,8,18,.40),
+      rgba(3,5,10,.92)
+    ),
+    url("./Halloween-feminina.jpg")
+    center / cover;
 }
 
-
-/* =====================================================
-   BOTÃO LGBTQ
-===================================================== */
-
-.btn-lgbtq{
-
-  color:#fff;
-
-  border-color:
-    rgba(255,255,255,.78);
+.category.lgbtq{
 
   background:
-    rgba(10,5,13,.78);
-
-  overflow:hidden;
-}
-
-.btn-lgbtq::before{
-
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:-1;
-
-  background:
-
     linear-gradient(
-      90deg,
-      rgba(255,23,68,.18),
-      rgba(255,123,0,.16),
-      rgba(255,230,0,.14),
-      rgba(0,217,107,.15),
-      rgba(0,191,255,.17),
-      rgba(65,105,255,.16),
-      rgba(176,0,255,.18)
-    );
-
-  opacity:0;
-
-  transition:.3s;
-}
-
-.btn-lgbtq:hover::before{
-
-  opacity:1;
+      rgba(15,3,18,.35),
+      rgba(5,2,8,.92)
+    ),
+    url("./Halloween-feminina.jpg")
+    center / cover;
 }
 
 
@@ -1484,258 +442,79 @@ body::before{
    RODAPÉ
 ===================================================== */
 
-.catalogo-footer{
+footer{
 
   text-align:center;
 
-  margin-top:58px;
+  margin-top:60px;
 
   padding-top:25px;
 
-  border-top:
-    1px solid
+  border-top:1px solid
     rgba(248,213,138,.15);
 
-  color:
-    rgba(255,255,255,.45);
+  color:rgba(255,255,255,.42);
 
   font-size:12px;
+
+  letter-spacing:1px;
 }
 
 
 /* =====================================================
-   TABLET
+   RESPONSIVO
 ===================================================== */
 
-@media(max-width:800px){
+@media(max-width:900px){
 
-  .catalogo-page{
+  .categories{
 
-    width:92%;
-
-    padding-top:18px;
+    grid-template-columns:
+      1fr 1fr;
   }
 
-  .catalogo-top{
+}
 
-    min-height:82px;
+@media(max-width:600px){
 
-    margin-bottom:50px;
+  .page{
 
-    padding:8px 13px;
-
-    border-radius:19px;
+    width:94%;
   }
 
-  .catalogo-logo{
+  .topbar{
+
+    margin-bottom:28px;
+  }
+
+  .logo{
 
     font-size:23px;
-
-    letter-spacing:5px;
   }
 
-  .catalogo-logo-imagem{
+  .hero{
 
-    width:56px;
-
-    height:56px;
+    min-height:380px;
   }
 
-  .categorias{
-
-    grid-template-columns:1fr;
-
-    gap:22px;
-  }
-
-  .categoria{
-
-    min-height:410px;
+  .hero-content{
 
     padding:28px;
   }
 
-  .categoria-lgbtq{
+  .hero h1{
 
-    grid-column:auto;
-
-    min-height:390px;
+    font-size:43px;
   }
 
-  .arco-iris{
+  .categories{
 
-    inset:10px;
-
-    border-radius:20px;
+    grid-template-columns:1fr;
   }
 
-}
+  .category{
 
-
-/* =====================================================
-   CELULAR
-===================================================== */
-
-@media(max-width:500px){
-
-  .catalogo-top{
-
-    min-height:76px;
-
-    margin-bottom:45px;
-
-    padding:7px 10px;
-  }
-
-  .catalogo-logo{
-
-    font-size:21px;
-
-    letter-spacing:4px;
-  }
-
-  .catalogo-top-direita{
-
-    gap:9px;
-  }
-
-  .catalogo-logo-imagem{
-
-    width:50px;
-
-    height:50px;
-  }
-
-  .btn-lux{
-
-    padding:10px 15px;
-
-    font-size:9px;
-  }
-
-  .voltar-inicio-area{
-
-    margin-top:-30px;
-
-    margin-bottom:42px;
-  }
-
-  .btn-voltar-inicio{
-
-    width:100%;
-
-    max-width:330px;
-
-    min-height:46px;
-
-    padding:11px 16px;
-
-    font-size:9px;
-
-    letter-spacing:1.3px;
-  }
-
-  .seta-voltar{
-
-    width:22px;
-
-    height:22px;
-
-    font-size:16px;
-  }
-
-  .catalogo-hero{
-
-    margin-bottom:45px;
-  }
-
-  .catalogo-hero .eyebrow{
-
-    font-size:9px;
-
-    letter-spacing:3px;
-  }
-
-  .catalogo-hero h1{
-
-    font-size:39px;
-  }
-
-  .catalogo-hero p{
-
-    font-size:14px;
-  }
-
-  .categoria{
-
-    min-height:390px;
-
-    padding:24px;
-
-    border-radius:25px;
-  }
-
-  .categoria-lgbtq{
-
-    min-height:390px;
-  }
-
-  .icone-categoria{
-
-    top:20px;
-
-    right:20px;
-
-    width:66px;
-
-    height:66px;
-  }
-
-  .icone-categoria span{
-
-    font-size:35px;
-  }
-
-  .categoria h2{
-
-    font-size:30px;
-  }
-
-  .categoria p{
-
-    font-size:13px;
-  }
-
-  .arco-iris{
-
-    inset:8px;
-
-    border-radius:19px;
-
-    opacity:.48;
-  }
-
-  .categoria-lgbtq:hover .arco-iris{
-
-    opacity:.65;
-  }
-
-}
-
-
-/* =====================================================
-   REDUZIR ANIMAÇÕES
-===================================================== */
-
-@media(prefers-reduced-motion:reduce){
-
-  *,
-  *::before,
-  *::after{
-
-    transition:none !important;
-
-    scroll-behavior:auto !important;
+    min-height:280px;
   }
 
 }
@@ -1744,317 +523,151 @@ body::before{
 
 </head>
 
-
 <body>
 
+<main class="page">
 
-<main class="catalogo-page">
+<header class="topbar">
 
+<a
+  class="logo"
+  href="index.html"
+>
+LUX
+</a>
 
-<!-- =====================================================
-     CABEÇALHO
-===================================================== -->
+<div class="top-actions">
 
-<header class="catalogo-top">
+<a
+  class="btn"
+  href="index.html"
+>
+INÍCIO
+</a>
 
+<a
+  class="btn"
+  href="login.html"
+>
+ENTRAR
+</a>
 
-  <!-- LUX À ESQUERDA -->
-
-  <a
-    class="catalogo-logo"
-    href="index.html"
-  >
-    LUX
-  </a>
-
-
-  <!-- LOGO + ENTRAR À DIREITA -->
-
-  <div class="catalogo-top-direita">
-
-
-    <a
-      class="catalogo-logo-imagem"
-      href="index.html"
-      aria-label="LUX"
-    >
-
-      <img
-        src="logo4.png"
-        alt="LUX"
-      >
-
-    </a>
-
-
-    <a
-      class="btn-lux"
-      href="login.html"
-    >
-      ENTRAR
-    </a>
-
-
-  </div>
-
+</div>
 
 </header>
 
 
-<!-- =====================================================
-     VOLTAR À PÁGINA INICIAL
-===================================================== -->
+<section class="hero">
 
-<div class="voltar-inicio-area">
+<div class="hero-content">
 
-  <a
-    href="index.html"
-    class="btn-voltar-inicio"
-  >
+<div class="eyebrow">
+LUX — CATÁLOGO
+</div>
 
-    <span class="seta-voltar">
-      ←
-    </span>
+<h1>
+Escolha sua experiência.
+</h1>
 
-    <span>
-      VOLTAR À PÁGINA INICIAL
-    </span>
-
-  </a>
+<p>
+Explore as categorias disponíveis na plataforma LUX
+e encontre perfis que combinam com sua experiência,
+seu estilo e sua preferência.
+</p>
 
 </div>
 
-
-<!-- =====================================================
-     HERO
-===================================================== -->
-
-<section class="catalogo-hero">
+</section>
 
 
-  <div class="eyebrow">
-    LUX — CATÁLOGO
-  </div>
+<section class="categories">
 
 
-  <h1>
-    Escolha sua experiência
-  </h1>
+<a
+  class="category feminina"
+  href="modelos-femininos.html"
+>
+
+<div class="category-icon">
+♀
+</div>
+
+<div class="category-content">
+
+<h2>
+Feminina
+</h2>
+
+<p>
+Explore os perfis femininos
+disponíveis na plataforma LUX.
+</p>
+
+</div>
+
+</a>
 
 
-  <p>
-    Explore as categorias disponíveis na plataforma LUX
-    e encontre os perfis de acordo com sua preferência.
-  </p>
+<a
+  class="category masculina"
+  href="modelos-masculinos.html"
+>
+
+<div class="category-icon">
+♂
+</div>
+
+<div class="category-content">
+
+<h2>
+Masculina
+</h2>
+
+<p>
+Conheça os perfis masculinos
+disponíveis na plataforma LUX.
+</p>
+
+</div>
+
+</a>
 
 
-  <div class="hero-linha">
+<a
+  class="category lgbtq"
+  href="modelos-lgbtq.html"
+>
 
-    <span></span>
+<div class="category-icon">
+♡
+</div>
 
-    <i></i>
+<div class="category-content">
 
-    <span></span>
+<h2>
+LGBTQ+
+</h2>
 
-  </div>
+<p>
+Explore perfis LGBTQ+ com liberdade,
+respeito, personalidade e conexão.
+</p>
+
+</div>
+
+</a>
 
 
 </section>
 
 
-<!-- =====================================================
-     CATEGORIAS
-===================================================== -->
+<footer>
 
-<section class="categorias">
-
-
-<!-- =====================================================
-     FEMININA
-===================================================== -->
-
-<article
-  class="categoria categoria-feminina"
->
-
-
-  <div
-    class="icone-categoria icone-feminino"
-  >
-
-    <span>
-      ♀
-    </span>
-
-  </div>
-
-
-  <div class="categoria-conteudo">
-
-
-    <div class="numero">
-      01 — LUX FEMININA
-    </div>
-
-
-    <h2>
-      Modelos Femininas
-    </h2>
-
-
-    <p>
-      Explore os perfis femininos disponíveis
-      na plataforma LUX.
-    </p>
-
-
-    <a
-      class="btn-lux"
-      href="modelos-femininos.html"
-    >
-      VER MODELOS
-    </a>
-
-
-  </div>
-
-
-</article>
-
-
-<!-- =====================================================
-     MASCULINA
-===================================================== -->
-
-<article
-  class="categoria categoria-masculina"
->
-
-
-  <div
-    class="icone-categoria icone-masculino"
-  >
-
-    <span>
-      ♂
-    </span>
-
-  </div>
-
-
-  <div class="categoria-conteudo">
-
-
-    <div class="numero">
-      02 — LUX MASCULINA
-    </div>
-
-
-    <h2>
-      Modelos Masculinos
-    </h2>
-
-
-    <p>
-      Explore os perfis masculinos disponíveis
-      na plataforma LUX.
-    </p>
-
-
-    <a
-      class="btn-lux"
-      href="modelos-masculinos.html"
-    >
-      VER MODELOS
-    </a>
-
-
-  </div>
-
-
-</article>
-
-
-<!-- =====================================================
-     LGBTQ+
-===================================================== -->
-
-<article
-  class="categoria categoria-lgbtq"
->
-
-
-  <!-- ARCO-ÍRIS -->
-
-  <div class="arco-iris"></div>
-
-
-  <!-- ÍCONE LGBTQ -->
-
-  <div
-    class="icone-categoria icone-lgbtq"
-  >
-
-    <div class="icone-lgbtq-inner">
-
-      <span>
-        ♡
-      </span>
-
-    </div>
-
-  </div>
-
-
-  <div class="categoria-conteudo">
-
-
-    <div class="numero">
-      03 — LUX LGBTQ+
-    </div>
-
-
-    <h2>
-      Modelos LGBTQ+
-    </h2>
-
-
-    <p>
-      Explore os perfis LGBTQ+ disponíveis
-      na plataforma LUX.
-    </p>
-
-
-    <a
-      class="btn-lux btn-lgbtq"
-      href="modelos-lgbtq.html"
-    >
-      VER MODELOS
-    </a>
-
-
-  </div>
-
-
-</article>
-
-
-</section>
-
-
-<!-- =====================================================
-     RODAPÉ
-===================================================== -->
-
-<footer class="catalogo-footer">
-
-  LUX — Sensualidade &amp; Sofisticação
+LUX — Sensualidade &amp; Sofisticação
 
 </footer>
 
-
 </main>
-
 
 </body>
 

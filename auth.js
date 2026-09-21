@@ -37,7 +37,12 @@ async function getPerfil(userId) {
     .maybeSingle();
 
   if (error) {
-    console.error("Erro ao buscar perfil:", error);
+
+    console.error(
+      "Erro ao buscar perfil:",
+      error
+    );
+
     throw error;
   }
 
@@ -104,27 +109,37 @@ async function usuarioAtual() {
 
 async function getTipoUsuario(userId) {
 
-  const perfil = await getPerfil(userId);
+  const perfil =
+    await getPerfil(userId);
 
   if (perfil?.tipo === "modelo") {
+
     return "modelo";
   }
 
+
   /*
    * Compatibilidade:
-   * Se existir um registro em modelo_perfis,
-   * a conta também é reconhecida como modelo.
+   *
+   * Caso exista um registro em
+   * modelo_perfis, a conta também
+   * será reconhecida como modelo.
    */
+
   const modeloPerfil =
     await getModeloPerfil(userId);
 
   if (modeloPerfil) {
+
     return "modelo";
   }
 
+
   if (perfil?.tipo) {
+
     return perfil.tipo;
   }
+
 
   return null;
 }
@@ -138,9 +153,12 @@ async function login(email, senha) {
 
   const supabase = requireClient();
 
-  email = String(email || "").trim();
+  email =
+    String(email || "").trim();
+
 
   if (!email || !senha) {
+
     throw new Error(
       "Informe o e-mail e a senha."
     );
@@ -166,17 +184,22 @@ async function login(email, senha) {
       error
     );
 
+
     const msg =
       error.message?.toLowerCase() || "";
 
+
     if (
-      msg.includes("invalid login credentials")
+      msg.includes(
+        "invalid login credentials"
+      )
     ) {
 
       throw new Error(
         "E-mail ou senha incorretos."
       );
     }
+
 
     throw new Error(
       error.message ||
@@ -185,8 +208,11 @@ async function login(email, senha) {
   }
 
 
-  const user = data?.user;
-  const session = data?.session;
+  const user =
+    data?.user;
+
+  const session =
+    data?.session;
 
 
   if (!user) {
@@ -209,10 +235,6 @@ async function login(email, senha) {
     await getPerfil(user.id);
 
 
-  /*
-   * Caso a conta tenha modelo_perfis,
-   * ela também pode ser reconhecida como modelo.
-   */
   const modeloPerfil =
     await getModeloPerfil(user.id);
 
@@ -246,7 +268,9 @@ async function login(email, senha) {
   /*
    * Determina o tipo real da conta.
    */
+
   let tipo = null;
+
 
   if (
     perfil?.tipo === "modelo" ||
@@ -293,34 +317,49 @@ async function cadastrar(
   extras = {}
 ) {
 
-  const supabase = requireClient();
+  const supabase =
+    requireClient();
 
-  tipo = String(tipo || "")
-    .trim()
-    .toLowerCase();
 
-  nome = String(nome || "").trim();
+  tipo =
+    String(tipo || "")
+      .trim()
+      .toLowerCase();
 
-  email = String(email || "").trim();
+
+  nome =
+    String(nome || "")
+      .trim();
+
+
+  email =
+    String(email || "")
+      .trim();
 
 
   if (!nome) {
+
     throw new Error(
       "Informe seu nome."
     );
   }
 
+
   if (!email) {
+
     throw new Error(
       "Informe seu e-mail."
     );
   }
 
+
   if (!senha || senha.length < 6) {
+
     throw new Error(
       "A senha deve possuir pelo menos 6 caracteres."
     );
   }
+
 
   if (
     tipo !== "modelo" &&
@@ -333,6 +372,120 @@ async function cadastrar(
   }
 
 
+  /* =======================================================
+     DADOS EXTRAS
+     ======================================================= */
+
+  const idade =
+    Number(extras.idade) || null;
+
+
+  const alturaCm =
+    Number(extras.altura_cm) || null;
+
+
+  const cidade =
+    String(
+      extras.cidade || ""
+    ).trim();
+
+
+  const pais =
+    String(
+      extras.pais || "Brasil"
+    ).trim();
+
+
+  const corCabelo =
+    String(
+      extras.cor_cabelo || ""
+    ).trim();
+
+
+  const corOlhos =
+    String(
+      extras.cor_olhos || ""
+    ).trim();
+
+
+  const idiomas =
+    String(
+      extras.idiomas || ""
+    ).trim();
+
+
+  const descricao =
+    String(
+      extras.descricao || ""
+    ).trim();
+
+
+  const maioridadeConfirmada =
+    extras.maioridade_confirmada === true;
+
+
+  /* =======================================================
+     METADADOS DO USUÁRIO AUTH
+     
+     Os campos abaixo não existem atualmente em
+     modelo_perfis, então ficam nos metadados da conta.
+     ======================================================= */
+
+  const metadata = {
+
+    nome,
+
+    tipo,
+
+    apelido:
+      String(
+        extras.apelido || ""
+      ).trim(),
+
+    whatsapp:
+      String(
+        extras.whatsapp || ""
+      ).trim(),
+
+    idade,
+
+    altura_cm:
+      alturaCm,
+
+    cidade,
+
+    estado:
+      String(
+        extras.estado || ""
+      ).trim(),
+
+    pais,
+
+    endereco:
+      String(
+        extras.endereco || ""
+      ).trim(),
+
+    cor_cabelo:
+      corCabelo,
+
+    cor_olhos:
+      corOlhos,
+
+    idiomas,
+
+    descricao,
+
+    maioridade_confirmada:
+      maioridadeConfirmada
+
+  };
+
+
+  /* =======================================================
+     CRIA CONTA AUTH
+     ======================================================= */
+
   const {
     data,
     error
@@ -344,13 +497,7 @@ async function cadastrar(
 
     options: {
 
-      data: {
-
-        nome,
-
-        tipo
-
-      }
+      data: metadata
 
     }
 
@@ -364,18 +511,25 @@ async function cadastrar(
       error
     );
 
+
     const msg =
       error.message?.toLowerCase() || "";
 
+
     if (
-      msg.includes("already registered") ||
-      msg.includes("already exists")
+      msg.includes(
+        "already registered"
+      ) ||
+      msg.includes(
+        "already exists"
+      )
     ) {
 
       throw new Error(
         "Este e-mail já está cadastrado."
       );
     }
+
 
     throw new Error(
       error.message ||
@@ -384,7 +538,8 @@ async function cadastrar(
   }
 
 
-  const user = data?.user;
+  const user =
+    data?.user;
 
 
   if (!user) {
@@ -394,6 +549,10 @@ async function cadastrar(
     );
   }
 
+
+  /* =======================================================
+     PERFIL PRINCIPAL
+     ======================================================= */
 
   const perfilBase = {
 
@@ -428,28 +587,100 @@ async function cadastrar(
       perfilError
     );
 
+
+    /*
+     * Se o perfil não puder ser criado,
+     * não escondemos o erro.
+     */
+
     throw new Error(
       "A conta foi criada, mas houve um problema ao criar o perfil. Entre em contato com o administrador."
     );
   }
 
 
+  /* =======================================================
+     CADASTRO ESPECÍFICO DA MODELO
+     ======================================================= */
+
   if (tipo === "modelo") {
+
+
+    if (!idade || idade < 18) {
+
+      throw new Error(
+        "A idade da modelo deve ser informada e ser igual ou superior a 18 anos."
+      );
+    }
+
+
+    if (!maioridadeConfirmada) {
+
+      throw new Error(
+        "É necessário confirmar a maioridade."
+      );
+    }
+
+
+    /*
+     * IMPORTANTE:
+     *
+     * Estes são somente campos que existem
+     * atualmente na tabela modelo_perfis.
+     */
 
     const modeloPerfil = {
 
       id: user.id,
 
-      ...extras
+      nome_exibicao:
+        nome,
+
+      idade:
+
+        idade,
+
+      cidade:
+        cidade || null,
+
+      pais:
+        pais || "Brasil",
+
+      cor_cabelo:
+        corCabelo || null,
+
+      cor_olhos:
+        corOlhos || null,
+
+      altura_cm:
+        alturaCm,
+
+      idiomas:
+        idiomas || null,
+
+      descricao:
+        descricao || null,
+
+      maioridade_confirmada:
+        true,
+
+      verificacao_status:
+        "pendente",
+
+      plano:
+        "ESSENCE"
 
     };
 
 
     const {
+      data: modeloCriado,
       error: modeloError
     } = await supabase
       .from("modelo_perfis")
-      .insert(modeloPerfil);
+      .insert(modeloPerfil)
+      .select()
+      .single();
 
 
     if (modeloError) {
@@ -458,6 +689,7 @@ async function cadastrar(
         "Erro ao criar modelo_perfis:",
         modeloError
       );
+
 
       throw new Error(
         "Sua conta foi criada, mas houve um problema ao criar os dados do modelo. Entre em contato com o administrador."
@@ -473,7 +705,11 @@ async function cadastrar(
 
       user,
 
-      perfil: perfilCriado,
+      perfil:
+        perfilCriado,
+
+      modeloPerfil:
+        modeloCriado,
 
       mensagem:
         "Cadastro realizado. Seu perfil ficará aguardando análise."
@@ -481,6 +717,10 @@ async function cadastrar(
     };
   }
 
+
+  /* =======================================================
+     CADASTRO DE USUÁRIO
+     ======================================================= */
 
   return {
 
@@ -490,7 +730,8 @@ async function cadastrar(
 
     user,
 
-    perfil: perfilCriado,
+    perfil:
+      perfilCriado,
 
     mensagem:
       "Cadastro realizado com sucesso."
@@ -505,10 +746,13 @@ async function cadastrar(
 
 async function logout() {
 
-  const supabase = requireClient();
+  const supabase =
+    requireClient();
+
 
   const { error } =
     await supabase.auth.signOut();
+
 
   if (error) {
 

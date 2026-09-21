@@ -45,6 +45,10 @@
 
 <style>
 
+/* ==================================================
+   VARIÁVEIS
+================================================== */
+
 :root{
 
   --ouro:#c9a227;
@@ -420,11 +424,122 @@ header{
 
   width:100%;
 
-  height:108px;
+  min-height:108px;
 
   position:relative;
 
   z-index:20;
+
+  display:flex;
+
+  align-items:flex-start;
+
+  justify-content:space-between;
+
+}
+
+
+/* ==================================================
+   MARCA LUX ADVANCE NO CABEÇALHO
+================================================== */
+
+.marca-header{
+
+  position:absolute;
+
+  top:18px;
+
+  left:0;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:flex-start;
+
+  text-decoration:none;
+
+  z-index:25;
+
+}
+
+
+.marca-lux{
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size:34px;
+
+  line-height:.9;
+
+  font-style:italic;
+
+  font-weight:700;
+
+  letter-spacing:2px;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #fff8d9 20%,
+      #f4dd86 42%,
+      #d4ae32 68%,
+      #c9a227 82%,
+      #80600e 100%
+    );
+
+  -webkit-background-clip:text;
+
+  background-clip:text;
+
+  color:transparent;
+
+  filter:
+
+    drop-shadow(
+      0 2px 3px
+      rgba(0,0,0,.95)
+    )
+
+    drop-shadow(
+      0 0 9px
+      rgba(255,232,150,.38)
+    );
+
+}
+
+
+.marca-advance{
+
+  margin-top:5px;
+
+  padding-left:3px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size:14px;
+
+  font-weight:700;
+
+  letter-spacing:7px;
+
+  color:#f1d36b;
+
+  text-shadow:
+
+    0 2px 6px
+    rgba(0,0,0,.95),
+
+    0 0 8px
+    rgba(201,162,39,.35);
 
 }
 
@@ -446,6 +561,8 @@ header{
   align-items:center;
 
   justify-content:flex-end;
+
+  z-index:30;
 
 }
 
@@ -542,7 +659,7 @@ header{
 
   z-index:15;
 
-  margin-top:78px;
+  margin-top:28px;
 
   margin-bottom:42px;
 
@@ -792,15 +909,13 @@ header{
 
   text-align:center;
 
-  transform:translateY(250px);
-
-  padding:75px 10px 150px;
+  padding:55px 10px 120px;
 
 }
 
 
 /* ==================================================
-   LUX ADVANCE
+   LUX ADVANCE PRINCIPAL
 ================================================== */
 
 .hero h1{
@@ -1096,7 +1211,7 @@ header{
 
   width:100%;
 
-  margin-top:60px;
+  margin-top:20px;
 
   padding:30px 20px 24px;
 
@@ -1221,7 +1336,34 @@ header{
 
 
   header{
-    height:112px;
+
+    min-height:112px;
+
+  }
+
+
+  .marca-header{
+
+    top:18px;
+
+    left:0;
+
+  }
+
+
+  .marca-lux{
+
+    font-size:28px;
+
+  }
+
+
+  .marca-advance{
+
+    font-size:11px;
+
+    letter-spacing:5px;
+
   }
 
 
@@ -1254,17 +1396,11 @@ header{
 
   .menu-area{
 
-    margin-top:73px;
+    margin-top:20px;
 
     margin-bottom:34px;
 
     padding:13px 7px 15px;
-
-    background:transparent;
-
-    border:none;
-
-    box-shadow:none;
 
   }
 
@@ -1297,9 +1433,7 @@ header{
 
   .hero{
 
-    transform:translateY(250px);
-
-    padding:70px 5px 110px;
+    padding:45px 5px 90px;
 
   }
 
@@ -1353,7 +1487,7 @@ header{
 
   .rodape{
 
-    margin-top:60px;
+    margin-top:20px;
 
     padding:28px 12px 22px;
 
@@ -1392,7 +1526,10 @@ header{
      MORCEGOS
 ================================================== -->
 
-<div class="morcegos" aria-hidden="true">
+<div
+  class="morcegos"
+  aria-hidden="true"
+>
 
   <span class="morcego">🦇</span>
   <span class="morcego">🦇</span>
@@ -1424,6 +1561,28 @@ header{
 
   <header>
 
+
+    <!-- MARCA -->
+
+    <a
+      class="marca-header"
+      href="./index.html"
+      aria-label="LUX Advance"
+    >
+
+      <span class="marca-lux">
+        LUX
+      </span>
+
+      <span class="marca-advance">
+        ADVANCE
+      </span>
+
+    </a>
+
+
+    <!-- ENTRAR -->
+
     <div class="botoes-acesso">
 
       <a
@@ -1439,6 +1598,7 @@ header{
       </a>
 
     </div>
+
 
   </header>
 
@@ -1478,7 +1638,7 @@ header{
 
       <a href="./catalago.html">
 
-        <i class="fa-solid fa-grid-2"></i>
+        <i class="fa-solid fa-table-cells-large"></i>
 
         <span>Catálogo</span>
 

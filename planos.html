@@ -10,11 +10,27 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>LUX Advance — Planos</title>
+  <title>LUX — Planos</title>
 
   <link
     rel="stylesheet"
-    href="./app.css"
+    href="app.css"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
   >
 
   <style>
@@ -23,1142 +39,613 @@
       box-sizing: border-box;
     }
 
-    html,
     body {
       margin: 0;
-      padding: 0;
-      min-height: 100%;
-    }
-
-    body {
-
       min-height: 100vh;
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      color: #fff;
-
-      background:
-        linear-gradient(
-          rgba(5, 2, 8, .28),
-          rgba(5, 2, 8, .82)
-        ),
-        url("./lux-halloween.jpg")
-        center top / cover fixed no-repeat;
-
-      overflow-x: hidden;
-    }
-
-
-    /* =========================
-       PÁGINA
-    ========================= */
-
-    .pagina {
-
-      width: 100%;
-
-      min-height: 100vh;
-
-      padding: 18px;
-    }
-
-
-    /* =========================
-       TOPO
-    ========================= */
-
-    .topo {
-
-      width: 100%;
-
-      max-width: 1200px;
-
-      margin: 0 auto 28px;
-
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-    }
-
-
-    .voltar {
-
-      display: inline-flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding: 11px 18px;
-
-      border:
-        1px solid
-        rgba(248, 213, 138, .70);
-
-      border-radius: 30px;
-
-      background:
-        rgba(8, 4, 10, .72);
-
+      font-family: "Cormorant Garamond", serif;
+      background: #0b0608;
       color: #f8d58a;
-
-      text-decoration: none;
-
-      font-weight: 700;
-
-      transition: .25s;
     }
 
-
-    .voltar:hover {
-
-      background: #f8d58a;
-
-      color: #170b03;
+    .container {
+      width: 100%;
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
     }
-
-
-    .marca {
-
-      color: #f8d58a;
-
-      font-family: Georgia, serif;
-
-      font-size: 19px;
-
-      font-weight: bold;
-
-      letter-spacing: 2px;
-    }
-
 
     /* =========================
        CABEÇALHO
     ========================= */
 
-    .cabecalho {
-
-      max-width: 950px;
-
-      margin: 0 auto 25px;
-
+    .topo {
       text-align: center;
+      margin-bottom: 40px;
     }
 
-
-    .simbolo {
-
-      color: #ff4da6;
-
-      font-size: 29px;
-
-      margin-bottom: 4px;
-
-      text-shadow:
-        0 0 15px
-        rgba(255, 77, 166, .40);
-    }
-
-
-    .cabecalho h1 {
-
-      margin: 0;
-
+    .topo h1 {
+      margin: 0 0 8px;
+      font-family: "Playfair Display", serif;
+      font-size: 40px;
       color: #f8d58a;
-
-      font-family: Georgia, serif;
-
-      font-size:
-        clamp(36px, 7vw, 60px);
-
-      font-style: italic;
-
-      text-shadow:
-        0 0 20px
-        rgba(248, 213, 138, .25);
+      letter-spacing: 2px;
     }
 
-
-    .cabecalho p {
-
-      max-width: 700px;
-
-      margin: 10px auto;
-
-      color: #eee;
-
-      font-size: 15px;
-
-      line-height: 1.6;
-    }
-
-
-    .aviso {
-
-      max-width: 1100px;
-
-      margin: 0 auto 25px;
-
-      padding: 13px 15px;
-
-      text-align: center;
-
-      border:
-        1px solid
-        rgba(248, 213, 138, .25);
-
-      border-radius: 14px;
-
-      background:
-        rgba(8, 4, 10, .60);
-
+    .topo p {
+      margin: 0;
       color: #ddd;
-
-      font-size: 13px;
+      font-size: 19px;
     }
-
 
     /* =========================
-       PLANOS
+       GRID
     ========================= */
 
     .planos {
-
-      width: 100%;
-
-      max-width: 1200px;
-
-      margin: 0 auto;
-
       display: grid;
-
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 18px;
+      align-items: stretch;
     }
 
+    /* =========================
+       CARTÃO BASE
+    ========================= */
 
     .plano {
-
       position: relative;
-
       display: flex;
-
       flex-direction: column;
+      min-height: 620px;
+      padding: 30px 21px 22px;
 
-      min-height: 450px;
-
-      padding: 22px 20px;
-
-      border:
-        1px solid
-        rgba(248, 213, 138, .38);
-
+      border: 1px solid rgba(248, 213, 138, 0.28);
       border-radius: 20px;
 
       background:
         linear-gradient(
           145deg,
-          rgba(10, 5, 12, .78),
-          rgba(24, 7, 19, .68)
+          rgba(25, 13, 18, 0.98),
+          rgba(8, 5, 7, 0.98)
         );
 
-      backdrop-filter: blur(5px);
-
       box-shadow:
-        0 15px 35px
-        rgba(0, 0, 0, .40);
+        0 14px 40px rgba(0, 0, 0, 0.45);
 
-      transition: .25s;
+      overflow: hidden;
+
+      transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
     }
-
 
     .plano:hover {
-
-      transform:
-        translateY(-5px);
-
-      border-color:
-        rgba(248, 213, 138, .80);
+      transform: translateY(-6px);
     }
 
-
-    .destaque {
-
-      border-color:
-        rgba(255, 77, 166, .70);
-    }
-
-
-    .royal {
-
-      border-color:
-        rgba(248, 213, 138, .75);
-    }
-
-
-    .diamond {
-
-      grid-column: 4;
-
-      border:
-        2px solid
-        #f8d58a;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(70, 45, 8, .91),
-          rgba(22, 12, 5, .89)
-        );
-
-      box-shadow:
-        0 0 28px
-        rgba(248, 213, 138, .22),
-
-        0 18px 45px
-        rgba(0, 0, 0, .52);
-    }
-
-
-    .nivel-maximo {
-
+    .plano::before {
+      content: "";
       position: absolute;
-
-      top: 0;
-
-      left: 50%;
-
-      transform:
-        translateX(-50%);
-
-      padding:
-        7px 15px;
-
-      border-radius:
-        0 0 14px 14px;
-
-      background:
-        #f8d58a;
-
-      color:
-        #170b03;
-
-      font-size: 10px;
-
-      font-weight: 900;
-
-      letter-spacing: 1px;
-
-      white-space: nowrap;
+      inset: 0;
+      pointer-events: none;
+      opacity: .7;
     }
 
+    .plano h2 {
+      position: relative;
+      z-index: 2;
 
-    .nome {
+      margin: 7px 0 5px;
+
+      text-align: center;
+
+      font-family: "Playfair Display", serif;
+      font-size: 25px;
 
       color: #f8d58a;
 
-      font-family: Georgia, serif;
-
-      font-size: 24px;
-
-      font-weight: bold;
-
       letter-spacing: 1px;
     }
 
+    .nivel {
+      position: relative;
+      z-index: 2;
 
-    .diamond .nome {
+      min-height: 20px;
 
-      margin-top: 28px;
-
-      color: #ffe8a8;
-    }
-
-
-    .descricao {
-
-      min-height: 48px;
-
-      margin-top: 8px;
-
-      color: #ddd;
+      text-align: center;
 
       font-size: 13px;
-
-      line-height: 1.5;
-    }
-
-
-    .preco {
-
-      margin:
-        15px 0;
-
-      color: #fff;
-
-      font-size: 28px;
-
-      font-weight: 900;
-    }
-
-
-    .preco small {
+      letter-spacing: 2px;
 
       color: #aaa;
 
-      font-size: 12px;
-
-      font-weight: normal;
+      text-transform: uppercase;
     }
 
+    .preco {
+      position: relative;
+      z-index: 2;
 
-    .gratis {
+      margin: 18px 0;
 
-      color: #7dffb2;
+      text-align: center;
+
+      font-family: "Playfair Display", serif;
+      font-size: 30px;
+
+      color: #fff;
     }
 
-
-    .diamond .preco {
-
-      color: #f8d58a;
+    .preco span {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 15px;
+      color: #aaa;
     }
-
 
     .recursos {
+      position: relative;
+      z-index: 2;
 
       flex: 1;
 
       margin: 0;
-
       padding: 0;
 
       list-style: none;
     }
 
-
     .recursos li {
-
       position: relative;
 
-      margin-bottom: 10px;
+      margin: 9px 0;
+      padding-left: 22px;
 
-      padding-left: 20px;
+      color: #ddd;
 
-      color: #eee;
-
-      font-size: 13px;
-
-      line-height: 1.4;
+      line-height: 1.35;
+      font-size: 16px;
     }
 
-
     .recursos li::before {
-
       content: "✦";
 
       position: absolute;
-
       left: 0;
+      top: 0;
 
       color: #f8d58a;
     }
-
 
     .botao {
+      position: relative;
+      z-index: 5;
 
       width: 100%;
 
-      margin-top: 20px;
-
+      margin-top: 22px;
       padding: 13px 15px;
 
-      border:
-        1px solid
-        #f8d58a;
-
-      border-radius: 30px;
-
-      background:
-        rgba(248, 213, 138, .10);
-
-      color: #f8d58a;
-
-      font-size: 14px;
-
-      font-weight: 800;
-
-      cursor: pointer;
-
-      transition: .25s;
-    }
-
-
-    .botao:hover {
-
-      background:
-        #f8d58a;
-
-      color:
-        #170b03;
-    }
-
-
-    .diamond .botao {
-
-      background:
-        #f8d58a;
-
-      color:
-        #170b03;
-    }
-
-
-    /* =========================
-       RODAPÉ
-    ========================= */
-
-    .rodape {
-
-      max-width: 1000px;
-
-      margin: 35px auto 10px;
-
-      padding-top: 18px;
-
-      border-top:
-        1px solid
-        rgba(248, 213, 138, .18);
-
-      text-align: center;
-
-      color: #aaa;
-
-      font-size: 12px;
-
-      line-height: 1.7;
-    }
-
-
-    /* =========================
-       MODAL
-    ========================= */
-
-    .modal {
-
-      position: fixed;
-
-      inset: 0;
-
-      display: none;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding: 15px;
-
-      background:
-        rgba(0, 0, 0, .84);
-
-      z-index: 9999;
-    }
-
-
-    .modal.aberto {
-
-      display: flex;
-    }
-
-
-    .caixa {
-
-      width: 100%;
-
-      max-width: 520px;
-
-      max-height: 92vh;
-
-      overflow-y: auto;
-
-      padding: 25px;
-
-      border:
-        1px solid
-        rgba(248, 213, 138, .65);
-
-      border-radius: 22px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(19, 7, 17, .98),
-          rgba(8, 4, 10, .98)
-        );
-
-      box-shadow:
-        0 25px 70px
-        rgba(0, 0, 0, .78);
-    }
-
-
-    .fechar {
-
-      float: right;
-
-      width: 35px;
-
-      height: 35px;
-
-      border:
-        1px solid
-        rgba(248, 213, 138, .45);
-
-      border-radius: 50%;
+      border: 1px solid #f8d58a;
+      border-radius: 10px;
 
       background: transparent;
 
       color: #f8d58a;
 
-      font-size: 20px;
+      font-family: "Playfair Display", serif;
+      font-size: 15px;
+      font-weight: 600;
 
       cursor: pointer;
+
+      transition:
+        background .25s ease,
+        color .25s ease,
+        box-shadow .25s ease;
     }
 
+    .botao:hover {
+      background: #f8d58a;
+      color: #0b0608;
+      box-shadow: 0 0 18px rgba(248, 213, 138, .25);
+    }
 
-    .titulo {
+    /* =====================================================
+       ESSENCE
+    ===================================================== */
 
-      margin:
-        0 40px 5px 0;
+    .free {
+      border-color: rgba(255, 255, 255, .16);
+    }
 
+    .free h2 {
+      color: #d8d8d8;
+    }
+
+    .free .botao {
+      border-color: #aaa;
+      color: #ccc;
+    }
+
+    .free .botao:hover {
+      background: #ccc;
+      color: #0b0608;
+    }
+
+    /* =====================================================
+       DESFIRE — TEMA FOGO / CHAMAS
+    ===================================================== */
+
+    .desire {
+      border-color: rgba(255, 91, 30, .65);
+
+      background:
+        radial-gradient(
+          circle at 50% 100%,
+          rgba(255, 55, 5, .17),
+          transparent 42%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(42, 12, 7, .98),
+          rgba(12, 6, 7, .98)
+        );
+
+      box-shadow:
+        0 15px 45px rgba(255, 60, 10, .10);
+    }
+
+    .desire::before {
+      background:
+        radial-gradient(
+          ellipse at 50% 110%,
+          rgba(255, 75, 10, .25),
+          transparent 55%
+        );
+    }
+
+    .desire h2 {
+      color: #ff8a3d;
+
+      text-shadow:
+        0 0 12px rgba(255, 80, 10, .45);
+    }
+
+    .desire .nivel {
+      color: #ff6330;
+    }
+
+    .desire .preco {
+      color: #ffb06c;
+    }
+
+    .desire .recursos li::before {
+      color: #ff6330;
+    }
+
+    .desire .botao {
+      border-color: #ff6330;
+      color: #ff8a3d;
+    }
+
+    .desire .botao:hover {
+      background: #ff6330;
+      color: #160806;
+
+      box-shadow:
+        0 0 20px rgba(255, 80, 10, .3);
+    }
+
+    /* =====================================================
+       ELITE — TEMA COROA
+    ===================================================== */
+
+    .elite {
+      border-color: rgba(255, 215, 95, .72);
+
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(248, 213, 138, .13),
+          transparent 40%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(34, 25, 7, .98),
+          rgba(10, 7, 5, .98)
+        );
+
+      box-shadow:
+        0 15px 45px rgba(248, 213, 138, .12);
+    }
+
+    .elite::before {
+      content: "♛";
+
+      position: absolute;
+
+      top: -7px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      font-family: "Times New Roman", serif;
+      font-size: 75px;
+
+      color: rgba(248, 213, 138, .07);
+    }
+
+    .elite h2 {
       color: #f8d58a;
 
-      font-family: Georgia, serif;
-
-      font-size: 25px;
+      text-shadow:
+        0 0 14px rgba(248, 213, 138, .3);
     }
 
-
-    .plano-escolhido {
-
-      margin-bottom: 20px;
-
-      color: #ff4da6;
-
-      font-weight: bold;
+    .elite .nivel {
+      color: #e7bd55;
     }
 
-
-    /* =========================
-       CAMPOS
-    ========================= */
-
-    .campo {
-
-      margin-bottom: 14px;
+    .elite .preco {
+      color: #ffe29b;
     }
 
-
-    .campo label {
-
-      display: block;
-
-      margin-bottom: 6px;
-
-      color: #eee;
-
-      font-size: 13px;
-
-      font-weight: bold;
+    .elite .recursos li::before {
+      color: #e7bd55;
     }
 
+    .elite .botao {
+      border-color: #e7bd55;
+      color: #f8d58a;
+    }
 
-    .campo input {
+    .elite .botao:hover {
+      background: #e7bd55;
+      color: #100c05;
 
-      width: 100%;
+      box-shadow:
+        0 0 22px rgba(248, 213, 138, .28);
+    }
 
-      padding: 12px;
+    /* =====================================================
+       ROYAL — TEMA NOBRE
+    ===================================================== */
 
-      border:
-        1px solid
-        rgba(248, 213, 138, .30);
-
-      border-radius: 10px;
-
-      outline: none;
+    .royal {
+      border-color: rgba(178, 143, 255, .55);
 
       background:
-        rgba(255, 255, 255, .07);
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(139, 76, 255, .15),
+          transparent 43%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(28, 15, 40, .98),
+          rgba(8, 5, 12, .98)
+        );
 
-      color: #fff;
+      box-shadow:
+        0 15px 45px rgba(110, 60, 190, .13);
+    }
+
+    .royal::before {
+      content: "ROYAL";
+
+      position: absolute;
+
+      top: 52%;
+      left: 50%;
+
+      transform:
+        translate(-50%, -50%)
+        rotate(-20deg);
+
+      font-family: "Playfair Display", serif;
+
+      font-size: 58px;
+      font-weight: 700;
+
+      letter-spacing: 5px;
+
+      color: rgba(188, 157, 255, .035);
+
+      white-space: nowrap;
+    }
+
+    .royal h2 {
+      color: #d5bdff;
+
+      text-shadow:
+        0 0 13px rgba(155, 105, 255, .35);
+    }
+
+    .royal .nivel {
+      color: #b998ff;
+    }
+
+    .royal .preco {
+      color: #eadfff;
+    }
+
+    .royal .recursos li::before {
+      color: #b998ff;
+    }
+
+    .royal .botao {
+      border-color: #b998ff;
+      color: #d5bdff;
+    }
+
+    .royal .botao:hover {
+      background: #b998ff;
+      color: #100914;
+
+      box-shadow:
+        0 0 22px rgba(155, 105, 255, .25);
+    }
+
+    /* =====================================================
+       DIAMOND — DESTAQUE DOURADO MÁXIMO
+    ===================================================== */
+
+    .diamond {
+      border: 1px solid #f8d58a;
+
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(255, 231, 160, .18),
+          transparent 42%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(44, 31, 10, .99),
+          rgba(10, 7, 5, .99)
+        );
+
+      box-shadow:
+        0 0 0 1px rgba(248, 213, 138, .08),
+        0 0 35px rgba(248, 213, 138, .18),
+        0 18px 50px rgba(0, 0, 0, .5);
+    }
+
+    .diamond::before {
+      content: "◆";
+
+      position: absolute;
+
+      top: -20px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      font-size: 125px;
+
+      color: rgba(248, 213, 138, .045);
+    }
+
+    .diamond h2 {
+      color: #ffe6a3;
+
+      text-shadow:
+        0 0 18px rgba(248, 213, 138, .4);
+    }
+
+    .diamond .nivel {
+      color: #f8d58a;
+      font-weight: 700;
+    }
+
+    .diamond .preco {
+      color: #ffe8a8;
+
+      text-shadow:
+        0 0 12px rgba(248, 213, 138, .25);
+    }
+
+    .diamond .recursos li::before {
+      color: #f8d58a;
+    }
+
+    .diamond .botao {
+      background: #f8d58a;
+      color: #0b0608;
+
+      border-color: #f8d58a;
+
+      font-weight: 700;
+
+      box-shadow:
+        0 0 15px rgba(248, 213, 138, .15);
+    }
+
+    .diamond .botao:hover {
+      background: transparent;
+      color: #f8d58a;
+
+      box-shadow:
+        0 0 25px rgba(248, 213, 138, .3);
+    }
+
+    /* =====================================================
+       SELO NOVO
+    ===================================================== */
+
+    .destaque {
+      position: absolute;
+      z-index: 10;
+
+      top: 12px;
+      right: 12px;
+
+      padding: 5px 9px;
+
+      border-radius: 20px;
+
+      background: #f8d58a;
+      color: #0b0608;
+
+      font-family: "Playfair Display", serif;
+
+      font-size: 10px;
+      font-weight: 700;
+
+      letter-spacing: 1px;
+
+      box-shadow:
+        0 0 12px rgba(248, 213, 138, .25);
+    }
+
+    /* =====================================================
+       RODAPÉ
+    ===================================================== */
+
+    .rodape {
+      margin-top: 38px;
+
+      text-align: center;
+
+      color: #888;
 
       font-size: 14px;
     }
 
-
-    .campo input:focus {
-
-      border-color:
-        #f8d58a;
-
-      box-shadow:
-        0 0 12px
-        rgba(248, 213, 138, .10);
-    }
-
-
-    /* =========================
-       RESUMO
-    ========================= */
-
-    .resumo {
-
-      margin:
-        18px 0;
-
-      padding: 15px;
-
-      border:
-        1px solid
-        rgba(248, 213, 138, .25);
-
-      border-radius: 12px;
-
-      background:
-        rgba(248, 213, 138, .06);
-
-      color: #ddd;
-
-      line-height: 1.8;
-    }
-
-
-    .resumo strong {
-
-      color:
-        #f8d58a;
-    }
-
-
-    /* =========================
-       PROCESSAMENTO
-    ========================= */
-
-    .processando {
-
-      display: none;
-
-      text-align: center;
-
-      padding:
-        25px 10px;
-    }
-
-
-    .processando.visivel {
-
-      display: block;
-    }
-
-
-    .icone-processando {
-
-      width: 70px;
-
-      height: 70px;
-
-      margin: 0 auto 20px;
-
-      border:
-        2px solid
-        rgba(248, 213, 138, .20);
-
-      border-top-color:
-        #f8d58a;
-
-      border-right-color:
-        #ff4da6;
-
-      border-radius: 50%;
-
-      animation:
-        girar 1s linear infinite;
-    }
-
-
-    @keyframes girar {
-
-      to {
-        transform:
-          rotate(360deg);
-      }
-
-    }
-
-
-    .processando h3 {
-
-      margin: 0 0 8px;
-
-      color:
-        #f8d58a;
-
-      font-family:
-        Georgia,
-        serif;
-
-      font-size: 23px;
-    }
-
-
-    .processando p {
-
-      margin: 0;
-
-      color: #bbb;
-
-      font-size: 13px;
-
-      line-height: 1.6;
-    }
-
-
-    .pontos {
-
-      margin-top: 18px;
-
-      color:
-        #ff4da6;
-
-      letter-spacing:
-        7px;
-
-      animation:
-        pulsar 1.2s infinite;
-    }
-
-
-    @keyframes pulsar {
-
-      0%,
-      100% {
-        opacity: .35;
-      }
-
-      50% {
-        opacity: 1;
-      }
-
-    }
-
-
-    /* =========================
-       PAGAMENTO PIX
-    ========================= */
-
-    .pix {
-
-      display: none;
-
-      text-align: center;
-
-      padding-top: 5px;
-    }
-
-
-    .pix.visivel {
-
-      display: block;
-    }
-
-
-    .pix-icone {
-
-      font-size: 35px;
-
-      color:
-        #7dffb2;
-
-      margin-bottom: 5px;
-    }
-
-
-    .pix h3 {
-
-      margin: 0;
-
-      color:
-        #f8d58a;
-
-      font-family:
-        Georgia,
-        serif;
-
-      font-size: 25px;
-    }
-
-
-    .pix-subtitulo {
-
-      margin:
-        7px 0 18px;
-
-      color:
-        #aaa;
-
-      font-size: 13px;
-    }
-
-
-    .valor-pix {
-
-      margin:
-        0 auto 18px;
-
-      padding: 15px;
-
-      border:
-        1px solid
-        rgba(248, 213, 138, .30);
-
-      border-radius: 14px;
-
-      background:
-        rgba(248, 213, 138, .06);
-    }
-
-
-    .valor-pix span {
-
-      display: block;
-
-      color: #aaa;
-
-      font-size: 12px;
-
-      margin-bottom: 4px;
-    }
-
-
-    .valor-pix strong {
-
-      color:
-        #f8d58a;
-
-      font-size: 30px;
-    }
-
-
-    .chave-titulo {
-
-      color: #aaa;
-
-      font-size: 12px;
-
-      margin-bottom: 7px;
-    }
-
-
-    .chave {
-
-      padding: 15px;
-
-      border:
-        1px solid
-        rgba(248, 213, 138, .45);
-
-      border-radius: 12px;
-
-      background:
-        rgba(255, 255, 255, .06);
-
-      color:
-        #fff;
-
-      font-weight: bold;
-
-      word-break: break-all;
-
-      font-size: 15px;
-    }
-
-
-    .botoes {
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 10px;
-
-      margin-top: 18px;
-    }
-
-
-    .botao-copiar,
-    .botao-whatsapp {
-
-      width: 100%;
-
-      padding: 14px;
-
-      border-radius: 30px;
-
-      cursor: pointer;
-
-      font-weight: 800;
-
-      font-size: 14px;
-    }
-
-
-    .botao-copiar {
-
-      border:
-        1px solid
-        rgba(248, 213, 138, .55);
-
-      background:
-        transparent;
-
-      color:
-        #f8d58a;
-    }
-
-
-    .botao-copiar:hover {
-
-      background:
-        rgba(248, 213, 138, .10);
-    }
-
-
-    .botao-whatsapp {
-
-      border: 0;
-
-      background:
-        #25d366;
-
-      color:
-        #061108;
-
-      box-shadow:
-        0 7px 20px
-        rgba(37, 211, 102, .16);
-    }
-
-
-    .botao-whatsapp:hover {
-
-      filter:
-        brightness(1.08);
-    }
-
-
-    .mensagem {
-
-      display: none;
-
-      margin-top: 14px;
-
-      padding: 12px;
-
-      border-radius: 10px;
-
-      font-size: 13px;
-
-      line-height: 1.5;
-    }
-
-
-    .mensagem.erro {
-
-      display: block;
-
-      background:
-        rgba(255, 50, 70, .10);
-
-      color:
-        #ff9ba8;
-    }
-
-
-    .mensagem.sucesso {
-
-      display: block;
-
-      background:
-        rgba(80, 255, 160, .08);
-
-      color:
-        #8affbd;
-    }
-
-
-    /* =========================
+    /* =====================================================
        RESPONSIVO
-    ========================= */
+    ===================================================== */
 
-    @media (max-width: 1050px) {
+    @media (max-width: 1100px) {
 
       .planos {
-
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-      }
-
-
-      .diamond {
-
-        grid-column: 2;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
     }
 
+    @media (max-width: 650px) {
 
-    @media (max-width: 680px) {
-
-      .pagina {
-
-        padding: 15px;
+      .container {
+        padding: 25px 14px 45px;
       }
 
-
-      .marca {
-
-        font-size: 14px;
+      .topo h1 {
+        font-size: 31px;
       }
 
+      .topo p {
+        font-size: 17px;
+      }
 
       .planos {
-
         grid-template-columns: 1fr;
       }
 
-
-      .diamond {
-
-        grid-column: 1;
-      }
-
-
       .plano {
-
         min-height: auto;
-      }
-
-
-      .cabecalho h1 {
-
-        font-size: 42px;
       }
 
     }
@@ -1170,1671 +657,499 @@
 
 <body>
 
+  <main class="container">
 
-<main class="pagina">
 
+    <section class="topo">
 
-  <!-- =====================
-       TOPO
-  ====================== -->
-
-  <header class="topo">
-
-    <a
-      href="./index.html"
-      class="voltar"
-    >
-      ← Voltar
-    </a>
-
-
-    <div class="marca">
-      LUX ADVANCE
-    </div>
-
-  </header>
-
-
-  <!-- =====================
-       CABEÇALHO
-  ====================== -->
-
-  <section class="cabecalho">
-
-    <div class="simbolo">
-      ✦
-    </div>
-
-
-    <h1>
-      Planos LUX
-    </h1>
-
-
-    <p>
-      Mais que um site, uma experiência.
-      Escolha seu nível de presença e exclusividade.
-    </p>
-
-  </section>
-
-
-  <div class="aviso">
-
-    Planos pagos via PIX.
-    Seus dados são solicitados antes da geração do pagamento.
-
-  </div>
-
-
-  <!-- =====================
-       PLANOS
-  ====================== -->
-
-  <section class="planos">
-
-
-    <!-- ESSENCE -->
-
-    <article class="plano">
-
-      <div class="nome">
-        LUX-ESSENCE
-      </div>
-
-
-      <div class="descricao">
-        Sua presença começa aqui.
-      </div>
-
-
-      <div class="preco gratis">
-
-        GRATUITO
-
-        <small>
-          sem cobrança
-        </small>
-
-      </div>
-
-
-      <ul class="recursos">
-
-        <li>
-          Perfil básico na LUX
-        </li>
-
-        <li>
-          Até 2 fotos
-        </li>
-
-        <li>
-          Até 1 vídeo
-        </li>
-
-        <li>
-          Cadastro inicial
-        </li>
-
-      </ul>
-
-
-      <button
-        class="botao"
-        type="button"
-        onclick="selecionarPlano(
-          'LUX-ESSENCE',
-          0,
-          true
-        )"
-      >
-        Ativar gratuitamente
-      </button>
-
-    </article>
-
-
-    <!-- DESIRE -->
-
-    <article class="plano destaque">
-
-      <div class="nome">
-        LUX-DESIRE
-      </div>
-
-
-      <div class="descricao">
-        Mais visibilidade. Desperte interesse.
-      </div>
-
-
-      <div class="preco">
-
-        R$ 29,90
-
-        <small>
-          /mês
-        </small>
-
-      </div>
-
-
-      <ul class="recursos">
-
-        <li>
-          Maior visibilidade
-        </li>
-
-        <li>
-          Selo de perfil verificado
-        </li>
-
-        <li>
-          Até 5 fotos
-        </li>
-
-        <li>
-          Até 3 vídeos
-        </li>
-
-        <li>
-          Perfil com maior destaque
-        </li>
-
-      </ul>
-
-
-      <button
-        class="botao"
-        type="button"
-        onclick="selecionarPlano(
-          'LUX-DESIRE',
-          29.90,
-          false
-        )"
-      >
-        Escolher plano
-      </button>
-
-    </article>
-
-
-    <!-- ELITE -->
-
-    <article class="plano">
-
-      <div class="nome">
-        LUX-ELITE
-      </div>
-
-
-      <div class="descricao">
-        Destaque sua presença.
-      </div>
-
-
-      <div class="preco">
-
-        R$ 59,90
-
-        <small>
-          /mês
-        </small>
-
-      </div>
-
-
-      <ul class="recursos">
-
-        <li>
-          Tudo do LUX-DESIRE
-        </li>
-
-        <li>
-          Maior destaque no perfil
-        </li>
-
-        <li>
-          Suporte avançado
-        </li>
-
-        <li>
-          WhatsApp secretário
-        </li>
-
-        <li>
-          Selo ELITE
-        </li>
-
-      </ul>
-
-
-      <button
-        class="botao"
-        type="button"
-        onclick="selecionarPlano(
-          'LUX-ELITE',
-          59.90,
-          false
-        )"
-      >
-        Escolher plano
-      </button>
-
-    </article>
-
-
-    <!-- ROYAL -->
-
-    <article class="plano royal">
-
-      <div class="nome">
-        LUX-ROYAL
-      </div>
-
-
-      <div class="descricao">
-        Nossa exclusividade é a sua presença.
-      </div>
-
-
-      <div class="preco">
-
-        R$ 99,90
-
-        <small>
-          /mês
-        </small>
-
-      </div>
-
-
-      <ul class="recursos">
-
-        <li>
-          Tudo do LUX-ELITE
-        </li>
-
-        <li>
-          Perfil em posição de destaque
-        </li>
-
-        <li>
-          Recursos de segurança
-        </li>
-
-        <li>
-          Exclusividade
-        </li>
-
-        <li>
-          Acompanhamento avançado
-        </li>
-
-      </ul>
-
-
-      <button
-        class="botao"
-        type="button"
-        onclick="selecionarPlano(
-          'LUX-ROYAL',
-          99.90,
-          false
-        )"
-      >
-        Escolher plano
-      </button>
-
-    </article>
-
-
-    <!-- DIAMOND -->
-
-    <article class="plano diamond">
-
-      <div class="nivel-maximo">
-        NÍVEL MÁXIMO
-      </div>
-
-
-      <div class="nome">
-        LUX-DIAMOND
-      </div>
-
-
-      <div class="descricao">
-        O nível máximo de exclusividade,
-        segurança e acompanhamento da LUX.
-      </div>
-
-
-      <div class="preco">
-
-        R$ 149,90
-
-        <small>
-          /mês
-        </small>
-
-      </div>
-
-
-      <ul class="recursos">
-
-        <li>
-          Tudo do LUX-ROYAL
-        </li>
-
-        <li>
-          Acompanhamento presencial relacionado aos atendimentos
-        </li>
-
-        <li>
-          Máxima segurança
-        </li>
-
-        <li>
-          Logística de deslocamento
-        </li>
-
-        <li>
-          Suporte e acompanhamento avançado
-        </li>
-
-        <li>
-          Atendimento exclusivo
-        </li>
-
-        <li>
-          Acompanhamento personalizado
-        </li>
-
-      </ul>
-
-
-      <button
-        class="botao"
-        type="button"
-        onclick="selecionarPlano(
-          'LUX-DIAMOND',
-          149.90,
-          false
-        )"
-      >
-        Escolher DIAMOND
-      </button>
-
-    </article>
-
-
-  </section>
-
-
-  <!-- =====================
-       RODAPÉ
-  ====================== -->
-
-  <footer class="rodape">
-
-    <div>
-      Agência Europeia para maiores de 18 anos
-    </div>
-
-    <div>
-      © 2026 LUX Advance — Todos os direitos reservados.
-    </div>
-
-  </footer>
-
-
-</main>
-
-
-
-<!-- =====================================================
-     MODAL
-===================================================== -->
-
-<div
-  id="modal"
-  class="modal"
->
-
-
-  <div class="caixa">
-
-
-    <button
-      class="fechar"
-      type="button"
-      onclick="fecharModal()"
-    >
-      ×
-    </button>
-
-
-    <!-- FORMULÁRIO -->
-
-    <div id="formulario">
-
-
-      <h2
-        id="tituloModal"
-        class="titulo"
-      >
-        Finalize seu pedido
-      </h2>
-
-
-      <div
-        id="planoEscolhido"
-        class="plano-escolhido"
-      ></div>
-
-
-      <div class="campo">
-
-        <label for="nomeCliente">
-          Nome completo
-        </label>
-
-        <input
-          id="nomeCliente"
-          type="text"
-          autocomplete="name"
-          placeholder="Nome completo"
-        >
-
-      </div>
-
-
-      <div class="campo">
-
-        <label for="emailCliente">
-          E-mail
-        </label>
-
-        <input
-          id="emailCliente"
-          type="email"
-          autocomplete="email"
-          placeholder="seuemail@gmail.com"
-        >
-
-      </div>
-
-
-      <div class="campo">
-
-        <label for="cpfCliente">
-          CPF
-        </label>
-
-        <input
-          id="cpfCliente"
-          type="text"
-          inputmode="numeric"
-          maxlength="14"
-          placeholder="000.000.000-00"
-        >
-
-      </div>
-
-
-      <div class="campo">
-
-        <label for="enderecoCliente">
-          Endereço
-        </label>
-
-        <input
-          id="enderecoCliente"
-          type="text"
-          autocomplete="street-address"
-          placeholder="Rua, número, bairro, cidade"
-        >
-
-      </div>
-
-
-      <div class="resumo">
-
-        Plano:
-        <strong id="resumoPlano">
-          -
-        </strong>
-
-        <br>
-
-        Valor:
-        <strong id="resumoValor">
-          -
-        </strong>
-
-      </div>
-
-
-      <button
-        class="botao"
-        type="button"
-        onclick="gerarPix()"
-      >
-        ✦ GERAR PIX
-      </button>
-
-
-      <div
-        id="mensagem"
-        class="mensagem"
-      ></div>
-
-
-    </div>
-
-
-
-    <!-- =================================================
-         PROCESSAMENTO
-    ================================================== -->
-
-    <div
-      id="processando"
-      class="processando"
-    >
-
-
-      <div
-        class="icone-processando"
-      ></div>
-
-
-      <h3>
-        Preparando seu pagamento
-      </h3>
-
+      <h1>
+        LUX — PLANOS
+      </h1>
 
       <p>
-        Estamos preparando os dados
-        da sua solicitação.
+        Escolha o nível de experiência que combina com sua presença na LUX.
       </p>
 
-
-      <div class="pontos">
-        • • •
-      </div>
+    </section>
 
 
-    </div>
+    <section class="planos">
 
 
+      <!-- =================================================
+           LUX ESSENCE
+      ================================================== -->
 
-    <!-- =================================================
-         PIX
-    ================================================== -->
+      <article class="plano free">
 
-    <div
-      id="pix"
-      class="pix"
-    >
+        <div class="nivel">
+          NÍVEL INICIAL
+        </div>
 
+        <h2>
+          LUX-ESSENCE
+        </h2>
 
-      <div class="pix-icone">
-        ✓
-      </div>
+        <div class="preco">
+          GRÁTIS
+        </div>
 
+        <ul class="recursos">
 
-      <h3>
-        PIX gerado
-      </h3>
+          <li>
+            Sua presença começa aqui.
+          </li>
 
+          <li>
+            Cadastro básico para modelos.
+          </li>
 
-      <div class="pix-subtitulo">
+          <li>
+            Até 2 fotos.
+          </li>
 
-        Utilize a chave abaixo
-        para realizar o pagamento.
+          <li>
+            1 vídeo.
+          </li>
 
-      </div>
+          <li>
+            Perfil dentro da plataforma LUX.
+          </li>
 
-
-      <div class="valor-pix">
-
-        <span>
-          Valor do plano
-        </span>
-
-        <strong
-          id="valorPix"
-        >
-          R$ 0,00
-        </strong>
-
-      </div>
-
-
-      <div class="chave-titulo">
-
-        CHAVE PIX
-
-      </div>
-
-
-      <div
-        id="chavePix"
-        class="chave"
-      >
-        ajudaasofia@gmail.com
-      </div>
-
-
-      <div class="botoes">
-
+        </ul>
 
         <button
+          class="botao"
           type="button"
-          class="botao-copiar"
-          onclick="copiarPix()"
+          onclick="selecionarPlano('LUX-ESSENCE', 0, true)"
         >
-          ⧉ COPIAR CHAVE PIX
+          ATIVAR GRATUITAMENTE
         </button>
 
+      </article>
+
+
+      <!-- =================================================
+           LUX DESFIRE
+      ================================================== -->
+
+      <article class="plano desire">
+
+        <div class="nivel">
+          NÍVEL PREMIUM
+        </div>
+
+        <h2>
+          LUX-DESFIRE
+        </h2>
+
+        <div class="preco">
+          R$ 29,90
+          <span>/mês</span>
+        </div>
+
+        <ul class="recursos">
+
+          <li>
+            Tudo do LUX-ESSENCE.
+          </li>
+
+          <li>
+            Perfil verificado.
+          </li>
+
+          <li>
+            Até 5 fotos.
+          </li>
+
+          <li>
+            Até 3 vídeos.
+          </li>
+
+          <li>
+            Mais recursos de apresentação.
+          </li>
+
+        </ul>
 
         <button
+          class="botao"
           type="button"
-          class="botao-whatsapp"
-          onclick="confirmarPagamentoWhatsApp()"
+          onclick="selecionarPlano('LUX-DESFIRE', 29.90, false)"
         >
-          ✓ JÁ PAGUEI — CONFIRMAR NO WHATSAPP
+          ESCOLHER DESFIRE
         </button>
 
+      </article>
+
+
+      <!-- =================================================
+           LUX ELITE
+      ================================================== -->
+
+      <article class="plano elite">
+
+        <div class="nivel">
+          NÍVEL AVANÇADO
+        </div>
+
+        <h2>
+          LUX-ELITE
+        </h2>
+
+        <div class="preco">
+          R$ 59,90
+          <span>/mês</span>
+        </div>
+
+        <ul class="recursos">
+
+          <li>
+            Tudo do LUX-DESFIRE.
+          </li>
+
+          <li>
+            WhatsApp secretário.
+          </li>
+
+          <li>
+            Suporte avançado.
+          </li>
+
+          <li>
+            Selo ELITE.
+          </li>
+
+          <li>
+            Recursos exclusivos.
+          </li>
+
+        </ul>
 
         <button
+          class="botao"
           type="button"
-          class="botao-copiar"
-          onclick="fecharModal()"
+          onclick="selecionarPlano('LUX-ELITE', 59.90, false)"
         >
-          Fechar
+          ESCOLHER ELITE
         </button>
 
+      </article>
 
-      </div>
 
+      <!-- =================================================
+           LUX ROYAL
+      ================================================== -->
 
-    </div>
+      <article class="plano royal">
 
+        <div class="nivel">
+          NÍVEL EXCLUSIVO
+        </div>
 
-  </div>
+        <h2>
+          LUX-ROYAL
+        </h2>
 
-</div>
+        <div class="preco">
+          R$ 99,90
+          <span>/mês</span>
+        </div>
 
+        <ul class="recursos">
 
+          <li>
+            Tudo do LUX-ELITE.
+          </li>
 
-<!-- =====================================================
-     SUPABASE
-===================================================== -->
+          <li>
+            Mais segurança.
+          </li>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+          <li>
+            Exclusividade.
+          </li>
 
-<script src="./config.js"></script>
+          <li>
+            Destaque especial.
+          </li>
 
-<script src="./auth.js"></script>
+          <li>
+            Recursos avançados da plataforma.
+          </li>
 
+        </ul>
 
+        <button
+          class="botao"
+          type="button"
+          onclick="selecionarPlano('LUX-ROYAL', 99.90, false)"
+        >
+          ESCOLHER ROYAL
+        </button>
 
-<script>
+      </article>
 
-  /* =====================================================
-     CONFIGURAÇÃO
-  ===================================================== */
 
-  const WHATSAPP_LUX =
-    "5551980612941";
+      <!-- =================================================
+           LUX DIAMOND
+      ================================================== -->
 
+      <article class="plano diamond">
 
-  const PIX_CHAVE_PLANOS =
-    "ajudaasofia@gmail.com";
+        <div class="destaque">
+          NOVO
+        </div>
 
+        <div class="nivel">
+          NÍVEL MÁXIMO
+        </div>
 
-  let planoAtual = {
+        <h2>
+          LUX-DIAMOND
+        </h2>
 
-    nome: "",
+        <div class="preco">
+          R$ 149,90
+          <span>/mês</span>
+        </div>
 
-    valor: 0,
+        <ul class="recursos">
 
-    gratuito: false
+          <li>
+            Tudo do LUX-ROYAL.
+          </li>
 
-  };
+          <li>
+            Acompanhamento presencial relacionado aos atendimentos.
+          </li>
 
+          <li>
+            Máxima segurança.
+          </li>
 
-  let dadosCliente = null;
+          <li>
+            Logística de deslocamento.
+          </li>
 
+          <li>
+            Suporte e acompanhamento avançado.
+          </li>
 
+          <li>
+            Atendimento exclusivo.
+          </li>
 
-  /* =====================================================
-     FORMATAÇÃO
-  ===================================================== */
+          <li>
+            Acompanhamento personalizado.
+          </li>
 
-  function formatarDinheiro(valor) {
+        </ul>
 
-    return Number(valor).toLocaleString(
-      "pt-BR",
-      {
-        style: "currency",
-        currency: "BRL"
-      }
-    );
+        <button
+          class="botao"
+          type="button"
+          onclick="selecionarPlano('LUX-DIAMOND', 149.90, false)"
+        >
+          ESCOLHER DIAMOND
+        </button>
 
-  }
+      </article>
 
 
+    </section>
 
-  /* =====================================================
-     MODAL
-  ===================================================== */
 
-  function abrirModal() {
+    <footer class="rodape">
 
-    document
-      .getElementById("modal")
-      .classList.add("aberto");
+      <p>
+        LUX — ADVANCE
+      </p>
 
-  }
+    </footer>
 
+  </main>
 
-  function fecharModal() {
 
-    document
-      .getElementById("modal")
-      .classList.remove("aberto");
+  <!-- =====================================================
+       CONFIGURAÇÃO SUPABASE
+  ====================================================== -->
 
-  }
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
 
+  <script src="config.js"></script>
 
 
-  /* =====================================================
-     MENSAGENS
-  ===================================================== */
+  <!-- =====================================================
+       FUNÇÕES DOS PLANOS
+  ====================================================== -->
 
-  function mostrarMensagem(
-    texto,
-    tipo = "erro"
-  ) {
+  <script>
 
-    const campo =
-      document.getElementById(
-        "mensagem"
-      );
-
-
-    campo.textContent =
-      texto;
-
-
-    campo.className =
-      "mensagem " + tipo;
-
-  }
-
-
-  function limparMensagem() {
-
-    const campo =
-      document.getElementById(
-        "mensagem"
-      );
-
-
-    campo.textContent =
-      "";
-
-
-    campo.className =
-      "mensagem";
-
-  }
-
-
-
-  /* =====================================================
-     SELEÇÃO DO PLANO
-  ===================================================== */
-
-  function selecionarPlano(
-    nome,
-    valor,
-    gratuito
-  ) {
-
-
-    planoAtual = {
-
-      nome,
+    function selecionarPlano(
+      nomePlano,
       valor,
       gratuito
+    ) {
 
-    };
+      if (gratuito) {
+
+        const confirmar = confirm(
+          "Deseja ativar gratuitamente o plano " +
+          nomePlano +
+          "?"
+        );
+
+        if (!confirmar) {
+          return;
+        }
+
+        ativarPlanoGratuito(nomePlano);
+
+        return;
+      }
 
 
-    limparMensagem();
+      const valorFormatado =
+        valor.toLocaleString(
+          "pt-BR",
+          {
+            style: "currency",
+            currency: "BRL"
+          }
+        );
 
 
-    /*
-      ESSENCE É GRATUITO.
-      NÃO GERA PIX.
-    */
+      const confirmar = confirm(
+        "Você selecionou o plano " +
+        nomePlano +
+        " no valor de " +
+        valorFormatado +
+        " por mês.\n\n" +
+        "Deseja continuar?"
+      );
 
-    if (gratuito) {
 
-      mostrarEssence();
+      if (!confirmar) {
+        return;
+      }
 
-      return;
+
+      localStorage.setItem(
+        "luxPlanoSelecionado",
+        JSON.stringify({
+          nome: nomePlano,
+          valor: valor,
+          mensal: true
+        })
+      );
+
+
+      window.location.href =
+        "pagamento.html?plano=" +
+        encodeURIComponent(nomePlano) +
+        "&valor=" +
+        encodeURIComponent(valor);
 
     }
 
 
-    document
-      .getElementById(
-        "formulario"
-      )
-      .style.display =
-      "block";
+    async function ativarPlanoGratuito(
+      nomePlano
+    ) {
 
+      try {
 
-    document
-      .getElementById(
-        "processando"
-      )
-      .classList
-      .remove("visivel");
+        if (
+          typeof window.luxSupabase === "undefined" ||
+          !window.luxSupabase
+        ) {
 
-
-    document
-      .getElementById(
-        "pix"
-      )
-      .classList
-      .remove("visivel");
-
-
-    document
-      .getElementById(
-        "tituloModal"
-      )
-      .textContent =
-      "Finalize seu pedido";
-
-
-    document
-      .getElementById(
-        "planoEscolhido"
-      )
-      .textContent =
-      nome;
-
-
-    document
-      .getElementById(
-        "resumoPlano"
-      )
-      .textContent =
-      nome;
-
-
-    document
-      .getElementById(
-        "resumoValor"
-      )
-      .textContent =
-      formatarDinheiro(
-        valor
-      );
-
-
-    abrirModal();
-
-  }
-
-
-
-  /* =====================================================
-     ESSENCE
-  ===================================================== */
-
-  function mostrarEssence() {
-
-    abrirModal();
-
-
-    document
-      .getElementById(
-        "formulario"
-      )
-      .style.display =
-      "none";
-
-
-    document
-      .getElementById(
-        "processando"
-      )
-      .classList
-      .remove("visivel");
-
-
-    document
-      .getElementById(
-        "pix"
-      )
-      .classList
-      .remove("visivel");
-
-
-    document
-      .getElementById(
-        "tituloModal"
-      )
-      .textContent =
-      "LUX-ESSENCE";
-
-
-    document
-      .getElementById(
-        "planoEscolhido"
-      )
-      .textContent =
-      "Plano gratuito";
-
-
-    /*
-      Pequeno bloco de confirmação.
-    */
-
-    const formulario =
-      document.getElementById(
-        "formulario"
-      );
-
-
-    formulario.style.display =
-      "block";
-
-
-    formulario.innerHTML = `
-
-      <h2
-        class="titulo"
-      >
-        LUX-ESSENCE
-      </h2>
-
-      <div
-        class="plano-escolhido"
-      >
-        Sua presença começa aqui.
-      </div>
-
-      <div
-        class="resumo"
-      >
-
-        <strong>
-          Plano gratuito
-        </strong>
-
-        <br><br>
-
-        Nenhum pagamento é necessário
-        para ativar o LUX-ESSENCE.
-
-      </div>
-
-      <button
-        class="botao"
-        type="button"
-        onclick="ativarEssence()"
-      >
-        ✦ ATIVAR GRATUITAMENTE
-      </button>
-
-      <div
-        id="mensagemEssence"
-        class="mensagem"
-      ></div>
-
-    `;
-
-  }
-
-
-
-  async function ativarEssence() {
-
-    try {
-
-      if (
-        typeof window.usuarioAtual ===
-        "function"
-      ) {
-
-        const usuario =
-          await window.usuarioAtual();
-
-
-        if (!usuario) {
-
-          window.location.href =
-            "./login.html?redirect=planos.html";
+          alert(
+            "Sistema de autenticação não disponível. " +
+            "Faça login novamente."
+          );
 
           return;
-
         }
 
-      }
+
+        const {
+          data: {
+            user
+          },
+          error: authError
+        } =
+          await window.luxSupabase.auth.getUser();
 
 
-      if (
-        window.luxSupabase &&
-        typeof window.luxSupabase.rpc ===
-        "function"
-      ) {
+        if (authError || !user) {
 
-        const resultado =
+          alert(
+            "Você precisa estar logado para ativar este plano."
+          );
+
+          window.location.href =
+            "login.html";
+
+          return;
+        }
+
+
+        const {
+          error
+        } =
           await window.luxSupabase.rpc(
             "ativar_plano_gratuito",
             {
-              p_plano:
-                "LUX-ESSENCE"
+              p_plano: "ESSENCE"
             }
           );
 
 
-        if (resultado.error) {
+        if (error) {
 
           console.error(
-            resultado.error
+            "Erro ao ativar plano:",
+            error
           );
 
-          const campo =
-            document.getElementById(
-              "mensagemEssence"
-            );
-
-
-          if (campo) {
-
-            campo.textContent =
-              "Não foi possível ativar o plano gratuito. Verifique a configuração do Supabase.";
-
-            campo.className =
-              "mensagem erro";
-
-          }
+          alert(
+            "Não foi possível ativar o plano gratuito.\n\n" +
+            error.message
+          );
 
           return;
-
         }
 
-      }
 
-
-      const campo =
-        document.getElementById(
-          "mensagemEssence"
+        alert(
+          "Plano LUX-ESSENCE ativado com sucesso."
         );
 
 
-      if (campo) {
-
-        campo.textContent =
-          "LUX-ESSENCE ativado gratuitamente.";
-
-        campo.className =
-          "mensagem sucesso";
-
-      }
-
-    }
-
-    catch (erro) {
-
-      console.error(
-        erro
-      );
+        window.location.href =
+          "painel-modelo.html";
 
 
-      const campo =
-        document.getElementById(
-          "mensagemEssence"
+      } catch (erro) {
+
+        console.error(
+          "Erro inesperado:",
+          erro
         );
 
-
-      if (campo) {
-
-        campo.textContent =
-          "Não foi possível ativar o plano gratuito.";
-
-        campo.className =
-          "mensagem erro";
-
-      }
-
-    }
-
-  }
-
-
-
-  /* =====================================================
-     CPF
-  ===================================================== */
-
-  function formatarCPF(valor) {
-
-    let cpf =
-      String(valor || "")
-      .replace(/\D/g, "")
-      .slice(0, 11);
-
-
-    if (cpf.length > 9) {
-
-      cpf =
-        cpf.replace(
-          /(\d{3})(\d{3})(\d{3})(\d{1,2})/,
-          "$1.$2.$3-$4"
+        alert(
+          "Ocorreu um erro ao ativar o plano."
         );
 
-    }
-    else if (cpf.length > 6) {
-
-      cpf =
-        cpf.replace(
-          /(\d{3})(\d{3})(\d{1,3})/,
-          "$1.$2.$3"
-        );
-
-    }
-    else if (cpf.length > 3) {
-
-      cpf =
-        cpf.replace(
-          /(\d{3})(\d{1,3})/,
-          "$1.$2"
-        );
-
-    }
-
-
-    return cpf;
-
-  }
-
-
-
-  document
-    .getElementById(
-      "cpfCliente"
-    )
-    .addEventListener(
-      "input",
-      function () {
-
-        this.value =
-          formatarCPF(
-            this.value
-          );
-
-      }
-    );
-
-
-
-  function cpfValido(valor) {
-
-    const cpf =
-      String(valor || "")
-      .replace(/\D/g, "");
-
-
-    if (
-      cpf.length !== 11
-    ) {
-
-      return false;
-
-    }
-
-
-    if (
-      /^(\d)\1+$/.test(cpf)
-    ) {
-
-      return false;
-
-    }
-
-
-    let soma = 0;
-
-
-    for (
-      let i = 0;
-      i < 9;
-      i++
-    ) {
-
-      soma +=
-        Number(cpf[i]) *
-        (10 - i);
-
-    }
-
-
-    let resto =
-      (soma * 10) % 11;
-
-
-    if (
-      resto === 10
-    ) {
-
-      resto = 0;
-
-    }
-
-
-    if (
-      resto !==
-      Number(cpf[9])
-    ) {
-
-      return false;
-
-    }
-
-
-    soma = 0;
-
-
-    for (
-      let i = 0;
-      i < 10;
-      i++
-    ) {
-
-      soma +=
-        Number(cpf[i]) *
-        (11 - i);
-
-    }
-
-
-    resto =
-      (soma * 10) % 11;
-
-
-    if (
-      resto === 10
-    ) {
-
-      resto = 0;
-
-    }
-
-
-    return (
-      resto ===
-      Number(cpf[10])
-    );
-
-  }
-
-
-
-  /* =====================================================
-     GERAR PIX
-  ===================================================== */
-
-  function gerarPix() {
-
-    limparMensagem();
-
-
-    const nome =
-      document
-        .getElementById(
-          "nomeCliente"
-        )
-        .value
-        .trim();
-
-
-    const email =
-      document
-        .getElementById(
-          "emailCliente"
-        )
-        .value
-        .trim();
-
-
-    const cpf =
-      document
-        .getElementById(
-          "cpfCliente"
-        )
-        .value
-        .trim();
-
-
-    const endereco =
-      document
-        .getElementById(
-          "enderecoCliente"
-        )
-        .value
-        .trim();
-
-
-    if (!nome) {
-
-      mostrarMensagem(
-        "Informe o nome completo."
-      );
-
-      return;
-
-    }
-
-
-    if (
-      !email ||
-      !email.includes("@")
-    ) {
-
-      mostrarMensagem(
-        "Informe um e-mail válido."
-      );
-
-      return;
-
-    }
-
-
-    if (
-      !cpfValido(cpf)
-    ) {
-
-      mostrarMensagem(
-        "Informe um CPF válido."
-      );
-
-      return;
-
-    }
-
-
-    if (!endereco) {
-
-      mostrarMensagem(
-        "Informe o endereço."
-      );
-
-      return;
-
-    }
-
-
-    /*
-      Guarda os dados.
-    */
-
-    dadosCliente = {
-
-      nome:
-        nome,
-
-      email:
-        email,
-
-      cpf:
-        cpf,
-
-      endereco:
-        endereco,
-
-      plano:
-        planoAtual.nome,
-
-      valor:
-        planoAtual.valor
-
-    };
-
-
-    /*
-      Esconde formulário.
-    */
-
-    document
-      .getElementById(
-        "formulario"
-      )
-      .style.display =
-      "none";
-
-
-    /*
-      Mostra processamento.
-    */
-
-    document
-      .getElementById(
-        "processando"
-      )
-      .classList
-      .add("visivel");
-
-
-    /*
-      Aguarda 1,8 segundo
-      para criar a experiência
-      visual de processamento.
-    */
-
-    setTimeout(
-      mostrarPix,
-      1800
-    );
-
-  }
-
-
-
-  /* =====================================================
-     MOSTRAR PIX
-  ===================================================== */
-
-  function mostrarPix() {
-
-    document
-      .getElementById(
-        "processando"
-      )
-      .classList
-      .remove("visivel");
-
-
-    document
-      .getElementById(
-        "pix"
-      )
-      .classList
-      .add("visivel");
-
-
-    document
-      .getElementById(
-        "valorPix"
-      )
-      .textContent =
-      formatarDinheiro(
-        planoAtual.valor
-      );
-
-
-    document
-      .getElementById(
-        "chavePix"
-      )
-      .textContent =
-      PIX_CHAVE_PLANOS;
-
-  }
-
-
-
-  /* =====================================================
-     COPIAR PIX
-  ===================================================== */
-
-  async function copiarPix() {
-
-    try {
-
-      await navigator.clipboard.writeText(
-        PIX_CHAVE_PLANOS
-      );
-
-
-      alert(
-        "Chave PIX copiada com sucesso."
-      );
-
-    }
-
-    catch (erro) {
-
-      console.error(
-        erro
-      );
-
-
-      alert(
-        "Chave PIX: " +
-        PIX_CHAVE_PLANOS
-      );
-
-    }
-
-  }
-
-
-
-  /* =====================================================
-     WHATSAPP
-  ===================================================== */
-
-  function confirmarPagamentoWhatsApp() {
-
-    if (!dadosCliente) {
-
-      alert(
-        "Os dados do pedido não foram encontrados."
-      );
-
-      return;
-
-    }
-
-
-    const mensagemWhatsApp =
-
-`🔱 LUX ADVANCE — CONFIRMAÇÃO DE PAGAMENTO
-
-PLANO: ${dadosCliente.plano}
-
-VALOR: ${formatarDinheiro(dadosCliente.valor)}
-
-DADOS DO CLIENTE
-
-Nome: ${dadosCliente.nome}
-
-E-mail: ${dadosCliente.email}
-
-CPF: ${dadosCliente.cpf}
-
-Endereço: ${dadosCliente.endereco}
-
-O cliente informa que realizou o pagamento via PIX e solicita a conferência e ativação do plano.
-
-CHAVE PIX:
-${PIX_CHAVE_PLANOS}`;
-
-
-    const url =
-
-      "https://wa.me/" +
-      WHATSAPP_LUX +
-      "?text=" +
-      encodeURIComponent(
-        mensagemWhatsApp
-      );
-
-
-    window.open(
-      url,
-      "_blank"
-    );
-
-  }
-
-
-
-  /* =====================================================
-     FECHAR MODAL
-  ===================================================== */
-
-  document
-    .getElementById(
-      "modal"
-    )
-    .addEventListener(
-      "click",
-      function(evento) {
-
-        if (
-          evento.target ===
-          this
-        ) {
-
-          fecharModal();
-
-        }
-
-      }
-    );
-
-
-
-  document.addEventListener(
-    "keydown",
-    function(evento) {
-
-      if (
-        evento.key === "Escape"
-      ) {
-
-        fecharModal();
-
       }
 
     }
-  );
 
-</script>
-
+  </script>
 
 </body>
 

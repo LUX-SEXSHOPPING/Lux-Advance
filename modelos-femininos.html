@@ -88,11 +88,6 @@ body::before{
   padding:22px 0 70px;
 }
 
-
-/* =====================================================
-   TOPO
-===================================================== */
-
 .topbar{
 
   display:flex;
@@ -175,11 +170,6 @@ body::before{
 
   transform:translateY(-2px);
 }
-
-
-/* =====================================================
-   HERO
-===================================================== */
 
 .hero{
 
@@ -282,11 +272,6 @@ body::before{
   max-width:580px;
 }
 
-
-/* =====================================================
-   FILTROS
-===================================================== */
-
 .filters{
 
   display:grid;
@@ -337,11 +322,6 @@ select.field{
   cursor:pointer;
 }
 
-
-/* =====================================================
-   TÍTULO DOS RESULTADOS
-===================================================== */
-
 .result-head{
 
   display:flex;
@@ -369,11 +349,6 @@ select.field{
   font-size:12px;
 }
 
-
-/* =====================================================
-   GRID
-===================================================== */
-
 .grid{
 
   display:grid;
@@ -383,11 +358,6 @@ select.field{
 
   gap:22px;
 }
-
-
-/* =====================================================
-   CARD
-===================================================== */
 
 .card{
 
@@ -475,9 +445,6 @@ select.field{
     );
 }
 
-
-/* coração */
-
 .favorite{
 
   position:absolute;
@@ -512,9 +479,6 @@ select.field{
 
   backdrop-filter:blur(8px);
 }
-
-
-/* conteúdo */
 
 .card-content{
 
@@ -573,11 +537,6 @@ select.field{
     rgba(248,213,138,.42);
 }
 
-
-/* =====================================================
-   ESTADO
-===================================================== */
-
 .status{
 
   grid-column:1/-1;
@@ -588,11 +547,6 @@ select.field{
 
   color:rgba(255,255,255,.58);
 }
-
-
-/* =====================================================
-   RODAPÉ
-===================================================== */
 
 footer{
 
@@ -611,11 +565,6 @@ footer{
 
   letter-spacing:1px;
 }
-
-
-/* =====================================================
-   RESPONSIVO
-===================================================== */
 
 @media(max-width:900px){
 
@@ -716,7 +665,6 @@ ENTRAR
 
 </header>
 
-
 <section class="hero">
 
 <div class="hero-content">
@@ -738,7 +686,6 @@ sofisticação e exclusividade.
 </div>
 
 </section>
-
 
 <section class="filters">
 
@@ -767,7 +714,6 @@ Todas as regiões / cidades
 
 </section>
 
-
 <div class="result-head">
 
 <h2>
@@ -780,7 +726,6 @@ Carregando...
 
 </div>
 
-
 <section
   id="lista"
   class="grid"
@@ -792,7 +737,6 @@ Carregando modelos...
 
 </section>
 
-
 <footer>
 
 LUX — Sensualidade &amp; Sofisticação
@@ -800,7 +744,6 @@ LUX — Sensualidade &amp; Sofisticação
 </footer>
 
 </main>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -843,6 +786,17 @@ function valor(obj, campos){
   }
 
   return "";
+}
+
+
+function escapar(texto){
+
+  return String(texto || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
 
@@ -912,21 +866,26 @@ function localModelo(m){
   if(regiao && cidade)
     return regiao + " — " + cidade;
 
-  return cidade || regiao || "Localização não informada";
-}
-
-
-function descricaoModelo(m){
-
-  return valor(m,[
-    "descricao",
-    "bio",
-    "sobre"
-  ]);
+  return cidade ||
+    regiao ||
+    "Localização não informada";
 }
 
 
 function preencherFiltros(){
+
+  filtroPlano.innerHTML = `
+    <option value="">
+      Todos os planos
+    </option>
+  `;
+
+  filtroLocalizacao.innerHTML = `
+    <option value="">
+      Todas as regiões / cidades
+    </option>
+  `;
+
 
   const planos =
     [...new Set(
@@ -938,9 +897,9 @@ function preencherFiltros(){
     const option =
       document.createElement("option");
 
-    option.value=plano;
+    option.value = plano;
 
-    option.textContent=plano;
+    option.textContent = plano;
 
     filtroPlano.appendChild(option);
 
@@ -959,9 +918,9 @@ function preencherFiltros(){
     const option =
       document.createElement("option");
 
-    option.value=local;
+    option.value = local;
 
-    option.textContent=local;
+    option.textContent = local;
 
     filtroLocalizacao.appendChild(option);
 
@@ -997,11 +956,11 @@ function render(){
 
       const okPlano =
         !plano ||
-        planoModelo(m)===plano;
+        planoModelo(m) === plano;
 
       const okLocal =
         !local ||
-        localModelo(m)===local;
+        localModelo(m) === local;
 
       return (
         okBusca &&
@@ -1015,7 +974,7 @@ function render(){
   contador.textContent =
     filtrados.length +
     (
-      filtrados.length===1
+      filtrados.length === 1
       ? " perfil"
       : " perfis"
     );
@@ -1025,7 +984,8 @@ function render(){
 
     lista.innerHTML=`
       <div class="status">
-        Nenhum perfil encontrado.
+        Nenhum perfil feminino aprovado
+        foi encontrado.
       </div>
     `;
 
@@ -1037,16 +997,16 @@ function render(){
     filtrados.map(m=>{
 
       const nome =
-        nomeModelo(m);
+        escapar(nomeModelo(m));
 
       const foto =
         fotoModelo(m);
 
       const localizacao =
-        localModelo(m);
+        escapar(localModelo(m));
 
       const plano =
-        planoModelo(m);
+        escapar(planoModelo(m));
 
       return `
 
@@ -1103,9 +1063,7 @@ async function carregar(){
 
   try{
 
-    if(
-      !window.luxSupabase
-    ){
+    if(!window.luxSupabase){
 
       throw new Error(
         "Supabase não foi inicializado."
@@ -1117,7 +1075,9 @@ async function carregar(){
     const {data,error} =
       await window.luxSupabase
         .from("modelo_perfis")
-        .select("*");
+        .select("*")
+        .eq("categoria_catalogo","feminino")
+        .eq("verificacao_status","aprovado");
 
 
     if(error)

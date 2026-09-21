@@ -252,6 +252,11 @@
       box-shadow: 0 0 18px rgba(248, 213, 138, .25);
     }
 
+    .botao:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
     /* =====================================================
        ESSENCE
     ===================================================== */
@@ -990,59 +995,6 @@
 
     /*
      * =====================================================
-     * CONFIGURAÇÃO
-     * =====================================================
-     *
-     * A URL da Edge Function é montada automaticamente
-     * usando a URL do projeto Supabase existente.
-     *
-     * Não colocamos chave secreta do Mercado Pago aqui.
-     * O token do Mercado Pago permanece protegido na
-     * Edge Function criar-assinatura.
-     */
-
-    function obterUrlCriarAssinatura() {
-
-      if (
-        typeof window.luxSupabase === "undefined" ||
-        !window.luxSupabase
-      ) {
-        return null;
-      }
-
-      /*
-       * O cliente Supabase já conhece a URL do projeto.
-       */
-
-      if (
-        window.luxSupabase.supabaseUrl
-      ) {
-        return (
-          window.luxSupabase.supabaseUrl.replace(/\/+$/, "") +
-          "/functions/v1/criar-assinatura"
-        );
-      }
-
-      /*
-       * Compatibilidade caso o config.js exponha
-       * a URL de outra maneira.
-       */
-
-      if (
-        window.SUPABASE_URL
-      ) {
-        return (
-          String(window.SUPABASE_URL).replace(/\/+$/, "") +
-          "/functions/v1/criar-assinatura"
-        );
-      }
-
-      return null;
-    }
-
-
-    /*
-     * =====================================================
      * SELECIONAR PLANO
      * =====================================================
      */
@@ -1054,7 +1006,9 @@
     ) {
 
       /*
+       * ===================================================
        * PLANO GRATUITO
+       * ===================================================
        */
 
       if (gratuito) {
@@ -1076,7 +1030,9 @@
 
 
       /*
+       * ===================================================
        * PLANO PAGO
+       * ===================================================
        */
 
       const valorFormatado =
@@ -1105,7 +1061,9 @@
 
 
       /*
-       * Verifica se o Supabase está disponível.
+       * ===================================================
+       * VERIFICA SUPABASE
+       * ===================================================
        */
 
       if (
@@ -1123,10 +1081,12 @@
 
 
       /*
-       * Verifica a sessão atual.
+       * ===================================================
+       * VERIFICA LOGIN
+       * ===================================================
        */
 
-      let sessao;
+      let sessao = null;
 
       try {
 
@@ -1138,40 +1098,32 @@
 
 
         if (error) {
-          console.error(
-            "Erro ao verificar sessão:",
-            error
-          );
-
-          alert(
-            "Não foi possível verificar sua sessão."
-          );
-
-          return;
+          throw error;
         }
 
 
-        sessao = data?.session || null;
+        sessao =
+          data?.session ||
+          null;
 
       } catch (erro) {
 
         console.error(
-          "Erro ao obter sessão:",
+          "Erro ao verificar sessão:",
           erro
         );
 
         alert(
-          "Não foi possível verificar sua sessão."
+          "Não foi possível verificar sua sessão.\n\n" +
+          (
+            erro?.message ||
+            "Tente novamente."
+          )
         );
 
         return;
       }
 
-
-      /*
-       * Sem login não existe modelo associado
-       * para criar a assinatura.
-       */
 
       if (!sessao?.access_token) {
 
@@ -1181,7 +1133,10 @@
         );
 
         if (irLogin) {
-          window.location.href = "login.html";
+
+          window.location.href =
+            "login.html";
+
         }
 
         return;
@@ -1189,16 +1144,36 @@
 
 
       /*
-       * Guarda localmente apenas a seleção visual.
+       * ===================================================
+       * CÓDIGO INTERNO DO PLANO
+       * ===================================================
        *
-       * O valor oficial utilizado pelo pagamento
-       * será definido novamente no servidor.
+       * A Edge Function trabalha com:
+       *
+       * DESFIRE
+       * ELITE
+       * ROYAL
+       * DIAMOND
+       */
+
+      const planoCodigo =
+        String(nomePlano)
+          .replace(/^LUX-/i, "")
+          .trim()
+          .toUpperCase();
+
+
+      /*
+       * ===================================================
+       * SALVA A SELEÇÃO
+       * ===================================================
        */
 
       localStorage.setItem(
         "luxPlanoSelecionado",
         JSON.stringify({
           nome: nomePlano,
+          codigo: planoCodigo,
           valor: valor,
           mensal: true
         })
@@ -1206,139 +1181,93 @@
 
 
       /*
-       * Mostra estado de processamento.
+       * ===================================================
+       * DESABILITA OS BOTÕES
+       * ===================================================
        */
 
       const botoes =
         document.querySelectorAll(".botao");
 
-      botoes.forEach(function(botao) {
 
-        botao.disabled = true;
+      botoes.forEach(
+        function(botao) {
 
-      });
+          botao.disabled = true;
+
+        }
+      );
 
 
       try {
 
-        const functionUrl =
-          obterUrlCriarAssinatura();
-
-
-        if (!functionUrl) {
-
-          throw new Error(
-            "Não foi possível localizar a Edge Function criar-assinatura."
-          );
-
-        }
-
-
         /*
-         * A Edge Function espera o código:
+         * =================================================
+         * CHAMADA DA EDGE FUNCTION
+         * =================================================
          *
-         * DESFIRE
-         * ELITE
-         * ROYAL
-         * DIAMOND
+         * Usamos o cliente Supabase já autenticado.
          *
-         * O prefixo LUX- é removido antes do envio.
+         * O Access Token é enviado automaticamente.
+         *
+         * O token secreto do Mercado Pago NÃO fica
+         * exposto nesta página.
          */
 
-        const planoCodigo =
-          String(nomePlano)
-            .replace(/^LUX-/i, "")
-            .trim()
-            .toUpperCase();
-
-
-        /*
-         * Chamada segura para a Edge Function.
-         *
-         * O Access Token identifica o usuário.
-         * O segredo do Mercado Pago permanece
-         * exclusivamente no servidor.
-         */
-
-        const resposta =
-          await fetch(
-            functionUrl,
+        const {
+          data: resultado,
+          error
+        } =
+          await window.luxSupabase.functions.invoke(
+            "criar-assinatura",
             {
-              method: "POST",
-
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization":
-                  "Bearer " +
-                  sessao.access_token
-              },
-
-              body: JSON.stringify({
+              body: {
                 plano: planoCodigo
-              })
+              }
             }
           );
 
 
-        let resultado = null;
-
-
-        try {
-
-          resultado =
-            await resposta.json();
-
-        } catch {
-
-          resultado = null;
-
-        }
-
-
         /*
-         * Trata erros retornados pela Edge Function.
+         * Erro retornado pelo Supabase/Edge Function.
          */
 
-        if (!resposta.ok) {
+        if (error) {
 
-          const mensagem =
-            resultado?.error ||
-            "Não foi possível iniciar a assinatura.";
-
-          throw new Error(mensagem);
-
-        }
-
-
-        /*
-         * A Edge Function deve retornar:
-         *
-         * ok
-         * plano
-         * pagamento_id
-         * assinatura_id
-         * external_reference
-         * init_point
-         */
-
-        if (
-          !resultado ||
-          resultado.ok !== true
-        ) {
+          console.error(
+            "Erro da Edge Function:",
+            error
+          );
 
           throw new Error(
-            resultado?.error ||
-            "A assinatura não foi criada."
+            error.message ||
+            "Não foi possível iniciar a assinatura."
           );
 
         }
 
 
+        /*
+         * A versão atual da Edge Function retorna:
+         *
+         * {
+         *   init_point: "...",
+         *   id: "..."
+         * }
+         */
+
         if (
+          !resultado ||
           !resultado.init_point
         ) {
 
+          console.error(
+            "Resposta recebida:",
+            resultado
+          );
+
           throw new Error(
+            resultado?.error ||
             "O Mercado Pago não retornou o link de pagamento."
           );
 
@@ -1346,38 +1275,37 @@
 
 
         /*
-         * Guarda informações não sensíveis da operação.
-         *
-         * Nunca armazenamos Access Token ou
-         * credenciais do Mercado Pago.
+         * =================================================
+         * SALVA INFORMAÇÕES NÃO SENSÍVEIS
+         * =================================================
          */
 
         localStorage.setItem(
           "luxPagamentoAtual",
           JSON.stringify({
-            pagamento_id:
-              resultado.pagamento_id || null,
-
             assinatura_id:
-              resultado.assinatura_id || null,
-
-            external_reference:
-              resultado.external_reference || null,
+              resultado.id ||
+              null,
 
             plano:
-              resultado.plano?.nome ||
               nomePlano,
 
+            codigo:
+              planoCodigo,
+
             valor:
-              resultado.plano?.valor ||
-              valor
+              valor,
+
+            criado_em:
+              new Date().toISOString()
           })
         );
 
 
         /*
-         * Abre o checkout/link oficial retornado
-         * pelo Mercado Pago.
+         * =================================================
+         * REDIRECIONA PARA MERCADO PAGO
+         * =================================================
          */
 
         window.location.href =
@@ -1403,15 +1331,17 @@
       } finally {
 
         /*
-         * Reativa os botões caso o usuário
-         * permaneça nesta página.
+         * Caso permaneça na página,
+         * reativa os botões.
          */
 
-        botoes.forEach(function(botao) {
+        botoes.forEach(
+          function(botao) {
 
-          botao.disabled = false;
+            botao.disabled = false;
 
-        });
+          }
+        );
 
       }
 
@@ -1444,6 +1374,12 @@
         }
 
 
+        /*
+         * =================================================
+         * VERIFICA USUÁRIO
+         * =================================================
+         */
+
         const {
           data: {
             user
@@ -1467,8 +1403,9 @@
 
 
         /*
-         * Primeiro garantimos que o perfil da modelo
-         * exista.
+         * =================================================
+         * LOCALIZA PERFIL DA MODELO
+         * =================================================
          */
 
         const {
@@ -1510,7 +1447,9 @@
 
 
         /*
-         * RPC já criada e testada no Supabase.
+         * =================================================
+         * ATIVA ESSENCE PELO RPC
+         * =================================================
          */
 
         const {
@@ -1541,13 +1480,25 @@
         }
 
 
+        /*
+         * =================================================
+         * SUCESSO
+         * =================================================
+         */
+
         alert(
           "Plano LUX-ESSENCE ativado com sucesso."
         );
 
 
+        /*
+         * A página existente no projeto é:
+         *
+         * area-modelo.html
+         */
+
         window.location.href =
-          "painel-modelo.html";
+          "area-modelo.html";
 
 
       } catch (erro) {
@@ -1558,7 +1509,11 @@
         );
 
         alert(
-          "Ocorreu um erro ao ativar o plano."
+          "Ocorreu um erro ao ativar o plano.\n\n" +
+          (
+            erro?.message ||
+            "Tente novamente."
+          )
         );
 
       }

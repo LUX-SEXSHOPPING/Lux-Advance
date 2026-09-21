@@ -63,22 +63,14 @@
 ================================================== */
 
 *{
-
   margin:0;
-
   padding:0;
-
   box-sizing:border-box;
-
 }
-
 
 html{
-
   scroll-behavior:smooth;
-
 }
-
 
 body{
 
@@ -96,7 +88,7 @@ body{
 
 
 /* ==================================================
-   FUNDO HALLOWEEN MAIS VIVO
+   FUNDO HALLOWEEN
 ================================================== */
 
 body::before{
@@ -129,7 +121,6 @@ body::before{
   background-repeat:no-repeat;
 
   filter:
-
     saturate(1.32)
     contrast(1.10)
     brightness(1.08);
@@ -140,7 +131,7 @@ body::before{
 
 
 /* ==================================================
-   BRILHO E PROFUNDIDADE DO FUNDO
+   BRILHO E PROFUNDIDADE
 ================================================== */
 
 body::after{
@@ -198,7 +189,6 @@ body::after{
 
 }
 
-
 .morcego{
 
   position:absolute;
@@ -218,244 +208,145 @@ body::after{
 
 }
 
-
 .morcego:nth-child(1){
-
   top:9%;
-
   left:-8%;
-
   font-size:25px;
-
   animation-duration:13s;
-
 }
-
 
 .morcego:nth-child(2){
-
   top:18%;
-
   left:-12%;
-
   font-size:18px;
-
   animation-duration:17s;
-
   animation-delay:2s;
-
 }
-
 
 .morcego:nth-child(3){
-
   top:29%;
-
   left:-10%;
-
   font-size:30px;
-
   animation-duration:15s;
-
   animation-delay:4s;
-
 }
-
 
 .morcego:nth-child(4){
-
   top:41%;
-
   left:-15%;
-
   font-size:20px;
-
   animation-duration:19s;
-
   animation-delay:1s;
-
 }
-
 
 .morcego:nth-child(5){
-
   top:56%;
-
   left:-12%;
-
   font-size:27px;
-
   animation-duration:16s;
-
   animation-delay:6s;
-
 }
-
 
 .morcego:nth-child(6){
-
   top:68%;
-
   left:-9%;
-
   font-size:19px;
-
   animation-duration:21s;
-
   animation-delay:3s;
-
 }
-
 
 .morcego:nth-child(7){
-
   top:79%;
-
   left:-13%;
-
   font-size:25px;
-
   animation-duration:18s;
-
   animation-delay:8s;
-
 }
-
 
 .morcego:nth-child(8){
-
   top:14%;
-
   right:-12%;
-
   left:auto;
-
   font-size:20px;
-
   animation:
     voarDireita 16s linear infinite;
-
 }
-
 
 .morcego:nth-child(9){
-
   top:34%;
-
   right:-15%;
-
   left:auto;
-
   font-size:28px;
-
   animation:
     voarDireita 19s linear infinite;
-
   animation-delay:3s;
-
 }
-
 
 .morcego:nth-child(10){
-
   top:51%;
-
   right:-10%;
-
   left:auto;
-
   font-size:18px;
-
   animation:
     voarDireita 14s linear infinite;
-
   animation-delay:5s;
-
 }
-
 
 .morcego:nth-child(11){
-
   top:66%;
-
   right:-14%;
-
   left:auto;
-
   font-size:26px;
-
   animation:
     voarDireita 20s linear infinite;
-
   animation-delay:2s;
-
 }
 
-
 .morcego:nth-child(12){
-
   top:82%;
-
   right:-11%;
-
   left:auto;
-
   font-size:21px;
-
   animation:
     voarDireita 17s linear infinite;
-
   animation-delay:7s;
-
 }
 
 
 @keyframes voar{
 
   0%{
-
     transform:
       translateX(0)
       translateY(0)
       scale(.85)
       rotate(-5deg);
-
     opacity:0;
-
   }
 
   10%{
-
     opacity:.80;
-
   }
 
   50%{
-
     transform:
       translateX(55vw)
       translateY(-35px)
       scale(1.05)
       rotate(6deg);
-
   }
 
   90%{
-
     opacity:.75;
-
   }
 
   100%{
-
     transform:
       translateX(120vw)
       translateY(25px)
       scale(.90)
       rotate(-4deg);
-
     opacity:0;
-
   }
 
 }
@@ -464,49 +355,37 @@ body::after{
 @keyframes voarDireita{
 
   0%{
-
     transform:
       translateX(0)
       translateY(0)
       scale(.85)
       rotate(5deg);
-
     opacity:0;
-
   }
 
   10%{
-
     opacity:.75;
-
   }
 
   50%{
-
     transform:
       translateX(-55vw)
       translateY(35px)
       scale(1.08)
       rotate(-6deg);
-
   }
 
   90%{
-
     opacity:.70;
-
   }
 
   100%{
-
     transform:
       translateX(-120vw)
       translateY(-20px)
       scale(.90)
       rotate(4deg);
-
     opacity:0;
-
   }
 
 }
@@ -647,9 +526,7 @@ header{
 
 
 .btn-entrar i{
-
   font-size:16px;
-
 }
 
 
@@ -786,7 +663,6 @@ header{
   font-size:16px;
 
   filter:
-
     drop-shadow(
       0 0 5px
       rgba(201,162,39,.40)
@@ -843,14 +719,12 @@ header{
 
 
 .menu a.pix i{
-
   color:#ffd700;
-
 }
 
 
 /* ==================================================
-   ÁREA ADMIN NO MENU
+   ÁREA ADMIN
 ================================================== */
 
 .menu a.admin{
@@ -877,9 +751,7 @@ header{
 
 
 .menu a.admin i{
-
   color:#ffd85a;
-
 }
 
 
@@ -1108,6 +980,111 @@ header{
 
 
 /* ==================================================
+   BOTÕES PRINCIPAIS
+================================================== */
+
+.acoes-hero{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:14px;
+
+  margin-top:30px;
+
+}
+
+
+.acao-hero{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:9px;
+
+  min-width:190px;
+
+  min-height:50px;
+
+  padding:12px 22px;
+
+  border-radius:14px;
+
+  text-decoration:none;
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size:16px;
+
+  font-weight:700;
+
+  transition:
+    transform .25s ease,
+    filter .25s ease,
+    box-shadow .25s ease;
+
+}
+
+
+.acao-hero.principal{
+
+  color:#17120a;
+
+  background:
+
+    linear-gradient(
+      145deg,
+      #fff0a8,
+      #f0d36b,
+      #c9a227
+    );
+
+  border:1px solid #ffe89a;
+
+  box-shadow:
+
+    0 8px 25px rgba(0,0,0,.45),
+
+    0 0 18px rgba(201,162,39,.24);
+
+}
+
+
+.acao-hero.secundario{
+
+  color:#f5df9c;
+
+  background:rgba(0,0,0,.55);
+
+  border:1px solid rgba(201,162,39,.75);
+
+  box-shadow:
+    0 7px 20px rgba(0,0,0,.40);
+
+}
+
+
+.acao-hero:hover{
+
+  transform:translateY(-3px);
+
+  filter:brightness(1.08);
+
+}
+
+
+/* ==================================================
    RODAPÉ
 ================================================== */
 
@@ -1214,9 +1191,7 @@ header{
 @media(max-width:950px){
 
   .menu{
-
     gap:9px;
-
   }
 
   .menu a{
@@ -1241,16 +1216,12 @@ header{
 @media(max-width:700px){
 
   .conteudo{
-
     padding:0 10px;
-
   }
 
 
   header{
-
     height:112px;
-
   }
 
 
@@ -1277,9 +1248,7 @@ header{
 
 
   .btn-entrar i{
-
     font-size:13px;
-
   }
 
 
@@ -1301,16 +1270,13 @@ header{
 
 
   .menu{
-
     gap:7px;
-
   }
 
 
   .menu a{
 
     min-width:
-
       calc(33.333% - 7px);
 
     height:45px;
@@ -1325,9 +1291,7 @@ header{
 
 
   .menu a i{
-
     font-size:13px;
-
   }
 
 
@@ -1343,7 +1307,6 @@ header{
   .hero h1{
 
     font-size:
-
       clamp(
         45px,
         13vw,
@@ -1365,16 +1328,26 @@ header{
 
 
   .hero .descricao{
-
     font-size:17px;
+  }
+
+
+  .acoes-hero{
+    flex-direction:column;
+  }
+
+
+  .acao-hero{
+
+    width:min(100%,320px);
+
+    min-width:0;
 
   }
 
 
   .morcego{
-
     font-size:18px;
-
   }
 
 
@@ -1397,20 +1370,284 @@ header{
 
 
   .rodape-idade{
-
     font-size:15px;
-
   }
 
 
   .rodape-final{
-
     font-size:13px;
-
   }
 
 }
 
+</style>
 
-/* ==================================================
-   CEL
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     MORCEGOS
+================================================== -->
+
+<div class="morcegos" aria-hidden="true">
+
+  <span class="morcego">🦇</span>
+  <span class="morcego">🦇</span>
+  <span class="morcego">🦇</span>
+  <span class="morcego">🦇</span>
+  <span class="morcego">🦇</span>
+  <span class="morcego">🦇</span>
+  <span class="morcego">🦇</span>
+
+  <span class="morcego">🦇</span>
+  <span class="morcego">🦇</span>
+  <span class="morcego">🦇</span>
+  <span class="morcego">🦇</span>
+  <span class="morcego">🦇</span>
+
+</div>
+
+
+<!-- ==================================================
+     CONTEÚDO PRINCIPAL
+================================================== -->
+
+<div class="conteudo">
+
+
+  <!-- ==================================================
+       CABEÇALHO
+  ================================================== -->
+
+  <header>
+
+    <div class="botoes-acesso">
+
+      <a
+        class="btn-entrar"
+        href="./login.html"
+        aria-label="Entrar na LUX"
+      >
+
+        <i class="fa-solid fa-right-to-bracket"></i>
+
+        <span>ENTRAR</span>
+
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <!-- ==================================================
+       MENU PRINCIPAL
+  ================================================== -->
+
+  <nav
+    class="menu-area"
+    aria-label="Menu principal"
+  >
+
+    <div class="menu">
+
+
+      <a
+        href="./index.html"
+        class="ativo"
+      >
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>Início</span>
+
+      </a>
+
+
+      <a href="./catalago.html">
+
+        <i class="fa-solid fa-bag-shopping"></i>
+
+        <span>Loja</span>
+
+      </a>
+
+
+      <a href="./catalago.html">
+
+        <i class="fa-solid fa-grid-2"></i>
+
+        <span>Catálogo</span>
+
+      </a>
+
+
+      <a href="./planos.html">
+
+        <i class="fa-solid fa-gem"></i>
+
+        <span>Planos</span>
+
+      </a>
+
+
+      <a
+        href="./acesso-admin.html"
+        class="admin"
+      >
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <span>Área Admin</span>
+
+      </a>
+
+
+      <a href="./agendar.html">
+
+        <i class="fa-regular fa-calendar-days"></i>
+
+        <span>Agendar</span>
+
+      </a>
+
+
+      <a href="./termos.html">
+
+        <i class="fa-solid fa-file-lines"></i>
+
+        <span>Termos</span>
+
+      </a>
+
+
+      <a
+        href="./doar-pix.html"
+        class="pix"
+      >
+
+        <i class="fa-solid fa-qrcode"></i>
+
+        <span>Doar PIX</span>
+
+      </a>
+
+
+    </div>
+
+  </nav>
+
+
+  <!-- ==================================================
+       HERO LUX ADVANCE
+  ================================================== -->
+
+  <main class="hero">
+
+
+    <h1>
+      LUX ADVANCE
+    </h1>
+
+
+    <div class="slogan">
+
+      Sensualidade &amp; Sofisticação
+
+    </div>
+
+
+    <p class="descricao">
+
+      Mais que um site, uma experiência.
+      Um ambiente exclusivo criado para conexões,
+      presença e experiências dentro da identidade LUX.
+
+    </p>
+
+
+    <div class="acoes-hero">
+
+
+      <a
+        class="acao-hero principal"
+        href="./catalago.html"
+      >
+
+        <i class="fa-solid fa-gem"></i>
+
+        <span>Ver Catálogo</span>
+
+      </a>
+
+
+      <a
+        class="acao-hero secundario"
+        href="./planos.html"
+      >
+
+        <i class="fa-solid fa-star"></i>
+
+        <span>Conhecer Planos</span>
+
+      </a>
+
+
+      <a
+        class="acao-hero principal"
+        href="./doar-pix.html"
+      >
+
+        <i class="fa-solid fa-qrcode"></i>
+
+        <span>Doar via PIX</span>
+
+      </a>
+
+
+    </div>
+
+
+  </main>
+
+
+</div>
+
+
+<!-- ==================================================
+     RODAPÉ
+================================================== -->
+
+<footer class="rodape">
+
+
+  <div class="rodape-agencia">
+
+    LUX — ADVANCE
+
+  </div>
+
+
+  <div class="rodape-idade">
+
+    Experiência exclusiva para maiores de 18 anos.
+
+  </div>
+
+
+  <div class="rodape-final">
+
+    © LUX Advance — Todos os direitos reservados.
+
+  </div>
+
+
+</footer>
+
+
+</body>
+
+</html>

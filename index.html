@@ -26,7 +26,7 @@
 
 <link
   rel="preconnect"
-  href="https://fonts.gstatic.com"
+  href="https://fonts.googleapis.com"
   crossorigin
 >
 
@@ -58,10 +58,16 @@
 }
 
 
+/* ==================================================
+   RESET
+================================================== */
+
 *{
 
   margin:0;
+
   padding:0;
+
   box-sizing:border-box;
 
 }
@@ -82,14 +88,16 @@ body{
 
   color:var(--texto);
 
-  background:
-    #000
-    url("./lux-halloween.jpg")
-    center top / cover
-    no-repeat fixed;
+  background:#000;
+
+  position:relative;
 
 }
 
+
+/* ==================================================
+   FUNDO HALLOWEEN MAIS VIVO
+================================================== */
 
 body::before{
 
@@ -103,22 +111,416 @@ body::before{
 
   pointer-events:none;
 
-  background:
+  background-image:
+
     linear-gradient(
       180deg,
-      rgba(0,0,0,.12),
-      rgba(0,0,0,.30) 50%,
-      rgba(0,0,0,.45)
-    );
+      rgba(0,0,0,.05),
+      rgba(0,0,0,.12) 45%,
+      rgba(0,0,0,.42) 100%
+    ),
+
+    url("./lux-halloween.jpg");
+
+  background-position:center top;
+
+  background-size:cover;
+
+  background-repeat:no-repeat;
+
+  filter:
+
+    saturate(1.32)
+    contrast(1.10)
+    brightness(1.08);
+
+  transform:scale(1.035);
 
 }
 
+
+/* ==================================================
+   BRILHO E PROFUNDIDADE DO FUNDO
+================================================== */
+
+body::after{
+
+  content:"";
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:1;
+
+  pointer-events:none;
+
+  background:
+
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(255,193,7,.08),
+      transparent 36%
+    ),
+
+    radial-gradient(
+      circle at 12% 48%,
+      rgba(255,111,0,.09),
+      transparent 25%
+    ),
+
+    radial-gradient(
+      circle at 88% 48%,
+      rgba(255,111,0,.09),
+      transparent 25%
+    );
+
+  mix-blend-mode:screen;
+
+}
+
+
+/* ==================================================
+   MORCEGOS
+================================================== */
+
+.morcegos{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:4;
+
+  pointer-events:none;
+
+  overflow:hidden;
+
+}
+
+
+.morcego{
+
+  position:absolute;
+
+  font-size:24px;
+
+  opacity:.80;
+
+  filter:
+    drop-shadow(
+      0 2px 5px
+      rgba(0,0,0,.95)
+    );
+
+  animation:
+    voar 12s linear infinite;
+
+}
+
+
+.morcego:nth-child(1){
+
+  top:9%;
+
+  left:-8%;
+
+  font-size:25px;
+
+  animation-duration:13s;
+
+}
+
+
+.morcego:nth-child(2){
+
+  top:18%;
+
+  left:-12%;
+
+  font-size:18px;
+
+  animation-duration:17s;
+
+  animation-delay:2s;
+
+}
+
+
+.morcego:nth-child(3){
+
+  top:29%;
+
+  left:-10%;
+
+  font-size:30px;
+
+  animation-duration:15s;
+
+  animation-delay:4s;
+
+}
+
+
+.morcego:nth-child(4){
+
+  top:41%;
+
+  left:-15%;
+
+  font-size:20px;
+
+  animation-duration:19s;
+
+  animation-delay:1s;
+
+}
+
+
+.morcego:nth-child(5){
+
+  top:56%;
+
+  left:-12%;
+
+  font-size:27px;
+
+  animation-duration:16s;
+
+  animation-delay:6s;
+
+}
+
+
+.morcego:nth-child(6){
+
+  top:68%;
+
+  left:-9%;
+
+  font-size:19px;
+
+  animation-duration:21s;
+
+  animation-delay:3s;
+
+}
+
+
+.morcego:nth-child(7){
+
+  top:79%;
+
+  left:-13%;
+
+  font-size:25px;
+
+  animation-duration:18s;
+
+  animation-delay:8s;
+
+}
+
+
+.morcego:nth-child(8){
+
+  top:14%;
+
+  right:-12%;
+
+  left:auto;
+
+  font-size:20px;
+
+  animation:
+    voarDireita 16s linear infinite;
+
+}
+
+
+.morcego:nth-child(9){
+
+  top:34%;
+
+  right:-15%;
+
+  left:auto;
+
+  font-size:28px;
+
+  animation:
+    voarDireita 19s linear infinite;
+
+  animation-delay:3s;
+
+}
+
+
+.morcego:nth-child(10){
+
+  top:51%;
+
+  right:-10%;
+
+  left:auto;
+
+  font-size:18px;
+
+  animation:
+    voarDireita 14s linear infinite;
+
+  animation-delay:5s;
+
+}
+
+
+.morcego:nth-child(11){
+
+  top:66%;
+
+  right:-14%;
+
+  left:auto;
+
+  font-size:26px;
+
+  animation:
+    voarDireita 20s linear infinite;
+
+  animation-delay:2s;
+
+}
+
+
+.morcego:nth-child(12){
+
+  top:82%;
+
+  right:-11%;
+
+  left:auto;
+
+  font-size:21px;
+
+  animation:
+    voarDireita 17s linear infinite;
+
+  animation-delay:7s;
+
+}
+
+
+@keyframes voar{
+
+  0%{
+
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(.85)
+      rotate(-5deg);
+
+    opacity:0;
+
+  }
+
+  10%{
+
+    opacity:.80;
+
+  }
+
+  50%{
+
+    transform:
+      translateX(55vw)
+      translateY(-35px)
+      scale(1.05)
+      rotate(6deg);
+
+  }
+
+  90%{
+
+    opacity:.75;
+
+  }
+
+  100%{
+
+    transform:
+      translateX(120vw)
+      translateY(25px)
+      scale(.90)
+      rotate(-4deg);
+
+    opacity:0;
+
+  }
+
+}
+
+
+@keyframes voarDireita{
+
+  0%{
+
+    transform:
+      translateX(0)
+      translateY(0)
+      scale(.85)
+      rotate(5deg);
+
+    opacity:0;
+
+  }
+
+  10%{
+
+    opacity:.75;
+
+  }
+
+  50%{
+
+    transform:
+      translateX(-55vw)
+      translateY(35px)
+      scale(1.08)
+      rotate(-6deg);
+
+  }
+
+  90%{
+
+    opacity:.70;
+
+  }
+
+  100%{
+
+    transform:
+      translateX(-120vw)
+      translateY(-20px)
+      scale(.90)
+      rotate(4deg);
+
+    opacity:0;
+
+  }
+
+}
+
+
+/* ==================================================
+   CONTEÚDO
+================================================== */
 
 .conteudo{
 
   position:relative;
 
-  z-index:2;
+  z-index:5;
 
   width:100%;
 
@@ -130,6 +532,10 @@ body::before{
 
 }
 
+
+/* ==================================================
+   CABEÇALHO
+================================================== */
 
 header{
 
@@ -145,7 +551,7 @@ header{
 
 
 /* ==================================================
-   BOTÕES DE ACESSO
+   BOTÃO ENTRAR
 ================================================== */
 
 .botoes-acesso{
@@ -162,13 +568,10 @@ header{
 
   justify-content:flex-end;
 
-  gap:10px;
-
 }
 
 
-.btn-entrar,
-.btn-admin{
+.btn-entrar{
 
   display:flex;
 
@@ -200,6 +603,7 @@ header{
   letter-spacing:.3px;
 
   background:
+
     linear-gradient(
       145deg,
       #fff0a8 0%,
@@ -211,11 +615,15 @@ header{
   border:1px solid #ffe89a;
 
   box-shadow:
+
     0 7px 24px rgba(0,0,0,.50),
-    0 0 16px rgba(201,162,39,.25),
+
+    0 0 16px rgba(201,162,39,.30),
+
     inset 0 1px rgba(255,255,255,.70);
 
   transition:
+
     transform .25s ease,
     filter .25s ease,
     box-shadow .25s ease;
@@ -223,22 +631,22 @@ header{
 }
 
 
-.btn-entrar:hover,
-.btn-admin:hover{
+.btn-entrar:hover{
 
   transform:translateY(-2px);
 
-  filter:brightness(1.08);
+  filter:brightness(1.10);
 
   box-shadow:
+
     0 10px 28px rgba(0,0,0,.55),
-    0 0 23px rgba(240,216,120,.35);
+
+    0 0 25px rgba(240,216,120,.45);
 
 }
 
 
-.btn-entrar i,
-.btn-admin i{
+.btn-entrar i{
 
   font-size:16px;
 
@@ -329,7 +737,9 @@ header{
   border:1px solid rgba(201,162,39,.75);
 
   box-shadow:
+
     0 5px 16px rgba(0,0,0,.30),
+
     inset 0 1px rgba(255,255,255,.08);
 
   backdrop-filter:blur(2px);
@@ -356,6 +766,7 @@ header{
   height:1px;
 
   background:
+
     linear-gradient(
       90deg,
       transparent,
@@ -375,6 +786,7 @@ header{
   font-size:16px;
 
   filter:
+
     drop-shadow(
       0 0 5px
       rgba(201,162,39,.40)
@@ -394,8 +806,11 @@ header{
   background:rgba(35,27,10,.58);
 
   box-shadow:
+
     0 8px 23px rgba(0,0,0,.48),
+
     0 0 17px rgba(201,162,39,.20),
+
     inset 0 0 15px rgba(201,162,39,.08);
 
 }
@@ -410,7 +825,9 @@ header{
   background:rgba(35,27,10,.48);
 
   box-shadow:
+
     0 0 18px rgba(201,162,39,.22),
+
     inset 0 0 14px rgba(201,162,39,.08);
 
 }
@@ -428,6 +845,63 @@ header{
 .menu a.pix i{
 
   color:#ffd700;
+
+}
+
+
+/* ==================================================
+   ÁREA ADMIN NO MENU
+================================================== */
+
+.menu a.admin{
+
+  color:#ffe7a0;
+
+  border-color:rgba(255,216,102,.88);
+
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(90,62,10,.42),
+      rgba(0,0,0,.48)
+    );
+
+  box-shadow:
+
+    0 5px 18px rgba(0,0,0,.40),
+
+    0 0 13px rgba(201,162,39,.14);
+
+}
+
+
+.menu a.admin i{
+
+  color:#ffd85a;
+
+}
+
+
+.menu a.admin:hover{
+
+  color:#fff8dc;
+
+  border-color:#ffe28a;
+
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(110,76,12,.55),
+      rgba(20,15,4,.60)
+    );
+
+  box-shadow:
+
+    0 9px 25px rgba(0,0,0,.55),
+
+    0 0 22px rgba(241,211,107,.28);
 
 }
 
@@ -452,6 +926,10 @@ header{
 
 }
 
+
+/* ==================================================
+   LUX ADVANCE
+================================================== */
 
 .hero h1{
 
@@ -478,11 +956,14 @@ header{
   letter-spacing:2px;
 
   background:
+
     linear-gradient(
       180deg,
-      #fff7dc 0%,
-      #f4dd86 35%,
-      #c9a227 72%,
+      #ffffff 0%,
+      #fff8d9 18%,
+      #f4dd86 38%,
+      #d4ae32 65%,
+      #c9a227 78%,
       #80600e 100%
     );
 
@@ -492,15 +973,32 @@ header{
 
   color:transparent;
 
+  -webkit-font-smoothing:antialiased;
+
+  text-rendering:geometricPrecision;
+
   filter:
+
     drop-shadow(
-      0 3px 5px
-      rgba(0,0,0,.90)
+      0 3px 4px
+      rgba(0,0,0,.95)
     )
+
     drop-shadow(
-      0 0 24px
-      rgba(201,162,39,.28)
+      0 0 8px
+      rgba(255,232,150,.45)
+    )
+
+    drop-shadow(
+      0 0 22px
+      rgba(201,162,39,.38)
     );
+
+  text-shadow:
+
+    0 0 1px rgba(255,255,255,.90),
+
+    0 2px 0 rgba(90,60,5,.80);
 
 }
 
@@ -513,22 +1011,34 @@ header{
 
   width:min(240px,52%);
 
-  height:1px;
+  height:2px;
 
   margin:17px auto 0;
 
   background:
+
     linear-gradient(
       90deg,
       transparent,
-      var(--ouro-claro),
+      #ffe79a,
+      #c9a227,
+      #ffe79a,
       transparent
     );
 
-  opacity:.75;
+  opacity:.90;
+
+  box-shadow:
+
+    0 0 9px
+    rgba(241,211,107,.35);
 
 }
 
+
+/* ==================================================
+   SLOGAN
+================================================== */
 
 .hero .slogan{
 
@@ -553,11 +1063,19 @@ header{
   color:var(--champanhe);
 
   text-shadow:
+
     0 2px 10px
-    rgba(0,0,0,.95);
+    rgba(0,0,0,.95),
+
+    0 0 12px
+    rgba(247,233,203,.12);
 
 }
 
+
+/* ==================================================
+   DESCRIÇÃO
+================================================== */
 
 .hero .descricao{
 
@@ -582,6 +1100,7 @@ header{
   color:var(--texto-suave);
 
   text-shadow:
+
     0 2px 8px
     rgba(0,0,0,.95);
 
@@ -607,6 +1126,7 @@ header{
   text-align:center;
 
   background:
+
     linear-gradient(
       180deg,
       rgba(3,2,3,.90),
@@ -614,10 +1134,12 @@ header{
     );
 
   border-top:
+
     1px solid
     rgba(201,162,39,.60);
 
   box-shadow:
+
     0 -8px 30px
     rgba(0,0,0,.55);
 
@@ -669,6 +1191,7 @@ header{
   padding-top:8px;
 
   border-top:
+
     1px solid
     rgba(201,162,39,.18);
 
@@ -737,13 +1260,10 @@ header{
 
     right:0;
 
-    gap:6px;
-
   }
 
 
-  .btn-entrar,
-  .btn-admin{
+  .btn-entrar{
 
     width:116px;
 
@@ -756,8 +1276,7 @@ header{
   }
 
 
-  .btn-entrar i,
-  .btn-admin i{
+  .btn-entrar i{
 
     font-size:13px;
 
@@ -791,6 +1310,7 @@ header{
   .menu a{
 
     min-width:
+
       calc(33.333% - 7px);
 
     height:45px;
@@ -823,6 +1343,7 @@ header{
   .hero h1{
 
     font-size:
+
       clamp(
         45px,
         13vw,
@@ -846,6 +1367,13 @@ header{
   .hero .descricao{
 
     font-size:17px;
+
+  }
+
+
+  .morcego{
+
+    font-size:18px;
 
   }
 
@@ -885,334 +1413,4 @@ header{
 
 
 /* ==================================================
-   CELULAR PEQUENO
-================================================== */
-
-@media(max-width:430px){
-
-  .conteudo{
-
-    padding:0 8px;
-
-  }
-
-
-  header{
-
-    height:108px;
-
-  }
-
-
-  .botoes-acesso{
-
-    top:16px;
-
-    right:0;
-
-    gap:5px;
-
-  }
-
-
-  .btn-entrar,
-  .btn-admin{
-
-    width:108px;
-
-    height:45px;
-
-    font-size:12px;
-
-  }
-
-
-  .btn-entrar i,
-  .btn-admin i{
-
-    font-size:12px;
-
-  }
-
-
-  .menu-area{
-
-    margin-top:73px;
-
-    margin-bottom:30px;
-
-    background:transparent;
-
-    border:none;
-
-    box-shadow:none;
-
-  }
-
-
-  .menu{
-
-    gap:6px;
-
-  }
-
-
-  .menu a{
-
-    min-width:
-      calc(33.333% - 6px);
-
-    height:43px;
-
-    padding:0 4px;
-
-    font-size:12px;
-
-  }
-
-
-  .menu a i{
-
-    font-size:11px;
-
-  }
-
-
-  .hero{
-
-    transform:translateY(250px);
-
-    padding-top:62px;
-
-  }
-
-
-  .hero h1{
-
-    font-size:43px;
-
-  }
-
-
-  .hero .slogan{
-
-    font-size:16px;
-
-  }
-
-
-  .rodape{
-
-    margin-top:60px;
-
-  }
-
-
-  .rodape-agencia{
-
-    font-size:15px;
-
-  }
-
-
-  .rodape-idade{
-
-    font-size:14px;
-
-  }
-
-
-  .rodape-final{
-
-    font-size:12px;
-
-  }
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<div class="conteudo">
-
-
-<header>
-
-
-  <div class="botoes-acesso">
-
-
-    <a
-      href="./login.html"
-      class="btn-entrar"
-    >
-
-      <i class="fas fa-lock"></i>
-
-      Entrar
-
-    </a>
-
-
-    <!-- CAMINHO CORRETO DO ADMIN -->
-
-    <a
-      href="./acesso-admin.html"
-      class="btn-admin"
-    >
-
-      <i class="fas fa-user-shield"></i>
-
-      Área Admin
-
-    </a>
-
-
-  </div>
-
-
-</header>
-
-
-<div class="menu-area">
-
-  <nav class="menu">
-
-
-    <a href="./loja.html">
-
-      <i class="fas fa-cart-shopping"></i>
-
-      <span>Loja</span>
-
-    </a>
-
-
-    <a href="./catalago.html">
-
-      <i class="fas fa-book-open"></i>
-
-      <span>Catálogo</span>
-
-    </a>
-
-
-    <a href="./planos.html">
-
-      <i class="fas fa-crown"></i>
-
-      <span>Planos</span>
-
-    </a>
-
-
-    <a href="./pre-cadastro.html">
-
-      <i class="fas fa-user-plus"></i>
-
-      <span>Pré-Cadastro</span>
-
-    </a>
-
-
-    <a href="./agendar.html">
-
-      <i class="fas fa-calendar-days"></i>
-
-      <span>Agendar</span>
-
-    </a>
-
-
-    <a href="./termos.html">
-
-      <i class="fas fa-shield-halved"></i>
-
-      <span>Termos</span>
-
-    </a>
-
-
-    <a
-      href="./doar-pix.html"
-      class="pix"
-    >
-
-      <i class="fas fa-qrcode"></i>
-
-      <span>Doar PIX</span>
-
-    </a>
-
-
-  </nav>
-
-</div>
-
-
-<section class="hero">
-
-
-  <h1>
-    LUX Advance
-  </h1>
-
-
-  <p class="slogan">
-
-    MAIS QUE UM SITE,
-    UMA EXPERIÊNCIA
-
-  </p>
-
-
-  <p class="descricao">
-
-    Conectamos momentos especiais
-    com pessoas extraordinárias.
-
-  </p>
-
-
-</section>
-
-
-</div>
-
-
-<footer class="rodape">
-
-
-  <div class="rodape-agencia">
-
-    Agência Europeia
-
-  </div>
-
-
-  <div class="rodape-idade">
-
-    Conteúdo para maiores de 18 anos
-
-  </div>
-
-
-  <div class="rodape-final">
-
-    © 2026 LUX Advance — Agência europeia
-    de acompanhantes, todos os direitos reservados.
-
-  </div>
-
-
-</footer>
-
-
-</body>
-
-</html>
+   CEL

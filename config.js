@@ -44,11 +44,11 @@ window.luxSupabase = luxSupabase;
 
 
 /* =========================================================
-   E-MAIL ADMINISTRATIVO
+   ADMINISTRADOR LUX
    ========================================================= */
 
 const LUX_ADMIN_EMAIL =
-  "Luxcdam@gmail.com";
+  "luxcdam@gmail.com";
 
 window.LUX_ADMIN_EMAIL =
   LUX_ADMIN_EMAIL;

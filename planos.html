@@ -1098,12 +1098,59 @@
         }
 
 
+        /*
+         * O RPC precisa saber qual modelo receberá
+         * o plano gratuito.
+         *
+         * Primeiro garantimos que o perfil da modelo
+         * exista.
+         */
+
+        const {
+          data: modelo,
+          error: modeloError
+        } =
+          await window.luxSupabase
+            .from("modelo_perfis")
+            .select("id")
+            .eq("id", user.id)
+            .maybeSingle();
+
+
+        if (modeloError) {
+
+          console.error(
+            "Erro ao localizar perfil da modelo:",
+            modeloError
+          );
+
+          alert(
+            "Não foi possível localizar o perfil da modelo.\n\n" +
+            modeloError.message
+          );
+
+          return;
+        }
+
+
+        if (!modelo) {
+
+          alert(
+            "Seu perfil de modelo ainda não foi criado.\n\n" +
+            "Finalize seu cadastro antes de ativar o plano LUX-ESSENCE."
+          );
+
+          return;
+        }
+
+
         const {
           error
         } =
           await window.luxSupabase.rpc(
             "ativar_plano_gratuito",
             {
+              p_modelo_id: user.id,
               p_plano: "ESSENCE"
             }
           );

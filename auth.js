@@ -106,11 +106,27 @@ async function getTipoUsuario(userId) {
 
   const perfil = await getPerfil(userId);
 
-  if (!perfil) {
-    return null;
+  if (perfil?.tipo === "modelo") {
+    return "modelo";
   }
 
-  return perfil.tipo || null;
+  /*
+   * Compatibilidade:
+   * Se existir um registro em modelo_perfis,
+   * a conta também é reconhecida como modelo.
+   */
+  const modeloPerfil =
+    await getModeloPerfil(userId);
+
+  if (modeloPerfil) {
+    return "modelo";
+  }
+
+  if (perfil?.tipo) {
+    return perfil.tipo;
+  }
+
+  return null;
 }
 
 
@@ -193,7 +209,15 @@ async function login(email, senha) {
     await getPerfil(user.id);
 
 
-  if (!perfil) {
+  /*
+   * Caso a conta tenha modelo_perfis,
+   * ela também pode ser reconhecida como modelo.
+   */
+  const modeloPerfil =
+    await getModeloPerfil(user.id);
+
+
+  if (!perfil && !modeloPerfil) {
 
     await supabase.auth.signOut();
 
@@ -204,8 +228,11 @@ async function login(email, senha) {
 
 
   if (
-    perfil.status === "bloqueado" ||
-    perfil.status === "banido"
+    perfil &&
+    (
+      perfil.status === "bloqueado" ||
+      perfil.status === "banido"
+    )
   ) {
 
     await supabase.auth.signOut();
@@ -213,6 +240,24 @@ async function login(email, senha) {
     throw new Error(
       "Esta conta está bloqueada."
     );
+  }
+
+
+  /*
+   * Determina o tipo real da conta.
+   */
+  let tipo = null;
+
+  if (
+    perfil?.tipo === "modelo" ||
+    modeloPerfil
+  ) {
+
+    tipo = "modelo";
+
+  } else if (perfil?.tipo) {
+
+    tipo = perfil.tipo;
   }
 
 
@@ -225,6 +270,10 @@ async function login(email, senha) {
     session,
 
     perfil,
+
+    modeloPerfil,
+
+    tipo,
 
     success: true
 

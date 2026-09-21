@@ -90,9 +90,6 @@ body::before{
   padding:22px 0 70px;
 }
 
-
-/* TOPO */
-
 .topbar{
 
   display:flex;
@@ -173,9 +170,6 @@ body::before{
 
   transform:translateY(-2px);
 }
-
-
-/* HERO */
 
 .hero{
 
@@ -276,9 +270,6 @@ body::before{
   max-width:580px;
 }
 
-
-/* FILTROS */
-
 .filters{
 
   display:grid;
@@ -323,9 +314,6 @@ select.field{
   cursor:pointer;
 }
 
-
-/* CABEÇALHO */
-
 .result-head{
 
   display:flex;
@@ -353,9 +341,6 @@ select.field{
   font-size:12px;
 }
 
-
-/* GRID */
-
 .grid{
 
   display:grid;
@@ -365,9 +350,6 @@ select.field{
 
   gap:22px;
 }
-
-
-/* CARD */
 
 .card{
 
@@ -574,9 +556,6 @@ footer{
   letter-spacing:1px;
 }
 
-
-/* RESPONSIVO */
-
 @media(max-width:900px){
 
   .grid{
@@ -668,7 +647,6 @@ ENTRAR
 
 </header>
 
-
 <section class="hero">
 
 <div class="hero-content">
@@ -689,7 +667,6 @@ e descubra homens com personalidade, presença e estilo.
 </div>
 
 </section>
-
 
 <section class="filters">
 
@@ -718,7 +695,6 @@ Todas as regiões / cidades
 
 </section>
 
-
 <div class="result-head">
 
 <h2>
@@ -731,7 +707,6 @@ Carregando...
 
 </div>
 
-
 <section id="lista" class="grid">
 
 <div class="status">
@@ -740,13 +715,11 @@ Carregando modelos...
 
 </section>
 
-
 <footer>
 LUX — Sensualidade &amp; Sofisticação
 </footer>
 
 </main>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -754,18 +727,19 @@ LUX — Sensualidade &amp; Sofisticação
 
 <script>
 
-const busca=document.getElementById("busca");
+const busca =
+  document.getElementById("busca");
 
-const filtroPlano=
+const filtroPlano =
   document.getElementById("filtroPlano");
 
-const filtroLocalizacao=
+const filtroLocalizacao =
   document.getElementById("filtroLocalizacao");
 
-const lista=
+const lista =
   document.getElementById("lista");
 
-const contador=
+const contador =
   document.getElementById("contador");
 
 let modelos=[];
@@ -789,6 +763,18 @@ function valor(obj,campos){
   }
 
   return "";
+
+}
+
+
+function escapar(texto){
+
+  return String(texto || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
@@ -855,20 +841,36 @@ function planoModelo(m){
 
 function localModelo(m){
 
-  const regiao=regiaoModelo(m);
+  const regiao =
+    regiaoModelo(m);
 
-  const cidade=cidadeModelo(m);
+  const cidade =
+    cidadeModelo(m);
 
   if(regiao && cidade)
     return regiao+" — "+cidade;
 
-  return cidade || regiao ||
+  return cidade ||
+    regiao ||
     "Localização não informada";
 
 }
 
 
 function preencherFiltros(){
+
+  filtroPlano.innerHTML=`
+    <option value="">
+      Todos os planos
+    </option>
+  `;
+
+  filtroLocalizacao.innerHTML=`
+    <option value="">
+      Todas as regiões / cidades
+    </option>
+  `;
+
 
   [...new Set(
     modelos.map(planoModelo)
@@ -949,7 +951,8 @@ function render(){
 
     lista.innerHTML=`
       <div class="status">
-        Nenhum perfil encontrado.
+        Nenhum perfil masculino aprovado
+        foi encontrado.
       </div>
     `;
 
@@ -961,13 +964,17 @@ function render(){
   lista.innerHTML=
     filtrados.map(m=>{
 
-      const nome=nomeModelo(m);
+      const nome=
+        escapar(nomeModelo(m));
 
-      const foto=fotoModelo(m);
+      const foto=
+        fotoModelo(m);
 
-      const local=localModelo(m);
+      const local=
+        escapar(localModelo(m));
 
-      const plano=planoModelo(m);
+      const plano=
+        escapar(planoModelo(m));
 
       return `
 
@@ -1032,18 +1039,24 @@ async function carregar(){
 
     }
 
+
     const {data,error}=
       await window.luxSupabase
         .from("modelo_perfis")
-        .select("*");
+        .select("*")
+        .eq("categoria_catalogo","masculino")
+        .eq("verificacao_status","aprovado");
+
 
     if(error)
       throw error;
+
 
     modelos=
       Array.isArray(data)
       ? data
       : [];
+
 
     preencherFiltros();
 

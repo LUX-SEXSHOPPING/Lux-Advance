@@ -1041,76 +1041,995 @@ function mostrarModulo(
 
 
 // =============================================================
-// USUÁRIOS
+// USUÁRIOS — SUPABASE
 // =============================================================
 
-function abrirModuloUsuarios() {
+let listaUsuariosAdmin = [];
 
-    const quantidade =
-        localStorage.getItem(
-            "usuarios"
+
+// =============================================================
+// CARREGAR USUÁRIOS
+// =============================================================
+
+async function carregarUsuariosAdmin() {
+
+    if (!window.luxSupabase) {
+
+        throw new Error(
+            "Supabase não foi inicializado. Verifique o config.js."
         );
+
+    }
+
+
+    const {
+        data,
+        error
+    } = await window.luxSupabase
+        .from("perfis")
+        .select(`
+            id,
+            nome,
+            tipo,
+            status,
+            created_at,
+            updated_at
+        `)
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        );
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao carregar usuários:",
+            error
+        );
+
+        throw error;
+
+    }
+
+
+    listaUsuariosAdmin =
+        Array.isArray(data)
+            ? data
+            : [];
+
+
+    return listaUsuariosAdmin;
+
+}
+
+
+// =============================================================
+// TEXTO DO TIPO DE CONTA
+// =============================================================
+
+function textoTipoUsuario(tipo) {
+
+    const valor =
+        String(
+            tipo || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    const mapa = {
+
+        usuario:
+            "USUÁRIO",
+
+        user:
+            "USUÁRIO",
+
+        modelo:
+            "MODELO",
+
+        admin:
+            "ADMINISTRADOR",
+
+        administrador:
+            "ADMINISTRADOR"
+
+    };
+
+
+    return mapa[valor]
+        ||
+        String(
+            tipo || "USUÁRIO"
+        )
+        .replace(/_/g, " ")
+        .toUpperCase();
+
+}
+
+
+// =============================================================
+// COR DO TIPO
+// =============================================================
+
+function corTipoUsuario(tipo) {
+
+    const valor =
+        String(
+            tipo || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    if (
+        valor === "modelo"
+    ) {
+
+        return "#ff4da6";
+
+    }
+
+
+    if (
+        valor === "admin" ||
+        valor === "administrador"
+    ) {
+
+        return "#f5d58c";
+
+    }
+
+
+    return "#aaa";
+
+}
+
+
+// =============================================================
+// TEXTO DO STATUS DO USUÁRIO
+// =============================================================
+
+function textoStatusUsuario(status) {
+
+    const valor =
+        String(
+            status || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    const mapa = {
+
+        ativo:
+            "ATIVO",
+
+        active:
+            "ATIVO",
+
+        pendente:
+            "PENDENTE",
+
+        bloqueado:
+            "BLOQUEADO",
+
+        banido:
+            "BANIDO",
+
+        inativo:
+            "INATIVO"
+
+    };
+
+
+    return mapa[valor]
+        ||
+        String(
+            status || "ATIVO"
+        )
+        .replace(/_/g, " ")
+        .toUpperCase();
+
+}
+
+
+// =============================================================
+// COR DO STATUS DO USUÁRIO
+// =============================================================
+
+function corStatusUsuario(status) {
+
+    const valor =
+        String(
+            status || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    if (
+        valor === "ativo" ||
+        valor === "active"
+    ) {
+
+        return "#8ff0b0";
+
+    }
+
+
+    if (
+        valor === "bloqueado"
+    ) {
+
+        return "#f5d58c";
+
+    }
+
+
+    if (
+        valor === "banido"
+    ) {
+
+        return "#ff7d8d";
+
+    }
+
+
+    if (
+        valor === "pendente"
+    ) {
+
+        return "#ff4da6";
+
+    }
+
+
+    return "#aaa";
+
+}
+
+
+// =============================================================
+// ATUALIZAR STATUS DO USUÁRIO
+// =============================================================
+
+async function atualizarStatusUsuario(
+    id,
+    novoStatus
+) {
+
+    if (!id) {
+
+        alert(
+            "Não foi possível identificar a conta."
+        );
+
+        return;
+
+    }
+
+
+    if (!window.luxSupabase) {
+
+        alert(
+            "Supabase não foi inicializado."
+        );
+
+        return;
+
+    }
+
+
+    const status =
+        String(
+            novoStatus || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+    if (!status) {
+        return;
+    }
+
+
+    const confirmar =
+        window.confirm(
+            "Deseja realmente alterar o status desta conta para " +
+            textoStatusUsuario(status) +
+            "?"
+        );
+
+
+    if (!confirmar) {
+
+        await abrirModuloUsuarios();
+
+        return;
+
+    }
+
+
+    const {
+        error
+    } = await window.luxSupabase
+        .from("perfis")
+        .update({
+
+            status:
+                status,
+
+            updated_at:
+                new Date().toISOString()
+
+        })
+        .eq(
+            "id",
+            id
+        );
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao atualizar status do usuário:",
+            error
+        );
+
+        alert(
+            "Não foi possível atualizar o status.\n\n" +
+            error.message
+        );
+
+        await abrirModuloUsuarios();
+
+        return;
+
+    }
+
+
+    await abrirModuloUsuarios();
+
+}
+
+
+// =============================================================
+// ABRIR MÓDULO DE USUÁRIOS
+// =============================================================
+
+async function abrirModuloUsuarios() {
 
     mostrarModulo(
         "Usuários",
-        "Contas e controle de acesso",
+        "Contas e controle de acesso · Supabase",
         `
 
         <div style="
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-            gap:12px;
+            padding:35px 20px;
+            text-align:center;
+            color:#999;
         ">
 
-            ${criarBloco(
-                "CONTAS",
-                quantidade || "0",
-                "Registros locais identificados"
-            )}
-
-            ${criarBloco(
-                "ACESSO",
-                "Supabase",
-                "Autenticação do sistema"
-            )}
-
-            ${criarBloco(
-                "ADMIN",
-                "Protegido",
-                "Área administrativa"
-            )}
-
-        </div>
-
-
-        <div style="
-            margin-top:20px;
-            padding:20px;
-            border:1px solid rgba(245,213,140,.12);
-            border-radius:14px;
-            background:rgba(255,255,255,.02);
-        ">
-
-            <h3 style="
+            <div style="
+                font-size:34px;
                 color:#f5d58c;
-                margin-bottom:10px;
+                margin-bottom:12px;
             ">
-                Controle de usuários
-            </h3>
+                ◇
+            </div>
 
-            <p style="
-                color:#999;
-                font-size:12px;
-                line-height:1.7;
+            <div style="
+                color:#aaa;
+                font-size:13px;
             ">
-                Esta área está preparada para administrar
-                contas de usuários autenticadas pelo Supabase.
-            </p>
+                Carregando usuários...
+            </div>
 
         </div>
 
         `
     );
+
+
+    try {
+
+        const usuarios =
+            await carregarUsuariosAdmin();
+
+
+        const total =
+            usuarios.length;
+
+
+        const quantidadeUsuarios =
+            usuarios.filter(
+                item => {
+
+                    const tipo =
+                        String(
+                            item.tipo || ""
+                        )
+                        .toLowerCase()
+                        .trim();
+
+                    return (
+                        tipo === "usuario" ||
+                        tipo === "user" ||
+                        !tipo
+                    );
+
+                }
+            ).length;
+
+
+        const quantidadeModelos =
+            usuarios.filter(
+                item =>
+                    String(
+                        item.tipo || ""
+                    )
+                    .toLowerCase()
+                    .trim()
+                    === "modelo"
+            ).length;
+
+
+        const quantidadeAdmins =
+            usuarios.filter(
+                item => {
+
+                    const tipo =
+                        String(
+                            item.tipo || ""
+                        )
+                        .toLowerCase()
+                        .trim();
+
+                    return (
+                        tipo === "admin" ||
+                        tipo === "administrador"
+                    );
+
+                }
+            ).length;
+
+
+        const quantidadeAtivos =
+            usuarios.filter(
+                item => {
+
+                    const status =
+                        String(
+                            item.status || ""
+                        )
+                        .toLowerCase()
+                        .trim();
+
+                    return (
+                        status === "ativo" ||
+                        status === "active"
+                    );
+
+                }
+            ).length;
+
+
+        const quantidadeBloqueados =
+            usuarios.filter(
+                item =>
+                    String(
+                        item.status || ""
+                    )
+                    .toLowerCase()
+                    .trim()
+                    === "bloqueado"
+            ).length;
+
+
+        const quantidadeBanidos =
+            usuarios.filter(
+                item =>
+                    String(
+                        item.status || ""
+                    )
+                    .toLowerCase()
+                    .trim()
+                    === "banido"
+            ).length;
+
+
+        const registrosHTML =
+            usuarios.length
+            ?
+            usuarios.map(
+                usuario => {
+
+                    const id =
+                        usuario.id || "—";
+
+
+                    const nome =
+                        usuario.nome ||
+                        "Sem nome";
+
+
+                    const tipo =
+                        usuario.tipo ||
+                        "usuario";
+
+
+                    const status =
+                        usuario.status ||
+                        "ativo";
+
+
+                    const criadoEm =
+                        formatarDataAdmin(
+                            usuario.created_at
+                        );
+
+
+                    const atualizadoEm =
+                        formatarDataAdmin(
+                            usuario.updated_at
+                        );
+
+
+                    const corTipo =
+                        corTipoUsuario(
+                            tipo
+                        );
+
+
+                    const corStatus =
+                        corStatusUsuario(
+                            status
+                        );
+
+
+                    return `
+
+                        <div style="
+                            padding:20px;
+                            border:1px solid rgba(245,213,140,.12);
+                            border-radius:15px;
+                            background:rgba(255,255,255,.025);
+                            margin-bottom:14px;
+                        ">
+
+                            <div style="
+                                display:flex;
+                                justify-content:space-between;
+                                align-items:flex-start;
+                                gap:12px;
+                                flex-wrap:wrap;
+                            ">
+
+                                <div style="
+                                    min-width:0;
+                                    flex:1;
+                                ">
+
+                                    <div style="
+                                        color:#f5d58c;
+                                        font-family:'Playfair Display',serif;
+                                        font-size:20px;
+                                        margin-bottom:6px;
+                                        word-break:break-word;
+                                    ">
+                                        ${escaparHTML(
+                                            nome
+                                        )}
+                                    </div>
+
+                                    <div style="
+                                        color:#777;
+                                        font-size:9px;
+                                        word-break:break-all;
+                                    ">
+                                        ID:
+                                        ${escaparHTML(
+                                            id
+                                        )}
+                                    </div>
+
+                                </div>
+
+
+                                <div style="
+                                    color:${corTipo};
+                                    font-size:9px;
+                                    font-weight:800;
+                                    letter-spacing:1px;
+                                    border:1px solid ${corTipo};
+                                    border-radius:20px;
+                                    padding:7px 10px;
+                                    white-space:nowrap;
+                                ">
+                                    ${escaparHTML(
+                                        textoTipoUsuario(
+                                            tipo
+                                        )
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                            <div style="
+                                display:grid;
+                                grid-template-columns:
+                                    repeat(
+                                        auto-fit,
+                                        minmax(160px,1fr)
+                                    );
+                                gap:10px;
+                                margin-top:16px;
+                            ">
+
+                                ${criarBloco(
+                                    "TIPO",
+                                    textoTipoUsuario(
+                                        tipo
+                                    ),
+                                    "Tipo de conta"
+                                )}
+
+                                ${criarBloco(
+                                    "CADASTRO",
+                                    criadoEm,
+                                    "Data de criação"
+                                )}
+
+                                ${criarBloco(
+                                    "ATUALIZADO",
+                                    atualizadoEm,
+                                    "Última alteração"
+                                )}
+
+                            </div>
+
+
+                            <div style="
+                                margin-top:16px;
+                                padding-top:15px;
+                                border-top:1px solid rgba(255,255,255,.06);
+                                display:flex;
+                                align-items:center;
+                                gap:10px;
+                                flex-wrap:wrap;
+                            ">
+
+                                <div style="
+                                    color:#81757e;
+                                    font-size:9px;
+                                    font-weight:800;
+                                    letter-spacing:1px;
+                                ">
+                                    STATUS:
+                                </div>
+
+
+                                <div style="
+                                    color:${corStatus};
+                                    font-size:9px;
+                                    font-weight:800;
+                                    letter-spacing:1px;
+                                    border:1px solid ${corStatus};
+                                    border-radius:20px;
+                                    padding:7px 10px;
+                                ">
+                                    ${escaparHTML(
+                                        textoStatusUsuario(
+                                            status
+                                        )
+                                    )}
+                                </div>
+
+
+                                <select
+                                    data-usuario-status-id="${escaparAtributoSeguro(id)}"
+                                    onchange="
+                                        atualizarStatusUsuario(
+                                            this.dataset.usuarioStatusId,
+                                            this.value
+                                        )
+                                    "
+                                    style="
+                                        min-height:40px;
+                                        padding:8px 12px;
+                                        border-radius:10px;
+                                        border:1px solid rgba(245,213,140,.18);
+                                        background:#120a0f;
+                                        color:#eee;
+                                        font-size:11px;
+                                        outline:none;
+                                        margin-left:auto;
+                                    "
+                                >
+
+                                    <option
+                                        value="ativo"
+                                        ${status === "ativo" || status === "active" ? "selected" : ""}
+                                    >
+                                        Ativo
+                                    </option>
+
+                                    <option
+                                        value="pendente"
+                                        ${status === "pendente" ? "selected" : ""}
+                                    >
+                                        Pendente
+                                    </option>
+
+                                    <option
+                                        value="bloqueado"
+                                        ${status === "bloqueado" ? "selected" : ""}
+                                    >
+                                        Bloqueado
+                                    </option>
+
+                                    <option
+                                        value="banido"
+                                        ${status === "banido" ? "selected" : ""}
+                                    >
+                                        Banido
+                                    </option>
+
+                                    <option
+                                        value="inativo"
+                                        ${status === "inativo" ? "selected" : ""}
+                                    >
+                                        Inativo
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("")
+            :
+            `
+
+                <div style="
+                    padding:45px 20px;
+                    text-align:center;
+                    border:1px dashed rgba(245,213,140,.16);
+                    border-radius:15px;
+                    color:#8e838b;
+                ">
+
+                    <div style="
+                        font-size:34px;
+                        color:#f5d58c;
+                        margin-bottom:12px;
+                    ">
+                        ◇
+                    </div>
+
+                    <div style="
+                        color:#aaa;
+                        font-size:13px;
+                        margin-bottom:7px;
+                    ">
+                        Nenhuma conta encontrada.
+                    </div>
+
+                    <div style="
+                        font-size:10px;
+                        line-height:1.6;
+                    ">
+                        A tabela public.perfis não possui
+                        registros disponíveis.
+                    </div>
+
+                </div>
+
+            `;
+
+
+        mostrarModulo(
+            "Usuários",
+            "Contas e controle de acesso · Supabase",
+            `
+
+            <div style="
+                display:flex;
+                justify-content:flex-end;
+                margin-bottom:14px;
+            ">
+
+                <button
+                    type="button"
+                    onclick="abrirModuloUsuarios()"
+                    style="
+                        border:1px solid rgba(245,213,140,.20);
+                        background:rgba(245,213,140,.05);
+                        color:#f5d58c;
+                        padding:10px 14px;
+                        border-radius:10px;
+                        font-size:10px;
+                        font-weight:800;
+                        letter-spacing:.5px;
+                    "
+                >
+                    ↻ ATUALIZAR
+                </button>
+
+            </div>
+
+
+            <div style="
+                display:grid;
+                grid-template-columns:
+                    repeat(
+                        auto-fit,
+                        minmax(150px,1fr)
+                    );
+                gap:12px;
+                margin-bottom:22px;
+            ">
+
+                ${criarBloco(
+                    "TOTAL",
+                    String(total),
+                    "Todas as contas"
+                )}
+
+                ${criarBloco(
+                    "USUÁRIOS",
+                    String(quantidadeUsuarios),
+                    "Contas de usuários"
+                )}
+
+                ${criarBloco(
+                    "MODELOS",
+                    String(quantidadeModelos),
+                    "Contas de modelos"
+                )}
+
+                ${criarBloco(
+                    "ADMIN",
+                    String(quantidadeAdmins),
+                    "Contas administrativas"
+                )}
+
+                ${criarBloco(
+                    "ATIVOS",
+                    String(quantidadeAtivos),
+                    "Contas ativas"
+                )}
+
+                ${criarBloco(
+                    "BLOQUEADOS",
+                    String(quantidadeBloqueados),
+                    "Contas bloqueadas"
+                )}
+
+                ${criarBloco(
+                    "BANIDOS",
+                    String(quantidadeBanidos),
+                    "Contas banidas"
+                )}
+
+            </div>
+
+
+            <div style="
+                margin-bottom:14px;
+            ">
+
+                <h3 style="
+                    color:#f5d58c;
+                    margin:0 0 5px;
+                ">
+                    Contas cadastradas
+                </h3>
+
+                <p style="
+                    color:#8e838b;
+                    font-size:10px;
+                    margin:0;
+                    line-height:1.6;
+                ">
+                    Registros carregados diretamente
+                    da tabela public.perfis.
+                </p>
+
+            </div>
+
+
+            ${registrosHTML}
+
+            `
+        );
+
+
+    } catch (erro) {
+
+        console.error(
+            "Erro no módulo de usuários:",
+            erro
+        );
+
+
+        mostrarModulo(
+            "Usuários",
+            "Contas e controle de acesso",
+            `
+
+            <div style="
+                padding:30px 20px;
+                border:1px solid rgba(255,77,166,.18);
+                border-radius:15px;
+                background:rgba(255,77,166,.025);
+            ">
+
+                <div style="
+                    color:#ff4da6;
+                    font-size:10px;
+                    font-weight:800;
+                    letter-spacing:1px;
+                    margin-bottom:10px;
+                ">
+                    ERRO AO CARREGAR
+                </div>
+
+                <div style="
+                    color:#ccc;
+                    font-size:13px;
+                    line-height:1.7;
+                ">
+                    Não foi possível carregar os
+                    usuários do Supabase.
+                </div>
+
+                <div style="
+                    margin-top:12px;
+                    color:#8e838b;
+                    font-size:10px;
+                    line-height:1.6;
+                    word-break:break-word;
+                ">
+                    ${escaparHTML(
+                        erro.message ||
+                        String(erro)
+                    )}
+                </div>
+
+
+                <button
+                    type="button"
+                    onclick="abrirModuloUsuarios()"
+                    style="
+                        margin-top:18px;
+                        border:1px solid rgba(245,213,140,.20);
+                        background:rgba(245,213,140,.05);
+                        color:#f5d58c;
+                        padding:11px 15px;
+                        border-radius:10px;
+                        font-size:10px;
+                        font-weight:800;
+                    "
+                >
+                    ↻ TENTAR NOVAMENTE
+                </button>
+
+            </div>
+
+            `
+        );
+
+    }
 
 }
 
@@ -1186,9 +2105,6 @@ function textoStatusReclamacao(status) {
 
         pendente:
             "PENDENTE",
-
-        em_analise:
-            "EM ANÁLISE",
 
         em_analise:
             "EM ANÁLISE",

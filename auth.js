@@ -425,8 +425,42 @@ async function cadastrar(
 
 
   /* =======================================================
+     CATEGORIA DO CATÁLOGO
+     ======================================================= */
+
+  const categoriaCatalogo =
+    String(
+      extras.categoria_catalogo || ""
+    )
+      .trim()
+      .toLowerCase();
+
+
+  if (tipo === "modelo") {
+
+    const categoriasPermitidas = [
+      "feminino",
+      "masculino",
+      "lgbtq"
+    ];
+
+
+    if (
+      !categoriasPermitidas.includes(
+        categoriaCatalogo
+      )
+    ) {
+
+      throw new Error(
+        "Selecione uma categoria válida para aparecer no catálogo."
+      );
+    }
+  }
+
+
+  /* =======================================================
      METADADOS DO USUÁRIO AUTH
-     
+
      Os campos abaixo não existem atualmente em
      modelo_perfis, então ficam nos metadados da conta.
      ======================================================= */
@@ -475,6 +509,9 @@ async function cadastrar(
     idiomas,
 
     descricao,
+
+    categoria_catalogo:
+      categoriaCatalogo,
 
     maioridade_confirmada:
       maioridadeConfirmada
@@ -588,11 +625,6 @@ async function cadastrar(
     );
 
 
-    /*
-     * Se o perfil não puder ser criado,
-     * não escondemos o erro.
-     */
-
     throw new Error(
       "A conta foi criada, mas houve um problema ao criar o perfil. Entre em contato com o administrador."
     );
@@ -625,7 +657,7 @@ async function cadastrar(
     /*
      * IMPORTANTE:
      *
-     * Estes são somente campos que existem
+     * Estes são campos que existem
      * atualmente na tabela modelo_perfis.
      */
 
@@ -637,7 +669,6 @@ async function cadastrar(
         nome,
 
       idade:
-
         idade,
 
       cidade:
@@ -668,7 +699,10 @@ async function cadastrar(
         "pendente",
 
       plano:
-        "ESSENCE"
+        "ESSENCE",
+
+      categoria_catalogo:
+        categoriaCatalogo
 
     };
 

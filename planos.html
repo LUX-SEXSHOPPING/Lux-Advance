@@ -983,16 +983,79 @@
 
 
   <!-- =====================================================
-       FUNÇÕES DOS PLANOS
+       FUNÇÕES DOS PLANOS — ETAPA 2
   ====================================================== -->
 
   <script>
 
-    function selecionarPlano(
+    /*
+     * =====================================================
+     * CONFIGURAÇÃO
+     * =====================================================
+     *
+     * A URL da Edge Function é montada automaticamente
+     * usando a URL do projeto Supabase existente.
+     *
+     * Não colocamos chave secreta do Mercado Pago aqui.
+     * O token do Mercado Pago permanece protegido na
+     * Edge Function criar-assinatura.
+     */
+
+    function obterUrlCriarAssinatura() {
+
+      if (
+        typeof window.luxSupabase === "undefined" ||
+        !window.luxSupabase
+      ) {
+        return null;
+      }
+
+      /*
+       * O cliente Supabase já conhece a URL do projeto.
+       */
+
+      if (
+        window.luxSupabase.supabaseUrl
+      ) {
+        return (
+          window.luxSupabase.supabaseUrl.replace(/\/+$/, "") +
+          "/functions/v1/criar-assinatura"
+        );
+      }
+
+      /*
+       * Compatibilidade caso o config.js exponha
+       * a URL de outra maneira.
+       */
+
+      if (
+        window.SUPABASE_URL
+      ) {
+        return (
+          String(window.SUPABASE_URL).replace(/\/+$/, "") +
+          "/functions/v1/criar-assinatura"
+        );
+      }
+
+      return null;
+    }
+
+
+    /*
+     * =====================================================
+     * SELECIONAR PLANO
+     * =====================================================
+     */
+
+    async function selecionarPlano(
       nomePlano,
       valor,
       gratuito
     ) {
+
+      /*
+       * PLANO GRATUITO
+       */
 
       if (gratuito) {
 
@@ -1006,11 +1069,15 @@
           return;
         }
 
-        ativarPlanoGratuito(nomePlano);
+        await ativarPlanoGratuito(nomePlano);
 
         return;
       }
 
+
+      /*
+       * PLANO PAGO
+       */
 
       const valorFormatado =
         valor.toLocaleString(
@@ -1037,6 +1104,97 @@
       }
 
 
+      /*
+       * Verifica se o Supabase está disponível.
+       */
+
+      if (
+        typeof window.luxSupabase === "undefined" ||
+        !window.luxSupabase
+      ) {
+
+        alert(
+          "Sistema de pagamento não disponível.\n\n" +
+          "Recarregue a página e tente novamente."
+        );
+
+        return;
+      }
+
+
+      /*
+       * Verifica a sessão atual.
+       */
+
+      let sessao;
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await window.luxSupabase.auth.getSession();
+
+
+        if (error) {
+          console.error(
+            "Erro ao verificar sessão:",
+            error
+          );
+
+          alert(
+            "Não foi possível verificar sua sessão."
+          );
+
+          return;
+        }
+
+
+        sessao = data?.session || null;
+
+      } catch (erro) {
+
+        console.error(
+          "Erro ao obter sessão:",
+          erro
+        );
+
+        alert(
+          "Não foi possível verificar sua sessão."
+        );
+
+        return;
+      }
+
+
+      /*
+       * Sem login não existe modelo associado
+       * para criar a assinatura.
+       */
+
+      if (!sessao?.access_token) {
+
+        const irLogin = confirm(
+          "Você precisa estar logado para contratar um plano.\n\n" +
+          "Deseja ir para a página de login?"
+        );
+
+        if (irLogin) {
+          window.location.href = "login.html";
+        }
+
+        return;
+      }
+
+
+      /*
+       * Guarda localmente apenas a seleção visual.
+       *
+       * O valor oficial utilizado pelo pagamento
+       * será definido novamente no servidor.
+       */
+
       localStorage.setItem(
         "luxPlanoSelecionado",
         JSON.stringify({
@@ -1047,14 +1205,224 @@
       );
 
 
-      window.location.href =
-        "pagamento.html?plano=" +
-        encodeURIComponent(nomePlano) +
-        "&valor=" +
-        encodeURIComponent(valor);
+      /*
+       * Mostra estado de processamento.
+       */
+
+      const botoes =
+        document.querySelectorAll(".botao");
+
+      botoes.forEach(function(botao) {
+
+        botao.disabled = true;
+
+      });
+
+
+      try {
+
+        const functionUrl =
+          obterUrlCriarAssinatura();
+
+
+        if (!functionUrl) {
+
+          throw new Error(
+            "Não foi possível localizar a Edge Function criar-assinatura."
+          );
+
+        }
+
+
+        /*
+         * A Edge Function espera o código:
+         *
+         * DESFIRE
+         * ELITE
+         * ROYAL
+         * DIAMOND
+         *
+         * O prefixo LUX- é removido antes do envio.
+         */
+
+        const planoCodigo =
+          String(nomePlano)
+            .replace(/^LUX-/i, "")
+            .trim()
+            .toUpperCase();
+
+
+        /*
+         * Chamada segura para a Edge Function.
+         *
+         * O Access Token identifica o usuário.
+         * O segredo do Mercado Pago permanece
+         * exclusivamente no servidor.
+         */
+
+        const resposta =
+          await fetch(
+            functionUrl,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization":
+                  "Bearer " +
+                  sessao.access_token
+              },
+
+              body: JSON.stringify({
+                plano: planoCodigo
+              })
+            }
+          );
+
+
+        let resultado = null;
+
+
+        try {
+
+          resultado =
+            await resposta.json();
+
+        } catch {
+
+          resultado = null;
+
+        }
+
+
+        /*
+         * Trata erros retornados pela Edge Function.
+         */
+
+        if (!resposta.ok) {
+
+          const mensagem =
+            resultado?.error ||
+            "Não foi possível iniciar a assinatura.";
+
+          throw new Error(mensagem);
+
+        }
+
+
+        /*
+         * A Edge Function deve retornar:
+         *
+         * ok
+         * plano
+         * pagamento_id
+         * assinatura_id
+         * external_reference
+         * init_point
+         */
+
+        if (
+          !resultado ||
+          resultado.ok !== true
+        ) {
+
+          throw new Error(
+            resultado?.error ||
+            "A assinatura não foi criada."
+          );
+
+        }
+
+
+        if (
+          !resultado.init_point
+        ) {
+
+          throw new Error(
+            "O Mercado Pago não retornou o link de pagamento."
+          );
+
+        }
+
+
+        /*
+         * Guarda informações não sensíveis da operação.
+         *
+         * Nunca armazenamos Access Token ou
+         * credenciais do Mercado Pago.
+         */
+
+        localStorage.setItem(
+          "luxPagamentoAtual",
+          JSON.stringify({
+            pagamento_id:
+              resultado.pagamento_id || null,
+
+            assinatura_id:
+              resultado.assinatura_id || null,
+
+            external_reference:
+              resultado.external_reference || null,
+
+            plano:
+              resultado.plano?.nome ||
+              nomePlano,
+
+            valor:
+              resultado.plano?.valor ||
+              valor
+          })
+        );
+
+
+        /*
+         * Abre o checkout/link oficial retornado
+         * pelo Mercado Pago.
+         */
+
+        window.location.href =
+          resultado.init_point;
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro ao iniciar pagamento:",
+          erro
+        );
+
+
+        alert(
+          "Não foi possível iniciar o pagamento.\n\n" +
+          (
+            erro?.message ||
+            "Tente novamente."
+          )
+        );
+
+      } finally {
+
+        /*
+         * Reativa os botões caso o usuário
+         * permaneça nesta página.
+         */
+
+        botoes.forEach(function(botao) {
+
+          botao.disabled = false;
+
+        });
+
+      }
 
     }
 
+
+    /*
+     * =====================================================
+     * ATIVAR LUX-ESSENCE
+     * =====================================================
+     */
 
     async function ativarPlanoGratuito(
       nomePlano
@@ -1099,9 +1467,6 @@
 
 
         /*
-         * O RPC precisa saber qual modelo receberá
-         * o plano gratuito.
-         *
          * Primeiro garantimos que o perfil da modelo
          * exista.
          */
@@ -1143,6 +1508,10 @@
           return;
         }
 
+
+        /*
+         * RPC já criada e testada no Supabase.
+         */
 
         const {
           error

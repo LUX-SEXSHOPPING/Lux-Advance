@@ -22,6 +22,7 @@
 
       <div class="login-brand">
         <div class="login-logo">LUX</div>
+
         <div class="login-subtitle">
           Sensualidade & Sofisticação
         </div>
@@ -35,15 +36,20 @@
 
       <form id="cadastroModeloForm">
 
-        <label for="nome">Nome</label>
+        <!-- NOME -->
+
+        <label for="nome">Nome completo</label>
 
         <input
           type="text"
           id="nome"
-          placeholder="Digite seu nome"
+          placeholder="Digite seu nome completo"
           autocomplete="name"
           required
         >
+
+
+        <!-- APELIDO -->
 
         <label for="apelido">Apelido / Nome artístico</label>
 
@@ -53,6 +59,38 @@
           placeholder="Digite seu nome artístico"
           autocomplete="nickname"
         >
+
+
+        <!-- CPF -->
+
+        <label for="cpf">CPF</label>
+
+        <input
+          type="text"
+          id="cpf"
+          placeholder="000.000.000-00"
+          inputmode="numeric"
+          maxlength="14"
+          autocomplete="off"
+          required
+        >
+
+
+        <!-- DATA DE NASCIMENTO -->
+
+        <label for="dataNascimento">
+          Data de nascimento
+        </label>
+
+        <input
+          type="date"
+          id="dataNascimento"
+          autocomplete="bday"
+          required
+        >
+
+
+        <!-- WHATSAPP -->
 
         <label for="whatsapp">WhatsApp</label>
 
@@ -64,6 +102,9 @@
           required
         >
 
+
+        <!-- CATEGORIA -->
+
         <label for="categoriaCatalogo">
           Como deseja aparecer no catálogo?
         </label>
@@ -72,6 +113,7 @@
           id="categoriaCatalogo"
           required
         >
+
           <option value="">
             Selecione uma categoria
           </option>
@@ -87,18 +129,26 @@
           <option value="lgbtq">
             LGBTQ+
           </option>
+
         </select>
+
+
+        <!-- IDADE -->
 
         <label for="idade">Idade</label>
 
         <input
           type="number"
           id="idade"
-          placeholder="Digite sua idade"
+          placeholder="Será calculada pela data de nascimento"
           min="18"
           max="100"
+          readonly
           required
         >
+
+
+        <!-- ALTURA -->
 
         <label for="altura">Altura</label>
 
@@ -110,6 +160,38 @@
           max="250"
         >
 
+
+        <!-- CEP -->
+
+        <label for="cep">CEP</label>
+
+        <input
+          type="text"
+          id="cep"
+          placeholder="00000-000"
+          inputmode="numeric"
+          maxlength="9"
+          autocomplete="postal-code"
+          required
+        >
+
+
+        <!-- ESTADO -->
+
+        <label for="estado">Estado / UF</label>
+
+        <input
+          type="text"
+          id="estado"
+          placeholder="Ex.: RS"
+          maxlength="2"
+          autocomplete="address-level1"
+          required
+        >
+
+
+        <!-- CIDADE -->
+
         <label for="cidade">Cidade</label>
 
         <input
@@ -120,14 +202,63 @@
           required
         >
 
-        <label for="estado">Estado</label>
+
+        <!-- BAIRRO -->
+
+        <label for="bairro">Bairro</label>
 
         <input
           type="text"
-          id="estado"
-          placeholder="Digite seu estado"
-          autocomplete="address-level1"
+          id="bairro"
+          placeholder="Digite seu bairro"
+          autocomplete="address-level3"
+          required
         >
+
+
+        <!-- ENDEREÇO -->
+
+        <label for="endereco">
+          Rua / Logradouro
+        </label>
+
+        <input
+          type="text"
+          id="endereco"
+          placeholder="Digite a rua ou logradouro"
+          autocomplete="street-address"
+          required
+        >
+
+
+        <!-- NÚMERO -->
+
+        <label for="numero">Número</label>
+
+        <input
+          type="text"
+          id="numero"
+          placeholder="Número"
+          autocomplete="address-line2"
+          required
+        >
+
+
+        <!-- COMPLEMENTO -->
+
+        <label for="complemento">
+          Complemento
+        </label>
+
+        <input
+          type="text"
+          id="complemento"
+          placeholder="Apartamento, casa, bloco etc."
+          autocomplete="address-line2"
+        >
+
+
+        <!-- PAÍS -->
 
         <label for="pais">País</label>
 
@@ -138,16 +269,12 @@
           autocomplete="country-name"
         >
 
-        <label for="endereco">Endereço</label>
 
-        <input
-          type="text"
-          id="endereco"
-          placeholder="Digite seu endereço"
-          autocomplete="street-address"
-        >
+        <!-- CABELO -->
 
-        <label for="corCabelo">Cor do cabelo</label>
+        <label for="corCabelo">
+          Cor do cabelo
+        </label>
 
         <input
           type="text"
@@ -155,13 +282,21 @@
           placeholder="Ex.: Castanho"
         >
 
-        <label for="corOlhos">Cor dos olhos</label>
+
+        <!-- OLHOS -->
+
+        <label for="corOlhos">
+          Cor dos olhos
+        </label>
 
         <input
           type="text"
           id="corOlhos"
           placeholder="Ex.: Castanhos"
         >
+
+
+        <!-- IDIOMAS -->
 
         <label for="idiomas">Idiomas</label>
 
@@ -171,13 +306,21 @@
           placeholder="Ex.: Português, Espanhol"
         >
 
-        <label for="descricao">Descrição</label>
+
+        <!-- DESCRIÇÃO -->
+
+        <label for="descricao">
+          Descrição
+        </label>
 
         <textarea
           id="descricao"
           placeholder="Escreva uma breve descrição sobre você"
           rows="5"
         ></textarea>
+
+
+        <!-- EMAIL -->
 
         <label for="email">E-mail</label>
 
@@ -188,6 +331,9 @@
           autocomplete="email"
           required
         >
+
+
+        <!-- SENHA -->
 
         <label for="senha">Senha</label>
 
@@ -200,7 +346,12 @@
           required
         >
 
-        <label for="confirmarSenha">Confirmar senha</label>
+
+        <!-- CONFIRMAR SENHA -->
+
+        <label for="confirmarSenha">
+          Confirmar senha
+        </label>
 
         <input
           type="password"
@@ -210,6 +361,9 @@
           minlength="6"
           required
         >
+
+
+        <!-- MAIORIDADE -->
 
         <label class="checkbox-row">
 
@@ -225,6 +379,9 @@
 
         </label>
 
+
+        <!-- BOTÃO -->
+
         <button
           type="submit"
           class="btn-primary"
@@ -235,7 +392,12 @@
 
       </form>
 
-      <div id="mensagem" class="login-message"></div>
+
+      <div
+        id="mensagem"
+        class="login-message"
+      ></div>
+
 
       <div class="login-links">
 
@@ -253,17 +415,343 @@
 
   </main>
 
+
   <script>
 
     const formulario =
-      document.getElementById("cadastroModeloForm");
+      document.getElementById(
+        "cadastroModeloForm"
+      );
+
 
     const mensagem =
-      document.getElementById("mensagem");
+      document.getElementById(
+        "mensagem"
+      );
+
 
     const botao =
-      document.getElementById("btnCadastrarModelo");
+      document.getElementById(
+        "btnCadastrarModelo"
+      );
 
+
+    /* =====================================================
+       MÁSCARA CPF
+       ===================================================== */
+
+    document
+      .getElementById("cpf")
+      .addEventListener(
+        "input",
+        function () {
+
+          let valor =
+            this.value
+              .replace(/\D/g, "")
+              .slice(0, 11);
+
+
+          valor =
+            valor.replace(
+              /(\d{3})(\d)/,
+              "$1.$2"
+            );
+
+
+          valor =
+            valor.replace(
+              /(\d{3})(\d)/,
+              "$1.$2"
+            );
+
+
+          valor =
+            valor.replace(
+              /(\d{3})(\d{1,2})$/,
+              "$1-$2"
+            );
+
+
+          this.value =
+            valor;
+
+        }
+      );
+
+
+    /* =====================================================
+       MÁSCARA CEP
+       ===================================================== */
+
+    document
+      .getElementById("cep")
+      .addEventListener(
+        "input",
+        function () {
+
+          let valor =
+            this.value
+              .replace(/\D/g, "")
+              .slice(0, 8);
+
+
+          if (valor.length > 5) {
+
+            valor =
+              valor.substring(0, 5) +
+              "-" +
+              valor.substring(5);
+
+          }
+
+
+          this.value =
+            valor;
+
+        }
+      );
+
+
+    /* =====================================================
+       MÁSCARA WHATSAPP
+       ===================================================== */
+
+    document
+      .getElementById("whatsapp")
+      .addEventListener(
+        "input",
+        function () {
+
+          let valor =
+            this.value
+              .replace(/\D/g, "")
+              .slice(0, 11);
+
+
+          if (valor.length <= 10) {
+
+            valor =
+              valor.replace(
+                /^(\d{2})(\d)/,
+                "($1) $2"
+              );
+
+            valor =
+              valor.replace(
+                /(\d{4})(\d)/,
+                "$1-$2"
+              );
+
+          } else {
+
+            valor =
+              valor.replace(
+                /^(\d{2})(\d)/,
+                "($1) $2"
+              );
+
+            valor =
+              valor.replace(
+                /(\d{5})(\d)/,
+                "$1-$2"
+              );
+
+          }
+
+
+          this.value =
+            valor;
+
+        }
+      );
+
+
+    /* =====================================================
+       DATA DE NASCIMENTO → IDADE
+       ===================================================== */
+
+    function calcularIdade() {
+
+      const campoData =
+        document.getElementById(
+          "dataNascimento"
+        );
+
+
+      const campoIdade =
+        document.getElementById(
+          "idade"
+        );
+
+
+      if (!campoData.value) {
+
+        campoIdade.value =
+          "";
+
+        return;
+
+      }
+
+
+      const nascimento =
+        new Date(
+          campoData.value +
+          "T00:00:00"
+        );
+
+
+      const hoje =
+        new Date();
+
+
+      let idade =
+        hoje.getFullYear() -
+        nascimento.getFullYear();
+
+
+      const mes =
+        hoje.getMonth() -
+        nascimento.getMonth();
+
+
+      if (
+        mes < 0 ||
+        (
+          mes === 0 &&
+          hoje.getDate() <
+          nascimento.getDate()
+        )
+      ) {
+
+        idade--;
+
+      }
+
+
+      campoIdade.value =
+        idade >= 0
+          ? idade
+          : "";
+
+    }
+
+
+    document
+      .getElementById(
+        "dataNascimento"
+      )
+      .addEventListener(
+        "change",
+        calcularIdade
+      );
+
+
+    /* =====================================================
+       BUSCA CEP — VIACEP
+       ===================================================== */
+
+    document
+      .getElementById("cep")
+      .addEventListener(
+        "blur",
+        async function () {
+
+          const cep =
+            this.value
+              .replace(/\D/g, "");
+
+
+          if (cep.length !== 8) {
+
+            return;
+
+          }
+
+
+          try {
+
+            const resposta =
+              await fetch(
+                "https://viacep.com.br/ws/" +
+                cep +
+                "/json/"
+              );
+
+
+            if (!resposta.ok) {
+
+              throw new Error(
+                "Não foi possível consultar o CEP."
+              );
+
+            }
+
+
+            const dados =
+              await resposta.json();
+
+
+            if (dados.erro) {
+
+              mensagem.className =
+                "login-message error";
+
+              mensagem.textContent =
+                "CEP não encontrado.";
+
+              return;
+
+            }
+
+
+            document
+              .getElementById("estado")
+              .value =
+              dados.uf || "";
+
+
+            document
+              .getElementById("cidade")
+              .value =
+              dados.localidade || "";
+
+
+            document
+              .getElementById("bairro")
+              .value =
+              dados.bairro || "";
+
+
+            document
+              .getElementById("endereco")
+              .value =
+              dados.logradouro || "";
+
+
+            mensagem.textContent =
+              "";
+
+            mensagem.className =
+              "login-message";
+
+          } catch (erro) {
+
+            console.error(
+              "Erro ao consultar CEP:",
+              erro
+            );
+
+          }
+
+        }
+      );
+
+
+    /* =====================================================
+       ENVIO DO CADASTRO
+       ===================================================== */
 
     formulario.addEventListener(
       "submit",
@@ -273,93 +761,227 @@
 
 
         const nome =
-          document.getElementById("nome").value.trim();
+          document
+            .getElementById("nome")
+            .value
+            .trim();
+
 
         const apelido =
-          document.getElementById("apelido").value.trim();
+          document
+            .getElementById("apelido")
+            .value
+            .trim();
+
+
+        const cpf =
+          document
+            .getElementById("cpf")
+            .value
+            .trim();
+
+
+        const dataNascimento =
+          document
+            .getElementById("dataNascimento")
+            .value;
+
 
         const whatsapp =
-          document.getElementById("whatsapp").value.trim();
+          document
+            .getElementById("whatsapp")
+            .value
+            .trim();
+
 
         const categoriaCatalogo =
-          document.getElementById("categoriaCatalogo").value;
+          document
+            .getElementById(
+              "categoriaCatalogo"
+            )
+            .value;
+
 
         const idade =
           Number(
-            document.getElementById("idade").value
+            document
+              .getElementById("idade")
+              .value
           );
+
 
         const altura =
           Number(
-            document.getElementById("altura").value
+            document
+              .getElementById("altura")
+              .value
           ) || null;
 
-        const cidade =
-          document.getElementById("cidade").value.trim();
+
+        const cep =
+          document
+            .getElementById("cep")
+            .value
+            .trim();
+
 
         const estado =
-          document.getElementById("estado").value.trim();
+          document
+            .getElementById("estado")
+            .value
+            .trim()
+            .toUpperCase();
 
-        const pais =
-          document.getElementById("pais").value.trim() ||
-          "Brasil";
+
+        const cidade =
+          document
+            .getElementById("cidade")
+            .value
+            .trim();
+
+
+        const bairro =
+          document
+            .getElementById("bairro")
+            .value
+            .trim();
+
 
         const endereco =
-          document.getElementById("endereco").value.trim();
+          document
+            .getElementById("endereco")
+            .value
+            .trim();
+
+
+        const numero =
+          document
+            .getElementById("numero")
+            .value
+            .trim();
+
+
+        const complemento =
+          document
+            .getElementById("complemento")
+            .value
+            .trim();
+
+
+        const pais =
+          document
+            .getElementById("pais")
+            .value
+            .trim() ||
+          "Brasil";
+
 
         const corCabelo =
-          document.getElementById("corCabelo").value.trim();
+          document
+            .getElementById("corCabelo")
+            .value
+            .trim();
+
 
         const corOlhos =
-          document.getElementById("corOlhos").value.trim();
+          document
+            .getElementById("corOlhos")
+            .value
+            .trim();
+
 
         const idiomas =
-          document.getElementById("idiomas").value.trim();
+          document
+            .getElementById("idiomas")
+            .value
+            .trim();
+
 
         const descricao =
-          document.getElementById("descricao").value.trim();
+          document
+            .getElementById("descricao")
+            .value
+            .trim();
+
 
         const email =
-          document.getElementById("email").value.trim();
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
 
         const senha =
-          document.getElementById("senha").value;
+          document
+            .getElementById("senha")
+            .value;
+
 
         const confirmarSenha =
-          document.getElementById("confirmarSenha").value;
+          document
+            .getElementById("confirmarSenha")
+            .value;
+
 
         const maioridade =
-          document.getElementById("maioridade").checked;
+          document
+            .getElementById("maioridade")
+            .checked;
 
 
-        mensagem.textContent = "";
-        mensagem.className = "login-message";
+        mensagem.textContent =
+          "";
+
+        mensagem.className =
+          "login-message";
+
+
+        /* =================================================
+           VALIDAÇÕES
+           ================================================= */
 
 
         if (!nome) {
 
           mensagem.textContent =
-            "Digite seu nome.";
+            "Digite seu nome completo.";
 
           return;
+
         }
 
 
-        if (!whatsapp) {
+        if (!cpf) {
 
           mensagem.textContent =
-            "Digite seu WhatsApp.";
+            "Digite seu CPF.";
 
           return;
+
         }
 
 
-        if (!categoriaCatalogo) {
+        const cpfNumeros =
+          cpf.replace(/\D/g, "");
+
+
+        if (cpfNumeros.length !== 11) {
 
           mensagem.textContent =
-            "Selecione como deseja aparecer no catálogo.";
+            "Digite um CPF válido.";
 
           return;
+
+        }
+
+
+        if (!dataNascimento) {
+
+          mensagem.textContent =
+            "Informe sua data de nascimento.";
+
+          return;
+
         }
 
 
@@ -369,6 +991,47 @@
             "O cadastro de modelo é permitido somente para maiores de 18 anos.";
 
           return;
+
+        }
+
+
+        if (!whatsapp) {
+
+          mensagem.textContent =
+            "Digite seu WhatsApp.";
+
+          return;
+
+        }
+
+
+        if (!categoriaCatalogo) {
+
+          mensagem.textContent =
+            "Selecione como deseja aparecer no catálogo.";
+
+          return;
+
+        }
+
+
+        if (!cep) {
+
+          mensagem.textContent =
+            "Digite seu CEP.";
+
+          return;
+
+        }
+
+
+        if (!estado) {
+
+          mensagem.textContent =
+            "Informe seu estado.";
+
+          return;
+
         }
 
 
@@ -378,6 +1041,37 @@
             "Digite sua cidade.";
 
           return;
+
+        }
+
+
+        if (!bairro) {
+
+          mensagem.textContent =
+            "Digite seu bairro.";
+
+          return;
+
+        }
+
+
+        if (!endereco) {
+
+          mensagem.textContent =
+            "Digite sua rua ou logradouro.";
+
+          return;
+
+        }
+
+
+        if (!numero) {
+
+          mensagem.textContent =
+            "Informe o número do endereço.";
+
+          return;
+
         }
 
 
@@ -387,6 +1081,7 @@
             "Digite seu e-mail.";
 
           return;
+
         }
 
 
@@ -396,6 +1091,7 @@
             "A senha precisa ter pelo menos 6 caracteres.";
 
           return;
+
         }
 
 
@@ -405,6 +1101,7 @@
             "As senhas não são iguais.";
 
           return;
+
         }
 
 
@@ -414,10 +1111,17 @@
             "É necessário confirmar que você é maior de 18 anos.";
 
           return;
+
         }
 
 
-        botao.disabled = true;
+        /* =================================================
+           ENVIO
+           ================================================= */
+
+        botao.disabled =
+          true;
+
 
         botao.textContent =
           "Enviando cadastro...";
@@ -426,7 +1130,8 @@
         try {
 
           if (
-            typeof window.cadastrar !== "function"
+            typeof window.cadastrar !==
+            "function"
           ) {
 
             throw new Error(
@@ -453,6 +1158,12 @@
                 apelido:
                   apelido,
 
+                cpf:
+                  cpf,
+
+                data_nascimento:
+                  dataNascimento,
+
                 whatsapp:
                   whatsapp,
 
@@ -462,17 +1173,29 @@
                 altura_cm:
                   altura,
 
-                cidade:
-                  cidade,
+                cep:
+                  cep,
 
                 estado:
                   estado,
 
-                pais:
-                  pais,
+                cidade:
+                  cidade,
+
+                bairro:
+                  bairro,
 
                 endereco:
                   endereco,
+
+                numero:
+                  numero,
+
+                complemento:
+                  complemento,
+
+                pais:
+                  pais,
 
                 cor_cabelo:
                   corCabelo,

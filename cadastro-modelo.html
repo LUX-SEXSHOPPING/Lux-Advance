@@ -1,44 +1,489 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Cadastro de Modelo — LUX</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <link rel="stylesheet" href="app.css">
-  <link rel="stylesheet" href="login.css">
+  <title>Cadastro de Modelo — LUX Advance</title>
+
+  <link
+    rel="stylesheet"
+    href="app.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="login.css"
+  >
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script src="config.js"></script>
+
   <script src="auth.js"></script>
+
+
+  <style>
+
+    /* =====================================================
+       LUX ADVANCE — AJUSTES VISUAIS
+       ===================================================== */
+
+    .lux-category-box {
+
+      margin: 22px 0;
+
+      padding: 20px;
+
+      border: 1px solid rgba(248,213,138,.45);
+
+      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(45,8,18,.96),
+          rgba(12,5,8,.98)
+        );
+
+      box-shadow:
+        0 0 25px rgba(255,77,166,.08),
+        inset 0 0 20px rgba(248,213,138,.04);
+
+    }
+
+
+    .lux-category-title {
+
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #f8d58a;
+
+      font-size: 16px;
+
+      font-weight: 600;
+
+      letter-spacing: .5px;
+
+    }
+
+
+    .lux-category-description {
+
+      display: block;
+
+      margin-bottom: 15px;
+
+      color: rgba(255,255,255,.68);
+
+      font-size: 13px;
+
+      line-height: 1.5;
+
+    }
+
+
+    .lux-category-options {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 10px;
+
+    }
+
+
+    .lux-category-option {
+
+      position: relative;
+
+      display: block;
+
+      cursor: pointer;
+
+    }
+
+
+    .lux-category-option input {
+
+      position: absolute;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+    }
+
+
+    .lux-category-card {
+
+      min-height: 82px;
+
+      padding: 14px 8px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      text-align: center;
+
+      border: 1px solid rgba(248,213,138,.25);
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(30,8,16,.95),
+          rgba(12,5,8,.98)
+        );
+
+      color: #ddd;
+
+      transition:
+        .25s ease;
+
+    }
+
+
+    .lux-category-icon {
+
+      display: block;
+
+      margin-bottom: 7px;
+
+      font-size: 23px;
+
+      color: #f8d58a;
+
+      transition: .25s ease;
+
+    }
+
+
+    .lux-category-name {
+
+      display: block;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+    }
+
+
+    .lux-category-option:hover
+    .lux-category-card {
+
+      transform:
+        translateY(-2px);
+
+      border-color:
+        rgba(248,213,138,.75);
+
+      box-shadow:
+        0 0 18px rgba(248,213,138,.12);
+
+    }
+
+
+    .lux-category-option input:checked
+    + .lux-category-card {
+
+      border-color:
+        #f8d58a;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(91,15,40,.95),
+          rgba(31,7,16,.98)
+        );
+
+      color: #fff;
+
+      box-shadow:
+        0 0 20px rgba(255,77,166,.20),
+        inset 0 0 18px rgba(248,213,138,.07);
+
+      transform:
+        translateY(-2px);
+
+    }
+
+
+    .lux-category-option input:checked
+    + .lux-category-card
+    .lux-category-icon {
+
+      color: #ff4da6;
+
+      text-shadow:
+        0 0 12px rgba(255,77,166,.65);
+
+    }
+
+
+    /* =====================================================
+       SELECT OCULTO
+       ===================================================== */
+
+    #categoriaCatalogo {
+
+      position: absolute;
+
+      width: 1px;
+
+      height: 1px;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+    }
+
+
+    /* =====================================================
+       TÍTULOS DAS SEÇÕES
+       ===================================================== */
+
+    .lux-section-title {
+
+      margin-top: 28px;
+
+      margin-bottom: 10px;
+
+      padding-bottom: 7px;
+
+      border-bottom:
+        1px solid rgba(248,213,138,.18);
+
+      color: #f8d58a;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 15px;
+
+      letter-spacing: .7px;
+
+      text-transform: uppercase;
+
+    }
+
+
+    /* =====================================================
+       CAMPOS
+       ===================================================== */
+
+    #cadastroModeloForm input,
+    #cadastroModeloForm textarea,
+    #cadastroModeloForm select {
+
+      transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+    }
+
+
+    #cadastroModeloForm input:focus,
+    #cadastroModeloForm textarea:focus {
+
+      border-color:
+        rgba(248,213,138,.75);
+
+      box-shadow:
+        0 0 0 2px rgba(248,213,138,.08),
+        0 0 18px rgba(255,77,166,.07);
+
+      outline: none;
+
+    }
+
+
+    /* =====================================================
+       BOTÃO
+       ===================================================== */
+
+    #btnCadastrarModelo {
+
+      position: relative;
+
+      overflow: hidden;
+
+      margin-top: 12px;
+
+      font-weight: 700;
+
+      letter-spacing: .4px;
+
+      box-shadow:
+        0 8px 25px rgba(0,0,0,.30),
+        0 0 20px rgba(248,213,138,.08);
+
+    }
+
+
+    #btnCadastrarModelo::after {
+
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+
+      left: -120%;
+
+      width: 70%;
+
+      height: 100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.35),
+          transparent
+        );
+
+      transform:
+        skewX(-20deg);
+
+      transition:
+        left .65s ease;
+
+    }
+
+
+    #btnCadastrarModelo:hover::after {
+
+      left: 140%;
+
+    }
+
+
+    /* =====================================================
+       RESPONSIVO
+       ===================================================== */
+
+    @media (max-width: 560px) {
+
+      .lux-category-options {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .lux-category-card {
+
+        min-height: 65px;
+
+        flex-direction: row;
+
+        justify-content:
+          flex-start;
+
+        gap: 12px;
+
+        padding:
+          12px 16px;
+
+      }
+
+
+      .lux-category-icon {
+
+        margin-bottom: 0;
+
+        font-size: 21px;
+
+      }
+
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
+
   <main class="login-page">
+
 
     <section class="login-card">
 
+
+      <!-- =================================================
+           MARCA
+           ================================================= -->
+
       <div class="login-brand">
-        <div class="login-logo">LUX</div>
+
+        <div class="login-logo">
+          LUX
+        </div>
 
         <div class="login-subtitle">
-          Sensualidade & Sofisticação
+          Advance • Sensualidade & Sofisticação
         </div>
+
       </div>
 
-      <h1>Cadastro de Modelo</h1>
+
+      <h1>
+        Cadastro de Modelo
+      </h1>
+
 
       <p class="login-description">
         Crie sua conta para solicitar seu cadastro na plataforma LUX.
       </p>
 
-      <form id="cadastroModeloForm">
 
-        <!-- NOME -->
+      <form
+        id="cadastroModeloForm"
+      >
 
-        <label for="nome">Nome completo</label>
+
+        <!-- =================================================
+             DADOS PESSOAIS
+             ================================================= -->
+
+        <div class="lux-section-title">
+          Dados pessoais
+        </div>
+
+
+        <label for="nome">
+          Nome completo
+        </label>
 
         <input
           type="text"
@@ -49,9 +494,9 @@
         >
 
 
-        <!-- APELIDO -->
-
-        <label for="apelido">Apelido / Nome artístico</label>
+        <label for="apelido">
+          Apelido / Nome artístico
+        </label>
 
         <input
           type="text"
@@ -61,9 +506,9 @@
         >
 
 
-        <!-- CPF -->
-
-        <label for="cpf">CPF</label>
+        <label for="cpf">
+          CPF
+        </label>
 
         <input
           type="text"
@@ -75,8 +520,6 @@
           required
         >
 
-
-        <!-- DATA DE NASCIMENTO -->
 
         <label for="dataNascimento">
           Data de nascimento
@@ -90,9 +533,193 @@
         >
 
 
-        <!-- WHATSAPP -->
+        <label for="idade">
+          Idade
+        </label>
 
-        <label for="whatsapp">WhatsApp</label>
+        <input
+          type="number"
+          id="idade"
+          placeholder="Calculada automaticamente"
+          min="18"
+          max="100"
+          readonly
+          required
+        >
+
+
+        <!-- =================================================
+             CATEGORIA
+             ================================================= -->
+
+        <div class="lux-category-box">
+
+
+          <label
+            class="lux-category-title"
+            for="categoriaCatalogo"
+          >
+            Como deseja aparecer no catálogo?
+          </label>
+
+
+          <span class="lux-category-description">
+
+            Escolha a categoria pública em que seu perfil será apresentado.
+
+          </span>
+
+
+          <!--
+             Campo original mantido para compatibilidade
+             com o cadastro e com o auth.js.
+          -->
+
+          <select
+            id="categoriaCatalogo"
+            required
+          >
+
+            <option value="">
+              Selecione uma categoria
+            </option>
+
+            <option value="feminino">
+              Modelo Feminino
+            </option>
+
+            <option value="masculino">
+              Modelo Masculino
+            </option>
+
+            <option value="lgbtq">
+              LGBTQ+
+            </option>
+
+          </select>
+
+
+          <div
+            class="lux-category-options"
+          >
+
+
+            <!-- FEMININO -->
+
+            <label
+              class="lux-category-option"
+            >
+
+              <input
+                type="radio"
+                name="categoriaVisual"
+                value="feminino"
+              >
+
+              <span
+                class="lux-category-card"
+              >
+
+                <span
+                  class="lux-category-icon"
+                >
+                  ♛
+                </span>
+
+                <span
+                  class="lux-category-name"
+                >
+                  Feminino
+                </span>
+
+              </span>
+
+            </label>
+
+
+            <!-- MASCULINO -->
+
+            <label
+              class="lux-category-option"
+            >
+
+              <input
+                type="radio"
+                name="categoriaVisual"
+                value="masculino"
+              >
+
+              <span
+                class="lux-category-card"
+              >
+
+                <span
+                  class="lux-category-icon"
+                >
+                  ◆
+                </span>
+
+                <span
+                  class="lux-category-name"
+                >
+                  Masculino
+                </span>
+
+              </span>
+
+            </label>
+
+
+            <!-- LGBTQ+ -->
+
+            <label
+              class="lux-category-option"
+            >
+
+              <input
+                type="radio"
+                name="categoriaVisual"
+                value="lgbtq"
+              >
+
+              <span
+                class="lux-category-card"
+              >
+
+                <span
+                  class="lux-category-icon"
+                >
+                  ✦
+                </span>
+
+                <span
+                  class="lux-category-name"
+                >
+                  LGBTQ+
+                </span>
+
+              </span>
+
+            </label>
+
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CONTATO
+             ================================================= -->
+
+        <div class="lux-section-title">
+          Contato
+        </div>
+
+
+        <label for="whatsapp">
+          WhatsApp
+        </label>
 
         <input
           type="tel"
@@ -103,67 +730,31 @@
         >
 
 
-        <!-- CATEGORIA -->
-
-        <label for="categoriaCatalogo">
-          Como deseja aparecer no catálogo?
+        <label for="email">
+          E-mail
         </label>
 
-        <select
-          id="categoriaCatalogo"
-          required
-        >
-
-          <option value="">
-            Selecione uma categoria
-          </option>
-
-          <option value="feminino">
-            Modelo Feminino
-          </option>
-
-          <option value="masculino">
-            Modelo Masculino
-          </option>
-
-          <option value="lgbtq">
-            LGBTQ+
-          </option>
-
-        </select>
-
-
-        <!-- IDADE -->
-
-        <label for="idade">Idade</label>
-
         <input
-          type="number"
-          id="idade"
-          placeholder="Será calculada pela data de nascimento"
-          min="18"
-          max="100"
-          readonly
+          type="email"
+          id="email"
+          placeholder="Digite seu e-mail"
+          autocomplete="email"
           required
         >
 
 
-        <!-- ALTURA -->
+        <!-- =================================================
+             ENDEREÇO
+             ================================================= -->
 
-        <label for="altura">Altura</label>
-
-        <input
-          type="number"
-          id="altura"
-          placeholder="Altura em centímetros"
-          min="100"
-          max="250"
-        >
+        <div class="lux-section-title">
+          Endereço
+        </div>
 
 
-        <!-- CEP -->
-
-        <label for="cep">CEP</label>
+        <label for="cep">
+          CEP
+        </label>
 
         <input
           type="text"
@@ -176,9 +767,9 @@
         >
 
 
-        <!-- ESTADO -->
-
-        <label for="estado">Estado / UF</label>
+        <label for="estado">
+          Estado / UF
+        </label>
 
         <input
           type="text"
@@ -190,9 +781,9 @@
         >
 
 
-        <!-- CIDADE -->
-
-        <label for="cidade">Cidade</label>
+        <label for="cidade">
+          Cidade
+        </label>
 
         <input
           type="text"
@@ -203,9 +794,9 @@
         >
 
 
-        <!-- BAIRRO -->
-
-        <label for="bairro">Bairro</label>
+        <label for="bairro">
+          Bairro
+        </label>
 
         <input
           type="text"
@@ -215,8 +806,6 @@
           required
         >
 
-
-        <!-- ENDEREÇO -->
 
         <label for="endereco">
           Rua / Logradouro
@@ -231,20 +820,17 @@
         >
 
 
-        <!-- NÚMERO -->
-
-        <label for="numero">Número</label>
+        <label for="numero">
+          Número
+        </label>
 
         <input
           type="text"
           id="numero"
           placeholder="Número"
-          autocomplete="address-line2"
           required
         >
 
-
-        <!-- COMPLEMENTO -->
 
         <label for="complemento">
           Complemento
@@ -254,13 +840,12 @@
           type="text"
           id="complemento"
           placeholder="Apartamento, casa, bloco etc."
-          autocomplete="address-line2"
         >
 
 
-        <!-- PAÍS -->
-
-        <label for="pais">País</label>
+        <label for="pais">
+          País
+        </label>
 
         <input
           type="text"
@@ -270,7 +855,27 @@
         >
 
 
-        <!-- CABELO -->
+        <!-- =================================================
+             CARACTERÍSTICAS
+             ================================================= -->
+
+        <div class="lux-section-title">
+          Características
+        </div>
+
+
+        <label for="altura">
+          Altura
+        </label>
+
+        <input
+          type="number"
+          id="altura"
+          placeholder="Altura em centímetros"
+          min="100"
+          max="250"
+        >
+
 
         <label for="corCabelo">
           Cor do cabelo
@@ -279,11 +884,9 @@
         <input
           type="text"
           id="corCabelo"
-          placeholder="Ex.: Castanho"
+          placeholder="Ex.: Castanho, loiro, vermelho"
         >
 
-
-        <!-- OLHOS -->
 
         <label for="corOlhos">
           Cor dos olhos
@@ -292,13 +895,13 @@
         <input
           type="text"
           id="corOlhos"
-          placeholder="Ex.: Castanhos"
+          placeholder="Ex.: Castanhos, verdes, azuis"
         >
 
 
-        <!-- IDIOMAS -->
-
-        <label for="idiomas">Idiomas</label>
+        <label for="idiomas">
+          Idiomas
+        </label>
 
         <input
           type="text"
@@ -307,7 +910,14 @@
         >
 
 
-        <!-- DESCRIÇÃO -->
+        <!-- =================================================
+             APRESENTAÇÃO
+             ================================================= -->
+
+        <div class="lux-section-title">
+          Apresentação
+        </div>
+
 
         <label for="descricao">
           Descrição
@@ -320,22 +930,18 @@
         ></textarea>
 
 
-        <!-- EMAIL -->
+        <!-- =================================================
+             SEGURANÇA
+             ================================================= -->
 
-        <label for="email">E-mail</label>
-
-        <input
-          type="email"
-          id="email"
-          placeholder="Digite seu e-mail"
-          autocomplete="email"
-          required
-        >
+        <div class="lux-section-title">
+          Segurança da conta
+        </div>
 
 
-        <!-- SENHA -->
-
-        <label for="senha">Senha</label>
+        <label for="senha">
+          Senha
+        </label>
 
         <input
           type="password"
@@ -346,8 +952,6 @@
           required
         >
 
-
-        <!-- CONFIRMAR SENHA -->
 
         <label for="confirmarSenha">
           Confirmar senha
@@ -363,9 +967,13 @@
         >
 
 
-        <!-- MAIORIDADE -->
+        <!-- =================================================
+             MAIORIDADE
+             ================================================= -->
 
-        <label class="checkbox-row">
+        <label
+          class="checkbox-row"
+        >
 
           <input
             type="checkbox"
@@ -380,24 +988,35 @@
         </label>
 
 
-        <!-- BOTÃO -->
+        <!-- =================================================
+             BOTÃO
+             ================================================= -->
 
         <button
           type="submit"
           class="btn-primary"
           id="btnCadastrarModelo"
         >
-          Solicitar cadastro
+          ✦ Solicitar cadastro
         </button>
+
 
       </form>
 
+
+      <!-- =================================================
+           MENSAGEM
+           ================================================= -->
 
       <div
         id="mensagem"
         class="login-message"
       ></div>
 
+
+      <!-- =================================================
+           LINKS
+           ================================================= -->
 
       <div class="login-links">
 
@@ -411,12 +1030,17 @@
 
       </div>
 
+
     </section>
 
   </main>
 
 
   <script>
+
+    /* =====================================================
+       ELEMENTOS
+       ===================================================== */
 
     const formulario =
       document.getElementById(
@@ -436,6 +1060,62 @@
       );
 
 
+    const categoriaSelect =
+      document.getElementById(
+        "categoriaCatalogo"
+      );
+
+
+    const categoriasVisuais =
+      document.querySelectorAll(
+        'input[name="categoriaVisual"]'
+      );
+
+
+    /* =====================================================
+       CATEGORIA VISUAL → SELECT REAL
+       ===================================================== */
+
+    categoriasVisuais.forEach(
+      function(opcao) {
+
+        opcao.addEventListener(
+          "change",
+          function() {
+
+            categoriaSelect.value =
+              this.value;
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       SE O SELECT FOR ALTERADO
+       SINCRONIZA O CARTÃO VISUAL
+       ===================================================== */
+
+    categoriaSelect.addEventListener(
+      "change",
+      function() {
+
+        categoriasVisuais.forEach(
+          function(opcao) {
+
+            opcao.checked =
+              opcao.value ===
+              categoriaSelect.value;
+
+          }
+        );
+
+      }
+    );
+
+
     /* =====================================================
        MÁSCARA CPF
        ===================================================== */
@@ -444,7 +1124,7 @@
       .getElementById("cpf")
       .addEventListener(
         "input",
-        function () {
+        function() {
 
           let valor =
             this.value
@@ -488,7 +1168,7 @@
       .getElementById("cep")
       .addEventListener(
         "input",
-        function () {
+        function() {
 
           let valor =
             this.value
@@ -496,7 +1176,9 @@
               .slice(0, 8);
 
 
-          if (valor.length > 5) {
+          if (
+            valor.length > 5
+          ) {
 
             valor =
               valor.substring(0, 5) +
@@ -517,768 +1199,4 @@
        MÁSCARA WHATSAPP
        ===================================================== */
 
-    document
-      .getElementById("whatsapp")
-      .addEventListener(
-        "input",
-        function () {
-
-          let valor =
-            this.value
-              .replace(/\D/g, "")
-              .slice(0, 11);
-
-
-          if (valor.length <= 10) {
-
-            valor =
-              valor.replace(
-                /^(\d{2})(\d)/,
-                "($1) $2"
-              );
-
-            valor =
-              valor.replace(
-                /(\d{4})(\d)/,
-                "$1-$2"
-              );
-
-          } else {
-
-            valor =
-              valor.replace(
-                /^(\d{2})(\d)/,
-                "($1) $2"
-              );
-
-            valor =
-              valor.replace(
-                /(\d{5})(\d)/,
-                "$1-$2"
-              );
-
-          }
-
-
-          this.value =
-            valor;
-
-        }
-      );
-
-
-    /* =====================================================
-       DATA DE NASCIMENTO → IDADE
-       ===================================================== */
-
-    function calcularIdade() {
-
-      const campoData =
-        document.getElementById(
-          "dataNascimento"
-        );
-
-
-      const campoIdade =
-        document.getElementById(
-          "idade"
-        );
-
-
-      if (!campoData.value) {
-
-        campoIdade.value =
-          "";
-
-        return;
-
-      }
-
-
-      const nascimento =
-        new Date(
-          campoData.value +
-          "T00:00:00"
-        );
-
-
-      const hoje =
-        new Date();
-
-
-      let idade =
-        hoje.getFullYear() -
-        nascimento.getFullYear();
-
-
-      const mes =
-        hoje.getMonth() -
-        nascimento.getMonth();
-
-
-      if (
-        mes < 0 ||
-        (
-          mes === 0 &&
-          hoje.getDate() <
-          nascimento.getDate()
-        )
-      ) {
-
-        idade--;
-
-      }
-
-
-      campoIdade.value =
-        idade >= 0
-          ? idade
-          : "";
-
-    }
-
-
-    document
-      .getElementById(
-        "dataNascimento"
-      )
-      .addEventListener(
-        "change",
-        calcularIdade
-      );
-
-
-    /* =====================================================
-       BUSCA CEP — VIACEP
-       ===================================================== */
-
-    document
-      .getElementById("cep")
-      .addEventListener(
-        "blur",
-        async function () {
-
-          const cep =
-            this.value
-              .replace(/\D/g, "");
-
-
-          if (cep.length !== 8) {
-
-            return;
-
-          }
-
-
-          try {
-
-            const resposta =
-              await fetch(
-                "https://viacep.com.br/ws/" +
-                cep +
-                "/json/"
-              );
-
-
-            if (!resposta.ok) {
-
-              throw new Error(
-                "Não foi possível consultar o CEP."
-              );
-
-            }
-
-
-            const dados =
-              await resposta.json();
-
-
-            if (dados.erro) {
-
-              mensagem.className =
-                "login-message error";
-
-              mensagem.textContent =
-                "CEP não encontrado.";
-
-              return;
-
-            }
-
-
-            document
-              .getElementById("estado")
-              .value =
-              dados.uf || "";
-
-
-            document
-              .getElementById("cidade")
-              .value =
-              dados.localidade || "";
-
-
-            document
-              .getElementById("bairro")
-              .value =
-              dados.bairro || "";
-
-
-            document
-              .getElementById("endereco")
-              .value =
-              dados.logradouro || "";
-
-
-            mensagem.textContent =
-              "";
-
-            mensagem.className =
-              "login-message";
-
-          } catch (erro) {
-
-            console.error(
-              "Erro ao consultar CEP:",
-              erro
-            );
-
-          }
-
-        }
-      );
-
-
-    /* =====================================================
-       ENVIO DO CADASTRO
-       ===================================================== */
-
-    formulario.addEventListener(
-      "submit",
-      async function(event) {
-
-        event.preventDefault();
-
-
-        const nome =
-          document
-            .getElementById("nome")
-            .value
-            .trim();
-
-
-        const apelido =
-          document
-            .getElementById("apelido")
-            .value
-            .trim();
-
-
-        const cpf =
-          document
-            .getElementById("cpf")
-            .value
-            .trim();
-
-
-        const dataNascimento =
-          document
-            .getElementById("dataNascimento")
-            .value;
-
-
-        const whatsapp =
-          document
-            .getElementById("whatsapp")
-            .value
-            .trim();
-
-
-        const categoriaCatalogo =
-          document
-            .getElementById(
-              "categoriaCatalogo"
-            )
-            .value;
-
-
-        const idade =
-          Number(
-            document
-              .getElementById("idade")
-              .value
-          );
-
-
-        const altura =
-          Number(
-            document
-              .getElementById("altura")
-              .value
-          ) || null;
-
-
-        const cep =
-          document
-            .getElementById("cep")
-            .value
-            .trim();
-
-
-        const estado =
-          document
-            .getElementById("estado")
-            .value
-            .trim()
-            .toUpperCase();
-
-
-        const cidade =
-          document
-            .getElementById("cidade")
-            .value
-            .trim();
-
-
-        const bairro =
-          document
-            .getElementById("bairro")
-            .value
-            .trim();
-
-
-        const endereco =
-          document
-            .getElementById("endereco")
-            .value
-            .trim();
-
-
-        const numero =
-          document
-            .getElementById("numero")
-            .value
-            .trim();
-
-
-        const complemento =
-          document
-            .getElementById("complemento")
-            .value
-            .trim();
-
-
-        const pais =
-          document
-            .getElementById("pais")
-            .value
-            .trim() ||
-          "Brasil";
-
-
-        const corCabelo =
-          document
-            .getElementById("corCabelo")
-            .value
-            .trim();
-
-
-        const corOlhos =
-          document
-            .getElementById("corOlhos")
-            .value
-            .trim();
-
-
-        const idiomas =
-          document
-            .getElementById("idiomas")
-            .value
-            .trim();
-
-
-        const descricao =
-          document
-            .getElementById("descricao")
-            .value
-            .trim();
-
-
-        const email =
-          document
-            .getElementById("email")
-            .value
-            .trim();
-
-
-        const senha =
-          document
-            .getElementById("senha")
-            .value;
-
-
-        const confirmarSenha =
-          document
-            .getElementById("confirmarSenha")
-            .value;
-
-
-        const maioridade =
-          document
-            .getElementById("maioridade")
-            .checked;
-
-
-        mensagem.textContent =
-          "";
-
-        mensagem.className =
-          "login-message";
-
-
-        /* =================================================
-           VALIDAÇÕES
-           ================================================= */
-
-
-        if (!nome) {
-
-          mensagem.textContent =
-            "Digite seu nome completo.";
-
-          return;
-
-        }
-
-
-        if (!cpf) {
-
-          mensagem.textContent =
-            "Digite seu CPF.";
-
-          return;
-
-        }
-
-
-        const cpfNumeros =
-          cpf.replace(/\D/g, "");
-
-
-        if (cpfNumeros.length !== 11) {
-
-          mensagem.textContent =
-            "Digite um CPF válido.";
-
-          return;
-
-        }
-
-
-        if (!dataNascimento) {
-
-          mensagem.textContent =
-            "Informe sua data de nascimento.";
-
-          return;
-
-        }
-
-
-        if (!idade || idade < 18) {
-
-          mensagem.textContent =
-            "O cadastro de modelo é permitido somente para maiores de 18 anos.";
-
-          return;
-
-        }
-
-
-        if (!whatsapp) {
-
-          mensagem.textContent =
-            "Digite seu WhatsApp.";
-
-          return;
-
-        }
-
-
-        if (!categoriaCatalogo) {
-
-          mensagem.textContent =
-            "Selecione como deseja aparecer no catálogo.";
-
-          return;
-
-        }
-
-
-        if (!cep) {
-
-          mensagem.textContent =
-            "Digite seu CEP.";
-
-          return;
-
-        }
-
-
-        if (!estado) {
-
-          mensagem.textContent =
-            "Informe seu estado.";
-
-          return;
-
-        }
-
-
-        if (!cidade) {
-
-          mensagem.textContent =
-            "Digite sua cidade.";
-
-          return;
-
-        }
-
-
-        if (!bairro) {
-
-          mensagem.textContent =
-            "Digite seu bairro.";
-
-          return;
-
-        }
-
-
-        if (!endereco) {
-
-          mensagem.textContent =
-            "Digite sua rua ou logradouro.";
-
-          return;
-
-        }
-
-
-        if (!numero) {
-
-          mensagem.textContent =
-            "Informe o número do endereço.";
-
-          return;
-
-        }
-
-
-        if (!email) {
-
-          mensagem.textContent =
-            "Digite seu e-mail.";
-
-          return;
-
-        }
-
-
-        if (senha.length < 6) {
-
-          mensagem.textContent =
-            "A senha precisa ter pelo menos 6 caracteres.";
-
-          return;
-
-        }
-
-
-        if (senha !== confirmarSenha) {
-
-          mensagem.textContent =
-            "As senhas não são iguais.";
-
-          return;
-
-        }
-
-
-        if (!maioridade) {
-
-          mensagem.textContent =
-            "É necessário confirmar que você é maior de 18 anos.";
-
-          return;
-
-        }
-
-
-        /* =================================================
-           ENVIO
-           ================================================= */
-
-        botao.disabled =
-          true;
-
-
-        botao.textContent =
-          "Enviando cadastro...";
-
-
-        try {
-
-          if (
-            typeof window.cadastrar !==
-            "function"
-          ) {
-
-            throw new Error(
-              "A função de cadastro não foi carregada. Verifique o auth.js."
-            );
-
-          }
-
-
-          const resultado =
-            await window.cadastrar(
-              "modelo",
-              nome,
-              email,
-              senha,
-              {
-
-                maioridade_confirmada:
-                  true,
-
-                categoria_catalogo:
-                  categoriaCatalogo,
-
-                apelido:
-                  apelido,
-
-                cpf:
-                  cpf,
-
-                data_nascimento:
-                  dataNascimento,
-
-                whatsapp:
-                  whatsapp,
-
-                idade:
-                  idade,
-
-                altura_cm:
-                  altura,
-
-                cep:
-                  cep,
-
-                estado:
-                  estado,
-
-                cidade:
-                  cidade,
-
-                bairro:
-                  bairro,
-
-                endereco:
-                  endereco,
-
-                numero:
-                  numero,
-
-                complemento:
-                  complemento,
-
-                pais:
-                  pais,
-
-                cor_cabelo:
-                  corCabelo,
-
-                cor_olhos:
-                  corOlhos,
-
-                idiomas:
-                  idiomas,
-
-                descricao:
-                  descricao
-
-              }
-            );
-
-
-          if (
-            !resultado ||
-            !resultado.success
-          ) {
-
-            throw new Error(
-              resultado?.error ||
-              "Não foi possível realizar o cadastro."
-            );
-
-          }
-
-
-          mensagem.className =
-            "login-message success";
-
-
-          mensagem.innerHTML =
-            "Cadastro enviado com sucesso!<br><br>" +
-            "Seu cadastro ficará pendente de análise pela administração da LUX.";
-
-
-          botao.textContent =
-            "Cadastro enviado";
-
-
-          setTimeout(
-            function() {
-
-              window.location.href =
-                "login.html";
-
-            },
-            5000
-          );
-
-
-        } catch (erro) {
-
-          console.error(
-            erro
-          );
-
-
-          mensagem.className =
-            "login-message error";
-
-
-          mensagem.textContent =
-            erro.message ||
-            "Erro ao realizar cadastro.";
-
-
-          botao.disabled =
-            false;
-
-
-          botao.textContent =
-            "Solicitar cadastro";
-
-        }
-
-      }
-    );
-
-  </script>
-
-</body>
-</html>
+   

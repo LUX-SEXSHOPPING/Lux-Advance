@@ -15,11 +15,29 @@ let indiceSelecionado = null;
 // =============================================================
 
 function obterSupabase() {
-    if (window.luxSupabase) return window.luxSupabase;
-    if (window.supabaseClient) return window.supabaseClient;
-    return null;
-}
 
+    if (
+        window.luxSupabase &&
+        typeof window.luxSupabase.from === "function"
+    ) {
+        return window.luxSupabase;
+    }
+
+    if (
+        window.supabaseClient &&
+        typeof window.supabaseClient.from === "function"
+    ) {
+        return window.supabaseClient;
+    }
+
+    if (
+        window.supabase &&
+        typeof window.supabase.from === "function"
+    ) {
+        return window.supabase;
+    }
+
+    return null;
 // =============================================================
 // UTILITÁRIOS
 // =============================================================
@@ -3232,15 +3250,6 @@ window.recarregarPainel =
 
 window.sairAdmin =
     sairAdmin;
-
-// =============================================================
-// FIM DA PARTE 3
-// =============================================================
-// =============================================================
-// LUX-ADVANCE — PARTE 4/4
-// FUNÇÕES FINAIS E COMPATIBILIDADE
-// =============================================================
-
 // =============================================================
 // ABRIR MÓDULO DE MODELOS
 // =============================================================

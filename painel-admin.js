@@ -36,8 +36,10 @@ function obterSupabase() {
     ) {
         return window.supabase;
     }
-
-    return null;
+   
+ return null;
+}
+  
 // =============================================================
 // UTILITÁRIOS
 // =============================================================

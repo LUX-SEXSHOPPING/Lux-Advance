@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 
   <meta charset="UTF-8">
@@ -32,161 +31,232 @@
   <style>
 
     /* =====================================================
-       LUX ADVANCE — AJUSTES VISUAIS
+       LUX ADVANCE — CATEGORIAS
        ===================================================== */
+
+    .lux-section-title {
+
+      margin: 28px 0 12px;
+
+      padding-bottom: 8px;
+
+      border-bottom:
+        1px solid
+        rgba(248,213,138,.22);
+
+      color:
+        #f8d58a;
+
+      font:
+        600 15px Georgia, serif;
+
+      letter-spacing:
+        .9px;
+
+      text-transform:
+        uppercase;
+
+    }
+
 
     .lux-category-box {
 
-      margin: 22px 0;
+      margin:
+        22px 0;
 
-      padding: 20px;
+      padding:
+        20px;
 
-      border: 1px solid rgba(248,213,138,.45);
+      border:
+        1px solid
+        rgba(248,213,138,.55);
 
-      border-radius: 18px;
+      border-radius:
+        20px;
 
       background:
         linear-gradient(
           145deg,
-          rgba(45,8,18,.96),
-          rgba(12,5,8,.98)
+          rgba(60,8,25,.98),
+          rgba(12,5,8,.99)
         );
 
       box-shadow:
-        0 0 25px rgba(255,77,166,.08),
-        inset 0 0 20px rgba(248,213,138,.04);
+        0 0 28px
+        rgba(255,30,120,.14),
+
+        inset 0 0 22px
+        rgba(248,213,138,.05);
 
     }
 
 
     .lux-category-title {
 
-      display: block;
+      display:
+        block;
 
-      margin-bottom: 7px;
+      margin-bottom:
+        6px;
 
-      color: #f8d58a;
+      color:
+        #ffe8a8;
 
-      font-size: 16px;
+      font:
+        700 18px Georgia, serif;
 
-      font-weight: 600;
-
-      letter-spacing: .5px;
+      text-align:
+        center;
 
     }
 
 
     .lux-category-description {
 
-      display: block;
+      display:
+        block;
 
-      margin-bottom: 15px;
+      margin-bottom:
+        16px;
 
-      color: rgba(255,255,255,.68);
+      color:
+        rgba(255,255,255,.72);
 
-      font-size: 13px;
+      font-size:
+        13px;
 
-      line-height: 1.5;
+      line-height:
+        1.5;
+
+      text-align:
+        center;
 
     }
 
 
     .lux-category-options {
 
-      display: grid;
+      display:
+        grid;
 
       grid-template-columns:
         repeat(3, 1fr);
 
-      gap: 10px;
+      gap:
+        10px;
 
     }
 
 
     .lux-category-option {
 
-      position: relative;
+      position:
+        relative;
 
-      display: block;
+      display:
+        block;
 
-      cursor: pointer;
+      cursor:
+        pointer;
 
     }
 
 
     .lux-category-option input {
 
-      position: absolute;
+      position:
+        absolute;
 
-      opacity: 0;
+      opacity:
+        0;
 
-      pointer-events: none;
+      width:
+        1px;
+
+      height:
+        1px;
 
     }
 
 
     .lux-category-card {
 
-      min-height: 82px;
+      min-height:
+        92px;
 
-      padding: 14px 8px;
+      padding:
+        12px 7px;
 
-      display: flex;
+      display:
+        flex;
 
-      flex-direction: column;
+      flex-direction:
+        column;
 
-      align-items: center;
+      align-items:
+        center;
 
-      justify-content: center;
+      justify-content:
+        center;
 
-      text-align: center;
+      text-align:
+        center;
 
-      border: 1px solid rgba(248,213,138,.25);
+      border:
+        1px solid
+        rgba(248,213,138,.30);
 
-      border-radius: 14px;
+      border-radius:
+        16px;
 
       background:
         linear-gradient(
           145deg,
-          rgba(30,8,16,.95),
-          rgba(12,5,8,.98)
+          rgba(35,7,17,.96),
+          rgba(10,4,7,.99)
         );
 
-      color: #ddd;
+      color:
+        #ddd;
 
       transition:
         .25s ease;
+
+      box-shadow:
+        inset 0 0 12px
+        rgba(255,255,255,.015);
 
     }
 
 
     .lux-category-icon {
 
-      display: block;
+      font-size:
+        27px;
 
-      margin-bottom: 7px;
+      line-height:
+        1;
 
-      font-size: 23px;
+      margin-bottom:
+        9px;
 
-      color: #f8d58a;
+      color:
+        #f8d58a;
 
-      transition: .25s ease;
+      text-shadow:
+        0 0 8px
+        rgba(248,213,138,.18);
 
     }
 
 
     .lux-category-name {
 
-      display: block;
+      font:
+        700 13px Georgia, serif;
 
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size: 13px;
-
-      font-weight: 600;
+      letter-spacing:
+        .3px;
 
     }
 
@@ -195,232 +265,166 @@
     .lux-category-card {
 
       transform:
-        translateY(-2px);
-
-      border-color:
-        rgba(248,213,138,.75);
-
-      box-shadow:
-        0 0 18px rgba(248,213,138,.12);
-
-    }
-
-
-    .lux-category-option input:checked
-    + .lux-category-card {
+        translateY(-3px);
 
       border-color:
         #f8d58a;
 
+      box-shadow:
+        0 0 20px
+        rgba(248,213,138,.16);
+
+    }
+
+
+    .lux-category-option
+    input:checked
+    + .lux-category-card {
+
+      transform:
+        translateY(-3px);
+
+      border-color:
+        #ff4da6;
+
       background:
         linear-gradient(
           145deg,
-          rgba(91,15,40,.95),
-          rgba(31,7,16,.98)
+          rgba(105,12,48,.98),
+          rgba(35,6,18,.99)
         );
 
-      color: #fff;
+      color:
+        #fff;
 
       box-shadow:
-        0 0 20px rgba(255,77,166,.20),
-        inset 0 0 18px rgba(248,213,138,.07);
+        0 0 24px
+        rgba(255,77,166,.28),
 
-      transform:
-        translateY(-2px);
+        inset 0 0 20px
+        rgba(248,213,138,.08);
 
     }
 
 
-    .lux-category-option input:checked
+    .lux-category-option
+    input:checked
     + .lux-category-card
     .lux-category-icon {
 
-      color: #ff4da6;
+      color:
+        #ff79bd;
 
       text-shadow:
-        0 0 12px rgba(255,77,166,.65);
+        0 0 14px
+        rgba(255,77,166,.8);
 
     }
 
 
-    /* =====================================================
-       SELECT OCULTO
-       ===================================================== */
+    .lux-category-option
+    input:focus-visible
+    + .lux-category-card {
 
-    #categoriaCatalogo {
+      outline:
+        2px solid
+        #f8d58a;
 
-      position: absolute;
-
-      width: 1px;
-
-      height: 1px;
-
-      opacity: 0;
-
-      pointer-events: none;
+      outline-offset:
+        3px;
 
     }
 
 
-    /* =====================================================
-       TÍTULOS DAS SEÇÕES
-       ===================================================== */
+    .lux-required-note {
 
-    .lux-section-title {
+      margin-top:
+        12px;
 
-      margin-top: 28px;
+      color:
+        rgba(255,255,255,.58);
 
-      margin-bottom: 10px;
+      font-size:
+        12px;
 
-      padding-bottom: 7px;
-
-      border-bottom:
-        1px solid rgba(248,213,138,.18);
-
-      color: #f8d58a;
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size: 15px;
-
-      letter-spacing: .7px;
-
-      text-transform: uppercase;
+      text-align:
+        center;
 
     }
 
 
-    /* =====================================================
-       CAMPOS
-       ===================================================== */
+    .lux-submit {
 
-    #cadastroModeloForm input,
-    #cadastroModeloForm textarea,
-    #cadastroModeloForm select {
+      margin-top:
+        18px !important;
 
-      transition:
-        border-color .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
+      font-weight:
+        700 !important;
 
-    }
-
-
-    #cadastroModeloForm input:focus,
-    #cadastroModeloForm textarea:focus {
-
-      border-color:
-        rgba(248,213,138,.75);
+      letter-spacing:
+        .3px;
 
       box-shadow:
-        0 0 0 2px rgba(248,213,138,.08),
-        0 0 18px rgba(255,77,166,.07);
-
-      outline: none;
+        0 8px 28px
+        rgba(255,77,166,.16);
 
     }
 
 
-    /* =====================================================
-       BOTÃO
-       ===================================================== */
+    .lux-submit:disabled {
 
-    #btnCadastrarModelo {
+      opacity:
+        .7;
 
-      position: relative;
-
-      overflow: hidden;
-
-      margin-top: 12px;
-
-      font-weight: 700;
-
-      letter-spacing: .4px;
-
-      box-shadow:
-        0 8px 25px rgba(0,0,0,.30),
-        0 0 20px rgba(248,213,138,.08);
+      cursor:
+        not-allowed;
 
     }
 
 
-    #btnCadastrarModelo::after {
-
-      content: "";
-
-      position: absolute;
-
-      top: 0;
-
-      left: -120%;
-
-      width: 70%;
-
-      height: 100%;
-
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          rgba(255,255,255,.35),
-          transparent
-        );
-
-      transform:
-        skewX(-20deg);
-
-      transition:
-        left .65s ease;
-
-    }
-
-
-    #btnCadastrarModelo:hover::after {
-
-      left: 140%;
-
-    }
-
-
-    /* =====================================================
-       RESPONSIVO
-       ===================================================== */
-
-    @media (max-width: 560px) {
+    @media (max-width:520px) {
 
       .lux-category-options {
 
         grid-template-columns:
           1fr;
 
+        gap:
+          9px;
+
       }
 
 
       .lux-category-card {
 
-        min-height: 65px;
+        min-height:
+          72px;
 
-        flex-direction: row;
+        flex-direction:
+          row;
+
+        gap:
+          12px;
 
         justify-content:
           flex-start;
 
-        gap: 12px;
-
         padding:
           12px 16px;
+
+        text-align:
+          left;
 
       }
 
 
       .lux-category-icon {
 
-        margin-bottom: 0;
+        margin:
+          0;
 
-        font-size: 21px;
+        font-size:
+          24px;
 
       }
 
@@ -434,769 +438,1330 @@
 <body>
 
 
-  <main class="login-page">
+<main class="login-page">
 
 
-    <section class="login-card">
+<section class="login-card">
 
 
-      <!-- =================================================
-           MARCA
-           ================================================= -->
+  <div class="login-brand">
 
-      <div class="login-brand">
+    <div class="login-logo">
+      LUX
+    </div>
 
-        <div class="login-logo">
-          LUX
-        </div>
+    <div class="login-subtitle">
+      Advance • Sensualidade &amp; Sofisticação
+    </div>
 
-        <div class="login-subtitle">
-          Advance • Sensualidade & Sofisticação
-        </div>
+  </div>
 
+
+  <h1>
+    Cadastro de Modelo
+  </h1>
+
+
+  <p class="login-description">
+    Preencha seus dados para solicitar seu cadastro na plataforma LUX.
+  </p>
+
+
+  <form
+    id="cadastroModeloForm"
+    novalidate
+  >
+
+
+    <!-- =================================================
+         DADOS PESSOAIS
+         ================================================= -->
+
+    <div class="lux-section-title">
+      Dados pessoais
+    </div>
+
+
+    <label for="nome">
+      Nome completo
+    </label>
+
+    <input
+      type="text"
+      id="nome"
+      placeholder="Digite seu nome completo"
+      autocomplete="name"
+      required
+    >
+
+
+    <label for="apelido">
+      Apelido / Nome artístico
+    </label>
+
+    <input
+      type="text"
+      id="apelido"
+      placeholder="Digite seu nome artístico"
+      autocomplete="nickname"
+    >
+
+
+    <label for="cpf">
+      CPF
+    </label>
+
+    <input
+      type="text"
+      id="cpf"
+      placeholder="000.000.000-00"
+      inputmode="numeric"
+      maxlength="14"
+      autocomplete="off"
+      required
+    >
+
+
+    <label for="dataNascimento">
+      Data de nascimento
+    </label>
+
+    <input
+      type="date"
+      id="dataNascimento"
+      autocomplete="bday"
+      required
+    >
+
+
+    <label for="idade">
+      Idade
+    </label>
+
+    <input
+      type="number"
+      id="idade"
+      placeholder="Calculada automaticamente"
+      min="18"
+      max="100"
+      readonly
+      required
+    >
+
+
+    <!-- =================================================
+         CATEGORIA
+         ================================================= -->
+
+    <div class="lux-category-box">
+
+
+      <div class="lux-category-title">
+        Como deseja aparecer no catálogo?
       </div>
 
 
-      <h1>
-        Cadastro de Modelo
-      </h1>
+      <div class="lux-category-description">
+        Escolha uma das três categorias para definir onde seu perfil será apresentado.
+      </div>
 
 
-      <p class="login-description">
-        Crie sua conta para solicitar seu cadastro na plataforma LUX.
-      </p>
-
-
-      <form
-        id="cadastroModeloForm"
+      <div
+        class="lux-category-options"
+        role="radiogroup"
+        aria-label="Categoria do catálogo"
       >
 
 
-        <!-- =================================================
-             DADOS PESSOAIS
-             ================================================= -->
+        <!-- FEMININO -->
 
-        <div class="lux-section-title">
-          Dados pessoais
-        </div>
-
-
-        <label for="nome">
-          Nome completo
-        </label>
-
-        <input
-          type="text"
-          id="nome"
-          placeholder="Digite seu nome completo"
-          autocomplete="name"
-          required
-        >
-
-
-        <label for="apelido">
-          Apelido / Nome artístico
-        </label>
-
-        <input
-          type="text"
-          id="apelido"
-          placeholder="Digite seu nome artístico"
-          autocomplete="nickname"
-        >
-
-
-        <label for="cpf">
-          CPF
-        </label>
-
-        <input
-          type="text"
-          id="cpf"
-          placeholder="000.000.000-00"
-          inputmode="numeric"
-          maxlength="14"
-          autocomplete="off"
-          required
-        >
-
-
-        <label for="dataNascimento">
-          Data de nascimento
-        </label>
-
-        <input
-          type="date"
-          id="dataNascimento"
-          autocomplete="bday"
-          required
-        >
-
-
-        <label for="idade">
-          Idade
-        </label>
-
-        <input
-          type="number"
-          id="idade"
-          placeholder="Calculada automaticamente"
-          min="18"
-          max="100"
-          readonly
-          required
-        >
-
-
-        <!-- =================================================
-             CATEGORIA
-             ================================================= -->
-
-        <div class="lux-category-box">
-
-
-          <label
-            class="lux-category-title"
-            for="categoriaCatalogo"
-          >
-            Como deseja aparecer no catálogo?
-          </label>
-
-
-          <span class="lux-category-description">
-
-            Escolha a categoria pública em que seu perfil será apresentado.
-
-          </span>
-
-
-          <!--
-             Campo original mantido para compatibilidade
-             com o cadastro e com o auth.js.
-          -->
-
-          <select
-            id="categoriaCatalogo"
-            required
-          >
-
-            <option value="">
-              Selecione uma categoria
-            </option>
-
-            <option value="feminino">
-              Modelo Feminino
-            </option>
-
-            <option value="masculino">
-              Modelo Masculino
-            </option>
-
-            <option value="lgbtq">
-              LGBTQ+
-            </option>
-
-          </select>
-
-
-          <div
-            class="lux-category-options"
-          >
-
-
-            <!-- FEMININO -->
-
-            <label
-              class="lux-category-option"
-            >
-
-              <input
-                type="radio"
-                name="categoriaVisual"
-                value="feminino"
-              >
-
-              <span
-                class="lux-category-card"
-              >
-
-                <span
-                  class="lux-category-icon"
-                >
-                  ♛
-                </span>
-
-                <span
-                  class="lux-category-name"
-                >
-                  Feminino
-                </span>
-
-              </span>
-
-            </label>
-
-
-            <!-- MASCULINO -->
-
-            <label
-              class="lux-category-option"
-            >
-
-              <input
-                type="radio"
-                name="categoriaVisual"
-                value="masculino"
-              >
-
-              <span
-                class="lux-category-card"
-              >
-
-                <span
-                  class="lux-category-icon"
-                >
-                  ◆
-                </span>
-
-                <span
-                  class="lux-category-name"
-                >
-                  Masculino
-                </span>
-
-              </span>
-
-            </label>
-
-
-            <!-- LGBTQ+ -->
-
-            <label
-              class="lux-category-option"
-            >
-
-              <input
-                type="radio"
-                name="categoriaVisual"
-                value="lgbtq"
-              >
-
-              <span
-                class="lux-category-card"
-              >
-
-                <span
-                  class="lux-category-icon"
-                >
-                  ✦
-                </span>
-
-                <span
-                  class="lux-category-name"
-                >
-                  LGBTQ+
-                </span>
-
-              </span>
-
-            </label>
-
-
-          </div>
-
-        </div>
-
-
-        <!-- =================================================
-             CONTATO
-             ================================================= -->
-
-        <div class="lux-section-title">
-          Contato
-        </div>
-
-
-        <label for="whatsapp">
-          WhatsApp
-        </label>
-
-        <input
-          type="tel"
-          id="whatsapp"
-          placeholder="(00) 00000-0000"
-          autocomplete="tel"
-          required
-        >
-
-
-        <label for="email">
-          E-mail
-        </label>
-
-        <input
-          type="email"
-          id="email"
-          placeholder="Digite seu e-mail"
-          autocomplete="email"
-          required
-        >
-
-
-        <!-- =================================================
-             ENDEREÇO
-             ================================================= -->
-
-        <div class="lux-section-title">
-          Endereço
-        </div>
-
-
-        <label for="cep">
-          CEP
-        </label>
-
-        <input
-          type="text"
-          id="cep"
-          placeholder="00000-000"
-          inputmode="numeric"
-          maxlength="9"
-          autocomplete="postal-code"
-          required
-        >
-
-
-        <label for="estado">
-          Estado / UF
-        </label>
-
-        <input
-          type="text"
-          id="estado"
-          placeholder="Ex.: RS"
-          maxlength="2"
-          autocomplete="address-level1"
-          required
-        >
-
-
-        <label for="cidade">
-          Cidade
-        </label>
-
-        <input
-          type="text"
-          id="cidade"
-          placeholder="Digite sua cidade"
-          autocomplete="address-level2"
-          required
-        >
-
-
-        <label for="bairro">
-          Bairro
-        </label>
-
-        <input
-          type="text"
-          id="bairro"
-          placeholder="Digite seu bairro"
-          autocomplete="address-level3"
-          required
-        >
-
-
-        <label for="endereco">
-          Rua / Logradouro
-        </label>
-
-        <input
-          type="text"
-          id="endereco"
-          placeholder="Digite a rua ou logradouro"
-          autocomplete="street-address"
-          required
-        >
-
-
-        <label for="numero">
-          Número
-        </label>
-
-        <input
-          type="text"
-          id="numero"
-          placeholder="Número"
-          required
-        >
-
-
-        <label for="complemento">
-          Complemento
-        </label>
-
-        <input
-          type="text"
-          id="complemento"
-          placeholder="Apartamento, casa, bloco etc."
-        >
-
-
-        <label for="pais">
-          País
-        </label>
-
-        <input
-          type="text"
-          id="pais"
-          value="Brasil"
-          autocomplete="country-name"
-        >
-
-
-        <!-- =================================================
-             CARACTERÍSTICAS
-             ================================================= -->
-
-        <div class="lux-section-title">
-          Características
-        </div>
-
-
-        <label for="altura">
-          Altura
-        </label>
-
-        <input
-          type="number"
-          id="altura"
-          placeholder="Altura em centímetros"
-          min="100"
-          max="250"
-        >
-
-
-        <label for="corCabelo">
-          Cor do cabelo
-        </label>
-
-        <input
-          type="text"
-          id="corCabelo"
-          placeholder="Ex.: Castanho, loiro, vermelho"
-        >
-
-
-        <label for="corOlhos">
-          Cor dos olhos
-        </label>
-
-        <input
-          type="text"
-          id="corOlhos"
-          placeholder="Ex.: Castanhos, verdes, azuis"
-        >
-
-
-        <label for="idiomas">
-          Idiomas
-        </label>
-
-        <input
-          type="text"
-          id="idiomas"
-          placeholder="Ex.: Português, Espanhol"
-        >
-
-
-        <!-- =================================================
-             APRESENTAÇÃO
-             ================================================= -->
-
-        <div class="lux-section-title">
-          Apresentação
-        </div>
-
-
-        <label for="descricao">
-          Descrição
-        </label>
-
-        <textarea
-          id="descricao"
-          placeholder="Escreva uma breve descrição sobre você"
-          rows="5"
-        ></textarea>
-
-
-        <!-- =================================================
-             SEGURANÇA
-             ================================================= -->
-
-        <div class="lux-section-title">
-          Segurança da conta
-        </div>
-
-
-        <label for="senha">
-          Senha
-        </label>
-
-        <input
-          type="password"
-          id="senha"
-          placeholder="Mínimo de 6 caracteres"
-          autocomplete="new-password"
-          minlength="6"
-          required
-        >
-
-
-        <label for="confirmarSenha">
-          Confirmar senha
-        </label>
-
-        <input
-          type="password"
-          id="confirmarSenha"
-          placeholder="Digite a senha novamente"
-          autocomplete="new-password"
-          minlength="6"
-          required
-        >
-
-
-        <!-- =================================================
-             MAIORIDADE
-             ================================================= -->
-
-        <label
-          class="checkbox-row"
-        >
+        <label class="lux-category-option">
 
           <input
-            type="checkbox"
-            id="maioridade"
+            type="radio"
+            name="categoriaCatalogo"
+            value="feminino"
             required
           >
 
-          <span>
-            Confirmo que sou maior de 18 anos.
+          <span class="lux-category-card">
+
+            <span class="lux-category-icon">
+              ♛
+            </span>
+
+            <span class="lux-category-name">
+              Feminino
+            </span>
+
           </span>
 
         </label>
 
 
-        <!-- =================================================
-             BOTÃO
-             ================================================= -->
+        <!-- MASCULINO -->
 
-        <button
-          type="submit"
-          class="btn-primary"
-          id="btnCadastrarModelo"
-        >
-          ✦ Solicitar cadastro
-        </button>
+        <label class="lux-category-option">
+
+          <input
+            type="radio"
+            name="categoriaCatalogo"
+            value="masculino"
+          >
+
+          <span class="lux-category-card">
+
+            <span class="lux-category-icon">
+              ◆
+            </span>
+
+            <span class="lux-category-name">
+              Masculino
+            </span>
+
+          </span>
+
+        </label>
 
 
-      </form>
+        <!-- LGBTQ+ -->
 
+        <label class="lux-category-option">
 
-      <!-- =================================================
-           MENSAGEM
-           ================================================= -->
+          <input
+            type="radio"
+            name="categoriaCatalogo"
+            value="lgbtq"
+          >
 
-      <div
-        id="mensagem"
-        class="login-message"
-      ></div>
+          <span class="lux-category-card">
 
+            <span class="lux-category-icon">
+              ✦
+            </span>
 
-      <!-- =================================================
-           LINKS
-           ================================================= -->
+            <span class="lux-category-name">
+              LGBTQ+
+            </span>
 
-      <div class="login-links">
+          </span>
 
-        <a href="login.html">
-          Já tenho uma conta
-        </a>
+        </label>
 
-        <a href="cadastro-usuario.html">
-          Cadastro de usuário
-        </a>
 
       </div>
 
 
-    </section>
-
-  </main>
-
-
-  <script>
-
-    /* =====================================================
-       ELEMENTOS
-       ===================================================== */
-
-    const formulario =
-      document.getElementById(
-        "cadastroModeloForm"
-      );
+      <div class="lux-required-note">
+        Selecione uma opção antes de enviar o cadastro.
+      </div>
 
 
-    const mensagem =
-      document.getElementById(
-        "mensagem"
-      );
+    </div>
 
 
-    const botao =
-      document.getElementById(
-        "btnCadastrarModelo"
-      );
+    <!-- =================================================
+         CONTATO
+         ================================================= -->
+
+    <div class="lux-section-title">
+      Contato
+    </div>
 
 
-    const categoriaSelect =
-      document.getElementById(
-        "categoriaCatalogo"
-      );
+    <label for="whatsapp">
+      WhatsApp
+    </label>
+
+    <input
+      type="tel"
+      id="whatsapp"
+      placeholder="(00) 00000-0000"
+      autocomplete="tel"
+      required
+    >
 
 
-    const categoriasVisuais =
-      document.querySelectorAll(
-        'input[name="categoriaVisual"]'
-      );
+    <label for="email">
+      E-mail
+    </label>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Digite seu e-mail"
+      autocomplete="email"
+      required
+    >
 
 
-    /* =====================================================
-       CATEGORIA VISUAL → SELECT REAL
-       ===================================================== */
+    <!-- =================================================
+         ENDEREÇO
+         ================================================= -->
 
-    categoriasVisuais.forEach(
-      function(opcao) {
+    <div class="lux-section-title">
+      Endereço
+    </div>
 
-        opcao.addEventListener(
-          "change",
-          function() {
 
-            categoriaSelect.value =
-              this.value;
+    <label for="cep">
+      CEP
+    </label>
 
-          }
-        );
+    <input
+      type="text"
+      id="cep"
+      placeholder="00000-000"
+      inputmode="numeric"
+      maxlength="9"
+      autocomplete="postal-code"
+      required
+    >
 
-      }
+
+    <label for="estado">
+      Estado / UF
+    </label>
+
+    <input
+      type="text"
+      id="estado"
+      placeholder="Ex.: RS"
+      maxlength="2"
+      autocomplete="address-level1"
+      required
+    >
+
+
+    <label for="cidade">
+      Cidade
+    </label>
+
+    <input
+      type="text"
+      id="cidade"
+      placeholder="Digite sua cidade"
+      autocomplete="address-level2"
+      required
+    >
+
+
+    <label for="bairro">
+      Bairro
+    </label>
+
+    <input
+      type="text"
+      id="bairro"
+      placeholder="Digite seu bairro"
+      autocomplete="address-level3"
+      required
+    >
+
+
+    <label for="endereco">
+      Rua / Logradouro
+    </label>
+
+    <input
+      type="text"
+      id="endereco"
+      placeholder="Digite a rua ou logradouro"
+      autocomplete="street-address"
+      required
+    >
+
+
+    <label for="numero">
+      Número
+    </label>
+
+    <input
+      type="text"
+      id="numero"
+      placeholder="Número"
+      required
+    >
+
+
+    <label for="complemento">
+      Complemento
+    </label>
+
+    <input
+      type="text"
+      id="complemento"
+      placeholder="Apartamento, casa, bloco etc."
+    >
+
+
+    <label for="pais">
+      País
+    </label>
+
+    <input
+      type="text"
+      id="pais"
+      value="Brasil"
+      autocomplete="country-name"
+    >
+
+
+    <!-- =================================================
+         CARACTERÍSTICAS
+         ================================================= -->
+
+    <div class="lux-section-title">
+      Características
+    </div>
+
+
+    <label for="altura">
+      Altura
+    </label>
+
+    <input
+      type="number"
+      id="altura"
+      placeholder="Altura em centímetros"
+      min="100"
+      max="250"
+    >
+
+
+    <label for="corCabelo">
+      Cor do cabelo
+    </label>
+
+    <input
+      type="text"
+      id="corCabelo"
+      placeholder="Ex.: Castanho, loiro, vermelho"
+    >
+
+
+    <label for="corOlhos">
+      Cor dos olhos
+    </label>
+
+    <input
+      type="text"
+      id="corOlhos"
+      placeholder="Ex.: Castanhos, verdes, azuis"
+    >
+
+
+    <label for="idiomas">
+      Idiomas
+    </label>
+
+    <input
+      type="text"
+      id="idiomas"
+      placeholder="Ex.: Português, Espanhol"
+    >
+
+
+    <!-- =================================================
+         APRESENTAÇÃO
+         ================================================= -->
+
+    <div class="lux-section-title">
+      Apresentação
+    </div>
+
+
+    <label for="descricao">
+      Descrição
+    </label>
+
+    <textarea
+      id="descricao"
+      placeholder="Escreva uma breve descrição sobre você"
+      rows="5"
+    ></textarea>
+
+
+    <!-- =================================================
+         SEGURANÇA
+         ================================================= -->
+
+    <div class="lux-section-title">
+      Segurança da conta
+    </div>
+
+
+    <label for="senha">
+      Senha
+    </label>
+
+    <input
+      type="password"
+      id="senha"
+      placeholder="Mínimo de 6 caracteres"
+      autocomplete="new-password"
+      minlength="6"
+      required
+    >
+
+
+    <label for="confirmarSenha">
+      Confirmar senha
+    </label>
+
+    <input
+      type="password"
+      id="confirmarSenha"
+      placeholder="Digite a senha novamente"
+      autocomplete="new-password"
+      minlength="6"
+      required
+    >
+
+
+    <!-- =================================================
+         MAIORIDADE
+         ================================================= -->
+
+    <label class="checkbox-row">
+
+      <input
+        type="checkbox"
+        id="maioridade"
+        required
+      >
+
+      <span>
+        Confirmo que sou maior de 18 anos.
+      </span>
+
+    </label>
+
+
+    <!-- =================================================
+         BOTÃO
+         ================================================= -->
+
+    <button
+      type="submit"
+      class="btn-primary lux-submit"
+      id="btnCadastrarModelo"
+    >
+      ✦ Solicitar cadastro
+    </button>
+
+
+  </form>
+
+
+  <div
+    id="mensagem"
+    class="login-message"
+  ></div>
+
+
+  <div class="login-links">
+
+    <a href="login.html">
+      Já tenho uma conta
+    </a>
+
+    <a href="cadastro-usuario.html">
+      Cadastro de usuário
+    </a>
+
+  </div>
+
+
+</section>
+
+</main>
+
+
+<script>
+
+(function(){
+
+  "use strict";
+
+
+  const form =
+    document.getElementById(
+      "cadastroModeloForm"
     );
 
 
-    /* =====================================================
-       SE O SELECT FOR ALTERADO
-       SINCRONIZA O CARTÃO VISUAL
-       ===================================================== */
+  const mensagem =
+    document.getElementById(
+      "mensagem"
+    );
 
-    categoriaSelect.addEventListener(
+
+  const botao =
+    document.getElementById(
+      "btnCadastrarModelo"
+    );
+
+
+  function mostrar(
+    texto,
+    tipo
+  ){
+
+    mensagem.className =
+      "login-message " +
+      (tipo || "");
+
+    mensagem.textContent =
+      texto || "";
+
+  }
+
+
+  function valor(id){
+
+    return document
+      .getElementById(id)
+      .value
+      .trim();
+
+  }
+
+
+  /* =====================================================
+     IDADE
+     ===================================================== */
+
+  function calcularIdade(){
+
+    const campo =
+      document.getElementById(
+        "dataNascimento"
+      );
+
+
+    const idade =
+      document.getElementById(
+        "idade"
+      );
+
+
+    if(!campo.value){
+
+      idade.value = "";
+
+      return;
+
+    }
+
+
+    const nascimento =
+      new Date(
+        campo.value +
+        "T00:00:00"
+      );
+
+
+    const hoje =
+      new Date();
+
+
+    let anos =
+      hoje.getFullYear() -
+      nascimento.getFullYear();
+
+
+    const mes =
+      hoje.getMonth() -
+      nascimento.getMonth();
+
+
+    if(
+      mes < 0 ||
+      (
+        mes === 0 &&
+        hoje.getDate() <
+        nascimento.getDate()
+      )
+    ){
+
+      anos--;
+
+    }
+
+
+    idade.value =
+      anos >= 0
+        ? anos
+        : "";
+
+  }
+
+
+  document
+    .getElementById(
+      "dataNascimento"
+    )
+    .addEventListener(
       "change",
-      function() {
+      calcularIdade
+    );
 
-        categoriasVisuais.forEach(
-          function(opcao) {
 
-            opcao.checked =
-              opcao.value ===
-              categoriaSelect.value;
+  /* =====================================================
+     CPF
+     ===================================================== */
 
-          }
-        );
+  document
+    .getElementById("cpf")
+    .addEventListener(
+      "input",
+      function(){
+
+        let v =
+          this.value
+            .replace(/\D/g,"")
+            .slice(0,11);
+
+
+        if(v.length > 9){
+
+          v =
+            v.replace(
+              /(\d{3})(\d{3})(\d{3})(\d{1,2})/,
+              "$1.$2.$3-$4"
+            );
+
+        }
+
+        else if(v.length > 6){
+
+          v =
+            v.replace(
+              /(\d{3})(\d{3})(\d{1,3})/,
+              "$1.$2.$3"
+            );
+
+        }
+
+        else if(v.length > 3){
+
+          v =
+            v.replace(
+              /(\d{3})(\d{1,3})/,
+              "$1.$2"
+            );
+
+        }
+
+
+        this.value =
+          v;
 
       }
     );
 
 
-    /* =====================================================
-       MÁSCARA CPF
-       ===================================================== */
+  /* =====================================================
+     CEP
+     ===================================================== */
 
-    document
-      .getElementById("cpf")
-      .addEventListener(
-        "input",
-        function() {
+  document
+    .getElementById("cep")
+    .addEventListener(
+      "input",
+      function(){
 
-          let valor =
-            this.value
-              .replace(/\D/g, "")
-              .slice(0, 11);
-
-
-          valor =
-            valor.replace(
-              /(\d{3})(\d)/,
-              "$1.$2"
-            );
+        let v =
+          this.value
+            .replace(/\D/g,"")
+            .slice(0,8);
 
 
-          valor =
-            valor.replace(
-              /(\d{3})(\d)/,
-              "$1.$2"
-            );
+        if(v.length > 5){
 
-
-          valor =
-            valor.replace(
-              /(\d{3})(\d{1,2})$/,
-              "$1-$2"
-            );
-
-
-          this.value =
-            valor;
+          v =
+            v.slice(0,5) +
+            "-" +
+            v.slice(5);
 
         }
-      );
 
 
-    /* =====================================================
-       MÁSCARA CEP
-       ===================================================== */
+        this.value =
+          v;
 
-    document
-      .getElementById("cep")
-      .addEventListener(
-        "input",
-        function() {
-
-          let valor =
-            this.value
-              .replace(/\D/g, "")
-              .slice(0, 8);
+      }
+    );
 
 
-          if (
-            valor.length > 5
-          ) {
+  /* =====================================================
+     WHATSAPP
+     ===================================================== */
 
-            valor =
-              valor.substring(0, 5) +
-              "-" +
-              valor.substring(5);
+  document
+    .getElementById("whatsapp")
+    .addEventListener(
+      "input",
+      function(){
+
+        let v =
+          this.value
+            .replace(/\D/g,"")
+            .slice(0,11);
+
+
+        if(v.length > 10){
+
+          v =
+            v.replace(
+              /^(\d{2})(\d{5})(\d{1,4})$/,
+              "($1) $2-$3"
+            );
+
+        }
+
+        else if(v.length > 6){
+
+          v =
+            v.replace(
+              /^(\d{2})(\d{4})(\d{1,4})$/,
+              "($1) $2-$3"
+            );
+
+        }
+
+        else if(v.length > 2){
+
+          v =
+            v.replace(
+              /^(\d{2})(\d+)/,
+              "($1) $2"
+            );
+
+        }
+
+
+        this.value =
+          v;
+
+      }
+    );
+
+
+  /* =====================================================
+     ESTADO
+     ===================================================== */
+
+  document
+    .getElementById("estado")
+    .addEventListener(
+      "input",
+      function(){
+
+        this.value =
+          this.value
+            .toUpperCase()
+            .slice(0,2);
+
+      }
+    );
+
+
+  /* =====================================================
+     BUSCA CEP
+     ===================================================== */
+
+  document
+    .getElementById("cep")
+    .addEventListener(
+      "blur",
+      async function(){
+
+        const cep =
+          this.value
+            .replace(/\D/g,"");
+
+
+        if(cep.length !== 8){
+
+          return;
+
+        }
+
+
+        try{
+
+          const resposta =
+            await fetch(
+              "https://viacep.com.br/ws/" +
+              cep +
+              "/json/"
+            );
+
+
+          const dados =
+            await resposta.json();
+
+
+          if(dados.erro){
+
+            mostrar(
+              "CEP não encontrado.",
+              "error"
+            );
+
+            return;
 
           }
 
 
-          this.value =
-            valor;
+          document
+            .getElementById("estado")
+            .value =
+            dados.uf || "";
+
+
+          document
+            .getElementById("cidade")
+            .value =
+            dados.localidade || "";
+
+
+          document
+            .getElementById("bairro")
+            .value =
+            dados.bairro || "";
+
+
+          document
+            .getElementById("endereco")
+            .value =
+            dados.logradouro || "";
+
+
+          mostrar(
+            "",
+            ""
+          );
 
         }
+
+        catch(erro){
+
+          console.error(
+            erro
+          );
+
+        }
+
+      }
+    );
+
+
+  /* =====================================================
+     ENVIO
+     ===================================================== */
+
+  form.addEventListener(
+    "submit",
+    async function(event){
+
+      event.preventDefault();
+
+
+      mostrar(
+        "",
+        ""
       );
 
 
-    /* =====================================================
-       MÁSCARA WHATSAPP
-       ===================================================== */
+      calcularIdade();
 
-   
+
+      const categoria =
+        document
+          .querySelector(
+            'input[name="categoriaCatalogo"]:checked'
+          )
+          ?.value ||
+        "";
+
+
+      const idade =
+        Number(
+          document
+            .getElementById("idade")
+            .value
+        );
+
+
+      const cpf =
+        valor("cpf");
+
+
+      const dataNascimento =
+        valor("dataNascimento");
+
+
+      const senha =
+        document
+          .getElementById("senha")
+          .value;
+
+
+      const confirmarSenha =
+        document
+          .getElementById(
+            "confirmarSenha"
+          )
+          .value;
+
+
+      /* =================================================
+         VALIDAÇÕES
+         ================================================= */
+
+      if(!valor("nome")){
+
+        return mostrar(
+          "Digite seu nome completo.",
+          "error"
+        );
+
+      }
+
+
+      if(
+        cpf.replace(/\D/g,"").length !== 11
+      ){
+
+        return mostrar(
+          "Digite um CPF válido.",
+          "error"
+        );
+
+      }
+
+
+      if(!dataNascimento){
+
+        return mostrar(
+          "Informe sua data de nascimento.",
+          "error"
+        );
+
+      }
+
+
+      if(
+        !idade ||
+        idade < 18
+      ){
+
+        return mostrar(
+          "O cadastro de modelo é permitido somente para maiores de 18 anos.",
+          "error"
+        );
+
+      }
+
+
+      if(!categoria){
+
+        return mostrar(
+          "Selecione uma das categorias: Feminino, Masculino ou LGBTQ+.",
+          "error"
+        );
+
+      }
+
+
+      if(!valor("whatsapp")){
+
+        return mostrar(
+          "Digite seu WhatsApp.",
+          "error"
+        );
+
+      }
+
+
+      if(!valor("cep")){
+
+        return mostrar(
+          "Digite seu CEP.",
+          "error"
+        );
+
+      }
+
+
+      if(!valor("estado")){
+
+        return mostrar(
+          "Informe seu estado.",
+          "error"
+        );
+
+      }
+
+
+      if(!valor("cidade")){
+
+        return mostrar(
+          "Digite sua cidade.",
+          "error"
+        );
+
+      }
+
+
+      if(!valor("bairro")){
+
+        return mostrar(
+          "Digite seu bairro.",
+          "error"
+        );
+
+      }
+
+
+      if(!valor("endereco")){
+
+        return mostrar(
+          "Digite sua rua ou logradouro.",
+          "error"
+        );
+
+      }
+
+
+      if(!valor("numero")){
+
+        return mostrar(
+          "Informe o número do endereço.",
+          "error"
+        );
+
+      }
+
+
+      if(!valor("email")){
+
+        return mostrar(
+          "Digite seu e-mail.",
+          "error"
+        );
+
+      }
+
+
+      if(senha.length < 6){
+
+        return mostrar(
+          "A senha precisa ter pelo menos 6 caracteres.",
+          "error"
+        );
+
+      }
+
+
+      if(
+        senha !==
+        confirmarSenha
+      ){
+
+        return mostrar(
+          "As senhas não são iguais.",
+          "error"
+        );
+
+      }
+
+
+      if(
+        !document
+          .getElementById("maioridade")
+          .checked
+      ){
+
+        return mostrar(
+          "É necessário confirmar que você é maior de 18 anos.",
+          "error"
+        );
+
+      }
+
+
+      if(
+        typeof window.cadastrar !==
+        "function"
+      ){
+
+        return mostrar(
+          "A função de cadastro não foi carregada. Verifique o auth.js.",
+          "error"
+        );
+
+      }
+
+
+      /* =================================================
+         ENVIO
+         ================================================= */
+
+      botao.disabled =
+        true;
+
+
+      botao.textContent =
+        "Enviando cadastro...";
+
+
+      try{
+
+        const resultado =
+          await window.cadastrar(
+            "modelo",
+            valor("nome"),
+            valor("email"),
+            senha,
+            {
+
+              maioridade_confirmada:
+                true,
+
+              categoria_catalogo:
+                categoria,
+
+              apelido:
+                valor("apelido"),
+
+              cpf:
+                cpf,
+
+              data_nascimento:
+                dataNascimento,
+
+              whatsapp:
+                valor("whatsapp"),
+
+              idade:
+                idade,
+
+              altura_cm:
+                Number(
+                  valor("altura")
+                ) || null,
+
+              cep:
+                valor("cep"),
+
+              estado:
+                valor("estado")
+                  .toUpperCase(),
+
+              cidade:
+                valor("cidade"),
+
+              bairro:
+                valor("bairro"),
+
+              endereco:
+                valor("endereco"),
+
+              numero:
+                valor("numero"),
+
+              complemento:
+                valor("complemento"),
+
+              pais:
+                valor("pais") ||
+                "Brasil",
+
+              cor_cabelo:
+                valor("corCabelo"),
+
+              cor_olhos:
+                valor("corOlhos"),
+
+              idiomas:
+                valor("idiomas"),
+
+              descricao:
+                valor("descricao")
+
+            }
+          );
+
+
+        if(
+          !resultado ||
+          !resultado.success
+        ){
+
+          throw new Error(
+            resultado?.error ||
+            "Não foi possível realizar o cadastro."
+          );
+
+        }
+
+
+        mostrar(
+          "Cadastro enviado com sucesso! Seu perfil ficará pendente de análise pela administração da LUX.",
+          "success"
+        );
+
+
+        botao.textContent =
+          "Cadastro enviado ✓";
+
+
+        setTimeout(
+          function(){
+
+            window.location.href =
+              "login.html";
+
+          },
+          5000
+        );
+
+      }
+
+      catch(erro){
+
+        console.error(
+          erro
+        );
+
+
+        mostrar(
+          erro?.message ||
+          "Erro ao realizar cadastro.",
+          "error"
+        );
+
+
+        botao.disabled =
+          false;
+
+
+        botao.textContent =
+          "✦ Solicitar cadastro";
+
+      }
+
+    }
+
+  );
+
+})();
+
+</script>
+
+</body>
+</html>

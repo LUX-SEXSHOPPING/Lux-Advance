@@ -582,23 +582,97 @@ async function cadastrar(
      CATEGORIA DO CATÁLOGO
      ======================================================= */
 
-  const categoriaCatalogo =
+  let categoriaCatalogo =
+    extras.categoria_catalogo ??
+    extras.categoriaCatalogo ??
+    extras.categoria ??
+    "";
+
+
+  categoriaCatalogo =
     String(
-      extras.categoria_catalogo ||
-      ""
+      categoriaCatalogo
     )
       .trim()
       .toLowerCase();
 
 
-  if (tipo === "modelo") {
+  /*
+     NORMALIZA AS POSSÍVEIS FORMAS
+     DA CATEGORIA ENVIADA PELO FORMULÁRIO
+  */
 
-    const categoriasPermitidas =
-      [
-        "feminino",
-        "masculino",
-        "lgbtq"
-      ];
+  if (
+    categoriaCatalogo ===
+      "modelo feminino" ||
+
+    categoriaCatalogo ===
+      "feminino" ||
+
+    categoriaCatalogo ===
+      "female"
+  ) {
+
+    categoriaCatalogo =
+      "feminino";
+
+  }
+
+
+  if (
+    categoriaCatalogo ===
+      "modelo masculino" ||
+
+    categoriaCatalogo ===
+      "masculino" ||
+
+    categoriaCatalogo ===
+      "male"
+  ) {
+
+    categoriaCatalogo =
+      "masculino";
+
+  }
+
+
+  if (
+    categoriaCatalogo ===
+      "lgbtq" ||
+
+    categoriaCatalogo ===
+      "lgbtq+" ||
+
+    categoriaCatalogo ===
+      "modelo lgbtq" ||
+
+    categoriaCatalogo ===
+      "modelo lgbtq+"
+  ) {
+
+    categoriaCatalogo =
+      "lgbtq";
+
+  }
+
+
+  /* =======================================================
+     VALIDAÇÃO DA MODELO
+     ======================================================= */
+
+  if (
+    tipo === "modelo"
+  ) {
+
+    const categoriasPermitidas = [
+
+      "feminino",
+
+      "masculino",
+
+      "lgbtq"
+
+    ];
 
 
     if (
@@ -614,7 +688,10 @@ async function cadastrar(
     }
 
 
-    if (!idade || idade < 18) {
+    if (
+      !idade ||
+      idade < 18
+    ) {
 
       throw new Error(
         "A idade da modelo deve ser igual ou superior a 18 anos."
@@ -623,7 +700,9 @@ async function cadastrar(
     }
 
 
-    if (!maioridadeConfirmada) {
+    if (
+      !maioridadeConfirmada
+    ) {
 
       throw new Error(
         "É necessário confirmar a maioridade."

@@ -1,6 +1,6 @@
 /* =========================================================
    LUX — AUTENTICAÇÃO
-   V3
+   V4 — CADASTRO COMPLETO DE MODELOS
    ========================================================= */
 
 
@@ -10,12 +10,15 @@
 
 function requireClient() {
 
-  const client = window.luxSupabase;
+  const client =
+    window.luxSupabase;
 
   if (!client) {
+
     throw new Error(
       "Supabase não foi inicializado. Verifique o config.js."
     );
+
   }
 
   return client;
@@ -28,13 +31,20 @@ function requireClient() {
 
 async function getPerfil(userId) {
 
-  const supabase = requireClient();
+  const supabase =
+    requireClient();
 
-  const { data, error } = await supabase
-    .from("perfis")
-    .select("*")
-    .eq("id", userId)
-    .maybeSingle();
+
+  const {
+    data,
+    error
+  } =
+    await supabase
+      .from("perfis")
+      .select("*")
+      .eq("id", userId)
+      .maybeSingle();
+
 
   if (error) {
 
@@ -44,7 +54,9 @@ async function getPerfil(userId) {
     );
 
     throw error;
+
   }
+
 
   return data;
 }
@@ -56,13 +68,20 @@ async function getPerfil(userId) {
 
 async function getModeloPerfil(userId) {
 
-  const supabase = requireClient();
+  const supabase =
+    requireClient();
 
-  const { data, error } = await supabase
-    .from("modelo_perfis")
-    .select("*")
-    .eq("id", userId)
-    .maybeSingle();
+
+  const {
+    data,
+    error
+  } =
+    await supabase
+      .from("modelo_perfis")
+      .select("*")
+      .eq("id", userId)
+      .maybeSingle();
+
 
   if (error) {
 
@@ -72,7 +91,9 @@ async function getModeloPerfil(userId) {
     );
 
     return null;
+
   }
+
 
   return data;
 }
@@ -84,10 +105,16 @@ async function getModeloPerfil(userId) {
 
 async function usuarioAtual() {
 
-  const supabase = requireClient();
+  const supabase =
+    requireClient();
 
-  const { data, error } =
+
+  const {
+    data,
+    error
+  } =
     await supabase.auth.getUser();
+
 
   if (error) {
 
@@ -97,7 +124,9 @@ async function usuarioAtual() {
     );
 
     return null;
+
   }
+
 
   return data?.user || null;
 }
@@ -112,32 +141,29 @@ async function getTipoUsuario(userId) {
   const perfil =
     await getPerfil(userId);
 
+
   if (perfil?.tipo === "modelo") {
 
     return "modelo";
+
   }
 
-
-  /*
-   * Compatibilidade:
-   *
-   * Caso exista um registro em
-   * modelo_perfis, a conta também
-   * será reconhecida como modelo.
-   */
 
   const modeloPerfil =
     await getModeloPerfil(userId);
 
+
   if (modeloPerfil) {
 
     return "modelo";
+
   }
 
 
   if (perfil?.tipo) {
 
     return perfil.tipo;
+
   }
 
 
@@ -149,12 +175,18 @@ async function getTipoUsuario(userId) {
    LOGIN
    ========================================================= */
 
-async function login(email, senha) {
+async function login(
+  email,
+  senha
+) {
 
-  const supabase = requireClient();
+  const supabase =
+    requireClient();
+
 
   email =
-    String(email || "").trim();
+    String(email || "")
+      .trim();
 
 
   if (!email || !senha) {
@@ -162,19 +194,23 @@ async function login(email, senha) {
     throw new Error(
       "Informe o e-mail e a senha."
     );
+
   }
 
 
   const {
     data,
     error
-  } = await supabase.auth.signInWithPassword({
+  } =
+    await supabase.auth
+      .signInWithPassword({
 
-    email,
+        email,
 
-    password: senha
+        password:
+          senha
 
-  });
+      });
 
 
   if (error) {
@@ -186,7 +222,9 @@ async function login(email, senha) {
 
 
     const msg =
-      error.message?.toLowerCase() || "";
+      error.message
+        ?.toLowerCase() ||
+      "";
 
 
     if (
@@ -198,6 +236,7 @@ async function login(email, senha) {
       throw new Error(
         "E-mail ou senha incorretos."
       );
+
     }
 
 
@@ -205,11 +244,13 @@ async function login(email, senha) {
       error.message ||
       "Não foi possível realizar o login."
     );
+
   }
 
 
   const user =
     data?.user;
+
 
   const session =
     data?.session;
@@ -220,6 +261,7 @@ async function login(email, senha) {
     throw new Error(
       "Usuário não encontrado."
     );
+
   }
 
 
@@ -228,66 +270,86 @@ async function login(email, senha) {
     throw new Error(
       "Sessão não criada. Tente novamente."
     );
+
   }
 
 
   const perfil =
-    await getPerfil(user.id);
+    await getPerfil(
+      user.id
+    );
 
 
   const modeloPerfil =
-    await getModeloPerfil(user.id);
+    await getModeloPerfil(
+      user.id
+    );
 
 
-  if (!perfil && !modeloPerfil) {
+  if (
+    !perfil &&
+    !modeloPerfil
+  ) {
 
     await supabase.auth.signOut();
+
 
     throw new Error(
       "Sua conta foi criada, mas o perfil ainda não está disponível."
     );
+
   }
 
 
   if (
     perfil &&
     (
-      perfil.status === "bloqueado" ||
-      perfil.status === "banido"
+      perfil.status ===
+        "bloqueado" ||
+
+      perfil.status ===
+        "banido"
     )
   ) {
 
     await supabase.auth.signOut();
 
+
     throw new Error(
       "Esta conta está bloqueada."
     );
+
   }
 
 
-  /*
-   * Determina o tipo real da conta.
-   */
-
-  let tipo = null;
+  let tipo =
+    null;
 
 
   if (
-    perfil?.tipo === "modelo" ||
+    perfil?.tipo ===
+      "modelo" ||
+
     modeloPerfil
   ) {
 
-    tipo = "modelo";
+    tipo =
+      "modelo";
 
-  } else if (perfil?.tipo) {
+  } else if (
+    perfil?.tipo
+  ) {
 
-    tipo = perfil.tipo;
+    tipo =
+      perfil.tipo;
+
   }
 
 
   return {
 
-    id: user.id,
+    id:
+      user.id,
 
     user,
 
@@ -299,7 +361,8 @@ async function login(email, senha) {
 
     tipo,
 
-    success: true
+    success:
+      true
 
   };
 }
@@ -342,6 +405,7 @@ async function cadastrar(
     throw new Error(
       "Informe seu nome."
     );
+
   }
 
 
@@ -350,14 +414,19 @@ async function cadastrar(
     throw new Error(
       "Informe seu e-mail."
     );
+
   }
 
 
-  if (!senha || senha.length < 6) {
+  if (
+    !senha ||
+    senha.length < 6
+  ) {
 
     throw new Error(
       "A senha deve possuir pelo menos 6 caracteres."
     );
+
   }
 
 
@@ -369,19 +438,24 @@ async function cadastrar(
     throw new Error(
       "Tipo de cadastro inválido."
     );
+
   }
 
 
   /* =======================================================
-     DADOS EXTRAS
+     DADOS BÁSICOS
      ======================================================= */
 
   const idade =
-    Number(extras.idade) || null;
+    Number(
+      extras.idade
+    ) || null;
 
 
   const alturaCm =
-    Number(extras.altura_cm) || null;
+    Number(
+      extras.altura_cm
+    ) || null;
 
 
   const cidade =
@@ -390,38 +464,118 @@ async function cadastrar(
     ).trim();
 
 
+  const estado =
+    String(
+      extras.estado || ""
+    ).trim()
+    .toUpperCase();
+
+
   const pais =
     String(
-      extras.pais || "Brasil"
+      extras.pais ||
+      "Brasil"
     ).trim();
 
 
   const corCabelo =
     String(
-      extras.cor_cabelo || ""
+      extras.cor_cabelo ||
+      ""
     ).trim();
 
 
   const corOlhos =
     String(
-      extras.cor_olhos || ""
+      extras.cor_olhos ||
+      ""
     ).trim();
 
 
   const idiomas =
     String(
-      extras.idiomas || ""
+      extras.idiomas ||
+      ""
     ).trim();
 
 
   const descricao =
     String(
-      extras.descricao || ""
+      extras.descricao ||
+      ""
+    ).trim();
+
+
+  const apelido =
+    String(
+      extras.apelido ||
+      ""
+    ).trim();
+
+
+  const whatsapp =
+    String(
+      extras.whatsapp ||
+      ""
     ).trim();
 
 
   const maioridadeConfirmada =
-    extras.maioridade_confirmada === true;
+    extras.maioridade_confirmada ===
+    true;
+
+
+  /* =======================================================
+     NOVOS DADOS CADASTRAIS DA MODELO
+     ======================================================= */
+
+  const cpf =
+    String(
+      extras.cpf ||
+      ""
+    ).trim();
+
+
+  const dataNascimento =
+    String(
+      extras.data_nascimento ||
+      ""
+    ).trim();
+
+
+  const cep =
+    String(
+      extras.cep ||
+      ""
+    ).trim();
+
+
+  const bairro =
+    String(
+      extras.bairro ||
+      ""
+    ).trim();
+
+
+  const endereco =
+    String(
+      extras.endereco ||
+      ""
+    ).trim();
+
+
+  const numero =
+    String(
+      extras.numero ||
+      ""
+    ).trim();
+
+
+  const complemento =
+    String(
+      extras.complemento ||
+      ""
+    ).trim();
 
 
   /* =======================================================
@@ -430,7 +584,8 @@ async function cadastrar(
 
   const categoriaCatalogo =
     String(
-      extras.categoria_catalogo || ""
+      extras.categoria_catalogo ||
+      ""
     )
       .trim()
       .toLowerCase();
@@ -438,11 +593,12 @@ async function cadastrar(
 
   if (tipo === "modelo") {
 
-    const categoriasPermitidas = [
-      "feminino",
-      "masculino",
-      "lgbtq"
-    ];
+    const categoriasPermitidas =
+      [
+        "feminino",
+        "masculino",
+        "lgbtq"
+      ];
 
 
     if (
@@ -454,15 +610,53 @@ async function cadastrar(
       throw new Error(
         "Selecione uma categoria válida para aparecer no catálogo."
       );
+
     }
+
+
+    if (!idade || idade < 18) {
+
+      throw new Error(
+        "A idade da modelo deve ser igual ou superior a 18 anos."
+      );
+
+    }
+
+
+    if (!maioridadeConfirmada) {
+
+      throw new Error(
+        "É necessário confirmar a maioridade."
+      );
+
+    }
+
+
+    if (!cpf) {
+
+      throw new Error(
+        "O CPF é obrigatório."
+      );
+
+    }
+
+
+    if (!dataNascimento) {
+
+      throw new Error(
+        "A data de nascimento é obrigatória."
+      );
+
+    }
+
   }
 
 
   /* =======================================================
-     METADADOS DO USUÁRIO AUTH
+     METADADOS AUTH
 
-     Os campos abaixo não existem atualmente em
-     modelo_perfis, então ficam nos metadados da conta.
+     Dados pessoais completos NÃO são colocados aqui.
+     CPF e endereço ficam em modelo_perfis.
      ======================================================= */
 
   const metadata = {
@@ -471,44 +665,9 @@ async function cadastrar(
 
     tipo,
 
-    apelido:
-      String(
-        extras.apelido || ""
-      ).trim(),
+    apelido,
 
-    whatsapp:
-      String(
-        extras.whatsapp || ""
-      ).trim(),
-
-    idade,
-
-    altura_cm:
-      alturaCm,
-
-    cidade,
-
-    estado:
-      String(
-        extras.estado || ""
-      ).trim(),
-
-    pais,
-
-    endereco:
-      String(
-        extras.endereco || ""
-      ).trim(),
-
-    cor_cabelo:
-      corCabelo,
-
-    cor_olhos:
-      corOlhos,
-
-    idiomas,
-
-    descricao,
+    whatsapp,
 
     categoria_catalogo:
       categoriaCatalogo,
@@ -526,19 +685,22 @@ async function cadastrar(
   const {
     data,
     error
-  } = await supabase.auth.signUp({
+  } =
+    await supabase.auth.signUp({
 
-    email,
+      email,
 
-    password: senha,
+      password:
+        senha,
 
-    options: {
+      options: {
 
-      data: metadata
+        data:
+          metadata
 
-    }
+      }
 
-  });
+    });
 
 
   if (error) {
@@ -550,7 +712,9 @@ async function cadastrar(
 
 
     const msg =
-      error.message?.toLowerCase() || "";
+      error.message
+        ?.toLowerCase() ||
+      "";
 
 
     if (
@@ -565,6 +729,7 @@ async function cadastrar(
       throw new Error(
         "Este e-mail já está cadastrado."
       );
+
     }
 
 
@@ -572,6 +737,7 @@ async function cadastrar(
       error.message ||
       "Não foi possível criar a conta."
     );
+
   }
 
 
@@ -584,6 +750,7 @@ async function cadastrar(
     throw new Error(
       "Não foi possível criar o usuário."
     );
+
   }
 
 
@@ -593,7 +760,8 @@ async function cadastrar(
 
   const perfilBase = {
 
-    id: user.id,
+    id:
+      user.id,
 
     tipo,
 
@@ -608,13 +776,20 @@ async function cadastrar(
 
 
   const {
-    data: perfilCriado,
-    error: perfilError
-  } = await supabase
-    .from("perfis")
-    .insert(perfilBase)
-    .select()
-    .single();
+    data:
+      perfilCriado,
+
+    error:
+      perfilError
+
+  } =
+    await supabase
+      .from("perfis")
+      .insert(
+        perfilBase
+      )
+      .select()
+      .single();
 
 
   if (perfilError) {
@@ -628,6 +803,7 @@ async function cadastrar(
     throw new Error(
       "A conta foi criada, mas houve um problema ao criar o perfil. Entre em contato com o administrador."
     );
+
   }
 
 
@@ -635,62 +811,87 @@ async function cadastrar(
      CADASTRO ESPECÍFICO DA MODELO
      ======================================================= */
 
-  if (tipo === "modelo") {
-
-
-    if (!idade || idade < 18) {
-
-      throw new Error(
-        "A idade da modelo deve ser informada e ser igual ou superior a 18 anos."
-      );
-    }
-
-
-    if (!maioridadeConfirmada) {
-
-      throw new Error(
-        "É necessário confirmar a maioridade."
-      );
-    }
-
-
-    /*
-     * IMPORTANTE:
-     *
-     * Estes são campos que existem
-     * atualmente na tabela modelo_perfis.
-     */
+  if (
+    tipo === "modelo"
+  ) {
 
     const modeloPerfil = {
 
-      id: user.id,
+      id:
+        user.id,
 
       nome_exibicao:
         nome,
 
+      apelido:
+        apelido ||
+        null,
+
+      whatsapp:
+        whatsapp ||
+        null,
+
+      cpf:
+        cpf ||
+        null,
+
+      data_nascimento:
+        dataNascimento ||
+        null,
+
       idade:
         idade,
-
-      cidade:
-        cidade || null,
-
-      pais:
-        pais || "Brasil",
-
-      cor_cabelo:
-        corCabelo || null,
-
-      cor_olhos:
-        corOlhos || null,
 
       altura_cm:
         alturaCm,
 
+      cep:
+        cep ||
+        null,
+
+      estado:
+        estado ||
+        null,
+
+      cidade:
+        cidade ||
+        null,
+
+      bairro:
+        bairro ||
+        null,
+
+      endereco:
+        endereco ||
+        null,
+
+      numero:
+        numero ||
+        null,
+
+      complemento:
+        complemento ||
+        null,
+
+      pais:
+        pais ||
+        "Brasil",
+
+      cor_cabelo:
+        corCabelo ||
+        null,
+
+      cor_olhos:
+        corOlhos ||
+        null,
+
       idiomas:
-        idiomas || null,
+        idiomas ||
+        null,
 
       descricao:
-        descricao || null,
+        descricao ||
+        null,
 
       maioridade_confirmada:
         true,
@@ -708,13 +909,20 @@ async function cadastrar(
 
 
     const {
-      data: modeloCriado,
-      error: modeloError
-    } = await supabase
-      .from("modelo_perfis")
-      .insert(modeloPerfil)
-      .select()
-      .single();
+      data:
+        modeloCriado,
+
+      error:
+        modeloError
+
+    } =
+      await supabase
+        .from("modelo_perfis")
+        .insert(
+          modeloPerfil
+        )
+        .select()
+        .single();
 
 
     if (modeloError) {
@@ -726,16 +934,20 @@ async function cadastrar(
 
 
       throw new Error(
-        "Sua conta foi criada, mas houve um problema ao criar os dados do modelo. Entre em contato com o administrador."
+        "Sua conta foi criada, mas houve um problema ao salvar os dados completos da modelo: " +
+        modeloError.message
       );
+
     }
 
 
     return {
 
-      success: true,
+      success:
+        true,
 
-      id: user.id,
+      id:
+        user.id,
 
       user,
 
@@ -749,6 +961,7 @@ async function cadastrar(
         "Cadastro realizado. Seu perfil ficará aguardando análise."
 
     };
+
   }
 
 
@@ -758,9 +971,11 @@ async function cadastrar(
 
   return {
 
-    success: true,
+    success:
+      true,
 
-    id: user.id,
+    id:
+      user.id,
 
     user,
 
@@ -771,6 +986,7 @@ async function cadastrar(
       "Cadastro realizado com sucesso."
 
   };
+
 }
 
 
@@ -784,8 +1000,11 @@ async function logout() {
     requireClient();
 
 
-  const { error } =
-    await supabase.auth.signOut();
+  const {
+    error
+  } =
+    await supabase.auth
+      .signOut();
 
 
   if (error) {
@@ -796,7 +1015,9 @@ async function logout() {
     );
 
     throw error;
+
   }
+
 }
 
 
@@ -807,20 +1028,26 @@ async function logout() {
 window.login =
   login;
 
+
 window.cadastrar =
   cadastrar;
+
 
 window.logout =
   logout;
 
+
 window.usuarioAtual =
   usuarioAtual;
+
 
 window.getPerfil =
   getPerfil;
 
+
 window.getModeloPerfil =
   getModeloPerfil;
+
 
 window.getTipoUsuario =
   getTipoUsuario;

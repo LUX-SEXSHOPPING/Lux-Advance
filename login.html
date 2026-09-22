@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUX — Acesso</title>
+<link rel="stylesheet" href="./app.css">
+<link rel="stylesheet" href="./login.css">
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at top,rgba(248,213,138,.12),transparent 35%),linear-gradient(145deg,#0b0608,#180b10 55%,#090507);color:#fff}.lux-login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:25px 15px}.lux-login-card{width:100%;max-width:470px;padding:30px 24px;border:1px solid rgba(248,213,138,.35);border-radius:24px;background:rgba(10,6,8,.92);box-shadow:0 20px 60px rgba(0,0,0,.65),0 0 35px rgba(248,213,138,.08);backdrop-filter:blur(12px)}.lux-logo{text-align:center;margin-bottom:25px}.lux-logo h1{margin:0;font-size:42px;letter-spacing:7px;color:#f8d58a;text-shadow:0 0 20px rgba(248,213,138,.25)}.lux-logo p{margin:8px 0 0;color:#d7c6a2;font-size:12px;letter-spacing:3px;text-transform:uppercase}.tela{display:none}.tela.ativa{display:block}h2{text-align:center;color:#f8d58a;margin:0 0 12px}.subtitulo{text-align:center;color:#cfc5c8;line-height:1.5;margin:0 0 22px;font-size:14px}.botoes{display:grid;gap:12px}button{width:100%;border:1px solid rgba(248,213,138,.55);border-radius:12px;padding:14px 16px;background:linear-gradient(135deg,#f8d58a,#c99b43);color:#140b08;font-weight:700;cursor:pointer;font-size:15px}button.secundario{background:transparent;color:#f8d58a}.formulario{display:grid;gap:13px}.campo{display:grid;gap:6px}label{color:#eadfce;font-size:13px}input{width:100%;border:1px solid rgba(248,213,138,.22);border-radius:10px;padding:13px;background:#12090d;color:#fff;outline:none;font-size:14px}input:focus{border-color:#f8d58a;box-shadow:0 0 0 2px rgba(248,213,138,.08)}.mensagem{min-height:22px;margin:8px 0;text-align:center;font-size:13px;line-height:1.45}.rodape{margin-top:25px;text-align:center;color:#8f8387;font-size:11px}@media(max-width:480px){.lux-login-card{padding:25px 17px;border-radius:18px}.lux-logo h1{font-size:36px}}
+</style>
+</head>
+<body>
+<main class="lux-login-page"><div class="lux-login-card">
+<div class="lux-logo"><h1>LUX</h1><p>Lux Advance</p></div>
+<section id="telaInicial" class="tela ativa">
+<h2>Acesso exclusivo</h2><p class="subtitulo">Entre como usuário ou modelo.<br>Cada conta recebe uma área própria.</p>
+<div class="botoes"><button type="button" id="btnJaTenho">Já tenho cadastro</button><button type="button" id="btnNaoTenho" class="secundario">Ainda não tenho cadastro</button></div>
+</section>
+<section id="telaLogin" class="tela">
+<h2>Entrar</h2><p class="subtitulo">Acesse sua conta LUX.</p>
+<form id="formLogin" class="formulario">
+<div class="campo"><label for="loginEmail">E-mail</label><input id="loginEmail" type="email" autocomplete="email" required></div>
+<div class="campo"><label for="loginSenha">Senha</label><input id="loginSenha" type="password" autocomplete="current-password" required></div>
+<div id="msgLogin" class="mensagem"></div>
+<button type="submit">Entrar</button><button type="button" id="btnVoltarLogin" class="secundario">Voltar</button>
+</form></section>
+<section id="telaEscolha" class="tela">
+<h2>Criar cadastro</h2><p class="subtitulo">Escolha como deseja utilizar a LUX.</p>
+<div class="botoes"><button type="button" id="btnUsuario">Sou Usuário</button><button type="button" id="btnModelo">Sou Modelo</button><button type="button" id="btnVoltarEscolha" class="secundario">Voltar</button></div>
+</section>
+<section id="telaUsuario" class="tela">
+<h2>Cadastro de Usuário</h2><p class="subtitulo">Crie sua conta para acessar a área exclusiva.</p>
+<form id="formUsuario" class="formulario">
+<div class="campo"><label for="usuarioNome">Nome</label><input id="usuarioNome" type="text" autocomplete="name" required></div>
+<div class="campo"><label for="usuarioEmail">E-mail</label><input id="usuarioEmail" type="email" autocomplete="email" required></div>
+<div class="campo"><label for="usuarioSenha">Senha</label><input id="usuarioSenha" type="password" autocomplete="new-password" minlength="6" required></div>
+<div class="campo"><label for="usuarioSenhaConfirmacao">Confirmar senha</label><input id="usuarioSenhaConfirmacao" type="password" autocomplete="new-password" minlength="6" required></div>
+<div id="msgUsuario" class="mensagem"></div>
+<button type="submit">Criar cadastro</button><button type="button" id="btnVoltarUsuario" class="secundario">Voltar</button>
+</form></section>
+<div class="rodape">LUX — Sensualidade &amp; Sofisticação</div>
+</div></main>
+<script src="./config.js"></script>
+<script src="./auth.js"></script>
+<script>
+function mostrarTela(nome){document.querySelectorAll('.tela').forEach(function(t){t.classList.remove('ativa')});var t=document.getElementById('tela'+nome.charAt(0).toUpperCase()+nome.slice(1));if(t)t.classList.add('ativa')}
+function limparMensagem(el){if(el)el.textContent=''}
+function mensagem(el,texto){if(el)el.textContent=texto}
+
+document.getElementById('btnJaTenho').addEventListener('click',function(){limparMensagem(document.getElementById('msgLogin'));mostrarTela('login')});
+document.getElementById('btnNaoTenho').addEventListener('click',function(){mostrarTela('escolha')});
+document.getElementById('btnUsuario').addEventListener('click',function(){limparMensagem(document.getElementById('msgUsuario'));mostrarTela('usuario')});
+
+/* CORREÇÃO: o cadastro de modelo agora usa o arquivo novo, com categoria Feminino/Masculino/LGBTQ+. */
+document.getElementById('btnModelo').addEventListener('click',function(){window.location.href='./cadastro-modelo.html'});
+
+document.getElementById('btnVoltarEscolha').addEventListener('click',function(){mostrarTela('inicial')});
+document.getElementById('btnVoltarLogin').addEventListener('click',function(){mostrarTela('inicial')});
+document.getElementById('btnVoltarUsuario').addEventListener('click',function(){mostrarTela('escolha')});
+
+document.getElementById('formLogin').addEventListener('submit',async function(e){e.preventDefault();var email=document.getElementById('loginEmail').value.trim();var senha=document.getElementById('loginSenha').value;var msg=document.getElementById('msgLogin');limparMensagem(msg);try{if(typeof window.entrar!=='function'){mensagem(msg,'Sistema de autenticação não carregado. Verifique o auth.js.');return}mensagem(msg,'Entrando...');var resultado=await window.entrar(email,senha);if(resultado&&resultado.erro){mensagem(msg,resultado.erro);return}var usuario=resultado&&resultado.usuario?resultado.usuario:null;var tipo=usuario&&usuario.user_metadata?usuario.user_metadata.tipo:null;if(tipo==='modelo'){window.location.href='./painel-modelo.html';return}window.location.href='./painel-usuario.html'}catch(err){console.error(err);mensagem(msg,err.message||'Não foi possível entrar. Verifique seus dados.')}});
+
+document.getElementById('formUsuario').addEventListener('submit',async function(e){e.preventDefault();var nome=document.getElementById('usuarioNome').value.trim();var email=document.getElementById('usuarioEmail').value.trim();var senha=document.getElementById('usuarioSenha').value;var confirmacao=document.getElementById('usuarioSenhaConfirmacao').value;var msg=document.getElementById('msgUsuario');limparMensagem(msg);if(senha!==confirmacao){mensagem(msg,'As senhas não conferem.');return}try{if(typeof window.cadastrar!=='function'){mensagem(msg,'Sistema de cadastro não carregado. Verifique o auth.js.');return}mensagem(msg,'Criando cadastro...');var resultado=await window.cadastrar('usuario',nome,email,senha,{});if(resultado&&resultado.erro){mensagem(msg,resultado.erro);return}mensagem(msg,resultado&&resultado.mensagem?resultado.mensagem:'Cadastro realizado com sucesso.');setTimeout(function(){mostrarTela('login')},3000)}catch(err){console.error(err);mensagem(msg,err.message||'Não foi possível criar o cadastro.')}});
+</script>
+</body>
+</html>

@@ -1,8 +1,12 @@
 /* =========================================================
    LUX — AUTENTICAÇÃO
-   V5 — CADASTRO DE MODELOS / USUÁRIOS
+   V6 — CADASTRO DE MODELOS / USUÁRIOS
    ========================================================= */
 
+
+/* =========================================================
+   CLIENTE SUPABASE
+   ========================================================= */
 
 function requireClient() {
 
@@ -233,11 +237,11 @@ async function login(
       ).toLowerCase();
 
 
-    if(
+    if (
       msg.includes(
         "invalid login credentials"
       )
-    ){
+    ) {
 
       throw new Error(
         "E-mail ou senha incorretos."
@@ -262,7 +266,7 @@ async function login(
     data?.session;
 
 
-  if(!user){
+  if (!user) {
 
     throw new Error(
       "Usuário não encontrado."
@@ -271,7 +275,7 @@ async function login(
   }
 
 
-  if(!session){
+  if (!session) {
 
     throw new Error(
       "Sessão não criada. Tente novamente."
@@ -292,10 +296,10 @@ async function login(
     );
 
 
-  if(
+  if (
     !perfil &&
     !modeloPerfil
-  ){
+  ) {
 
     await supabase
       .auth
@@ -309,7 +313,7 @@ async function login(
   }
 
 
-  if(
+  if (
     perfil &&
     (
       perfil.status ===
@@ -318,7 +322,7 @@ async function login(
       perfil.status ===
       "banido"
     )
-  ){
+  ) {
 
     await supabase
       .auth
@@ -377,7 +381,7 @@ function normalizarCategoria(
   valor
 ) {
 
-  let categoria =
+  const categoria =
     String(
       valor ?? ""
     )
@@ -385,53 +389,44 @@ function normalizarCategoria(
       .toLowerCase();
 
 
-  if(
-    [
-      "feminino",
-      "modelo feminino",
-      "female"
-    ].includes(
-      categoria
-    )
-  ){
+  switch (
+    categoria
+  ) {
 
-    return "feminino";
+    case "feminino":
 
-  }
+    case "modelo feminino":
+
+    case "female":
+
+      return "feminino";
 
 
-  if(
-    [
-      "masculino",
-      "modelo masculino",
-      "male"
-    ].includes(
-      categoria
-    )
-  ){
+    case "masculino":
 
-    return "masculino";
+    case "modelo masculino":
 
-  }
+    case "male":
+
+      return "masculino";
 
 
-  if(
-    [
-      "lgbtq",
-      "lgbtq+",
-      "modelo lgbtq",
-      "modelo lgbtq+"
-    ].includes(
-      categoria
-    )
-  ){
+    case "lgbtq":
 
-    return "lgbtq";
+    case "lgbtq+":
+
+    case "modelo lgbtq":
+
+    case "modelo lgbtq+":
+
+      return "lgbtq";
+
+
+    default:
+
+      return "";
 
   }
-
-
-  return "";
 
 }
 
@@ -474,7 +469,7 @@ async function cadastrar(
       .toLowerCase();
 
 
-  if(!nome){
+  if (!nome) {
 
     throw new Error(
       "Informe seu nome."
@@ -483,7 +478,7 @@ async function cadastrar(
   }
 
 
-  if(!email){
+  if (!email) {
 
     throw new Error(
       "Informe seu e-mail."
@@ -492,10 +487,10 @@ async function cadastrar(
   }
 
 
-  if(
+  if (
     !senha ||
     senha.length < 6
-  ){
+  ) {
 
     throw new Error(
       "A senha deve possuir pelo menos 6 caracteres."
@@ -504,14 +499,14 @@ async function cadastrar(
   }
 
 
-  if(
+  if (
     ![
       "modelo",
       "usuario"
     ].includes(
       tipo
     )
-  ){
+  ) {
 
     throw new Error(
       "Tipo de cadastro inválido."
@@ -519,6 +514,10 @@ async function cadastrar(
 
   }
 
+
+  /* =======================================================
+     DADOS NUMÉRICOS
+     ======================================================= */
 
   const idade =
     Number(
@@ -532,15 +531,26 @@ async function cadastrar(
     ) || null;
 
 
+  /* =======================================================
+     CATEGORIA
+     ======================================================= */
+
+  const categoriaRecebida =
+    extras.categoria_catalogo ??
+    extras.categoriaCatalogo ??
+    extras.categoria ??
+    "";
+
+
   const categoriaCatalogo =
     normalizarCategoria(
-
-      extras.categoria_catalogo ??
-      extras.categoriaCatalogo ??
-      extras.categoria
-
+      categoriaRecebida
     );
 
+
+  /* =======================================================
+     MAIORIDADE
+     ======================================================= */
 
   const maioridadeConfirmada =
     extras.maioridade_confirmada ===
@@ -551,12 +561,12 @@ async function cadastrar(
      VALIDAÇÕES DA MODELO
      ======================================================= */
 
-  if(
+  if (
     tipo ===
     "modelo"
-  ){
+  ) {
 
-    if(!categoriaCatalogo){
+    if (!categoriaCatalogo) {
 
       throw new Error(
         "Selecione uma categoria válida para aparecer no catálogo."
@@ -565,10 +575,10 @@ async function cadastrar(
     }
 
 
-    if(
+    if (
       !idade ||
       idade < 18
-    ){
+    ) {
 
       throw new Error(
         "A idade da modelo deve ser igual ou superior a 18 anos."
@@ -577,9 +587,9 @@ async function cadastrar(
     }
 
 
-    if(
+    if (
       !maioridadeConfirmada
-    ){
+    ) {
 
       throw new Error(
         "É necessário confirmar a maioridade."
@@ -588,12 +598,12 @@ async function cadastrar(
     }
 
 
-    if(
+    if (
       !String(
         extras.cpf ||
         ""
       ).trim()
-    ){
+    ) {
 
       throw new Error(
         "O CPF é obrigatório."
@@ -602,12 +612,12 @@ async function cadastrar(
     }
 
 
-    if(
+    if (
       !String(
         extras.data_nascimento ||
         ""
       ).trim()
-    ){
+    ) {
 
       throw new Error(
         "A data de nascimento é obrigatória."
@@ -618,10 +628,14 @@ async function cadastrar(
   }
 
 
+  /* =======================================================
+     FUNÇÃO DE TEXTO
+     ======================================================= */
+
   function texto(
     valor,
     fallback = ""
-  ){
+  ) {
 
     return String(
       valor ??
@@ -764,7 +778,7 @@ async function cadastrar(
       });
 
 
-  if(error){
+  if (error) {
 
     console.error(
       "Erro ao cadastrar:",
@@ -779,7 +793,7 @@ async function cadastrar(
       ).toLowerCase();
 
 
-    if(
+    if (
       msg.includes(
         "already registered"
       ) ||
@@ -787,7 +801,7 @@ async function cadastrar(
       msg.includes(
         "already exists"
       )
-    ){
+    ) {
 
       throw new Error(
         "Este e-mail já está cadastrado."
@@ -808,7 +822,7 @@ async function cadastrar(
     data?.user;
 
 
-  if(!user){
+  if (!user) {
 
     throw new Error(
       "Não foi possível criar o usuário."
@@ -817,17 +831,35 @@ async function cadastrar(
   }
 
 
-  /*
-    Se houver sessão, atualizamos os registros pela API.
+  /* =======================================================
+     VERIFICAÇÃO DE SEGURANÇA
+     ======================================================= */
 
-    Se não houver sessão, o trigger do Supabase cria
-    os registros usando os metadados acima.
+  if (
+    tipo ===
+    "modelo" &&
+    !categoriaCatalogo
+  ) {
+
+    throw new Error(
+      "A categoria da modelo não foi definida."
+    );
+
+  }
+
+
+  /*
+    Se houver sessão, gravamos diretamente.
+
+    Se não houver sessão, o trigger existente
+    poderá criar os registros utilizando
+    os metadados enviados ao Auth.
   */
 
 
-  if(
+  if (
     data?.session
-  ){
+  ) {
 
     /* =====================================================
        PERFIL PRINCIPAL
@@ -842,7 +874,9 @@ async function cadastrar(
 
     } =
       await supabase
-        .from("perfis")
+        .from(
+          "perfis"
+        )
         .upsert(
 
           {
@@ -863,8 +897,10 @@ async function cadastrar(
           },
 
           {
+
             onConflict:
               "id"
+
           }
 
         )
@@ -872,7 +908,7 @@ async function cadastrar(
         .single();
 
 
-    if(perfilError){
+    if (perfilError) {
 
       console.error(
         "Erro ao criar/atualizar perfil:",
@@ -892,10 +928,10 @@ async function cadastrar(
        MODELO
        ===================================================== */
 
-    if(
+    if (
       tipo ===
       "modelo"
-    ){
+    ) {
 
       const modeloPerfil = {
 
@@ -1016,6 +1052,10 @@ async function cadastrar(
         plano:
           "ESSENCE",
 
+        /* =================================================
+           CATEGORIA — FEMININO / MASCULINO / LGBTQ+
+           ================================================= */
+
         categoria_catalogo:
           categoriaCatalogo
 
@@ -1041,6 +1081,7 @@ async function cadastrar(
             {
               onConflict:
                 "id"
+
             }
 
           )
@@ -1048,7 +1089,7 @@ async function cadastrar(
           .single();
 
 
-      if(modeloError){
+      if (modeloError) {
 
         console.error(
           "Erro ao criar/atualizar modelo_perfis:",
@@ -1059,6 +1100,22 @@ async function cadastrar(
         throw new Error(
           "Sua conta foi criada, mas houve um problema ao salvar os dados da modelo: " +
           modeloError.message
+        );
+
+      }
+
+
+      /* ===================================================
+         CONFIRMA QUE A CATEGORIA FOI GRAVADA
+         =================================================== */
+
+      if (
+        modeloCriado?.categoria_catalogo !==
+        categoriaCatalogo
+      ) {
+
+        throw new Error(
+          "O cadastro foi criado, mas a categoria não foi gravada corretamente."
         );
 
       }
@@ -1139,7 +1196,8 @@ async function cadastrar(
       null,
 
     mensagem:
-      tipo === "modelo"
+      tipo ===
+      "modelo"
 
         ? "Cadastro realizado. Confirme seu e-mail, se solicitado. Seu perfil ficará aguardando análise."
 
@@ -1154,7 +1212,7 @@ async function cadastrar(
    LOGOUT
    ========================================================= */
 
-async function logout(){
+async function logout() {
 
   const {
     error
@@ -1164,7 +1222,7 @@ async function logout(){
       .signOut();
 
 
-  if(error){
+  if (error) {
 
     console.error(
       "Erro ao sair:",

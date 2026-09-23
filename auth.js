@@ -1,1054 +1,745 @@
 /* =========================================================
-   LUX — AUTENTICAÇÃO
-   V7 — CADASTRO DE MODELOS / USUÁRIOS
+   LUX ADVANCE — AUTH.JS V8
+   Autenticação e cadastro
    ========================================================= */
 
+(function () {
 
-/* =========================================================
-   CLIENTE SUPABASE
-   ========================================================= */
+  "use strict";
 
-function requireClient() {
+  console.log("[LUX V8] auth.js carregado.");
 
-  const client =
-    window.luxSupabase;
+  window.LUX_AUTH_VERSION = "V8";
 
+  /* =========================================================
+     CLIENTE SUPABASE
+     ========================================================= */
 
-  if (!client) {
+  function requireClient() {
 
-    throw new Error(
-      "Supabase não foi inicializado. Verifique o config.js."
-    );
+    const supabase = window.luxSupabase;
 
+    if (!supabase) {
+      throw new Error(
+        "Supabase não foi inicializado. Verifique o config.js."
+      );
+    }
+
+    return supabase;
   }
 
 
-  return client;
+  /* =========================================================
+     PERFIL
+     ========================================================= */
 
-}
+  async function getPerfil(userId) {
 
+    const supabase = requireClient();
 
-/* =========================================================
-   PERFIL PRINCIPAL
-   ========================================================= */
+    if (!userId) return null;
 
-async function getPerfil(
-  userId
-) {
-
-  const {
-    data,
-    error
-  } =
-    await requireClient()
+    const { data, error } = await supabase
       .from("perfis")
       .select("*")
       .eq("id", userId)
       .maybeSingle();
 
+    if (error) {
+      console.error("[LUX V8] Erro ao buscar perfil:", error);
+      return null;
+    }
 
-  if (error) {
-
-    console.error(
-      "Erro ao buscar perfil:",
-      error
-    );
-
-    throw error;
-
+    return data || null;
   }
 
 
-  return data;
+  /* =========================================================
+     PERFIL DA MODELO
+     ========================================================= */
 
-}
+  async function getModeloPerfil(userId) {
 
+    const supabase = requireClient();
 
-/* =========================================================
-   PERFIL DA MODELO
-   ========================================================= */
+    if (!userId) return null;
 
-async function getModeloPerfil(
-  userId
-) {
-
-  const {
-    data,
-    error
-  } =
-    await requireClient()
+    const { data, error } = await supabase
       .from("modelo_perfis")
       .select("*")
       .eq("id", userId)
       .maybeSingle();
 
-
-  if (error) {
-
-    console.error(
-      "Erro ao buscar modelo_perfis:",
-      error
-    );
-
-    return null;
-
-  }
-
-
-  return data;
-
-}
-
-
-/* =========================================================
-   USUÁRIO ATUAL
-   ========================================================= */
-
-async function usuarioAtual() {
-
-  const {
-    data,
-    error
-  } =
-    await requireClient()
-      .auth
-      .getUser();
-
-
-  if (error) {
-
-    console.error(
-      "Erro ao identificar usuário:",
-      error
-    );
-
-    return null;
-
-  }
-
-
-  return data?.user || null;
-
-}
-
-
-/* =========================================================
-   TIPO DO USUÁRIO
-   ========================================================= */
-
-async function getTipoUsuario(
-  userId
-) {
-
-  const perfil =
-    await getPerfil(
-      userId
-    );
-
-
-  if (
-    perfil?.tipo ===
-    "modelo"
-  ) {
-
-    return "modelo";
-
-  }
-
-
-  const modeloPerfil =
-    await getModeloPerfil(
-      userId
-    );
-
-
-  if (modeloPerfil) {
-
-    return "modelo";
-
-  }
-
-
-  return perfil?.tipo ||
-    null;
-
-}
-
-
-/* =========================================================
-   LOGIN
-   ========================================================= */
-
-async function login(
-  email,
-  senha
-) {
-
-  const supabase =
-    requireClient();
-
-
-  email =
-    String(
-      email || ""
-    ).trim();
-
-
-  if (
-    !email ||
-    !senha
-  ) {
-
-    throw new Error(
-      "Informe o e-mail e a senha."
-    );
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await supabase
-      .auth
-      .signInWithPassword({
-
-        email,
-
-        password:
-          senha
-
-      });
-
-
-  if (error) {
-
-    console.error(
-      "Erro Supabase:",
-      error
-    );
-
-
-    const msg =
-      String(
-        error.message ||
-        ""
-      ).toLowerCase();
-
-
-    if (
-      msg.includes(
-        "invalid login credentials"
-      )
-    ) {
-
-      throw new Error(
-        "E-mail ou senha incorretos."
+    if (error) {
+      console.error(
+        "[LUX V8] Erro ao buscar modelo_perfil:",
+        error
       );
 
+      return null;
+    }
+
+    return data || null;
+  }
+
+
+  /* =========================================================
+     USUÁRIO ATUAL
+     ========================================================= */
+
+  async function usuarioAtual() {
+
+    const supabase = requireClient();
+
+    const { data, error } =
+      await supabase.auth.getUser();
+
+    if (error) {
+      console.error(
+        "[LUX V8] Erro ao obter usuário:",
+        error
+      );
+
+      return null;
+    }
+
+    return data?.user || null;
+  }
+
+
+  /* =========================================================
+     TIPO DO USUÁRIO
+     ========================================================= */
+
+  async function getTipoUsuario(userId) {
+
+    const supabase = requireClient();
+
+    let id = userId;
+
+    if (!id) {
+
+      const usuario =
+        await usuarioAtual();
+
+      if (!usuario) return null;
+
+      id = usuario.id;
+    }
+
+    const perfil =
+      await getPerfil(id);
+
+    if (perfil?.tipo) {
+      return perfil.tipo;
+    }
+
+    const modelo =
+      await getModeloPerfil(id);
+
+    if (modelo) {
+      return "modelo";
+    }
+
+    return null;
+  }
+
+
+  /* =========================================================
+     LOGIN
+     ========================================================= */
+
+  async function login(email, senha) {
+
+    const supabase = requireClient();
+
+    email = String(email || "")
+      .trim()
+      .toLowerCase();
+
+    senha = String(senha || "");
+
+    if (!email || !senha) {
+      throw new Error(
+        "Informe seu e-mail e sua senha."
+      );
+    }
+
+    console.log(
+      "[LUX V8] Tentando login:",
+      email
+    );
+
+    const { data, error } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password: senha
+      });
+
+    if (error) {
+
+      console.error(
+        "[LUX V8] Erro no login:",
+        error
+      );
+
+      throw new Error(
+        error.message ||
+        "Não foi possível realizar o login."
+      );
+    }
+
+    if (!data?.user) {
+      throw new Error(
+        "O Supabase não retornou o usuário."
+      );
+    }
+
+    const perfil =
+      await getPerfil(data.user.id);
+
+    const modelo =
+      await getModeloPerfil(data.user.id);
+
+    if (
+      perfil?.status === "bloqueado" ||
+      perfil?.status === "banido"
+    ) {
+
+      await supabase.auth.signOut();
+
+      throw new Error(
+        "Esta conta está bloqueada."
+      );
+    }
+
+    console.log(
+      "[LUX V8] Login realizado:",
+      data.user.id
+    );
+
+    return {
+      success: true,
+      user: data.user,
+      session: data.session,
+      perfil,
+      modeloPerfil: modelo
+    };
+  }
+
+
+  /* =========================================================
+     NORMALIZAÇÃO DA CATEGORIA
+     ========================================================= */
+
+  function normalizarCategoria(categoria) {
+
+    const valor =
+      String(categoria || "")
+        .trim()
+        .toLowerCase();
+
+    if (
+      valor === "feminino" ||
+      valor === "feminina" ||
+      valor === "mulher"
+    ) {
+      return "feminino";
+    }
+
+    if (
+      valor === "masculino" ||
+      valor === "masculina" ||
+      valor === "homem"
+    ) {
+      return "masculino";
+    }
+
+    if (
+      valor === "lgbtq" ||
+      valor === "lgbt" ||
+      valor === "lgbtq+"
+    ) {
+      return "lgbtq";
+    }
+
+    return valor;
+  }
+
+
+  /* =========================================================
+     CADASTRO
+     ========================================================= */
+
+  async function cadastrar(
+    tipo,
+    nome,
+    email,
+    senha,
+    extras = {}
+  ) {
+
+    const supabase = requireClient();
+
+    console.log(
+      "[LUX V8] Iniciando cadastro..."
+    );
+
+    tipo =
+      String(tipo || "")
+        .trim()
+        .toLowerCase();
+
+    nome =
+      String(nome || "").trim();
+
+    email =
+      String(email || "")
+        .trim()
+        .toLowerCase();
+
+    senha =
+      String(senha || "");
+
+    extras =
+      extras || {};
+
+    /* -------------------------------------------------------
+       VALIDAÇÕES
+       ------------------------------------------------------- */
+
+    if (!tipo) {
+      throw new Error(
+        "Tipo de usuário não informado."
+      );
+    }
+
+    if (
+      tipo !== "modelo" &&
+      tipo !== "usuario"
+    ) {
+      throw new Error(
+        "Tipo de usuário inválido."
+      );
+    }
+
+    if (!nome) {
+      throw new Error(
+        "Informe o nome."
+      );
+    }
+
+    if (!email) {
+      throw new Error(
+        "Informe o e-mail."
+      );
+    }
+
+    if (!senha || senha.length < 6) {
+      throw new Error(
+        "A senha deve possuir pelo menos 6 caracteres."
+      );
     }
 
 
-    throw new Error(
-      error.message ||
-      "Não foi possível realizar o login."
-    );
+    /* -------------------------------------------------------
+       MODELO
+       ------------------------------------------------------- */
 
-  }
+    let categoria = null;
 
+    if (tipo === "modelo") {
 
-  const user =
-    data?.user;
-
-
-  const session =
-    data?.session;
-
-
-  if (!user) {
-
-    throw new Error(
-      "Usuário não encontrado."
-    );
-
-  }
-
-
-  if (!session) {
-
-    throw new Error(
-      "Sessão não criada. Tente novamente."
-    );
-
-  }
-
-
-  const perfil =
-    await getPerfil(
-      user.id
-    );
-
-
-  const modeloPerfil =
-    await getModeloPerfil(
-      user.id
-    );
-
-
-  if (
-    !perfil &&
-    !modeloPerfil
-  ) {
-
-    await supabase
-      .auth
-      .signOut();
-
-
-    throw new Error(
-      "Sua conta foi criada, mas o perfil ainda não está disponível."
-    );
-
-  }
-
-
-  if (
-    perfil &&
-    (
-      perfil.status ===
-      "bloqueado" ||
-
-      perfil.status ===
-      "banido"
-    )
-  ) {
-
-    await supabase
-      .auth
-      .signOut();
-
-
-    throw new Error(
-      "Esta conta está bloqueada."
-    );
-
-  }
-
-
-  const tipo =
-    (
-      perfil?.tipo ===
-      "modelo" ||
-
-      modeloPerfil
-    )
-      ? "modelo"
-      : (
-          perfil?.tipo ||
-          null
+      categoria =
+        normalizarCategoria(
+          extras.categoria_catalogo
         );
 
-
-  return {
-
-    id:
-      user.id,
-
-    user,
-
-    session,
-
-    perfil,
-
-    modeloPerfil,
-
-    tipo,
-
-    success:
-      true
-
-  };
-
-}
-
-
-/* =========================================================
-   NORMALIZA CATEGORIA
-   ========================================================= */
-
-function normalizarCategoria(
-  valor
-) {
-
-  const categoria =
-    String(
-      valor ?? ""
-    )
-      .trim()
-      .toLowerCase();
-
-
-  switch (
-    categoria
-  ) {
-
-    case "feminino":
-
-    case "modelo feminino":
-
-    case "female":
-
-      return "feminino";
-
-
-    case "masculino":
-
-    case "modelo masculino":
-
-    case "male":
-
-      return "masculino";
-
-
-    case "lgbtq":
-
-    case "lgbtq+":
-
-    case "modelo lgbtq":
-
-    case "modelo lgbtq+":
-
-      return "lgbtq";
-
-
-    default:
-
-      return "";
-
-  }
-
-}
-
-
-/* =========================================================
-   CADASTRO
-   ========================================================= */
-
-async function cadastrar(
-  tipo,
-  nome,
-  email,
-  senha,
-  extras = {}
-) {
-
-  const supabase =
-    requireClient();
-
-
-  tipo =
-    String(
-      tipo || ""
-    )
-      .trim()
-      .toLowerCase();
-
-
-  nome =
-    String(
-      nome || ""
-    ).trim();
-
-
-  email =
-    String(
-      email || ""
-    )
-      .trim()
-      .toLowerCase();
-
-
-  if (!nome) {
-
-    throw new Error(
-      "Informe seu nome."
-    );
-
-  }
-
-
-  if (!email) {
-
-    throw new Error(
-      "Informe seu e-mail."
-    );
-
-  }
-
-
-  if (
-    !senha ||
-    senha.length < 6
-  ) {
-
-    throw new Error(
-      "A senha deve possuir pelo menos 6 caracteres."
-    );
-
-  }
-
-
-  if (
-    ![
-      "modelo",
-      "usuario"
-    ].includes(
-      tipo
-    )
-  ) {
-
-    throw new Error(
-      "Tipo de cadastro inválido."
-    );
-
-  }
-
-
-  /* =======================================================
-     DADOS NUMÉRICOS
-     ======================================================= */
-
-  const idade =
-    Number(
-      extras.idade
-    ) || null;
-
-
-  const alturaCm =
-    Number(
-      extras.altura_cm
-    ) || null;
-
-
-  /* =======================================================
-     CATEGORIA
-     ======================================================= */
-
-  const categoriaRecebida =
-    extras.categoria_catalogo ??
-    extras.categoriaCatalogo ??
-    extras.categoria ??
-    "";
-
-
-  const categoriaCatalogo =
-    normalizarCategoria(
-      categoriaRecebida
-    );
-
-
-  /* =======================================================
-     MAIORIDADE
-     ======================================================= */
-
-  const maioridadeConfirmada =
-    extras.maioridade_confirmada ===
-    true;
-
-
-  /* =======================================================
-     VALIDAÇÕES DA MODELO
-     ======================================================= */
-
-  if (
-    tipo ===
-    "modelo"
-  ) {
-
-    if (!categoriaCatalogo) {
-
-      throw new Error(
-        "Selecione uma categoria válida para aparecer no catálogo."
-      );
-
+      if (
+        categoria !== "feminino" &&
+        categoria !== "masculino" &&
+        categoria !== "lgbtq"
+      ) {
+        throw new Error(
+          "Selecione uma categoria válida."
+        );
+      }
+
+      const idade =
+        Number(extras.idade);
+
+      if (
+        !Number.isFinite(idade) ||
+        idade < 18
+      ) {
+        throw new Error(
+          "A modelo deve possuir 18 anos ou mais."
+        );
+      }
+
+      if (
+        extras.maioridade_confirmada !== true
+      ) {
+        throw new Error(
+          "É necessário confirmar a maioridade."
+        );
+      }
     }
 
 
-    if (
-      !idade ||
-      idade < 18
-    ) {
+    /* -------------------------------------------------------
+       METADADOS DO CADASTRO
+       ------------------------------------------------------- */
 
-      throw new Error(
-        "A idade da modelo deve ser igual ou superior a 18 anos."
-      );
+    const metadata = {
 
-    }
+      nome: nome,
 
+      tipo: tipo,
 
-    if (
-      !maioridadeConfirmada
-    ) {
+      apelido:
+        extras.apelido || null,
 
-      throw new Error(
-        "É necessário confirmar a maioridade."
-      );
+      whatsapp:
+        extras.whatsapp || null,
 
-    }
+      cpf:
+        extras.cpf || null,
 
+      data_nascimento:
+        extras.data_nascimento || null,
 
-    if (
-      !String(
-        extras.cpf ||
-        ""
-      ).trim()
-    ) {
+      idade:
+        extras.idade != null
+          ? Number(extras.idade)
+          : null,
 
-      throw new Error(
-        "O CPF é obrigatório."
-      );
+      altura_cm:
+        extras.altura_cm != null
+          ? Number(extras.altura_cm)
+          : null,
 
-    }
+      cep:
+        extras.cep || null,
 
-
-    if (
-      !String(
-        extras.data_nascimento ||
-        ""
-      ).trim()
-    ) {
-
-      throw new Error(
-        "A data de nascimento é obrigatória."
-      );
-
-    }
-
-  }
-
-
-  /* =======================================================
-     FUNÇÃO DE TEXTO
-     ======================================================= */
-
-  function texto(
-    valor,
-    fallback = ""
-  ) {
-
-    return String(
-      valor ??
-      fallback
-    ).trim();
-
-  }
-
-
-  /* =======================================================
-     METADADOS AUTH
-     ======================================================= */
-
-  const metadata = {
-
-    nome,
-
-    tipo,
-
-    apelido:
-      texto(
-        extras.apelido
-      ),
-
-    whatsapp:
-      texto(
-        extras.whatsapp
-      ),
-
-    cpf:
-      texto(
-        extras.cpf
-      ),
-
-    data_nascimento:
-      texto(
-        extras.data_nascimento
-      ),
-
-    idade,
-
-    altura_cm:
-      alturaCm,
-
-    cep:
-      texto(
-        extras.cep
-      ),
-
-    estado:
-      texto(
+      estado:
         extras.estado
-      ).toUpperCase(),
+          ? String(extras.estado)
+              .trim()
+              .toUpperCase()
+          : null,
 
-    cidade:
-      texto(
-        extras.cidade
-      ),
+      cidade:
+        extras.cidade || null,
 
-    bairro:
-      texto(
-        extras.bairro
-      ),
+      bairro:
+        extras.bairro || null,
 
-    endereco:
-      texto(
-        extras.endereco
-      ),
+      endereco:
+        extras.endereco || null,
 
-    numero:
-      texto(
-        extras.numero
-      ),
+      numero:
+        extras.numero || null,
 
-    complemento:
-      texto(
-        extras.complemento
-      ),
+      complemento:
+        extras.complemento || null,
 
-    pais:
-      texto(
-        extras.pais,
-        "Brasil"
-      ) ||
-      "Brasil",
+      pais:
+        extras.pais || "Brasil",
 
-    cor_cabelo:
-      texto(
-        extras.cor_cabelo
-      ),
+      cor_cabelo:
+        extras.cor_cabelo || null,
 
-    cor_olhos:
-      texto(
-        extras.cor_olhos
-      ),
+      cor_olhos:
+        extras.cor_olhos || null,
 
-    idiomas:
-      texto(
-        extras.idiomas
-      ),
+      idiomas:
+        extras.idiomas || null,
 
-    descricao:
-      texto(
-        extras.descricao
-      ),
+      descricao:
+        extras.descricao || null,
 
-    categoria_catalogo:
-      categoriaCatalogo,
+      categoria_catalogo:
+        categoria,
 
-    maioridade_confirmada:
-      maioridadeConfirmada
-
-  };
+      maioridade_confirmada:
+        tipo === "modelo"
+          ? true
+          : false
+    };
 
 
-  /* =======================================================
-     CRIA USUÁRIO AUTH
-     ======================================================= */
-
-  const {
-    data,
-    error
-  } =
-    await supabase
-      .auth
-      .signUp({
-
-        email,
-
-        password:
-          senha,
-
-        options: {
-
-          data:
-            metadata
-
-        }
-
-      });
-
-
-  if (error) {
-
-    console.error(
-      "Erro ao cadastrar:",
-      error
+    console.log(
+      "[LUX V8] Dados enviados ao Supabase:",
+      metadata
     );
 
 
-    const msg =
-      String(
-        error.message ||
-        ""
-      ).toLowerCase();
+    /* -------------------------------------------------------
+       CRIAÇÃO DO USUÁRIO NO AUTH
+       ------------------------------------------------------- */
 
-
-    if (
-      msg.includes(
-        "already registered"
-      ) ||
-
-      msg.includes(
-        "already exists"
-      )
-    ) {
-
-      throw new Error(
-        "Este e-mail já está cadastrado."
-      );
-
-    }
-
-
-    throw new Error(
-      error.message ||
-      "Não foi possível criar a conta."
-    );
-
-  }
-
-
-  const user =
-    data?.user;
-
-
-  if (!user) {
-
-    throw new Error(
-      "Não foi possível criar o usuário."
-    );
-
-  }
-
-
-  /* =======================================================
-     VERIFICAÇÃO DE SEGURANÇA
-     ======================================================= */
-
-  if (
-    tipo ===
-    "modelo" &&
-    !categoriaCatalogo
-  ) {
-
-    throw new Error(
-      "A categoria da modelo não foi definida."
-    );
-
-  }
-
-
-  /* =======================================================
-     PERFIS CRIADOS PELO TRIGGER
-     
-     O trigger:
-     lux_trigger_criar_perfil_cadastro
-
-     lê os metadados de auth.users e cria:
-     - public.perfis
-     - public.modelo_perfis
-
-     Isso funciona também quando:
-     data.session === null
-     
-     por causa da confirmação de e-mail.
-     ======================================================= */
-
-  let perfil =
-    null;
-
-  let modeloPerfil =
-    null;
-
-
-  /* =======================================================
-     AGUARDA O TRIGGER E CONFIRMA O CADASTRO
-     ======================================================= */
-
-  for (
-    let tentativa = 0;
-    tentativa < 5;
-    tentativa++
-  ) {
+    let resultado;
 
     try {
 
-      perfil =
-        await getPerfil(
-          user.id
-        );
+      resultado =
+        await supabase.auth.signUp({
 
+          email: email,
+
+          password: senha,
+
+          options: {
+
+            data: metadata
+
+          }
+
+        });
+
+    } catch (erro) {
+
+      console.error(
+        "[LUX V8] Exceção no signUp:",
+        erro
+      );
+
+      throw new Error(
+        erro?.message ||
+        "Erro de comunicação com o Supabase."
+      );
+    }
+
+
+    const data =
+      resultado?.data;
+
+    const error =
+      resultado?.error;
+
+
+    /* -------------------------------------------------------
+       ERRO DO SUPABASE
+       ------------------------------------------------------- */
+
+    if (error) {
+
+      console.error(
+        "[LUX V8] Supabase retornou erro:",
+        error
+      );
+
+      let mensagem =
+        error.message ||
+        "Não foi possível criar a conta.";
 
       if (
-        tipo ===
-        "modelo"
+        error.code ===
+        "user_already_exists"
       ) {
-
-        modeloPerfil =
-          await getModeloPerfil(
-            user.id
-          );
-
+        mensagem =
+          "Este e-mail já possui cadastro.";
       }
 
+      if (
+        error.status === 429
+      ) {
+        mensagem =
+          "Muitas tentativas de cadastro. Aguarde alguns minutos e tente novamente.";
+      }
+
+      throw new Error(mensagem);
+    }
+
+
+    /* -------------------------------------------------------
+       CONFIRMAÇÃO DO AUTH.USER
+       ------------------------------------------------------- */
+
+    const user =
+      data?.user;
+
+    if (!user) {
+
+      console.error(
+        "[LUX V8] signUp não retornou user:",
+        resultado
+      );
+
+      throw new Error(
+        "O Supabase não retornou o usuário criado. O cadastro não foi confirmado."
+      );
+    }
+
+
+    console.log(
+      "[LUX V8] Usuário criado no Auth:",
+      user.id
+    );
+
+    console.log(
+      "[LUX V8] E-mail:",
+      user.email
+    );
+
+
+    /* -------------------------------------------------------
+       AGUARDA O TRIGGER CRIAR OS PERFIS
+       ------------------------------------------------------- */
+
+    let perfil = null;
+    let modeloPerfil = null;
+
+    for (
+      let tentativa = 1;
+      tentativa <= 10;
+      tentativa++
+    ) {
+
+      console.log(
+        `[LUX V8] Verificando perfil. Tentativa ${tentativa}/10`
+      );
+
+      perfil =
+        await getPerfil(user.id);
+
+      if (tipo === "modelo") {
+
+        modeloPerfil =
+          await getModeloPerfil(user.id);
+      }
 
       if (
         perfil &&
         (
-          tipo !==
-          "modelo" ||
-
+          tipo !== "modelo" ||
           modeloPerfil
         )
       ) {
 
-        break;
+        console.log(
+          "[LUX V8] Perfil criado com sucesso."
+        );
 
+        break;
       }
 
-    } catch (
-      erroLeitura
-    ) {
-
-      console.warn(
-        "Aguardando criação do perfil pelo trigger:",
-        erroLeitura
+      await new Promise(
+        resolve =>
+          setTimeout(resolve, 500)
       );
-
     }
 
 
-    await new Promise(
-      resolve =>
-        setTimeout(
-          resolve,
-          500
-        )
-    );
+    /* -------------------------------------------------------
+       AVISO SE O TRIGGER NÃO CRIOU O PERFIL
+       ------------------------------------------------------- */
 
+    if (!perfil) {
+
+      console.warn(
+        "[LUX V8] Usuário existe no Auth, mas o perfil ainda não foi encontrado."
+      );
+    }
+
+    if (
+      tipo === "modelo" &&
+      !modeloPerfil
+    ) {
+
+      console.warn(
+        "[LUX V8] Usuário existe no Auth, mas modelo_perfis ainda não foi encontrado."
+      );
+    }
+
+
+    /* -------------------------------------------------------
+       RETORNO
+       ------------------------------------------------------- */
+
+    return {
+
+      success: true,
+
+      id: user.id,
+
+      user: user,
+
+      session:
+        data?.session || null,
+
+      perfil: perfil,
+
+      modeloPerfil: modeloPerfil,
+
+      mensagem:
+        "Cadastro realizado com sucesso."
+    };
   }
 
 
-  /* =======================================================
-     RETORNO
-     ======================================================= */
+  /* =========================================================
+     LOGOUT
+     ========================================================= */
 
-  return {
+  async function logout() {
 
-    success:
-      true,
+    const supabase =
+      requireClient();
 
-    id:
-      user.id,
+    const { error } =
+      await supabase.auth.signOut();
 
-    user,
+    if (error) {
 
-    session:
-      data?.session ||
-      null,
+      console.error(
+        "[LUX V8] Erro ao sair:",
+        error
+      );
 
-    perfil,
+      throw new Error(
+        error.message ||
+        "Não foi possível sair."
+      );
+    }
 
-    modeloPerfil,
-
-    mensagem:
-      tipo ===
-      "modelo"
-
-        ? (
-            data?.session
-
-              ? "Cadastro realizado. Seu perfil ficará aguardando análise."
-
-              : "Cadastro realizado. Confirme seu e-mail, se solicitado. Seu perfil ficará aguardando análise."
-          )
-
-        : (
-            data?.session
-
-              ? "Cadastro realizado com sucesso."
-
-              : "Cadastro realizado. Confirme seu e-mail, se solicitado."
-          )
-
-  };
-
-}
-
-
-/* =========================================================
-   LOGOUT
-   ========================================================= */
-
-async function logout() {
-
-  const {
-    error
-  } =
-    await requireClient()
-      .auth
-      .signOut();
-
-
-  if (error) {
-
-    console.error(
-      "Erro ao sair:",
-      error
-    );
-
-    throw error;
-
+    window.location.href =
+      "login.html";
   }
 
-}
+
+  /* =========================================================
+     EXPORTAÇÃO GLOBAL
+     ========================================================= */
+
+  window.login =
+    login;
+
+  window.entrar =
+    login;
+
+  window.cadastrar =
+    cadastrar;
+
+  window.logout =
+    logout;
+
+  window.usuarioAtual =
+    usuarioAtual;
+
+  window.getPerfil =
+    getPerfil;
+
+  window.getModeloPerfil =
+    getModeloPerfil;
+
+  window.getTipoUsuario =
+    getTipoUsuario;
 
 
-/* =========================================================
-   EXPORTAÇÕES
-   ========================================================= */
+  console.log(
+    "[LUX V8] Funções de autenticação disponíveis."
+  );
 
-window.login =
-  login;
-
-
-/* =========================================================
-   COMPATIBILIDADE COM login.html
-   ========================================================= */
-
-window.entrar =
-  login;
-
-
-window.cadastrar =
-  cadastrar;
-
-
-window.logout =
-  logout;
-
-
-window.usuarioAtual =
-  usuarioAtual;
-
-
-window.getPerfil =
-  getPerfil;
-
-
-window.getModeloPerfil =
-  getModeloPerfil;
-
-
-window.getTipoUsuario =
-  getTipoUsuario;
+})();

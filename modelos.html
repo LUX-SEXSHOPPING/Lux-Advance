@@ -5,13 +5,23 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+>
 
 <title>LUX — Modelos</title>
 
-<link rel="stylesheet" href="app.css">
+<link
+  rel="stylesheet"
+  href="app.css"
+>
 
 <style>
+
+/* =========================================================
+   LUX ADVANCE — HALLOWEEN
+========================================================= */
 
 :root{
   --lux-gold:#f8d58a;
@@ -25,9 +35,22 @@
 body{
   min-height:100vh;
   background:
-    radial-gradient(circle at 50% -10%,rgba(255,77,166,.10),transparent 35%),
-    radial-gradient(circle at 100% 50%,rgba(248,213,138,.07),transparent 35%),
-    linear-gradient(145deg,#050305,#0b0608 45%,#050305);
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(255,77,166,.10),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 100% 50%,
+      rgba(248,213,138,.07),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      #050305,
+      #0b0608 45%,
+      #050305
+    );
   color:var(--lux-text);
 }
 
@@ -38,8 +61,16 @@ body::before{
   pointer-events:none;
   opacity:.12;
   background:
-    radial-gradient(circle at 15% 20%,#ff4da6 0 1px,transparent 2px),
-    radial-gradient(circle at 80% 70%,#f8d58a 0 1px,transparent 2px);
+    radial-gradient(
+      circle at 15% 20%,
+      #ff4da6 0 1px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      #f8d58a 0 1px,
+      transparent 2px
+    );
   background-size:120px 120px,180px 180px;
   z-index:0;
 }
@@ -51,25 +82,79 @@ body::before{
   z-index:1;
 }
 
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
 .topbar{
   display:flex;
   align-items:center;
-  justify-content:center;
-  padding:22px 18px;
+  justify-content:space-between;
+  gap:15px;
+  padding:16px 18px;
   border-bottom:1px solid rgba(248,213,138,.10);
-  background:rgba(5,3,5,.75);
+  background:rgba(5,3,5,.78);
   backdrop-filter:blur(14px);
 }
 
 .brand{
-  font-family:"Playfair Display",Georgia,serif;
-  font-size:34px;
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+  font-size:31px;
   font-weight:700;
-  letter-spacing:7px;
+  letter-spacing:6px;
   text-decoration:none;
   color:var(--lux-gold);
-  text-shadow:0 0 20px rgba(248,213,138,.18);
 }
+
+
+/* =========================================================
+   BOTÃO VOLTAR
+========================================================= */
+
+.btn-voltar-area{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:42px;
+  padding:0 16px;
+  border-radius:13px;
+  border:1px solid rgba(248,213,138,.24);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(248,213,138,.10),
+      rgba(255,255,255,.025)
+    );
+  color:#f8d58a;
+  text-decoration:none;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.8px;
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.25);
+  transition:.22s ease;
+}
+
+.btn-voltar-area:hover{
+  transform:translateY(-2px);
+  border-color:rgba(248,213,138,.55);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(248,213,138,.18),
+      rgba(255,255,255,.04)
+    );
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
 
 .hero{
   text-align:center;
@@ -87,8 +172,12 @@ body::before{
 }
 
 .hero .title{
-  font-family:"Playfair Display",Georgia,serif;
-  font-size:clamp(40px,8vw,68px);
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+  font-size:
+    clamp(40px,8vw,68px);
   line-height:1;
   margin:0 0 16px;
 }
@@ -100,9 +189,15 @@ body::before{
   line-height:1.7;
 }
 
+
+/* =========================================================
+   CATEGORIAS
+========================================================= */
+
 .seletor-categorias{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:
+    repeat(4,1fr);
   gap:10px;
   max-width:900px;
   margin:15px auto 32px;
@@ -112,7 +207,12 @@ body::before{
   min-height:52px;
   border-radius:15px;
   border:1px solid rgba(248,213,138,.16);
-  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.055),
+      rgba(255,255,255,.018)
+    );
   color:#cfc5ca;
   font-weight:800;
   font-size:11px;
@@ -128,10 +228,19 @@ body::before{
 
 .categoria-btn.ativo{
   color:#160d10;
-  background:linear-gradient(135deg,#f8d58a,#d4a94e);
+  background:
+    linear-gradient(
+      135deg,
+      #f8d58a,
+      #d4a94e
+    );
   border-color:#f8d58a;
-  box-shadow:0 8px 25px rgba(248,213,138,.13);
 }
+
+
+/* =========================================================
+   CONTADOR
+========================================================= */
 
 .contador-modelos{
   text-align:center;
@@ -141,9 +250,10 @@ body::before{
   margin:-15px 0 22px;
 }
 
-#listaModelos{
-  align-items:stretch;
-}
+
+/* =========================================================
+   CARD
+========================================================= */
 
 .modelo-card{
   position:relative;
@@ -155,7 +265,8 @@ body::before{
   border-radius:23px;
   background:#110b10;
   border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 18px 50px rgba(0,0,0,.42);
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.42);
   transition:.25s ease;
 }
 
@@ -163,64 +274,100 @@ body::before{
   transform:translateY(-5px);
 }
 
+
+/* =========================================================
+   PLANOS
+========================================================= */
+
 .plano-essence{
   border-color:rgba(255,255,255,.13);
 }
 
 .plano-essence .plano-topo{
-  background:linear-gradient(135deg,#21151e,#0e090d);
+  background:
+    linear-gradient(
+      135deg,
+      #21151e,
+      #0e090d
+    );
 }
 
 .plano-essence .plano-nome{
   color:#e6dce0;
 }
 
+
 .plano-desfire{
   border-color:rgba(255,77,166,.30);
-  box-shadow:0 18px 55px rgba(255,77,166,.08);
+  box-shadow:
+    0 18px 55px
+    rgba(255,77,166,.08);
 }
 
 .plano-desfire .plano-topo{
-  background:linear-gradient(135deg,#321025,#12070f);
+  background:
+    linear-gradient(
+      135deg,
+      #321025,
+      #12070f
+    );
 }
 
 .plano-desfire .plano-nome{
   color:#ff76bd;
 }
 
+
 .plano-elite{
   border-color:rgba(248,213,138,.34);
-  box-shadow:0 18px 55px rgba(248,213,138,.10);
+  box-shadow:
+    0 18px 55px
+    rgba(248,213,138,.10);
 }
 
 .plano-elite .plano-topo{
-  background:linear-gradient(135deg,#352716,#120d08);
+  background:
+    linear-gradient(
+      135deg,
+      #352716,
+      #120d08
+    );
 }
 
 .plano-elite .plano-nome{
   color:#f8d58a;
 }
 
+
 .plano-royal{
   border-color:rgba(190,130,255,.38);
-  box-shadow:0 18px 60px rgba(145,70,220,.12);
+  box-shadow:
+    0 18px 60px
+    rgba(145,70,220,.12);
 }
 
 .plano-royal .plano-topo{
-  background:linear-gradient(135deg,#28152f,#0e0712);
+  background:
+    linear-gradient(
+      135deg,
+      #28152f,
+      #0e0712
+    );
 }
 
 .plano-royal .plano-nome{
   color:#dca7ff;
 }
 
+
 /* DIAMOND */
 
 .plano-diamond{
-  border-color:rgba(126,224,255,.48);
+  border-color:
+    rgba(126,224,255,.48);
   box-shadow:
-    0 18px 65px rgba(74,190,255,.13),
-    inset 0 0 35px rgba(126,224,255,.025);
+    0 18px 65px
+    rgba(74,190,255,.13);
 }
 
 .plano-diamond .plano-topo{
@@ -235,8 +382,15 @@ body::before{
 
 .plano-diamond .plano-nome{
   color:#9eeaff;
-  text-shadow:0 0 14px rgba(126,224,255,.25);
+  text-shadow:
+    0 0 14px
+    rgba(126,224,255,.25);
 }
+
+
+/* =========================================================
+   FOTO
+========================================================= */
 
 .modelo-foto-area{
   position:relative;
@@ -254,7 +408,8 @@ body::before{
   transition:transform .4s ease;
 }
 
-.modelo-card:hover .modelo-foto{
+.modelo-card:hover
+.modelo-foto{
   transform:scale(1.035);
 }
 
@@ -269,9 +424,18 @@ body::before{
   font-size:34px;
   letter-spacing:6px;
   background:
-    radial-gradient(circle,rgba(248,213,138,.10),transparent 55%),
+    radial-gradient(
+      circle,
+      rgba(248,213,138,.10),
+      transparent 55%
+    ),
     #090609;
 }
+
+
+/* =========================================================
+   PLANO TOPO
+========================================================= */
 
 .plano-topo{
   position:absolute;
@@ -297,6 +461,11 @@ body::before{
   font-size:13px;
 }
 
+
+/* =========================================================
+   STATUS
+========================================================= */
+
 .modelo-status{
   position:absolute;
   left:13px;
@@ -309,8 +478,12 @@ body::before{
   font-size:9px;
   font-weight:800;
   letter-spacing:1px;
-  backdrop-filter:blur(8px);
 }
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
 
 .modelo-conteudo{
   display:flex;
@@ -339,7 +512,10 @@ body::before{
 
 .modelo-nome{
   margin:0;
-  font-family:"Playfair Display",Georgia,serif;
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
   font-size:25px;
   line-height:1.15;
 }
@@ -350,11 +526,14 @@ body::before{
   font-size:12px;
 }
 
-/* AVALIAÇÕES */
+
+/* =========================================================
+   AVALIAÇÕES
+========================================================= */
 
 .avaliacao{
   margin:4px 0 17px;
-  padding:11px 0;
+  padding:12px 0;
   border-top:1px solid rgba(255,255,255,.06);
   border-bottom:1px solid rgba(255,255,255,.06);
 }
@@ -379,7 +558,7 @@ body::before{
   padding:1px;
   background:transparent;
   color:#514950;
-  font-size:22px;
+  font-size:23px;
   line-height:1;
   cursor:pointer;
   transition:.15s ease;
@@ -391,7 +570,9 @@ body::before{
 
 .estrela.ativa{
   color:#f8d58a;
-  text-shadow:0 0 10px rgba(248,213,138,.35);
+  text-shadow:
+    0 0 10px
+    rgba(248,213,138,.35);
 }
 
 .nota-info{
@@ -399,6 +580,11 @@ body::before{
   font-size:9px;
   margin-top:5px;
 }
+
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
 
 .modelo-acoes{
   margin-top:auto;
@@ -413,13 +599,17 @@ body::before{
   gap:8px;
   border:0;
   border-radius:12px;
-  background:linear-gradient(135deg,#f8d58a,#d6ab55);
+  background:
+    linear-gradient(
+      135deg,
+      #f8d58a,
+      #d6ab55
+    );
   color:#160d10;
   font-weight:900;
   font-size:11px;
   letter-spacing:.8px;
   cursor:pointer;
-  box-shadow:0 8px 22px rgba(248,213,138,.10);
   transition:.2s ease;
 }
 
@@ -433,8 +623,12 @@ body::before{
   color:#777077;
   border:1px solid rgba(255,255,255,.07);
   cursor:default;
-  box-shadow:none;
 }
+
+
+/* =========================================================
+   MENSAGEM
+========================================================= */
 
 .mensagem-vazia{
   width:100%;
@@ -446,18 +640,33 @@ body::before{
   color:#a69ca1;
 }
 
-.footer{
-  text-align:center;
-  padding:35px 20px;
-  color:#81777c;
-  font-size:10px;
-  letter-spacing:1px;
-}
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:700px){
 
   .seletor-categorias{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:520px){
+
+  .topbar{
+    padding:13px 12px;
+  }
+
+  .brand{
+    font-size:27px;
+  }
+
+  .btn-voltar-area{
+    font-size:9px;
+    padding:0 11px;
   }
 
 }
@@ -491,6 +700,14 @@ body::before{
     LUX
   </a>
 
+
+  <a
+    class="btn-voltar-area"
+    href="area-usuario.html"
+  >
+    ← MINHA ÁREA
+  </a>
+
 </header>
 
 
@@ -518,7 +735,7 @@ body::before{
 
 <section
   class="seletor-categorias"
-  aria-label="Categorias de modelos"
+  aria-label="Categorias"
 >
 
   <button
@@ -612,6 +829,10 @@ function escapeHTML(valor){
 }
 
 
+/* =========================================================
+   CATEGORIA
+========================================================= */
+
 function normalizarCategoria(valor){
 
   const texto =
@@ -620,6 +841,7 @@ function normalizarCategoria(valor){
       .trim()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g,"");
+
 
   if(
     texto.includes("lgbt") ||
@@ -630,12 +852,14 @@ function normalizarCategoria(valor){
     return "lgbtq";
   }
 
+
   if(
     texto.includes("mascul") ||
     texto === "homem"
   ){
     return "masculino";
   }
+
 
   if(
     texto.includes("feminin") ||
@@ -644,14 +868,15 @@ function normalizarCategoria(valor){
     return "feminino";
   }
 
+
   return texto || "feminino";
 
 }
 
 
-/* =====================================================
-   PLANO ATIVO
-===================================================== */
+/* =========================================================
+   PLANO
+========================================================= */
 
 function obterPlano(modelo){
 
@@ -668,22 +893,31 @@ function obterPlano(modelo){
     .toLowerCase()
     .trim();
 
+
   if(plano.includes("diamond"))
     return "DIAMOND";
+
 
   if(plano.includes("royal"))
     return "ROYAL";
 
+
   if(plano.includes("elite"))
     return "ELITE";
 
+
   if(plano.includes("desfire"))
     return "DESFIRE";
+
 
   return "ESSENCE";
 
 }
 
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
 
 function numeroWhatsApp(valor){
 
@@ -696,19 +930,27 @@ function numeroWhatsApp(valor){
 function chamarModelo(modelo){
 
   const numero =
-    numeroWhatsApp(modelo.whatsapp);
+    numeroWhatsApp(
+      modelo.whatsapp
+    );
+
 
   if(!numero)
     return;
 
+
   const mensagem =
     "Olá! Encontrei seu perfil na LUX e gostaria de falar com você.";
+
 
   const url =
     "https://wa.me/" +
     numero +
     "?text=" +
-    encodeURIComponent(mensagem);
+    encodeURIComponent(
+      mensagem
+    );
+
 
   window.open(
     url,
@@ -719,9 +961,9 @@ function chamarModelo(modelo){
 }
 
 
-/* =====================================================
-   USUÁRIO LOGADO
-===================================================== */
+/* =========================================================
+   USUÁRIO
+========================================================= */
 
 async function obterUsuario(){
 
@@ -730,18 +972,20 @@ async function obterUsuario(){
     if(!window.luxSupabase)
       return null;
 
-    const {
-      data,
-      error
-    } =
+
+    const resposta =
       await window.luxSupabase
         .auth
         .getUser();
 
-    if(error)
+
+    if(resposta.error)
       return null;
 
-    return data?.user || null;
+
+    return
+      resposta.data?.user ||
+      null;
 
   }catch{
 
@@ -752,9 +996,10 @@ async function obterUsuario(){
 }
 
 
-/* =====================================================
-   AVALIAÇÃO — MESMA TABELA DO CATÁLOGO
-===================================================== */
+/* =========================================================
+   AVALIAÇÃO
+   UMA AVALIAÇÃO POR USUÁRIO / MODELO
+========================================================= */
 
 async function avaliarModelo(
   modeloId,
@@ -764,11 +1009,22 @@ async function avaliarModelo(
   const usuario =
     await obterUsuario();
 
+
   if(!usuario){
 
     alert(
-      "Você precisa estar conectado para avaliar uma modelo."
+      "Sua sessão não foi encontrada. Entre novamente na sua área para avaliar."
     );
+
+    return;
+
+  }
+
+
+  if(
+    nota < 1 ||
+    nota > 5
+  ){
 
     return;
 
@@ -778,105 +1034,68 @@ async function avaliarModelo(
   try{
 
     /*
-      Primeiro verificamos se o usuário
-      já avaliou este modelo.
-    */
+     * UPSERT:
+     * se já existir avaliação,
+     * altera a nota.
+     * se não existir,
+     * cria uma nova.
+     */
 
     const {
-      data: existente,
-      error: erroBusca
+      error
     } =
       await window.luxSupabase
 
         .from("avaliacoes")
 
-        .select("id,estrelas")
+        .upsert(
+          {
+            usuario_id:
+              usuario.id,
 
-        .eq(
-          "usuario_id",
-          usuario.id
-        )
+            modelo_id:
+              modeloId,
 
-        .eq(
-          "modelo_id",
-          modeloId
-        )
+            estrelas:
+              nota
 
-        .maybeSingle();
-
-
-    if(erroBusca)
-      throw erroBusca;
+          },
+          {
+            onConflict:
+              "modelo_id,usuario_id"
+          }
+        );
 
 
-    if(existente){
+    if(error){
 
-      /*
-        Já avaliou:
-        apenas altera a nota.
-      */
-
-      const {
+      console.error(
+        "[LUX AVALIAÇÃO]",
         error
-      } =
-        await window.luxSupabase
-
-          .from("avaliacoes")
-
-          .update({
-            estrelas:nota
-          })
-
-          .eq(
-            "id",
-            existente.id
-          );
+      );
 
 
-      if(error)
-        throw error;
+      alert(
+        "O Supabase não permitiu registrar a avaliação.\n\n" +
+        error.message
+      );
 
 
-    }else{
-
-      /*
-        Primeira avaliação.
-      */
-
-      const {
-        error
-      } =
-        await window.luxSupabase
-
-          .from("avaliacoes")
-
-          .insert({
-
-            usuario_id:usuario.id,
-
-            modelo_id:modeloId,
-
-            estrelas:nota
-
-          });
-
-
-      if(error)
-        throw error;
+      return;
 
     }
 
 
     /*
-      Recarrega tudo para pegar
-      a média e a quantidade atualizadas.
-    */
+     * Recarrega a média verdadeira
+     * depois da avaliação.
+     */
 
     await carregarModelos();
 
 
     alert(
-      "Avaliação registrada com sucesso. ⭐"
+      "Sua avaliação foi registrada com sucesso. ⭐"
     );
 
 
@@ -887,8 +1106,9 @@ async function avaliarModelo(
       erro
     );
 
+
     alert(
-      "Não foi possível registrar a avaliação."
+      "Não foi possível registrar sua avaliação."
     );
 
   }
@@ -896,9 +1116,9 @@ async function avaliarModelo(
 }
 
 
-/* =====================================================
+/* =========================================================
    ESTRELAS
-===================================================== */
+========================================================= */
 
 function htmlEstrelas(modelo){
 
@@ -907,12 +1127,15 @@ function htmlEstrelas(modelo){
       modelo.media_estrelas || 0
     );
 
+
   const total =
     Number(
       modelo.avaliacoes_total || 0
     );
 
-  let html = "";
+
+  let estrelas = "";
+
 
   for(
     let i=1;
@@ -925,14 +1148,15 @@ function htmlEstrelas(modelo){
         ? "ativa"
         : "";
 
-    html += `
+
+    estrelas += `
 
       <button
         type="button"
         class="estrela ${ativa}"
         data-avaliar-id="${escapeHTML(modelo.id)}"
         data-nota="${i}"
-        aria-label="Dar ${i} estrela${i > 1 ? "s" : ""}"
+        aria-label="Dar ${i} estrelas"
       >
         ★
       </button>
@@ -946,9 +1170,10 @@ function htmlEstrelas(modelo){
 
     <div class="estrelas">
 
-      ${html}
+      ${estrelas}
 
     </div>
+
 
     <div class="nota-info">
 
@@ -974,9 +1199,9 @@ function htmlEstrelas(modelo){
 }
 
 
-/* =====================================================
-   RENDERIZAÇÃO
-===================================================== */
+/* =========================================================
+   RENDER
+========================================================= */
 
 function renderModelos(){
 
@@ -984,6 +1209,7 @@ function renderModelos(){
     document.getElementById(
       "listaModelos"
     );
+
 
   const contador =
     document.getElementById(
@@ -996,9 +1222,14 @@ function renderModelos(){
       modelo => {
 
         if(
-          categoriaAtual === "todos"
-        )
+          categoriaAtual ===
+          "todos"
+        ){
+
           return true;
+
+        }
+
 
         return (
           normalizarCategoria(
@@ -1024,7 +1255,9 @@ function renderModelos(){
 
     lista.innerHTML = `
 
-      <div class="mensagem-vazia">
+      <div
+        class="mensagem-vazia"
+      >
 
         Nenhum modelo aprovado
         encontrado nesta categoria.
@@ -1084,14 +1317,18 @@ function renderModelos(){
 
         let iconePlano = "✦";
 
+
         if(plano === "DESFIRE")
           iconePlano = "🔥";
+
 
         if(plano === "ELITE")
           iconePlano = "♛";
 
+
         if(plano === "ROYAL")
           iconePlano = "♕";
+
 
         if(plano === "DIAMOND")
           iconePlano = "💎";
@@ -1113,7 +1350,9 @@ function renderModelos(){
 
           : `
 
-            <div class="modelo-sem-foto">
+            <div
+              class="modelo-sem-foto"
+            >
               LUX
             </div>
 
@@ -1137,7 +1376,9 @@ function renderModelos(){
 
           : `
 
-            <div class="btn-chamar-modelo indisponivel">
+            <div
+              class="btn-chamar-modelo indisponivel"
+            >
               WhatsApp indisponível
             </div>
 
@@ -1147,23 +1388,33 @@ function renderModelos(){
         return `
 
           <article
-            class="modelo-card ${classePlano}"
+            class="
+              modelo-card
+              ${classePlano}
+            "
           >
 
 
-            <div class="modelo-foto-area">
+            <div
+              class="modelo-foto-area"
+            >
 
 
-              <div class="plano-topo">
+              <div
+                class="plano-topo"
+              >
 
-                <span class="plano-nome">
-
+                <span
+                  class="plano-nome"
+                >
                   ${iconePlano}
                   LUX ${plano}
-
                 </span>
 
-                <span class="plano-icone">
+
+                <span
+                  class="plano-icone"
+                >
                   🎃
                 </span>
 
@@ -1173,7 +1424,9 @@ function renderModelos(){
               ${fotoHTML}
 
 
-              <div class="modelo-status">
+              <div
+                class="modelo-status"
+              >
                 ✓ PERFIL APROVADO
               </div>
 
@@ -1181,25 +1434,39 @@ function renderModelos(){
             </div>
 
 
-            <div class="modelo-conteudo">
+            <div
+              class="modelo-conteudo"
+            >
 
 
-              <div class="modelo-etiquetas">
+              <div
+                class="modelo-etiquetas"
+              >
 
-                <span class="modelo-etiqueta">
+                <span
+                  class="modelo-etiqueta"
+                >
 
                   ${
-                    categoria === "feminino"
-                      ? "♀ FEMININA"
-                      : categoria === "masculino"
-                      ? "♂ MASCULINO"
-                      : "♡ LGBTQ+"
+                    categoria ===
+                    "feminino"
+
+                    ? "♀ FEMININA"
+
+                    : categoria ===
+                    "masculino"
+
+                    ? "♂ MASCULINO"
+
+                    : "♡ LGBTQ+"
                   }
 
                 </span>
 
 
-                <span class="modelo-etiqueta">
+                <span
+                  class="modelo-etiqueta"
+                >
 
                   LUX ${plano}
 
@@ -1208,26 +1475,38 @@ function renderModelos(){
               </div>
 
 
-              <h2 class="modelo-nome">
+              <h2
+                class="modelo-nome"
+              >
                 ${nome}
               </h2>
 
 
-              <p class="modelo-local">
+              <p
+                class="modelo-local"
+              >
                 📍 ${cidade}
               </p>
 
 
-              <div class="avaliacao">
+              <div
+                class="avaliacao"
+              >
 
-                <div class="avaliacao-titulo">
+                <div
+                  class="avaliacao-titulo"
+                >
 
                   <span>
                     AVALIE ESTE PERFIL
                   </span>
 
+
                   <span>
-                    ⭐ ${Number(modelo.media_estrelas || 0).toFixed(1)}
+                    ⭐
+                    ${Number(
+                      modelo.media_estrelas || 0
+                    ).toFixed(1)}
                   </span>
 
                 </div>
@@ -1238,7 +1517,9 @@ function renderModelos(){
               </div>
 
 
-              <div class="modelo-acoes">
+              <div
+                class="modelo-acoes"
+              >
 
                 ${whatsappHTML}
 
@@ -1257,8 +1538,8 @@ function renderModelos(){
 
 
   /*
-    Eventos de WhatsApp
-  */
+   * WhatsApp
+   */
 
   lista
     .querySelectorAll(
@@ -1280,6 +1561,7 @@ function renderModelos(){
                   )
               );
 
+
             if(modelo)
               chamarModelo(modelo);
 
@@ -1291,8 +1573,8 @@ function renderModelos(){
 
 
   /*
-    Eventos das estrelas
-  */
+   * Estrelas
+   */
 
   lista
     .querySelectorAll(
@@ -1324,9 +1606,9 @@ function renderModelos(){
 }
 
 
-/* =====================================================
+/* =========================================================
    CARREGAR MODELOS
-===================================================== */
+========================================================= */
 
 async function carregarModelos(){
 
@@ -1387,7 +1669,9 @@ async function carregarModelos(){
 
     lista.innerHTML = `
 
-      <div class="mensagem-vazia">
+      <div
+        class="mensagem-vazia"
+      >
 
         Não foi possível carregar
         os modelos aprovados.
@@ -1409,9 +1693,9 @@ async function carregarModelos(){
 }
 
 
-/* =====================================================
+/* =========================================================
    FILTROS
-===================================================== */
+========================================================= */
 
 document
   .querySelectorAll(
@@ -1453,6 +1737,10 @@ document
     }
   );
 
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
 
 carregarModelos();
 

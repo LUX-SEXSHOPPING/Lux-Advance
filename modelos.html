@@ -1,100 +1,104 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR"><head>  <meta charset="UTF-8"><meta
+name="viewport"
+content="width=device-width, initial-scale=1"
 
-<head>
+«»
 
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
-
-  <title>LUX — Modelos</title>
-
-  <link
+  <title>LUX — Modelos</title>  <link
     rel="stylesheet"
     href="app.css"
-  >
+  >  <style>
 
-</head>
+    .acoes-modelo {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:15px;
+    }
 
-<body>
+    .btn-chamar-modelo {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      min-height:44px;
+      padding:11px 16px;
+      border:0;
+      border-radius:12px;
+      background:linear-gradient(135deg,#f0b13b,#c8730d);
+      color:#120b08;
+      font-weight:800;
+      text-decoration:none;
+      cursor:pointer;
+      box-shadow:0 8px 24px rgba(210,100,0,.18);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
 
-  <header class="topbar">
+    .btn-chamar-modelo:hover {
+      transform:translateY(-1px);
+      box-shadow:0 10px 30px rgba(255,120,0,.25);
+    }
 
-    <a
-      class="brand"
-      href="index.html"
-    >
-      LUX
-    </a>
+    .btn-chamar-modelo.indisponivel {
+      background:rgba(255,255,255,.06);
+      color:#8f858b;
+      border:1px solid rgba(255,255,255,.10);
+      cursor:not-allowed;
+      box-shadow:none;
+    }
 
-    <a
-      class="btn ghost"
-      href="login.html"
-    >
-      Entrar
-    </a>
+  </style></head><body>  <header class="topbar"><a
+  class="brand"
+  href="index.html"
+>
+  LUX
+</a>
 
-  </header>
+<a
+  class="btn ghost"
+  href="login.html"
+>
+  Entrar
+</a>
 
+  </header>  <main class="container"><section class="hero">
 
-  <main class="container">
+  <div class="eyebrow">
+    LUX
+  </div>
 
-    <section class="hero">
+  <h1 class="title">
+    Modelos
+  </h1>
 
-      <div class="eyebrow">
-        LUX
-      </div>
+  <p class="subtitle">
+    Conheça os perfis disponíveis na plataforma LUX.
+  </p>
 
-      <h1 class="title">
-        Modelos
-      </h1>
-
-      <p class="subtitle">
-        Conheça os perfis disponíveis na plataforma LUX.
-      </p>
-
-    </section>
-
-
-    <div
-      id="mensagem"
-      class="notice"
-      hidden
-    ></div>
-
-
-    <section
-      id="listaModelos"
-      class="grid"
-    >
-
-      <div class="empty">
-        Carregando modelos...
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <footer class="footer">
-
-    LUX — Sensualidade & Sofisticação
-
-  </footer>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script src="./config.js?v=5"></script>
-
-  <script src="./auth.js?v=10"></script>
+</section>
 
 
-  <script>
+<div
+  id="mensagem"
+  class="notice"
+  hidden
+></div>
+
+
+<section
+  id="listaModelos"
+  class="grid"
+>
+
+  <div class="empty">
+    Carregando modelos...
+  </div>
+
+</section>
+
+  </main>  <footer class="footer">LUX — Sensualidade & Sofisticação
+
+  </footer>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  <script src="./config.js?v=5"></script>  <script src="./auth.js?v=10"></script>  <script>
 
     function escapeHTML(valor) {
       return String(valor ?? "")
@@ -105,52 +109,245 @@
         .replaceAll("'", "&#039;");
     }
 
+
+    function numeroWhatsApp(valor) {
+
+      return String(valor || "")
+        .replace(/\D/g, "");
+
+    }
+
+
+    function chamarModelo(modelo) {
+
+      const nome =
+        modelo.nome_exibicao ||
+        "modelo LUX";
+
+      const numero =
+        numeroWhatsApp(
+          modelo.whatsapp
+        );
+
+      if (!numero) {
+
+        alert(
+          "Esta modelo ainda não possui WhatsApp cadastrado."
+        );
+
+        return;
+
+      }
+
+      const mensagem =
+        `Olá! Encontrei seu perfil na LUX e gostaria de falar com você.`;
+
+      const url =
+        "https://wa.me/" +
+        numero +
+        "?text=" +
+        encodeURIComponent(mensagem);
+
+      window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+    }
+
+
     async function carregarModelos() {
-      const lista = document.getElementById("listaModelos");
+
+      const lista =
+        document.getElementById(
+          "listaModelos"
+        );
+
 
       try {
+
         if (!window.luxSupabase) {
-          throw new Error("Supabase não foi inicializado.");
+
+          throw new Error(
+            "Supabase não foi inicializado."
+          );
+
         }
 
-        const { data, error } = await window.luxSupabase
-          .from("modelo_perfis")
-          .select("*")
-          .in("verificacao_status", ["aprovado", "verificada"]);
 
-        if (error) throw error;
+        const { data, error } =
+          await window.luxSupabase
 
-        if (!data || data.length === 0) {
-          lista.innerHTML = '<div class="empty">Nenhum modelo aprovado disponível no momento.</div>';
+            .from("modelo_perfis")
+
+            .select("*")
+
+            .in(
+              "verificacao_status",
+              [
+                "aprovado",
+                "verificada"
+              ]
+            );
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        if (
+          !data ||
+          data.length === 0
+        ) {
+
+          lista.innerHTML =
+            '<div class="empty">Nenhum modelo aprovado disponível no momento.</div>';
+
           return;
+
         }
 
-        lista.innerHTML = data.map(modelo => {
-          const nome = escapeHTML(modelo.nome_exibicao || "Modelo");
-          const cidade = escapeHTML(modelo.cidade || "Disponível na LUX");
-          const foto = modelo.foto_url || "";
 
-          return `
-            <article class="card">
-              ${foto ? `<img class="avatar" src="${escapeHTML(foto)}" alt="${nome}">` : `<div class="avatar" style="display:flex;align-items:center;justify-content:center;color:#b9afb4;">LUX</div>`}
-              <div class="card-body">
-                <span class="pill lux-plan-badge">✦ LUX ${escapeHTML(modelo.selo_codigo || modelo.plano_codigo || "ESSENCE")}</span>
-                <span class="pill">Modelo LUX</span>
-                <h2>${nome}</h2>
-                <p style="color:#b9afb4;">${cidade}</p>
-              </div>
-            </article>`;
-        }).join("");
-      } catch (erro) {
-        console.error("[LUX MODELOS]", erro);
-        lista.innerHTML = '<div class="empty">Não foi possível carregar os modelos aprovados.</div>';
+        lista.innerHTML =
+          data.map(modelo => {
+
+            const nome =
+              escapeHTML(
+                modelo.nome_exibicao ||
+                "Modelo"
+              );
+
+
+            const cidade =
+              escapeHTML(
+                modelo.cidade ||
+                "Disponível na LUX"
+              );
+
+
+            const foto =
+              modelo.foto_url ||
+              "";
+
+
+            const temWhatsApp =
+              numeroWhatsApp(
+                modelo.whatsapp
+              ).length > 0;
+
+
+            return `
+
+              <article class="card">
+
+                ${
+                  foto
+
+                    ? `<img
+                        class="avatar"
+                        src="${escapeHTML(foto)}"
+                        alt="${nome}"
+                      >`
+
+                    : `<div
+                        class="avatar"
+                        style="
+                          display:flex;
+                          align-items:center;
+                          justify-content:center;
+                          color:#b9afb4;
+                        "
+                      >
+                        LUX
+                      </div>`
+                }
+
+
+                <div class="card-body">
+
+                  <span class="pill lux-plan-badge">
+                    ✦ LUX ${
+                      escapeHTML(
+                        modelo.selo_codigo ||
+                        modelo.plano_codigo ||
+                        "ESSENCE"
+                      )
+                    }
+                  </span>
+
+
+                  <span class="pill">
+                    Modelo LUX
+                  </span>
+
+
+                  <h2>
+                    ${nome}
+                  </h2>
+
+
+                  <p
+                    style="color:#b9afb4;"
+                  >
+                    ${cidade}
+                  </p>
+
+
+                  <div class="acoes-modelo">
+
+                    ${
+                      temWhatsApp
+
+                        ? `<button
+                            type="button"
+                            class="btn-chamar-modelo"
+                            onclick='chamarModelo(${JSON.stringify(modelo).replace(/'/g, "&#039;")})'
+                          >
+                            📞 Chamar modelo
+                          </button>`
+
+                        : `<button
+                            type="button"
+                            class="btn-chamar-modelo indisponivel"
+                            disabled
+                          >
+                            📞 WhatsApp indisponível
+                          </button>`
+                    }
+
+                  </div>
+
+                </div>
+
+              </article>
+
+            `;
+
+          }).join("");
+
+
       }
+
+      catch (erro) {
+
+        console.error(
+          "[LUX MODELOS]",
+          erro
+        );
+
+
+        lista.innerHTML =
+          '<div class="empty">Não foi possível carregar os modelos aprovados.</div>';
+
+      }
+
     }
+
 
     carregarModelos();
 
-  </script>
-
-</body>
-
-</html>
+  </script></body></html>

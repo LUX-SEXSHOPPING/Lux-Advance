@@ -3,1770 +3,1085 @@
 
 <head>
 
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-<meta
+  <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    content="width=device-width, initial-scale=1"
+  >
 
-<title>LUX — Central Administrativa</title>
+  <title>LUX — Central Administrativa</title>
 
-<meta
-    name="theme-color"
-    content="#070508"
->
-
-<link
+  <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
->
+  >
 
-<link
+  <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
     crossorigin
->
+  >
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
     rel="stylesheet"
->
+  >
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="./config.js"></script>
-
-
-<style>
-
-/* =========================================================
-   LUX-ADVANCE
-   EXECUTIVE ADMIN CENTER
-========================================================= */
-
-:root{
-
-    --black:#050405;
-    --black-2:#09070a;
-    --black-3:#100b0f;
-
-    --wine:#160b12;
-    --wine-2:#21101a;
-
-    --gold:#f5d58c;
-    --gold-soft:#c9a96b;
-
-    --pink:#ff4da6;
-
-    --white:#f8f3f6;
-    --text:#e8e0e5;
-    --muted:#968b94;
-    --muted-2:#665d65;
-
-    --green:#68d8a4;
-    --red:#ff718d;
-    --blue:#86b8ff;
-    --yellow:#f1cb72;
-
-    --border:
-        rgba(245,213,140,.16);
-
-    --border-light:
-        rgba(255,255,255,.07);
-
-    --glass:
-        rgba(255,255,255,.025);
-
-    --shadow:
-        0 24px 80px rgba(0,0,0,.48);
-
-}
+  <script src="./config.js"></script>
 
 
-/* =========================================================
-   RESET
-========================================================= */
+  <style>
 
-*{
-
-    box-sizing:border-box;
-
-    margin:0;
-
-    padding:0;
-
-}
+    * {
+      box-sizing: border-box;
+    }
 
 
-html{
-
-    scroll-behavior:smooth;
-
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
 
-body{
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
 
-    min-height:100vh;
-
-    color:var(--text);
-
-    font-family:
-        Inter,
-        Arial,
-        sans-serif;
-
-    background:
-
+      background:
         radial-gradient(
-            circle at 82% -10%,
-            rgba(255,77,166,.10),
-            transparent 32%
+          circle at top right,
+          rgba(255, 77, 166, 0.10),
+          transparent 35%
         ),
-
         radial-gradient(
-            circle at 0% 25%,
-            rgba(245,213,140,.055),
-            transparent 30%
+          circle at bottom left,
+          rgba(248, 213, 138, 0.08),
+          transparent 35%
         ),
+        #0b0608;
 
+      color: #f8f5f2;
+
+      font-family: "Inter", sans-serif;
+    }
+
+
+    button {
+      font-family: inherit;
+    }
+
+
+    .topbar {
+
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 14px 20px;
+
+      background:
         linear-gradient(
-            135deg,
-            #050405 0%,
-            #090609 48%,
-            #050405 100%
+          90deg,
+          rgba(11, 6, 8, 0.98),
+          rgba(25, 10, 18, 0.98)
         );
 
-}
+      border-bottom: 1px solid rgba(248, 213, 138, 0.20);
 
+      backdrop-filter: blur(14px);
+    }
 
-button,
-input,
-select,
-textarea{
 
-    font:inherit;
+    .brand {
 
-}
+      display: flex;
+      align-items: center;
 
+      gap: 12px;
+    }
 
-button{
 
-    cursor:pointer;
+    .brand-logo {
 
-}
+      width: 48px;
+      height: 48px;
 
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-::-webkit-scrollbar{
+      border-radius: 50%;
 
-    width:7px;
+      border: 1px solid rgba(248, 213, 138, 0.55);
 
-}
-
-
-::-webkit-scrollbar-track{
-
-    background:#070508;
-
-}
-
-
-::-webkit-scrollbar-thumb{
-
-    background:#30252d;
-
-    border-radius:20px;
-
-}
-
-
-/* =========================================================
-   TOPBAR
-========================================================= */
-
-.topbar{
-
-    position:sticky;
-
-    top:0;
-
-    z-index:1000;
-
-    border-bottom:
-        1px solid
-        var(--border-light);
-
-    background:
-        rgba(5,4,5,.91);
-
-    backdrop-filter:
-        blur(22px);
-
-    box-shadow:
-        0 10px 40px rgba(0,0,0,.25);
-
-}
-
-
-.topbar-inner{
-
-    width:
-        min(1380px,calc(100% - 36px));
-
-    min-height:82px;
-
-    margin:auto;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-}
-
-
-.brand{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:14px;
-
-}
-
-
-.brand-mark{
-
-    position:relative;
-
-    width:50px;
-
-    height:50px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border:
-        1px solid
-        rgba(245,213,140,.43);
-
-    border-radius:50%;
-
-    color:var(--gold);
-
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size:18px;
-
-    letter-spacing:1px;
-
-    box-shadow:
-        inset 0 0 20px rgba(245,213,140,.04),
-        0 0 25px rgba(245,213,140,.04);
-
-}
-
-
-.brand-mark::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:5px;
-
-    border:
-        1px solid
-        rgba(245,213,140,.10);
-
-    border-radius:50%;
-
-}
-
-
-.brand-name{
-
-    color:var(--gold);
-
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size:28px;
-
-    line-height:1;
-
-    letter-spacing:2px;
-
-}
-
-
-.brand-sub{
-
-    margin-top:6px;
-
-    color:var(--muted);
-
-    font-size:9px;
-
-    font-weight:600;
-
-    letter-spacing:2.2px;
-
-    text-transform:uppercase;
-
-}
-
-
-.header-right{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:18px;
-
-}
-
-
-.session{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    color:var(--green);
-
-    font-size:10px;
-
-    font-weight:700;
-
-    letter-spacing:1.3px;
-
-    text-transform:uppercase;
-
-}
-
-
-.session-dot{
-
-    width:7px;
-
-    height:7px;
-
-    border-radius:50%;
-
-    background:var(--green);
-
-    box-shadow:
-        0 0 12px
-        rgba(104,216,164,.85);
-
-}
-
-
-.logout{
-
-    padding:10px 17px;
-
-    border:
-        1px solid
-        rgba(245,213,140,.25);
-
-    border-radius:10px;
-
-    background:
-        rgba(245,213,140,.035);
-
-    color:var(--gold);
-
-    font-size:11px;
-
-    font-weight:700;
-
-    letter-spacing:.8px;
-
-    transition:.2s;
-
-}
-
-
-.logout:hover{
-
-    border-color:
-        rgba(245,213,140,.65);
-
-    background:
-        rgba(245,213,140,.08);
-
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-main{
-
-    width:
-        min(1380px,calc(100% - 36px));
-
-    margin:auto;
-
-    padding:
-        46px 0 80px;
-
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-
-    position:relative;
-
-    overflow:hidden;
-
-    padding:
-        8px 0 35px;
-
-}
-
-
-.hero::after{
-
-    content:"LUX";
-
-    position:absolute;
-
-    right:-15px;
-
-    top:-40px;
-
-    color:
-        rgba(245,213,140,.018);
-
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size:
-        clamp(130px,20vw,270px);
-
-    font-weight:700;
-
-    pointer-events:none;
-
-}
-
-
-.eyebrow{
-
-    position:relative;
-
-    z-index:1;
-
-    margin-bottom:12px;
-
-    color:var(--pink);
-
-    font-size:10px;
-
-    font-weight:800;
-
-    letter-spacing:3.5px;
-
-    text-transform:uppercase;
-
-}
-
-
-.hero h1{
-
-    position:relative;
-
-    z-index:1;
-
-    margin-bottom:12px;
-
-    color:var(--gold);
-
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size:
-        clamp(40px,6vw,70px);
-
-    font-weight:600;
-
-    line-height:.98;
-
-}
-
-
-.hero-description{
-
-    position:relative;
-
-    z-index:1;
-
-    max-width:760px;
-
-    color:var(--muted);
-
-    font-size:14px;
-
-    line-height:1.8;
-
-}
-
-
-/* =========================================================
-   SYSTEM BAR
-========================================================= */
-
-.system-bar{
-
-    position:relative;
-
-    z-index:2;
-
-    margin-top:25px;
-
-    padding:13px 16px;
-
-    display:flex;
-
-    align-items:center;
-
-    flex-wrap:wrap;
-
-    gap:9px 25px;
-
-    border:
-        1px solid
-        var(--border-light);
-
-    border-radius:12px;
-
-    background:
-        rgba(255,255,255,.018);
-
-}
-
-
-.system-item{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:6px;
-
-    color:var(--muted);
-
-    font-size:10px;
-
-}
-
-
-.system-item strong{
-
-    color:#ddd3d9;
-
-}
-
-
-/* =========================================================
-   ADMIN MODULES
-========================================================= */
-
-.section-label{
-
-    margin-bottom:12px;
-
-    color:#706670;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    letter-spacing:2.4px;
-
-    text-transform:uppercase;
-
-}
-
-
-.admin-menu{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,minmax(0,1fr));
-
-    gap:10px;
-
-    margin-bottom:30px;
-
-}
-
-
-.admin-card{
-
-    position:relative;
-
-    min-height:105px;
-
-    padding:17px;
-
-    overflow:hidden;
-
-    border:
-        1px solid
-        var(--border-light);
-
-    border-radius:15px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.028),
-            rgba(255,255,255,.008)
+      background:
+        radial-gradient(
+          circle,
+          #26111b,
+          #0b0608
         );
 
-    transition:
-        transform .22s ease,
-        border-color .22s ease,
-        background .22s ease;
+      color: #f8d58a;
 
-    cursor:pointer;
+      font-family: "Playfair Display", serif;
 
-    width:100%;
+      font-size: 20px;
+      font-weight: 700;
 
-    text-align:left;
-
-    color:inherit;
-
-    appearance:none;
-
-    -webkit-appearance:none;
-
-    -webkit-tap-highlight-color:transparent;
-
-}
+      box-shadow:
+        0 0 20px rgba(248, 213, 138, 0.08);
+    }
 
 
-.admin-card::after{
+    .brand-text strong {
 
-    content:"";
+      display: block;
 
-    position:absolute;
+      color: #f8d58a;
 
-    width:80px;
+      font-family: "Playfair Display", serif;
 
-    height:80px;
-
-    right:-40px;
-
-    bottom:-40px;
-
-    border-radius:50%;
-
-    border:
-        1px solid
-        rgba(245,213,140,.10);
-
-    pointer-events:none;
-
-}
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
 
 
-.admin-card:hover{
+    .brand-text span {
 
-    transform:
-        translateY(-3px);
+      display: block;
 
-    border-color:
-        rgba(245,213,140,.28);
+      margin-top: 2px;
 
-    background:
+      color: #c7bdc2;
+
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+    }
+
+
+    .admin-actions {
+
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+    }
+
+
+    .status-online {
+
+      display: flex;
+      align-items: center;
+
+      gap: 7px;
+
+      color: #cfc5ca;
+
+      font-size: 12px;
+    }
+
+
+    .status-online::before {
+
+      content: "";
+
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+
+      background: #53d88a;
+
+      box-shadow:
+        0 0 10px rgba(83, 216, 138, 0.65);
+    }
+
+
+    .btn-sair {
+
+      border: 1px solid rgba(255, 77, 166, 0.35);
+
+      background: rgba(255, 77, 166, 0.08);
+
+      color: #ff8cc6;
+
+      border-radius: 10px;
+
+      padding: 9px 13px;
+
+      cursor: pointer;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      transition: 0.2s;
+    }
+
+
+    .btn-sair:hover {
+
+      background: rgba(255, 77, 166, 0.16);
+
+      transform: translateY(-1px);
+    }
+
+
+    .container {
+
+      width: min(1180px, calc(100% - 28px));
+
+      margin: 0 auto;
+
+      padding: 32px 0 60px;
+    }
+
+
+    .hero {
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 34px 28px;
+
+      border-radius: 22px;
+
+      border: 1px solid rgba(248, 213, 138, 0.16);
+
+      background:
         linear-gradient(
-            145deg,
-            rgba(245,213,140,.045),
-            rgba(255,255,255,.01)
+          135deg,
+          rgba(44, 15, 30, 0.88),
+          rgba(15, 8, 11, 0.94)
         );
 
-}
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.28);
+
+      margin-bottom: 24px;
+    }
 
 
-.admin-card:active{
+    .hero::after {
 
-    transform:
-        scale(.98);
+      content: "";
 
-}
+      position: absolute;
 
+      width: 260px;
+      height: 260px;
 
-.admin-icon{
+      right: -80px;
+      top: -100px;
 
-    margin-bottom:10px;
+      border-radius: 50%;
 
-    color:var(--gold);
-
-    font-size:17px;
-
-}
-
-
-.admin-card strong{
-
-    display:block;
-
-    color:#eee7eb;
-
-    font-size:12px;
-
-    font-weight:700;
-
-}
-
-
-.admin-card span{
-
-    display:block;
-
-    margin-top:5px;
-
-    color:var(--muted-2);
-
-    font-size:9px;
-
-    line-height:1.4;
-
-}
-
-
-/* =========================================================
-   DASHBOARD
-========================================================= */
-
-.dashboard-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,minmax(0,1fr));
-
-    gap:12px;
-
-    margin-bottom:28px;
-
-}
-
-
-.metric{
-
-    position:relative;
-
-    overflow:hidden;
-
-    min-height:138px;
-
-    padding:20px;
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.03),
-            rgba(255,255,255,.008)
+      background:
+        radial-gradient(
+          circle,
+          rgba(255, 77, 166, 0.14),
+          transparent 70%
         );
 
-    box-shadow:
-        0 15px 50px rgba(0,0,0,.22);
+      pointer-events: none;
+    }
 
-}
 
+    .hero h1 {
 
-.metric::before{
+      margin: 0 0 8px;
 
-    content:"";
+      color: #f8d58a;
 
-    position:absolute;
+      font-family: "Playfair Display", serif;
 
-    width:110px;
+      font-size: clamp(30px, 6vw, 48px);
 
-    height:110px;
+      line-height: 1.1;
+    }
 
-    right:-55px;
 
-    top:-55px;
+    .hero p {
 
-    border-radius:50%;
+      max-width: 720px;
 
-    border:
-        1px solid
-        rgba(245,213,140,.11);
+      margin: 0;
 
-}
+      color: #c9bec4;
 
+      line-height: 1.7;
 
-.metric-label{
+      font-size: 14px;
+    }
 
-    color:#8f858d;
 
-    font-size:9px;
+    .system-bar {
 
-    font-weight:800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-    letter-spacing:1.5px;
+      gap: 15px;
 
-    text-transform:uppercase;
+      padding: 13px 16px;
 
-}
+      margin-bottom: 22px;
 
+      border-radius: 14px;
 
-.metric-value{
+      border: 1px solid rgba(248, 213, 138, 0.12);
 
-    margin-top:13px;
+      background: rgba(255, 255, 255, 0.025);
 
-    color:var(--gold);
+      color: #aaa0a6;
 
-    font-family:
-        "Playfair Display",
-        serif;
+      font-size: 12px;
+    }
 
-    font-size:42px;
 
-    line-height:1;
+    .system-bar strong {
 
-}
+      color: #f8d58a;
+    }
 
 
-.metric-line{
+    .admin-grid {
 
-    margin-top:12px;
+      display: grid;
 
-    width:35px;
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
 
-    height:1px;
+      gap: 14px;
 
-    background:
-        rgba(245,213,140,.45);
+      margin-bottom: 28px;
+    }
 
-}
 
+    .admin-card {
 
-/* =========================================================
-   MAIN PANEL
-========================================================= */
+      position: relative;
 
-.panel{
+      min-height: 155px;
 
-    overflow:hidden;
+      padding: 20px;
 
-    border:
-        1px solid
-        var(--border);
+      border-radius: 18px;
 
-    border-radius:21px;
+      border: 1px solid rgba(248, 213, 138, 0.13);
 
-    background:
-        rgba(12,8,11,.82);
-
-    box-shadow:
-        var(--shadow);
-
-}
-
-
-.panel-head{
-
-    padding:23px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-    border-bottom:
-        1px solid
-        var(--border-light);
-
-}
-
-
-.panel-title h2{
-
-    margin-bottom:6px;
-
-    color:var(--gold);
-
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size:26px;
-
-    font-weight:600;
-
-}
-
-
-.panel-title p{
-
-    color:var(--muted);
-
-    font-size:11px;
-
-    line-height:1.6;
-
-}
-
-
-.panel-tag{
-
-    padding:7px 11px;
-
-    border:
-        1px solid
-        rgba(245,213,140,.16);
-
-    border-radius:999px;
-
-    color:var(--gold-soft);
-
-    background:
-        rgba(245,213,140,.035);
-
-    font-size:9px;
-
-    font-weight:700;
-
-    letter-spacing:1px;
-
-    text-transform:uppercase;
-
-}
-
-
-/* =========================================================
-   FILTERS
-========================================================= */
-
-.filters{
-
-    padding:18px 23px;
-
-    border-bottom:
-        1px solid
-        var(--border-light);
-
-}
-
-
-.filter-label{
-
-    margin-bottom:10px;
-
-    color:#756b73;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    letter-spacing:1.7px;
-
-    text-transform:uppercase;
-
-}
-
-
-.filter-row{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:8px;
-
-}
-
-
-.btn-filtro{
-
-    padding:9px 16px;
-
-    border:
-        1px solid
-        rgba(245,213,140,.17);
-
-    border-radius:999px;
-
-    background:
-        transparent;
-
-    color:#b8adb5;
-
-    font-size:10px;
-
-    font-weight:700;
-
-    transition:.2s;
-
-}
-
-
-.btn-filtro:hover{
-
-    color:var(--gold);
-
-    border-color:
-        rgba(245,213,140,.4);
-
-}
-
-
-.btn-filtro.ativo{
-
-    color:#120c0f;
-
-    background:var(--gold);
-
-    border-color:var(--gold);
-
-}
-
-
-/* =========================================================
-   RECORDS
-========================================================= */
-
-.records{
-
-    padding:23px;
-
-}
-
-
-#lista-precadastros{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,minmax(0,1fr));
-
-    gap:13px;
-
-}
-
-
-.card-registro{
-
-    position:relative;
-
-    padding:18px;
-
-    border:
-        1px solid
-        var(--border-light);
-
-    border-radius:15px;
-
-    background:
+      background:
         linear-gradient(
-            150deg,
-            rgba(255,255,255,.026),
-            rgba(255,255,255,.008)
+          145deg,
+          rgba(255, 255, 255, 0.045),
+          rgba(255, 255, 255, 0.018)
         );
 
-    transition:
-        border-color .2s,
-        transform .2s;
+      cursor: pointer;
 
-}
+      transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
+    }
 
 
-.card-registro:hover{
+    .admin-card:hover {
 
-    transform:
-        translateY(-2px);
+      transform: translateY(-3px);
 
-    border-color:
-        rgba(245,213,140,.23);
+      border-color:
+        rgba(248, 213, 138, 0.34);
 
-}
+      box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.22);
+    }
 
 
-.card-registro h4{
+    .admin-card .icon {
 
-    margin-bottom:11px;
+      width: 42px;
+      height: 42px;
 
-    color:#f5edf1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    font-family:
-        "Playfair Display",
-        serif;
+      margin-bottom: 15px;
 
-    font-size:19px;
+      border-radius: 12px;
 
-    font-weight:600;
+      background:
+        rgba(248, 213, 138, 0.08);
 
-}
+      border:
+        1px solid rgba(248, 213, 138, 0.15);
 
+      color: #f8d58a;
 
-.card-registro p{
+      font-size: 19px;
+    }
 
-    margin:7px 0;
 
-    color:#91868f;
+    .admin-card h3 {
 
-    font-size:11px;
+      margin: 0 0 7px;
 
-}
+      color: #f5edf0;
 
+      font-size: 15px;
+    }
 
-.card-registro strong{
 
-    font-weight:700;
+    .admin-card span {
 
-}
+      display: block;
 
+      color: #948990;
 
-.card-registro .btn{
+      font-size: 11px;
 
-    width:100%;
+      line-height: 1.55;
+    }
 
-    margin-top:11px;
 
-    padding:10px;
+    .admin-card.planos-card {
 
-    border:
-        1px solid
-        rgba(245,213,140,.22);
+      border-color:
+        rgba(248, 213, 138, 0.22);
 
-    border-radius:9px;
-
-    background:
-        rgba(245,213,140,.045);
-
-    color:var(--gold);
-
-    font-size:10px;
-
-    font-weight:800;
-
-    letter-spacing:.8px;
-
-}
-
-
-.card-registro .btn:hover{
-
-    background:
-        rgba(245,213,140,.10);
-
-    border-color:
-        rgba(245,213,140,.45);
-
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status-pendente{
-
-    color:var(--yellow);
-
-}
-
-
-.status-aprovado{
-
-    color:var(--green);
-
-}
-
-
-.status-rejeitado{
-
-    color:var(--red);
-
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal{
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:5000;
-
-    display:none;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:15px;
-
-    background:
-        rgba(0,0,0,.86);
-
-    backdrop-filter:
-        blur(12px);
-
-}
-
-
-.modal-content{
-
-    width:
-        min(850px,100%);
-
-    max-height:92vh;
-
-    overflow:auto;
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:20px;
-
-    background:
+      background:
         linear-gradient(
-            145deg,
-            #130b10,
-            #090609
+          145deg,
+          rgba(248, 213, 138, 0.065),
+          rgba(255, 77, 166, 0.025)
+        );
+    }
+
+
+    .admin-card.planos-card .icon {
+
+      background:
+        rgba(248, 213, 138, 0.12);
+
+      color: #f8d58a;
+    }
+
+
+    .dashboard {
+
+      margin-top: 12px;
+
+      padding: 24px;
+
+      border-radius: 20px;
+
+      border:
+        1px solid rgba(248, 213, 138, 0.13);
+
+      background:
+        rgba(255, 255, 255, 0.025);
+    }
+
+
+    .dashboard-header {
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom: 18px;
+    }
+
+
+    .dashboard-header h2 {
+
+      margin: 0;
+
+      color: #f8d58a;
+
+      font-family: "Playfair Display", serif;
+
+      font-size: 24px;
+    }
+
+
+    .dashboard-header p {
+
+      margin: 4px 0 0;
+
+      color: #8e8389;
+
+      font-size: 12px;
+    }
+
+
+    .resumo-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-bottom: 24px;
+    }
+
+
+    .resumo {
+
+      padding: 18px;
+
+      border-radius: 15px;
+
+      background:
+        rgba(255, 255, 255, 0.025);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.055);
+    }
+
+
+    .resumo span {
+
+      display: block;
+
+      color: #8e8389;
+
+      font-size: 11px;
+
+      margin-bottom: 7px;
+    }
+
+
+    .resumo strong {
+
+      color: #f8f3f0;
+
+      font-size: 28px;
+    }
+
+
+    .resumo.pendente strong {
+
+      color: #f8d58a;
+    }
+
+
+    .resumo.aprovado strong {
+
+      color: #6fe0a1;
+    }
+
+
+    .resumo.rejeitado strong {
+
+      color: #ff719e;
+    }
+
+
+    .gestao {
+
+      border-top:
+        1px solid rgba(255, 255, 255, 0.06);
+
+      padding-top: 24px;
+    }
+
+
+    .gestao-header {
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom: 18px;
+    }
+
+
+    .gestao-header h3 {
+
+      margin: 0;
+
+      color: #f3eaed;
+
+      font-size: 17px;
+    }
+
+
+    .filtros {
+
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 8px;
+    }
+
+
+    .filtro {
+
+      border:
+        1px solid rgba(248, 213, 138, 0.12);
+
+      background:
+        rgba(255, 255, 255, 0.025);
+
+      color: #a99da3;
+
+      padding: 8px 12px;
+
+      border-radius: 9px;
+
+      cursor: pointer;
+
+      font-size: 11px;
+
+      transition: 0.2s;
+    }
+
+
+    .filtro:hover,
+    .filtro.ativo {
+
+      color: #f8d58a;
+
+      border-color:
+        rgba(248, 213, 138, 0.35);
+
+      background:
+        rgba(248, 213, 138, 0.07);
+    }
+
+
+    #lista-precadastros {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 12px;
+    }
+
+
+    .vazio {
+
+      grid-column: 1 / -1;
+
+      padding: 35px 20px;
+
+      text-align: center;
+
+      border-radius: 14px;
+
+      border:
+        1px dashed rgba(248, 213, 138, 0.15);
+
+      color: #8e8389;
+
+      font-size: 13px;
+    }
+
+
+    .modal {
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 2000;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px;
+
+      background:
+        rgba(0, 0, 0, 0.78);
+
+      backdrop-filter: blur(8px);
+    }
+
+
+    .modal.aberto {
+
+      display: flex;
+    }
+
+
+    .modal-conteudo {
+
+      width: min(760px, 100%);
+
+      max-height: 90vh;
+
+      overflow-y: auto;
+
+      border-radius: 20px;
+
+      border:
+        1px solid rgba(248, 213, 138, 0.20);
+
+      background:
+        linear-gradient(
+          145deg,
+          #1b0d14,
+          #0d0709
         );
 
-    box-shadow:
-        0 35px 120px
-        rgba(0,0,0,.7);
+      box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.55);
+    }
 
-}
 
+    .modal-header {
 
-.modal-head{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-    position:sticky;
+      gap: 15px;
 
-    top:0;
+      padding: 20px 22px;
 
-    z-index:2;
+      border-bottom:
+        1px solid rgba(255, 255, 255, 0.06);
+    }
 
-    padding:17px 20px;
 
-    display:flex;
+    .modal-header h3 {
 
-    align-items:center;
+      margin: 0;
 
-    justify-content:space-between;
+      color: #f8d58a;
 
-    border-bottom:
-        1px solid
-        var(--border-light);
+      font-family: "Playfair Display", serif;
 
-    background:
-        rgba(13,8,12,.97);
+      font-size: 22px;
+    }
 
-}
 
+    .fechar {
 
-.modal-head strong{
+      width: 36px;
+      height: 36px;
 
-    color:var(--gold);
+      border-radius: 10px;
 
-    font-family:
-        "Playfair Display",
-        serif;
+      border:
+        1px solid rgba(255, 255, 255, 0.08);
 
-    font-size:21px;
+      background:
+        rgba(255, 255, 255, 0.035);
 
-}
+      color: #b7abb1;
 
+      cursor: pointer;
 
-.modal-close{
+      font-size: 18px;
+    }
 
-    width:36px;
 
-    height:36px;
+    #corpo-ficha {
 
-    border:
-        1px solid
-        var(--border-light);
+      padding: 22px;
+    }
 
-    border-radius:50%;
 
-    background:
-        rgba(255,255,255,.025);
+    .modal-footer {
 
-    color:#ddd;
+      display: flex;
+      flex-wrap: wrap;
 
-    font-size:20px;
+      justify-content: flex-end;
 
-}
+      gap: 9px;
 
+      padding: 16px 22px;
 
-.modal-close:hover{
+      border-top:
+        1px solid rgba(255, 255, 255, 0.06);
+    }
 
-    color:var(--gold);
 
-    border-color:
-        rgba(245,213,140,.35);
+    .btn {
 
-}
+      border: 0;
 
+      border-radius: 10px;
 
-#corpo-ficha{
+      padding: 10px 14px;
 
-    padding:23px;
+      cursor: pointer;
 
-}
+      font-weight: 700;
 
+      font-size: 12px;
+    }
 
-.modal-actions{
 
-    position:sticky;
+    .btn-aprovar {
 
-    bottom:0;
+      background: #53d88a;
 
-    padding:14px 20px;
+      color: #08130d;
+    }
 
-    display:flex;
 
-    flex-wrap:wrap;
+    .btn-rejeitar {
 
-    justify-content:flex-end;
+      background: #ff5d8f;
 
-    gap:8px;
+      color: #19050d;
+    }
 
-    border-top:
-        1px solid
-        var(--border-light);
 
-    background:
-        rgba(12,8,11,.98);
+    .btn-imprimir {
 
-}
+      background:
+        rgba(248, 213, 138, 0.10);
 
+      border:
+        1px solid rgba(248, 213, 138, 0.25);
 
-.btn{
+      color: #f8d58a;
+    }
 
-    padding:10px 15px;
 
-    border-radius:9px;
+    .btn-fechar {
 
-    font-size:10px;
+      background:
+        rgba(255, 255, 255, 0.05);
 
-    font-weight:800;
+      border:
+        1px solid rgba(255, 255, 255, 0.08);
 
-    letter-spacing:.5px;
+      color: #c2b7bc;
+    }
 
-}
 
+    .modulo-modal {
 
-.btn-principal{
+      width: min(700px, 100%);
 
-    border:0;
+      max-height: 88vh;
 
-    background:var(--gold);
+      overflow-y: auto;
 
-    color:#120b0e;
+      padding: 24px;
+    }
 
-}
 
+    .modulo-modal h3 {
 
-.btn-danger{
+      margin-top: 0;
 
-    border:0;
+      color: #f8d58a;
 
-    background:#76263f;
+      font-family: "Playfair Display", serif;
 
-    color:#fff;
+      font-size: 25px;
+    }
 
-}
 
+    .modulo-modal p {
 
-.btn-secundario{
+      color: #b9adb3;
 
-    border:
-        1px solid
-        var(--border-light);
+      line-height: 1.7;
 
-    background:
-        rgba(255,255,255,.035);
+      font-size: 13px;
+    }
 
-    color:#ddd4d9;
 
-}
+    .diamond-destaque {
 
+      margin-top: 18px;
 
-/* =========================================================
-   FOOTER
-========================================================= */
+      padding: 18px;
 
-footer{
+      border-radius: 15px;
 
-    width:
-        min(1380px,calc(100% - 36px));
+      border:
+        1px solid rgba(248, 213, 138, 0.24);
 
-    margin:auto;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(248, 213, 138, 0.08),
+          rgba(255, 255, 255, 0.02)
+        );
+    }
 
-    padding:25px 0 40px;
 
-    color:#514a51;
+    .diamond-destaque strong {
 
-    text-align:center;
+      display: block;
 
-    font-size:9px;
+      margin-bottom: 8px;
 
-    font-weight:600;
+      color: #f8d58a;
 
-    letter-spacing:2px;
+      font-size: 16px;
+    }
 
-    text-transform:uppercase;
 
-}
+    .diamond-destaque span {
 
+      color: #b9adb3;
 
-/* =========================================================
-   TABLET
-========================================================= */
+      font-size: 12px;
 
-@media(max-width:1050px){
+      line-height: 1.7;
+    }
 
-    .admin-menu{
+
+    @media (max-width: 900px) {
+
+      .admin-grid {
 
         grid-template-columns:
-            repeat(2,minmax(0,1fr));
+          repeat(2, minmax(0, 1fr));
+      }
 
-    }
-
-
-    .dashboard-grid{
+      .resumo-grid {
 
         grid-template-columns:
-            repeat(2,minmax(0,1fr));
+          repeat(2, minmax(0, 1fr));
+      }
 
-    }
-
-
-    #lista-precadastros{
+      #lista-precadastros {
 
         grid-template-columns:
-            repeat(2,minmax(0,1fr));
-
-    }
-
-}
-
-
-/* =========================================================
-   CELULAR
-========================================================= */
-
-@media(max-width:700px){
-
-    .topbar-inner,
-    main,
-    footer{
-
-        width:
-            calc(100% - 22px);
+          1fr;
+      }
 
     }
 
 
-    .topbar-inner{
+    @media (max-width: 600px) {
 
-        min-height:74px;
+      .topbar {
 
-    }
-
-
-    .brand-mark{
-
-        width:43px;
-
-        height:43px;
-
-        font-size:16px;
-
-    }
+        padding: 12px 14px;
+      }
 
 
-    .brand-name{
+      .brand-text span {
 
-        font-size:24px;
-
-    }
-
-
-    .brand-sub{
-
-        font-size:7px;
-
-        letter-spacing:1.5px;
-
-    }
+        display: none;
+      }
 
 
-    .session{
+      .status-online {
 
-        display:none;
-
-    }
-
-
-    .logout{
-
-        padding:9px 12px;
-
-        font-size:9px;
-
-    }
+        display: none;
+      }
 
 
-    main{
+      .container {
 
-        padding-top:31px;
+        width: min(100% - 18px, 1180px);
 
-    }
-
-
-    .hero{
-
-        padding-bottom:25px;
-
-    }
+        padding-top: 18px;
+      }
 
 
-    .hero h1{
+      .hero {
 
-        font-size:42px;
+        padding: 26px 20px;
 
-    }
-
-
-    .hero-description{
-
-        font-size:12px;
-
-        line-height:1.7;
-
-    }
+        border-radius: 18px;
+      }
 
 
-    .system-bar{
-
-        gap:8px 15px;
-
-    }
-
-
-    .admin-menu{
+      .admin-grid {
 
         grid-template-columns:
-            repeat(2,minmax(0,1fr));
+          1fr 1fr;
 
-        gap:8px;
-
-    }
-
-
-    .admin-card{
-
-        min-height:90px;
-
-        padding:14px;
-
-    }
+        gap: 10px;
+      }
 
 
-    .admin-icon{
+      .admin-card {
 
-        font-size:15px;
+        min-height: 145px;
 
-    }
-
-
-    .admin-card strong{
-
-        font-size:11px;
-
-    }
+        padding: 15px;
+      }
 
 
-    .admin-card span{
+      .admin-card h3 {
 
-        font-size:8px;
-
-    }
-
-
-    .dashboard-grid{
-
-        gap:8px;
-
-    }
+        font-size: 13px;
+      }
 
 
-    .metric{
+      .admin-card span {
 
-        min-height:115px;
-
-        padding:15px;
-
-        border-radius:15px;
-
-    }
+        font-size: 10px;
+      }
 
 
-    .metric-value{
+      .dashboard {
 
-        font-size:34px;
+        padding: 17px;
+      }
 
-    }
+
+      .dashboard-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+      }
 
 
-    .panel{
+      .resumo-grid {
 
-        border-radius:17px;
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+
+      .gestao-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+      }
+
+
+      .system-bar {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+      }
 
     }
 
-
-    .panel-head{
-
-        padding:18px;
-
-    }
-
-
-    .panel-title h2{
-
-        font-size:22px;
-
-    }
-
-
-    .panel-tag{
-
-        display:none;
-
-    }
-
-
-    .filters{
-
-        padding:15px 18px;
-
-    }
-
-
-    .records{
-
-        padding:14px;
-
-    }
-
-
-    #lista-precadastros{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    .modal-actions{
-
-        justify-content:stretch;
-
-    }
-
-
-    .modal-actions .btn{
-
-        flex:1;
-
-        min-width:120px;
-
-    }
-
-}
-
-
-/* =========================================================
-   CELULARES PEQUENOS
-========================================================= */
-
-@media(max-width:390px){
-
-    .hero h1{
-
-        font-size:36px;
-
-    }
-
-
-    .admin-card{
-
-        min-height:82px;
-
-        padding:12px;
-
-    }
-
-
-    .metric-value{
-
-        font-size:30px;
-
-    }
-
-
-    .brand-name{
-
-        font-size:22px;
-
-    }
-
-}
-
-</style>
+  </style>
 
 </head>
 
@@ -1774,1177 +1089,956 @@ footer{
 <body>
 
 
-<!-- ======================================================
-     HEADER
-====================================================== -->
+  <header class="topbar">
 
-<header class="topbar">
+    <div class="brand">
 
-    <div class="topbar-inner">
+      <div class="brand-logo">
+        LUX
+      </div>
 
+      <div class="brand-text">
 
-        <div class="brand">
+        <strong>LUX ADVANCE</strong>
 
+        <span>
+          Central Administrativa
+        </span>
 
-            <div class="brand-mark">
-                LX
-            </div>
-
-
-            <div>
-
-                <div class="brand-name">
-                    LUX
-                </div>
-
-
-                <div class="brand-sub">
-                    LUX-ADVANCE · ADMIN CENTER
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-        <div class="header-right">
-
-
-            <div class="session">
-
-                <span class="session-dot"></span>
-
-                <span id="statusOnline">
-                    Verificando sessão
-                </span>
-
-            </div>
-
-
-            <button
-                id="btnSair"
-                class="logout"
-                type="button"
-            >
-                SAIR
-            </button>
-
-
-        </div>
-
+      </div>
 
     </div>
 
-</header>
 
+    <div class="admin-actions">
 
+      <div
+        id="statusOnline"
+        class="status-online"
+      >
+        Verificando acesso...
+      </div>
 
-<!-- ======================================================
-     MAIN
-====================================================== -->
+      <button
+        id="btnSair"
+        class="btn-sair"
+        type="button"
+      >
+        Sair
+      </button>
 
-<main>
-
-
-<!-- ======================================================
-     HERO
-====================================================== -->
-
-<section class="hero">
-
-    <div class="eyebrow">
-        LUX-ADVANCE · ÁREA RESTRITA
     </div>
 
+  </header>
 
-    <h1>
+
+  <main class="container">
+
+
+    <section class="hero">
+
+      <h1>
         Central Administrativa
-    </h1>
+      </h1>
 
+      <p>
+        Gerencie modelos, usuários, planos,
+        pagamentos, assinaturas, avaliações,
+        reclamações e doações da plataforma
+        LUX ADVANCE.
+      </p>
 
-    <p class="hero-description">
-
-        Um centro de controle desenvolvido
-        para administrar a operação LUX com
-        organização, segurança e visão geral
-        do ecossistema.
-
-    </p>
+    </section>
 
 
     <div class="system-bar">
 
+      <div>
+        Sistema:
+        <strong>LUX ADVANCE</strong>
+      </div>
 
-        <div class="system-item">
-            <strong>Ambiente:</strong>
-            LUX-ADVANCE
-        </div>
-
-
-        <div class="system-item">
-            <strong>Banco:</strong>
-            Supabase
-        </div>
-
-
-        <div class="system-item">
-            <strong>Controle:</strong>
-            Administrativo
-        </div>
-
-
-        <div class="system-item">
-            <strong>Status:</strong>
-            Operacional
-        </div>
-
+      <div>
+        Ambiente administrativo protegido
+      </div>
 
     </div>
 
-</section>
+
+    <section class="admin-grid">
 
 
-
-<!-- ======================================================
-     MÓDULOS
-====================================================== -->
-
-<div class="section-label">
-    Gestão do sistema
-</div>
-
-
-<section class="admin-menu">
-
-
-    <button
-        type="button"
+      <div
         class="admin-card"
         data-modulo="modelos"
-    >
+      >
 
-        <div class="admin-icon">
-            ◈
+        <div class="icon">
+          ♀
         </div>
 
-        <strong>
-            Gestão de modelos
-        </strong>
+        <h3>
+          Modelos
+        </h3>
 
         <span>
-            Cadastros, aprovação e perfis
+          Cadastro, aprovação,
+          reprovação e fichas cadastrais.
         </span>
 
-    </button>
+      </div>
 
 
-    <button
-        type="button"
+      <div
         class="admin-card"
         data-modulo="usuarios"
-    >
+      >
 
-        <div class="admin-icon">
-            ◉
+        <div class="icon">
+          ◉
         </div>
 
-        <strong>
-            Usuários
-        </strong>
+        <h3>
+          Usuários
+        </h3>
 
         <span>
-            Contas e controle de acesso
+          Gerenciamento dos usuários
+          cadastrados na plataforma.
         </span>
 
-    </button>
+      </div>
 
 
-    <button
-        type="button"
+      <div
         class="admin-card"
         data-modulo="reclamacoes"
-    >
+      >
 
-        <div class="admin-icon">
-            !
+        <div class="icon">
+          !
         </div>
 
-        <strong>
-            Reclamações
-        </strong>
+        <h3>
+          Reclamações
+        </h3>
 
         <span>
-            Atendimento e ocorrências
+          Visualização e acompanhamento
+          das reclamações.
         </span>
 
-    </button>
+      </div>
 
 
-    <button
-        type="button"
-        class="admin-card"
+      <div
+        class="admin-card planos-card"
         data-modulo="planos"
-    >
+      >
 
-        <div class="admin-icon">
-            ◆
+        <div class="icon">
+          ◆
         </div>
 
-        <strong>
-            Planos LUX
-        </strong>
+        <h3>
+          Planos
+        </h3>
 
         <span>
-            ESSENCE · DESFIRE · ELITE · ROYAL
+          ESSENCE · DESFIRE · ELITE · ROYAL · DIAMOND
         </span>
 
-    </button>
+      </div>
 
 
-    <button
-        type="button"
+      <div
         class="admin-card"
         data-modulo="pagamentos"
-    >
+      >
 
-        <div class="admin-icon">
-            $
+        <div class="icon">
+          $
         </div>
 
-        <strong>
-            Pagamentos
-        </strong>
+        <h3>
+          Pagamentos
+        </h3>
 
         <span>
-            Controle financeiro
+          Controle e acompanhamento
+          dos pagamentos.
         </span>
 
-    </button>
+      </div>
 
 
-    <button
-        type="button"
+      <div
         class="admin-card"
         data-modulo="assinaturas"
-    >
+      >
 
-        <div class="admin-icon">
-            ◷
+        <div class="icon">
+          ◇
         </div>
 
-        <strong>
-            Assinaturas
-        </strong>
+        <h3>
+          Assinaturas
+        </h3>
 
         <span>
-            Planos e status de assinatura
+          Assinaturas ativas,
+          pendentes e canceladas.
         </span>
 
-    </button>
+      </div>
 
 
-    <button
-        type="button"
+      <div
         class="admin-card"
         data-modulo="avaliacoes"
-    >
+      >
 
-        <div class="admin-icon">
-            ★
+        <div class="icon">
+          ★
         </div>
 
-        <strong>
-            Avaliações
-        </strong>
+        <h3>
+          Avaliações
+        </h3>
 
         <span>
-            Notas e reputação dos perfis
+          Avaliações e classificações
+          recebidas pelos modelos.
         </span>
 
-    </button>
+      </div>
 
 
-    <button
-        type="button"
+      <div
         class="admin-card"
         data-modulo="doacoes"
-    >
+      >
 
-        <div class="admin-icon">
-            ♡
+        <div class="icon">
+          ♥
         </div>
 
-        <strong>
-            Doações
-        </strong>
+        <h3>
+          Doações
+        </h3>
 
         <span>
-            Registros e acompanhamento
+          Acompanhamento das doações
+          realizadas na plataforma.
         </span>
 
-    </button>
+      </div>
 
 
-</section>
+    </section>
 
 
-
-<!-- ======================================================
-     INDICADORES
-====================================================== -->
-
-<div class="section-label">
-    Visão geral
-</div>
+    <section class="dashboard">
 
 
-<section class="dashboard-grid">
+      <div class="dashboard-header">
 
+        <div>
 
-    <article class="metric">
+          <h2>
+            Gestão de Modelos
+          </h2>
 
-        <div class="metric-label">
-            Total de modelos
+          <p>
+            Controle de aprovação e situação
+            dos cadastros recebidos.
+          </p>
+
         </div>
 
+      </div>
 
-        <div
-            id="resumoTotal"
-            class="metric-value"
-        >
+
+      <div class="resumo-grid">
+
+
+        <div class="resumo">
+
+          <span>
+            Total
+          </span>
+
+          <strong id="resumoTotal">
             0
+          </strong>
+
         </div>
 
 
-        <div class="metric-line"></div>
+        <div class="resumo pendente">
 
-    </article>
-
-
-
-    <article class="metric">
-
-        <div class="metric-label">
+          <span>
             Pendentes
-        </div>
+          </span>
 
-
-        <div
-            id="resumoPendentes"
-            class="metric-value"
-        >
+          <strong id="resumoPendentes">
             0
+          </strong>
+
         </div>
 
 
-        <div class="metric-line"></div>
+        <div class="resumo aprovado">
 
-    </article>
-
-
-
-    <article class="metric">
-
-        <div class="metric-label">
+          <span>
             Aprovados
-        </div>
+          </span>
 
-
-        <div
-            id="resumoAprovados"
-            class="metric-value"
-        >
+          <strong id="resumoAprovados">
             0
+          </strong>
+
         </div>
 
 
-        <div class="metric-line"></div>
+        <div class="resumo rejeitado">
 
-    </article>
-
-
-
-    <article class="metric">
-
-        <div class="metric-label">
+          <span>
             Rejeitados
-        </div>
+          </span>
 
-
-        <div
-            id="resumoRejeitados"
-            class="metric-value"
-        >
+          <strong id="resumoRejeitados">
             0
-        </div>
-
-
-        <div class="metric-line"></div>
-
-    </article>
-
-
-</section>
-
-
-
-<!-- ======================================================
-     GESTÃO DE MODELOS
-====================================================== -->
-
-<section
-    id="gestao-modelos"
-    class="panel"
->
-
-
-    <div class="panel-head">
-
-
-        <div class="panel-title">
-
-            <h2>
-                Gestão de modelos
-            </h2>
-
-
-            <p>
-                Consulte as fichas recebidas e
-                realize as ações administrativas.
-            </p>
+          </strong>
 
         </div>
 
 
-        <div class="panel-tag">
-            Módulo principal
-        </div>
+      </div>
 
 
-    </div>
+      <div
+        id="gestao-modelos"
+        class="gestao"
+      >
 
 
+        <div class="gestao-header">
 
-    <!-- FILTROS -->
-
-    <div class="filters">
-
-
-        <div class="filter-label">
-            Status dos cadastros
-        </div>
+          <h3>
+            Cadastros recebidos
+          </h3>
 
 
-        <div class="filter-row">
+          <div class="filtros">
 
 
             <button
-                class="btn-filtro ativo"
-                data-filtro="todos"
-                type="button"
+              class="filtro ativo"
+              data-filtro="todos"
+              type="button"
             >
-                Todos
+              Todos
             </button>
 
 
             <button
-                class="btn-filtro"
-                data-filtro="pendente"
-                type="button"
+              class="filtro"
+              data-filtro="pendente"
+              type="button"
             >
-                Pendentes
+              Pendentes
             </button>
 
 
             <button
-                class="btn-filtro"
-                data-filtro="aprovado"
-                type="button"
+              class="filtro"
+              data-filtro="aprovado"
+              type="button"
             >
-                Aprovados
+              Aprovados
             </button>
 
 
             <button
-                class="btn-filtro"
-                data-filtro="rejeitado"
-                type="button"
+              class="filtro"
+              data-filtro="rejeitado"
+              type="button"
             >
-                Rejeitados
+              Rejeitados
             </button>
 
+
+          </div>
 
         </div>
-
-
-    </div>
-
-
-
-    <!-- REGISTROS -->
-
-    <div class="records">
 
 
         <div id="lista-precadastros">
 
-
-            <div
-                style="
-                    grid-column:1/-1;
-                    padding:50px 20px;
-                    text-align:center;
-                    color:#777;
-                "
-            >
-
-                Carregando registros...
-
-            </div>
-
+          <div class="vazio">
+            Carregando modelos...
+          </div>
 
         </div>
 
 
-    </div>
+      </div>
+
+    </section>
 
 
-</section>
+  </main>
 
 
-</main>
-
-
-
-<!-- ======================================================
-     FOOTER
-====================================================== -->
-
-<footer>
-
-    LUX-ADVANCE ·
-    CENTRAL ADMINISTRATIVA ·
-    ACESSO RESTRITO
-
-</footer>
-
-
-
-<!-- ======================================================
-     MODAL DA FICHA
-====================================================== -->
-
-<div
+  <div
     id="modal-ver-ficha"
     class="modal"
->
+  >
+
+    <div class="modal-conteudo">
 
 
-    <div class="modal-content">
+      <div class="modal-header">
+
+        <h3>
+          Ficha da Modelo
+        </h3>
 
 
-        <div class="modal-head">
+        <button
+          class="fechar"
+          id="fechar-modal-ficha"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
 
 
-            <strong>
-                Ficha da modelo
-            </strong>
+      <div id="corpo-ficha">
 
-
-            <button
-                type="button"
-                class="modal-close"
-                onclick="fecharModalFicha()"
-            >
-                ×
-            </button>
-
-
+        <div class="vazio">
+          Carregando ficha...
         </div>
 
-
-        <div id="corpo-ficha">
-
-            Carregando ficha...
-
-        </div>
+      </div>
 
 
-        <div class="modal-actions">
+      <div class="modal-footer">
 
 
-            <button
-                id="botao-rejeitar"
-                type="button"
-                class="btn btn-danger"
-            >
-                REJEITAR
-            </button>
+        <button
+          id="botao-rejeitar"
+          class="btn btn-rejeitar"
+          type="button"
+        >
+          REPROVAR
+        </button>
 
 
-            <button
-                id="botao-aprovar"
-                type="button"
-                class="btn btn-principal"
-            >
-                APROVAR
-            </button>
+        <button
+          id="botao-aprovar"
+          class="btn btn-aprovar"
+          type="button"
+        >
+          APROVAR
+        </button>
 
 
-            <button
-                type="button"
-                class="btn btn-secundario"
-                onclick="imprimirFicha()"
-            >
-                IMPRIMIR
-            </button>
+        <button
+          id="botao-imprimir"
+          class="btn btn-imprimir"
+          type="button"
+        >
+          IMPRIMIR
+        </button>
 
 
-            <button
-                type="button"
-                class="btn btn-secundario"
-                onclick="fecharModalFicha()"
-            >
-                FECHAR
-            </button>
+        <button
+          id="botao-fechar-ficha"
+          class="btn btn-fechar"
+          type="button"
+        >
+          FECHAR
+        </button>
 
 
-        </div>
-
+      </div>
 
     </div>
 
-
-</div>
-
+  </div>
 
 
-<!-- ======================================================
-     PROTEÇÃO DA ÁREA ADMINISTRATIVA
-====================================================== -->
+  <script>
 
-<script>
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async function(){
-
-        try{
-
-            if(!window.luxSupabase){
-
-                console.error(
-                    "Supabase não inicializado."
-                );
-
-                window.location.replace(
-                    "./acesso-admin.html"
-                );
-
-                return;
-
-            }
+    document.addEventListener(
+      "DOMContentLoaded",
+      async function () {
 
 
-            const resposta =
-                await window.luxSupabase
-                .auth
-                .getSession();
+        const supabase =
+          window.luxSupabase;
 
 
-            const session =
-                resposta &&
-                resposta.data &&
-                resposta.data.session;
+        const statusOnline =
+          document.getElementById(
+            "statusOnline"
+          );
 
 
-            if(
-                !session ||
-                !session.user
-            ){
-
-                window.location.replace(
-                    "./acesso-admin.html"
-                );
-
-                return;
-
-            }
+        const btnSair =
+          document.getElementById(
+            "btnSair"
+          );
 
 
-            const email =
-                (
-                    session.user.email || ""
-                )
-                .trim()
-                .toLowerCase();
+        if (!supabase) {
 
+          console.error(
+            "Supabase não foi inicializado."
+          );
 
-            const adminEmail =
-                (
-                    window.LUX_ADMIN_EMAIL || ""
-                )
-                .trim()
-                .toLowerCase();
+          statusOnline.textContent =
+            "Sistema indisponível";
 
-
-            if(
-                !adminEmail ||
-                email !== adminEmail
-            ){
-
-                await window.luxSupabase
-                    .auth
-                    .signOut();
-
-
-                window.location.replace(
-                    "./acesso-admin.html"
-                );
-
-                return;
-
-            }
-
-
-            const status =
-                document.getElementById(
-                    "statusOnline"
-                );
-
-
-            if(status){
-
-                status.textContent =
-                    "Administrador conectado";
-
-            }
-
-
-        }catch(error){
-
-            console.error(
-                "Erro na autenticação administrativa:",
-                error
-            );
-
-
-            window.location.replace(
-                "./acesso-admin.html"
-            );
+          return;
 
         }
 
-    }
-);
+
+        try {
+
+          const {
+            data,
+            error
+          } =
+            await supabase.auth.getSession();
 
 
-/* =====================================================
-   BOTÃO SAIR
-===================================================== */
+          if (
+            error ||
+            !data ||
+            !data.session
+          ) {
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        const botao =
-            document.getElementById(
-                "btnSair"
-            );
-
-
-        if(!botao){
+            window.location.href =
+              "./acesso-admin.html";
 
             return;
 
+          }
+
+
+          const session =
+            data.session;
+
+
+          const email =
+            session.user &&
+            session.user.email
+              ? session.user.email
+              : "";
+
+
+          if (
+            !window.LUX_ADMIN_EMAIL ||
+            email.toLowerCase() !==
+              window.LUX_ADMIN_EMAIL.toLowerCase()
+          ) {
+
+            await supabase.auth.signOut();
+
+            window.location.href =
+              "./acesso-admin.html";
+
+            return;
+
+          }
+
+
+          statusOnline.textContent =
+            "Administrador conectado";
+
+
+        } catch (erro) {
+
+          console.error(
+            "Erro na autenticação administrativa:",
+            erro
+          );
+
+          window.location.href =
+            "./acesso-admin.html";
+
         }
 
 
-        botao.addEventListener(
+        btnSair.addEventListener(
+          "click",
+          async function () {
+
+            try {
+
+              await supabase.auth.signOut();
+
+            } catch (erro) {
+
+              console.error(
+                "Erro ao sair:",
+                erro
+              );
+
+            }
+
+            window.location.href =
+              "./acesso-admin.html";
+
+          }
+        );
+
+
+      }
+    );
+
+
+    const modulos = {
+
+      modelos: {
+
+        titulo:
+          "Gestão de Modelos",
+
+        texto:
+          "Área destinada ao gerenciamento dos cadastros, aprovação, reprovação e fichas das modelos."
+
+      },
+
+
+      usuarios: {
+
+        titulo:
+          "Gestão de Usuários",
+
+        texto:
+          "Área de gerenciamento dos usuários cadastrados na plataforma LUX ADVANCE."
+
+      },
+
+
+      reclamacoes: {
+
+        titulo:
+          "Reclamações",
+
+        texto:
+          "Área destinada à visualização, análise e acompanhamento das reclamações registradas por usuários e modelos."
+
+      },
+
+
+      planos: {
+
+        titulo:
+          "Planos LUX ADVANCE",
+
+        texto:
+          "Área de gerenciamento dos planos LUX-ESSENCE, LUX-DESFIRE, LUX-ELITE, LUX-ROYAL e LUX-DIAMOND."
+
+      },
+
+
+      pagamentos: {
+
+        titulo:
+          "Pagamentos",
+
+        texto:
+          "Área destinada ao acompanhamento dos pagamentos realizados dentro da plataforma."
+
+      },
+
+
+      assinaturas: {
+
+        titulo:
+          "Assinaturas",
+
+        texto:
+          "Área destinada ao controle das assinaturas dos planos LUX ADVANCE."
+
+      },
+
+
+      avaliacoes: {
+
+        titulo:
+          "Avaliações",
+
+        texto:
+          "Área destinada ao acompanhamento das avaliações realizadas pelos usuários."
+
+      },
+
+
+      doacoes: {
+
+        titulo:
+          "Doações",
+
+        texto:
+          "Área destinada ao acompanhamento das doações realizadas através da plataforma."
+
+      }
+
+    };
+
+
+    function abrirModuloAdmin(
+      titulo,
+      texto
+    ) {
+
+
+      const modal =
+        document.createElement(
+          "div"
+        );
+
+
+      modal.className =
+        "modal aberto";
+
+
+      modal.innerHTML = `
+
+        <div
+          class="modal-conteudo modulo-modal"
+        >
+
+          <div
+            style="
+              display:flex;
+              justify-content:space-between;
+              align-items:flex-start;
+              gap:15px;
+            "
+          >
+
+            <div>
+
+              <h3>
+                ${titulo}
+              </h3>
+
+            </div>
+
+            <button
+              class="fechar"
+              type="button"
+              aria-label="Fechar"
+            >
+              ×
+            </button>
+
+          </div>
+
+          <p>
+            ${texto}
+          </p>
+
+          ${
+            titulo === "Planos LUX ADVANCE"
+              ? `
+                <div class="diamond-destaque">
+
+                  <strong>
+                    LUX-DIAMOND · R$ 149,90/mês
+                  </strong>
+
+                  <span>
+                    Inclui os benefícios do LUX-ROYAL,
+                    acompanhamento presencial durante
+                    agendamentos para segurança,
+                    transporte e logística,
+                    selo Diamond, destaque máximo,
+                    prioridade e suporte prioritário,
+                    além de benefícios exclusivos.
+                    Limite de mídia:
+                    10 fotos e 5 vídeos.
+                  </span>
+
+                </div>
+              `
+              : ""
+          }
+
+        </div>
+
+      `;
+
+
+      document.body.appendChild(
+        modal
+      );
+
+
+      const fechar =
+        modal.querySelector(
+          ".fechar"
+        );
+
+
+      function fecharModal() {
+
+        modal.remove();
+
+      }
+
+
+      fechar.addEventListener(
+        "click",
+        fecharModal
+      );
+
+
+      modal.addEventListener(
+        "click",
+        function (event) {
+
+          if (
+            event.target === modal
+          ) {
+
+            fecharModal();
+
+          }
+
+        }
+      );
+
+    }
+
+
+    document
+      .querySelectorAll(
+        ".admin-card"
+      )
+      .forEach(
+        function (card) {
+
+
+          card.addEventListener(
             "click",
-            async function(){
+            function () {
 
-                try{
 
-                    if(window.luxSupabase){
+              const modulo =
+                card.dataset.modulo;
 
-                        await window.luxSupabase
-                            .auth
-                            .signOut();
 
-                    }
+              if (
+                modulo === "modelos"
+              ) {
 
-                }catch(error){
+                const alvo =
+                  document.getElementById(
+                    "gestao-modelos"
+                  );
 
-                    console.error(error);
+
+                if (alvo) {
+
+                  alvo.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                  });
 
                 }
 
+                return;
 
-                window.location.replace(
-                    "./acesso-admin.html"
-                );
+              }
+
+
+              const dados =
+                modulos[modulo];
+
+
+              if (!dados) {
+                return;
+              }
+
+
+              abrirModuloAdmin(
+                dados.titulo,
+                dados.texto
+              );
 
             }
-        );
+          );
 
-    }
-);
 
-</script>
+          card.addEventListener(
+            "touchend",
+            function () {
 
+              card.click();
 
+            },
+            {
+              passive: true
+            }
+          );
 
-<!-- ======================================================
-     MOTOR FUNCIONAL DO PAINEL
-====================================================== -->
 
-<script src="./painel-admin.js"></script>
+        }
+      );
 
 
-<!-- ======================================================
-     CONTROLE DOS MÓDULOS
-====================================================== -->
+    document
+      .querySelectorAll(
+        ".filtro"
+      )
+      .forEach(
+        function (botao) {
 
-<script>
+          botao.addEventListener(
+            "click",
+            function () {
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
+              document
+                .querySelectorAll(
+                  ".filtro"
+                )
+                .forEach(
+                  function (item) {
 
-        const cards =
-            document.querySelectorAll(
-                ".admin-card[data-modulo]"
-            );
+                    item.classList.remove(
+                      "ativo"
+                    );
 
-
-        cards.forEach(
-            function(card){
-
-                card.addEventListener(
-                    "click",
-                    function(){
-
-                        const modulo =
-                            card.getAttribute(
-                                "data-modulo"
-                            );
-
-
-                        /* =================================
-                           GESTÃO DE MODELOS
-                        ================================= */
-
-                        if(
-                            modulo ===
-                            "modelos"
-                        ){
-
-                            const destino =
-                                document.getElementById(
-                                    "gestao-modelos"
-                                );
-
-
-                            if(destino){
-
-                                destino.scrollIntoView({
-                                    behavior:"smooth",
-                                    block:"start"
-                                });
-
-                            }
-
-                            return;
-
-                        }
-
-
-                        /* =================================
-                           OUTROS MÓDULOS
-                        ================================= */
-
-                        const modulos = {
-
-                            usuarios: {
-
-                                titulo:
-                                    "USUÁRIOS",
-
-                                texto:
-                                    "Área de gerenciamento de usuários do LUX-ADVANCE."
-
-                            },
-
-
-                            reclamacoes: {
-
-                                titulo:
-                                    "RECLAMAÇÕES",
-
-                                texto:
-                                    "Área de gerenciamento de reclamações e ocorrências."
-
-                            },
-
-
-                            planos: {
-
-                                titulo:
-                                    "PLANOS LUX",
-
-                                texto:
-                                    "Área de gerenciamento dos planos LUX-ESSENCE, LUX-DESFIRE, LUX-ELITE e LUX-ROYAL."
-
-                            },
-
-
-                            pagamentos: {
-
-                                titulo:
-                                    "PAGAMENTOS",
-
-                                texto:
-                                    "Área de controle financeiro e pagamentos."
-
-                            },
-
-
-                            assinaturas: {
-
-                                titulo:
-                                    "ASSINATURAS",
-
-                                texto:
-                                    "Área de controle dos planos e status das assinaturas."
-
-                            },
-
-
-                            avaliacoes: {
-
-                                titulo:
-                                    "AVALIAÇÕES",
-
-                                texto:
-                                    "Área de notas e reputação dos perfis."
-
-                            },
-
-
-                            doacoes: {
-
-                                titulo:
-                                    "DOAÇÕES",
-
-                                texto:
-                                    "Área de registros e acompanhamento das doações."
-
-                            }
-
-                        };
-
-
-                        const moduloSelecionado =
-                            modulos[modulo];
-
-
-                        if(!moduloSelecionado){
-
-                            return;
-
-                        }
-
-
-                        /* =================================
-                           USA O MODAL DO PAINEL-ADMIN.JS
-                        ================================= */
-
-                        if(
-                            typeof abrirModuloAdmin ===
-                            "function"
-                        ){
-
-                            abrirModuloAdmin(
-                                moduloSelecionado.titulo,
-                                moduloSelecionado.texto
-                            );
-
-                            return;
-
-                        }
-
-
-                        /* =================================
-                           SEGURANÇA:
-                           CASO A FUNÇÃO NÃO EXISTA
-                        ================================= */
-
-                        let modal =
-                            document.getElementById(
-                                "modal-modulo-direto"
-                            );
-
-
-                        if(!modal){
-
-                            modal =
-                                document.createElement(
-                                    "div"
-                                );
-
-
-                            modal.id =
-                                "modal-modulo-direto";
-
-
-                            modal.style.cssText = `
-                                position:fixed;
-                                inset:0;
-                                z-index:999999;
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                padding:20px;
-                                background:rgba(0,0,0,.86);
-                                backdrop-filter:blur(10px);
-                            `;
-
-
-                            modal.innerHTML = `
-
-                                <div
-                                    style="
-                                        width:100%;
-                                        max-width:480px;
-                                        padding:30px;
-                                        border:1px solid rgba(245,213,140,.25);
-                                        border-radius:18px;
-                                        background:#120b0e;
-                                        color:#fff;
-                                        box-shadow:0 25px 80px rgba(0,0,0,.7);
-                                    "
-                                >
-
-                                    <div
-                                        style="
-                                            color:#f5d58c;
-                                            font-size:10px;
-                                            letter-spacing:3px;
-                                            margin-bottom:12px;
-                                        "
-                                    >
-                                        LUX-ADVANCE
-                                    </div>
-
-
-                                    <h2
-                                        id="modal-direto-titulo"
-                                        style="
-                                            color:#f5d58c;
-                                            margin:0 0 12px;
-                                        "
-                                    ></h2>
-
-
-                                    <p
-                                        id="modal-direto-texto"
-                                        style="
-                                            color:#aaa;
-                                            line-height:1.6;
-                                        "
-                                    ></p>
-
-
-                                    <button
-                                        id="modal-direto-fechar"
-                                        type="button"
-                                        style="
-                                            margin-top:22px;
-                                            padding:11px 20px;
-                                            border:1px solid #f5d58c;
-                                            border-radius:9px;
-                                            background:transparent;
-                                            color:#f5d58c;
-                                            cursor:pointer;
-                                        "
-                                    >
-                                        FECHAR
-                                    </button>
-
-                                </div>
-
-                            `;
-
-
-                            document.body.appendChild(
-                                modal
-                            );
-
-
-                            document
-                                .getElementById(
-                                    "modal-direto-fechar"
-                                )
-                                .addEventListener(
-                                    "click",
-                                    function(){
-
-                                        modal.remove();
-
-                                    }
-                                );
-
-                        }
-
-
-                        document
-                            .getElementById(
-                                "modal-direto-titulo"
-                            )
-                            .textContent =
-                                moduloSelecionado.titulo;
-
-
-                        document
-                            .getElementById(
-                                "modal-direto-texto"
-                            )
-                            .textContent =
-                                moduloSelecionado.texto;
-
-
-                        modal.style.display =
-                            "flex";
-
-                    }
+                  }
                 );
 
 
-                /* =================================
-                   SUPORTE PARA TOQUE NO CELULAR
-                ================================= */
-
-                card.addEventListener(
-                    "touchend",
-                    function(){
-
-                        card.click();
-
-                    },
-                    {
-                        passive:true
-                    }
-                );
+              botao.classList.add(
+                "ativo"
+              );
 
             }
-        );
+          );
 
-    }
-);
+        }
+      );
 
-</script>
+
+  </script>
+
+
+  <script src="./painel-admin.js"></script>
 
 
 </body>

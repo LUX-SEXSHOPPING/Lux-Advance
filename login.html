@@ -1,3573 +1,862 @@
-// LUX-ADVANCE — PAINEL ADMINISTRATIVO — V7
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-let listaPreCadastros = [];
-let listaUsuariosAdmin = [];
-let listaReclamacoesAdmin = [];
-let listaPagamentosAdmin = [];
-let filtroStatus = "todos";
-let indiceSelecionado = null;
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>LUX — Acesso</title>
 
-// ============================================================
-// SUPABASE
-// ============================================================
+<link rel="stylesheet" href="./app.css">
+<link rel="stylesheet" href="./login.css">
 
-function obterSupabase() {
-
-    if (
-        window.luxSupabase &&
-        typeof window.luxSupabase.from === "function"
-    ) {
-        return window.luxSupabase;
-    }
-
-    if (
-        window.supabaseClient &&
-        typeof window.supabaseClient.from === "function"
-    ) {
-        return window.supabaseClient;
-    }
-
-    if (
-        window.supabase &&
-        typeof window.supabase.from === "function"
-    ) {
-        return window.supabase;
-    }
-
-    return null;
+<style>
+*{
+  box-sizing:border-box;
 }
 
-
-// ============================================================
-// UTILITÁRIOS
-// ============================================================
-
-function escaparHTML(valor) {
-
-    if (valor === null || valor === undefined) {
-        return "";
-    }
-
-    return String(valor)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-
-function moeda(valor) {
-
-    return Number(valor || 0).toLocaleString(
-        "pt-BR",
-        {
-            style: "currency",
-            currency: "BRL"
-        }
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(248,213,138,.12),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      #0b0608,
+      #180b10 55%,
+      #090507
     );
+  color:#fff;
 }
 
-
-function fmtData(valor, hora = false) {
-
-    if (!valor) {
-        return "Não informado";
-    }
-
-    const d = new Date(valor);
-
-    if (Number.isNaN(d.getTime())) {
-        return String(valor);
-    }
-
-    return d.toLocaleString(
-        "pt-BR",
-        hora
-            ? {
-                dateStyle: "short",
-                timeStyle: "short"
-            }
-            : {
-                dateStyle: "short"
-            }
-    );
+.lux-login-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px 15px;
 }
 
+.lux-login-card{
+  width:100%;
+  max-width:470px;
+  padding:30px 24px;
+  border:1px solid rgba(248,213,138,.35);
+  border-radius:24px;
+  background:rgba(10,6,8,.92);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.65),
+    0 0 35px rgba(248,213,138,.08);
+  backdrop-filter:blur(12px);
+}
 
-function setEl(ids, valor) {
+.lux-logo{
+  text-align:center;
+  margin-bottom:25px;
+}
 
-    const lista = Array.isArray(ids)
-        ? ids
-        : [ids];
+.lux-logo h1{
+  margin:0;
+  font-size:42px;
+  letter-spacing:7px;
+  color:#f8d58a;
+  text-shadow:0 0 20px rgba(248,213,138,.25);
+}
 
-    lista.forEach(id => {
+.lux-logo p{
+  margin:8px 0 0;
+  color:#d7c6a2;
+  font-size:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
 
-        const elemento =
-            document.getElementById(id);
+.tela{
+  display:none;
+}
 
-        if (elemento) {
-            elemento.textContent = valor;
-        }
+.tela.ativa{
+  display:block;
+}
+
+h2{
+  text-align:center;
+  color:#f8d58a;
+  margin:0 0 12px;
+}
+
+.subtitulo{
+  text-align:center;
+  color:#cfc5c8;
+  line-height:1.5;
+  margin:0 0 22px;
+  font-size:14px;
+}
+
+.botoes{
+  display:grid;
+  gap:12px;
+}
+
+button{
+  width:100%;
+  border:1px solid rgba(248,213,138,.55);
+  border-radius:12px;
+  padding:14px 16px;
+  background:linear-gradient(
+    135deg,
+    #f8d58a,
+    #c99b43
+  );
+  color:#140b08;
+  font-weight:700;
+  cursor:pointer;
+  font-size:15px;
+}
+
+button.secundario{
+  background:transparent;
+  color:#f8d58a;
+}
+
+.formulario{
+  display:grid;
+  gap:13px;
+}
+
+.campo{
+  display:grid;
+  gap:6px;
+}
+
+label{
+  color:#eadfce;
+  font-size:13px;
+}
+
+input{
+  width:100%;
+  border:1px solid rgba(248,213,138,.22);
+  border-radius:10px;
+  padding:13px;
+  background:#12090d;
+  color:#fff;
+  outline:none;
+  font-size:14px;
+}
+
+input:focus{
+  border-color:#f8d58a;
+  box-shadow:0 0 0 2px rgba(248,213,138,.08);
+}
+
+.mensagem{
+  min-height:22px;
+  margin:8px 0;
+  text-align:center;
+  font-size:13px;
+  line-height:1.45;
+}
+
+.rodape{
+  margin-top:25px;
+  text-align:center;
+  color:#8f8387;
+  font-size:11px;
+}
+
+@media(max-width:480px){
+
+  .lux-login-card{
+    padding:25px 17px;
+    border-radius:18px;
+  }
+
+  .lux-logo h1{
+    font-size:36px;
+  }
+
+}
+</style>
+
+</head>
+
+<body>
+
+<main class="lux-login-page">
+
+<div class="lux-login-card">
+
+<div class="lux-logo">
+
+<h1>LUX</h1>
+
+<p>Lux Advance</p>
+
+</div>
+
+
+<!-- TELA INICIAL -->
+
+<section
+id="telaInicial"
+class="tela ativa"
+>
+
+<h2>Acesso exclusivo</h2>
+
+<p class="subtitulo">
+Entre como usuário ou modelo.<br>
+Cada conta recebe uma área própria.
+</p>
+
+<div class="botoes">
+
+<button
+type="button"
+id="btnJaTenho"
+>
+Já tenho cadastro
+</button>
+
+<button
+type="button"
+id="btnNaoTenho"
+class="secundario"
+>
+Ainda não tenho cadastro
+</button>
+
+</div>
+
+</section>
+
+
+<!-- TELA LOGIN -->
+
+<section
+id="telaLogin"
+class="tela"
+>
+
+<h2>Entrar</h2>
+
+<p class="subtitulo">
+Acesse sua conta LUX.
+</p>
+
+<form
+id="formLogin"
+class="formulario"
+>
+
+<div class="campo">
+
+<label for="loginEmail">
+E-mail
+</label>
+
+<input
+id="loginEmail"
+type="email"
+autocomplete="email"
+required
+>
+
+</div>
+
+
+<div class="campo">
+
+<label for="loginSenha">
+Senha
+</label>
+
+<input
+id="loginSenha"
+type="password"
+autocomplete="current-password"
+required
+>
+
+</div>
+
+
+<div
+id="msgLogin"
+class="mensagem"
+></div>
+
+
+<button type="submit">
+Entrar
+</button>
+
+<button
+type="button"
+id="btnVoltarLogin"
+class="secundario"
+>
+Voltar
+</button>
+
+</form>
+
+</section>
+
+
+<!-- TELA ESCOLHA -->
+
+<section
+id="telaEscolha"
+class="tela"
+>
+
+<h2>Criar cadastro</h2>
+
+<p class="subtitulo">
+Escolha como deseja utilizar a LUX.
+</p>
+
+<div class="botoes">
+
+<button
+type="button"
+id="btnUsuario"
+>
+Sou Usuário
+</button>
+
+<button
+type="button"
+id="btnModelo"
+>
+Sou Modelo
+</button>
+
+<button
+type="button"
+id="btnVoltarEscolha"
+class="secundario"
+>
+Voltar
+</button>
+
+</div>
+
+</section>
+
+
+<!-- TELA CADASTRO USUÁRIO -->
+
+<section
+id="telaUsuario"
+class="tela"
+>
+
+<h2>Cadastro de Usuário</h2>
+
+<p class="subtitulo">
+Crie sua conta para acessar a área exclusiva.
+</p>
+
+<form
+id="formUsuario"
+class="formulario"
+>
+
+<div class="campo">
+
+<label for="usuarioNome">
+Nome
+</label>
+
+<input
+id="usuarioNome"
+type="text"
+autocomplete="name"
+required
+>
+
+</div>
+
+
+<div class="campo">
+
+<label for="usuarioEmail">
+E-mail
+</label>
+
+<input
+id="usuarioEmail"
+type="email"
+autocomplete="email"
+required
+>
+
+</div>
+
+
+<div class="campo">
+
+<label for="usuarioSenha">
+Senha
+</label>
+
+<input
+id="usuarioSenha"
+type="password"
+autocomplete="new-password"
+minlength="6"
+required
+>
+
+</div>
+
+
+<div class="campo">
+
+<label for="usuarioSenhaConfirmacao">
+Confirmar senha
+</label>
+
+<input
+id="usuarioSenhaConfirmacao"
+type="password"
+autocomplete="new-password"
+minlength="6"
+required
+>
+
+</div>
+
+
+<div
+id="msgUsuario"
+class="mensagem"
+></div>
+
+
+<button type="submit">
+Criar cadastro
+</button>
+
+<button
+type="button"
+id="btnVoltarUsuario"
+class="secundario"
+>
+Voltar
+</button>
+
+</form>
+
+</section>
+
+
+<div class="rodape">
+LUX — Sensualidade &amp; Sofisticação
+</div>
+
+</div>
+
+</main>
+
+
+<script src="./config.js"></script>
+
+<script src="./auth.js"></script>
+
+
+<script>
+
+function mostrarTela(nome){
+
+  document
+    .querySelectorAll('.tela')
+    .forEach(function(t){
+
+      t.classList.remove('ativa');
 
     });
-}
 
-
-function status(valor) {
-
-    valor =
-        String(valor || "pendente")
-            .toLowerCase()
-            .trim();
-
-    if (valor === "rejeitado") {
-        return "reprovado";
-    }
-
-    if (valor === "verificada") {
-        return "aprovado";
-    }
-
-    return valor;
-}
-
-
-function cat(valor) {
-
-    valor =
-        String(valor || "")
-            .toLowerCase()
-            .trim();
-
-    if (valor === "feminino") {
-        return "Feminino";
-    }
-
-    if (valor === "masculino") {
-        return "Masculino";
-    }
-
-    if (
-        valor === "lgbtq" ||
-        valor === "lgbtq+"
-    ) {
-        return "LGBTQ+";
-    }
-
-    return valor || "Não informada";
-}
-
-
-function msg(texto, erro = false) {
-
-    let elemento =
-        document.getElementById(
-            "mensagemAdmin"
-        );
-
-    if (!elemento) {
-
-        elemento =
-            document.createElement("div");
-
-        elemento.id =
-            "mensagemAdmin";
-
-        document.body.appendChild(
-            elemento
-        );
-    }
-
-    elemento.textContent = texto;
-
-    elemento.style.cssText =
-        "position:fixed;" +
-        "left:15px;" +
-        "right:15px;" +
-        "bottom:18px;" +
-        "z-index:100000;" +
-        "padding:14px 16px;" +
-        "border-radius:13px;" +
-        "background:" +
-        (
-            erro
-                ? "#6e0f23"
-                : "#120a0f"
-        ) +
-        ";" +
-        "color:#fff;" +
-        "border:1px solid #6b5260;" +
-        "box-shadow:0 15px 45px #0008;" +
-        "font:12px Arial;";
-
-    clearTimeout(
-        elemento._timerLux
+  var t =
+    document.getElementById(
+      'tela' +
+      nome.charAt(0).toUpperCase() +
+      nome.slice(1)
     );
 
-    elemento._timerLux =
-        setTimeout(
-            () => elemento.remove(),
-            4500
-        );
+  if(t){
+    t.classList.add('ativa');
+  }
+
 }
 
 
-// ============================================================
-// SESSÃO ADMIN
-// ============================================================
+function limparMensagem(el){
 
-async function verificarSessaoAdmin() {
+  if(el){
+    el.textContent='';
+  }
 
-    const supabase =
-        obterSupabase();
-
-    if (!supabase?.auth) {
-        return false;
-    }
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabase.auth.getUser();
-
-        if (
-            error ||
-            !data?.user
-        ) {
-
-            location.href =
-                "acesso-admin.html";
-
-            return false;
-        }
-
-        const emailUsuario =
-            String(
-                data.user.email || ""
-            )
-                .toLowerCase()
-                .trim();
-
-        const emailAdmin =
-            String(
-                window.LUX_ADMIN_EMAIL || ""
-            )
-                .toLowerCase()
-                .trim();
-
-        if (
-            emailAdmin &&
-            emailUsuario !== emailAdmin
-        ) {
-
-            await supabase.auth.signOut();
-
-            location.href =
-                "acesso-admin.html";
-
-            return false;
-        }
-
-        return true;
-
-    } catch (erro) {
-
-        console.error(
-            "Erro sessão admin:",
-            erro
-        );
-
-        return false;
-    }
 }
 
 
-async function sairAdmin() {
+function mensagem(el, texto){
 
-    try {
+  if(el){
+    el.textContent=texto;
+  }
 
-        const supabase =
-            obterSupabase();
-
-        if (supabase?.auth) {
-            await supabase.auth.signOut();
-        }
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao sair:",
-            erro
-        );
-    }
-
-    location.href =
-        "acesso-admin.html";
 }
 
 
-// ============================================================
-// MODELOS
-// ============================================================
-
-async function carregarModelos() {
-
-    const supabase =
-        obterSupabase();
-
-    const container =
-        document.getElementById(
-            "lista-precadastros"
-        );
-
-    if (!supabase) {
-
-        if (container) {
-            container.innerHTML =
-                "<div>Supabase não disponível.</div>";
-        }
-
-        return [];
-    }
-
-    const resultado =
-        await supabase
-            .from("modelo_perfis")
-            .select(`
-                id,
-                nome_exibicao,
-                apelido,
-                whatsapp,
-                cpf,
-                data_nascimento,
-                idade,
-                altura_cm,
-                cep,
-                estado,
-                cidade,
-                bairro,
-                endereco,
-                numero,
-                complemento,
-                pais,
-                cor_cabelo,
-                cor_olhos,
-                idiomas,
-                descricao,
-                foto_url,
-                galeria_urls,
-                maioridade_confirmada,
-                verificacao_status,
-                estrelas_total,
-                criado_em,
-                atualizado_em,
-                plano,
-                categoria_catalogo
-            `)
-            .order(
-                "criado_em",
-                {
-                    ascending: false
-                }
-            );
-
-    if (resultado.error) {
-
-        console.error(
-            resultado.error
-        );
-
-        if (container) {
-
-            container.innerHTML = `
-                <div style="
-                    padding:25px;
-                    color:#ff9aaa;
-                    line-height:1.6;
-                ">
-                    Não foi possível carregar os modelos.
-                    <br><br>
-                    ${escaparHTML(
-                        resultado.error.message
-                    )}
-                </div>
-            `;
-        }
-
-        return [];
-    }
-
-    listaPreCadastros =
-        (resultado.data || [])
-            .map(modelo => {
-
-                const galeria =
-                    Array.isArray(
-                        modelo.galeria_urls
-                    )
-                        ? modelo.galeria_urls
-                        : [];
-
-                const fotos = [
-                    ...(modelo.foto_url
-                        ? [modelo.foto_url]
-                        : []),
-                    ...galeria
-                ].filter(
-                    (foto, indice, lista) =>
-                        foto &&
-                        lista.indexOf(foto) === indice
-                );
-
-                return {
-                    ...modelo,
-                    nome:
-                        modelo.nome_exibicao,
-
-                    status:
-                        status(
-                            modelo.verificacao_status
-                        ),
-
-                    fotos
-                };
-            });
-
-    renderModelos();
-
-    atualizarResumo();
-
-    return listaPreCadastros;
-}
-
-
-// ============================================================
-// LISTAGEM DOS MODELOS
-// ============================================================
-
-function renderModelos() {
-
-    const container =
-        document.getElementById(
-            "lista-precadastros"
-        ) ||
-        document.getElementById(
-            "listaModelos"
-        ) ||
-        document.getElementById(
-            "listaPreCadastros"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    const campoPesquisa =
-        document.getElementById(
-            "pesquisaModelos"
-        ) ||
-        document.getElementById(
-            "buscarModelos"
-        );
-
-    const pesquisa =
-        campoPesquisa?.value
-            ?.toLowerCase()
-            .trim() || "";
-
-    let lista =
-        listaPreCadastros.filter(
-            modelo => {
-
-                const statusModelo =
-                    status(
-                        modelo.verificacao_status
-                    );
-
-                if (
-                    filtroStatus !==
-                    "todos" &&
-                    statusModelo !==
-                    filtroStatus
-                ) {
-                    return false;
-                }
-
-                if (!pesquisa) {
-                    return true;
-                }
-
-                const texto = [
-                    modelo.nome_exibicao,
-                    modelo.apelido,
-                    modelo.cidade,
-                    modelo.estado,
-                    modelo.whatsapp,
-                    modelo.cpf,
-                    modelo.categoria_catalogo
-                ]
-                    .filter(Boolean)
-                    .join(" ")
-                    .toLowerCase();
-
-                return texto.includes(
-                    pesquisa
-                );
-            }
-        );
-
-    if (!lista.length) {
-
-        container.innerHTML = `
-            <div style="
-                padding:40px;
-                text-align:center;
-                color:#888;
-            ">
-                Nenhum modelo encontrado.
-            </div>
-        `;
-
-        return;
-    }
-
-    container.innerHTML =
-        lista
-            .map(modelo => {
-
-                const indice =
-                    listaPreCadastros.indexOf(
-                        modelo
-                    );
-
-                const st =
-                    status(
-                        modelo.verificacao_status
-                    );
-
-                const foto =
-                    modelo.foto_url ||
-                    modelo.fotos?.[0] ||
-                    "./logo.png";
-
-                return `
-                    <article style="
-                        padding:16px;
-                        border:1px solid #3a2c30;
-                        border-radius:17px;
-                        margin-bottom:12px;
-                        background:#100b0f;
-                    ">
-
-                        <div style="
-                            display:flex;
-                            justify-content:space-between;
-                            gap:10px;
-                        ">
-
-                            <b style="
-                                color:#f5d58c;
-                            ">
-                                ${escaparHTML(
-                                    cat(
-                                        modelo.categoria_catalogo
-                                    )
-                                )}
-                            </b>
-
-                            <b>
-                                ${escaparHTML(
-                                    st.toUpperCase()
-                                )}
-                            </b>
-
-                        </div>
-
-
-                        <img
-                            src="${escaparHTML(
-                                foto
-                            )}"
-                            onerror="
-                                this.src='./logo.png'
-                            "
-                            style="
-                                width:100%;
-                                height:190px;
-                                object-fit:cover;
-                                border-radius:13px;
-                                margin:12px 0;
-                            "
-                        >
-
-
-                        <h3 style="
-                            color:#f5d58c;
-                            margin:0;
-                        ">
-                            ${escaparHTML(
-                                modelo.nome_exibicao ||
-                                "Sem nome"
-                            )}
-                        </h3>
-
-
-                        <div style="
-                            color:#999;
-                            font-size:11px;
-                            line-height:1.8;
-                        ">
-
-                            Apelido:
-                            ${escaparHTML(
-                                modelo.apelido || "—"
-                            )}
-
-                            <br>
-
-                            Idade:
-                            ${escaparHTML(
-                                modelo.idade ?? "—"
-                            )}
-
-                            <br>
-
-                            WhatsApp:
-                            ${escaparHTML(
-                                modelo.whatsapp || "—"
-                            )}
-
-                            <br>
-
-                            Local:
-                            ${escaparHTML(
-                                modelo.cidade || "—"
-                            )}
-                            ${escaparHTML(
-                                modelo.estado || ""
-                            )}
-
-                        </div>
-
-
-                        <button
-                            onclick="
-                                abrirVerFichaPorIndice(
-                                    ${indice}
-                                )
-                            "
-                            style="
-                                width:100%;
-                                margin-top:12px;
-                                padding:11px;
-                                border-radius:10px;
-                                background:#171015;
-                                color:#f5d58c;
-                                border:1px solid #4a3930;
-                            "
-                        >
-                            VER FICHA COMPLETA
-                        </button>
-
-
-                        ${
-                            st === "pendente"
-                                ? `
-
-                                    <div style="
-                                        display:grid;
-                                        grid-template-columns:
-                                            1fr 1fr;
-                                        gap:8px;
-                                        margin-top:8px;
-                                    ">
-
-                                        <button
-                                            onclick="
-                                                aprovarModelo(
-                                                    '${escaparHTML(
-                                                        modelo.id
-                                                    )}'
-                                                )
-                                            "
-                                            style="
-                                                padding:11px;
-                                                border-radius:10px;
-                                                background:#0d2418;
-                                                color:#8ff0b0;
-                                                border:
-                                                    1px solid
-                                                    #315d43;
-                                            "
-                                        >
-                                            ✓ APROVAR
-                                        </button>
-
-
-                                        <button
-                                            onclick="
-                                                reprovarModelo(
-                                                    '${escaparHTML(
-                                                        modelo.id
-                                                    )}'
-                                                )
-                                            "
-                                            style="
-                                                padding:11px;
-                                                border-radius:10px;
-                                                background:#261016;
-                                                color:#ff9aaa;
-                                                border:
-                                                    1px solid
-                                                    #61303d;
-                                            "
-                                        >
-                                            × REPROVAR
-                                        </button>
-
-                                    </div>
-
-                                `
-                                : ""
-                        }
-
-                    </article>
-                `;
-            })
-            .join("");
-}
-
-
-// ============================================================
-// FILTROS
-// ============================================================
-
-function aplicarFiltroStatus(valor) {
-
-    filtroStatus =
-        String(
-            valor || "todos"
-        )
-            .toLowerCase()
-            .trim();
-
-    if (
-        filtroStatus ===
-        "rejeitado"
-    ) {
-        filtroStatus =
-            "reprovado";
-    }
-
-    renderModelos();
-}
-
-
-function filtrarModelos(valor) {
-
-    aplicarFiltroStatus(
-        valor
-    );
-}
-
-
-function pesquisarModelos() {
-
-    renderModelos();
-}
-
-
-function ativarBotoesFiltro() {
-
-    document
-        .querySelectorAll(
-            ".btn-filtro"
-        )
-        .forEach(botao => {
-
-            botao.onclick = () => {
-
-                aplicarFiltroStatus(
-                    botao.dataset.filtro ||
-                    "todos"
-                );
-            };
-
-        });
-
-
-    const pesquisa =
-        document.getElementById(
-            "pesquisaModelos"
-        ) ||
-        document.getElementById(
-            "buscarModelos"
-        );
-
-    if (pesquisa) {
-
-        pesquisa.oninput =
-            renderModelos;
-    }
-}
-
-
-// ============================================================
-// RESUMO
-// ============================================================
-
-function atualizarResumo() {
-
-    const total =
-        listaPreCadastros.length;
-
-    const pendentes =
-        listaPreCadastros.filter(
-            modelo =>
-                status(
-                    modelo.verificacao_status
-                ) === "pendente"
-        ).length;
-
-    const aprovados =
-        listaPreCadastros.filter(
-            modelo =>
-                status(
-                    modelo.verificacao_status
-                ) === "aprovado"
-        ).length;
-
-    const reprovados =
-        listaPreCadastros.filter(
-            modelo =>
-                status(
-                    modelo.verificacao_status
-                ) === "reprovado"
-        ).length;
-
-
-    setEl(
-        "resumoTotal",
-        total
+document
+.getElementById('btnJaTenho')
+.addEventListener(
+  'click',
+  function(){
+
+    limparMensagem(
+      document.getElementById('msgLogin')
     );
 
-    setEl(
-        "resumoPendentes",
-        pendentes
-    );
+    mostrarTela('login');
 
-    setEl(
-        "resumoAprovados",
-        aprovados
-    );
-
-    setEl(
-        "resumoRejeitados",
-        reprovados
-    );
-
-
-    setEl(
-        [
-            "totalPendentes",
-            "contadorPendentes",
-            "modelosPendentes"
-        ],
-        pendentes
-    );
-
-    setEl(
-        [
-            "totalAprovados",
-            "contadorAprovados",
-            "modelosAprovados"
-        ],
-        aprovados
-    );
-
-    setEl(
-        [
-            "totalReprovados",
-            "contadorReprovados",
-            "modelosReprovados"
-        ],
-        reprovados
-    );
-}
-
-
-// ============================================================
-// FICHA
-// ============================================================
-
-function abrirFichaModelo(id) {
-
-    const modelo =
-        listaPreCadastros.find(
-            item => item.id === id
-        );
-
-    if (!modelo) {
-        return;
-    }
-
-    indiceSelecionado =
-        listaPreCadastros.indexOf(
-            modelo
-        );
-
-    const corpo =
-        document.getElementById(
-            "corpo-ficha"
-        );
-
-    const modal =
-        document.getElementById(
-            "modal-ver-ficha"
-        );
-
-    if (!corpo || !modal) {
-        return;
-    }
-
-
-    function campo(nome, valor) {
-
-        return `
-            <div style="
-                padding:10px;
-                border:1px solid #292126;
-                border-radius:10px;
-            ">
-
-                <small style="
-                    color:#81757e;
-                ">
-                    ${escaparHTML(nome)}
-                </small>
-
-                <div style="
-                    color:#ddd;
-                    margin-top:4px;
-                    word-break:break-word;
-                ">
-                    ${escaparHTML(
-                        valor ?? "—"
-                    )}
-                </div>
-
-            </div>
-        `;
-    }
-
-
-    corpo.innerHTML = `
-
-        <div style="
-            display:grid;
-            gap:12px;
-        ">
-
-            <h2 style="
-                color:#f5d58c;
-            ">
-                ${escaparHTML(
-                    modelo.nome_exibicao
-                )}
-            </h2>
-
-
-            <div style="
-                display:grid;
-                grid-template-columns:
-                    repeat(
-                        auto-fit,
-                        minmax(180px,1fr)
-                    );
-                gap:8px;
-            ">
-
-                ${campo(
-                    "Categoria",
-                    cat(
-                        modelo.categoria_catalogo
-                    )
-                )}
-
-                ${campo(
-                    "Status",
-                    status(
-                        modelo.verificacao_status
-                    )
-                )}
-
-                ${campo(
-                    "Apelido",
-                    modelo.apelido
-                )}
-
-                ${campo(
-                    "CPF",
-                    modelo.cpf
-                )}
-
-                ${campo(
-                    "Nascimento",
-                    fmtData(
-                        modelo.data_nascimento
-                    )
-                )}
-
-                ${campo(
-                    "Idade",
-                    modelo.idade
-                )}
-
-                ${campo(
-                    "Maioridade",
-                    modelo.maioridade_confirmada
-                        ? "SIM"
-                        : "NÃO"
-                )}
-
-                ${campo(
-                    "WhatsApp",
-                    modelo.whatsapp
-                )}
-
-                ${campo(
-                    "CEP",
-                    modelo.cep
-                )}
-
-                ${campo(
-                    "Estado",
-                    modelo.estado
-                )}
-
-                ${campo(
-                    "Cidade",
-                    modelo.cidade
-                )}
-
-                ${campo(
-                    "Bairro",
-                    modelo.bairro
-                )}
-
-                ${campo(
-                    "Endereço",
-                    modelo.endereco
-                )}
-
-                ${campo(
-                    "Número",
-                    modelo.numero
-                )}
-
-                ${campo(
-                    "Complemento",
-                    modelo.complemento
-                )}
-
-                ${campo(
-                    "País",
-                    modelo.pais
-                )}
-
-                ${campo(
-                    "Altura",
-                    modelo.altura_cm
-                        ? modelo.altura_cm +
-                          " cm"
-                        : "—"
-                )}
-
-                ${campo(
-                    "Cabelo",
-                    modelo.cor_cabelo
-                )}
-
-                ${campo(
-                    "Olhos",
-                    modelo.cor_olhos
-                )}
-
-                ${campo(
-                    "Idiomas",
-                    modelo.idiomas
-                )}
-
-                ${campo(
-                    "Plano",
-                    modelo.plano
-                )}
-
-                ${campo(
-                    "Descrição",
-                    modelo.descricao
-                )}
-
-                ${campo(
-                    "Criado",
-                    fmtData(
-                        modelo.criado_em,
-                        true
-                    )
-                )}
-
-            </div>
-
-
-            ${
-                status(
-                    modelo.verificacao_status
-                ) === "pendente"
-
-                    ? `
-
-                        <div style="
-                            display:grid;
-                            grid-template-columns:
-                                1fr 1fr;
-                            gap:8px;
-                        ">
-
-                            <button
-                                id="botao-aprovar"
-                                style="
-                                    padding:12px;
-                                    background:#102417;
-                                    color:#8ff0b0;
-                                    border:
-                                        1px solid
-                                        #315d43;
-                                    border-radius:10px;
-                                "
-                            >
-                                ✓ APROVAR
-                            </button>
-
-
-                            <button
-                                id="botao-rejeitar"
-                                style="
-                                    padding:12px;
-                                    background:#261016;
-                                    color:#ff9aaa;
-                                    border:
-                                        1px solid
-                                        #61303d;
-                                    border-radius:10px;
-                                "
-                            >
-                                × REPROVAR
-                            </button>
-
-                        </div>
-
-                    `
-                    : ""
-            }
-
-        </div>
-    `;
-
-
-    modal.style.display =
-        "flex";
-}
-
-
-function abrirVerFichaPorIndice(indice) {
-
-    if (
-        listaPreCadastros[indice]
-    ) {
-
-        abrirFichaModelo(
-            listaPreCadastros[indice].id
-        );
-    }
-}
-
-
-function fecharModalFicha() {
-
-    const modal =
-        document.getElementById(
-            "modal-ver-ficha"
-        );
-
-    if (modal) {
-        modal.style.display =
-            "none";
-    }
-
-    indiceSelecionado =
-        null;
-}
-
-
-function fecharFichaModelo() {
-
-    fecharModalFicha();
-}
-
-
-// ============================================================
-// APROVAR / REPROVAR
-// ============================================================
-
-async function alterarStatusModelo(
-    id,
-    novoStatus
-) {
-
-    const supabase =
-        obterSupabase();
-
-    if (!supabase) {
-
-        msg(
-            "Supabase não disponível.",
-            true
-        );
-
-        return false;
-    }
-
-
-    novoStatus =
-        status(
-            novoStatus
-        );
-
-
-    if (
-        ![
-            "aprovado",
-            "reprovado",
-            "pendente",
-            "bloqueado"
-        ].includes(novoStatus)
-    ) {
-
-        msg(
-            "Status inválido.",
-            true
-        );
-
-        return false;
-    }
-
-
-    const resultado =
-        await supabase
-            .from("modelo_perfis")
-            .update({
-                verificacao_status:
-                    novoStatus,
-
-                atualizado_em:
-                    new Date().toISOString()
-            })
-            .eq(
-                "id",
-                id
-            );
-
-
-    if (resultado.error) {
-
-        msg(
-            "Não foi possível atualizar: " +
-            resultado.error.message,
-            true
-        );
-
-        return false;
-    }
-
-
-    if (
-        novoStatus ===
-        "aprovado"
-    ) {
-
-        const perfil =
-            await supabase
-                .from("perfis")
-                .update({
-                    status:
-                        "ativo"
-                })
-                .eq(
-                    "id",
-                    id
-                );
-
-        if (perfil.error) {
-
-            console.warn(
-                "Perfil não atualizado:",
-                perfil.error
-            );
-        }
-    }
-
-
-    if (
-        novoStatus ===
-        "reprovado"
-    ) {
-
-        const perfil =
-            await supabase
-                .from("perfis")
-                .update({
-                    status:
-                        "inativo"
-                })
-                .eq(
-                    "id",
-                    id
-                );
-
-        if (perfil.error) {
-
-            console.warn(
-                "Perfil não atualizado:",
-                perfil.error
-            );
-        }
-    }
-
-
-    msg(
-        novoStatus ===
-            "aprovado"
-            ? "Modelo aprovado com sucesso."
-            : "Modelo reprovado com sucesso."
-    );
-
-
-    fecharModalFicha();
-
-    await carregarModelos();
-
-    await carregarEstatisticas();
-
-    return true;
-}
-
-
-async function aprovarModelo(id) {
-
-    const modelo =
-        listaPreCadastros.find(
-            item => item.id === id
-        );
-
-    if (
-        modelo &&
-        confirm(
-            `Deseja aprovar o modelo "${modelo.nome_exibicao || "Sem nome"}"?`
-        )
-    ) {
-
-        await alterarStatusModelo(
-            id,
-            "aprovado"
-        );
-    }
-}
-
-
-async function reprovarModelo(id) {
-
-    const modelo =
-        listaPreCadastros.find(
-            item => item.id === id
-        );
-
-    if (
-        modelo &&
-        confirm(
-            `Deseja reprovar o modelo "${modelo.nome_exibicao || "Sem nome"}"?`
-        )
-    ) {
-
-        await alterarStatusModelo(
-            id,
-            "reprovado"
-        );
-    }
-}
-
-
-async function atualizarStatusModelo(
-    id,
-    novoStatus
-) {
-
-    return alterarStatusModelo(
-        id,
-        novoStatus
-    );
-}
-
-
-// ============================================================
-// USUÁRIOS
-// ============================================================
-
-async function carregarUsuariosAdmin() {
-
-    const supabase =
-        obterSupabase();
-
-    if (!supabase) {
-        return [];
-    }
-
-    const resultado =
-        await supabase
-            .from("perfis")
-            .select("*")
-            .order(
-                "criado_em",
-                {
-                    ascending:false
-                }
-            );
-
-    if (resultado.error) {
-
-        console.error(
-            resultado.error
-        );
-
-        return [];
-    }
-
-    listaUsuariosAdmin =
-        resultado.data || [];
-
-    return listaUsuariosAdmin;
-}
-
-
-async function carregarUsuarios() {
-
-    return carregarUsuariosAdmin();
-}
-
-
-// ============================================================
-// RECLAMAÇÕES
-// ============================================================
-
-async function carregarReclamacoesAdmin() {
-
-    const supabase =
-        obterSupabase();
-
-    if (!supabase) {
-        return [];
-    }
-
-    const resultado =
-        await supabase
-            .from("reclamacoes")
-            .select("*")
-            .order(
-                "criado_em",
-                {
-                    ascending:false
-                }
-            );
-
-    if (resultado.error) {
-
-        console.error(
-            resultado.error
-        );
-
-        return [];
-    }
-
-    listaReclamacoesAdmin =
-        resultado.data || [];
-
-    return listaReclamacoesAdmin;
-}
-
-
-async function carregarReclamacoes() {
-
-    return carregarReclamacoesAdmin();
-}
-
-
-async function atualizarStatusReclamacao(
-    id,
-    novoStatus
-) {
-
-    const supabase =
-        obterSupabase();
-
-    if (!supabase) {
-        return;
-    }
-
-    const resultado =
-        await supabase
-            .from("reclamacoes")
-            .update({
-                status:
-                    novoStatus,
-
-                atualizado_em:
-                    new Date().toISOString()
-            })
-            .eq(
-                "id",
-                id
-            );
-
-    if (resultado.error) {
-
-        msg(
-            "Não foi possível atualizar a reclamação: " +
-            resultado.error.message,
-            true
-        );
-
-        return;
-    }
-
-    await carregarReclamacoesAdmin();
-}
-
-
-function abrirReclamacao(
-    reclamacao
-) {
-
-    if (!reclamacao) {
-        return;
-    }
-
-    alert(
-        "Assunto: " +
-        (
-            reclamacao.assunto ||
-            "—"
-        ) +
-        "\n\nMensagem:\n" +
-        (
-            reclamacao.mensagem ||
-            "—"
-        )
-    );
-}
-
-
-// ============================================================
-// PAGAMENTOS
-// ============================================================
-
-async function carregarPagamentos() {
-
-    const supabase =
-        obterSupabase();
-
-    if (!supabase) {
-        return [];
-    }
-
-    const resultado =
-        await supabase
-            .from("pagamentos_planos")
-            .select("*")
-            .order(
-                "created_at",
-                {
-                    ascending:false
-                }
-            );
-
-    if (resultado.error) {
-
-        console.error(
-            resultado.error
-        );
-
-        return [];
-    }
-
-    listaPagamentosAdmin =
-        resultado.data || [];
-
-    return listaPagamentosAdmin;
-}
-
-
-// ============================================================
-// MODELOS ATIVOS
-// ============================================================
-
-async function carregarEstatisticas() {
-
-    const supabase =
-        obterSupabase();
-
-    if (!supabase) {
-        return null;
-    }
-
-
-    const [
-        modelosResultado,
-        perfisResultado
-    ] =
-        await Promise.all([
-
-            supabase
-                .from("modelo_perfis")
-                .select(
-                    "id,verificacao_status"
-                ),
-
-            supabase
-                .from("perfis")
-                .select(
-                    "id,status"
-                )
-
-        ]);
-
-
-    if (modelosResultado.error) {
-
-        console.error(
-            modelosResultado.error
-        );
-
-        return null;
-    }
-
-
-    const modelos =
-        modelosResultado.data || [];
-
-    const perfis =
-        perfisResultado.data || [];
-
-
-    const ativos =
-        new Set(
-            perfis
-                .filter(
-                    perfil =>
-                        String(
-                            perfil.status || ""
-                        )
-                            .toLowerCase() ===
-                        "ativo"
-                )
-                .map(
-                    perfil =>
-                        perfil.id
-                )
-        );
-
-
-    const modelosAtivos =
-        modelos.filter(
-            modelo =>
-                status(
-                    modelo.verificacao_status
-                ) === "aprovado" &&
-                ativos.has(
-                    modelo.id
-                )
-        ).length;
-
-
-    setEl(
-        [
-            "totalModelos",
-            "contadorModelos",
-            "resumoTotal"
-        ],
-        modelos.length
-    );
-
-
-    setEl(
-        [
-            "totalModelosAtivos",
-            "modelosAtivos"
-        ],
-        modelosAtivos
-    );
-
-
-    return modelosAtivos;
-}
-
-
-// ============================================================
-// BLOCOS DOS MÓDULOS
-// ============================================================
-
-function criarBlocoAdmin(
-    titulo,
-    valor,
-    descricao
-) {
-
-    return `
-        <div style="
-            padding:16px;
-            border:1px solid #382d31;
-            border-radius:14px;
-            background:#120d11;
-        ">
-
-            <small style="
-                color:#81757e;
-            ">
-                ${escaparHTML(
-                    titulo
-                )}
-            </small>
-
-            <div style="
-                color:#f5d58c;
-                font-size:24px;
-                margin:7px 0;
-            ">
-                ${escaparHTML(
-                    valor
-                )}
-            </div>
-
-            <small style="
-                color:#8e838b;
-            ">
-                ${escaparHTML(
-                    descricao
-                )}
-            </small>
-
-        </div>
-    `;
-}
-
-
-// ============================================================
-// MODAL DOS MÓDULOS
-// ============================================================
-
-function modal(
-    titulo,
-    subtitulo,
-    html
-) {
-
-    fecharModuloAdmin();
-
-
-    const modal =
-        document.createElement(
-            "div"
-        );
-
-    modal.id =
-        "modal-modulo-admin";
-
-
-    modal.style.cssText = `
-        position:fixed;
-        inset:0;
-        z-index:99999;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        padding:20px;
-        background:#000d;
-    `;
-
-
-    modal.innerHTML = `
-
-        <div style="
-            width:min(900px,100%);
-            max-height:90vh;
-            overflow:auto;
-            background:#10090e;
-            border:1px solid #403036;
-            border-radius:20px;
-            color:#eee;
-        ">
-
-            <div style="
-                position:sticky;
-                top:0;
-                padding:18px 20px;
-                background:#10090e;
-                border-bottom:1px solid #292126;
-                display:flex;
-                justify-content:space-between;
-                gap:15px;
-            ">
-
-                <div>
-
-                    <small style="
-                        color:#ff4da6;
-                        letter-spacing:2px;
-                    ">
-                        LUX-ADVANCE · ADMIN
-                    </small>
-
-                    <h2 style="
-                        color:#f5d58c;
-                        margin:6px 0;
-                    ">
-                        ${escaparHTML(
-                            titulo
-                        )}
-                    </h2>
-
-                    <small style="
-                        color:#938891;
-                    ">
-                        ${escaparHTML(
-                            subtitulo
-                        )}
-                    </small>
-
-                </div>
-
-
-                <button
-                    onclick="
-                        fecharModuloAdmin()
-                    "
-                    style="
-                        width:38px;
-                        height:38px;
-                        border-radius:50%;
-                        background:none;
-                        color:#f5d58c;
-                        border:1px solid #4a3930;
-                        font-size:22px;
-                    "
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <div style="
-                padding:20px;
-            ">
-                ${html}
-            </div>
-
-        </div>
-    `;
-
-
-    modal.onclick =
-        evento => {
-
-            if (
-                evento.target ===
-                modal
-            ) {
-
-                fecharModuloAdmin();
-            }
-
-        };
-
-
-    document.body.appendChild(
-        modal
-    );
-}
-
-
-function fecharModuloAdmin() {
-
-    const modal =
-        document.getElementById(
-            "modal-modulo-admin"
-        );
-
-    if (modal) {
-        modal.remove();
-    }
-}
-
-
-// ============================================================
-// ASSINATURAS
-// ============================================================
-
-async function abrirModuloAssinaturas() {
-
-    const supabase =
-        obterSupabase();
-
-    if (!supabase) {
-
-        modal(
-            "Assinaturas",
-            "Planos e status",
-            "Supabase não disponível."
-        );
-
-        return;
-    }
-
-
-    const resultado =
-        await supabase
-            .from("assinaturas")
-            .select(`
-                id,
-                modelo_id,
-                plano_codigo,
-                plano_nome,
-                valor,
-                status,
-                mp_subscription_id,
-                current_period_start,
-                current_period_end,
-                created_at,
-                updated_at
-            `)
-            .order(
-                "created_at",
-                {
-                    ascending:false
-                }
-            );
-
-
-    if (resultado.error) {
-
-        modal(
-            "Assinaturas",
-            "Planos e status",
-            `
-                <div style="
-                    color:#ff9aaa;
-                    line-height:1.6;
-                ">
-                    ${escaparHTML(
-                        resultado.error.message
-                    )}
-                </div>
-            `
-        );
-
-        return;
-    }
-
-
-    const assinaturas =
-        resultado.data || [];
-
-
-    const ids =
-        [
-            ...new Set(
-                assinaturas
-                    .map(
-                        item =>
-                            item.modelo_id
-                    )
-                    .filter(Boolean)
-            )
-        ];
-
-
-    const mapa =
-        new Map();
-
-
-    if (ids.length) {
-
-        const modelos =
-            await supabase
-                .from("modelo_perfis")
-                .select(`
-                    id,
-                    nome_exibicao,
-                    apelido,
-                    plano,
-                    verificacao_status
-                `)
-                .in(
-                    "id",
-                    ids
-                );
-
-        (modelos.data || [])
-            .forEach(
-                modelo =>
-                    mapa.set(
-                        modelo.id,
-                        modelo
-                    )
-            );
-    }
-
-
-    const planos = [
-
-        [
-            "ESSENCE",
-            "GRÁTIS",
-            "Plano básico"
-        ],
-
-        [
-            "DESFIRE",
-            "R$ 29,90",
-            "Mensal"
-        ],
-
-        [
-            "ELITE",
-            "R$ 59,90",
-            "Mensal"
-        ],
-
-        [
-            "ROYAL",
-            "R$ 99,90",
-            "Mensal"
-        ],
-
-        [
-            "DIAMOND",
-            "A DEFINIR",
-            "Plano Diamond"
-        ]
-
-    ];
-
-
-    const blocos =
-        planos
-            .map(
-                plano =>
-                    criarBlocoAdmin(
-                        plano[0],
-                        plano[1],
-                        plano[2]
-                    )
-            )
-            .join("");
-
-
-    let lista =
-        "";
-
-
-    if (!assinaturas.length) {
-
-        lista = `
-            <div style="
-                color:#888;
-                padding:15px 0;
-            ">
-                Nenhuma assinatura
-                registrada no banco.
-            </div>
-        `;
-
-    } else {
-
-        lista =
-            assinaturas
-                .map(
-                    assinatura => {
-
-                        const modelo =
-                            mapa.get(
-                                assinatura.modelo_id
-                            ) || {};
-
-
-                        return `
-                            <div style="
-                                padding:14px;
-                                border:
-                                    1px solid
-                                    #382d31;
-                                border-radius:12px;
-                                margin:8px 0;
-                            ">
-
-                                <b style="
-                                    color:#f5d58c;
-                                ">
-                                    ${escaparHTML(
-                                        modelo.nome_exibicao ||
-                                        "Modelo não encontrada"
-                                    )}
-                                </b>
-
-                                <div style="
-                                    color:#aaa;
-                                    font-size:11px;
-                                    margin-top:5px;
-                                ">
-
-                                    ${escaparHTML(
-                                        assinatura.plano_nome ||
-                                        assinatura.plano_codigo ||
-                                        "Plano"
-                                    )}
-
-                                    ·
-
-                                    ${moeda(
-                                        assinatura.valor
-                                    )}
-
-                                    ·
-
-                                    ${escaparHTML(
-                                        assinatura.status ||
-                                        "pendente"
-                                    )}
-
-                                </div>
-
-                            </div>
-                        `;
-                    }
-                )
-                .join("");
-    }
-
-
-    modal(
-        "Assinaturas",
-        "Planos e status de assinatura",
-        `
-
-            <div style="
-                display:grid;
-                grid-template-columns:
-                    repeat(
-                        auto-fit,
-                        minmax(140px,1fr)
-                    );
-                gap:10px;
-            ">
-                ${blocos}
-            </div>
-
-
-            <h3 style="
-                color:#f5d58c;
-                margin-top:22px;
-            ">
-                Modelos com assinatura
-            </h3>
-
-            ${lista}
-
-        `
-    );
-}
-
-
-// ============================================================
-// AVALIAÇÕES
-// ============================================================
-
-async function abrirModuloAvaliacoes() {
-
-    const supabase =
-        obterSupabase();
-
-    if (!supabase) {
-
-        modal(
-            "Avaliações",
-            "Notas de 1 a 5 estrelas",
-            "Supabase não disponível."
-        );
-
-        return;
-    }
-
-
-    const resultado =
-        await supabase
-            .from("avaliacoes")
-            .select(`
-                id,
-                modelo_id,
-                usuario_id,
-                estrelas,
-                comentario,
-                status,
-                created_at
-            `)
-            .order(
-                "created_at",
-                {
-                    ascending:false
-                }
-            );
-
-
-    if (resultado.error) {
-
-        modal(
-            "Avaliações",
-            "Notas e reputação",
-            `
-                <div style="
-                    color:#ff9aaa;
-                ">
-                    ${escaparHTML(
-                        resultado.error.message
-                    )}
-                </div>
-            `
-        );
-
-        return;
-    }
-
-
-    const avaliacoes =
-        resultado.data || [];
-
-
-    const ids =
-        [
-            ...new Set(
-                avaliacoes
-                    .map(
-                        item =>
-                            item.modelo_id
-                    )
-                    .filter(Boolean)
-            )
-        ];
-
-
-    const mapa =
-        new Map();
-
-
-    if (ids.length) {
-
-        const modelos =
-            await supabase
-                .from("modelo_perfis")
-                .select(
-                    "id,nome_exibicao,apelido"
-                )
-                .in(
-                    "id",
-                    ids
-                );
-
-        (modelos.data || [])
-            .forEach(
-                modelo =>
-                    mapa.set(
-                        modelo.id,
-                        modelo
-                    )
-            );
-    }
-
-
-    const total =
-        avaliacoes.length;
-
-
-    const media =
-        total
-            ? (
-                avaliacoes.reduce(
-                    (
-                        soma,
-                        item
-                    ) =>
-                        soma +
-                        Number(
-                            item.estrelas || 0
-                        ),
-                    0
-                ) / total
-            )
-                .toFixed(1)
-                .replace(".", ",")
-            : "0,0";
-
-
-    let lista = "";
-
-
-    if (!total) {
-
-        lista = `
-            <div style="
-                color:#888;
-                padding:15px 0;
-            ">
-                Nenhuma avaliação
-                registrada ainda.
-                <br>
-                O sistema aceitará
-                de 1 a 5 estrelas.
-            </div>
-        `;
-
-    } else {
-
-        lista =
-            avaliacoes
-                .map(
-                    avaliacao => {
-
-                        const modelo =
-                            mapa.get(
-                                avaliacao.modelo_id
-                            ) || {};
-
-
-                        const estrelas =
-                            Math.max(
-                                1,
-                                Math.min(
-                                    5,
-                                    Number(
-                                        avaliacao.estrelas
-                                    ) || 1
-                                )
-                            );
-
-
-                        return `
-                            <div style="
-                                padding:14px;
-                                border:
-                                    1px solid
-                                    #382d31;
-                                border-radius:12px;
-                                margin:8px 0;
-                            ">
-
-                                <div style="
-                                    color:#f5d58c;
-                                    font-size:18px;
-                                ">
-                                    ${
-                                        "★".repeat(
-                                            estrelas
-                                        )
-                                    }${
-                                        "☆".repeat(
-                                            5 -
-                                            estrelas
-                                        )
-                                    }
-                                </div>
-
-
-                                <b>
-                                    ${escaparHTML(
-                                        modelo.nome_exibicao ||
-                                        "Modelo"
-                                    )}
-                                </b>
-
-
-                                <div style="
-                                    color:#aaa;
-                                    font-size:11px;
-                                    margin-top:5px;
-                                ">
-                                    ${escaparHTML(
-                                        avaliacao.comentario ||
-                                        "Sem comentário"
-                                    )}
-                                </div>
-
-
-                                <small style="
-                                    color:#777;
-                                ">
-                                    ${fmtData(
-                                        avaliacao.created_at,
-                                        true
-                                    )}
-                                </small>
-
-                            </div>
-                        `;
-                    }
-                )
-                .join("");
-    }
-
-
-    modal(
-        "Avaliações",
-        "Usuários dão de 1 a 5 estrelas",
-        `
-
-            <div style="
-                display:grid;
-                grid-template-columns:
-                    repeat(
-                        auto-fit,
-                        minmax(140px,1fr)
-                    );
-                gap:10px;
-            ">
-
-                ${criarBlocoAdmin(
-                    "AVALIAÇÕES",
-                    total,
-                    "Total recebido"
-                )}
-
-                ${criarBlocoAdmin(
-                    "MÉDIA",
-                    media + " ★",
-                    "Média geral"
-                )}
-
-            </div>
-
-
-            <div style="
-                margin-top:18px;
-            ">
-                ${lista}
-            </div>
-
-        `
-    );
-}
-
-
-// ============================================================
-// DOAÇÕES
-// ============================================================
-
-async function abrirModuloDoacoes() {
-
-    const supabase =
-        obterSupabase();
-
-    if (!supabase) {
-
-        modal(
-            "Doações",
-            "Somente confirmadas",
-            "Supabase não disponível."
-        );
-
-        return;
-    }
-
-
-    const resultado =
-        await supabase
-            .from("doacoes")
-            .select(`
-                id,
-                nome,
-                email,
-                whatsapp,
-                valor,
-                status,
-                confirmado_em,
-                created_at
-            `)
-            .eq(
-                "status",
-                "confirmado"
-            )
-            .order(
-                "confirmado_em",
-                {
-                    ascending:false
-                }
-            );
-
-
-    if (resultado.error) {
-
-        modal(
-            "Doações",
-            "Somente contribuições confirmadas",
-            `
-                <div style="
-                    color:#ff9aaa;
-                    line-height:1.6;
-                ">
-                    ${escaparHTML(
-                        resultado.error.message
-                    )}
-                </div>
-            `
-        );
-
-        return;
-    }
-
-
-    const doacoes =
-        resultado.data || [];
-
-
-    const total =
-        doacoes.reduce(
-            (
-                soma,
-                item
-            ) =>
-                soma +
-                Number(
-                    item.valor || 0
-                ),
-            0
-        );
-
-
-    let lista = "";
-
-
-    if (!doacoes.length) {
-
-        lista = `
-            <div style="
-                color:#888;
-                padding:15px 0;
-            ">
-                Nenhuma doação confirmada
-                registrada.
-                <br>
-                Os testes antigos
-                do navegador não serão
-                exibidos.
-            </div>
-        `;
-
-    } else {
-
-        lista =
-            doacoes
-                .map(
-                    doacao =>
-                        `
-                            <div style="
-                                padding:14px;
-                                border:
-                                    1px solid
-                                    #315d43;
-                                border-radius:12px;
-                                margin:8px 0;
-                            ">
-
-                                <b>
-                                    ${escaparHTML(
-                                        doacao.nome ||
-                                        "Não informado"
-                                    )}
-                                </b>
-
-                                <div style="
-                                    color:#8ff0b0;
-                                ">
-                                    ${moeda(
-                                        doacao.valor
-                                    )}
-                                    ·
-                                    CONFIRMADO
-                                </div>
-
-                                <small style="
-                                    color:#777;
-                                ">
-                                    ${fmtData(
-                                        doacao.confirmado_em ||
-                                        doacao.created_at,
-                                        true
-                                    )}
-                                </small>
-
-                            </div>
-                        `
-                )
-                .join("");
-    }
-
-
-    modal(
-        "Doações",
-        "Somente contribuições confirmadas",
-        `
-
-            <div style="
-                display:grid;
-                grid-template-columns:
-                    repeat(
-                        auto-fit,
-                        minmax(150px,1fr)
-                    );
-                gap:10px;
-            ">
-
-                ${criarBlocoAdmin(
-                    "CONFIRMADAS",
-                    doacoes.length,
-                    "Contribuições reais confirmadas"
-                )}
-
-                ${criarBlocoAdmin(
-                    "TOTAL",
-                    moeda(total),
-                    "Somente valores confirmados"
-                )}
-
-            </div>
-
-
-            <div style="
-                margin-top:18px;
-            ">
-                ${lista}
-            </div>
-
-        `
-    );
-}
-
-
-// ============================================================
-// PLANOS
-// ============================================================
-
-function abrirModuloPlanos() {
-
-    const planos = [
-
-        [
-            "ESSENCE",
-            "GRÁTIS"
-        ],
-
-        [
-            "DESFIRE",
-            "R$ 29,90"
-        ],
-
-        [
-            "ELITE",
-            "R$ 59,90"
-        ],
-
-        [
-            "ROYAL",
-            "R$ 99,90"
-        ],
-
-        [
-            "DIAMOND",
-            "A DEFINIR"
-        ]
-
-    ];
-
-
-    modal(
-        "Planos LUX",
-        "Recursos disponíveis",
-        `
-
-            <div style="
-                display:grid;
-                grid-template-columns:
-                    repeat(
-                        auto-fit,
-                        minmax(140px,1fr)
-                    );
-                gap:10px;
-            ">
-
-                ${
-                    planos
-                        .map(
-                            plano =>
-                                criarBlocoAdmin(
-                                    plano[0],
-                                    plano[1],
-                                    "Plano LUX"
-                                )
-                        )
-                        .join("")
-                }
-
-            </div>
-
-        `
-    );
-}
-
-
-// ============================================================
-// ABERTURA DOS MÓDULOS
-// ============================================================
-
-function abrirModuloAdmin(
-    alvo
-) {
-
-    const valor =
-        String(
-            alvo || ""
-        ).toLowerCase();
-
-
-    if (
-        valor.includes("modelo") ||
-        valor.includes("cadastro")
-    ) {
-
-        return abrirModuloModelos();
-    }
-
-
-    if (
-        valor.includes("usu")
-    ) {
-
-        return abrirModuloUsuarios();
-    }
-
-
-    if (
-        valor.includes("reclam") ||
-        valor.includes("denunc")
-    ) {
-
-        return abrirModuloReclamacoes();
-    }
-
-
-    if (
-        valor.includes("plano")
-    ) {
-
-        return abrirModuloPlanos();
-    }
-
-
-    if (
-        valor.includes("pagamento")
-    ) {
-
-        return abrirModuloPagamentos();
-    }
-
-
-    if (
-        valor.includes("assinatura")
-    ) {
-
-        return abrirModuloAssinaturas();
-    }
-
-
-    if (
-        valor.includes("avalia")
-    ) {
-
-        return abrirModuloAvaliacoes();
-    }
-
-
-    if (
-        valor.includes("doa")
-    ) {
-
-        return abrirModuloDoacoes();
-    }
-
-
-    if (
-        valor.includes("estat")
-    ) {
-
-        return abrirModuloEstatisticas();
-    }
-}
-
-
-function abrirModuloCorrespondente(
-    texto
-) {
-
-    abrirModuloAdmin(
-        texto
-    );
-}
-
-
-// ============================================================
-// MÓDULOS SECUNDÁRIOS
-// ============================================================
-
-function abrirModuloModelos() {
-
-    fecharModuloAdmin();
-
-    const secao =
-        document.querySelector(
-            '[data-admin-section="modelos"]'
-        );
-
-    if (secao) {
-
-        secao.scrollIntoView({
-            behavior:"smooth"
-        });
-    }
-
-    carregarModelos();
-}
-
-
-function abrirGestaoModelos() {
-
-    abrirModuloModelos();
-}
-
-
-async function abrirModuloUsuarios() {
-
-    const usuarios =
-        await carregarUsuariosAdmin();
-
-
-    const html =
-        usuarios.length
-
-            ? usuarios
-                .map(
-                    usuario =>
-                        `
-                            <div style="
-                                padding:12px;
-                                border:
-                                    1px solid
-                                    #382d31;
-                                border-radius:10px;
-                                margin:7px 0;
-                            ">
-
-                                <b>
-                                    ${escaparHTML(
-                                        usuario.nome ||
-                                        "Sem nome"
-                                    )}
-                                </b>
-
-                                <div style="
-                                    color:#999;
-                                    font-size:10px;
-                                ">
-                                    ${escaparHTML(
-                                        usuario.email ||
-                                        ""
-                                    )}
-
-                                    ·
-
-                                    ${escaparHTML(
-                                        usuario.status ||
-                                        ""
-                                    )}
-                                </div>
-
-                            </div>
-                        `
-                )
-                .join("")
-
-            : `
-                <div style="
-                    color:#888;
-                ">
-                    Nenhum usuário encontrado.
-                </div>
-            `;
-
-
-    modal(
-        "Usuários",
-        "Contas e controle de acesso",
-        html
-    );
-}
-
-
-async function abrirModuloReclamacoes() {
-
-    const reclamacoes =
-        await carregarReclamacoesAdmin();
-
-
-    const html =
-        reclamacoes.length
-
-            ? reclamacoes
-                .map(
-                    reclamacao =>
-                        `
-                            <div style="
-                                padding:13px;
-                                border:
-                                    1px solid
-                                    #382d31;
-                                border-radius:10px;
-                                margin:7px 0;
-                            ">
-
-                                <b style="
-                                    color:#f5d58c;
-                                ">
-                                    ${escaparHTML(
-                                        reclamacao.assunto ||
-                                        "Sem assunto"
-                                    )}
-                                </b>
-
-                                <div style="
-                                    color:#aaa;
-                                    font-size:11px;
-                                    margin-top:5px;
-                                ">
-                                    ${escaparHTML(
-                                        reclamacao.mensagem ||
-                                        ""
-                                    )}
-                                </div>
-
-                                <small style="
-                                    color:#777;
-                                ">
-                                    ${escaparHTML(
-                                        reclamacao.status ||
-                                        "pendente"
-                                    )}
-                                </small>
-
-                            </div>
-                        `
-                )
-                .join("")
-
-            : `
-                <div style="
-                    color:#888;
-                ">
-                    Nenhuma reclamação encontrada.
-                </div>
-            `;
-
-
-    modal(
-        "Reclamações",
-        "Atendimento e ocorrências",
-        html
-    );
-}
-
-
-async function abrirModuloPagamentos() {
-
-    const pagamentos =
-        await carregarPagamentos();
-
-
-    const html =
-        pagamentos.length
-
-            ? pagamentos
-                .map(
-                    pagamento =>
-                        `
-                            <div style="
-                                padding:13px;
-                                border:
-                                    1px solid
-                                    #382d31;
-                                border-radius:10px;
-                                margin:7px 0;
-                            ">
-
-                                <b>
-                                    ${escaparHTML(
-                                        pagamento.plano_nome ||
-                                        pagamento.plano_codigo ||
-                                        "Plano"
-                                    )}
-                                </b>
-
-                                <div style="
-                                    color:#aaa;
-                                    font-size:10px;
-                                ">
-                                    ${moeda(
-                                        pagamento.valor
-                                    )}
-
-                                    ·
-
-                                    ${escaparHTML(
-                                        pagamento.status ||
-                                        ""
-                                    )}
-                                </div>
-
-                            </div>
-                        `
-                )
-                .join("")
-
-            : `
-                <div style="
-                    color:#888;
-                ">
-                    Nenhum pagamento encontrado.
-                </div>
-            `;
-
-
-    modal(
-        "Pagamentos",
-        "Controle financeiro",
-        html
-    );
-}
-
-
-async function abrirModuloEstatisticas() {
-
-    const ativos =
-        await carregarEstatisticas();
-
-
-    modal(
-        "Visão geral",
-        "Modelos atualmente ativos",
-        criarBlocoAdmin(
-            "MODELOS ATIVOS",
-            ativos ?? 0,
-            "Aprovados e com perfil ativo"
-        )
-    );
-}
-
-
-// ============================================================
-// RECARREGAR
-// ============================================================
-
-async function recarregarPainel() {
-
-    await carregarModelos();
-
-    await carregarEstatisticas();
-
-    msg(
-        "Painel atualizado."
-    );
-}
-
-
-// ============================================================
-// COMPATIBILIDADE
-// ============================================================
-
-function carregarListaPreCadastros() {
-
-    return carregarModelos();
-}
-
-
-function carregarPreCadastros() {
-
-    return carregarModelos();
-}
-
-
-function renderizarPreCadastros(
-    dados
-) {
-
-    renderizarModelos(
-        dados
-    );
-}
-
-
-function renderizarModelosCompatibilidade(
-    dados
-) {
-
-    listaPreCadastros =
-        (dados || [])
-            .map(
-                modelo => ({
-                    ...modelo,
-                    status:
-                        status(
-                            modelo.verificacao_status
-                        )
-                })
-            );
-
-    renderModelos();
-}
-
-
-function aprovarPreCadastro(
-    id
-) {
-
-    return aprovarModelo(
-        id
-    );
-}
-
-
-function reprovarPreCadastro(
-    id
-) {
-
-    return reprovarModelo(
-        id
-    );
-}
-
-
-function abrirModalModelo(
-    id
-) {
-
-    return abrirFichaModelo(
-        id
-    );
-}
-
-
-function fecharModalModelo() {
-
-    fecharModalFicha();
-}
-
-
-function fecharModal() {
-
-    fecharModalFicha();
-
-    fecharModuloAdmin();
-}
-
-
-function atualizarListaModelos() {
-
-    return carregarModelos();
-}
-
-
-function testarBancoAdmin() {
-
-    return carregarModelos();
-}
-
-
-async function carregarModelosPendentes() {
-
-    const supabase =
-        obterSupabase();
-
-    if (!supabase) {
-        return [];
-    }
-
-
-    const resultado =
-        await supabase
-            .from("modelo_perfis")
-            .select(`
-                id,
-                nome_exibicao,
-                apelido,
-                whatsapp,
-                idade,
-                cidade,
-                estado,
-                categoria_catalogo,
-                verificacao_status,
-                criado_em
-            `)
-            .eq(
-                "verificacao_status",
-                "pendente"
-            )
-            .order(
-                "criado_em",
-                {
-                    ascending:false
-                }
-            );
-
-
-    return resultado.data || [];
-}
-
-
-function testarModelosPendentes() {
-
-    return carregarModelosPendentes();
-}
-
-
-// ============================================================
-// EVENTOS
-// ============================================================
-
-function configurarEventos() {
-
-    document.addEventListener(
-        "click",
-        evento => {
-
-            if (
-                evento.target?.id ===
-                "botao-aprovar" &&
-                indiceSelecionado !== null
-            ) {
-
-                const modelo =
-                    listaPreCadastros[
-                        indiceSelecionado
-                    ];
-
-                if (modelo) {
-                    aprovarModelo(
-                        modelo.id
-                    );
-                }
-            }
-
-
-            if (
-                evento.target?.id ===
-                "botao-rejeitar" &&
-                indiceSelecionado !== null
-            ) {
-
-                const modelo =
-                    listaPreCadastros[
-                        indiceSelecionado
-                    ];
-
-                if (modelo) {
-                    reprovarModelo(
-                        modelo.id
-                    );
-                }
-            }
-
-        }
-    );
-
-
-    document.addEventListener(
-        "keydown",
-        evento => {
-
-            if (
-                evento.key ===
-                "Escape"
-            ) {
-
-                fecharModalFicha();
-
-                fecharModuloAdmin();
-            }
-
-        }
-    );
-
-
-    document
-        .querySelectorAll(
-            "[data-admin-target]"
-        )
-        .forEach(
-            botao => {
-
-                botao.onclick =
-                    () =>
-                        abrirModuloAdmin(
-                            botao.dataset
-                                .adminTarget ||
-                            ""
-                        );
-            }
-        );
-
-
-    const atualizar =
-        document.getElementById(
-            "btnAtualizar"
-        );
-
-    if (atualizar) {
-
-        atualizar.onclick =
-            recarregarPainel;
-    }
-
-
-    const atualizar2 =
-        document.getElementById(
-            "btnAtualizarPainel"
-        );
-
-    if (atualizar2) {
-
-        atualizar2.onclick =
-            recarregarPainel;
-    }
-
-
-    ativarBotoesFiltro();
-}
-
-
-// ============================================================
-// INICIALIZAÇÃO
-// ============================================================
-
-async function inicializarPainelAdmin() {
-
-    const autorizado =
-        await verificarSessaoAdmin();
-
-    if (!autorizado) {
-        return;
-    }
-
-
-    configurarEventos();
-
-    await carregarModelos();
-
-    await carregarEstatisticas();
-}
-
-
-document.addEventListener(
-    "DOMContentLoaded",
-    inicializarPainelAdmin
+  }
 );
 
 
-setInterval(
-    () => {
+document
+.getElementById('btnNaoTenho')
+.addEventListener(
+  'click',
+  function(){
 
-        if (
-            document.visibilityState ===
-            "visible"
-        ) {
+    mostrarTela('escolha');
 
-            carregarModelos();
-        }
-
-    },
-    60000
+  }
 );
 
 
-// ============================================================
-// EXPORTAÇÕES
-// ============================================================
+document
+.getElementById('btnUsuario')
+.addEventListener(
+  'click',
+  function(){
 
-window.obterSupabase =
-    obterSupabase;
+    limparMensagem(
+      document.getElementById('msgUsuario')
+    );
 
-window.verificarSessaoAdmin =
-    verificarSessaoAdmin;
+    mostrarTela('usuario');
 
-window.sairAdmin =
-    sairAdmin;
-
-window.carregarModelos =
-    carregarModelos;
-
-window.carregarListaPreCadastros =
-    carregarListaPreCadastros;
-
-window.carregarPreCadastros =
-    carregarPreCadastros;
-
-window.carregarModelosPendentes =
-    carregarModelosPendentes;
-
-window.testarModelosPendentes =
-    testarModelosPendentes;
-
-window.testarBancoAdmin =
-    testarBancoAdmin;
-
-window.renderizarModelos =
-    renderModelos;
-
-window.renderizarPreCadastros =
-    renderizarPreCadastros;
-
-window.abrirVerFichaPorIndice =
-    abrirVerFichaPorIndice;
-
-window.abrirFichaModelo =
-    abrirFichaModelo;
-
-window.fecharFichaModelo =
-    fecharFichaModelo;
-
-window.fecharModalFicha =
-    fecharModalFicha;
-
-window.aprovarModelo =
-    aprovarModelo;
-
-window.reprovarModelo =
-    reprovarModelo;
-
-window.aprovarPreCadastro =
-    aprovarPreCadastro;
-
-window.reprovarPreCadastro =
-    reprovarPreCadastro;
-
-window.atualizarStatusModelo =
-    atualizarStatusModelo;
-
-window.aplicarFiltroStatus =
-    aplicarFiltroStatus;
-
-window.filtrarModelos =
-    filtrarModelos;
-
-window.pesquisarModelos =
-    pesquisarModelos;
-
-window.carregarUsuarios =
-    carregarUsuarios;
-
-window.carregarUsuariosAdmin =
-    carregarUsuariosAdmin;
-
-window.atualizarStatusReclamacao =
-    atualizarStatusReclamacao;
-
-window.carregarReclamacoes =
-    carregarReclamacoes;
-
-window.carregarReclamacoesAdmin =
-    carregarReclamacoesAdmin;
-
-window.abrirReclamacao =
-    abrirReclamacao;
-
-window.carregarPagamentos =
-    carregarPagamentos;
-
-window.carregarEstatisticas =
-    carregarEstatisticas;
-
-window.abrirModuloAdmin =
-    abrirModuloAdmin;
-
-window.abrirModuloCorrespondente =
-    abrirModuloCorrespondente;
-
-window.abrirGestaoModelos =
-    abrirGestaoModelos;
-
-window.abrirModuloModelos =
-    abrirModuloModelos;
-
-window.abrirModuloUsuarios =
-    abrirModuloUsuarios;
-
-window.abrirModuloReclamacoes =
-    abrirModuloReclamacoes;
-
-window.abrirModuloPlanos =
-    abrirModuloPlanos;
-
-window.abrirModuloPagamentos =
-    abrirModuloPagamentos;
-
-window.abrirModuloAssinaturas =
-    abrirModuloAssinaturas;
-
-window.abrirModuloAvaliacoes =
-    abrirModuloAvaliacoes;
-
-window.abrirModuloDoacoes =
-    abrirModuloDoacoes;
-
-window.abrirModuloEstatisticas =
-    abrirModuloEstatisticas;
-
-window.mostrarModulo =
-    modal;
-
-window.fecharModuloAdmin =
-    fecharModuloAdmin;
-
-window.mostrarMensagem =
-    msg;
+  }
+);
 
 
-// ============================================================
-// FIM
-// ============================================================
+/*
+  CADASTRO DE MODELO
+  Usa o arquivo cadastro-modelo.html
+*/
+
+document
+.getElementById('btnModelo')
+.addEventListener(
+  'click',
+  function(){
+
+    window.location.href='./cadastro-modelo.html';
+
+  }
+);
+
+
+document
+.getElementById('btnVoltarEscolha')
+.addEventListener(
+  'click',
+  function(){
+
+    mostrarTela('inicial');
+
+  }
+);
+
+
+document
+.getElementById('btnVoltarLogin')
+.addEventListener(
+  'click',
+  function(){
+
+    mostrarTela('inicial');
+
+  }
+);
+
+
+document
+.getElementById('btnVoltarUsuario')
+.addEventListener(
+  'click',
+  function(){
+
+    mostrarTela('escolha');
+
+  }
+);
+
+
+/* LOGIN */
+
+document
+.getElementById('formLogin')
+.addEventListener(
+  'submit',
+  async function(e){
+
+    e.preventDefault();
+
+    var email =
+      document
+      .getElementById('loginEmail')
+      .value
+      .trim();
+
+    var senha =
+      document
+      .getElementById('loginSenha')
+      .value;
+
+    var msg =
+      document.getElementById('msgLogin');
+
+    limparMensagem(msg);
+
+    try{
+
+      if(
+        typeof window.entrar !== 'function'
+      ){
+
+        mensagem(
+          msg,
+          'Sistema de autenticação não carregado. Verifique o auth.js.'
+        );
+
+        return;
+
+      }
+
+      mensagem(
+        msg,
+        'Entrando...'
+      );
+
+      var resultado =
+        await window.entrar(
+          email,
+          senha
+        );
+
+      if(
+        resultado &&
+        resultado.erro
+      ){
+
+        mensagem(
+          msg,
+          resultado.erro
+        );
+
+        return;
+
+      }
+
+      var usuario =
+        resultado &&
+        resultado.usuario
+          ? resultado.usuario
+          : null;
+
+      var tipo =
+        usuario &&
+        usuario.user_metadata
+          ? usuario.user_metadata.tipo
+          : null;
+
+
+      if(tipo === 'modelo'){
+
+        window.location.href =
+          './painel-modelo.html';
+
+        return;
+
+      }
+
+
+      window.location.href =
+        './painel-usuario.html';
+
+
+    }catch(err){
+
+      console.error(err);
+
+      mensagem(
+        msg,
+        err.message ||
+        'Não foi possível entrar. Verifique seus dados.'
+      );
+
+    }
+
+  }
+);
+
+
+/* CADASTRO DE USUÁRIO */
+
+document
+.getElementById('formUsuario')
+.addEventListener(
+  'submit',
+  async function(e){
+
+    e.preventDefault();
+
+    var nome =
+      document
+      .getElementById('usuarioNome')
+      .value
+      .trim();
+
+    var email =
+      document
+      .getElementById('usuarioEmail')
+      .value
+      .trim();
+
+    var senha =
+      document
+      .getElementById('usuarioSenha')
+      .value;
+
+    var confirmacao =
+      document
+      .getElementById('usuarioSenhaConfirmacao')
+      .value;
+
+    var msg =
+      document
+      .getElementById('msgUsuario');
+
+    limparMensagem(msg);
+
+
+    if(senha !== confirmacao){
+
+      mensagem(
+        msg,
+        'As senhas não conferem.'
+      );
+
+      return;
+
+    }
+
+
+    try{
+
+      if(
+        typeof window.cadastrar !== 'function'
+      ){
+
+        mensagem(
+          msg,
+          'Sistema de cadastro não carregado. Verifique o auth.js.'
+        );
+
+        return;
+
+      }
+
+
+      mensagem(
+        msg,
+        'Criando cadastro...'
+      );
+
+
+      var resultado =
+        await window.cadastrar(
+          'usuario',
+          nome,
+          email,
+          senha,
+          {}
+        );
+
+
+      if(
+        resultado &&
+        resultado.erro
+      ){
+
+        mensagem(
+          msg,
+          resultado.erro
+        );
+
+        return;
+
+      }
+
+
+      mensagem(
+        msg,
+        resultado &&
+        resultado.mensagem
+          ? resultado.mensagem
+          : 'Cadastro realizado com sucesso.'
+      );
+
+
+      setTimeout(
+        function(){
+
+          mostrarTela('login');
+
+        },
+        3000
+      );
+
+
+    }catch(err){
+
+      console.error(err);
+
+      mensagem(
+        msg,
+        err.message ||
+        'Não foi possível criar o cadastro.'
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+
+</html>

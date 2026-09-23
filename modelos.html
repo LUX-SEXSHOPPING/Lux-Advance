@@ -1,70 +1,506 @@
-<!DOCTYPE html><html lang="pt-BR"><head>  <meta charset="UTF-8"><meta
-name="viewport"
-content="width=device-width, initial-scale=1"
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-«»
+<head>
 
-  <title>LUX — Modelos</title>  <link
-    rel="stylesheet"
-    href="app.css"
-  >  <style>
+<meta charset="UTF-8">
 
-    .acoes-modelo {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:15px;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    .btn-chamar-modelo {
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width:100%;
-      min-height:44px;
-      padding:11px 16px;
-      border:0;
-      border-radius:12px;
-      background:linear-gradient(135deg,#f0b13b,#c8730d);
-      color:#120b08;
-      font-weight:800;
-      text-decoration:none;
-      cursor:pointer;
-      box-shadow:0 8px 24px rgba(210,100,0,.18);
-      transition:transform .2s ease, box-shadow .2s ease;
-    }
+<title>LUX — Modelos</title>
 
-    .btn-chamar-modelo:hover {
-      transform:translateY(-1px);
-      box-shadow:0 10px 30px rgba(255,120,0,.25);
-    }
+<link rel="stylesheet" href="app.css">
 
-    .btn-chamar-modelo.indisponivel {
-      background:rgba(255,255,255,.06);
-      color:#8f858b;
-      border:1px solid rgba(255,255,255,.10);
-      cursor:not-allowed;
-      box-shadow:none;
-    }
+<style>
 
-  </style></head><body>  <header class="topbar"><a
-  class="brand"
-  href="index.html"
->
-  LUX
-</a>
+:root{
+  --lux-gold:#f8d58a;
+  --lux-pink:#ff4da6;
+  --lux-bg:#080509;
+  --lux-card:#110b10;
+  --lux-text:#f7f2f4;
+  --lux-muted:#b9afb4;
+}
 
-<a
-  class="btn ghost"
-  href="login.html"
->
-  Entrar
-</a>
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(255,77,166,.10),transparent 35%),
+    radial-gradient(circle at 100% 50%,rgba(248,213,138,.07),transparent 35%),
+    linear-gradient(145deg,#050305,#0b0608 45%,#050305);
+  color:var(--lux-text);
+}
 
-  </header>  <main class="container"><section class="hero">
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.12;
+  background:
+    radial-gradient(circle at 15% 20%,#ff4da6 0 1px,transparent 2px),
+    radial-gradient(circle at 80% 70%,#f8d58a 0 1px,transparent 2px);
+  background-size:120px 120px,180px 180px;
+  z-index:0;
+}
+
+.topbar,
+.container,
+.footer{
+  position:relative;
+  z-index:1;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px 18px;
+  border-bottom:1px solid rgba(248,213,138,.10);
+  background:rgba(5,3,5,.75);
+  backdrop-filter:blur(14px);
+}
+
+.brand{
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:34px;
+  font-weight:700;
+  letter-spacing:7px;
+  text-decoration:none;
+  color:var(--lux-gold);
+  text-shadow:0 0 20px rgba(248,213,138,.18);
+}
+
+.hero{
+  text-align:center;
+  max-width:850px;
+  margin:0 auto 25px;
+  padding:30px 12px 10px;
+}
+
+.hero .eyebrow{
+  color:var(--lux-gold);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:4px;
+  margin-bottom:13px;
+}
+
+.hero .title{
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:clamp(40px,8vw,68px);
+  line-height:1;
+  margin:0 0 16px;
+}
+
+.hero .subtitle{
+  max-width:650px;
+  margin:auto;
+  color:var(--lux-muted);
+  line-height:1.7;
+}
+
+.seletor-categorias{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  max-width:900px;
+  margin:15px auto 32px;
+}
+
+.categoria-btn{
+  min-height:52px;
+  border-radius:15px;
+  border:1px solid rgba(248,213,138,.16);
+  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  color:#cfc5ca;
+  font-weight:800;
+  font-size:11px;
+  letter-spacing:.8px;
+  cursor:pointer;
+  transition:.22s ease;
+}
+
+.categoria-btn:hover{
+  border-color:rgba(248,213,138,.4);
+  transform:translateY(-2px);
+}
+
+.categoria-btn.ativo{
+  color:#160d10;
+  background:linear-gradient(135deg,#f8d58a,#d4a94e);
+  border-color:#f8d58a;
+  box-shadow:0 8px 25px rgba(248,213,138,.13);
+}
+
+.contador-modelos{
+  text-align:center;
+  color:#8f858a;
+  font-size:11px;
+  letter-spacing:1px;
+  margin:-15px 0 22px;
+}
+
+#listaModelos{
+  align-items:stretch;
+}
+
+.modelo-card{
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  min-width:0;
+  border-radius:23px;
+  background:#110b10;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 18px 50px rgba(0,0,0,.42);
+  transition:.25s ease;
+}
+
+.modelo-card:hover{
+  transform:translateY(-5px);
+}
+
+.plano-essence{
+  border-color:rgba(255,255,255,.13);
+}
+
+.plano-essence .plano-topo{
+  background:linear-gradient(135deg,#21151e,#0e090d);
+}
+
+.plano-essence .plano-nome{
+  color:#e6dce0;
+}
+
+.plano-desfire{
+  border-color:rgba(255,77,166,.30);
+  box-shadow:0 18px 55px rgba(255,77,166,.08);
+}
+
+.plano-desfire .plano-topo{
+  background:linear-gradient(135deg,#321025,#12070f);
+}
+
+.plano-desfire .plano-nome{
+  color:#ff76bd;
+}
+
+.plano-elite{
+  border-color:rgba(248,213,138,.34);
+  box-shadow:0 18px 55px rgba(248,213,138,.10);
+}
+
+.plano-elite .plano-topo{
+  background:linear-gradient(135deg,#352716,#120d08);
+}
+
+.plano-elite .plano-nome{
+  color:#f8d58a;
+}
+
+.plano-royal{
+  border-color:rgba(190,130,255,.38);
+  box-shadow:0 18px 60px rgba(145,70,220,.12);
+}
+
+.plano-royal .plano-topo{
+  background:linear-gradient(135deg,#28152f,#0e0712);
+}
+
+.plano-royal .plano-nome{
+  color:#dca7ff;
+}
+
+/* DIAMOND */
+
+.plano-diamond{
+  border-color:rgba(126,224,255,.48);
+  box-shadow:
+    0 18px 65px rgba(74,190,255,.13),
+    inset 0 0 35px rgba(126,224,255,.025);
+}
+
+.plano-diamond .plano-topo{
+  background:
+    linear-gradient(
+      135deg,
+      #102b36,
+      #071116 55%,
+      #0b1720
+    );
+}
+
+.plano-diamond .plano-nome{
+  color:#9eeaff;
+  text-shadow:0 0 14px rgba(126,224,255,.25);
+}
+
+.modelo-foto-area{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/4.7;
+  overflow:hidden;
+  background:#0b070a;
+}
+
+.modelo-foto{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  transition:transform .4s ease;
+}
+
+.modelo-card:hover .modelo-foto{
+  transform:scale(1.035);
+}
+
+.modelo-sem-foto{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--lux-gold);
+  font-family:Georgia,serif;
+  font-size:34px;
+  letter-spacing:6px;
+  background:
+    radial-gradient(circle,rgba(248,213,138,.10),transparent 55%),
+    #090609;
+}
+
+.plano-topo{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  z-index:2;
+  padding:10px 13px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(8px);
+}
+
+.plano-nome{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.4px;
+}
+
+.plano-icone{
+  font-size:13px;
+}
+
+.modelo-status{
+  position:absolute;
+  left:13px;
+  bottom:13px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:rgba(5,3,5,.82);
+  border:1px solid rgba(248,213,138,.20);
+  color:#f8d58a;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1px;
+  backdrop-filter:blur(8px);
+}
+
+.modelo-conteudo{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  padding:18px;
+}
+
+.modelo-etiquetas{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:11px;
+}
+
+.modelo-etiqueta{
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(248,213,138,.06);
+  border:1px solid rgba(248,213,138,.14);
+  color:#c9bfc4;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.7px;
+}
+
+.modelo-nome{
+  margin:0;
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:25px;
+  line-height:1.15;
+}
+
+.modelo-local{
+  margin:7px 0 12px;
+  color:#a69ca1;
+  font-size:12px;
+}
+
+/* AVALIAÇÕES */
+
+.avaliacao{
+  margin:4px 0 17px;
+  padding:11px 0;
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.avaliacao-titulo{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:7px;
+  color:#91878c;
+  font-size:10px;
+  letter-spacing:.7px;
+}
+
+.estrelas{
+  display:flex;
+  gap:3px;
+}
+
+.estrela{
+  border:0;
+  padding:1px;
+  background:transparent;
+  color:#514950;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  transition:.15s ease;
+}
+
+.estrela:hover{
+  transform:scale(1.15);
+}
+
+.estrela.ativa{
+  color:#f8d58a;
+  text-shadow:0 0 10px rgba(248,213,138,.35);
+}
+
+.nota-info{
+  color:#8e858a;
+  font-size:9px;
+  margin-top:5px;
+}
+
+.modelo-acoes{
+  margin-top:auto;
+}
+
+.btn-chamar-modelo{
+  width:100%;
+  min-height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(135deg,#f8d58a,#d6ab55);
+  color:#160d10;
+  font-weight:900;
+  font-size:11px;
+  letter-spacing:.8px;
+  cursor:pointer;
+  box-shadow:0 8px 22px rgba(248,213,138,.10);
+  transition:.2s ease;
+}
+
+.btn-chamar-modelo:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.07);
+}
+
+.btn-chamar-modelo.indisponivel{
+  background:rgba(255,255,255,.04);
+  color:#777077;
+  border:1px solid rgba(255,255,255,.07);
+  cursor:default;
+  box-shadow:none;
+}
+
+.mensagem-vazia{
+  width:100%;
+  padding:50px 20px;
+  text-align:center;
+  border-radius:20px;
+  border:1px solid rgba(248,213,138,.12);
+  background:rgba(255,255,255,.025);
+  color:#a69ca1;
+}
+
+.footer{
+  text-align:center;
+  padding:35px 20px;
+  color:#81777c;
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+@media(max-width:700px){
+
+  .seletor-categorias{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:430px){
+
+  .seletor-categorias{
+    grid-template-columns:1fr;
+  }
+
+  .hero .title{
+    font-size:43px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+  <a
+    class="brand"
+    href="index.html"
+  >
+    LUX
+  </a>
+
+</header>
+
+
+<main class="container">
+
+
+<section class="hero">
 
   <div class="eyebrow">
-    LUX
+    LUX — HALLOWEEN EDITION
   </div>
 
   <h1 class="title">
@@ -72,17 +508,60 @@ content="width=device-width, initial-scale=1"
   </h1>
 
   <p class="subtitle">
-    Conheça os perfis disponíveis na plataforma LUX.
+    Explore os perfis disponíveis na LUX,
+    escolha uma categoria e encontre
+    sua conexão.
   </p>
 
 </section>
 
 
+<section
+  class="seletor-categorias"
+  aria-label="Categorias de modelos"
+>
+
+  <button
+    type="button"
+    class="categoria-btn ativo"
+    data-categoria="todos"
+  >
+    ✦ TODOS
+  </button>
+
+  <button
+    type="button"
+    class="categoria-btn"
+    data-categoria="feminino"
+  >
+    ♀ FEMININAS
+  </button>
+
+  <button
+    type="button"
+    class="categoria-btn"
+    data-categoria="masculino"
+  >
+    ♂ MASCULINOS
+  </button>
+
+  <button
+    type="button"
+    class="categoria-btn"
+    data-categoria="lgbtq"
+  >
+    ♡ LGBTQ+
+  </button>
+
+</section>
+
+
 <div
-  id="mensagem"
-  class="notice"
-  hidden
-></div>
+  id="contadorModelos"
+  class="contador-modelos"
+>
+  CARREGANDO MODELOS...
+</div>
 
 
 <section
@@ -96,258 +575,890 @@ content="width=device-width, initial-scale=1"
 
 </section>
 
-  </main>  <footer class="footer">LUX — Sensualidade & Sofisticação
 
-  </footer>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  <script src="./config.js?v=5"></script>  <script src="./auth.js?v=10"></script>  <script>
+</main>
 
-    function escapeHTML(valor) {
-      return String(valor ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+
+<footer class="footer">
+
+  LUX — SENSUALIDADE &amp; SOFISTICAÇÃO
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="./config.js?v=5"></script>
+
+<script src="./auth.js?v=10"></script>
+
+
+<script>
+
+let modelosLUX = [];
+
+let categoriaAtual = "todos";
+
+
+function escapeHTML(valor){
+
+  return String(valor ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function normalizarCategoria(valor){
+
+  const texto =
+    String(valor || "")
+      .toLowerCase()
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g,"");
+
+  if(
+    texto.includes("lgbt") ||
+    texto.includes("gay") ||
+    texto.includes("trans") ||
+    texto.includes("queer")
+  ){
+    return "lgbtq";
+  }
+
+  if(
+    texto.includes("mascul") ||
+    texto === "homem"
+  ){
+    return "masculino";
+  }
+
+  if(
+    texto.includes("feminin") ||
+    texto === "mulher"
+  ){
+    return "feminino";
+  }
+
+  return texto || "feminino";
+
+}
+
+
+/* =====================================================
+   PLANO ATIVO
+===================================================== */
+
+function obterPlano(modelo){
+
+  const plano =
+    String(
+      modelo.plano ||
+      modelo.plano_atual ||
+      modelo.nome_plano ||
+      modelo.assinatura ||
+      modelo.plano_codigo ||
+      modelo.selo_codigo ||
+      "ESSENCE"
+    )
+    .toLowerCase()
+    .trim();
+
+  if(plano.includes("diamond"))
+    return "DIAMOND";
+
+  if(plano.includes("royal"))
+    return "ROYAL";
+
+  if(plano.includes("elite"))
+    return "ELITE";
+
+  if(plano.includes("desfire"))
+    return "DESFIRE";
+
+  return "ESSENCE";
+
+}
+
+
+function numeroWhatsApp(valor){
+
+  return String(valor || "")
+    .replace(/\D/g,"");
+
+}
+
+
+function chamarModelo(modelo){
+
+  const numero =
+    numeroWhatsApp(modelo.whatsapp);
+
+  if(!numero)
+    return;
+
+  const mensagem =
+    "Olá! Encontrei seu perfil na LUX e gostaria de falar com você.";
+
+  const url =
+    "https://wa.me/" +
+    numero +
+    "?text=" +
+    encodeURIComponent(mensagem);
+
+  window.open(
+    url,
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+}
+
+
+/* =====================================================
+   USUÁRIO LOGADO
+===================================================== */
+
+async function obterUsuario(){
+
+  try{
+
+    if(!window.luxSupabase)
+      return null;
+
+    const {
+      data,
+      error
+    } =
+      await window.luxSupabase
+        .auth
+        .getUser();
+
+    if(error)
+      return null;
+
+    return data?.user || null;
+
+  }catch{
+
+    return null;
+
+  }
+
+}
+
+
+/* =====================================================
+   AVALIAÇÃO — MESMA TABELA DO CATÁLOGO
+===================================================== */
+
+async function avaliarModelo(
+  modeloId,
+  nota
+){
+
+  const usuario =
+    await obterUsuario();
+
+  if(!usuario){
+
+    alert(
+      "Você precisa estar conectado para avaliar uma modelo."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    /*
+      Primeiro verificamos se o usuário
+      já avaliou este modelo.
+    */
+
+    const {
+      data: existente,
+      error: erroBusca
+    } =
+      await window.luxSupabase
+
+        .from("avaliacoes")
+
+        .select("id,estrelas")
+
+        .eq(
+          "usuario_id",
+          usuario.id
+        )
+
+        .eq(
+          "modelo_id",
+          modeloId
+        )
+
+        .maybeSingle();
+
+
+    if(erroBusca)
+      throw erroBusca;
+
+
+    if(existente){
+
+      /*
+        Já avaliou:
+        apenas altera a nota.
+      */
+
+      const {
+        error
+      } =
+        await window.luxSupabase
+
+          .from("avaliacoes")
+
+          .update({
+            estrelas:nota
+          })
+
+          .eq(
+            "id",
+            existente.id
+          );
+
+
+      if(error)
+        throw error;
+
+
+    }else{
+
+      /*
+        Primeira avaliação.
+      */
+
+      const {
+        error
+      } =
+        await window.luxSupabase
+
+          .from("avaliacoes")
+
+          .insert({
+
+            usuario_id:usuario.id,
+
+            modelo_id:modeloId,
+
+            estrelas:nota
+
+          });
+
+
+      if(error)
+        throw error;
+
     }
 
 
-    function numeroWhatsApp(valor) {
+    /*
+      Recarrega tudo para pegar
+      a média e a quantidade atualizadas.
+    */
 
-      return String(valor || "")
-        .replace(/\D/g, "");
-
-    }
+    await carregarModelos();
 
 
-    function chamarModelo(modelo) {
+    alert(
+      "Avaliação registrada com sucesso. ⭐"
+    );
 
-      const nome =
-        modelo.nome_exibicao ||
-        "modelo LUX";
 
-      const numero =
-        numeroWhatsApp(
-          modelo.whatsapp
-        );
+  }catch(erro){
 
-      if (!numero) {
+    console.error(
+      "[LUX AVALIAÇÃO]",
+      erro
+    );
 
-        alert(
-          "Esta modelo ainda não possui WhatsApp cadastrado."
-        );
+    alert(
+      "Não foi possível registrar a avaliação."
+    );
 
-        return;
+  }
 
+}
+
+
+/* =====================================================
+   ESTRELAS
+===================================================== */
+
+function htmlEstrelas(modelo){
+
+  const media =
+    Number(
+      modelo.media_estrelas || 0
+    );
+
+  const total =
+    Number(
+      modelo.avaliacoes_total || 0
+    );
+
+  let html = "";
+
+  for(
+    let i=1;
+    i<=5;
+    i++
+  ){
+
+    const ativa =
+      i <= Math.round(media)
+        ? "ativa"
+        : "";
+
+    html += `
+
+      <button
+        type="button"
+        class="estrela ${ativa}"
+        data-avaliar-id="${escapeHTML(modelo.id)}"
+        data-nota="${i}"
+        aria-label="Dar ${i} estrela${i > 1 ? "s" : ""}"
+      >
+        ★
+      </button>
+
+    `;
+
+  }
+
+
+  return `
+
+    <div class="estrelas">
+
+      ${html}
+
+    </div>
+
+    <div class="nota-info">
+
+      ${
+        total > 0
+          ? media.toFixed(1) +
+            " / 5 • " +
+            total +
+            (
+              total === 1
+                ? " avaliação"
+                : " avaliações"
+            )
+          : "Ainda não avaliada"
       }
 
-      const mensagem =
-        `Olá! Encontrei seu perfil na LUX e gostaria de falar com você.`;
+      • Toque para avaliar
 
-      const url =
-        "https://wa.me/" +
-        numero +
-        "?text=" +
-        encodeURIComponent(mensagem);
+    </div>
 
-      window.open(
-        url,
-        "_blank",
-        "noopener,noreferrer"
+  `;
+
+}
+
+
+/* =====================================================
+   RENDERIZAÇÃO
+===================================================== */
+
+function renderModelos(){
+
+  const lista =
+    document.getElementById(
+      "listaModelos"
+    );
+
+  const contador =
+    document.getElementById(
+      "contadorModelos"
+    );
+
+
+  const filtrados =
+    modelosLUX.filter(
+      modelo => {
+
+        if(
+          categoriaAtual === "todos"
+        )
+          return true;
+
+        return (
+          normalizarCategoria(
+            modelo.categoria_catalogo
+          ) ===
+          categoriaAtual
+        );
+
+      }
+    );
+
+
+  contador.textContent =
+    filtrados.length +
+    (
+      filtrados.length === 1
+        ? " MODELO DISPONÍVEL"
+        : " MODELOS DISPONÍVEIS"
+    );
+
+
+  if(!filtrados.length){
+
+    lista.innerHTML = `
+
+      <div class="mensagem-vazia">
+
+        Nenhum modelo aprovado
+        encontrado nesta categoria.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  lista.innerHTML =
+    filtrados.map(
+      modelo => {
+
+        const nome =
+          escapeHTML(
+            modelo.nome_exibicao ||
+            "Modelo"
+          );
+
+
+        const cidade =
+          escapeHTML(
+            modelo.cidade ||
+            "Disponível na LUX"
+          );
+
+
+        const foto =
+          modelo.foto_url ||
+          "";
+
+
+        const plano =
+          obterPlano(modelo);
+
+
+        const categoria =
+          normalizarCategoria(
+            modelo.categoria_catalogo
+          );
+
+
+        const numero =
+          numeroWhatsApp(
+            modelo.whatsapp
+          );
+
+
+        const classePlano =
+          "plano-" +
+          plano.toLowerCase();
+
+
+        let iconePlano = "✦";
+
+        if(plano === "DESFIRE")
+          iconePlano = "🔥";
+
+        if(plano === "ELITE")
+          iconePlano = "♛";
+
+        if(plano === "ROYAL")
+          iconePlano = "♕";
+
+        if(plano === "DIAMOND")
+          iconePlano = "💎";
+
+
+        const fotoHTML =
+          foto
+
+          ? `
+
+            <img
+              class="modelo-foto"
+              src="${escapeHTML(foto)}"
+              alt="${nome}"
+              loading="lazy"
+            >
+
+          `
+
+          : `
+
+            <div class="modelo-sem-foto">
+              LUX
+            </div>
+
+          `;
+
+
+        const whatsappHTML =
+          numero
+
+          ? `
+
+            <button
+              type="button"
+              class="btn-chamar-modelo"
+              data-whatsapp-id="${escapeHTML(modelo.id)}"
+            >
+              📞 CHAMAR MODELO
+            </button>
+
+          `
+
+          : `
+
+            <div class="btn-chamar-modelo indisponivel">
+              WhatsApp indisponível
+            </div>
+
+          `;
+
+
+        return `
+
+          <article
+            class="modelo-card ${classePlano}"
+          >
+
+
+            <div class="modelo-foto-area">
+
+
+              <div class="plano-topo">
+
+                <span class="plano-nome">
+
+                  ${iconePlano}
+                  LUX ${plano}
+
+                </span>
+
+                <span class="plano-icone">
+                  🎃
+                </span>
+
+              </div>
+
+
+              ${fotoHTML}
+
+
+              <div class="modelo-status">
+                ✓ PERFIL APROVADO
+              </div>
+
+
+            </div>
+
+
+            <div class="modelo-conteudo">
+
+
+              <div class="modelo-etiquetas">
+
+                <span class="modelo-etiqueta">
+
+                  ${
+                    categoria === "feminino"
+                      ? "♀ FEMININA"
+                      : categoria === "masculino"
+                      ? "♂ MASCULINO"
+                      : "♡ LGBTQ+"
+                  }
+
+                </span>
+
+
+                <span class="modelo-etiqueta">
+
+                  LUX ${plano}
+
+                </span>
+
+              </div>
+
+
+              <h2 class="modelo-nome">
+                ${nome}
+              </h2>
+
+
+              <p class="modelo-local">
+                📍 ${cidade}
+              </p>
+
+
+              <div class="avaliacao">
+
+                <div class="avaliacao-titulo">
+
+                  <span>
+                    AVALIE ESTE PERFIL
+                  </span>
+
+                  <span>
+                    ⭐ ${Number(modelo.media_estrelas || 0).toFixed(1)}
+                  </span>
+
+                </div>
+
+
+                ${htmlEstrelas(modelo)}
+
+              </div>
+
+
+              <div class="modelo-acoes">
+
+                ${whatsappHTML}
+
+              </div>
+
+
+            </div>
+
+
+          </article>
+
+        `;
+
+      }
+    ).join("");
+
+
+  /*
+    Eventos de WhatsApp
+  */
+
+  lista
+    .querySelectorAll(
+      "[data-whatsapp-id]"
+    )
+    .forEach(
+      botao => {
+
+        botao.addEventListener(
+          "click",
+          () => {
+
+            const modelo =
+              modelosLUX.find(
+                item =>
+                  String(item.id) ===
+                  String(
+                    botao.dataset.whatsappId
+                  )
+              );
+
+            if(modelo)
+              chamarModelo(modelo);
+
+          }
+        );
+
+      }
+    );
+
+
+  /*
+    Eventos das estrelas
+  */
+
+  lista
+    .querySelectorAll(
+      "[data-avaliar-id]"
+    )
+    .forEach(
+      botao => {
+
+        botao.addEventListener(
+          "click",
+          () => {
+
+            avaliarModelo(
+
+              botao.dataset.avaliarId,
+
+              Number(
+                botao.dataset.nota
+              )
+
+            );
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =====================================================
+   CARREGAR MODELOS
+===================================================== */
+
+async function carregarModelos(){
+
+  const lista =
+    document.getElementById(
+      "listaModelos"
+    );
+
+
+  try{
+
+    if(!window.luxSupabase){
+
+      throw new Error(
+        "Supabase não foi inicializado."
       );
 
     }
 
 
-    async function carregarModelos() {
+    const {
+      data,
+      error
+    } =
+      await window.luxSupabase
 
-      const lista =
-        document.getElementById(
-          "listaModelos"
+        .from("modelo_perfis")
+
+        .select("*")
+
+        .in(
+          "verificacao_status",
+          [
+            "aprovado",
+            "verificada"
+          ]
         );
 
 
-      try {
-
-        if (!window.luxSupabase) {
-
-          throw new Error(
-            "Supabase não foi inicializado."
-          );
-
-        }
+    if(error)
+      throw error;
 
 
-        const { data, error } =
-          await window.luxSupabase
+    modelosLUX =
+      data || [];
 
-            .from("modelo_perfis")
 
-            .select("*")
+    renderModelos();
 
-            .in(
-              "verificacao_status",
-              [
-                "aprovado",
-                "verificada"
-              ]
+
+  }catch(erro){
+
+    console.error(
+      "[LUX MODELOS]",
+      erro
+    );
+
+
+    lista.innerHTML = `
+
+      <div class="mensagem-vazia">
+
+        Não foi possível carregar
+        os modelos aprovados.
+
+      </div>
+
+    `;
+
+
+    document
+      .getElementById(
+        "contadorModelos"
+      )
+      .textContent =
+        "ERRO AO CARREGAR MODELOS";
+
+  }
+
+}
+
+
+/* =====================================================
+   FILTROS
+===================================================== */
+
+document
+  .querySelectorAll(
+    ".categoria-btn"
+  )
+  .forEach(
+    botao => {
+
+      botao.addEventListener(
+        "click",
+        () => {
+
+          document
+            .querySelectorAll(
+              ".categoria-btn"
+            )
+            .forEach(
+              item =>
+                item.classList.remove(
+                  "ativo"
+                )
             );
 
 
-        if (error) {
-
-          throw error;
-
-        }
+          botao.classList.add(
+            "ativo"
+          );
 
 
-        if (
-          !data ||
-          data.length === 0
-        ) {
+          categoriaAtual =
+            botao.dataset.categoria;
 
-          lista.innerHTML =
-            '<div class="empty">Nenhum modelo aprovado disponível no momento.</div>';
 
-          return;
+          renderModelos();
 
         }
-
-
-        lista.innerHTML =
-          data.map(modelo => {
-
-            const nome =
-              escapeHTML(
-                modelo.nome_exibicao ||
-                "Modelo"
-              );
-
-
-            const cidade =
-              escapeHTML(
-                modelo.cidade ||
-                "Disponível na LUX"
-              );
-
-
-            const foto =
-              modelo.foto_url ||
-              "";
-
-
-            const temWhatsApp =
-              numeroWhatsApp(
-                modelo.whatsapp
-              ).length > 0;
-
-
-            return `
-
-              <article class="card">
-
-                ${
-                  foto
-
-                    ? `<img
-                        class="avatar"
-                        src="${escapeHTML(foto)}"
-                        alt="${nome}"
-                      >`
-
-                    : `<div
-                        class="avatar"
-                        style="
-                          display:flex;
-                          align-items:center;
-                          justify-content:center;
-                          color:#b9afb4;
-                        "
-                      >
-                        LUX
-                      </div>`
-                }
-
-
-                <div class="card-body">
-
-                  <span class="pill lux-plan-badge">
-                    ✦ LUX ${
-                      escapeHTML(
-                        modelo.selo_codigo ||
-                        modelo.plano_codigo ||
-                        "ESSENCE"
-                      )
-                    }
-                  </span>
-
-
-                  <span class="pill">
-                    Modelo LUX
-                  </span>
-
-
-                  <h2>
-                    ${nome}
-                  </h2>
-
-
-                  <p
-                    style="color:#b9afb4;"
-                  >
-                    ${cidade}
-                  </p>
-
-
-                  <div class="acoes-modelo">
-
-                    ${
-                      temWhatsApp
-
-                        ? `<button
-                            type="button"
-                            class="btn-chamar-modelo"
-                            onclick='chamarModelo(${JSON.stringify(modelo).replace(/'/g, "&#039;")})'
-                          >
-                            📞 Chamar modelo
-                          </button>`
-
-                        : `<button
-                            type="button"
-                            class="btn-chamar-modelo indisponivel"
-                            disabled
-                          >
-                            📞 WhatsApp indisponível
-                          </button>`
-                    }
-
-                  </div>
-
-                </div>
-
-              </article>
-
-            `;
-
-          }).join("");
-
-
-      }
-
-      catch (erro) {
-
-        console.error(
-          "[LUX MODELOS]",
-          erro
-        );
-
-
-        lista.innerHTML =
-          '<div class="empty">Não foi possível carregar os modelos aprovados.</div>';
-
-      }
+      );
 
     }
+  );
 
 
-    carregarModelos();
+carregarModelos();
 
-  </script></body></html>
+</script>
+
+
+</body>
+
+</html>

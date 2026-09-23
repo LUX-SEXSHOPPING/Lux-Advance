@@ -1,53 +1,173 @@
 /* =========================================================
-   LUX ADVANCE — PAINEL ADMINISTRATIVO V8
+   LUX ADVANCE — PAINEL ADMINISTRATIVO V1.9
    painel-admin.js
 
-   CORREÇÃO PRINCIPAL:
-   - Busca modelos em public.modelo_perfis
-   - Usa verificacao_status
-   - Aprova/reprova modelo_perfis
-   - Atualiza também public.perfis
-   - Mantém os demais módulos administrativos
+   V1.9 — CORREÇÃO DO SISTEMA DE APROVAÇÃO
+
+   PRINCIPAIS CORREÇÕES:
+   - Botões APROVAR e REPROVAR recebem eventos diretamente
+     pelo JavaScript.
+   - Mantém compatibilidade com onclick antigo do HTML.
+   - Usa public.modelo_perfis.
+   - Usa verificacao_status.
+   - Atualiza public.perfis.
+   - Evita duplo clique.
+   - Atualiza lista e dashboard após aprovação.
+   - Mantém os demais módulos administrativos.
    ========================================================= */
 
 (function () {
 
   "use strict";
 
+  const VERSAO =
+    "V1.9";
+
   let listaModelos = [];
   let filtroAtual = "todos";
   let fichaAtual = null;
+  let alterandoStatus = false;
 
-  document.addEventListener("DOMContentLoaded", async function () {
 
-    console.log("[LUX ADMIN V8] Painel iniciado.");
+  /* =========================================================
+     INICIALIZAÇÃO
+     ========================================================= */
 
-    if (!window.luxSupabase) {
-      console.error(
-        "[LUX ADMIN V8] Supabase não inicializado."
+  document.addEventListener(
+    "DOMContentLoaded",
+    async function () {
+
+      console.log(
+        "[LUX ADMIN V1.9] Painel iniciado."
       );
 
-      mostrarErroInicializacao(
-        "Supabase não foi inicializado. Verifique o config.js."
+      if (!window.luxSupabase) {
+
+        console.error(
+          "[LUX ADMIN V1.9] Supabase não inicializado."
+        );
+
+        mostrarErroInicializacao(
+          "Supabase não foi inicializado. Verifique o config.js."
+        );
+
+        return;
+      }
+
+
+      configurarFiltros();
+
+      configurarBotoesStatus();
+
+      await carregarModelos();
+
+      atualizarDashboard();
+
+    }
+  );
+
+
+  /* =========================================================
+     CONFIGURAR BOTÕES APROVAR / REPROVAR
+     V1.9
+     ========================================================= */
+
+  function configurarBotoesStatus() {
+
+    const botaoAprovar =
+      document.getElementById(
+        "botao-aprovar"
       );
 
-      return;
+    const botaoRejeitar =
+      document.getElementById(
+        "botao-rejeitar"
+      );
+
+
+    if (botaoAprovar) {
+
+      console.log(
+        "[LUX ADMIN V1.9] Botão APROVAR encontrado."
+      );
+
+
+      botaoAprovar.type =
+        "button";
+
+
+      botaoAprovar.addEventListener(
+        "click",
+        function (evento) {
+
+          evento.preventDefault();
+
+          evento.stopPropagation();
+
+          console.log(
+            "[LUX ADMIN V1.9] Clique em APROVAR."
+          );
+
+          window.aprovarModelo();
+
+        }
+      );
+
+    } else {
+
+      console.warn(
+        "[LUX ADMIN V1.9] Botão #botao-aprovar não encontrado no carregamento."
+      );
+
     }
 
-    configurarFiltros();
 
-    await carregarModelos();
+    if (botaoRejeitar) {
 
-    atualizarDashboard();
+      console.log(
+        "[LUX ADMIN V1.9] Botão REPROVAR encontrado."
+      );
 
-  });
+
+      botaoRejeitar.type =
+        "button";
+
+
+      botaoRejeitar.addEventListener(
+        "click",
+        function (evento) {
+
+          evento.preventDefault();
+
+          evento.stopPropagation();
+
+          console.log(
+            "[LUX ADMIN V1.9] Clique em REPROVAR."
+          );
+
+          window.rejeitarModelo();
+
+        }
+      );
+
+    } else {
+
+      console.warn(
+        "[LUX ADMIN V1.9] Botão #botao-rejeitar não encontrado no carregamento."
+      );
+
+    }
+
+  }
 
 
   /* =========================================================
      ERRO DE INICIALIZAÇÃO
      ========================================================= */
 
-  function mostrarErroInicializacao(mensagem) {
+  function mostrarErroInicializacao(
+    mensagem
+  ) {
 
     const lista =
       document.getElementById(
@@ -56,7 +176,9 @@
 
     if (!lista) return;
 
+
     lista.innerHTML = `
+
       <div style="
         padding:25px;
         text-align:center;
@@ -81,6 +203,7 @@
         </p>
 
       </div>
+
     `;
 
   }
@@ -97,16 +220,19 @@
         "lista-precadastros"
       );
 
+
     if (!lista) {
 
       console.warn(
-        "[LUX ADMIN V8] #lista-precadastros não encontrado."
+        "[LUX ADMIN V1.9] #lista-precadastros não encontrado."
       );
 
       return;
     }
 
+
     lista.innerHTML = `
+
       <div style="
         padding:30px;
         text-align:center;
@@ -114,13 +240,16 @@
       ">
         Carregando modelos...
       </div>
+
     `;
+
 
     try {
 
       console.log(
-        "[LUX ADMIN V8] Buscando modelos em modelo_perfis..."
+        "[LUX ADMIN V1.9] Buscando modelos em modelo_perfis..."
       );
+
 
       const resultado =
         await window.luxSupabase
@@ -129,9 +258,10 @@
           .order(
             "criado_em",
             {
-              ascending:false
+              ascending: false
             }
           );
+
 
       const data =
         resultado.data;
@@ -139,14 +269,17 @@
       const error =
         resultado.error;
 
+
       if (error) {
 
         console.error(
-          "[LUX ADMIN V8] Erro:",
+          "[LUX ADMIN V1.9] Erro:",
           error
         );
 
+
         lista.innerHTML = `
+
           <div style="
             padding:25px;
             text-align:center;
@@ -174,20 +307,24 @@
             </p>
 
           </div>
+
         `;
 
         return;
       }
+
 
       listaModelos =
         Array.isArray(data)
           ? data
           : [];
 
+
       console.log(
-        "[LUX ADMIN V8] Modelos encontrados:",
+        "[LUX ADMIN V1.9] Modelos encontrados:",
         listaModelos.length
       );
+
 
       renderizarModelos();
 
@@ -196,11 +333,13 @@
     } catch (erro) {
 
       console.error(
-        "[LUX ADMIN V8] Erro inesperado:",
+        "[LUX ADMIN V1.9] Erro inesperado:",
         erro
       );
 
+
       lista.innerHTML = `
+
         <div style="
           padding:25px;
           text-align:center;
@@ -208,6 +347,7 @@
         ">
           Erro inesperado ao carregar os modelos.
         </div>
+
       `;
 
     }
@@ -226,9 +366,11 @@
         "lista-precadastros"
       );
 
+
     if (!lista) return;
 
-    let modelos =
+
+    const modelos =
       listaModelos.filter(
         function (modelo) {
 
@@ -237,13 +379,18 @@
               modelo.verificacao_status
             );
 
+
           if (
             filtroAtual === "todos"
           ) {
+
             return true;
+
           }
 
-          return status === filtroAtual;
+
+          return status ===
+            filtroAtual;
 
         }
       );
@@ -252,6 +399,7 @@
     if (!modelos.length) {
 
       lista.innerHTML = `
+
         <div style="
           padding:35px 20px;
           text-align:center;
@@ -282,6 +430,7 @@
           </p>
 
         </div>
+
       `;
 
       return;
@@ -296,32 +445,40 @@
             modelo.nome_exibicao ||
             "Sem nome";
 
+
           const apelido =
             modelo.apelido ||
             "";
+
 
           const cidade =
             modelo.cidade ||
             "Não informada";
 
+
           const whatsapp =
             modelo.whatsapp ||
             "Não informado";
+
 
           const categoria =
             modelo.categoria_catalogo ||
             "Não informada";
 
+
           const idade =
             modelo.idade ||
             "Não informada";
+
 
           const status =
             normalizarStatus(
               modelo.verificacao_status
             );
 
+
           return `
+
             <div
               class="card-modelo"
               style="
@@ -363,6 +520,7 @@
                     ${escaparHTML(nome)}
                   </div>
 
+
                   ${
                     apelido
                       ? `
@@ -376,6 +534,7 @@
                       `
                       : ""
                   }
+
 
                   <div style="
                     color:#ccc;
@@ -419,6 +578,7 @@
 
                   ${badgeStatus(status)}
 
+
                   <button
                     type="button"
                     onclick="
@@ -444,6 +604,7 @@
               </div>
 
             </div>
+
           `;
 
         }
@@ -456,11 +617,16 @@
      NORMALIZAR STATUS
      ========================================================= */
 
-  function normalizarStatus(status) {
+  function normalizarStatus(
+    status
+  ) {
 
     if (!status) {
+
       return "pendente";
+
     }
+
 
     const valor =
       String(status)
@@ -471,12 +637,16 @@
           ""
         );
 
+
     if (
       valor === "aprovado" ||
       valor === "aprovada"
     ) {
+
       return "aprovado";
+
     }
+
 
     if (
       valor === "reprovado" ||
@@ -486,8 +656,11 @@
       valor === "recusado" ||
       valor === "recusada"
     ) {
+
       return "reprovado";
+
     }
+
 
     return "pendente";
 
@@ -498,13 +671,16 @@
      BADGE
      ========================================================= */
 
-  function badgeStatus(status) {
+  function badgeStatus(
+    status
+  ) {
 
     if (
       status === "aprovado"
     ) {
 
       return `
+
         <span style="
           display:inline-block;
           padding:6px 12px;
@@ -517,6 +693,7 @@
         ">
           ✓ APROVADO
         </span>
+
       `;
 
     }
@@ -527,6 +704,7 @@
     ) {
 
       return `
+
         <span style="
           display:inline-block;
           padding:6px 12px;
@@ -539,12 +717,14 @@
         ">
           ✕ REPROVADO
         </span>
+
       `;
 
     }
 
 
     return `
+
       <span style="
         display:inline-block;
         padding:6px 12px;
@@ -557,6 +737,7 @@
       ">
         ◷ PENDENTE
       </span>
+
     `;
 
   }
@@ -573,6 +754,7 @@
         ".btn-filtro"
       );
 
+
     botoes.forEach(
       function (botao) {
 
@@ -582,27 +764,35 @@
 
             botoes.forEach(
               function (b) {
+
                 b.classList.remove(
                   "ativo"
                 );
+
               }
             );
+
 
             botao.classList.add(
               "ativo"
             );
 
+
             filtroAtual =
               botao.dataset.filtro ||
               "todos";
+
 
             if (
               filtroAtual ===
               "rejeitado"
             ) {
+
               filtroAtual =
                 "reprovado";
+
             }
+
 
             renderizarModelos();
 
@@ -623,6 +813,7 @@
 
     const total =
       listaModelos.length;
+
 
     const pendentes =
       listaModelos.filter(
@@ -671,15 +862,18 @@
       total
     );
 
+
     atualizarElemento(
       "resumoPendentes",
       pendentes
     );
 
+
     atualizarElemento(
       "resumoAprovados",
       aprovados
     );
+
 
     atualizarElemento(
       "resumoRejeitados",
@@ -697,9 +891,12 @@
     const elemento =
       document.getElementById(id);
 
+
     if (elemento) {
+
       elemento.textContent =
         valor;
+
     }
 
   }
@@ -712,12 +909,20 @@
   window.verFichaModelo =
     function (id) {
 
+      console.log(
+        "[LUX ADMIN V1.9] Abrindo ficha:",
+        id
+      );
+
+
       const modelo =
         listaModelos.find(
           function (item) {
 
-            return String(item.id) ===
-              String(id);
+            return (
+              String(item.id) ===
+              String(id)
+            );
 
           }
         );
@@ -810,8 +1015,7 @@
           ${campoFicha(
             "Altura",
             modelo.altura_cm
-              ? modelo.altura_cm +
-                " cm"
+              ? modelo.altura_cm + " cm"
               : null
           )}
 
@@ -925,20 +1129,36 @@
 
       if (botaoAprovar) {
 
+        botaoAprovar.type =
+          "button";
+
+
         botaoAprovar.style.display =
           status === "aprovado"
             ? "none"
             : "inline-block";
+
+
+        botaoAprovar.disabled =
+          false;
 
       }
 
 
       if (botaoRejeitar) {
 
+        botaoRejeitar.type =
+          "button";
+
+
         botaoRejeitar.style.display =
           status === "reprovado"
             ? "none"
             : "inline-block";
+
+
+        botaoRejeitar.disabled =
+          false;
 
       }
 
@@ -959,11 +1179,15 @@
       valor === undefined ||
       valor === ""
     ) {
+
       valor =
         "Não informado";
+
     }
 
+
     return `
+
       <div style="
         padding:12px 14px;
         border-radius:10px;
@@ -992,6 +1216,7 @@
         </div>
 
       </div>
+
     `;
 
   }
@@ -999,10 +1224,26 @@
 
   /* =========================================================
      APROVAR
+     V1.9
      ========================================================= */
 
   window.aprovarModelo =
     async function () {
+
+      console.log(
+        "[LUX ADMIN V1.9] aprovarModelo() executada."
+      );
+
+
+      if (!fichaAtual) {
+
+        alert(
+          "Nenhum modelo selecionado."
+        );
+
+        return;
+      }
+
 
       await alterarStatusModelo(
         "aprovado"
@@ -1013,10 +1254,26 @@
 
   /* =========================================================
      REPROVAR
+     V1.9
      ========================================================= */
 
   window.rejeitarModelo =
     async function () {
+
+      console.log(
+        "[LUX ADMIN V1.9] rejeitarModelo() executada."
+      );
+
+
+      if (!fichaAtual) {
+
+        alert(
+          "Nenhum modelo selecionado."
+        );
+
+        return;
+      }
+
 
       await alterarStatusModelo(
         "reprovado"
@@ -1027,11 +1284,29 @@
 
   /* =========================================================
      ALTERAR STATUS
+     V1.9
      ========================================================= */
 
   async function alterarStatusModelo(
     novoStatus
   ) {
+
+    console.log(
+      "[LUX ADMIN V1.9] Alterando status:",
+      novoStatus
+    );
+
+
+    if (alterandoStatus) {
+
+      console.warn(
+        "[LUX ADMIN V1.9] Operação já em andamento."
+      );
+
+      return;
+
+    }
+
 
     if (!fichaAtual) {
 
@@ -1040,12 +1315,44 @@
       );
 
       return;
+
     }
+
+
+    if (!window.luxSupabase) {
+
+      alert(
+        "Supabase não está disponível."
+      );
+
+      return;
+
+    }
+
+
+    const idModelo =
+      fichaAtual.id;
 
 
     const nome =
       fichaAtual.nome_exibicao ||
       "modelo";
+
+
+    if (!idModelo) {
+
+      alert(
+        "O ID da modelo não foi encontrado."
+      );
+
+      console.error(
+        "[LUX ADMIN V1.9] fichaAtual sem ID:",
+        fichaAtual
+      );
+
+      return;
+
+    }
 
 
     const mensagem =
@@ -1054,16 +1361,76 @@
         : `Deseja reprovar o cadastro de ${nome}?`;
 
 
-    if (!confirm(mensagem)) {
+    const confirmou =
+      window.confirm(
+        mensagem
+      );
+
+
+    if (!confirmou) {
+
+      console.log(
+        "[LUX ADMIN V1.9] Operação cancelada pelo administrador."
+      );
+
       return;
+
+    }
+
+
+    alterandoStatus =
+      true;
+
+
+    const botaoAprovar =
+      document.getElementById(
+        "botao-aprovar"
+      );
+
+
+    const botaoRejeitar =
+      document.getElementById(
+        "botao-rejeitar"
+      );
+
+
+    if (botaoAprovar) {
+
+      botaoAprovar.disabled =
+        true;
+
+    }
+
+
+    if (botaoRejeitar) {
+
+      botaoRejeitar.disabled =
+        true;
+
     }
 
 
     try {
 
-      /* -----------------------------------------
+      const novoStatusNormalizado =
+        novoStatus === "aprovado"
+          ? "aprovado"
+          : "reprovado";
+
+
+      console.log(
+        "[LUX ADMIN V1.9] Atualizando modelo_perfis:",
+        {
+          id: idModelo,
+          verificacao_status:
+            novoStatusNormalizado
+        }
+      );
+
+
+      /* =====================================================
          ATUALIZA MODELO_PERFIS
-         ----------------------------------------- */
+         ===================================================== */
 
       const resultado =
         await window.luxSupabase
@@ -1071,7 +1438,7 @@
           .update({
 
             verificacao_status:
-              novoStatus,
+              novoStatusNormalizado,
 
             atualizado_em:
               new Date().toISOString()
@@ -1079,43 +1446,58 @@
           })
           .eq(
             "id",
-            fichaAtual.id
+            idModelo
           )
           .select()
           .single();
 
 
-      const data =
-        resultado.data;
-
-      const error =
-        resultado.error;
-
-
-      if (error) {
+      if (resultado.error) {
 
         console.error(
-          "[LUX ADMIN V8] Erro modelo_perfis:",
-          error
+          "[LUX ADMIN V1.9] Erro ao atualizar modelo_perfis:",
+          resultado.error
         );
+
 
         alert(
-          "Não foi possível atualizar o modelo.\n\n" +
-          error.message
+          "Não foi possível alterar o status da modelo.\n\n" +
+          "Erro do Supabase:\n" +
+          (
+            resultado.error.message ||
+            "Erro desconhecido."
+          )
         );
 
+
         return;
+
       }
 
 
-      /* -----------------------------------------
+      console.log(
+        "[LUX ADMIN V1.9] modelo_perfis atualizado:",
+        resultado.data
+      );
+
+
+      /* =====================================================
          ATUALIZA PERFIS
-         ----------------------------------------- */
+         ===================================================== */
 
       const statusPerfil =
-        novoStatus === "aprovado"
+        novoStatusNormalizado === "aprovado"
           ? "ativo"
           : "inativo";
+
+
+      console.log(
+        "[LUX ADMIN V1.9] Atualizando perfis:",
+        {
+          id: idModelo,
+          status: statusPerfil
+        }
+      );
 
 
       const resultadoPerfil =
@@ -1132,7 +1514,7 @@
           })
           .eq(
             "id",
-            fichaAtual.id
+            idModelo
           );
 
 
@@ -1141,24 +1523,30 @@
       ) {
 
         console.warn(
-          "[LUX ADMIN V8] modelo_perfis atualizado, mas perfis apresentou erro:",
+          "[LUX ADMIN V1.9] modelo_perfis atualizado, mas perfis apresentou erro:",
           resultadoPerfil.error
+        );
+
+
+        alert(
+          "A modelo foi atualizada, mas houve um problema ao atualizar o status geral da conta:\n\n" +
+          resultadoPerfil.error.message
         );
 
       }
 
 
-      /* -----------------------------------------
-         ATUALIZA MEMÓRIA
-         ----------------------------------------- */
+      /* =====================================================
+         ATUALIZA MEMÓRIA LOCAL
+         ===================================================== */
 
-      fichaAtual =
-        data ||
+      const modeloAtualizado =
+        resultado.data ||
         {
           ...fichaAtual,
 
           verificacao_status:
-            novoStatus,
+            novoStatusNormalizado,
 
           atualizado_em:
             new Date().toISOString()
@@ -1170,8 +1558,10 @@
         listaModelos.findIndex(
           function (item) {
 
-            return String(item.id) ===
-              String(fichaAtual.id);
+            return (
+              String(item.id) ===
+              String(idModelo)
+            );
 
           }
         );
@@ -1180,13 +1570,23 @@
       if (indice !== -1) {
 
         listaModelos[indice] =
-          fichaAtual;
+          modeloAtualizado;
 
       }
 
 
+      fichaAtual =
+        modeloAtualizado;
+
+
       atualizarDashboard();
 
+      renderizarModelos();
+
+
+      /* =====================================================
+         FECHAR MODAL
+         ===================================================== */
 
       const modal =
         document.getElementById(
@@ -1206,11 +1606,20 @@
         null;
 
 
+      /* =====================================================
+         RECARREGAR DADOS
+         ===================================================== */
+
       await carregarModelos();
 
 
+      console.log(
+        "[LUX ADMIN V1.9] Status alterado com sucesso."
+      );
+
+
       alert(
-        novoStatus === "aprovado"
+        novoStatusNormalizado === "aprovado"
           ? "Modelo aprovado com sucesso."
           : "Modelo reprovado com sucesso."
       );
@@ -1219,17 +1628,41 @@
     } catch (erro) {
 
       console.error(
-        "[LUX ADMIN V8] Erro ao alterar status:",
+        "[LUX ADMIN V1.9] Erro ao alterar status:",
         erro
       );
+
 
       alert(
         "Ocorreu um erro ao atualizar o modelo.\n\n" +
         (
           erro.message ||
-          ""
+          String(erro) ||
+          "Erro desconhecido."
         )
       );
+
+
+    } finally {
+
+      alterandoStatus =
+        false;
+
+
+      if (botaoAprovar) {
+
+        botaoAprovar.disabled =
+          false;
+
+      }
+
+
+      if (botaoRejeitar) {
+
+        botaoRejeitar.disabled =
+          false;
+
+      }
 
     }
 
@@ -1248,12 +1681,14 @@
           "modal-ver-ficha"
         );
 
+
       if (modal) {
 
         modal.style.display =
           "none";
 
       }
+
 
       fichaAtual =
         null;
@@ -1275,6 +1710,7 @@
         );
 
         return;
+
       }
 
 
@@ -1467,6 +1903,7 @@
         );
 
         return;
+
       }
 
 
@@ -1499,11 +1936,15 @@
       valor === undefined ||
       valor === ""
     ) {
+
       valor =
         "Não informado";
+
     }
 
+
     return `
+
       <div class="campo">
 
         <span class="titulo">
@@ -1515,6 +1956,7 @@
         )}
 
       </div>
+
     `;
 
   }
@@ -1545,6 +1987,7 @@
         await abrirModuloAvaliacoes();
 
         return;
+
       }
 
 
@@ -1557,6 +2000,7 @@
         await abrirModuloReclamacoes();
 
         return;
+
       }
 
 
@@ -1569,6 +2013,7 @@
         await abrirModuloAssinaturas();
 
         return;
+
       }
 
 
@@ -1581,6 +2026,7 @@
         abrirModuloPlanos();
 
         return;
+
       }
 
 
@@ -1593,6 +2039,7 @@
         abrirModuloDoacoes();
 
         return;
+
       }
 
 
@@ -1605,6 +2052,7 @@
         abrirModuloPagamentos();
 
         return;
+
       }
 
 
@@ -1617,6 +2065,7 @@
         abrirModuloUsuarios();
 
         return;
+
       }
 
 
@@ -1644,7 +2093,7 @@
           .order(
             "criado_em",
             {
-              ascending:false
+              ascending: false
             }
           );
 
@@ -1658,6 +2107,7 @@
         );
 
         return;
+
       }
 
 
@@ -1673,6 +2123,7 @@
         );
 
         return;
+
       }
 
 
@@ -1705,6 +2156,7 @@
 
 
             return `
+
               <div style="
                 padding:16px;
                 margin-bottom:12px;
@@ -1742,6 +2194,7 @@
                 </div>
 
               </div>
+
             `;
 
           }
@@ -1760,6 +2213,7 @@
       console.error(
         erro
       );
+
 
       mostrarModalGenerico(
         "AVALIAÇÕES",
@@ -1786,7 +2240,7 @@
           .order(
             "criado_em",
             {
-              ascending:false
+              ascending: false
             }
           );
 
@@ -1800,6 +2254,7 @@
         );
 
         return;
+
       }
 
 
@@ -1815,6 +2270,7 @@
         );
 
         return;
+
       }
 
 
@@ -1823,6 +2279,7 @@
           function (item) {
 
             return `
+
               <div style="
                 padding:17px;
                 margin-bottom:12px;
@@ -1875,6 +2332,7 @@
                 </div>
 
               </div>
+
             `;
 
           }
@@ -1893,6 +2351,7 @@
       console.error(
         erro
       );
+
 
       mostrarModalGenerico(
         "RECLAMAÇÕES",
@@ -1919,7 +2378,7 @@
           .order(
             "criado_em",
             {
-              ascending:false
+              ascending: false
             }
           );
 
@@ -1933,6 +2392,7 @@
         );
 
         return;
+
       }
 
 
@@ -1948,6 +2408,7 @@
         );
 
         return;
+
       }
 
 
@@ -1956,6 +2417,7 @@
           function (item) {
 
             return `
+
               <div style="
                 padding:17px;
                 margin-bottom:12px;
@@ -1998,6 +2460,7 @@
                 </div>
 
               </div>
+
             `;
 
           }
@@ -2016,6 +2479,7 @@
       console.error(
         erro
       );
+
 
       mostrarModalGenerico(
         "ASSINATURAS",
@@ -2108,6 +2572,7 @@
   ) {
 
     return `
+
       <div style="
         padding:18px;
         border:1px solid rgba(248,213,138,.18);
@@ -2120,7 +2585,7 @@
           font-size:18px;
           font-weight:bold;
         ">
-          ${nome}
+          ${escaparHTML(nome)}
         </div>
 
         <div style="
@@ -2128,14 +2593,14 @@
           font-size:16px;
           margin-top:5px;
         ">
-          ${preco}
+          ${escaparHTML(preco)}
         </div>
 
         <div style="
           color:#ddd;
           margin-top:7px;
         ">
-          ${descricao}
+          ${escaparHTML(descricao)}
         </div>
 
         <ul style="
@@ -2159,6 +2624,7 @@
         </ul>
 
       </div>
+
     `;
 
   }
@@ -2316,7 +2782,9 @@
 
 
     if (existente) {
+
       existente.remove();
+
     }
 
 
@@ -2553,8 +3021,8 @@
       return dataObj.toLocaleString(
         "pt-BR",
         {
-          dateStyle:"short",
-          timeStyle:"short"
+          dateStyle: "short",
+          timeStyle: "short"
         }
       );
 
@@ -2635,6 +3103,19 @@
       );
 
   }
+
+
+  /* =========================================================
+     IDENTIFICAÇÃO DA VERSÃO
+     ========================================================= */
+
+  window.LUX_ADMIN_VERSION =
+    VERSAO;
+
+
+  console.log(
+    "[LUX ADMIN V1.9] JavaScript carregado com sucesso."
+  );
 
 
 })();

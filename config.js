@@ -1,28 +1,52 @@
-const LUX_SUPABASE_URL =
-  "https://lardmkeyyifmgbjrcfhn.supabase.co";
-
-const LUX_SUPABASE_ANON_KEY =
-  "sb_publishable_U_Kpn40EXhDrj3Ju9By_Xg_elyY7iB2";
-
-
 /* =========================================================
-   VERIFICAÇÃO DA BIBLIOTECA SUPABASE
+   LUX — CONFIGURAÇÃO SUPABASE
+   VERSÃO 4 — INICIALIZAÇÃO FORÇADA
    ========================================================= */
 
-if (!window.supabase) {
-  console.error(
-    "Biblioteca Supabase não foi carregada."
-  );
-}
+(function () {
+
+  "use strict";
+
+  console.log("[LUX CONFIG V4] Iniciando config.js...");
+
+  /* =======================================================
+     DADOS DO SUPABASE
+     ======================================================= */
+
+  const LUX_SUPABASE_URL =
+    "https://lardmkeyyifmgbjrcfhn.supabase.co";
+
+  const LUX_SUPABASE_ANON_KEY =
+    "sb_publishable_U_Kpn40EXhDrj3Ju9By_Xg_elyY7iB2";
 
 
-/* =========================================================
-   CLIENTE SUPABASE
-   ========================================================= */
+  /* =======================================================
+     VERIFICAR BIBLIOTECA
+     ======================================================= */
 
-const luxSupabase =
-  window.supabase
-    ? window.supabase.createClient(
+  if (!window.supabase) {
+
+    console.error(
+      "[LUX CONFIG V4] Biblioteca Supabase NÃO foi carregada."
+    );
+
+    window.luxSupabase = null;
+
+    window.LUX_CONFIG_ERRO =
+      "Biblioteca Supabase não carregada.";
+
+    return;
+  }
+
+
+  /* =======================================================
+     CRIAR CLIENTE
+     ======================================================= */
+
+  try {
+
+    const cliente =
+      window.supabase.createClient(
         LUX_SUPABASE_URL,
         LUX_SUPABASE_ANON_KEY,
         {
@@ -32,23 +56,61 @@ const luxSupabase =
             detectSessionInUrl: true
           }
         }
-      )
-    : null;
+      );
 
 
-/* =========================================================
-   DISPONIBILIZAR SUPABASE NO PROJETO
-   ========================================================= */
+    /* =====================================================
+       DISPONIBILIZAR GLOBALMENTE
+       ===================================================== */
 
-window.luxSupabase = luxSupabase;
+    window.luxSupabase = cliente;
+
+    window.LUX_SUPABASE_URL =
+      LUX_SUPABASE_URL;
 
 
-/* =========================================================
-   ADMINISTRADOR LUX
-   ========================================================= */
+    window.LUX_SUPABASE_ANON_KEY =
+      LUX_SUPABASE_ANON_KEY;
 
-const LUX_ADMIN_EMAIL =
-  "luxcdam@gmail.com";
 
-window.LUX_ADMIN_EMAIL =
-  LUX_ADMIN_EMAIL;
+    window.LUX_CONFIG_ERRO =
+      null;
+
+
+    console.log(
+      "[LUX CONFIG V4] Supabase inicializado com sucesso."
+    );
+
+
+  } catch (erro) {
+
+    console.error(
+      "[LUX CONFIG V4] Erro ao criar cliente Supabase:",
+      erro
+    );
+
+    window.luxSupabase = null;
+
+    window.LUX_CONFIG_ERRO =
+      erro.message || "Erro desconhecido.";
+
+  }
+
+
+  /* =======================================================
+     ADMINISTRADOR
+     ======================================================= */
+
+  window.LUX_ADMIN_EMAIL =
+    "luxcdam@gmail.com";
+
+
+  /* =======================================================
+     MARCADOR DE VERSÃO
+     ======================================================= */
+
+  window.LUX_CONFIG_VERSION =
+    "V4";
+
+
+})();

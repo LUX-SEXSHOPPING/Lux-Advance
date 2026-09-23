@@ -1,78 +1,108 @@
 /* =========================================================
-   LUX ADVANCE — PAINEL ADMINISTRATIVO
+   LUX ADVANCE — PAINEL ADMINISTRATIVO V8
    painel-admin.js
+
+   CORREÇÃO PRINCIPAL:
+   - Busca modelos em public.modelo_perfis
+   - Usa verificacao_status
+   - Aprova/reprova modelo_perfis
+   - Atualiza também public.perfis
+   - Mantém os demais módulos administrativos
    ========================================================= */
 
 (function () {
+
   "use strict";
 
   let listaModelos = [];
   let filtroAtual = "todos";
   let fichaAtual = null;
 
-  /* =========================================================
-     INICIALIZAÇÃO
-     ========================================================= */
-
   document.addEventListener("DOMContentLoaded", async function () {
 
+    console.log("[LUX ADMIN V8] Painel iniciado.");
+
     if (!window.luxSupabase) {
-      console.error("Supabase não foi inicializado.");
+      console.error(
+        "[LUX ADMIN V8] Supabase não inicializado."
+      );
+
       mostrarErroInicializacao(
         "Supabase não foi inicializado. Verifique o config.js."
       );
+
       return;
     }
 
     configurarFiltros();
 
     await carregarModelos();
+
     atualizarDashboard();
 
   });
 
 
   /* =========================================================
-     MENSAGEM DE ERRO
+     ERRO DE INICIALIZAÇÃO
      ========================================================= */
 
   function mostrarErroInicializacao(mensagem) {
 
-    const lista = document.getElementById("lista-precadastros");
+    const lista =
+      document.getElementById(
+        "lista-precadastros"
+      );
 
-    if (lista) {
-      lista.innerHTML = `
-        <div style="
-          padding:25px;
-          text-align:center;
-          border:1px solid rgba(255,77,166,.35);
-          border-radius:16px;
-          background:rgba(255,77,166,.08);
-          color:#fff;
+    if (!lista) return;
+
+    lista.innerHTML = `
+      <div style="
+        padding:25px;
+        text-align:center;
+        border:1px solid rgba(255,77,166,.35);
+        border-radius:16px;
+        background:rgba(255,77,166,.08);
+        color:#fff;
+      ">
+
+        <strong style="
+          color:#ff4da6;
+          font-size:18px;
         ">
-          <strong style="color:#ff4da6;">
-            Erro no sistema
-          </strong>
+          Erro no sistema
+        </strong>
 
-          <p style="margin-top:10px;color:#ddd;">
-            ${escaparHTML(mensagem)}
-          </p>
-        </div>
-      `;
-    }
+        <p style="
+          margin-top:10px;
+          color:#ddd;
+        ">
+          ${escaparHTML(mensagem)}
+        </p>
+
+      </div>
+    `;
+
   }
 
 
   /* =========================================================
-     CARREGAR PRÉ-CADASTROS
+     CARREGAR MODELOS
      ========================================================= */
 
   async function carregarModelos() {
 
-    const lista = document.getElementById("lista-precadastros");
+    const lista =
+      document.getElementById(
+        "lista-precadastros"
+      );
 
     if (!lista) {
-      console.warn("Elemento #lista-precadastros não encontrado.");
+
+      console.warn(
+        "[LUX ADMIN V8] #lista-precadastros não encontrado."
+      );
+
       return;
     }
 
@@ -82,24 +112,39 @@
         text-align:center;
         color:#ddd;
       ">
-        Carregando cadastros...
+        Carregando modelos...
       </div>
     `;
 
     try {
 
-      const {
-        data,
-        error
-      } = await window.luxSupabase
-        .from("pre_cadastros_modelos")
-        .select("*")
-        .order("criado_em", {
-          ascending: false
-        });
+      console.log(
+        "[LUX ADMIN V8] Buscando modelos em modelo_perfis..."
+      );
+
+      const resultado =
+        await window.luxSupabase
+          .from("modelo_perfis")
+          .select("*")
+          .order(
+            "criado_em",
+            {
+              ascending:false
+            }
+          );
+
+      const data =
+        resultado.data;
+
+      const error =
+        resultado.error;
 
       if (error) {
-        console.error("Erro ao carregar modelos:", error);
+
+        console.error(
+          "[LUX ADMIN V8] Erro:",
+          error
+        );
 
         lista.innerHTML = `
           <div style="
@@ -110,8 +155,11 @@
             background:rgba(255,77,166,.06);
             color:#fff;
           ">
-            <strong style="color:#ff4da6;">
-              Não foi possível carregar os cadastros.
+
+            <strong style="
+              color:#ff4da6;
+            ">
+              Não foi possível carregar os modelos.
             </strong>
 
             <p style="
@@ -119,15 +167,27 @@
               color:#aaa;
               font-size:13px;
             ">
-              ${escaparHTML(error.message || "Erro desconhecido")}
+              ${escaparHTML(
+                error.message ||
+                "Erro desconhecido."
+              )}
             </p>
+
           </div>
         `;
 
         return;
       }
 
-      listaModelos = Array.isArray(data) ? data : [];
+      listaModelos =
+        Array.isArray(data)
+          ? data
+          : [];
+
+      console.log(
+        "[LUX ADMIN V8] Modelos encontrados:",
+        listaModelos.length
+      );
 
       renderizarModelos();
 
@@ -135,7 +195,10 @@
 
     } catch (erro) {
 
-      console.error(erro);
+      console.error(
+        "[LUX ADMIN V8] Erro inesperado:",
+        erro
+      );
 
       lista.innerHTML = `
         <div style="
@@ -143,10 +206,12 @@
           text-align:center;
           color:#fff;
         ">
-          Erro inesperado ao carregar os cadastros.
+          Erro inesperado ao carregar os modelos.
         </div>
       `;
+
     }
+
   }
 
 
@@ -156,21 +221,32 @@
 
   function renderizarModelos() {
 
-    const lista = document.getElementById("lista-precadastros");
+    const lista =
+      document.getElementById(
+        "lista-precadastros"
+      );
 
     if (!lista) return;
 
-    let modelos = listaModelos.filter(function (modelo) {
+    let modelos =
+      listaModelos.filter(
+        function (modelo) {
 
-      const status = normalizarStatus(modelo.status);
+          const status =
+            normalizarStatus(
+              modelo.verificacao_status
+            );
 
-      if (filtroAtual === "todos") {
-        return true;
-      }
+          if (
+            filtroAtual === "todos"
+          ) {
+            return true;
+          }
 
-      return status === filtroAtual;
+          return status === filtroAtual;
 
-    });
+        }
+      );
 
 
     if (!modelos.length) {
@@ -195,14 +271,14 @@
             color:#f8d58a;
             font-size:18px;
           ">
-            Nenhum cadastro encontrado
+            Nenhum modelo encontrado
           </strong>
 
           <p style="
             color:#aaa;
             margin-top:8px;
           ">
-            Não existem cadastros para este filtro.
+            Não existem modelos para este filtro.
           </p>
 
         </div>
@@ -212,150 +288,172 @@
     }
 
 
-    lista.innerHTML = modelos.map(function (modelo) {
+    lista.innerHTML =
+      modelos.map(
+        function (modelo) {
 
-      const nome =
-        modelo.nome ||
-        modelo.nome_completo ||
-        "Sem nome";
+          const nome =
+            modelo.nome_exibicao ||
+            "Sem nome";
 
-      const apelido =
-        modelo.apelido ||
-        modelo.nickname ||
-        modelo.nome_artistico ||
-        "";
+          const apelido =
+            modelo.apelido ||
+            "";
 
-      const cidade =
-        modelo.cidade ||
-        "Não informada";
+          const cidade =
+            modelo.cidade ||
+            "Não informada";
 
-      const whatsapp =
-        modelo.whatsapp ||
-        modelo.telefone ||
-        modelo.celular ||
-        "Não informado";
+          const whatsapp =
+            modelo.whatsapp ||
+            "Não informado";
 
-      const email =
-        modelo.email ||
-        "Não informado";
+          const categoria =
+            modelo.categoria_catalogo ||
+            "Não informada";
 
-      const status =
-        normalizarStatus(modelo.status);
+          const idade =
+            modelo.idade ||
+            "Não informada";
 
-      return `
-        <div class="card-modelo" style="
-          position:relative;
-          padding:20px;
-          margin-bottom:15px;
-          border:1px solid rgba(248,213,138,.18);
-          border-radius:18px;
-          background:
-            linear-gradient(
-              145deg,
-              rgba(255,255,255,.045),
-              rgba(255,255,255,.015)
+          const status =
+            normalizarStatus(
+              modelo.verificacao_status
             );
-          box-shadow:0 10px 30px rgba(0,0,0,.18);
-        ">
 
-          <div style="
-            display:flex;
-            justify-content:space-between;
-            align-items:flex-start;
-            gap:15px;
-            flex-wrap:wrap;
-          ">
-
-            <div style="flex:1;min-width:220px;">
+          return `
+            <div
+              class="card-modelo"
+              style="
+                position:relative;
+                padding:20px;
+                margin-bottom:15px;
+                border:1px solid rgba(248,213,138,.18);
+                border-radius:18px;
+                background:
+                  linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.045),
+                    rgba(255,255,255,.015)
+                  );
+                box-shadow:
+                  0 10px 30px rgba(0,0,0,.18);
+              "
+            >
 
               <div style="
-                color:#f8d58a;
-                font-size:20px;
-                font-weight:bold;
-                margin-bottom:5px;
+                display:flex;
+                justify-content:space-between;
+                align-items:flex-start;
+                gap:15px;
+                flex-wrap:wrap;
               ">
-                ${escaparHTML(nome)}
-              </div>
 
-              ${
-                apelido
-                  ? `
-                    <div style="
-                      color:#ff4da6;
-                      font-size:14px;
-                      margin-bottom:10px;
-                    ">
-                      ${escaparHTML(apelido)}
+                <div style="
+                  flex:1;
+                  min-width:220px;
+                ">
+
+                  <div style="
+                    color:#f8d58a;
+                    font-size:20px;
+                    font-weight:bold;
+                    margin-bottom:5px;
+                  ">
+                    ${escaparHTML(nome)}
+                  </div>
+
+                  ${
+                    apelido
+                      ? `
+                        <div style="
+                          color:#ff4da6;
+                          font-size:14px;
+                          margin-bottom:10px;
+                        ">
+                          ${escaparHTML(apelido)}
+                        </div>
+                      `
+                      : ""
+                  }
+
+                  <div style="
+                    color:#ccc;
+                    font-size:13px;
+                    line-height:1.8;
+                  ">
+
+                    <div>
+                      <strong>Cidade:</strong>
+                      ${escaparHTML(cidade)}
                     </div>
-                  `
-                  : ""
-              }
 
-              <div style="
-                color:#ccc;
-                font-size:13px;
-                line-height:1.8;
-              ">
+                    <div>
+                      <strong>Idade:</strong>
+                      ${escaparHTML(
+                        String(idade)
+                      )}
+                    </div>
 
-                <div>
-                  <strong>Cidade:</strong>
-                  ${escaparHTML(cidade)}
+                    <div>
+                      <strong>Categoria:</strong>
+                      ${escaparHTML(categoria)}
+                    </div>
+
+                    <div>
+                      <strong>WhatsApp:</strong>
+                      ${escaparHTML(whatsapp)}
+                    </div>
+
+                  </div>
+
                 </div>
 
-                <div>
-                  <strong>WhatsApp:</strong>
-                  ${escaparHTML(whatsapp)}
-                </div>
 
-                <div>
-                  <strong>E-mail:</strong>
-                  ${escaparHTML(email)}
+                <div style="
+                  display:flex;
+                  flex-direction:column;
+                  align-items:flex-end;
+                  gap:10px;
+                ">
+
+                  ${badgeStatus(status)}
+
+                  <button
+                    type="button"
+                    onclick="
+                      verFichaModelo(
+                        '${escaparAtributo(modelo.id)}'
+                      )
+                    "
+                    style="
+                      border:1px solid rgba(248,213,138,.4);
+                      background:rgba(248,213,138,.08);
+                      color:#f8d58a;
+                      padding:10px 15px;
+                      border-radius:10px;
+                      cursor:pointer;
+                      font-weight:bold;
+                    "
+                  >
+                    VER FICHA
+                  </button>
+
                 </div>
 
               </div>
 
             </div>
+          `;
 
-
-            <div style="
-              display:flex;
-              flex-direction:column;
-              align-items:flex-end;
-              gap:10px;
-            ">
-
-              ${badgeStatus(status)}
-
-              <button
-                type="button"
-                onclick="verFichaModelo('${escaparAtributo(modelo.id)}')"
-                style="
-                  border:1px solid rgba(248,213,138,.4);
-                  background:rgba(248,213,138,.08);
-                  color:#f8d58a;
-                  padding:10px 15px;
-                  border-radius:10px;
-                  cursor:pointer;
-                  font-weight:bold;
-                "
-              >
-                VER FICHA
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-      `;
-
-    }).join("");
+        }
+      ).join("");
 
   }
 
 
   /* =========================================================
-     STATUS
+     NORMALIZAR STATUS
      ========================================================= */
 
   function normalizarStatus(status) {
@@ -364,10 +462,14 @@
       return "pendente";
     }
 
-    const valor = String(status)
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+    const valor =
+      String(status)
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(
+          /[\u0300-\u036f]/g,
+          ""
+        );
 
     if (
       valor === "aprovado" ||
@@ -377,21 +479,30 @@
     }
 
     if (
+      valor === "reprovado" ||
+      valor === "reprovada" ||
       valor === "rejeitado" ||
       valor === "rejeitada" ||
       valor === "recusado" ||
       valor === "recusada"
     ) {
-      return "rejeitado";
+      return "reprovado";
     }
 
     return "pendente";
+
   }
 
 
+  /* =========================================================
+     BADGE
+     ========================================================= */
+
   function badgeStatus(status) {
 
-    if (status === "aprovado") {
+    if (
+      status === "aprovado"
+    ) {
 
       return `
         <span style="
@@ -407,10 +518,13 @@
           ✓ APROVADO
         </span>
       `;
+
     }
 
 
-    if (status === "rejeitado") {
+    if (
+      status === "reprovado"
+    ) {
 
       return `
         <span style="
@@ -423,9 +537,10 @@
           font-size:12px;
           font-weight:bold;
         ">
-          ✕ REJEITADO
+          ✕ REPROVADO
         </span>
       `;
+
     }
 
 
@@ -443,6 +558,7 @@
         ◷ PENDENTE
       </span>
     `;
+
   }
 
 
@@ -453,27 +569,48 @@
   function configurarFiltros() {
 
     const botoes =
-      document.querySelectorAll(".btn-filtro");
+      document.querySelectorAll(
+        ".btn-filtro"
+      );
 
-    botoes.forEach(function (botao) {
+    botoes.forEach(
+      function (botao) {
 
-      botao.addEventListener("click", function () {
+        botao.addEventListener(
+          "click",
+          function () {
 
-        botoes.forEach(function (b) {
-          b.classList.remove("ativo");
-        });
+            botoes.forEach(
+              function (b) {
+                b.classList.remove(
+                  "ativo"
+                );
+              }
+            );
 
-        botao.classList.add("ativo");
+            botao.classList.add(
+              "ativo"
+            );
 
-        filtroAtual =
-          botao.dataset.filtro ||
-          "todos";
+            filtroAtual =
+              botao.dataset.filtro ||
+              "todos";
 
-        renderizarModelos();
+            if (
+              filtroAtual ===
+              "rejeitado"
+            ) {
+              filtroAtual =
+                "reprovado";
+            }
 
-      });
+            renderizarModelos();
 
-    });
+          }
+        );
+
+      }
+    );
 
   }
 
@@ -488,36 +625,81 @@
       listaModelos.length;
 
     const pendentes =
-      listaModelos.filter(function (modelo) {
-        return normalizarStatus(modelo.status) === "pendente";
-      }).length;
+      listaModelos.filter(
+        function (modelo) {
+
+          return (
+            normalizarStatus(
+              modelo.verificacao_status
+            ) === "pendente"
+          );
+
+        }
+      ).length;
+
 
     const aprovados =
-      listaModelos.filter(function (modelo) {
-        return normalizarStatus(modelo.status) === "aprovado";
-      }).length;
+      listaModelos.filter(
+        function (modelo) {
 
-    const rejeitados =
-      listaModelos.filter(function (modelo) {
-        return normalizarStatus(modelo.status) === "rejeitado";
-      }).length;
+          return (
+            normalizarStatus(
+              modelo.verificacao_status
+            ) === "aprovado"
+          );
+
+        }
+      ).length;
 
 
-    atualizarElemento("resumoTotal", total);
-    atualizarElemento("resumoPendentes", pendentes);
-    atualizarElemento("resumoAprovados", aprovados);
-    atualizarElemento("resumoRejeitados", rejeitados);
+    const reprovados =
+      listaModelos.filter(
+        function (modelo) {
+
+          return (
+            normalizarStatus(
+              modelo.verificacao_status
+            ) === "reprovado"
+          );
+
+        }
+      ).length;
+
+
+    atualizarElemento(
+      "resumoTotal",
+      total
+    );
+
+    atualizarElemento(
+      "resumoPendentes",
+      pendentes
+    );
+
+    atualizarElemento(
+      "resumoAprovados",
+      aprovados
+    );
+
+    atualizarElemento(
+      "resumoRejeitados",
+      reprovados
+    );
 
   }
 
 
-  function atualizarElemento(id, valor) {
+  function atualizarElemento(
+    id,
+    valor
+  ) {
 
     const elemento =
       document.getElementById(id);
 
     if (elemento) {
-      elemento.textContent = valor;
+      elemento.textContent =
+        valor;
     }
 
   }
@@ -527,141 +709,258 @@
      VER FICHA
      ========================================================= */
 
-  window.verFichaModelo = function (id) {
+  window.verFichaModelo =
+    function (id) {
 
-    const modelo =
-      listaModelos.find(function (item) {
-        return String(item.id) === String(id);
-      });
+      const modelo =
+        listaModelos.find(
+          function (item) {
 
-    if (!modelo) {
-      alert("Cadastro não encontrado.");
-      return;
-    }
+            return String(item.id) ===
+              String(id);
 
-    fichaAtual = modelo;
-
-    const modal =
-      document.getElementById("modal-ver-ficha");
-
-    const corpo =
-      document.getElementById("corpo-ficha");
-
-    if (!modal || !corpo) {
-      alert("Modal da ficha não encontrado no painel.");
-      return;
-    }
+          }
+        );
 
 
-    const nome =
-      modelo.nome ||
-      modelo.nome_completo ||
-      "Não informado";
+      if (!modelo) {
 
-    const apelido =
-      modelo.apelido ||
-      modelo.nickname ||
-      modelo.nome_artistico ||
-      "Não informado";
+        alert(
+          "Modelo não encontrado."
+        );
 
-    const status =
-      normalizarStatus(modelo.status);
+        return;
+      }
 
 
-    corpo.innerHTML = `
-
-      <div style="
-        display:grid;
-        gap:12px;
-      ">
-
-        ${campoFicha("Nome", nome)}
-
-        ${campoFicha("Apelido / Nome artístico", apelido)}
-
-        ${campoFicha("WhatsApp", modelo.whatsapp)}
-
-        ${campoFicha("Telefone", modelo.telefone)}
-
-        ${campoFicha("E-mail", modelo.email)}
-
-        ${campoFicha("Idade", modelo.idade)}
-
-        ${campoFicha("Altura", modelo.altura)}
-
-        ${campoFicha("Cidade", modelo.cidade)}
-
-        ${campoFicha("Endereço", modelo.endereco)}
-
-        ${campoFicha("CEP", modelo.cep)}
-
-        ${campoFicha("Estado", modelo.estado)}
-
-        ${campoFicha("CPF", modelo.cpf)}
-
-        ${campoFicha("Instagram", modelo.instagram)}
-
-        ${campoFicha("Status", status.toUpperCase())}
-
-        ${campoFicha(
-          "Data do cadastro",
-          formatarData(modelo.criado_em)
-        )}
-
-        ${campoFicha(
-          "Última atualização",
-          formatarData(modelo.atualizado_em)
-        )}
-
-      </div>
-
-    `;
+      fichaAtual =
+        modelo;
 
 
-    const botaoAprovar =
-      document.getElementById("botao-aprovar");
-
-    const botaoRejeitar =
-      document.getElementById("botao-rejeitar");
-
-
-    if (botaoAprovar) {
-
-      botaoAprovar.style.display =
-        status === "aprovado"
-          ? "none"
-          : "inline-block";
-
-    }
+      const modal =
+        document.getElementById(
+          "modal-ver-ficha"
+        );
 
 
-    if (botaoRejeitar) {
-
-      botaoRejeitar.style.display =
-        status === "rejeitado"
-          ? "none"
-          : "inline-block";
-
-    }
+      const corpo =
+        document.getElementById(
+          "corpo-ficha"
+        );
 
 
-    modal.style.display = "flex";
+      if (!modal || !corpo) {
 
-  };
+        alert(
+          "Modal da ficha não encontrado no painel."
+        );
+
+        return;
+      }
 
 
-  /* =========================================================
-     CAMPO DA FICHA
-     ========================================================= */
+      const status =
+        normalizarStatus(
+          modelo.verificacao_status
+        );
 
-  function campoFicha(titulo, valor) {
+
+      corpo.innerHTML = `
+
+        <div style="
+          display:grid;
+          gap:12px;
+        ">
+
+          ${campoFicha(
+            "Nome",
+            modelo.nome_exibicao
+          )}
+
+          ${campoFicha(
+            "Apelido",
+            modelo.apelido
+          )}
+
+          ${campoFicha(
+            "Categoria",
+            modelo.categoria_catalogo
+          )}
+
+          ${campoFicha(
+            "WhatsApp",
+            modelo.whatsapp
+          )}
+
+          ${campoFicha(
+            "CPF",
+            modelo.cpf
+          )}
+
+          ${campoFicha(
+            "Data de nascimento",
+            modelo.data_nascimento
+          )}
+
+          ${campoFicha(
+            "Idade",
+            modelo.idade
+          )}
+
+          ${campoFicha(
+            "Altura",
+            modelo.altura_cm
+              ? modelo.altura_cm +
+                " cm"
+              : null
+          )}
+
+          ${campoFicha(
+            "CEP",
+            modelo.cep
+          )}
+
+          ${campoFicha(
+            "Estado",
+            modelo.estado
+          )}
+
+          ${campoFicha(
+            "Cidade",
+            modelo.cidade
+          )}
+
+          ${campoFicha(
+            "Bairro",
+            modelo.bairro
+          )}
+
+          ${campoFicha(
+            "Endereço",
+            modelo.endereco
+          )}
+
+          ${campoFicha(
+            "Número",
+            modelo.numero
+          )}
+
+          ${campoFicha(
+            "Complemento",
+            modelo.complemento
+          )}
+
+          ${campoFicha(
+            "País",
+            modelo.pais
+          )}
+
+          ${campoFicha(
+            "Cor do cabelo",
+            modelo.cor_cabelo
+          )}
+
+          ${campoFicha(
+            "Cor dos olhos",
+            modelo.cor_olhos
+          )}
+
+          ${campoFicha(
+            "Idiomas",
+            modelo.idiomas
+          )}
+
+          ${campoFicha(
+            "Descrição",
+            modelo.descricao
+          )}
+
+          ${campoFicha(
+            "Maioridade confirmada",
+            modelo.maioridade_confirmada
+              ? "SIM"
+              : "NÃO"
+          )}
+
+          ${campoFicha(
+            "Plano",
+            modelo.plano
+          )}
+
+          ${campoFicha(
+            "Status",
+            status.toUpperCase()
+          )}
+
+          ${campoFicha(
+            "Cadastro",
+            formatarData(
+              modelo.criado_em
+            )
+          )}
+
+          ${campoFicha(
+            "Atualizado",
+            formatarData(
+              modelo.atualizado_em
+            )
+          )}
+
+        </div>
+
+      `;
+
+
+      const botaoAprovar =
+        document.getElementById(
+          "botao-aprovar"
+        );
+
+
+      const botaoRejeitar =
+        document.getElementById(
+          "botao-rejeitar"
+        );
+
+
+      if (botaoAprovar) {
+
+        botaoAprovar.style.display =
+          status === "aprovado"
+            ? "none"
+            : "inline-block";
+
+      }
+
+
+      if (botaoRejeitar) {
+
+        botaoRejeitar.style.display =
+          status === "reprovado"
+            ? "none"
+            : "inline-block";
+
+      }
+
+
+      modal.style.display =
+        "flex";
+
+    };
+
+
+  function campoFicha(
+    titulo,
+    valor
+  ) {
 
     if (
       valor === null ||
       valor === undefined ||
       valor === ""
     ) {
-      valor = "Não informado";
+      valor =
+        "Não informado";
     }
 
     return `
@@ -687,58 +986,72 @@
           font-size:14px;
           word-break:break-word;
         ">
-          ${escaparHTML(String(valor))}
+          ${escaparHTML(
+            String(valor)
+          )}
         </div>
 
       </div>
     `;
+
   }
 
 
   /* =========================================================
-     APROVAR MODELO
+     APROVAR
      ========================================================= */
 
-  window.aprovarModelo = async function () {
+  window.aprovarModelo =
+    async function () {
 
-    await alterarStatusModelo("aprovado");
+      await alterarStatusModelo(
+        "aprovado"
+      );
 
-  };
+    };
 
 
   /* =========================================================
-     REJEITAR MODELO
+     REPROVAR
      ========================================================= */
 
-  window.rejeitarModelo = async function () {
+  window.rejeitarModelo =
+    async function () {
 
-    await alterarStatusModelo("rejeitado");
+      await alterarStatusModelo(
+        "reprovado"
+      );
 
-  };
+    };
 
 
   /* =========================================================
      ALTERAR STATUS
      ========================================================= */
 
-  async function alterarStatusModelo(novoStatus) {
+  async function alterarStatusModelo(
+    novoStatus
+  ) {
 
     if (!fichaAtual) {
-      alert("Nenhum cadastro selecionado.");
+
+      alert(
+        "Nenhum modelo selecionado."
+      );
+
       return;
     }
 
 
     const nome =
-      fichaAtual.nome ||
-      fichaAtual.nome_completo ||
+      fichaAtual.nome_exibicao ||
       "modelo";
 
 
     const mensagem =
       novoStatus === "aprovado"
         ? `Deseja aprovar o cadastro de ${nome}?`
-        : `Deseja rejeitar o cadastro de ${nome}?`;
+        : `Deseja reprovar o cadastro de ${nome}?`;
 
 
     if (!confirm(mensagem)) {
@@ -748,32 +1061,46 @@
 
     try {
 
-      const atualizacao = {
-        status: novoStatus,
-        atualizado_em: new Date().toISOString()
-      };
+      /* -----------------------------------------
+         ATUALIZA MODELO_PERFIS
+         ----------------------------------------- */
+
+      const resultado =
+        await window.luxSupabase
+          .from("modelo_perfis")
+          .update({
+
+            verificacao_status:
+              novoStatus,
+
+            atualizado_em:
+              new Date().toISOString()
+
+          })
+          .eq(
+            "id",
+            fichaAtual.id
+          )
+          .select()
+          .single();
 
 
-      const {
-        data,
-        error
-      } = await window.luxSupabase
-        .from("pre_cadastros_modelos")
-        .update(atualizacao)
-        .eq("id", fichaAtual.id)
-        .select()
-        .single();
+      const data =
+        resultado.data;
+
+      const error =
+        resultado.error;
 
 
       if (error) {
 
         console.error(
-          "Erro ao atualizar cadastro:",
+          "[LUX ADMIN V8] Erro modelo_perfis:",
           error
         );
 
         alert(
-          "Não foi possível atualizar o cadastro.\n\n" +
+          "Não foi possível atualizar o modelo.\n\n" +
           error.message
         );
 
@@ -781,48 +1108,127 @@
       }
 
 
-      fichaAtual = data || {
-        ...fichaAtual,
-        ...atualizacao
-      };
+      /* -----------------------------------------
+         ATUALIZA PERFIS
+         ----------------------------------------- */
+
+      const statusPerfil =
+        novoStatus === "aprovado"
+          ? "ativo"
+          : "inativo";
+
+
+      const resultadoPerfil =
+        await window.luxSupabase
+          .from("perfis")
+          .update({
+
+            status:
+              statusPerfil,
+
+            updated_at:
+              new Date().toISOString()
+
+          })
+          .eq(
+            "id",
+            fichaAtual.id
+          );
+
+
+      if (
+        resultadoPerfil.error
+      ) {
+
+        console.warn(
+          "[LUX ADMIN V8] modelo_perfis atualizado, mas perfis apresentou erro:",
+          resultadoPerfil.error
+        );
+
+      }
+
+
+      /* -----------------------------------------
+         ATUALIZA MEMÓRIA
+         ----------------------------------------- */
+
+      fichaAtual =
+        data ||
+        {
+          ...fichaAtual,
+
+          verificacao_status:
+            novoStatus,
+
+          atualizado_em:
+            new Date().toISOString()
+
+        };
 
 
       const indice =
-        listaModelos.findIndex(function (item) {
-          return String(item.id) === String(fichaAtual.id);
-        });
+        listaModelos.findIndex(
+          function (item) {
+
+            return String(item.id) ===
+              String(fichaAtual.id);
+
+          }
+        );
 
 
       if (indice !== -1) {
+
         listaModelos[indice] =
           fichaAtual;
+
       }
 
 
       atualizarDashboard();
-      renderizarModelos();
 
 
       const modal =
-        document.getElementById("modal-ver-ficha");
+        document.getElementById(
+          "modal-ver-ficha"
+        );
+
 
       if (modal) {
-        modal.style.display = "none";
+
+        modal.style.display =
+          "none";
+
       }
+
+
+      fichaAtual =
+        null;
+
+
+      await carregarModelos();
 
 
       alert(
         novoStatus === "aprovado"
-          ? "Cadastro aprovado com sucesso."
-          : "Cadastro rejeitado com sucesso."
+          ? "Modelo aprovado com sucesso."
+          : "Modelo reprovado com sucesso."
       );
+
 
     } catch (erro) {
 
-      console.error(erro);
+      console.error(
+        "[LUX ADMIN V8] Erro ao alterar status:",
+        erro
+      );
 
       alert(
-        "Ocorreu um erro ao atualizar o cadastro."
+        "Ocorreu um erro ao atualizar o modelo.\n\n" +
+        (
+          erro.message ||
+          ""
+        )
       );
 
     }
@@ -831,244 +1237,396 @@
 
 
   /* =========================================================
-     FECHAR MODAL
+     FECHAR FICHA
      ========================================================= */
 
-  window.fecharModalFicha = function () {
+  window.fecharModalFicha =
+    function () {
 
-    const modal =
-      document.getElementById("modal-ver-ficha");
+      const modal =
+        document.getElementById(
+          "modal-ver-ficha"
+        );
 
-    if (modal) {
-      modal.style.display = "none";
-    }
+      if (modal) {
 
-    fichaAtual = null;
+        modal.style.display =
+          "none";
 
-  };
+      }
+
+      fichaAtual =
+        null;
+
+    };
 
 
   /* =========================================================
      IMPRIMIR FICHA
      ========================================================= */
 
-  window.imprimirFicha = function () {
+  window.imprimirFicha =
+    function () {
 
-    if (!fichaAtual) {
-      alert("Nenhuma ficha selecionada.");
-      return;
-    }
+      if (!fichaAtual) {
 
+        alert(
+          "Nenhuma ficha selecionada."
+        );
 
-    const nome =
-      fichaAtual.nome ||
-      fichaAtual.nome_completo ||
-      "Modelo";
-
-
-    const conteudo = `
-
-      <html>
-
-      <head>
-
-        <meta charset="UTF-8">
-
-        <title>
-          Ficha — ${escaparHTML(nome)}
-        </title>
-
-        <style>
-
-          body {
-            font-family: Arial, sans-serif;
-            padding: 30px;
-            color: #111;
-          }
-
-          h1 {
-            text-align: center;
-            margin-bottom: 30px;
-          }
-
-          .campo {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-          }
-
-          .titulo {
-            font-weight: bold;
-            display: inline-block;
-            width: 220px;
-          }
-
-        </style>
-
-      </head>
-
-      <body>
-
-        <h1>LUX ADVANCE — FICHA CADASTRAL</h1>
-
-        ${campoImpressao("Nome", fichaAtual.nome)}
-        ${campoImpressao("Apelido", fichaAtual.apelido || fichaAtual.nickname)}
-        ${campoImpressao("WhatsApp", fichaAtual.whatsapp)}
-        ${campoImpressao("Telefone", fichaAtual.telefone)}
-        ${campoImpressao("E-mail", fichaAtual.email)}
-        ${campoImpressao("Idade", fichaAtual.idade)}
-        ${campoImpressao("Altura", fichaAtual.altura)}
-        ${campoImpressao("Cidade", fichaAtual.cidade)}
-        ${campoImpressao("Endereço", fichaAtual.endereco)}
-        ${campoImpressao("CEP", fichaAtual.cep)}
-        ${campoImpressao("Estado", fichaAtual.estado)}
-        ${campoImpressao("CPF", fichaAtual.cpf)}
-        ${campoImpressao("Instagram", fichaAtual.instagram)}
-        ${campoImpressao("Status", fichaAtual.status)}
-        ${campoImpressao("Cadastro", formatarData(fichaAtual.criado_em))}
-
-      </body>
-
-      </html>
-
-    `;
+        return;
+      }
 
 
-    const janela =
-      window.open("", "_blank");
+      const nome =
+        fichaAtual.nome_exibicao ||
+        "Modelo";
 
 
-    if (!janela) {
-      alert(
-        "O navegador bloqueou a janela de impressão. Permita pop-ups para este site."
+      const conteudo = `
+
+        <html>
+
+        <head>
+
+          <meta charset="UTF-8">
+
+          <title>
+            Ficha — ${escaparHTML(nome)}
+          </title>
+
+          <style>
+
+            body {
+              font-family:Arial,sans-serif;
+              padding:30px;
+              color:#111;
+            }
+
+            h1 {
+              text-align:center;
+              margin-bottom:30px;
+            }
+
+            .campo {
+              padding:10px;
+              border-bottom:1px solid #ddd;
+            }
+
+            .titulo {
+              font-weight:bold;
+              display:inline-block;
+              width:220px;
+            }
+
+          </style>
+
+        </head>
+
+        <body>
+
+          <h1>
+            LUX ADVANCE — FICHA CADASTRAL
+          </h1>
+
+          ${campoImpressao(
+            "Nome",
+            fichaAtual.nome_exibicao
+          )}
+
+          ${campoImpressao(
+            "Apelido",
+            fichaAtual.apelido
+          )}
+
+          ${campoImpressao(
+            "Categoria",
+            fichaAtual.categoria_catalogo
+          )}
+
+          ${campoImpressao(
+            "WhatsApp",
+            fichaAtual.whatsapp
+          )}
+
+          ${campoImpressao(
+            "CPF",
+            fichaAtual.cpf
+          )}
+
+          ${campoImpressao(
+            "Data de nascimento",
+            fichaAtual.data_nascimento
+          )}
+
+          ${campoImpressao(
+            "Idade",
+            fichaAtual.idade
+          )}
+
+          ${campoImpressao(
+            "Altura",
+            fichaAtual.altura_cm
+          )}
+
+          ${campoImpressao(
+            "CEP",
+            fichaAtual.cep
+          )}
+
+          ${campoImpressao(
+            "Estado",
+            fichaAtual.estado
+          )}
+
+          ${campoImpressao(
+            "Cidade",
+            fichaAtual.cidade
+          )}
+
+          ${campoImpressao(
+            "Bairro",
+            fichaAtual.bairro
+          )}
+
+          ${campoImpressao(
+            "Endereço",
+            fichaAtual.endereco
+          )}
+
+          ${campoImpressao(
+            "Número",
+            fichaAtual.numero
+          )}
+
+          ${campoImpressao(
+            "Complemento",
+            fichaAtual.complemento
+          )}
+
+          ${campoImpressao(
+            "País",
+            fichaAtual.pais
+          )}
+
+          ${campoImpressao(
+            "Cor do cabelo",
+            fichaAtual.cor_cabelo
+          )}
+
+          ${campoImpressao(
+            "Cor dos olhos",
+            fichaAtual.cor_olhos
+          )}
+
+          ${campoImpressao(
+            "Idiomas",
+            fichaAtual.idiomas
+          )}
+
+          ${campoImpressao(
+            "Descrição",
+            fichaAtual.descricao
+          )}
+
+          ${campoImpressao(
+            "Plano",
+            fichaAtual.plano
+          )}
+
+          ${campoImpressao(
+            "Status",
+            fichaAtual.verificacao_status
+          )}
+
+          ${campoImpressao(
+            "Cadastro",
+            formatarData(
+              fichaAtual.criado_em
+            )
+          )}
+
+        </body>
+
+        </html>
+
+      `;
+
+
+      const janela =
+        window.open(
+          "",
+          "_blank"
+        );
+
+
+      if (!janela) {
+
+        alert(
+          "O navegador bloqueou a janela de impressão."
+        );
+
+        return;
+      }
+
+
+      janela.document.open();
+
+      janela.document.write(
+        conteudo
       );
-      return;
-    }
+
+      janela.document.close();
 
 
-    janela.document.open();
-    janela.document.write(conteudo);
-    janela.document.close();
+      janela.onload =
+        function () {
 
+          janela.print();
 
-    janela.onload = function () {
-      janela.print();
+        };
+
     };
 
-  };
 
-
-  function campoImpressao(titulo, valor) {
+  function campoImpressao(
+    titulo,
+    valor
+  ) {
 
     if (
       valor === null ||
       valor === undefined ||
       valor === ""
     ) {
-      valor = "Não informado";
+      valor =
+        "Não informado";
     }
 
     return `
       <div class="campo">
+
         <span class="titulo">
           ${escaparHTML(titulo)}:
         </span>
 
-        ${escaparHTML(String(valor))}
+        ${escaparHTML(
+          String(valor)
+        )}
+
       </div>
     `;
+
   }
 
 
   /* =========================================================
-     MÓDULOS ADMINISTRATIVOS
+     MÓDULOS ADMIN
      ========================================================= */
 
-  window.abrirModuloAdmin = async function (
-    titulo,
-    texto
-  ) {
-
-    const tituloNormalizado =
-      normalizarTexto(titulo);
-
-
-    if (
-      tituloNormalizado.includes("avaliacoes")
-    ) {
-
-      await abrirModuloAvaliacoes();
-      return;
-
-    }
-
-
-    if (
-      tituloNormalizado.includes("reclamacoes")
-    ) {
-
-      await abrirModuloReclamacoes();
-      return;
-
-    }
-
-
-    if (
-      tituloNormalizado.includes("assinaturas")
-    ) {
-
-      await abrirModuloAssinaturas();
-      return;
-
-    }
-
-
-    if (
-      tituloNormalizado.includes("planos")
-    ) {
-
-      abrirModuloPlanos();
-      return;
-
-    }
-
-
-    if (
-      tituloNormalizado.includes("doacoes")
-    ) {
-
-      abrirModuloDoacoes();
-      return;
-
-    }
-
-
-    if (
-      tituloNormalizado.includes("pagamentos")
-    ) {
-
-      abrirModuloPagamentos();
-      return;
-
-    }
-
-
-    if (
-      tituloNormalizado.includes("usuarios")
-    ) {
-
-      abrirModuloUsuarios();
-      return;
-
-    }
-
-
-    mostrarModalGenerico(
+  window.abrirModuloAdmin =
+    async function (
       titulo,
-      texto ||
-      "Módulo administrativo disponível."
-    );
+      texto
+    ) {
 
-  };
+      const tituloNormalizado =
+        normalizarTexto(
+          titulo
+        );
+
+
+      if (
+        tituloNormalizado.includes(
+          "avaliacoes"
+        )
+      ) {
+
+        await abrirModuloAvaliacoes();
+
+        return;
+      }
+
+
+      if (
+        tituloNormalizado.includes(
+          "reclamacoes"
+        )
+      ) {
+
+        await abrirModuloReclamacoes();
+
+        return;
+      }
+
+
+      if (
+        tituloNormalizado.includes(
+          "assinaturas"
+        )
+      ) {
+
+        await abrirModuloAssinaturas();
+
+        return;
+      }
+
+
+      if (
+        tituloNormalizado.includes(
+          "planos"
+        )
+      ) {
+
+        abrirModuloPlanos();
+
+        return;
+      }
+
+
+      if (
+        tituloNormalizado.includes(
+          "doacoes"
+        )
+      ) {
+
+        abrirModuloDoacoes();
+
+        return;
+      }
+
+
+      if (
+        tituloNormalizado.includes(
+          "pagamentos"
+        )
+      ) {
+
+        abrirModuloPagamentos();
+
+        return;
+      }
+
+
+      if (
+        tituloNormalizado.includes(
+          "usuarios"
+        )
+      ) {
+
+        abrirModuloUsuarios();
+
+        return;
+      }
+
+
+      mostrarModalGenerico(
+        titulo,
+        texto ||
+        "Módulo administrativo disponível."
+      );
+
+    };
 
 
   /* =========================================================
@@ -1079,28 +1637,35 @@
 
     try {
 
-      const {
-        data,
-        error
-      } = await window.luxSupabase
-        .from("avaliacoes_modelos_admin")
-        .select("*")
-        .order("criado_em", {
-          ascending: false
-        });
+      const resultado =
+        await window.luxSupabase
+          .from("avaliacoes")
+          .select("*")
+          .order(
+            "criado_em",
+            {
+              ascending:false
+            }
+          );
 
 
-      if (error) {
+      if (resultado.error) {
+
         mostrarModalGenerico(
           "AVALIAÇÕES",
           "Não foi possível carregar as avaliações.\n\n" +
-          error.message
+          resultado.error.message
         );
+
         return;
       }
 
 
-      if (!data || !data.length) {
+      const data =
+        resultado.data || [];
+
+
+      if (!data.length) {
 
         mostrarModalGenerico(
           "AVALIAÇÕES",
@@ -1111,56 +1676,76 @@
       }
 
 
-      const html = data.map(function (item) {
+      const html =
+        data.map(
+          function (item) {
 
-        const nota =
-          Number(item.estrelas ?? item.nota ?? 0);
+            const nota =
+              Number(
+                item.nota || 0
+              );
 
 
-        const estrelas =
-          "★".repeat(Math.max(0, Math.min(5, nota))) +
-          "☆".repeat(Math.max(0, 5 - nota));
+            const estrelas =
+              "★".repeat(
+                Math.max(
+                  0,
+                  Math.min(
+                    5,
+                    nota
+                  )
+                )
+              ) +
+              "☆".repeat(
+                Math.max(
+                  0,
+                  5 - nota
+                )
+              );
 
 
-        return `
-          <div style="
-            padding:16px;
-            margin-bottom:12px;
-            border:1px solid rgba(248,213,138,.15);
-            border-radius:14px;
-            background:rgba(255,255,255,.03);
-          ">
+            return `
+              <div style="
+                padding:16px;
+                margin-bottom:12px;
+                border:1px solid rgba(248,213,138,.15);
+                border-radius:14px;
+                background:rgba(255,255,255,.03);
+              ">
 
-            <div style="
-              color:#f8d58a;
-              font-size:20px;
-              letter-spacing:3px;
-            ">
-              ${estrelas}
-            </div>
+                <div style="
+                  color:#f8d58a;
+                  font-size:20px;
+                  letter-spacing:3px;
+                ">
+                  ${estrelas}
+                </div>
 
-            <div style="
-              color:#fff;
-              margin-top:8px;
-            ">
-              ${escaparHTML(
-                item.comentario ||
-                "Sem comentário."
-              )}
-            </div>
+                <div style="
+                  color:#ddd;
+                  margin-top:8px;
+                ">
+                  ${escaparHTML(
+                    item.comentario ||
+                    "Sem comentário."
+                  )}
+                </div>
 
-            <div style="
-              color:#aaa;
-              font-size:12px;
-              margin-top:8px;
-            ">
-              ${formatarData(item.criado_em)}
-            </div>
+                <div style="
+                  color:#aaa;
+                  font-size:12px;
+                  margin-top:8px;
+                ">
+                  ${formatarData(
+                    item.criado_em
+                  )}
+                </div>
 
-          </div>
-        `;
+              </div>
+            `;
 
-      }).join("");
+          }
+        ).join("");
 
 
       mostrarModalGenerico(
@@ -1169,9 +1754,12 @@
         true
       );
 
+
     } catch (erro) {
 
-      console.error(erro);
+      console.error(
+        erro
+      );
 
       mostrarModalGenerico(
         "AVALIAÇÕES",
@@ -1191,30 +1779,35 @@
 
     try {
 
-      const {
-        data,
-        error
-      } = await window.luxSupabase
-        .from("reclamacoes_admin")
-        .select("*")
-        .order("criado_em", {
-          ascending: false
-        });
+      const resultado =
+        await window.luxSupabase
+          .from("reclamacoes")
+          .select("*")
+          .order(
+            "criado_em",
+            {
+              ascending:false
+            }
+          );
 
 
-      if (error) {
+      if (resultado.error) {
 
         mostrarModalGenerico(
           "RECLAMAÇÕES",
           "Não foi possível carregar as reclamações.\n\n" +
-          error.message
+          resultado.error.message
         );
 
         return;
       }
 
 
-      if (!data || !data.length) {
+      const data =
+        resultado.data || [];
+
+
+      if (!data.length) {
 
         mostrarModalGenerico(
           "RECLAMAÇÕES",
@@ -1225,62 +1818,67 @@
       }
 
 
-      const html = data.map(function (item) {
+      const html =
+        data.map(
+          function (item) {
 
-        return `
-          <div style="
-            padding:17px;
-            margin-bottom:12px;
-            border:1px solid rgba(255,77,166,.15);
-            border-radius:14px;
-            background:rgba(255,255,255,.025);
-          ">
+            return `
+              <div style="
+                padding:17px;
+                margin-bottom:12px;
+                border:1px solid rgba(255,77,166,.15);
+                border-radius:14px;
+                background:rgba(255,255,255,.025);
+              ">
 
-            <div style="
-              color:#f8d58a;
-              font-weight:bold;
-              margin-bottom:8px;
-            ">
-              ${escaparHTML(
-                item.assunto ||
-                "Sem assunto"
-              )}
-            </div>
+                <div style="
+                  color:#f8d58a;
+                  font-weight:bold;
+                  margin-bottom:8px;
+                ">
+                  ${escaparHTML(
+                    item.assunto ||
+                    "Sem assunto"
+                  )}
+                </div>
 
-            <div style="
-              color:#ddd;
-              line-height:1.6;
-            ">
-              ${escaparHTML(
-                item.mensagem ||
-                "Sem mensagem."
-              )}
-            </div>
+                <div style="
+                  color:#ddd;
+                  line-height:1.6;
+                ">
+                  ${escaparHTML(
+                    item.mensagem ||
+                    "Sem mensagem."
+                  )}
+                </div>
 
-            <div style="
-              color:#aaa;
-              font-size:12px;
-              margin-top:10px;
-            ">
-              Status:
-              ${escaparHTML(
-                item.status ||
-                "Pendente"
-              )}
-            </div>
+                <div style="
+                  color:#aaa;
+                  font-size:12px;
+                  margin-top:10px;
+                ">
+                  Status:
+                  ${escaparHTML(
+                    item.status ||
+                    "Pendente"
+                  )}
+                </div>
 
-            <div style="
-              color:#777;
-              font-size:11px;
-              margin-top:5px;
-            ">
-              ${formatarData(item.criado_em)}
-            </div>
+                <div style="
+                  color:#777;
+                  font-size:11px;
+                  margin-top:5px;
+                ">
+                  ${formatarData(
+                    item.criado_em
+                  )}
+                </div>
 
-          </div>
-        `;
+              </div>
+            `;
 
-      }).join("");
+          }
+        ).join("");
 
 
       mostrarModalGenerico(
@@ -1289,9 +1887,12 @@
         true
       );
 
+
     } catch (erro) {
 
-      console.error(erro);
+      console.error(
+        erro
+      );
 
       mostrarModalGenerico(
         "RECLAMAÇÕES",
@@ -1311,30 +1912,35 @@
 
     try {
 
-      const {
-        data,
-        error
-      } = await window.luxSupabase
-        .from("assinaturas_admin")
-        .select("*")
-        .order("criado_em", {
-          ascending: false
-        });
+      const resultado =
+        await window.luxSupabase
+          .from("assinaturas")
+          .select("*")
+          .order(
+            "criado_em",
+            {
+              ascending:false
+            }
+          );
 
 
-      if (error) {
+      if (resultado.error) {
 
         mostrarModalGenerico(
           "ASSINATURAS",
           "Não foi possível carregar as assinaturas.\n\n" +
-          error.message
+          resultado.error.message
         );
 
         return;
       }
 
 
-      if (!data || !data.length) {
+      const data =
+        resultado.data || [];
+
+
+      if (!data.length) {
 
         mostrarModalGenerico(
           "ASSINATURAS",
@@ -1345,52 +1951,57 @@
       }
 
 
-      const html = data.map(function (item) {
+      const html =
+        data.map(
+          function (item) {
 
-        return `
-          <div style="
-            padding:17px;
-            margin-bottom:12px;
-            border:1px solid rgba(248,213,138,.15);
-            border-radius:14px;
-            background:rgba(255,255,255,.025);
-          ">
+            return `
+              <div style="
+                padding:17px;
+                margin-bottom:12px;
+                border:1px solid rgba(248,213,138,.15);
+                border-radius:14px;
+                background:rgba(255,255,255,.025);
+              ">
 
-            <div style="
-              color:#f8d58a;
-              font-weight:bold;
-              font-size:17px;
-            ">
-              ${escaparHTML(
-                item.plano ||
-                item.nome_plano ||
-                "Plano"
-              )}
-            </div>
+                <div style="
+                  color:#f8d58a;
+                  font-weight:bold;
+                  font-size:17px;
+                ">
+                  ${escaparHTML(
+                    item.plano ||
+                    item.nome_plano ||
+                    "Plano"
+                  )}
+                </div>
 
-            <div style="
-              color:#ddd;
-              margin-top:7px;
-            ">
-              Status:
-              ${escaparHTML(
-                item.status ||
-                "Não informado"
-              )}
-            </div>
+                <div style="
+                  color:#ddd;
+                  margin-top:7px;
+                ">
+                  Status:
+                  ${escaparHTML(
+                    item.status ||
+                    "Não informado"
+                  )}
+                </div>
 
-            <div style="
-              color:#aaa;
-              font-size:12px;
-              margin-top:7px;
-            ">
-              ${formatarData(item.criado_em)}
-            </div>
+                <div style="
+                  color:#aaa;
+                  font-size:12px;
+                  margin-top:7px;
+                ">
+                  ${formatarData(
+                    item.criado_em
+                  )}
+                </div>
 
-          </div>
-        `;
+              </div>
+            `;
 
-      }).join("");
+          }
+        ).join("");
 
 
       mostrarModalGenerico(
@@ -1399,9 +2010,12 @@
         true
       );
 
+
     } catch (erro) {
 
-      console.error(erro);
+      console.error(
+        erro
+      );
 
       mostrarModalGenerico(
         "ASSINATURAS",
@@ -1529,13 +2143,19 @@
           line-height:1.8;
           padding-left:20px;
         ">
-          ${recursos.map(function (item) {
-            return `
-              <li>
-                ${escaparHTML(item)}
-              </li>
-            `;
-          }).join("")}
+
+          ${recursos.map(
+            function (item) {
+
+              return `
+                <li>
+                  ${escaparHTML(item)}
+                </li>
+              `;
+
+            }
+          ).join("")}
+
         </ul>
 
       </div>
@@ -1553,9 +2173,11 @@
     mostrarModalGenerico(
       "DOAÇÕES",
       `
-        <p style="color:#ddd;line-height:1.7;">
-          O módulo de doações está disponível para integração
-          com o sistema Pix.
+        <p style="
+          color:#ddd;
+          line-height:1.7;
+        ">
+          Área administrativa das doações Pix.
         </p>
 
         <p style="
@@ -1563,8 +2185,8 @@
           margin-top:12px;
           line-height:1.7;
         ">
-          Os registros de doação serão exibidos aqui quando
-          houver uma tabela própria de doações no Supabase.
+          O módulo permanece preparado para integração
+          com os registros de doações do Supabase.
         </p>
       `,
       true
@@ -1586,8 +2208,8 @@
           color:#ddd;
           line-height:1.7;
         ">
-          Área preparada para acompanhamento dos pagamentos
-          realizados no sistema LUX ADVANCE.
+          Área administrativa destinada ao
+          acompanhamento dos pagamentos.
         </p>
       `,
       true
@@ -1609,8 +2231,8 @@
           color:#ddd;
           line-height:1.7;
         ">
-          Área administrativa destinada ao gerenciamento
-          das contas de usuários da plataforma.
+          Área administrativa destinada ao
+          gerenciamento das contas de usuários.
         </p>
       `,
       true
@@ -1626,11 +2248,17 @@
   function mostrarModalGenerico(
     titulo,
     conteudo,
-    html = false
+    html
   ) {
 
+    html =
+      html === true;
+
+
     const modal =
-      document.getElementById("modal-admin-generico");
+      document.getElementById(
+        "modal-admin-generico"
+      );
 
 
     if (modal) {
@@ -1640,6 +2268,7 @@
           "[data-modal-titulo]"
         );
 
+
       const corpoElemento =
         modal.querySelector(
           "[data-modal-corpo]"
@@ -1647,35 +2276,44 @@
 
 
       if (tituloElemento) {
-        tituloElemento.textContent = titulo;
+
+        tituloElemento.textContent =
+          titulo;
+
       }
 
 
       if (corpoElemento) {
 
         if (html) {
-          corpoElemento.innerHTML = conteudo;
+
+          corpoElemento.innerHTML =
+            conteudo;
+
         } else {
-          corpoElemento.textContent = conteudo;
+
+          corpoElemento.textContent =
+            conteudo;
+
         }
 
       }
 
 
-      modal.style.display = "flex";
+      modal.style.display =
+        "flex";
+
 
       return;
+
     }
 
-
-    /* =====================================================
-       FALLBACK — cria modal automaticamente
-       ===================================================== */
 
     const existente =
       document.getElementById(
         "lux-modal-generico-criado"
       );
+
 
     if (existente) {
       existente.remove();
@@ -1683,7 +2321,9 @@
 
 
     const novoModal =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
 
     novoModal.id =
@@ -1704,7 +2344,9 @@
 
 
     const caixa =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
 
     caixa.style.cssText = `
@@ -1738,6 +2380,7 @@
           ${escaparHTML(titulo)}
         </h2>
 
+
         <button
           type="button"
           id="fechar-lux-modal"
@@ -1757,13 +2400,20 @@
 
       </div>
 
+
       <div id="conteudo-lux-modal"></div>
 
     `;
 
 
-    novoModal.appendChild(caixa);
-    document.body.appendChild(novoModal);
+    novoModal.appendChild(
+      caixa
+    );
+
+
+    document.body.appendChild(
+      novoModal
+    );
 
 
     const conteudoElemento =
@@ -1773,27 +2423,39 @@
 
 
     if (html) {
+
       conteudoElemento.innerHTML =
         conteudo;
+
     } else {
+
       conteudoElemento.textContent =
         conteudo;
+
     }
 
 
     caixa.querySelector(
       "#fechar-lux-modal"
-    ).onclick = function () {
-      novoModal.remove();
-    };
+    ).onclick =
+      function () {
+
+        novoModal.remove();
+
+      };
 
 
     novoModal.addEventListener(
       "click",
       function (evento) {
 
-        if (evento.target === novoModal) {
+        if (
+          evento.target ===
+          novoModal
+        ) {
+
           novoModal.remove();
+
         }
 
       }
@@ -1803,7 +2465,7 @@
 
 
   /* =========================================================
-     FECHAR MODAL GENÉRICO
+     FECHAR MODAIS
      ========================================================= */
 
   document.addEventListener(
@@ -1821,8 +2483,12 @@
             ".modal"
           );
 
+
         if (modal) {
-          modal.style.display = "none";
+
+          modal.style.display =
+            "none";
+
         }
 
       }
@@ -1835,12 +2501,19 @@
      NORMALIZAR TEXTO
      ========================================================= */
 
-  function normalizarTexto(texto) {
+  function normalizarTexto(
+    texto
+  ) {
 
-    return String(texto || "")
+    return String(
+      texto || ""
+    )
       .toLowerCase()
       .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+      .replace(
+        /[\u0300-\u036f]/g,
+        ""
+      );
 
   }
 
@@ -1849,10 +2522,14 @@
      FORMATAR DATA
      ========================================================= */
 
-  function formatarData(data) {
+  function formatarData(
+    data
+  ) {
 
     if (!data) {
+
       return "Não informado";
+
     }
 
 
@@ -1862,16 +2539,22 @@
         new Date(data);
 
 
-      if (isNaN(dataObj.getTime())) {
+      if (
+        isNaN(
+          dataObj.getTime()
+        )
+      ) {
+
         return String(data);
+
       }
 
 
       return dataObj.toLocaleString(
         "pt-BR",
         {
-          dateStyle: "short",
-          timeStyle: "short"
+          dateStyle:"short",
+          timeStyle:"short"
         }
       );
 
@@ -1888,22 +2571,41 @@
      ESCAPAR HTML
      ========================================================= */
 
-  function escaparHTML(valor) {
+  function escaparHTML(
+    valor
+  ) {
 
     if (
       valor === null ||
       valor === undefined
     ) {
+
       return "";
+
     }
 
 
     return String(valor)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
 
   }
 
@@ -1912,12 +2614,25 @@
      ESCAPAR ATRIBUTO
      ========================================================= */
 
-  function escaparAtributo(valor) {
+  function escaparAtributo(
+    valor
+  ) {
 
-    return String(valor || "")
-      .replace(/\\/g, "\\\\")
-      .replace(/'/g, "\\'")
-      .replace(/"/g, "&quot;");
+    return String(
+      valor || ""
+    )
+      .replace(
+        /\\/g,
+        "\\\\"
+      )
+      .replace(
+        /'/g,
+        "\\'"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      );
 
   }
 

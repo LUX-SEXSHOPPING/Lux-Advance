@@ -12,6 +12,10 @@ content="width=device-width, initial-scale=1.0"
   href="./login.css"
 ><style>
 
+/* =========================================================
+   SOMENTE VISUAL — LUX HALLOWEEN
+   ========================================================= */
+
 *{
   box-sizing:border-box;
 }
@@ -26,51 +30,46 @@ body{
 
   min-height:100vh;
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
 
   color:#fff;
 
-  overflow-x:hidden;
+  position:relative;
 
   background:
 
     radial-gradient(
-      circle at 15% 15%,
-      rgba(255,92,0,.18),
+      circle at 15% 10%,
+      rgba(255,100,0,.18),
       transparent 28%
     ),
 
     radial-gradient(
       circle at 85% 20%,
-      rgba(120,12,65,.20),
+      rgba(115,15,55,.20),
       transparent 32%
     ),
 
     radial-gradient(
       circle at 50% 100%,
       rgba(248,213,138,.08),
-      transparent 38%
+      transparent 35%
     ),
 
     linear-gradient(
       145deg,
       #050405 0%,
-      #0b0608 45%,
-      #180b10 75%,
+      #0b0608 42%,
+      #180b10 72%,
       #050405 100%
     );
 
-  position:relative;
+  overflow-x:hidden;
 
 }
 
 
-/* =========================================
-   FUNDO LUX HALLOWEEN
-   ========================================= */
+/* FUNDO DECORATIVO */
 
 body::before{
 
@@ -88,8 +87,8 @@ body::before{
 
     radial-gradient(
       circle at center,
-      transparent 20%,
-      rgba(0,0,0,.25) 65%,
+      transparent 15%,
+      rgba(0,0,0,.18) 60%,
       rgba(0,0,0,.72) 100%
     );
 
@@ -102,19 +101,18 @@ body::after{
 
   position:fixed;
 
-  width:420px;
-  height:420px;
+  width:380px;
+  height:380px;
 
-  right:-180px;
-  bottom:-130px;
+  right:-170px;
+  bottom:-150px;
 
   border-radius:50%;
 
   background:
-    rgba(255,80,0,.055);
+    rgba(255,90,0,.07);
 
-  filter:
-    blur(70px);
+  filter:blur(70px);
 
   pointer-events:none;
 
@@ -123,78 +121,69 @@ body::after{
 }
 
 
-/* =========================================
-   DECORAÇÕES
-   ========================================= */
+/* DECORAÇÕES HALLOWEEN */
 
-.halloween{
+.halloween-decoration{
 
   position:fixed;
 
   pointer-events:none;
 
-  user-select:none;
-
   z-index:1;
 
-  opacity:.10;
+  opacity:.08;
 
-  filter:
-    drop-shadow(
-      0 0 18px
-      rgba(255,100,0,.25)
-    );
+  font-size:90px;
+
+  user-select:none;
 
 }
 
-.halloween.web-left{
+
+.web-left{
 
   left:-20px;
 
   top:12%;
 
-  font-size:105px;
-
-  transform:
-    rotate(-15deg);
+  transform:rotate(-12deg);
 
 }
 
-.halloween.web-right{
 
-  right:-20px;
+.web-right{
+
+  right:-18px;
 
   bottom:13%;
 
-  font-size:100px;
-
-  transform:
-    rotate(170deg);
+  transform:rotate(170deg);
 
 }
 
-.halloween.pumpkin{
+
+.pumpkin-decoration{
+
+  position:fixed;
 
   right:22px;
 
-  top:28px;
+  top:20px;
 
-  font-size:65px;
+  font-size:58px;
 
-  opacity:.08;
+  opacity:.07;
+
+  pointer-events:none;
+
+  z-index:1;
 
 }
 
 
-/* =========================================
-   PÁGINA
-   ========================================= */
+/* PÁGINA */
 
 .lux-login-page{
-
-  position:relative;
-
-  z-index:3;
 
   min-height:100vh;
 
@@ -204,15 +193,16 @@ body::after{
 
   justify-content:center;
 
-  padding:
-    25px 15px 35px;
+  padding:25px 15px;
+
+  position:relative;
+
+  z-index:2;
 
 }
 
 
-/* =========================================
-   CARTÃO
-   ========================================= */
+/* CARTÃO */
 
 .lux-login-card{
 
@@ -220,39 +210,34 @@ body::after{
 
   max-width:470px;
 
-  padding:
-    30px 24px;
+  padding:30px 24px;
 
   border:
     1px solid
     rgba(248,213,138,.32);
 
-  border-radius:26px;
+  border-radius:24px;
 
   background:
 
     linear-gradient(
       145deg,
-      rgba(25,14,17,.96),
+      rgba(24,14,17,.96),
       rgba(7,5,7,.97)
     );
 
   box-shadow:
 
-    0 25px 80px
-    rgba(0,0,0,.72),
+    0 25px 70px
+    rgba(0,0,0,.70),
 
-    0 0 45px
-    rgba(248,213,138,.07),
+    0 0 35px
+    rgba(248,213,138,.08),
 
     inset 0 1px
-    rgba(255,255,255,.035);
+    rgba(255,255,255,.025);
 
-  backdrop-filter:
-    blur(18px);
-
-  -webkit-backdrop-filter:
-    blur(18px);
+  backdrop-filter:blur(12px);
 
   position:relative;
 
@@ -267,60 +252,33 @@ body::after{
 
   position:absolute;
 
-  width:180px;
-  height:180px;
+  width:160px;
 
-  right:-100px;
-  top:-100px;
+  height:160px;
+
+  right:-90px;
+
+  top:-90px;
 
   border-radius:50%;
 
   background:
-    rgba(255,95,0,.08);
+    rgba(255,100,0,.08);
 
-  filter:
-    blur(10px);
+  filter:blur(8px);
 
   pointer-events:none;
 
 }
 
 
-.lux-login-card::after{
-
-  content:"";
-
-  position:absolute;
-
-  left:25px;
-  right:25px;
-  top:0;
-
-  height:1px;
-
-  background:
-
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(248,213,138,.65),
-      transparent
-    );
-
-  opacity:.75;
-
-}
-
-
-/* =========================================
-   LOGO
-   ========================================= */
+/* LOGO */
 
 .lux-logo{
 
   text-align:center;
 
-  margin-bottom:28px;
+  margin-bottom:25px;
 
   position:relative;
 
@@ -331,23 +289,23 @@ body::after{
 
 .lux-logo img{
 
-  width:
-    min(220px,72vw);
+  display:block;
 
-  max-height:130px;
+  width:
+    min(190px,65vw);
+
+  max-height:115px;
 
   object-fit:contain;
 
-  display:block;
-
   margin:
-    0 auto 8px;
+    0 auto 7px;
 
   filter:
 
     drop-shadow(
       0 0 18px
-      rgba(248,213,138,.18)
+      rgba(248,213,138,.22)
     );
 
 }
@@ -373,11 +331,11 @@ body::after{
 
 .lux-logo p{
 
-  margin:7px 0 0;
+  margin:8px 0 0;
 
   color:#d7c6a2;
 
-  font-size:11px;
+  font-size:12px;
 
   letter-spacing:3px;
 
@@ -386,17 +344,11 @@ body::after{
 }
 
 
-/* =========================================
-   TELAS
-   ========================================= */
+/* TELAS */
 
 .tela{
 
   display:none;
-
-  position:relative;
-
-  z-index:2;
 
 }
 
@@ -407,9 +359,7 @@ body::after{
 }
 
 
-/* =========================================
-   TEXTOS
-   ========================================= */
+/* TÍTULOS */
 
 h2{
 
@@ -417,12 +367,11 @@ h2{
 
   color:#f8d58a;
 
-  margin:
-    0 0 12px;
+  margin:0 0 12px;
 
   text-shadow:
     0 0 18px
-    rgba(248,213,138,.08);
+    rgba(248,213,138,.10);
 
 }
 
@@ -433,19 +382,16 @@ h2{
 
   color:#cfc5c8;
 
-  line-height:1.6;
+  line-height:1.5;
 
-  margin:
-    0 0 22px;
+  margin:0 0 22px;
 
   font-size:14px;
 
 }
 
 
-/* =========================================
-   BOTÕES
-   ========================================= */
+/* BOTÕES */
 
 .botoes{
 
@@ -460,16 +406,13 @@ button{
 
   width:100%;
 
-  min-height:48px;
-
   border:
     1px solid
-    rgba(248,213,138,.50);
+    rgba(248,213,138,.55);
 
-  border-radius:13px;
+  border-radius:12px;
 
-  padding:
-    14px 16px;
+  padding:14px 16px;
 
   background:
 
@@ -490,16 +433,10 @@ button{
   box-shadow:
 
     0 8px 25px
-    rgba(210,120,20,.12),
-
-    inset 0 1px
-    rgba(255,255,255,.30);
+    rgba(210,100,0,.15);
 
   transition:
-
-    transform .2s ease,
-    box-shadow .2s ease,
-    filter .2s ease;
+    .2s ease;
 
 }
 
@@ -507,29 +444,12 @@ button{
 button:hover{
 
   transform:
-    translateY(-2px);
-
-  filter:
-    brightness(1.06);
+    translateY(-1px);
 
   box-shadow:
 
-    0 12px 30px
-    rgba(255,120,0,.18),
-
-    0 0 20px
-    rgba(248,213,138,.06);
-
-}
-
-
-button:disabled{
-
-  opacity:.60;
-
-  cursor:not-allowed;
-
-  transform:none;
+    0 10px 30px
+    rgba(255,120,0,.25);
 
 }
 
@@ -537,31 +457,18 @@ button:disabled{
 button.secundario{
 
   background:
-
     rgba(255,255,255,.025);
 
   color:#f8d58a;
 
   border:
     1px solid
-    rgba(248,213,138,.24);
-
-  box-shadow:none;
+    rgba(248,213,138,.25);
 
 }
 
 
-button.secundario:hover{
-
-  background:
-    rgba(248,213,138,.07);
-
-}
-
-
-/* =========================================
-   FORMULÁRIO
-   ========================================= */
+/* FORMULÁRIO */
 
 .formulario{
 
@@ -596,14 +503,13 @@ input{
 
   border:
     1px solid
-    rgba(248,213,138,.20);
+    rgba(248,213,138,.22);
 
-  border-radius:11px;
+  border-radius:10px;
 
-  padding:14px;
+  padding:13px;
 
-  background:
-    rgba(18,9,13,.92);
+  background:#12090d;
 
   color:#fff;
 
@@ -611,39 +517,22 @@ input{
 
   font-size:14px;
 
-  transition:
-    border-color .2s,
-    box-shadow .2s;
-
 }
 
 
 input:focus{
 
-  border-color:
-    rgba(248,213,138,.70);
+  border-color:#f8d58a;
 
   box-shadow:
 
     0 0 0 2px
-    rgba(248,213,138,.07),
-
-    0 0 18px
-    rgba(248,213,138,.05);
+    rgba(248,213,138,.08);
 
 }
 
 
-input::placeholder{
-
-  color:#74696e;
-
-}
-
-
-/* =========================================
-   MENSAGENS
-   ========================================= */
+/* MENSAGENS */
 
 .mensagem{
 
@@ -660,40 +549,11 @@ input::placeholder{
 }
 
 
-.mensagem.sucesso{
-
-  color:#9ff2ba;
-
-}
-
-
-.mensagem.erro{
-
-  color:#ff9eae;
-
-}
-
-
-.mensagem.info{
-
-  color:#f8d58a;
-
-}
-
-
-/* =========================================
-   RODAPÉ
-   ========================================= */
+/* RODAPÉ */
 
 .rodape{
 
-  margin-top:26px;
-
-  padding-top:18px;
-
-  border-top:
-    1px solid
-    rgba(248,213,138,.10);
+  margin-top:25px;
 
   text-align:center;
 
@@ -701,44 +561,29 @@ input::placeholder{
 
   font-size:11px;
 
-  letter-spacing:.4px;
-
 }
 
 
-/* =========================================
-   CELULAR
-   ========================================= */
+/* CELULAR */
 
 @media(max-width:480px){
 
-  .lux-login-page{
-
-    padding:
-      15px 12px 25px;
-
-  }
-
-
   .lux-login-card{
 
-    padding:
-      26px 17px;
+    padding:25px 17px;
 
-    border-radius:21px;
+    border-radius:18px;
 
   }
-
 
   .lux-logo img{
 
     width:
-      min(190px,68vw);
+      min(170px,62vw);
 
-    max-height:105px;
+    max-height:100px;
 
   }
-
 
   .lux-logo h1{
 
@@ -746,62 +591,36 @@ input::placeholder{
 
   }
 
+  .web-left,
+  .web-right{
 
-  .lux-logo p{
-
-    font-size:10px;
-
-    letter-spacing:2.5px;
+    font-size:70px;
 
   }
 
+  .pumpkin-decoration{
 
-  .halloween.web-left{
-
-    font-size:75px;
-
-  }
-
-
-  .halloween.web-right{
-
-    font-size:75px;
-
-  }
-
-
-  .halloween.pumpkin{
-
-    font-size:48px;
+    font-size:45px;
 
     right:10px;
-
-    top:15px;
 
   }
 
 }
 
-</style></head><body><!-- =========================================
-     DECORAÇÕES HALLOWEEN
-     ========================================= --><div class="halloween web-left">
+</style></head><body><!-- DECORAÇÕES HALLOWEEN --><div class="halloween-decoration web-left">
   🕸️
-</div><div class="halloween web-right">
+</div><div class="halloween-decoration web-right">
   🕸️
-</div><div class="halloween pumpkin">
+</div><div class="pumpkin-decoration">
   🎃
-</div><main class="lux-login-page"><div class="lux-login-card"><!-- =====================================================
-     LOGO
-     ===================================================== --><div class="lux-logo"><img
+</div><main class="lux-login-page"><div class="lux-login-card"><div class="lux-logo"><img
 src="./logo4.png"
 alt="LUX — Lux Advance"
-onerror="this.style.display='none';"
 
 «»
 
-<h1>LUX</h1><p>
-Lux Advance
-</p></div><!-- =====================================================
+<p>Lux Advance</p></div><!-- =====================================================
      TELA INICIAL
      ===================================================== --><section
   id="telaInicial"
@@ -863,16 +682,9 @@ required
 </div><div
   id="msgLogin"
   class="mensagem"
-></div><button
-type="submit"
-id="btnEntrar"
-
-«»
-
+></div><button type="submit">
 Entrar
-</button>
-
-<button
+</button><button
 type="button"
 id="btnVoltarLogin"
 class="secundario"
@@ -984,7 +796,7 @@ class="secundario"
 Voltar
 </button>
 
-</form></section><div class="rodape">LUX — Sensualidade & Sofisticação · Halloween Edition 🎃
+</form></section><div class="rodape">LUX — Sensualidade & Sofisticação
 
 </div></div></main><!-- =====================================================
      SUPABASE
@@ -1000,7 +812,7 @@ Voltar
 
 
 /* =========================================================
-   VERIFICAÇÃO
+   VERIFICAÇÃO DO SISTEMA
    ========================================================= */
 
 console.log(
@@ -1071,9 +883,6 @@ function limparMensagem(elemento){
 
     elemento.textContent = "";
 
-    elemento.className =
-      "mensagem";
-
   }
 
 }
@@ -1092,7 +901,7 @@ function mensagem(elemento,texto){
 
 
 /* =========================================================
-   JÁ TENHO CADASTRO
+   BOTÃO — JÁ TENHO CADASTRO
    ========================================================= */
 
 document
@@ -1102,7 +911,9 @@ document
     function(){
 
       limparMensagem(
-        document.getElementById("msgLogin")
+        document.getElementById(
+          "msgLogin"
+        )
       );
 
       mostrarTela("login");
@@ -1112,7 +923,7 @@ document
 
 
 /* =========================================================
-   NÃO TENHO CADASTRO
+   BOTÃO — NÃO TENHO CADASTRO
    ========================================================= */
 
 document
@@ -1128,7 +939,7 @@ document
 
 
 /* =========================================================
-   USUÁRIO
+   CADASTRO DE USUÁRIO
    ========================================================= */
 
 document
@@ -1138,7 +949,9 @@ document
     function(){
 
       limparMensagem(
-        document.getElementById("msgUsuario")
+        document.getElementById(
+          "msgUsuario"
+        )
       );
 
       mostrarTela("usuario");
@@ -1148,7 +961,7 @@ document
 
 
 /* =========================================================
-   MODELO
+   CADASTRO DE MODELO
    ========================================================= */
 
 document
@@ -1165,7 +978,7 @@ document
 
 
 /* =========================================================
-   VOLTAR
+   VOLTAR — ESCOLHA
    ========================================================= */
 
 document
@@ -1180,6 +993,10 @@ document
   );
 
 
+/* =========================================================
+   VOLTAR — LOGIN
+   ========================================================= */
+
 document
   .getElementById("btnVoltarLogin")
   .addEventListener(
@@ -1187,7 +1004,9 @@ document
     function(){
 
       limparMensagem(
-        document.getElementById("msgLogin")
+        document.getElementById(
+          "msgLogin"
+        )
       );
 
       mostrarTela("inicial");
@@ -1196,6 +1015,10 @@ document
   );
 
 
+/* =========================================================
+   VOLTAR — USUÁRIO
+   ========================================================= */
+
 document
   .getElementById("btnVoltarUsuario")
   .addEventListener(
@@ -1203,7 +1026,9 @@ document
     function(){
 
       limparMensagem(
-        document.getElementById("msgUsuario")
+        document.getElementById(
+          "msgUsuario"
+        )
       );
 
       mostrarTela("escolha");
@@ -1227,20 +1052,25 @@ document
 
       var email =
         document
-          .getElementById("loginEmail")
+          .getElementById(
+            "loginEmail"
+          )
           .value
-          .trim()
-          .toLowerCase();
+          .trim();
 
 
       var senha =
         document
-          .getElementById("loginSenha")
+          .getElementById(
+            "loginSenha"
+          )
           .value;
 
 
       var msg =
-        document.getElementById("msgLogin");
+        document.getElementById(
+          "msgLogin"
+        );
 
 
       limparMensagem(msg);
@@ -1248,7 +1078,10 @@ document
 
       try{
 
-        if(!window.luxSupabase){
+
+        if(
+          !window.luxSupabase
+        ){
 
           mensagem(
             msg,
@@ -1328,6 +1161,10 @@ document
             : "";
 
 
+        /*
+          Fallback para contas de modelo.
+        */
+
         if(
           !tipo &&
           modeloPerfil
@@ -1361,7 +1198,9 @@ document
         );
 
 
-        /* MODELO */
+        /* =================================================
+           MODELO
+           ================================================= */
 
         if(
           tipo === "modelo"
@@ -1389,40 +1228,9 @@ document
         }
 
 
-        /* ADMIN */
-
-        if(
-          tipo === "admin" ||
-          (
-            usuario.email &&
-            usuario.email.toLowerCase() ===
-            "luxcdam@gmail.com"
-          )
-        ){
-
-          mensagem(
-            msg,
-            "Login administrativo realizado. Abrindo painel..."
-          );
-
-
-          setTimeout(
-            function(){
-
-              window.location.href =
-                "./painel-admin.html";
-
-            },
-            300
-          );
-
-
-          return;
-
-        }
-
-
-        /* USUÁRIO */
+        /* =================================================
+           USUÁRIO
+           ================================================= */
 
         mensagem(
           msg,
@@ -1434,15 +1242,14 @@ document
           function(){
 
             window.location.href =
-              "./area-usuario.html";
+              "./painel-usuario.html";
 
           },
           300
         );
 
-      }
 
-      catch(erro){
+      }catch(erro){
 
         console.error(
           "[LUX LOGIN] Erro:",
@@ -1479,37 +1286,50 @@ document
 
       var nome =
         document
-          .getElementById("usuarioNome")
+          .getElementById(
+            "usuarioNome"
+          )
           .value
           .trim();
 
 
       var email =
         document
-          .getElementById("usuarioEmail")
+          .getElementById(
+            "usuarioEmail"
+          )
           .value
-          .trim()
-          .toLowerCase();
+          .trim();
 
 
       var senha =
         document
-          .getElementById("usuarioSenha")
+          .getElementById(
+            "usuarioSenha"
+          )
           .value;
 
 
       var confirmacao =
         document
-          .getElementById("usuarioSenhaConfirmacao")
+          .getElementById(
+            "usuarioSenhaConfirmacao"
+          )
           .value;
 
 
       var msg =
-        document.getElementById("msgUsuario");
+        document.getElementById(
+          "msgUsuario"
+        );
 
 
       limparMensagem(msg);
 
+
+      /* ===================================================
+         CONFIRMAÇÃO DAS SENHAS
+         =================================================== */
 
       if(
         senha !==
@@ -1528,7 +1348,10 @@ document
 
       try{
 
-        if(!window.luxSupabase){
+
+        if(
+          !window.luxSupabase
+        ){
 
           mensagem(
             msg,
@@ -1571,6 +1394,10 @@ document
           );
 
 
+        /* =================================================
+           CONFIRMAÇÃO DE E-MAIL
+           ================================================= */
+
         if(
           resultado &&
           resultado.confirmationRequired
@@ -1585,12 +1412,16 @@ document
 
 
           document
-            .getElementById("usuarioSenha")
+            .getElementById(
+              "usuarioSenha"
+            )
             .value = "";
 
 
           document
-            .getElementById("usuarioSenhaConfirmacao")
+            .getElementById(
+              "usuarioSenhaConfirmacao"
+            )
             .value = "";
 
 
@@ -1598,6 +1429,10 @@ document
 
         }
 
+
+        /* =================================================
+           CADASTRO COM SESSÃO
+           ================================================= */
 
         mensagem(
           msg,
@@ -1611,10 +1446,14 @@ document
         setTimeout(
           function(){
 
-            mostrarTela("login");
+            mostrarTela(
+              "login"
+            );
 
             document
-              .getElementById("loginEmail")
+              .getElementById(
+                "loginEmail"
+              )
               .value =
               email;
 
@@ -1622,9 +1461,8 @@ document
           2000
         );
 
-      }
 
-      catch(erro){
+      }catch(erro){
 
         console.error(
           "[LUX LOGIN] Erro no cadastro:",
@@ -1647,7 +1485,7 @@ document
 
 
 /* =========================================================
-   RETORNO DO E-MAIL
+   RETORNO DE CONFIRMAÇÃO DE E-MAIL
    ========================================================= */
 
 (function verificarRetornoEmail(){
@@ -1670,18 +1508,31 @@ document
 
 
     var tipoErro =
-      search.get("error");
+      search.get(
+        "error"
+      );
 
 
     var descricaoErro =
-      search.get("error_description");
+      search.get(
+        "error_description"
+      );
 
 
     var codigo =
-      search.get("code");
+      search.get(
+        "code"
+      );
 
 
-    if(tipoErro){
+    /*
+      O Supabase pode devolver um erro
+      diretamente no link de confirmação.
+    */
+
+    if(
+      tipoErro
+    ){
 
       var mensagemErro =
         descricaoErro
@@ -1695,10 +1546,14 @@ document
 
 
       var msgLogin =
-        document.getElementById("msgLogin");
+        document.getElementById(
+          "msgLogin"
+        );
 
 
-      mostrarTela("login");
+      mostrarTela(
+        "login"
+      );
 
 
       mensagem(
@@ -1712,13 +1567,24 @@ document
     }
 
 
-    if(codigo){
+    /*
+      Quando há código de confirmação,
+      deixamos o Supabase processar a sessão.
+    */
+
+    if(
+      codigo
+    ){
 
       var msg =
-        document.getElementById("msgLogin");
+        document.getElementById(
+          "msgLogin"
+        );
 
 
-      mostrarTela("login");
+      mostrarTela(
+        "login"
+      );
 
 
       mensagem(
@@ -1726,6 +1592,11 @@ document
         "E-mail confirmado. Agora você pode entrar na sua conta."
       );
 
+
+      /*
+        Removemos apenas os parâmetros
+        de confirmação da barra de endereço.
+      */
 
       try{
 
@@ -1735,8 +1606,7 @@ document
           "./login.html"
         );
 
-      }
-      catch(e){
+      }catch(e){
 
         console.warn(
           "[LUX LOGIN] Não foi possível limpar a URL.",
@@ -1751,19 +1621,32 @@ document
     }
 
 
+    /*
+      Compatibilidade com o fluxo antigo
+      do Supabase baseado em hash.
+    */
+
     if(
       hash &&
       (
-        hash.includes("access_token=") ||
-        hash.includes("type=signup")
+        hash.includes(
+          "access_token="
+        ) ||
+        hash.includes(
+          "type=signup"
+        )
       )
     ){
 
-      mostrarTela("login");
+      mostrarTela(
+        "login"
+      );
 
 
       var msgHash =
-        document.getElementById("msgLogin");
+        document.getElementById(
+          "msgLogin"
+        );
 
 
       mensagem(
@@ -1773,9 +1656,7 @@ document
 
     }
 
-  }
-
-  catch(erro){
+  }catch(erro){
 
     console.warn(
       "[LUX LOGIN] Erro ao processar retorno do e-mail:",

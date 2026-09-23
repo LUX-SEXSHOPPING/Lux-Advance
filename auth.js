@@ -1,15 +1,16 @@
 /* =========================================================
-   LUX ADVANCE — AUTH.JS V8
-   Autenticação e cadastro
+   LUX ADVANCE — AUTH.JS V10
+   Autenticação, cadastro, sessão e perfis
    ========================================================= */
 
 (function () {
 
   "use strict";
 
-  console.log("[LUX V8] auth.js carregado.");
+  console.log("[LUX V10] auth.js carregado.");
 
-  window.LUX_AUTH_VERSION = "V8";
+  window.LUX_AUTH_VERSION = "V10";
+
 
   /* =========================================================
      CLIENTE SUPABASE
@@ -20,6 +21,11 @@
     const supabase = window.luxSupabase;
 
     if (!supabase) {
+
+      console.error(
+        "[LUX V10] Supabase não inicializado."
+      );
+
       throw new Error(
         "Supabase não foi inicializado. Verifique o config.js."
       );
@@ -30,14 +36,16 @@
 
 
   /* =========================================================
-     PERFIL
+     PERFIL PRINCIPAL
      ========================================================= */
 
   async function getPerfil(userId) {
 
     const supabase = requireClient();
 
-    if (!userId) return null;
+    if (!userId) {
+      return null;
+    }
 
     const { data, error } = await supabase
       .from("perfis")
@@ -46,7 +54,12 @@
       .maybeSingle();
 
     if (error) {
-      console.error("[LUX V8] Erro ao buscar perfil:", error);
+
+      console.error(
+        "[LUX V10] Erro ao buscar perfil:",
+        error
+      );
+
       return null;
     }
 
@@ -62,7 +75,9 @@
 
     const supabase = requireClient();
 
-    if (!userId) return null;
+    if (!userId) {
+      return null;
+    }
 
     const { data, error } = await supabase
       .from("modelo_perfis")
@@ -71,8 +86,9 @@
       .maybeSingle();
 
     if (error) {
+
       console.error(
-        "[LUX V8] Erro ao buscar modelo_perfil:",
+        "[LUX V10] Erro ao buscar modelo_perfis:",
         error
       );
 
@@ -95,8 +111,9 @@
       await supabase.auth.getUser();
 
     if (error) {
+
       console.error(
-        "[LUX V8] Erro ao obter usuário:",
+        "[LUX V10] Erro ao obter usuário:",
         error
       );
 
@@ -122,10 +139,13 @@
       const usuario =
         await usuarioAtual();
 
-      if (!usuario) return null;
+      if (!usuario) {
+        return null;
+      }
 
       id = usuario.id;
     }
+
 
     const perfil =
       await getPerfil(id);
@@ -133,6 +153,7 @@
     if (perfil?.tipo) {
       return perfil.tipo;
     }
+
 
     const modelo =
       await getModeloPerfil(id);
@@ -159,51 +180,117 @@
 
     senha = String(senha || "");
 
+
     if (!email || !senha) {
+
       throw new Error(
         "Informe seu e-mail e sua senha."
       );
     }
 
+
     console.log(
-      "[LUX V8] Tentando login:",
+      "[LUX V10] Tentando login:",
       email
     );
 
+
     const { data, error } =
       await supabase.auth.signInWithPassword({
-        email,
+
+        email: email,
+
         password: senha
+
       });
+
+
+    /* =====================================================
+       ERRO DE LOGIN
+       ===================================================== */
 
     if (error) {
 
       console.error(
-        "[LUX V8] Erro no login:",
+        "[LUX V10] Erro no login:",
         error
       );
 
+
+      const mensagemOriginal =
+        String(
+          error.message || ""
+        );
+
+
+      const mensagemLower =
+        mensagemOriginal.toLowerCase();
+
+
+      if (
+        mensagemLower.includes(
+          "email not confirmed"
+        ) ||
+        mensagemLower.includes(
+          "email not verified"
+        ) ||
+        mensagemLower.includes(
+          "not confirmed"
+        )
+      ) {
+
+        throw new Error(
+          "Seu e-mail ainda não foi confirmado. Verifique sua caixa de entrada e confirme o cadastro antes de entrar."
+        );
+      }
+
+
       throw new Error(
-        error.message ||
+        mensagemOriginal ||
         "Não foi possível realizar o login."
       );
     }
 
+
     if (!data?.user) {
+
       throw new Error(
         "O Supabase não retornou o usuário."
       );
     }
 
+
+    /* =====================================================
+       BUSCA PERFIS
+       ===================================================== */
+
     const perfil =
-      await getPerfil(data.user.id);
+      await getPerfil(
+        data.user.id
+      );
+
 
     const modelo =
-      await getModeloPerfil(data.user.id);
+      await getModeloPerfil(
+        data.user.id
+      );
+
+
+    /* =====================================================
+       BLOQUEIO DE CONTA
+       ===================================================== */
+
+    const status =
+      String(
+        perfil?.status || ""
+      )
+      .trim()
+      .toLowerCase();
+
 
     if (
-      perfil?.status === "bloqueado" ||
-      perfil?.status === "banido"
+      status === "bloqueado" ||
+      status === "banido"
     ) {
 
       await supabase.auth.signOut();
@@ -213,17 +300,33 @@
       );
     }
 
+
+    /* =====================================================
+       LOGIN CONCLUÍDO
+       ===================================================== */
+
     console.log(
-      "[LUX V8] Login realizado:",
+      "[LUX V10] Login realizado:",
       data.user.id
     );
 
+
     return {
+
       success: true,
-      user: data.user,
-      session: data.session,
-      perfil,
-      modeloPerfil: modelo
+
+      user:
+        data.user,
+
+      session:
+        data.session || null,
+
+      perfil:
+        perfil,
+
+      modeloPerfil:
+        modelo
+
     };
   }
 
@@ -232,38 +335,84 @@
      NORMALIZAÇÃO DA CATEGORIA
      ========================================================= */
 
-  function normalizarCategoria(categoria) {
+  function normalizarCategoria(
+    categoria
+  ) {
 
     const valor =
-      String(categoria || "")
-        .trim()
-        .toLowerCase();
+      String(
+        categoria || ""
+      )
+      .trim()
+      .toLowerCase();
+
 
     if (
       valor === "feminino" ||
       valor === "feminina" ||
       valor === "mulher"
     ) {
+
       return "feminino";
     }
+
 
     if (
       valor === "masculino" ||
       valor === "masculina" ||
       valor === "homem"
     ) {
+
       return "masculino";
     }
+
 
     if (
       valor === "lgbtq" ||
       valor === "lgbt" ||
       valor === "lgbtq+"
     ) {
+
       return "lgbtq";
     }
 
+
     return valor;
+  }
+
+
+  /* =========================================================
+     URL DE RETORNO DA CONFIRMAÇÃO
+     ========================================================= */
+
+  function obterRedirectLogin() {
+
+    try {
+
+      if (
+        window.LUX_AUTH_REDIRECT_URL
+      ) {
+
+        return (
+          window.LUX_AUTH_REDIRECT_URL
+        );
+      }
+
+
+      return new URL(
+        "./login.html",
+        window.location.href
+      ).href;
+
+    } catch (erro) {
+
+      console.warn(
+        "[LUX V10] Não foi possível calcular redirect:",
+        erro
+      );
+
+      return null;
+    }
   }
 
 
@@ -279,74 +428,104 @@
     extras = {}
   ) {
 
-    const supabase = requireClient();
+    const supabase =
+      requireClient();
+
 
     console.log(
-      "[LUX V8] Iniciando cadastro..."
+      "[LUX V10] Iniciando cadastro..."
     );
 
+
     tipo =
-      String(tipo || "")
-        .trim()
-        .toLowerCase();
+      String(
+        tipo || ""
+      )
+      .trim()
+      .toLowerCase();
+
 
     nome =
-      String(nome || "").trim();
+      String(
+        nome || ""
+      )
+      .trim();
+
 
     email =
-      String(email || "")
-        .trim()
-        .toLowerCase();
+      String(
+        email || ""
+      )
+      .trim()
+      .toLowerCase();
+
 
     senha =
-      String(senha || "");
+      String(
+        senha || ""
+      );
+
 
     extras =
       extras || {};
 
-    /* -------------------------------------------------------
+
+    /* =====================================================
        VALIDAÇÕES
-       ------------------------------------------------------- */
+       ===================================================== */
 
     if (!tipo) {
+
       throw new Error(
         "Tipo de usuário não informado."
       );
     }
 
+
     if (
       tipo !== "modelo" &&
       tipo !== "usuario"
     ) {
+
       throw new Error(
         "Tipo de usuário inválido."
       );
     }
 
+
     if (!nome) {
+
       throw new Error(
         "Informe o nome."
       );
     }
 
+
     if (!email) {
+
       throw new Error(
         "Informe o e-mail."
       );
     }
 
-    if (!senha || senha.length < 6) {
+
+    if (
+      !senha ||
+      senha.length < 6
+    ) {
+
       throw new Error(
         "A senha deve possuir pelo menos 6 caracteres."
       );
     }
 
 
-    /* -------------------------------------------------------
-       MODELO
-       ------------------------------------------------------- */
+    /* =====================================================
+       DADOS ESPECÍFICOS DA MODELO
+       ===================================================== */
 
     let categoria = null;
+
 
     if (tipo === "modelo") {
 
@@ -355,31 +534,40 @@
           extras.categoria_catalogo
         );
 
+
       if (
         categoria !== "feminino" &&
         categoria !== "masculino" &&
         categoria !== "lgbtq"
       ) {
+
         throw new Error(
           "Selecione uma categoria válida."
         );
       }
 
+
       const idade =
-        Number(extras.idade);
+        Number(
+          extras.idade
+        );
+
 
       if (
         !Number.isFinite(idade) ||
         idade < 18
       ) {
+
         throw new Error(
           "A modelo deve possuir 18 anos ou mais."
         );
       }
 
+
       if (
         extras.maioridade_confirmada !== true
       ) {
+
         throw new Error(
           "É necessário confirmar a maioridade."
         );
@@ -387,15 +575,17 @@
     }
 
 
-    /* -------------------------------------------------------
-       METADADOS DO CADASTRO
-       ------------------------------------------------------- */
+    /* =====================================================
+       METADADOS
+       ===================================================== */
 
     const metadata = {
 
-      nome: nome,
+      nome:
+        nome,
 
-      tipo: tipo,
+      tipo:
+        tipo,
 
       apelido:
         extras.apelido || null,
@@ -424,9 +614,11 @@
 
       estado:
         extras.estado
-          ? String(extras.estado)
-              .trim()
-              .toUpperCase()
+          ? String(
+              extras.estado
+            )
+            .trim()
+            .toUpperCase()
           : null,
 
       cidade:
@@ -466,33 +658,53 @@
         tipo === "modelo"
           ? true
           : false
+
     };
 
 
     console.log(
-      "[LUX V8] Dados enviados ao Supabase:",
+      "[LUX V10] Metadados:",
       metadata
     );
 
 
-    /* -------------------------------------------------------
-       CRIAÇÃO DO USUÁRIO NO AUTH
-       ------------------------------------------------------- */
+    /* =====================================================
+       REDIRECT DO E-MAIL
+       ===================================================== */
+
+    const redirect =
+      obterRedirectLogin();
+
+
+    /* =====================================================
+       CRIAÇÃO NO SUPABASE AUTH
+       ===================================================== */
 
     let resultado;
+
 
     try {
 
       resultado =
         await supabase.auth.signUp({
 
-          email: email,
+          email:
+            email,
 
-          password: senha,
+          password:
+            senha,
 
           options: {
 
-            data: metadata
+            data:
+              metadata,
+
+            ...(redirect
+              ? {
+                  emailRedirectTo:
+                    redirect
+                }
+              : {})
 
           }
 
@@ -501,9 +713,10 @@
     } catch (erro) {
 
       console.error(
-        "[LUX V8] Exceção no signUp:",
+        "[LUX V10] Exceção no signUp:",
         erro
       );
+
 
       throw new Error(
         erro?.message ||
@@ -515,81 +728,144 @@
     const data =
       resultado?.data;
 
+
     const error =
       resultado?.error;
 
 
-    /* -------------------------------------------------------
+    /* =====================================================
        ERRO DO SUPABASE
-       ------------------------------------------------------- */
+       ===================================================== */
 
     if (error) {
 
       console.error(
-        "[LUX V8] Supabase retornou erro:",
+        "[LUX V10] Erro retornado pelo Supabase:",
         error
       );
+
 
       let mensagem =
         error.message ||
         "Não foi possível criar a conta.";
 
+
+      const mensagemLower =
+        String(
+          mensagem
+        ).toLowerCase();
+
+
       if (
+        mensagemLower.includes(
+          "already registered"
+        ) ||
+        mensagemLower.includes(
+          "already exists"
+        ) ||
         error.code ===
-        "user_already_exists"
+          "user_already_exists"
       ) {
+
         mensagem =
           "Este e-mail já possui cadastro.";
       }
 
+
       if (
         error.status === 429
       ) {
+
         mensagem =
           "Muitas tentativas de cadastro. Aguarde alguns minutos e tente novamente.";
       }
 
-      throw new Error(mensagem);
+
+      throw new Error(
+        mensagem
+      );
     }
 
 
-    /* -------------------------------------------------------
-       CONFIRMAÇÃO DO AUTH.USER
-       ------------------------------------------------------- */
+    /* =====================================================
+       USUÁRIO CRIADO
+       ===================================================== */
 
     const user =
       data?.user;
 
+
     if (!user) {
 
       console.error(
-        "[LUX V8] signUp não retornou user:",
+        "[LUX V10] signUp não retornou usuário:",
         resultado
       );
 
+
       throw new Error(
-        "O Supabase não retornou o usuário criado. O cadastro não foi confirmado."
+        "O Supabase não retornou o usuário criado."
       );
     }
 
 
     console.log(
-      "[LUX V8] Usuário criado no Auth:",
+      "[LUX V10] Usuário criado:",
       user.id
     );
 
-    console.log(
-      "[LUX V8] E-mail:",
-      user.email
-    );
+
+    /* =====================================================
+       CONFIRMAÇÃO DE E-MAIL
+       ===================================================== */
+
+    if (!data?.session) {
+
+      console.log(
+        "[LUX V10] Confirmação de e-mail necessária."
+      );
 
 
-    /* -------------------------------------------------------
-       AGUARDA O TRIGGER CRIAR OS PERFIS
-       ------------------------------------------------------- */
+      return {
 
-    let perfil = null;
-    let modeloPerfil = null;
+        success:
+          true,
+
+        id:
+          user.id,
+
+        user:
+          user,
+
+        session:
+          null,
+
+        perfil:
+          null,
+
+        modeloPerfil:
+          null,
+
+        confirmationRequired:
+          true,
+
+        mensagem:
+          "Cadastro realizado. Confirme seu e-mail para ativar o acesso."
+
+      };
+    }
+
+
+    /* =====================================================
+       BUSCAR PERFIS APÓS CADASTRO
+       ===================================================== */
+
+    let perfil =
+      null;
+
+    let modeloPerfil =
+      null;
+
 
     for (
       let tentativa = 1;
@@ -598,17 +874,26 @@
     ) {
 
       console.log(
-        `[LUX V8] Verificando perfil. Tentativa ${tentativa}/10`
+        `[LUX V10] Procurando perfil ${tentativa}/10`
       );
 
-      perfil =
-        await getPerfil(user.id);
 
-      if (tipo === "modelo") {
+      perfil =
+        await getPerfil(
+          user.id
+        );
+
+
+      if (
+        tipo === "modelo"
+      ) {
 
         modeloPerfil =
-          await getModeloPerfil(user.id);
+          await getModeloPerfil(
+            user.id
+          );
       }
+
 
       if (
         perfil &&
@@ -618,63 +903,50 @@
         )
       ) {
 
-        console.log(
-          "[LUX V8] Perfil criado com sucesso."
-        );
-
         break;
       }
 
+
       await new Promise(
         resolve =>
-          setTimeout(resolve, 500)
+          setTimeout(
+            resolve,
+            500
+          )
       );
     }
 
 
-    /* -------------------------------------------------------
-       AVISO SE O TRIGGER NÃO CRIOU O PERFIL
-       ------------------------------------------------------- */
-
-    if (!perfil) {
-
-      console.warn(
-        "[LUX V8] Usuário existe no Auth, mas o perfil ainda não foi encontrado."
-      );
-    }
-
-    if (
-      tipo === "modelo" &&
-      !modeloPerfil
-    ) {
-
-      console.warn(
-        "[LUX V8] Usuário existe no Auth, mas modelo_perfis ainda não foi encontrado."
-      );
-    }
-
-
-    /* -------------------------------------------------------
+    /* =====================================================
        RETORNO
-       ------------------------------------------------------- */
+       ===================================================== */
 
     return {
 
-      success: true,
+      success:
+        true,
 
-      id: user.id,
+      id:
+        user.id,
 
-      user: user,
+      user:
+        user,
 
       session:
-        data?.session || null,
+        data.session || null,
 
-      perfil: perfil,
+      perfil:
+        perfil,
 
-      modeloPerfil: modeloPerfil,
+      modeloPerfil:
+        modeloPerfil,
+
+      confirmationRequired:
+        false,
 
       mensagem:
         "Cadastro realizado com sucesso."
+
     };
   }
 
@@ -688,15 +960,18 @@
     const supabase =
       requireClient();
 
+
     const { error } =
       await supabase.auth.signOut();
+
 
     if (error) {
 
       console.error(
-        "[LUX V8] Erro ao sair:",
+        "[LUX V10] Erro ao sair:",
         error
       );
+
 
       throw new Error(
         error.message ||
@@ -704,8 +979,9 @@
       );
     }
 
+
     window.location.href =
-      "login.html";
+      "./login.html";
   }
 
 
@@ -737,9 +1013,15 @@
   window.getTipoUsuario =
     getTipoUsuario;
 
+  window.requireClient =
+    requireClient;
+
+  window.normalizarCategoria =
+    normalizarCategoria;
+
 
   console.log(
-    "[LUX V8] Funções de autenticação disponíveis."
+    "[LUX V10] Sistema de autenticação pronto."
   );
 
 })();

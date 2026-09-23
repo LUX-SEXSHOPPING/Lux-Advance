@@ -1,6 +1,6 @@
 /* =========================================================
    LUX — AUTENTICAÇÃO
-   V6 — CADASTRO DE MODELOS / USUÁRIOS
+   V7 — CADASTRO DE MODELOS / USUÁRIOS
    ========================================================= */
 
 
@@ -848,333 +848,100 @@ async function cadastrar(
   }
 
 
-  /*
-    Se houver sessão, gravamos diretamente.
+  /* =======================================================
+     PERFIS CRIADOS PELO TRIGGER
+     
+     O trigger:
+     lux_trigger_criar_perfil_cadastro
 
-    Se não houver sessão, o trigger existente
-    poderá criar os registros utilizando
-    os metadados enviados ao Auth.
-  */
+     lê os metadados de auth.users e cria:
+     - public.perfis
+     - public.modelo_perfis
+
+     Isso funciona também quando:
+     data.session === null
+     
+     por causa da confirmação de e-mail.
+     ======================================================= */
+
+  let perfil =
+    null;
+
+  let modeloPerfil =
+    null;
 
 
-  if (
-    data?.session
+  /* =======================================================
+     AGUARDA O TRIGGER E CONFIRMA O CADASTRO
+     ======================================================= */
+
+  for (
+    let tentativa = 0;
+    tentativa < 5;
+    tentativa++
   ) {
 
-    /* =====================================================
-       PERFIL PRINCIPAL
-       ===================================================== */
+    try {
 
-    const {
-      data:
-        perfilCriado,
-
-      error:
-        perfilError
-
-    } =
-      await supabase
-        .from(
-          "perfis"
-        )
-        .upsert(
-
-          {
-
-            id:
-              user.id,
-
-            tipo,
-
-            nome,
-
-            status:
-              tipo ===
-              "modelo"
-                ? "pendente"
-                : "ativo"
-
-          },
-
-          {
-
-            onConflict:
-              "id"
-
-          }
-
-        )
-        .select()
-        .single();
-
-
-    if (perfilError) {
-
-      console.error(
-        "Erro ao criar/atualizar perfil:",
-        perfilError
-      );
-
-
-      throw new Error(
-        "A conta foi criada, mas houve um problema ao criar o perfil: " +
-        perfilError.message
-      );
-
-    }
-
-
-    /* =====================================================
-       MODELO
-       ===================================================== */
-
-    if (
-      tipo ===
-      "modelo"
-    ) {
-
-      const modeloPerfil = {
-
-        id:
-          user.id,
-
-        nome_exibicao:
-          nome,
-
-        apelido:
-          texto(
-            extras.apelido
-          ) ||
-          null,
-
-        whatsapp:
-          texto(
-            extras.whatsapp
-          ) ||
-          null,
-
-        cpf:
-          texto(
-            extras.cpf
-          ) ||
-          null,
-
-        data_nascimento:
-          texto(
-            extras.data_nascimento
-          ) ||
-          null,
-
-        idade,
-
-        altura_cm:
-          alturaCm,
-
-        cep:
-          texto(
-            extras.cep
-          ) ||
-          null,
-
-        estado:
-          texto(
-            extras.estado
-          ).toUpperCase() ||
-          null,
-
-        cidade:
-          texto(
-            extras.cidade
-          ) ||
-          null,
-
-        bairro:
-          texto(
-            extras.bairro
-          ) ||
-          null,
-
-        endereco:
-          texto(
-            extras.endereco
-          ) ||
-          null,
-
-        numero:
-          texto(
-            extras.numero
-          ) ||
-          null,
-
-        complemento:
-          texto(
-            extras.complemento
-          ) ||
-          null,
-
-        pais:
-          texto(
-            extras.pais,
-            "Brasil"
-          ) ||
-          "Brasil",
-
-        cor_cabelo:
-          texto(
-            extras.cor_cabelo
-          ) ||
-          null,
-
-        cor_olhos:
-          texto(
-            extras.cor_olhos
-          ) ||
-          null,
-
-        idiomas:
-          texto(
-            extras.idiomas
-          ) ||
-          null,
-
-        descricao:
-          texto(
-            extras.descricao
-          ) ||
-          null,
-
-        maioridade_confirmada:
-          true,
-
-        verificacao_status:
-          "pendente",
-
-        plano:
-          "ESSENCE",
-
-        /* =================================================
-           CATEGORIA — FEMININO / MASCULINO / LGBTQ+
-           ================================================= */
-
-        categoria_catalogo:
-          categoriaCatalogo
-
-      };
-
-
-      const {
-        data:
-          modeloCriado,
-
-        error:
-          modeloError
-
-      } =
-        await supabase
-          .from(
-            "modelo_perfis"
-          )
-          .upsert(
-
-            modeloPerfil,
-
-            {
-              onConflict:
-                "id"
-
-            }
-
-          )
-          .select()
-          .single();
-
-
-      if (modeloError) {
-
-        console.error(
-          "Erro ao criar/atualizar modelo_perfis:",
-          modeloError
+      perfil =
+        await getPerfil(
+          user.id
         );
 
-
-        throw new Error(
-          "Sua conta foi criada, mas houve um problema ao salvar os dados da modelo: " +
-          modeloError.message
-        );
-
-      }
-
-
-      /* ===================================================
-         CONFIRMA QUE A CATEGORIA FOI GRAVADA
-         =================================================== */
 
       if (
-        modeloCriado?.categoria_catalogo !==
-        categoriaCatalogo
+        tipo ===
+        "modelo"
       ) {
 
-        throw new Error(
-          "O cadastro foi criado, mas a categoria não foi gravada corretamente."
-        );
+        modeloPerfil =
+          await getModeloPerfil(
+            user.id
+          );
 
       }
 
 
-      return {
+      if (
+        perfil &&
+        (
+          tipo !==
+          "modelo" ||
 
-        success:
-          true,
+          modeloPerfil
+        )
+      ) {
 
-        id:
-          user.id,
+        break;
 
-        user,
+      }
 
-        session:
-          data.session,
+    } catch (
+      erroLeitura
+    ) {
 
-        perfil:
-          perfilCriado,
-
-        modeloPerfil:
-          modeloCriado,
-
-        mensagem:
-          "Cadastro realizado. Seu perfil ficará aguardando análise."
-
-      };
+      console.warn(
+        "Aguardando criação do perfil pelo trigger:",
+        erroLeitura
+      );
 
     }
 
 
-    return {
-
-      success:
-        true,
-
-      id:
-        user.id,
-
-      user,
-
-      session:
-        data.session,
-
-      perfil:
-        perfilCriado,
-
-      mensagem:
-        "Cadastro realizado com sucesso."
-
-    };
+    await new Promise(
+      resolve =>
+        setTimeout(
+          resolve,
+          500
+        )
+    );
 
   }
 
 
-  /* =====================================================
-     SEM SESSÃO — CONFIRMAÇÃO DE E-MAIL
-     ===================================================== */
+  /* =======================================================
+     RETORNO
+     ======================================================= */
 
   return {
 
@@ -1187,21 +954,32 @@ async function cadastrar(
     user,
 
     session:
+      data?.session ||
       null,
 
-    perfil:
-      null,
+    perfil,
 
-    modeloPerfil:
-      null,
+    modeloPerfil,
 
     mensagem:
       tipo ===
       "modelo"
 
-        ? "Cadastro realizado. Confirme seu e-mail, se solicitado. Seu perfil ficará aguardando análise."
+        ? (
+            data?.session
 
-        : "Cadastro realizado. Confirme seu e-mail, se solicitado."
+              ? "Cadastro realizado. Seu perfil ficará aguardando análise."
+
+              : "Cadastro realizado. Confirme seu e-mail, se solicitado. Seu perfil ficará aguardando análise."
+          )
+
+        : (
+            data?.session
+
+              ? "Cadastro realizado com sucesso."
+
+              : "Cadastro realizado. Confirme seu e-mail, se solicitado."
+          )
 
   };
 
@@ -1241,6 +1019,14 @@ async function logout() {
    ========================================================= */
 
 window.login =
+  login;
+
+
+/* =========================================================
+   COMPATIBILIDADE COM login.html
+   ========================================================= */
+
+window.entrar =
   login;
 
 

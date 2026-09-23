@@ -1,27 +1,35 @@
 /* =========================================================
-   LUX ADVANCE — PAINEL ADMINISTRATIVO V1.9
+   LUX ADVANCE — PAINEL ADMINISTRATIVO V2.0
    painel-admin.js
 
-   V1.9 — CORREÇÃO DO SISTEMA DE APROVAÇÃO
+   V2.0 — REFINAMENTO ADMINISTRATIVO + LUX-DIAMOND
 
-   PRINCIPAIS CORREÇÕES:
-   - Botões APROVAR e REPROVAR recebem eventos diretamente
-     pelo JavaScript.
-   - Mantém compatibilidade com onclick antigo do HTML.
-   - Usa public.modelo_perfis.
-   - Usa verificacao_status.
-   - Atualiza public.perfis.
-   - Evita duplo clique.
-   - Atualiza lista e dashboard após aprovação.
-   - Mantém os demais módulos administrativos.
+   PRINCIPAIS MELHORIAS:
+   - Mantém aprovação/reprovação funcionando.
+   - Mantém public.modelo_perfis.
+   - Mantém public.perfis.
+   - Mantém filtros.
+   - Mantém ficha cadastral.
+   - Mantém impressão.
+   - Mantém avaliações.
+   - Mantém reclamações.
+   - Mantém assinaturas.
+   - Mantém doações.
+   - Mantém pagamentos.
+   - Mantém usuários.
+   - Inclui LUX-DIAMOND.
+   - Layout dos cards mais refinado.
+   - Layout dos planos mais profissional.
+   - Melhor hierarquia visual.
+   - Melhor responsividade.
+   - Proteção contra duplo clique.
    ========================================================= */
 
 (function () {
 
   "use strict";
 
-  const VERSAO =
-    "V1.9";
+  const VERSAO = "V2.0";
 
   let listaModelos = [];
   let filtroAtual = "todos";
@@ -38,13 +46,13 @@
     async function () {
 
       console.log(
-        "[LUX ADMIN V1.9] Painel iniciado."
+        "[LUX ADMIN V2.0] Painel iniciado."
       );
 
       if (!window.luxSupabase) {
 
         console.error(
-          "[LUX ADMIN V1.9] Supabase não inicializado."
+          "[LUX ADMIN V2.0] Supabase não inicializado."
         );
 
         mostrarErroInicializacao(
@@ -53,7 +61,6 @@
 
         return;
       }
-
 
       configurarFiltros();
 
@@ -69,7 +76,6 @@
 
   /* =========================================================
      CONFIGURAR BOTÕES APROVAR / REPROVAR
-     V1.9
      ========================================================= */
 
   function configurarBotoesStatus() {
@@ -87,14 +93,8 @@
 
     if (botaoAprovar) {
 
-      console.log(
-        "[LUX ADMIN V1.9] Botão APROVAR encontrado."
-      );
-
-
       botaoAprovar.type =
         "button";
-
 
       botaoAprovar.addEventListener(
         "click",
@@ -104,19 +104,9 @@
 
           evento.stopPropagation();
 
-          console.log(
-            "[LUX ADMIN V1.9] Clique em APROVAR."
-          );
-
           window.aprovarModelo();
 
         }
-      );
-
-    } else {
-
-      console.warn(
-        "[LUX ADMIN V1.9] Botão #botao-aprovar não encontrado no carregamento."
       );
 
     }
@@ -124,14 +114,8 @@
 
     if (botaoRejeitar) {
 
-      console.log(
-        "[LUX ADMIN V1.9] Botão REPROVAR encontrado."
-      );
-
-
       botaoRejeitar.type =
         "button";
-
 
       botaoRejeitar.addEventListener(
         "click",
@@ -141,19 +125,9 @@
 
           evento.stopPropagation();
 
-          console.log(
-            "[LUX ADMIN V1.9] Clique em REPROVAR."
-          );
-
           window.rejeitarModelo();
 
         }
-      );
-
-    } else {
-
-      console.warn(
-        "[LUX ADMIN V1.9] Botão #botao-rejeitar não encontrado no carregamento."
       );
 
     }
@@ -179,26 +153,17 @@
 
     lista.innerHTML = `
 
-      <div style="
-        padding:25px;
-        text-align:center;
-        border:1px solid rgba(255,77,166,.35);
-        border-radius:16px;
-        background:rgba(255,77,166,.08);
-        color:#fff;
-      ">
+      <div class="lux-admin-error">
 
-        <strong style="
-          color:#ff4da6;
-          font-size:18px;
-        ">
+        <div class="lux-admin-error-icon">
+          !
+        </div>
+
+        <strong>
           Erro no sistema
         </strong>
 
-        <p style="
-          margin-top:10px;
-          color:#ddd;
-        ">
+        <p>
           ${escaparHTML(mensagem)}
         </p>
 
@@ -224,32 +189,36 @@
     if (!lista) {
 
       console.warn(
-        "[LUX ADMIN V1.9] #lista-precadastros não encontrado."
+        "[LUX ADMIN V2.0] #lista-precadastros não encontrado."
       );
 
       return;
     }
 
 
+    inserirEstilosAdmin();
+
+
     lista.innerHTML = `
 
-      <div style="
-        padding:30px;
-        text-align:center;
-        color:#ddd;
-      ">
-        Carregando modelos...
+      <div class="lux-loading">
+
+        <div class="lux-loading-ring"></div>
+
+        <div>
+          Carregando modelos
+        </div>
+
+        <small>
+          LUX ADVANCE ADMIN
+        </small>
+
       </div>
 
     `;
 
 
     try {
-
-      console.log(
-        "[LUX ADMIN V1.9] Buscando modelos em modelo_perfis..."
-      );
-
 
       const resultado =
         await window.luxSupabase
@@ -273,33 +242,24 @@
       if (error) {
 
         console.error(
-          "[LUX ADMIN V1.9] Erro:",
+          "[LUX ADMIN V2.0] Erro:",
           error
         );
 
 
         lista.innerHTML = `
 
-          <div style="
-            padding:25px;
-            text-align:center;
-            border:1px solid rgba(255,77,166,.35);
-            border-radius:16px;
-            background:rgba(255,77,166,.06);
-            color:#fff;
-          ">
+          <div class="lux-admin-error">
 
-            <strong style="
-              color:#ff4da6;
-            ">
-              Não foi possível carregar os modelos.
+            <div class="lux-admin-error-icon">
+              !
+            </div>
+
+            <strong>
+              Não foi possível carregar os modelos
             </strong>
 
-            <p style="
-              margin-top:10px;
-              color:#aaa;
-              font-size:13px;
-            ">
+            <p>
               ${escaparHTML(
                 error.message ||
                 "Erro desconhecido."
@@ -320,12 +280,6 @@
           : [];
 
 
-      console.log(
-        "[LUX ADMIN V1.9] Modelos encontrados:",
-        listaModelos.length
-      );
-
-
       renderizarModelos();
 
       atualizarDashboard();
@@ -333,19 +287,30 @@
     } catch (erro) {
 
       console.error(
-        "[LUX ADMIN V1.9] Erro inesperado:",
+        "[LUX ADMIN V2.0] Erro inesperado:",
         erro
       );
 
 
       lista.innerHTML = `
 
-        <div style="
-          padding:25px;
-          text-align:center;
-          color:#fff;
-        ">
-          Erro inesperado ao carregar os modelos.
+        <div class="lux-admin-error">
+
+          <div class="lux-admin-error-icon">
+            !
+          </div>
+
+          <strong>
+            Erro inesperado
+          </strong>
+
+          <p>
+            ${escaparHTML(
+              erro.message ||
+              "Não foi possível carregar os modelos."
+            )}
+          </p>
+
         </div>
 
       `;
@@ -400,32 +365,17 @@
 
       lista.innerHTML = `
 
-        <div style="
-          padding:35px 20px;
-          text-align:center;
-          border:1px solid rgba(255,255,255,.08);
-          border-radius:18px;
-          background:rgba(255,255,255,.025);
-        ">
+        <div class="lux-empty">
 
-          <div style="
-            font-size:40px;
-            margin-bottom:12px;
-          ">
-            ♢
+          <div class="lux-empty-icon">
+            ◇
           </div>
 
-          <strong style="
-            color:#f8d58a;
-            font-size:18px;
-          ">
+          <strong>
             Nenhum modelo encontrado
           </strong>
 
-          <p style="
-            color:#aaa;
-            margin-top:8px;
-          ">
+          <p>
             Não existem modelos para este filtro.
           </p>
 
@@ -477,91 +427,69 @@
             );
 
 
+          const plano =
+            modelo.plano ||
+            "ESSENCE";
+
+
+          const planoVisual =
+            normalizarPlano(
+              plano
+            );
+
+
           return `
 
-            <div
-              class="card-modelo"
-              style="
-                position:relative;
-                padding:20px;
-                margin-bottom:15px;
-                border:1px solid rgba(248,213,138,.18);
-                border-radius:18px;
-                background:
-                  linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.045),
-                    rgba(255,255,255,.015)
-                  );
-                box-shadow:
-                  0 10px 30px rgba(0,0,0,.18);
-              "
+            <article
+              class="lux-model-card"
+              data-status="${escaparAtributo(status)}"
             >
 
-              <div style="
-                display:flex;
-                justify-content:space-between;
-                align-items:flex-start;
-                gap:15px;
-                flex-wrap:wrap;
-              ">
+              <div class="lux-model-top">
 
-                <div style="
-                  flex:1;
-                  min-width:220px;
-                ">
+                <div class="lux-model-identity">
 
-                  <div style="
-                    color:#f8d58a;
-                    font-size:20px;
-                    font-weight:bold;
-                    margin-bottom:5px;
-                  ">
-                    ${escaparHTML(nome)}
+                  <div class="lux-model-avatar">
+                    ${
+                      modelo.foto_url
+                        ? `
+                          <img
+                            src="${escaparAtributo(modelo.foto_url)}"
+                            alt="Foto"
+                          >
+                        `
+                        : `
+                          <span>
+                            ${escaparHTML(
+                              primeiraLetra(nome)
+                            )}
+                          </span>
+                        `
+                    }
                   </div>
 
 
-                  ${
-                    apelido
-                      ? `
-                        <div style="
-                          color:#ff4da6;
-                          font-size:14px;
-                          margin-bottom:10px;
-                        ">
-                          ${escaparHTML(apelido)}
-                        </div>
-                      `
-                      : ""
-                  }
+                  <div>
 
-
-                  <div style="
-                    color:#ccc;
-                    font-size:13px;
-                    line-height:1.8;
-                  ">
-
-                    <div>
-                      <strong>Cidade:</strong>
-                      ${escaparHTML(cidade)}
+                    <div class="lux-model-name">
+                      ${escaparHTML(nome)}
                     </div>
 
-                    <div>
-                      <strong>Idade:</strong>
-                      ${escaparHTML(
-                        String(idade)
+                    ${
+                      apelido
+                        ? `
+                          <div class="lux-model-nickname">
+                            @${escaparHTML(apelido)}
+                          </div>
+                        `
+                        : ""
+                    }
+
+                    <div class="lux-model-id">
+                      ID ${escaparHTML(
+                        String(modelo.id || "")
+                          .substring(0, 8)
                       )}
-                    </div>
-
-                    <div>
-                      <strong>Categoria:</strong>
-                      ${escaparHTML(categoria)}
-                    </div>
-
-                    <div>
-                      <strong>WhatsApp:</strong>
-                      ${escaparHTML(whatsapp)}
                     </div>
 
                   </div>
@@ -569,41 +497,100 @@
                 </div>
 
 
-                <div style="
-                  display:flex;
-                  flex-direction:column;
-                  align-items:flex-end;
-                  gap:10px;
-                ">
-
+                <div class="lux-model-status">
                   ${badgeStatus(status)}
+                </div>
+
+              </div>
 
 
-                  <button
-                    type="button"
-                    onclick="
-                      verFichaModelo(
-                        '${escaparAtributo(modelo.id)}'
-                      )
-                    "
-                    style="
-                      border:1px solid rgba(248,213,138,.4);
-                      background:rgba(248,213,138,.08);
-                      color:#f8d58a;
-                      padding:10px 15px;
-                      border-radius:10px;
-                      cursor:pointer;
-                      font-weight:bold;
-                    "
-                  >
-                    VER FICHA
-                  </button>
+              <div class="lux-model-divider"></div>
+
+
+              <div class="lux-model-grid">
+
+                <div class="lux-info-item">
+
+                  <span>
+                    LOCALIZAÇÃO
+                  </span>
+
+                  <strong>
+                    ${escaparHTML(cidade)}
+                  </strong>
+
+                </div>
+
+
+                <div class="lux-info-item">
+
+                  <span>
+                    IDADE
+                  </span>
+
+                  <strong>
+                    ${escaparHTML(
+                      String(idade)
+                    )}
+                  </strong>
+
+                </div>
+
+
+                <div class="lux-info-item">
+
+                  <span>
+                    CATEGORIA
+                  </span>
+
+                  <strong>
+                    ${escaparHTML(categoria)}
+                  </strong>
+
+                </div>
+
+
+                <div class="lux-info-item">
+
+                  <span>
+                    WHATSAPP
+                  </span>
+
+                  <strong>
+                    ${escaparHTML(whatsapp)}
+                  </strong>
 
                 </div>
 
               </div>
 
-            </div>
+
+              <div class="lux-model-bottom">
+
+                <div class="lux-plan-mini">
+                  <span>PLANO</span>
+                  <strong>
+                    ${escaparHTML(planoVisual.nome)}
+                  </strong>
+                </div>
+
+
+                <button
+                  type="button"
+                  class="lux-btn-ficha"
+                  onclick="
+                    verFichaModelo(
+                      '${escaparAtributo(modelo.id)}'
+                    )
+                  "
+                >
+                  <span>VER FICHA</span>
+                  <b>→</b>
+                </button>
+
+              </div>
+
+            </article>
 
           `;
 
@@ -681,17 +668,9 @@
 
       return `
 
-        <span style="
-          display:inline-block;
-          padding:6px 12px;
-          border-radius:20px;
-          background:rgba(60,190,120,.12);
-          border:1px solid rgba(60,190,120,.3);
-          color:#70e0a0;
-          font-size:12px;
-          font-weight:bold;
-        ">
-          ✓ APROVADO
+        <span class="lux-status aprovado">
+          <b>✓</b>
+          APROVADO
         </span>
 
       `;
@@ -705,17 +684,9 @@
 
       return `
 
-        <span style="
-          display:inline-block;
-          padding:6px 12px;
-          border-radius:20px;
-          background:rgba(255,80,80,.10);
-          border:1px solid rgba(255,80,80,.3);
-          color:#ff8a8a;
-          font-size:12px;
-          font-weight:bold;
-        ">
-          ✕ REPROVADO
+        <span class="lux-status reprovado">
+          <b>×</b>
+          REPROVADO
         </span>
 
       `;
@@ -725,17 +696,9 @@
 
     return `
 
-      <span style="
-        display:inline-block;
-        padding:6px 12px;
-        border-radius:20px;
-        background:rgba(248,213,138,.08);
-        border:1px solid rgba(248,213,138,.3);
-        color:#f8d58a;
-        font-size:12px;
-        font-weight:bold;
-      ">
-        ◷ PENDENTE
+      <span class="lux-status pendente">
+        <b>◷</b>
+        PENDENTE
       </span>
 
     `;
@@ -909,12 +872,6 @@
   window.verFichaModelo =
     function (id) {
 
-      console.log(
-        "[LUX ADMIN V1.9] Abrindo ficha:",
-        id
-      );
-
-
       const modelo =
         listaModelos.find(
           function (item) {
@@ -970,145 +927,278 @@
         );
 
 
+      const plano =
+        normalizarPlano(
+          modelo.plano
+        );
+
+
       corpo.innerHTML = `
 
-        <div style="
-          display:grid;
-          gap:12px;
-        ">
+        <div class="lux-ficha-header">
 
-          ${campoFicha(
-            "Nome",
-            modelo.nome_exibicao
-          )}
+          <div class="lux-ficha-avatar">
 
-          ${campoFicha(
-            "Apelido",
-            modelo.apelido
-          )}
+            ${
+              modelo.foto_url
+                ? `
+                  <img
+                    src="${escaparAtributo(modelo.foto_url)}"
+                    alt="Foto"
+                  >
+                `
+                : `
+                  <span>
+                    ${escaparHTML(
+                      primeiraLetra(
+                        modelo.nome_exibicao
+                      )
+                    )}
+                  </span>
+                `
+            }
 
-          ${campoFicha(
-            "Categoria",
-            modelo.categoria_catalogo
-          )}
+          </div>
 
-          ${campoFicha(
-            "WhatsApp",
-            modelo.whatsapp
-          )}
 
-          ${campoFicha(
-            "CPF",
-            modelo.cpf
-          )}
+          <div class="lux-ficha-title">
 
-          ${campoFicha(
-            "Data de nascimento",
-            modelo.data_nascimento
-          )}
+            <h2>
+              ${escaparHTML(
+                modelo.nome_exibicao ||
+                "Sem nome"
+              )}
+            </h2>
 
-          ${campoFicha(
-            "Idade",
-            modelo.idade
-          )}
+            ${
+              modelo.apelido
+                ? `
+                  <span>
+                    @${escaparHTML(
+                      modelo.apelido
+                    )}
+                  </span>
+                `
+                : ""
+            }
 
-          ${campoFicha(
-            "Altura",
-            modelo.altura_cm
-              ? modelo.altura_cm + " cm"
-              : null
-          )}
+            <div class="lux-ficha-plan">
+              ${escaparHTML(plano.nome)}
+            </div>
 
-          ${campoFicha(
-            "CEP",
-            modelo.cep
-          )}
+          </div>
 
-          ${campoFicha(
-            "Estado",
-            modelo.estado
-          )}
+        </div>
 
-          ${campoFicha(
-            "Cidade",
-            modelo.cidade
-          )}
 
-          ${campoFicha(
-            "Bairro",
-            modelo.bairro
-          )}
+        <div class="lux-ficha-status">
+          ${badgeStatus(status)}
+        </div>
 
-          ${campoFicha(
-            "Endereço",
-            modelo.endereco
-          )}
 
-          ${campoFicha(
-            "Número",
-            modelo.numero
-          )}
+        <div class="lux-ficha-section">
 
-          ${campoFicha(
-            "Complemento",
-            modelo.complemento
-          )}
+          <div class="lux-section-title">
+            DADOS PESSOAIS
+          </div>
 
-          ${campoFicha(
-            "País",
-            modelo.pais
-          )}
+          <div class="lux-ficha-grid">
 
-          ${campoFicha(
-            "Cor do cabelo",
-            modelo.cor_cabelo
-          )}
+            ${campoFicha(
+              "Nome",
+              modelo.nome_exibicao
+            )}
 
-          ${campoFicha(
-            "Cor dos olhos",
-            modelo.cor_olhos
-          )}
+            ${campoFicha(
+              "Apelido",
+              modelo.apelido
+            )}
 
-          ${campoFicha(
-            "Idiomas",
-            modelo.idiomas
-          )}
+            ${campoFicha(
+              "Categoria",
+              modelo.categoria_catalogo
+            )}
+
+            ${campoFicha(
+              "CPF",
+              modelo.cpf
+            )}
+
+            ${campoFicha(
+              "Data de nascimento",
+              modelo.data_nascimento
+            )}
+
+            ${campoFicha(
+              "Idade",
+              modelo.idade
+            )}
+
+            ${campoFicha(
+              "Maioridade confirmada",
+              modelo.maioridade_confirmada
+                ? "SIM"
+                : "NÃO"
+            )}
+
+          </div>
+
+        </div>
+
+
+        <div class="lux-ficha-section">
+
+          <div class="lux-section-title">
+            CONTATO
+          </div>
+
+          <div class="lux-ficha-grid">
+
+            ${campoFicha(
+              "WhatsApp",
+              modelo.whatsapp
+            )}
+
+            ${campoFicha(
+              "Cidade",
+              modelo.cidade
+            )}
+
+            ${campoFicha(
+              "Estado",
+              modelo.estado
+            )}
+
+            ${campoFicha(
+              "CEP",
+              modelo.cep
+            )}
+
+          </div>
+
+        </div>
+
+
+        <div class="lux-ficha-section">
+
+          <div class="lux-section-title">
+            ENDEREÇO
+          </div>
+
+          <div class="lux-ficha-grid">
+
+            ${campoFicha(
+              "Bairro",
+              modelo.bairro
+            )}
+
+            ${campoFicha(
+              "Endereço",
+              modelo.endereco
+            )}
+
+            ${campoFicha(
+              "Número",
+              modelo.numero
+            )}
+
+            ${campoFicha(
+              "Complemento",
+              modelo.complemento
+            )}
+
+            ${campoFicha(
+              "País",
+              modelo.pais
+            )}
+
+          </div>
+
+        </div>
+
+
+        <div class="lux-ficha-section">
+
+          <div class="lux-section-title">
+            CARACTERÍSTICAS
+          </div>
+
+          <div class="lux-ficha-grid">
+
+            ${campoFicha(
+              "Altura",
+              modelo.altura_cm
+                ? modelo.altura_cm + " cm"
+                : null
+            )}
+
+            ${campoFicha(
+              "Cor do cabelo",
+              modelo.cor_cabelo
+            )}
+
+            ${campoFicha(
+              "Cor dos olhos",
+              modelo.cor_olhos
+            )}
+
+            ${campoFicha(
+              "Idiomas",
+              modelo.idiomas
+            )}
+
+          </div>
+
+        </div>
+
+
+        <div class="lux-ficha-section">
+
+          <div class="lux-section-title">
+            PERFIL
+          </div>
 
           ${campoFicha(
             "Descrição",
             modelo.descricao
           )}
 
-          ${campoFicha(
-            "Maioridade confirmada",
-            modelo.maioridade_confirmada
-              ? "SIM"
-              : "NÃO"
-          )}
+        </div>
 
-          ${campoFicha(
-            "Plano",
-            modelo.plano
-          )}
 
-          ${campoFicha(
-            "Status",
-            status.toUpperCase()
-          )}
+        <div class="lux-ficha-section">
 
-          ${campoFicha(
-            "Cadastro",
-            formatarData(
-              modelo.criado_em
-            )
-          )}
+          <div class="lux-section-title">
+            PLANO E CONTROLE
+          </div>
 
-          ${campoFicha(
-            "Atualizado",
-            formatarData(
-              modelo.atualizado_em
-            )
-          )}
+          <div class="lux-ficha-grid">
+
+            ${campoFicha(
+              "Plano",
+              plano.nome
+            )}
+
+            ${campoFicha(
+              "Status",
+              status.toUpperCase()
+            )}
+
+            ${campoFicha(
+              "Cadastro",
+              formatarData(
+                modelo.criado_em
+              )
+            )}
+
+            ${campoFicha(
+              "Atualizado",
+              formatarData(
+                modelo.atualizado_em
+              )
+            )}
+
+          </div>
 
         </div>
 
@@ -1132,12 +1222,10 @@
         botaoAprovar.type =
           "button";
 
-
         botaoAprovar.style.display =
           status === "aprovado"
             ? "none"
             : "inline-block";
-
 
         botaoAprovar.disabled =
           false;
@@ -1150,12 +1238,10 @@
         botaoRejeitar.type =
           "button";
 
-
         botaoRejeitar.style.display =
           status === "reprovado"
             ? "none"
             : "inline-block";
-
 
         botaoRejeitar.disabled =
           false;
@@ -1188,32 +1274,17 @@
 
     return `
 
-      <div style="
-        padding:12px 14px;
-        border-radius:10px;
-        background:rgba(255,255,255,.035);
-        border:1px solid rgba(255,255,255,.06);
-      ">
+      <div class="lux-ficha-field">
 
-        <div style="
-          color:#f8d58a;
-          font-size:11px;
-          text-transform:uppercase;
-          letter-spacing:.08em;
-          margin-bottom:4px;
-        ">
+        <span>
           ${escaparHTML(titulo)}
-        </div>
+        </span>
 
-        <div style="
-          color:#fff;
-          font-size:14px;
-          word-break:break-word;
-        ">
+        <strong>
           ${escaparHTML(
             String(valor)
           )}
-        </div>
+        </strong>
 
       </div>
 
@@ -1224,16 +1295,10 @@
 
   /* =========================================================
      APROVAR
-     V1.9
      ========================================================= */
 
   window.aprovarModelo =
     async function () {
-
-      console.log(
-        "[LUX ADMIN V1.9] aprovarModelo() executada."
-      );
-
 
       if (!fichaAtual) {
 
@@ -1254,16 +1319,10 @@
 
   /* =========================================================
      REPROVAR
-     V1.9
      ========================================================= */
 
   window.rejeitarModelo =
     async function () {
-
-      console.log(
-        "[LUX ADMIN V1.9] rejeitarModelo() executada."
-      );
-
 
       if (!fichaAtual) {
 
@@ -1284,24 +1343,13 @@
 
   /* =========================================================
      ALTERAR STATUS
-     V1.9
      ========================================================= */
 
   async function alterarStatusModelo(
     novoStatus
   ) {
 
-    console.log(
-      "[LUX ADMIN V1.9] Alterando status:",
-      novoStatus
-    );
-
-
     if (alterandoStatus) {
-
-      console.warn(
-        "[LUX ADMIN V1.9] Operação já em andamento."
-      );
 
       return;
 
@@ -1345,11 +1393,6 @@
         "O ID da modelo não foi encontrado."
       );
 
-      console.error(
-        "[LUX ADMIN V1.9] fichaAtual sem ID:",
-        fichaAtual
-      );
-
       return;
 
     }
@@ -1368,10 +1411,6 @@
 
 
     if (!confirmou) {
-
-      console.log(
-        "[LUX ADMIN V1.9] Operação cancelada pelo administrador."
-      );
 
       return;
 
@@ -1418,18 +1457,8 @@
           : "reprovado";
 
 
-      console.log(
-        "[LUX ADMIN V1.9] Atualizando modelo_perfis:",
-        {
-          id: idModelo,
-          verificacao_status:
-            novoStatusNormalizado
-        }
-      );
-
-
       /* =====================================================
-         ATUALIZA MODELO_PERFIS
+         MODELO_PERFIS
          ===================================================== */
 
       const resultado =
@@ -1455,7 +1484,7 @@
       if (resultado.error) {
 
         console.error(
-          "[LUX ADMIN V1.9] Erro ao atualizar modelo_perfis:",
+          "[LUX ADMIN V2.0]",
           resultado.error
         );
 
@@ -1475,29 +1504,14 @@
       }
 
 
-      console.log(
-        "[LUX ADMIN V1.9] modelo_perfis atualizado:",
-        resultado.data
-      );
-
-
       /* =====================================================
-         ATUALIZA PERFIS
+         PERFIS
          ===================================================== */
 
       const statusPerfil =
         novoStatusNormalizado === "aprovado"
           ? "ativo"
           : "inativo";
-
-
-      console.log(
-        "[LUX ADMIN V1.9] Atualizando perfis:",
-        {
-          id: idModelo,
-          status: statusPerfil
-        }
-      );
 
 
       const resultadoPerfil =
@@ -1523,7 +1537,7 @@
       ) {
 
         console.warn(
-          "[LUX ADMIN V1.9] modelo_perfis atualizado, mas perfis apresentou erro:",
+          "[LUX ADMIN V2.0] Erro em perfis:",
           resultadoPerfil.error
         );
 
@@ -1537,7 +1551,7 @@
 
 
       /* =====================================================
-         ATUALIZA MEMÓRIA LOCAL
+         MEMÓRIA LOCAL
          ===================================================== */
 
       const modeloAtualizado =
@@ -1584,10 +1598,6 @@
       renderizarModelos();
 
 
-      /* =====================================================
-         FECHAR MODAL
-         ===================================================== */
-
       const modal =
         document.getElementById(
           "modal-ver-ficha"
@@ -1606,16 +1616,7 @@
         null;
 
 
-      /* =====================================================
-         RECARREGAR DADOS
-         ===================================================== */
-
       await carregarModelos();
-
-
-      console.log(
-        "[LUX ADMIN V1.9] Status alterado com sucesso."
-      );
 
 
       alert(
@@ -1628,7 +1629,7 @@
     } catch (erro) {
 
       console.error(
-        "[LUX ADMIN V1.9] Erro ao alterar status:",
+        "[LUX ADMIN V2.0] Erro:",
         erro
       );
 
@@ -1803,6 +1804,8 @@
           ${campoImpressao(
             "Altura",
             fichaAtual.altura_cm
+              ? fichaAtual.altura_cm + " cm"
+              : null
           )}
 
           ${campoImpressao(
@@ -2157,37 +2160,20 @@
 
             return `
 
-              <div style="
-                padding:16px;
-                margin-bottom:12px;
-                border:1px solid rgba(248,213,138,.15);
-                border-radius:14px;
-                background:rgba(255,255,255,.03);
-              ">
+              <div class="lux-module-card">
 
-                <div style="
-                  color:#f8d58a;
-                  font-size:20px;
-                  letter-spacing:3px;
-                ">
+                <div class="lux-stars">
                   ${estrelas}
                 </div>
 
-                <div style="
-                  color:#ddd;
-                  margin-top:8px;
-                ">
+                <div class="lux-module-text">
                   ${escaparHTML(
                     item.comentario ||
                     "Sem comentário."
                   )}
                 </div>
 
-                <div style="
-                  color:#aaa;
-                  font-size:12px;
-                  margin-top:8px;
-                ">
+                <div class="lux-module-date">
                   ${formatarData(
                     item.criado_em
                   )}
@@ -2280,40 +2266,23 @@
 
             return `
 
-              <div style="
-                padding:17px;
-                margin-bottom:12px;
-                border:1px solid rgba(255,77,166,.15);
-                border-radius:14px;
-                background:rgba(255,255,255,.025);
-              ">
+              <div class="lux-module-card">
 
-                <div style="
-                  color:#f8d58a;
-                  font-weight:bold;
-                  margin-bottom:8px;
-                ">
+                <div class="lux-module-title">
                   ${escaparHTML(
                     item.assunto ||
                     "Sem assunto"
                   )}
                 </div>
 
-                <div style="
-                  color:#ddd;
-                  line-height:1.6;
-                ">
+                <div class="lux-module-text">
                   ${escaparHTML(
                     item.mensagem ||
                     "Sem mensagem."
                   )}
                 </div>
 
-                <div style="
-                  color:#aaa;
-                  font-size:12px;
-                  margin-top:10px;
-                ">
+                <div class="lux-module-status">
                   Status:
                   ${escaparHTML(
                     item.status ||
@@ -2321,11 +2290,7 @@
                   )}
                 </div>
 
-                <div style="
-                  color:#777;
-                  font-size:11px;
-                  margin-top:5px;
-                ">
+                <div class="lux-module-date">
                   ${formatarData(
                     item.criado_em
                   )}
@@ -2418,19 +2383,9 @@
 
             return `
 
-              <div style="
-                padding:17px;
-                margin-bottom:12px;
-                border:1px solid rgba(248,213,138,.15);
-                border-radius:14px;
-                background:rgba(255,255,255,.025);
-              ">
+              <div class="lux-module-card">
 
-                <div style="
-                  color:#f8d58a;
-                  font-weight:bold;
-                  font-size:17px;
-                ">
+                <div class="lux-module-title">
                   ${escaparHTML(
                     item.plano ||
                     item.nome_plano ||
@@ -2438,10 +2393,7 @@
                   )}
                 </div>
 
-                <div style="
-                  color:#ddd;
-                  margin-top:7px;
-                ">
+                <div class="lux-module-text">
                   Status:
                   ${escaparHTML(
                     item.status ||
@@ -2449,11 +2401,7 @@
                   )}
                 </div>
 
-                <div style="
-                  color:#aaa;
-                  font-size:12px;
-                  margin-top:7px;
-                ">
+                <div class="lux-module-date">
                   ${formatarData(
                     item.criado_em
                   )}
@@ -2492,63 +2440,147 @@
 
 
   /* =========================================================
-     PLANOS
+     PLANOS LUX
      ========================================================= */
 
   function abrirModuloPlanos() {
 
+    const planos = [
+
+      {
+        codigo: "ESSENCE",
+        nome: "LUX-ESSENCE",
+        preco: "GRÁTIS",
+        descricao:
+          "Sua presença começa aqui.",
+        destaque:
+          "ENTRADA",
+        fotos: 2,
+        videos: 1,
+        recursos: [
+          "Perfil básico",
+          "Até 2 fotos",
+          "1 vídeo"
+        ]
+      },
+
+      {
+        codigo: "DESFIRE",
+        nome: "LUX-DESFIRE",
+        preco: "R$ 29,90 / mês",
+        descricao:
+          "Mais destaque para seu perfil.",
+        destaque:
+          "VERIFICADO",
+        fotos: 5,
+        videos: 3,
+        recursos: [
+          "Selo verificado",
+          "Até 5 fotos",
+          "Até 3 vídeos",
+          "Mais visibilidade"
+        ]
+      },
+
+      {
+        codigo: "ELITE",
+        nome: "LUX-ELITE",
+        preco: "R$ 59,90 / mês",
+        descricao:
+          "Experiência avançada.",
+        destaque:
+          "ELITE",
+        fotos: 5,
+        videos: 3,
+        recursos: [
+          "Inclui DESFIRE",
+          "WhatsApp secretário",
+          "Suporte avançado",
+          "Selo ELITE"
+        ]
+      },
+
+      {
+        codigo: "ROYAL",
+        nome: "LUX-ROYAL",
+        preco: "R$ 99,90 / mês",
+        descricao:
+          "Exclusividade e destaque.",
+        destaque:
+          "ROYAL",
+        fotos: 5,
+        videos: 3,
+        recursos: [
+          "Inclui ELITE",
+          "Segurança",
+          "Exclusividade",
+          "Destaque",
+          "Atendimento prioritário"
+        ]
+      },
+
+      {
+        codigo: "DIAMOND",
+        nome: "LUX-DIAMOND",
+        preco: "R$ 149,90 / mês",
+        descricao:
+          "O nível máximo de exclusividade da LUX ADVANCE.",
+        destaque:
+          "DIAMOND",
+        fotos: 10,
+        videos: 5,
+        recursos: [
+          "Inclui tudo do LUX-ROYAL",
+          "10 fotos",
+          "Até 5 vídeos",
+          "Acompanhamento presencial nos atendimentos",
+          "Segurança presencial",
+          "Logística de deslocamento",
+          "Prioridade máxima",
+          "Suporte prioritário",
+          "Benefícios exclusivos",
+          "Destaque máximo"
+        ]
+      }
+
+    ];
+
+
     const html = `
 
-      <div style="
-        display:grid;
-        gap:12px;
-      ">
+      <div class="lux-plan-header">
 
-        ${plano(
-          "LUX-ESSENCE",
-          "GRÁTIS",
-          "Sua presença começa aqui.",
-          [
-            "Perfil básico",
-            "Até 2 fotos",
-            "1 vídeo"
-          ]
-        )}
+        <div>
 
-        ${plano(
-          "LUX-DESFIRE",
-          "R$ 29,90 / mês",
-          "Mais destaque para seu perfil.",
-          [
-            "Selo verificado",
-            "Até 5 fotos",
-            "Até 3 vídeos"
-          ]
-        )}
+          <div class="lux-plan-eyebrow">
+            LUX ADVANCE
+          </div>
 
-        ${plano(
-          "LUX-ELITE",
-          "R$ 59,90 / mês",
-          "Experiência avançada.",
-          [
-            "Inclui DESFIRE",
-            "WhatsApp secretário",
-            "Suporte avançado",
-            "Selo ELITE"
-          ]
-        )}
+          <h3>
+            ESTRUTURA DE PLANOS
+          </h3>
 
-        ${plano(
-          "LUX-ROYAL",
-          "R$ 99,90 / mês",
-          "Exclusividade e destaque.",
-          [
-            "Inclui ELITE",
-            "Segurança",
-            "Exclusividade",
-            "Destaque"
-          ]
-        )}
+          <p>
+            Recursos e níveis de presença disponíveis
+            para modelos cadastradas na plataforma.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="lux-plans-grid">
+
+        ${planos.map(
+          function (item) {
+
+            return planoProfissional(
+              item
+            );
+
+          }
+        ).join("")}
 
       </div>
 
@@ -2564,66 +2596,164 @@
   }
 
 
-  function plano(
-    nome,
-    preco,
-    descricao,
-    recursos
+  /* =========================================================
+     CARD PROFISSIONAL DE PLANO
+     ========================================================= */
+
+  function planoProfissional(
+    item
   ) {
+
+    const diamond =
+      item.codigo === "DIAMOND";
+
 
     return `
 
-      <div style="
-        padding:18px;
-        border:1px solid rgba(248,213,138,.18);
-        border-radius:16px;
-        background:rgba(255,255,255,.025);
-      ">
+      <article
+        class="
+          lux-plan-card
+          ${diamond ? "diamond" : ""}
+        "
+      >
 
-        <div style="
-          color:#f8d58a;
-          font-size:18px;
-          font-weight:bold;
-        ">
-          ${escaparHTML(nome)}
+        ${
+          diamond
+            ? `
+              <div class="lux-diamond-ribbon">
+                LUX DIAMOND
+              </div>
+            `
+            : ""
+        }
+
+
+        <div class="lux-plan-top">
+
+          <div class="lux-plan-symbol">
+            ${
+              diamond
+                ? "◆"
+                : "◇"
+            }
+          </div>
+
+
+          <div>
+
+            <div class="lux-plan-level">
+              ${escaparHTML(
+                item.destaque
+              )}
+            </div>
+
+            <h3>
+              ${escaparHTML(
+                item.nome
+              )}
+            </h3>
+
+          </div>
+
         </div>
 
-        <div style="
-          color:#ff4da6;
-          font-size:16px;
-          margin-top:5px;
-        ">
-          ${escaparHTML(preco)}
+
+        <div class="lux-plan-price">
+          ${escaparHTML(
+            item.preco
+          )}
         </div>
 
-        <div style="
-          color:#ddd;
-          margin-top:7px;
-        ">
-          ${escaparHTML(descricao)}
+
+        <p class="lux-plan-description">
+          ${escaparHTML(
+            item.descricao
+          )}
+        </p>
+
+
+        <div class="lux-plan-media">
+
+          <div>
+
+            <span>
+              FOTOS
+            </span>
+
+            <strong>
+              ${item.fotos}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              VÍDEOS
+            </span>
+
+            <strong>
+              ${item.videos}
+            </strong>
+
+          </div>
+
         </div>
 
-        <ul style="
-          color:#aaa;
-          line-height:1.8;
-          padding-left:20px;
-        ">
 
-          ${recursos.map(
-            function (item) {
+        <div class="lux-plan-line"></div>
+
+
+        <div class="lux-plan-features">
+
+          ${item.recursos.map(
+            function (recurso) {
 
               return `
-                <li>
-                  ${escaparHTML(item)}
-                </li>
+
+                <div class="lux-feature">
+
+                  <span>
+                    ✓
+                  </span>
+
+                  <p>
+                    ${escaparHTML(
+                      recurso
+                    )}
+                  </p>
+
+                </div>
+
               `;
 
             }
           ).join("")}
 
-        </ul>
+        </div>
 
-      </div>
+
+        ${
+          diamond
+            ? `
+              <div class="lux-diamond-note">
+
+                <strong>
+                  NÍVEL MÁXIMO
+                </strong>
+
+                <span>
+                  Estrutura premium com prioridade,
+                  segurança presencial e logística.
+                </span>
+
+              </div>
+            `
+            : ""
+        }
+
+      </article>
 
     `;
 
@@ -2639,21 +2769,40 @@
     mostrarModalGenerico(
       "DOAÇÕES",
       `
-        <p style="
-          color:#ddd;
-          line-height:1.7;
-        ">
-          Área administrativa das doações Pix.
-        </p>
+        <div class="lux-module-intro">
 
-        <p style="
-          color:#f8d58a;
-          margin-top:12px;
-          line-height:1.7;
-        ">
-          O módulo permanece preparado para integração
-          com os registros de doações do Supabase.
-        </p>
+          <div class="lux-module-icon">
+            PIX
+          </div>
+
+          <div>
+
+            <strong>
+              DOAÇÕES LUX
+            </strong>
+
+            <p>
+              Área administrativa destinada
+              ao acompanhamento das doações.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="lux-module-card">
+
+          <div class="lux-module-title">
+            REGISTROS DE DOAÇÃO
+          </div>
+
+          <div class="lux-module-text">
+            O módulo permanece preparado para
+            integração com os registros de doações
+            armazenados no Supabase.
+          </div>
+
+        </div>
       `,
       true
     );
@@ -2670,13 +2819,18 @@
     mostrarModalGenerico(
       "PAGAMENTOS",
       `
-        <p style="
-          color:#ddd;
-          line-height:1.7;
-        ">
-          Área administrativa destinada ao
-          acompanhamento dos pagamentos.
-        </p>
+        <div class="lux-module-card">
+
+          <div class="lux-module-title">
+            PAGAMENTOS
+          </div>
+
+          <div class="lux-module-text">
+            Área administrativa destinada ao
+            acompanhamento dos pagamentos.
+          </div>
+
+        </div>
       `,
       true
     );
@@ -2693,13 +2847,18 @@
     mostrarModalGenerico(
       "USUÁRIOS",
       `
-        <p style="
-          color:#ddd;
-          line-height:1.7;
-        ">
-          Área administrativa destinada ao
-          gerenciamento das contas de usuários.
-        </p>
+        <div class="lux-module-card">
+
+          <div class="lux-module-title">
+            USUÁRIOS
+          </div>
+
+          <div class="lux-module-text">
+            Área administrativa destinada ao
+            gerenciamento das contas de usuários.
+          </div>
+
+        </div>
       `,
       true
     );
@@ -2805,9 +2964,9 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:20px;
-      background:rgba(0,0,0,.82);
-      backdrop-filter:blur(7px);
+      padding:14px;
+      background:rgba(0,0,0,.88);
+      backdrop-filter:blur(10px);
     `;
 
 
@@ -2818,50 +2977,50 @@
 
 
     caixa.style.cssText = `
-      width:min(700px,100%);
-      max-height:90vh;
+      width:min(820px,100%);
+      max-height:92vh;
       overflow:auto;
-      padding:24px;
-      border-radius:20px;
-      border:1px solid rgba(248,213,138,.25);
-      background:#0b0608;
-      box-shadow:0 20px 60px rgba(0,0,0,.5);
+      padding:0;
+      border-radius:24px;
+      border:1px solid rgba(248,213,138,.24);
+      background:
+        radial-gradient(
+          circle at top right,
+          rgba(255,77,166,.08),
+          transparent 35%
+        ),
+        linear-gradient(
+          145deg,
+          #12090d,
+          #080507
+        );
+      box-shadow:
+        0 30px 100px rgba(0,0,0,.65);
       color:#fff;
     `;
 
 
     caixa.innerHTML = `
 
-      <div style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        gap:15px;
-        margin-bottom:20px;
-      ">
+      <div class="lux-modal-header">
 
-        <h2 style="
-          margin:0;
-          color:#f8d58a;
-          font-size:22px;
-        ">
-          ${escaparHTML(titulo)}
-        </h2>
+        <div>
+
+          <span>
+            LUX ADVANCE
+          </span>
+
+          <h2 data-modal-titulo>
+            ${escaparHTML(titulo)}
+          </h2>
+
+        </div>
 
 
         <button
           type="button"
           id="fechar-lux-modal"
-          style="
-            width:38px;
-            height:38px;
-            border-radius:50%;
-            border:1px solid rgba(255,255,255,.15);
-            background:rgba(255,255,255,.05);
-            color:#fff;
-            font-size:20px;
-            cursor:pointer;
-          "
+          aria-label="Fechar"
         >
           ×
         </button>
@@ -2869,7 +3028,10 @@
       </div>
 
 
-      <div id="conteudo-lux-modal"></div>
+      <div
+        id="conteudo-lux-modal"
+        class="lux-modal-content"
+      ></div>
 
     `;
 
@@ -2982,6 +3144,85 @@
         /[\u0300-\u036f]/g,
         ""
       );
+
+  }
+
+
+  /* =========================================================
+     NORMALIZAR PLANO
+     ========================================================= */
+
+  function normalizarPlano(
+    plano
+  ) {
+
+    const valor =
+      normalizarTexto(
+        plano
+      )
+      .replace(
+        /lux[-_ ]?/g,
+        ""
+      )
+      .toUpperCase();
+
+
+    const planos = {
+
+      ESSENCE: {
+        codigo: "ESSENCE",
+        nome: "LUX-ESSENCE"
+      },
+
+      DESFIRE: {
+        codigo: "DESFIRE",
+        nome: "LUX-DESFIRE"
+      },
+
+      ELITE: {
+        codigo: "ELITE",
+        nome: "LUX-ELITE"
+      },
+
+      ROYAL: {
+        codigo: "ROYAL",
+        nome: "LUX-ROYAL"
+      },
+
+      DIAMOND: {
+        codigo: "DIAMOND",
+        nome: "LUX-DIAMOND"
+      }
+
+    };
+
+
+    return (
+      planos[valor] ||
+      planos.ESSENCE
+    );
+
+  }
+
+
+  /* =========================================================
+     PRIMEIRA LETRA
+     ========================================================= */
+
+  function primeiraLetra(
+    texto
+  ) {
+
+    const valor =
+      String(
+        texto || "L"
+      ).trim();
+
+
+    return (
+      valor.charAt(0) ||
+      "L"
+    ).toUpperCase();
 
   }
 
@@ -3106,7 +3347,927 @@
 
 
   /* =========================================================
-     IDENTIFICAÇÃO DA VERSÃO
+     ESTILOS REFINADOS DO PAINEL
+     ========================================================= */
+
+  function inserirEstilosAdmin() {
+
+    if (
+      document.getElementById(
+        "lux-admin-v20-style"
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    const style =
+      document.createElement(
+        "style"
+      );
+
+
+    style.id =
+      "lux-admin-v20-style";
+
+
+    style.textContent = `
+
+      /* =========================================
+         BASE
+         ========================================= */
+
+      #lista-precadastros {
+        width:100%;
+      }
+
+
+      /* =========================================
+         LOADING
+         ========================================= */
+
+      .lux-loading {
+        min-height:180px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:9px;
+        color:#f8d58a;
+        font-size:15px;
+        letter-spacing:.04em;
+      }
+
+      .lux-loading small {
+        color:#777;
+        font-size:10px;
+        letter-spacing:.18em;
+      }
+
+      .lux-loading-ring {
+        width:38px;
+        height:38px;
+        border-radius:50%;
+        border:2px solid rgba(248,213,138,.15);
+        border-top-color:#f8d58a;
+        animation:
+          luxSpin
+          .8s linear infinite;
+      }
+
+      @keyframes luxSpin {
+        to {
+          transform:rotate(360deg);
+        }
+      }
+
+
+      /* =========================================
+         ERRO
+         ========================================= */
+
+      .lux-admin-error {
+        padding:28px;
+        text-align:center;
+        border:1px solid rgba(255,77,166,.25);
+        border-radius:20px;
+        background:
+          linear-gradient(
+            145deg,
+            rgba(255,77,166,.08),
+            rgba(255,255,255,.02)
+          );
+      }
+
+      .lux-admin-error-icon {
+        width:44px;
+        height:44px;
+        margin:0 auto 12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:50%;
+        border:1px solid rgba(255,77,166,.35);
+        color:#ff4da6;
+        font-size:22px;
+        font-weight:bold;
+      }
+
+      .lux-admin-error strong {
+        color:#ff4da6;
+        font-size:17px;
+      }
+
+      .lux-admin-error p {
+        color:#aaa;
+        line-height:1.6;
+      }
+
+
+      /* =========================================
+         EMPTY
+         ========================================= */
+
+      .lux-empty {
+        padding:45px 20px;
+        text-align:center;
+        border:1px solid rgba(248,213,138,.10);
+        border-radius:20px;
+        background:rgba(255,255,255,.018);
+      }
+
+      .lux-empty-icon {
+        color:#f8d58a;
+        font-size:40px;
+        margin-bottom:10px;
+      }
+
+      .lux-empty strong {
+        color:#f8d58a;
+        font-size:18px;
+      }
+
+      .lux-empty p {
+        color:#777;
+      }
+
+
+      /* =========================================
+         CARD MODELO
+         ========================================= */
+
+      .lux-model-card {
+        position:relative;
+        overflow:hidden;
+        padding:20px;
+        margin-bottom:15px;
+        border:1px solid rgba(248,213,138,.14);
+        border-radius:22px;
+        background:
+          radial-gradient(
+            circle at 100% 0%,
+            rgba(248,213,138,.055),
+            transparent 34%
+          ),
+          linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+          );
+        box-shadow:
+          0 12px 38px rgba(0,0,0,.18);
+        transition:
+          transform .2s ease,
+          border-color .2s ease,
+          box-shadow .2s ease;
+      }
+
+      .lux-model-card:hover {
+        transform:translateY(-2px);
+        border-color:rgba(248,213,138,.30);
+        box-shadow:
+          0 18px 45px rgba(0,0,0,.28);
+      }
+
+      .lux-model-top {
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:16px;
+        flex-wrap:wrap;
+      }
+
+      .lux-model-identity {
+        display:flex;
+        align-items:center;
+        gap:13px;
+        min-width:0;
+      }
+
+      .lux-model-avatar {
+        width:54px;
+        height:54px;
+        flex:0 0 54px;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden;
+        border:1px solid rgba(248,213,138,.35);
+        background:
+          linear-gradient(
+            145deg,
+            rgba(248,213,138,.14),
+            rgba(255,77,166,.08)
+          );
+        color:#f8d58a;
+        font-size:20px;
+        font-weight:bold;
+      }
+
+      .lux-model-avatar img {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+      }
+
+      .lux-model-name {
+        color:#fff;
+        font-size:19px;
+        font-weight:700;
+        line-height:1.2;
+      }
+
+      .lux-model-nickname {
+        margin-top:4px;
+        color:#ff4da6;
+        font-size:13px;
+      }
+
+      .lux-model-id {
+        margin-top:5px;
+        color:#666;
+        font-size:9px;
+        letter-spacing:.13em;
+      }
+
+      .lux-model-status {
+        flex-shrink:0;
+      }
+
+      .lux-status {
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        padding:7px 11px;
+        border-radius:999px;
+        font-size:10px;
+        font-weight:800;
+        letter-spacing:.06em;
+        white-space:nowrap;
+      }
+
+      .lux-status b {
+        font-size:13px;
+      }
+
+      .lux-status.aprovado {
+        color:#7be0a5;
+        border:1px solid rgba(90,210,135,.25);
+        background:rgba(60,190,120,.08);
+      }
+
+      .lux-status.reprovado {
+        color:#ff9292;
+        border:1px solid rgba(255,80,80,.25);
+        background:rgba(255,80,80,.07);
+      }
+
+      .lux-status.pendente {
+        color:#f8d58a;
+        border:1px solid rgba(248,213,138,.25);
+        background:rgba(248,213,138,.06);
+      }
+
+      .lux-model-divider {
+        height:1px;
+        margin:17px 0;
+        background:
+          linear-gradient(
+            90deg,
+            transparent,
+            rgba(248,213,138,.15),
+            transparent
+          );
+      }
+
+      .lux-model-grid {
+        display:grid;
+        grid-template-columns:
+          repeat(
+            2,
+            minmax(0,1fr)
+          );
+        gap:12px;
+      }
+
+      .lux-info-item {
+        min-width:0;
+        padding:10px 11px;
+        border-radius:12px;
+        background:rgba(255,255,255,.025);
+        border:1px solid rgba(255,255,255,.045);
+      }
+
+      .lux-info-item span {
+        display:block;
+        margin-bottom:4px;
+        color:#666;
+        font-size:8px;
+        letter-spacing:.13em;
+      }
+
+      .lux-info-item strong {
+        display:block;
+        overflow:hidden;
+        color:#ddd;
+        font-size:12px;
+        font-weight:500;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+
+      .lux-model-bottom {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+        margin-top:16px;
+      }
+
+      .lux-plan-mini span {
+        display:block;
+        color:#666;
+        font-size:8px;
+        letter-spacing:.14em;
+      }
+
+      .lux-plan-mini strong {
+        display:block;
+        margin-top:3px;
+        color:#f8d58a;
+        font-size:12px;
+      }
+
+      .lux-btn-ficha {
+        display:flex;
+        align-items:center;
+        gap:10px;
+        padding:10px 14px;
+        border-radius:11px;
+        border:1px solid rgba(248,213,138,.27);
+        background:rgba(248,213,138,.055);
+        color:#f8d58a;
+        cursor:pointer;
+        font-size:10px;
+        font-weight:800;
+        letter-spacing:.06em;
+        transition:.2s ease;
+      }
+
+      .lux-btn-ficha:hover {
+        background:rgba(248,213,138,.12);
+        border-color:rgba(248,213,138,.5);
+      }
+
+      .lux-btn-ficha b {
+        font-size:16px;
+        font-weight:400;
+      }
+
+
+      /* =========================================
+         FICHA
+         ========================================= */
+
+      .lux-ficha-header {
+        display:flex;
+        align-items:center;
+        gap:15px;
+        padding:16px;
+        border-radius:18px;
+        border:1px solid rgba(248,213,138,.13);
+        background:rgba(255,255,255,.025);
+      }
+
+      .lux-ficha-avatar {
+        width:68px;
+        height:68px;
+        flex:0 0 68px;
+        overflow:hidden;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:50%;
+        border:1px solid rgba(248,213,138,.35);
+        background:rgba(248,213,138,.07);
+        color:#f8d58a;
+        font-size:25px;
+        font-weight:bold;
+      }
+
+      .lux-ficha-avatar img {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+      }
+
+      .lux-ficha-title h2 {
+        margin:0;
+        color:#fff;
+        font-size:21px;
+      }
+
+      .lux-ficha-title span {
+        display:block;
+        margin-top:4px;
+        color:#ff4da6;
+        font-size:13px;
+      }
+
+      .lux-ficha-plan {
+        display:inline-block;
+        margin-top:8px;
+        padding:4px 8px;
+        border-radius:7px;
+        background:rgba(248,213,138,.07);
+        color:#f8d58a;
+        font-size:9px;
+        font-weight:bold;
+        letter-spacing:.08em;
+      }
+
+      .lux-ficha-status {
+        margin:12px 0;
+      }
+
+      .lux-ficha-section {
+        margin-top:18px;
+      }
+
+      .lux-section-title {
+        margin-bottom:9px;
+        color:#f8d58a;
+        font-size:10px;
+        font-weight:800;
+        letter-spacing:.15em;
+      }
+
+      .lux-ficha-grid {
+        display:grid;
+        grid-template-columns:
+          repeat(
+            2,
+            minmax(0,1fr)
+          );
+        gap:9px;
+      }
+
+      .lux-ficha-field {
+        padding:11px;
+        border-radius:11px;
+        border:1px solid rgba(255,255,255,.055);
+        background:rgba(255,255,255,.025);
+      }
+
+      .lux-ficha-field span {
+        display:block;
+        margin-bottom:4px;
+        color:#666;
+        font-size:8px;
+        text-transform:uppercase;
+        letter-spacing:.10em;
+      }
+
+      .lux-ficha-field strong {
+        display:block;
+        color:#eee;
+        font-size:12px;
+        font-weight:500;
+        line-height:1.5;
+        word-break:break-word;
+      }
+
+
+      /* =========================================
+         MODAL
+         ========================================= */
+
+      .lux-modal-header {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:15px;
+        padding:20px 22px;
+        border-bottom:1px solid rgba(248,213,138,.10);
+        background:
+          linear-gradient(
+            90deg,
+            rgba(248,213,138,.045),
+            transparent
+          );
+      }
+
+      .lux-modal-header span {
+        color:#777;
+        font-size:8px;
+        letter-spacing:.2em;
+      }
+
+      .lux-modal-header h2 {
+        margin:5px 0 0;
+        color:#f8d58a;
+        font-size:20px;
+      }
+
+      .lux-modal-header button {
+        width:38px;
+        height:38px;
+        border-radius:50%;
+        border:1px solid rgba(255,255,255,.12);
+        background:rgba(255,255,255,.04);
+        color:#fff;
+        font-size:21px;
+        cursor:pointer;
+      }
+
+      .lux-modal-content {
+        padding:20px;
+      }
+
+
+      /* =========================================
+         PLANOS
+         ========================================= */
+
+      .lux-plan-header {
+        margin-bottom:18px;
+        padding:18px;
+        border-radius:18px;
+        border:1px solid rgba(248,213,138,.12);
+        background:
+          radial-gradient(
+            circle at 100% 0%,
+            rgba(255,77,166,.08),
+            transparent 35%
+          ),
+          rgba(255,255,255,.025);
+      }
+
+      .lux-plan-eyebrow {
+        color:#ff4da6;
+        font-size:8px;
+        font-weight:800;
+        letter-spacing:.2em;
+      }
+
+      .lux-plan-header h3 {
+        margin:6px 0;
+        color:#f8d58a;
+        font-size:20px;
+      }
+
+      .lux-plan-header p {
+        margin:0;
+        color:#888;
+        line-height:1.6;
+        font-size:12px;
+      }
+
+      .lux-plans-grid {
+        display:grid;
+        grid-template-columns:
+          repeat(
+            2,
+            minmax(0,1fr)
+          );
+        gap:14px;
+      }
+
+      .lux-plan-card {
+        position:relative;
+        overflow:hidden;
+        padding:18px;
+        border:1px solid rgba(248,213,138,.13);
+        border-radius:19px;
+        background:
+          linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.018)
+          );
+        box-shadow:
+          0 12px 30px rgba(0,0,0,.16);
+      }
+
+      .lux-plan-card.diamond {
+        border-color:rgba(248,213,138,.45);
+        background:
+          radial-gradient(
+            circle at 100% 0%,
+            rgba(248,213,138,.13),
+            transparent 38%
+          ),
+          radial-gradient(
+            circle at 0% 100%,
+            rgba(255,77,166,.07),
+            transparent 38%
+          ),
+          linear-gradient(
+            145deg,
+            rgba(255,255,255,.06),
+            rgba(255,255,255,.018)
+          );
+        box-shadow:
+          0 15px 45px rgba(248,213,138,.08);
+      }
+
+      .lux-diamond-ribbon {
+        position:absolute;
+        top:12px;
+        right:-32px;
+        transform:rotate(35deg);
+        padding:5px 38px;
+        background:#f8d58a;
+        color:#0b0608;
+        font-size:7px;
+        font-weight:900;
+        letter-spacing:.1em;
+      }
+
+      .lux-plan-top {
+        display:flex;
+        align-items:center;
+        gap:11px;
+      }
+
+      .lux-plan-symbol {
+        width:42px;
+        height:42px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:12px;
+        border:1px solid rgba(248,213,138,.20);
+        color:#f8d58a;
+        background:rgba(248,213,138,.06);
+        font-size:20px;
+      }
+
+      .lux-plan-level {
+        color:#777;
+        font-size:8px;
+        font-weight:800;
+        letter-spacing:.16em;
+      }
+
+      .lux-plan-card h3 {
+        margin:3px 0 0;
+        color:#fff;
+        font-size:17px;
+      }
+
+      .lux-plan-price {
+        margin-top:18px;
+        color:#f8d58a;
+        font-size:20px;
+        font-weight:800;
+      }
+
+      .lux-plan-description {
+        min-height:38px;
+        margin:7px 0 0;
+        color:#999;
+        font-size:11px;
+        line-height:1.5;
+      }
+
+      .lux-plan-media {
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+        margin-top:14px;
+      }
+
+      .lux-plan-media div {
+        padding:9px;
+        border-radius:10px;
+        background:rgba(255,255,255,.025);
+        border:1px solid rgba(255,255,255,.05);
+      }
+
+      .lux-plan-media span {
+        display:block;
+        color:#666;
+        font-size:7px;
+        letter-spacing:.14em;
+      }
+
+      .lux-plan-media strong {
+        display:block;
+        margin-top:3px;
+        color:#eee;
+        font-size:14px;
+      }
+
+      .lux-plan-line {
+        height:1px;
+        margin:15px 0;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(248,213,138,.2),
+            transparent
+          );
+      }
+
+      .lux-plan-features {
+        display:grid;
+        gap:7px;
+      }
+
+      .lux-feature {
+        display:flex;
+        align-items:flex-start;
+        gap:8px;
+      }
+
+      .lux-feature span {
+        color:#f8d58a;
+        font-weight:bold;
+      }
+
+      .lux-feature p {
+        margin:0;
+        color:#aaa;
+        font-size:11px;
+        line-height:1.4;
+      }
+
+      .lux-diamond-note {
+        margin-top:15px;
+        padding:10px;
+        border-radius:10px;
+        border:1px solid rgba(248,213,138,.18);
+        background:rgba(248,213,138,.045);
+      }
+
+      .lux-diamond-note strong {
+        display:block;
+        color:#f8d58a;
+        font-size:8px;
+        letter-spacing:.12em;
+      }
+
+      .lux-diamond-note span {
+        display:block;
+        margin-top:4px;
+        color:#999;
+        font-size:10px;
+        line-height:1.4;
+      }
+
+
+      /* =========================================
+         MÓDULOS
+         ========================================= */
+
+      .lux-module-card {
+        padding:16px;
+        margin-bottom:11px;
+        border:1px solid rgba(248,213,138,.10);
+        border-radius:15px;
+        background:rgba(255,255,255,.025);
+      }
+
+      .lux-module-title {
+        color:#f8d58a;
+        font-weight:700;
+        font-size:14px;
+      }
+
+      .lux-module-text {
+        margin-top:7px;
+        color:#bbb;
+        line-height:1.6;
+        font-size:12px;
+      }
+
+      .lux-module-status {
+        margin-top:9px;
+        color:#f8d58a;
+        font-size:11px;
+      }
+
+      .lux-module-date {
+        margin-top:8px;
+        color:#666;
+        font-size:10px;
+      }
+
+      .lux-module-intro {
+        display:flex;
+        align-items:center;
+        gap:12px;
+        margin-bottom:14px;
+        padding:14px;
+        border-radius:14px;
+        background:rgba(255,255,255,.025);
+      }
+
+      .lux-module-icon {
+        width:45px;
+        height:45px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:12px;
+        border:1px solid rgba(248,213,138,.2);
+        color:#f8d58a;
+        font-size:10px;
+        font-weight:bold;
+      }
+
+      .lux-module-intro strong {
+        color:#fff;
+        font-size:14px;
+      }
+
+      .lux-module-intro p {
+        margin:4px 0 0;
+        color:#777;
+        font-size:11px;
+      }
+
+      .lux-stars {
+        color:#f8d58a;
+        letter-spacing:3px;
+        font-size:19px;
+      }
+
+
+      /* =========================================
+         RESPONSIVO
+         ========================================= */
+
+      @media (max-width:680px) {
+
+        .lux-model-card {
+          padding:16px;
+        }
+
+        .lux-model-grid {
+          grid-template-columns:1fr;
+        }
+
+        .lux-ficha-grid {
+          grid-template-columns:1fr;
+        }
+
+        .lux-plans-grid {
+          grid-template-columns:1fr;
+        }
+
+        .lux-plan-card.diamond {
+          order:-1;
+        }
+
+      }
+
+
+      @media (max-width:430px) {
+
+        .lux-model-top {
+          display:block;
+        }
+
+        .lux-model-status {
+          margin-top:12px;
+        }
+
+        .lux-model-bottom {
+          align-items:stretch;
+          flex-direction:column;
+        }
+
+        .lux-btn-ficha {
+          justify-content:center;
+        }
+
+        .lux-ficha-header {
+          align-items:flex-start;
+        }
+
+        .lux-modal-content {
+          padding:14px;
+        }
+
+      }
+
+    `;
+
+
+    document.head.appendChild(
+      style
+    );
+
+  }
+
+
+  /* =========================================================
+     VERSÃO
      ========================================================= */
 
   window.LUX_ADMIN_VERSION =
@@ -3114,7 +4275,7 @@
 
 
   console.log(
-    "[LUX ADMIN V1.9] JavaScript carregado com sucesso."
+    "[LUX ADMIN V2.0] JavaScript carregado com sucesso."
   );
 
 

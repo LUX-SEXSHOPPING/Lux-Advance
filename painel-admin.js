@@ -2,6 +2,7 @@
    LUX-ADVANCE
    PAINEL ADMINISTRATIVO
    MOTOR FUNCIONAL
+   VERSÃO INTEGRADA
    ============================================================ */
 
 (function () {
@@ -424,6 +425,49 @@
 
 
     /* =========================================================
+       ATIVAR FILTRO TODOS
+       ========================================================= */
+
+    function ativarFiltroTodos() {
+
+        filtroAtual = "todos";
+
+
+        document
+            .querySelectorAll(
+                ".btn-filtro"
+            )
+            .forEach(
+                function (botao) {
+
+                    const filtro =
+                        botao.getAttribute(
+                            "data-filtro"
+                        );
+
+                    if (
+                        filtro === "todos"
+                    ) {
+
+                        botao.classList.add(
+                            "ativo"
+                        );
+
+                    } else {
+
+                        botao.classList.remove(
+                            "ativo"
+                        );
+
+                    }
+
+                }
+            );
+
+    }
+
+
+    /* =========================================================
        DASHBOARD
     ========================================================= */
 
@@ -778,6 +822,10 @@
 
         try {
 
+            const agora =
+                new Date().toISOString();
+
+
             const resposta =
                 await window.luxSupabase
                 .from(
@@ -785,8 +833,7 @@
                 )
                 .update({
                     status:novoStatus,
-                    atualizado_em:
-                        new Date().toISOString()
+                    atualizado_em:agora
                 })
                 .eq(
                     "id",
@@ -813,6 +860,9 @@
             fichaAtual.status =
                 novoStatus;
 
+            fichaAtual.atualizado_em =
+                agora;
+
 
             const indice =
                 registrosModelos.findIndex(
@@ -831,12 +881,23 @@
                     {
                         ...registrosModelos[indice],
                         status:novoStatus,
-                        atualizado_em:
-                            new Date().toISOString()
+                        atualizado_em:agora
                     };
 
             }
 
+
+            /*
+             * IMPORTANTE:
+             * depois de aprovar/rejeitar,
+             * voltamos para TODOS.
+             *
+             * Assim um modelo rejeitado
+             * não desaparece simplesmente
+             * porque estava no filtro PENDENTE.
+             */
+
+            ativarFiltroTodos();
 
             fecharModalFicha();
 
@@ -848,7 +909,7 @@
             alert(
                 novoStatus === "aprovado"
                     ? "Cadastro aprovado com sucesso."
-                    : "Cadastro rejeitado com sucesso."
+                    : "Cadastro rejeitado com sucesso e mantido no painel."
             );
 
 
@@ -1055,7 +1116,7 @@
                 )
             ) {
 
-                abrirPlanos();
+                await abrirPlanos();
 
                 return;
 
@@ -1068,7 +1129,7 @@
                 )
             ) {
 
-                abrirDoacoes();
+                await abrirDoacoes();
 
                 return;
 
@@ -1085,7 +1146,6 @@
 
     /* =========================================================
        AVALIAÇÕES
-       USA "nota" NO BANCO
        ========================================================= */
 
     async function abrirAvaliacoes() {
@@ -1149,29 +1209,28 @@
 
                     const nota =
                         Number(
-                            item.estrelas
+                            item.estrelas ??
+                            item.nota ??
+                            0
                         ) || 0;
+
+
+                    const notaLimitada =
+                        Math.max(
+                            0,
+                            Math.min(
+                                5,
+                                nota
+                            )
+                        );
 
 
                     const estrelas =
                         "★".repeat(
-                            Math.max(
-                                0,
-                                Math.min(
-                                    5,
-                                    nota
-                                )
-                            )
+                            notaLimitada
                         ) +
                         "☆".repeat(
-                            5 -
-                            Math.max(
-                                0,
-                                Math.min(
-                                    5,
-                                    nota
-                                )
-                            )
+                            5 - notaLimitada
                         );
 
 
@@ -1375,7 +1434,7 @@
 
 
     /* =========================================================
-       ASSINATURAS
+       ASSINATURAS REAIS
        ========================================================= */
 
     async function abrirAssinaturas() {
@@ -1410,17 +1469,23 @@
             resposta.data || [];
 
 
+        const dadosComModelos =
+            await relacionarModelosAssinaturas(
+                dados
+            );
+
+
         let html = `
 
             <div style="
-                max-height:65vh;
+                max-height:70vh;
                 overflow:auto;
             ">
 
         `;
 
 
-        if (!dados.length) {
+        if (!dadosComModelos.length) {
 
             html += `
                 <div style="
@@ -1434,49 +1499,109 @@
 
         } else {
 
-            dados.forEach(
+            dadosComModelos.forEach(
                 function (item) {
+
+                    const plano =
+                        obterPlanoNome(
+                            item
+                        );
+
+
+                    const modelo =
+                        obterNomeModelo(
+                            item
+                        );
+
+
+                    const valor =
+                        obterValor(
+                            item
+                        );
+
+
+                    const status =
+                        item.status ||
+                        "pendente";
+
 
                     html += `
 
                         <div style="
                             margin-bottom:12px;
-                            padding:16px;
-                            border:1px solid rgba(255,255,255,.07);
-                            border-radius:12px;
+                            padding:17px;
+                            border:1px solid rgba(245,213,140,.13);
+                            border-radius:14px;
+                            background:rgba(255,255,255,.015);
                         ">
 
-                            <strong style="
-                                color:#f5d58c;
+                            <div style="
+                                display:flex;
+                                justify-content:space-between;
+                                gap:10px;
+                                flex-wrap:wrap;
                             ">
-                                ${escapeHTML(
-                                    item.plano ||
-                                    "Plano não informado"
-                                )}
-                            </strong>
 
-                            <p style="
-                                margin-top:8px;
+                                <strong style="
+                                    color:#f5d58c;
+                                    font-size:15px;
+                                ">
+                                    ${escapeHTML(
+                                        modelo
+                                    )}
+                                </strong>
+
+                                <span style="
+                                    color:#fff;
+                                    font-weight:700;
+                                ">
+                                    ${escapeHTML(
+                                        plano
+                                    )}
+                                </span>
+
+                            </div>
+
+
+                            <div style="
+                                margin-top:10px;
                                 color:#bbb;
                             ">
                                 Valor:
-                                R$ ${
-                                    Number(
-                                        item.valor || 0
-                                    ).toFixed(2)
-                                }
-                            </p>
+                                <strong style="
+                                    color:#fff;
+                                ">
+                                    R$ ${valor}
+                                </strong>
+                            </div>
 
-                            <p style="
-                                margin-top:5px;
+
+                            <div style="
+                                margin-top:7px;
                                 color:#999;
                             ">
                                 Status:
-                                ${escapeHTML(
-                                    item.status ||
-                                    "pendente"
+                                <strong style="
+                                    color:#f5d58c;
+                                ">
+                                    ${escapeHTML(
+                                        formatarStatusAssinatura(
+                                            status
+                                        )
+                                    )}
+                                </strong>
+                            </div>
+
+
+                            <div style="
+                                margin-top:7px;
+                                color:#777;
+                                font-size:10px;
+                            ">
+                                ${formatarData(
+                                    item.criado_em
                                 )}
-                            </p>
+                            </div>
 
                         </div>
 
@@ -1494,7 +1619,7 @@
 
 
         abrirModalHTML(
-            "ASSINATURAS",
+            "ASSINATURAS — MODELOS COM PLANOS",
             html
         );
 
@@ -1502,104 +1627,941 @@
 
 
     /* =========================================================
-       PLANOS
+       RELACIONAR ASSINATURAS COM MODELOS
        ========================================================= */
 
-    function abrirPlanos() {
-
-        abrirModalHTML(
-            "PLANOS LUX",
-            `
-
-            <div style="
-                display:grid;
-                gap:10px;
-            ">
-
-                ${plano(
-                    "LUX-ESSENCE",
-                    "FREE",
-                    "Sua presença começa aqui."
-                )}
-
-                ${plano(
-                    "LUX-DESFIRE",
-                    "R$ 29,90/mês",
-                    "Perfil verificado e recursos ampliados."
-                )}
-
-                ${plano(
-                    "LUX-ELITE",
-                    "R$ 59,90/mês",
-                    "Recursos avançados e suporte."
-                )}
-
-                ${plano(
-                    "LUX-ROYAL",
-                    "R$ 99,90/mês",
-                    "Exclusividade e destaque."
-                )}
-
-            </div>
-
-            `
-        );
-
-    }
-
-
-    function plano(
-        nome,
-        valor,
-        descricao
+    async function relacionarModelosAssinaturas(
+        assinaturas
     ) {
 
-        return `
+        if (!assinaturas.length) {
+            return [];
+        }
 
-            <div style="
-                padding:17px;
-                border:1px solid rgba(245,213,140,.13);
-                border-radius:12px;
-            ">
 
-                <strong style="
-                    color:#f5d58c;
-                ">
-                    ${nome}
-                </strong>
+        let modelos = [];
 
-                <div style="
-                    margin-top:5px;
-                    color:#fff;
-                ">
-                    ${valor}
-                </div>
 
-                <div style="
-                    margin-top:7px;
-                    color:#888;
-                    font-size:11px;
-                ">
-                    ${descricao}
-                </div>
+        try {
 
-            </div>
+            const resposta =
+                await window.luxSupabase
+                .from(
+                    "pre_cadastros_modelos"
+                )
+                .select("*");
 
-        `;
+
+            if (!resposta.error) {
+
+                modelos =
+                    resposta.data || [];
+
+            }
+
+        } catch (erro) {
+
+            console.warn(
+                "Não foi possível consultar pré-cadastros:",
+                erro
+            );
+
+        }
+
+
+        return assinaturas.map(
+            function (assinatura) {
+
+                const modeloId =
+                    assinatura.modelo_id ||
+                    assinatura.modelo_user_id ||
+                    assinatura.user_id ||
+                    assinatura.usuario_id;
+
+
+                const modelo =
+                    modelos.find(
+                        function (item) {
+
+                            return String(item.id) ===
+                                String(modeloId);
+
+                        }
+                    );
+
+
+                if (
+                    modelo &&
+                    !assinatura.nome_modelo
+                ) {
+
+                    assinatura.nome_modelo =
+                        modelo.nome ||
+                        modelo.nickname ||
+                        "Modelo";
+
+                    assinatura.nickname_modelo =
+                        modelo.nickname ||
+                        "";
+
+                }
+
+
+                return assinatura;
+
+            }
+        );
 
     }
 
 
     /* =========================================================
-       DOAÇÕES
+       PLANOS
+       MOSTRA QUEM COMPROU CADA PLANO
        ========================================================= */
 
-    function abrirDoacoes() {
+    async function abrirPlanos() {
 
-        abrirModalInformativo(
-            "DOAÇÕES",
-            "O módulo de doações está preparado para receber os registros de pagamentos quando a tabela de doações for integrada ao Supabase."
+        const resposta =
+            await window.luxSupabase
+            .from(
+                "assinaturas_admin"
+            )
+            .select("*")
+            .order(
+                "criado_em",
+                {
+                    ascending:false
+                }
+            );
+
+
+        if (resposta.error) {
+
+            abrirModalInformativo(
+                "PLANOS",
+                resposta.error.message
+            );
+
+            return;
+
+        }
+
+
+        const assinaturas =
+            resposta.data || [];
+
+
+        const dados =
+            await relacionarModelosAssinaturas(
+                assinaturas
+            );
+
+
+        const planos =
+            [
+                {
+                    codigo:"LUX-ESSENCE",
+                    nome:"LUX-ESSENCE",
+                    valor:"GRATUITO",
+                    descricao:"Sua presença começa aqui."
+                },
+                {
+                    codigo:"LUX-DESFIRE",
+                    nome:"LUX-DESFIRE",
+                    valor:"R$ 29,90/mês",
+                    descricao:"Perfil verificado e recursos ampliados."
+                },
+                {
+                    codigo:"LUX-ELITE",
+                    nome:"LUX-ELITE",
+                    valor:"R$ 59,90/mês",
+                    descricao:"Recursos avançados e suporte."
+                },
+                {
+                    codigo:"LUX-ROYAL",
+                    nome:"LUX-ROYAL",
+                    valor:"R$ 99,90/mês",
+                    descricao:"Exclusividade e destaque."
+                },
+                {
+                    codigo:"LUX-DIAMOND",
+                    nome:"LUX-DIAMOND",
+                    valor:"R$ 149,90/mês",
+                    descricao:"Plano Diamond — nível máximo de exclusividade."
+                }
+            ];
+
+
+        let html = `
+
+            <div style="
+                max-height:70vh;
+                overflow:auto;
+            ">
+
+        `;
+
+
+        planos.forEach(
+            function (planoAtual) {
+
+                const codigoNormalizado =
+                    normalizarPlano(
+                        planoAtual.codigo
+                    );
+
+
+                const clientes =
+                    dados.filter(
+                        function (assinatura) {
+
+                            return (
+                                normalizarPlano(
+                                    assinatura.plano_codigo ||
+                                    assinatura.plano ||
+                                    assinatura.plano_nome ||
+                                    assinatura.nome_plano
+                                ) ===
+                                codigoNormalizado
+                            );
+
+                        }
+                    );
+
+
+                html += `
+
+                    <section style="
+                        margin-bottom:18px;
+                        padding:18px;
+                        border:1px solid rgba(245,213,140,.14);
+                        border-radius:15px;
+                    ">
+
+                        <div style="
+                            display:flex;
+                            justify-content:space-between;
+                            gap:10px;
+                            flex-wrap:wrap;
+                            align-items:center;
+                        ">
+
+                            <strong style="
+                                color:#f5d58c;
+                                font-size:16px;
+                            ">
+                                ${escapeHTML(
+                                    planoAtual.nome
+                                )}
+                            </strong>
+
+                            <span style="
+                                color:#fff;
+                                font-weight:700;
+                            ">
+                                ${escapeHTML(
+                                    planoAtual.valor
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div style="
+                            margin-top:6px;
+                            color:#888;
+                            font-size:11px;
+                        ">
+                            ${escapeHTML(
+                                planoAtual.descricao
+                            )}
+                        </div>
+
+
+                        <div style="
+                            margin-top:14px;
+                        ">
+
+                `;
+
+
+                if (!clientes.length) {
+
+                    html += `
+
+                        <div style="
+                            padding:12px;
+                            border-radius:9px;
+                            background:rgba(255,255,255,.025);
+                            color:#777;
+                            font-size:11px;
+                        ">
+                            Nenhuma modelo com este plano.
+                        </div>
+
+                    `;
+
+                } else {
+
+                    clientes.forEach(
+                        function (assinatura) {
+
+                            const modelo =
+                                obterNomeModelo(
+                                    assinatura
+                                );
+
+
+                            const status =
+                                assinatura.status ||
+                                "pendente";
+
+
+                            html += `
+
+                                <div style="
+                                    margin-top:8px;
+                                    padding:13px;
+                                    border-radius:10px;
+                                    background:rgba(255,255,255,.025);
+                                    border:1px solid rgba(255,255,255,.05);
+                                ">
+
+                                    <div style="
+                                        color:#eee;
+                                        font-weight:700;
+                                    ">
+                                        ${escapeHTML(
+                                            modelo
+                                        )}
+                                    </div>
+
+
+                                    <div style="
+                                        margin-top:5px;
+                                        color:#999;
+                                        font-size:10px;
+                                    ">
+                                        Status:
+                                        ${escapeHTML(
+                                            formatarStatusAssinatura(
+                                                status
+                                            )
+                                        )}
+                                    </div>
+
+
+                                    <div style="
+                                        margin-top:4px;
+                                        color:#777;
+                                        font-size:10px;
+                                    ">
+                                        ${formatarData(
+                                            assinatura.criado_em
+                                        )}
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        }
+                    );
+
+                }
+
+
+                html += `
+
+                        </div>
+
+                    </section>
+
+                `;
+
+            }
         );
+
+
+        html += `
+            </div>
+        `;
+
+
+        abrirModalHTML(
+            "PLANOS — MODELOS CADASTRADAS",
+            html
+        );
+
+    }
+
+
+    /* =========================================================
+       DOAÇÕES REAIS DO SUPABASE
+       ========================================================= */
+
+    async function abrirDoacoes() {
+
+        const resposta =
+            await window.luxSupabase
+            .from(
+                "doacoes"
+            )
+            .select("*")
+            .order(
+                "criado_em",
+                {
+                    ascending:false
+                }
+            );
+
+
+        if (resposta.error) {
+
+            console.error(
+                "Erro ao carregar doações:",
+                resposta.error
+            );
+
+
+            abrirModalInformativo(
+                "DOAÇÕES",
+                "Não foi possível carregar as doações do Supabase.\n\n" +
+                resposta.error.message
+            );
+
+            return;
+
+        }
+
+
+        const todas =
+            resposta.data || [];
+
+
+        /*
+         * Mostramos apenas pagamentos confirmados.
+         */
+
+        const confirmadas =
+            todas.filter(
+                function (item) {
+
+                    return doacaoConfirmada(
+                        item
+                    );
+
+                }
+            );
+
+
+        let total =
+            0;
+
+
+        confirmadas.forEach(
+            function (item) {
+
+                total +=
+                    obterValorNumerico(
+                        item.valor ??
+                        item.valor_doacao ??
+                        item.quantia ??
+                        item.amount ??
+                        0
+                    );
+
+            }
+        );
+
+
+        let html = `
+
+            <div style="
+                max-height:70vh;
+                overflow:auto;
+            ">
+
+                <div style="
+                    display:grid;
+                    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+                    gap:10px;
+                    margin-bottom:16px;
+                ">
+
+                    <div style="
+                        padding:16px;
+                        border:1px solid rgba(245,213,140,.13);
+                        border-radius:12px;
+                    ">
+
+                        <div style="
+                            color:#888;
+                            font-size:10px;
+                            text-transform:uppercase;
+                            letter-spacing:1px;
+                        ">
+                            Confirmadas
+                        </div>
+
+                        <strong style="
+                            display:block;
+                            margin-top:6px;
+                            color:#f5d58c;
+                            font-size:22px;
+                        ">
+                            ${confirmadas.length}
+                        </strong>
+
+                    </div>
+
+
+                    <div style="
+                        padding:16px;
+                        border:1px solid rgba(245,213,140,.13);
+                        border-radius:12px;
+                    ">
+
+                        <div style="
+                            color:#888;
+                            font-size:10px;
+                            text-transform:uppercase;
+                            letter-spacing:1px;
+                        ">
+                            Total confirmado
+                        </div>
+
+                        <strong style="
+                            display:block;
+                            margin-top:6px;
+                            color:#fff;
+                            font-size:20px;
+                        ">
+                            R$ ${formatarMoeda(total)}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+        `;
+
+
+        if (!confirmadas.length) {
+
+            html += `
+
+                <div style="
+                    padding:30px;
+                    text-align:center;
+                    color:#888;
+                ">
+                    Nenhuma doação confirmada encontrada.
+                </div>
+
+            `;
+
+        } else {
+
+            confirmadas.forEach(
+                function (item) {
+
+                    const valor =
+                        obterValorNumerico(
+                            item.valor ??
+                            item.valor_doacao ??
+                            item.quantia ??
+                            item.amount ??
+                            0
+                        );
+
+
+                    const nome =
+                        item.nome ||
+                        item.nome_doador ||
+                        item.doador_nome ||
+                        item.usuario_nome ||
+                        item.email ||
+                        "Doador não identificado";
+
+
+                    const email =
+                        item.email ||
+                        item.doador_email ||
+                        item.usuario_email ||
+                        "";
+
+
+                    const idPagamento =
+                        item.pagamento_id ||
+                        item.payment_id ||
+                        item.mp_payment_id ||
+                        item.id_transacao ||
+                        item.transacao_id ||
+                        "";
+
+
+                    html += `
+
+                        <div style="
+                            margin-bottom:12px;
+                            padding:16px;
+                            border:1px solid rgba(255,255,255,.07);
+                            border-radius:12px;
+                            background:rgba(255,255,255,.015);
+                        ">
+
+                            <div style="
+                                display:flex;
+                                justify-content:space-between;
+                                gap:10px;
+                                flex-wrap:wrap;
+                            ">
+
+                                <strong style="
+                                    color:#f5d58c;
+                                ">
+                                    ${escapeHTML(
+                                        nome
+                                    )}
+                                </strong>
+
+                                <strong style="
+                                    color:#fff;
+                                ">
+                                    R$ ${formatarMoeda(valor)}
+                                </strong>
+
+                            </div>
+
+
+                            ${
+                                email
+                                    ? `
+                                        <div style="
+                                            margin-top:7px;
+                                            color:#999;
+                                            font-size:10px;
+                                        ">
+                                            ${escapeHTML(email)}
+                                        </div>
+                                      `
+                                    : ""
+                            }
+
+
+                            ${
+                                idPagamento
+                                    ? `
+                                        <div style="
+                                            margin-top:7px;
+                                            color:#777;
+                                            font-size:10px;
+                                            word-break:break-all;
+                                        ">
+                                            Pagamento:
+                                            ${escapeHTML(
+                                                idPagamento
+                                            )}
+                                        </div>
+                                      `
+                                    : ""
+                            }
+
+
+                            <div style="
+                                margin-top:7px;
+                                color:#777;
+                                font-size:10px;
+                            ">
+                                Confirmada em:
+                                ${formatarData(
+                                    item.confirmado_em ||
+                                    item.updated_at ||
+                                    item.atualizado_em ||
+                                    item.criado_em
+                                )}
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            );
+
+        }
+
+
+        html += `
+            </div>
+        `;
+
+
+        abrirModalHTML(
+            "DOAÇÕES — PAGAMENTOS CONFIRMADOS",
+            html
+        );
+
+    }
+
+
+    /* =========================================================
+       IDENTIFICAR DOAÇÃO CONFIRMADA
+       ========================================================= */
+
+    function doacaoConfirmada(
+        item
+    ) {
+
+        const status =
+            String(
+                item.status ||
+                item.situacao ||
+                item.estado ||
+                item.payment_status ||
+                item.status_pagamento ||
+                ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        return (
+            status === "confirmado" ||
+            status === "confirmada" ||
+            status === "approved" ||
+            status === "aprovado" ||
+            status === "paid" ||
+            status === "pago" ||
+            status === "completed" ||
+            status === "completo"
+        );
+
+    }
+
+
+    /* =========================================================
+       OBTER NOME DA MODELO
+       ========================================================= */
+
+    function obterNomeModelo(
+        item
+    ) {
+
+        return (
+            item.nome_modelo ||
+            item.modelo_nome ||
+            item.nome ||
+            item.nickname_modelo ||
+            item.nickname ||
+            "Modelo não identificada"
+        );
+
+    }
+
+
+    /* =========================================================
+       OBTER PLANO
+       ========================================================= */
+
+    function obterPlanoNome(
+        item
+    ) {
+
+        return (
+            item.plano_nome ||
+            item.plano ||
+            item.nome_plano ||
+            item.plano_codigo ||
+            "Plano não informado"
+        );
+
+    }
+
+
+    /* =========================================================
+       OBTER VALOR
+       ========================================================= */
+
+    function obterValor(
+        item
+    ) {
+
+        const numero =
+            obterValorNumerico(
+                item.valor ??
+                item.valor_mensal ??
+                item.preco ??
+                0
+            );
+
+
+        return formatarMoeda(
+            numero
+        );
+
+    }
+
+
+    function obterValorNumerico(
+        valor
+    ) {
+
+        if (
+            typeof valor ===
+            "number"
+        ) {
+
+            return valor;
+
+        }
+
+
+        const texto =
+            String(
+                valor ||
+                "0"
+            )
+            .replace(
+                /R\$/gi,
+                ""
+            )
+            .trim();
+
+
+        /*
+         * Trata valores brasileiros:
+         * 29,90
+         */
+
+        if (
+            texto.includes(",")
+        ) {
+
+            return (
+                Number(
+                    texto
+                        .replace(
+                            /\./g,
+                            ""
+                        )
+                        .replace(
+                            ",",
+                            "."
+                        )
+                ) || 0
+            );
+
+        }
+
+
+        return (
+            Number(texto) ||
+            0
+        );
+
+    }
+
+
+    function formatarMoeda(
+        valor
+    ) {
+
+        return Number(
+            valor || 0
+        ).toLocaleString(
+            "pt-BR",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       NORMALIZAR PLANO
+       ========================================================= */
+
+    function normalizarPlano(
+        plano
+    ) {
+
+        return String(
+            plano ||
+            ""
+        )
+        .trim()
+        .toUpperCase()
+        .replace(
+            /_/g,
+            "-"
+        )
+        .replace(
+            /\s+/g,
+            "-"
+        );
+
+    }
+
+
+    /* =========================================================
+       STATUS DA ASSINATURA
+       ========================================================= */
+
+    function formatarStatusAssinatura(
+        status
+    ) {
+
+        const valor =
+            String(
+                status ||
+                ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        if (
+            valor === "ativo" ||
+            valor === "active" ||
+            valor === "approved" ||
+            valor === "aprovado"
+        ) {
+
+            return "Ativa";
+
+        }
+
+
+        if (
+            valor === "cancelado" ||
+            valor === "cancelada" ||
+            valor === "cancelled" ||
+            valor === "canceled"
+        ) {
+
+            return "Cancelada";
+
+        }
+
+
+        if (
+            valor === "paid" ||
+            valor === "pago" ||
+            valor === "confirmado"
+        ) {
+
+            return "Confirmada";
+
+        }
+
+
+        return status ||
+            "Pendente";
 
     }
 
@@ -1753,6 +2715,7 @@
                     padding:20px 5px;
                     color:#aaa;
                     line-height:1.8;
+                    white-space:pre-line;
                 ">
                     ${escapeHTML(texto)}
                 </div>

@@ -1,0 +1,3437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>LUX — Área da Modelo</title>
+
+  <link
+    rel="stylesheet"
+    href="app.css"
+  >
+
+  <style>
+
+    /* =========================================
+       LUX HALLOWEEN — PAINEL DA MODELO
+       ========================================= */
+
+    body {
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(255, 102, 0, .12),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 85% 80%,
+          rgba(110, 15, 46, .18),
+          transparent 35%
+        ),
+        #080607;
+    }
+
+    .topbar {
+      border-bottom: 1px solid rgba(255, 140, 0, .25);
+      box-shadow: 0 4px 25px rgba(0,0,0,.55);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:10px 20px;
+    }
+
+    .brand {
+      color: #f0d878 !important;
+      text-shadow: 0 0 12px rgba(240,216,120,.25);
+      letter-spacing: 5px;
+      display:flex;
+      align-items:center;
+      text-decoration:none;
+      height:116px;
+      flex-shrink:0;
+    }
+
+    .brand img {
+      display:block;
+      width:auto;
+      height:116px;
+      max-width:260px;
+      object-fit:contain;
+    }
+
+    .top-actions-modelo {
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn-planos {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:11px 18px;
+      border-radius:28px;
+      text-decoration:none;
+      font-family:"Cinzel",serif;
+      font-size:11px;
+      letter-spacing:1.3px;
+      text-transform:uppercase;
+      color:#130b08;
+      background:linear-gradient(135deg,#f0d878,#d88916);
+      border:1px solid rgba(240,216,120,.65);
+      box-shadow:0 7px 25px rgba(216,137,22,.20);
+      transition:.3s;
+      white-space:nowrap;
+    }
+
+    .btn-planos:hover {
+      transform:translateY(-2px);
+      box-shadow:0 10px 32px rgba(240,216,120,.28);
+    }
+
+    .btn-sair-top {
+      white-space:nowrap;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,140,0,.18);
+      background:linear-gradient(135deg,rgba(30,18,15,.96),rgba(12,8,9,.98));
+      box-shadow:0 15px 45px rgba(0,0,0,.45),inset 0 1px rgba(255,255,255,.03);
+    }
+
+    .hero::before {
+      content:"🎃";
+      position:absolute;
+      right:25px;
+      top:18px;
+      font-size:55px;
+      opacity:.12;
+      filter:grayscale(.3);
+    }
+
+    .hero::after {
+      content:"✦";
+      position:absolute;
+      right:95px;
+      bottom:20px;
+      font-size:22px;
+      color:#ff8c00;
+      opacity:.35;
+    }
+
+    .eyebrow {
+      color:#ff9d32 !important;
+      letter-spacing:3px;
+    }
+
+    .title {
+      text-shadow:0 0 25px rgba(255,110,0,.12);
+    }
+
+    .subtitle {
+      color:#bdb0b5 !important;
+    }
+
+    .plano-acesso {
+      margin-top:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:16px 18px;
+      border-radius:18px;
+      border:1px solid rgba(240,216,120,.22);
+      background:linear-gradient(135deg,rgba(240,216,120,.08),rgba(110,15,46,.10));
+      box-shadow:inset 0 1px rgba(255,255,255,.025);
+    }
+
+    .plano-acesso-info {
+      min-width:0;
+    }
+
+    .plano-acesso-info small {
+      display:block;
+      color:#8f8589;
+      font-size:11px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      margin-bottom:5px;
+    }
+
+    .plano-acesso-info strong {
+      color:#f0d878;
+      font-family:"Cinzel",serif;
+      font-size:15px;
+      letter-spacing:.8px;
+    }
+
+    .plano-acesso-link {
+      flex-shrink:0;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:9px 14px;
+      border-radius:22px;
+      border:1px solid rgba(240,216,120,.28);
+      background:rgba(255,255,255,.035);
+      color:#f0d878;
+      text-decoration:none;
+      font-family:"Cinzel",serif;
+      font-size:10px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      transition:.3s;
+    }
+
+    .plano-acesso-link:hover {
+      background:rgba(240,216,120,.10);
+      border-color:rgba(240,216,120,.55);
+      transform:translateY(-1px);
+    }
+
+    .card {
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,140,0,.16) !important;
+      background:linear-gradient(145deg,rgba(25,17,19,.98),rgba(13,9,10,.98)) !important;
+      box-shadow:0 15px 40px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.025);
+    }
+
+    .card::after {
+      content:"";
+      position:absolute;
+      width:120px;
+      height:120px;
+      right:-60px;
+      bottom:-60px;
+      border-radius:50%;
+      background:rgba(255,102,0,.07);
+      filter:blur(5px);
+      pointer-events:none;
+    }
+
+    .profile-head {
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:auto minmax(0,1fr) minmax(230px,280px);
+      align-items:start;
+      gap:22px;
+    }
+
+    #foto {
+      background:radial-gradient(circle at center,rgba(255,110,0,.10),#171012 70%) !important;
+      border-color:rgba(255,140,0,.28) !important;
+      box-shadow:0 0 30px rgba(255,100,0,.08),inset 0 0 25px rgba(0,0,0,.5);
+    }
+
+    .profile-photo-manager {
+      min-width:0;
+      padding:16px;
+      border-radius:18px;
+      border:1px solid rgba(240,216,120,.22);
+      background:linear-gradient(145deg,rgba(240,216,120,.06),rgba(255,102,0,.035));
+      box-shadow:inset 0 1px rgba(255,255,255,.025);
+    }
+
+    .profile-photo-manager h3 {
+      margin:0 0 5px;
+      color:#f0d878;
+      font-family:"Cinzel",serif;
+      font-size:13px;
+      letter-spacing:.7px;
+    }
+
+    .profile-photo-manager p {
+      margin:0;
+      color:#8f8589;
+      font-size:12px;
+      line-height:1.55;
+    }
+
+    .profile-photo-options {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:8px;
+      margin-top:13px;
+      max-height:180px;
+      overflow:auto;
+      padding-right:2px;
+    }
+
+    .profile-photo-option {
+      position:relative;
+      width:100%;
+      aspect-ratio:1 / 1;
+      padding:0;
+      border-radius:12px;
+      overflow:hidden;
+      cursor:pointer;
+      border:1px solid rgba(240,216,120,.18);
+      background:#100b0d;
+      transition:.25s;
+    }
+
+    .profile-photo-option:hover {
+      transform:translateY(-2px);
+      border-color:rgba(240,216,120,.65);
+      box-shadow:0 6px 18px rgba(0,0,0,.35);
+    }
+
+    .profile-photo-option img {
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .profile-photo-option.selected {
+      border:2px solid #f0d878;
+      box-shadow:0 0 18px rgba(240,216,120,.20);
+    }
+
+    .profile-photo-option.selected::after {
+      content:"✓";
+      position:absolute;
+      top:5px;
+      right:5px;
+      width:22px;
+      height:22px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#f0d878;
+      color:#120b08;
+      font-weight:bold;
+      font-size:13px;
+    }
+
+    .profile-photo-empty {
+      grid-column:1 / -1;
+      padding:15px 10px;
+      text-align:center;
+      border:1px dashed rgba(240,216,120,.18);
+      border-radius:12px;
+      color:#8f8589;
+      font-size:12px;
+      line-height:1.5;
+    }
+
+    .profile-photo-manager .photo-action {
+      width:100%;
+      margin-top:11px;
+      min-height:38px;
+      border-radius:20px;
+      cursor:pointer;
+      border:1px solid rgba(240,216,120,.28);
+      background:rgba(240,216,120,.07);
+      color:#f0d878;
+      font-family:"Cinzel",serif;
+      font-size:10px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      transition:.3s;
+    }
+
+    .profile-photo-manager .photo-action:hover {
+      background:rgba(240,216,120,.13);
+      border-color:rgba(240,216,120,.55);
+    }
+
+    .profile-photo-manager .photo-action:disabled {
+      opacity:.45;
+      cursor:not-allowed;
+    }
+
+    .pill {
+      border-color:rgba(255,140,0,.3) !important;
+      background:rgba(255,100,0,.08) !important;
+      color:#f0d878 !important;
+    }
+
+    #seloModelo {
+      background:linear-gradient(135deg,rgba(255,140,0,.14),rgba(110,15,46,.18)) !important;
+      border-color:rgba(240,216,120,.35) !important;
+      box-shadow:0 0 18px rgba(255,120,0,.08);
+    }
+
+    #statusModelo {
+      color:#ffad5c !important;
+    }
+
+    .info {
+      border-bottom:1px solid rgba(255,140,0,.10);
+    }
+
+    .info small {
+      color:#8f8589 !important;
+    }
+
+    .info span {
+      color:#f0e8e2 !important;
+    }
+
+    .btn {
+      background:linear-gradient(135deg,#d88916,#b96808) !important;
+      color:#120b08 !important;
+      border:0 !important;
+      box-shadow:0 8px 25px rgba(210,100,0,.18);
+    }
+
+    .btn:hover {
+      transform:translateY(-1px);
+      box-shadow:0 10px 30px rgba(255,120,0,.25);
+    }
+
+    .btn.ghost {
+      background:rgba(255,255,255,.035) !important;
+      color:#f0d878 !important;
+      border:1px solid rgba(240,216,120,.25) !important;
+      box-shadow:none;
+    }
+
+    .footer {
+      border-top:1px solid rgba(255,140,0,.12);
+      color:#756b70 !important;
+    }
+
+    .media-manager {
+      margin-top:25px;
+    }
+
+    .media-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .media-limits {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .media-limit {
+      padding:15px;
+      border-radius:14px;
+      border:1px solid rgba(255,140,0,.15);
+      background:rgba(255,255,255,.025);
+    }
+
+    .media-limit small {
+      display:block;
+      color:#8f8589;
+      margin-bottom:5px;
+    }
+
+    .media-limit strong {
+      color:#f0d878;
+      font-size:20px;
+    }
+
+    .upload-area {
+      margin-top:20px;
+      padding:18px;
+      border:1px dashed rgba(240,216,120,.25);
+      border-radius:16px;
+      background:rgba(255,255,255,.02);
+    }
+
+    .upload-area h3 {
+      margin-top:0;
+    }
+
+    .upload-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:15px;
+    }
+
+    .upload-box {
+      padding:16px;
+      border-radius:14px;
+      border:1px solid rgba(255,140,0,.14);
+      background:rgba(0,0,0,.15);
+    }
+
+    .upload-box input {
+      width:100%;
+      margin-top:10px;
+      box-sizing:border-box;
+    }
+
+    .media-gallery {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(145px,1fr));
+      gap:14px;
+      margin-top:20px;
+    }
+
+    .media-item {
+      position:relative;
+      overflow:hidden;
+      border-radius:15px;
+      border:1px solid rgba(255,140,0,.18);
+      background:#110c0e;
+      min-height:150px;
+    }
+
+    .media-item img,
+    .media-item video {
+      display:block;
+      width:100%;
+      height:190px;
+      object-fit:cover;
+      background:#080607;
+    }
+
+    .media-item-info {
+      padding:9px;
+      font-size:12px;
+      color:#a99ca1;
+    }
+
+    .media-actions {
+      display:flex;
+      gap:6px;
+      padding:8px;
+      flex-wrap:wrap;
+    }
+
+    .media-btn {
+      flex:1;
+      min-width:70px;
+      border-radius:9px;
+      padding:8px 7px;
+      cursor:pointer;
+      border:1px solid rgba(240,216,120,.22);
+      background:rgba(255,255,255,.04);
+      color:#f0d878;
+      font-size:12px;
+    }
+
+    .media-btn:hover {
+      background:rgba(255,140,0,.10);
+    }
+
+    .media-btn.delete {
+      color:#ff9b9b;
+      border-color:rgba(255,80,80,.20);
+    }
+
+    .media-btn.profile {
+      color:#f0d878;
+    }
+
+    .empty-media {
+      padding:30px 15px;
+      text-align:center;
+      color:#8f8589;
+      border:1px dashed rgba(255,140,0,.14);
+      border-radius:14px;
+      grid-column:1 / -1;
+    }
+
+    .progress-box {
+      margin-top:15px;
+      display:none;
+    }
+
+    .progress-box.active {
+      display:block;
+    }
+
+    .progress-bar {
+      width:100%;
+      height:8px;
+      overflow:hidden;
+      border-radius:20px;
+      background:rgba(255,255,255,.06);
+    }
+
+    .progress-fill {
+      width:0%;
+      height:100%;
+      border-radius:20px;
+      background:linear-gradient(90deg,#d88916,#f0d878);
+      transition:width .2s ease;
+    }
+
+    .media-note {
+      color:#8f8589;
+      font-size:13px;
+      line-height:1.6;
+      margin-top:12px;
+    }
+
+    .current-profile-photo {
+      position:relative;
+      display:inline-block;
+    }
+
+    .current-profile-photo img {
+      width:190px;
+      height:235px;
+      object-fit:cover;
+      border-radius:20px;
+    }
+
+    .photo-badge {
+      position:absolute;
+      left:8px;
+      bottom:8px;
+      padding:5px 8px;
+      border-radius:8px;
+      background:rgba(0,0,0,.72);
+      color:#f0d878;
+      font-size:11px;
+    }
+
+    .section-message {
+      margin-top:15px;
+    }
+
+    @media (max-width:900px) {
+
+      .profile-head {
+        grid-template-columns:auto minmax(0,1fr);
+      }
+
+      .profile-photo-manager {
+        grid-column:1 / -1;
+      }
+
+    }
+
+    @media (max-width:650px) {
+
+      .topbar {
+        padding:8px 10px;
+        align-items:center;
+      }
+
+      .brand {
+        height:78px;
+      }
+
+      .brand img {
+        height:78px;
+        max-width:170px;
+      }
+
+      .top-actions-modelo {
+        gap:7px;
+      }
+
+      .btn-planos {
+        padding:9px 11px;
+        font-size:9px;
+        letter-spacing:.7px;
+      }
+
+      .btn-sair-top {
+        padding:9px 11px;
+        font-size:9px;
+      }
+
+      .profile-head {
+        grid-template-columns:1fr;
+      }
+
+      #foto {
+        margin:auto;
+      }
+
+      .profile-photo-manager {
+        grid-column:auto;
+      }
+
+      .plano-acesso {
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .plano-acesso-link {
+        width:100%;
+      }
+
+      .media-limits {
+        grid-template-columns:1fr;
+      }
+
+      .upload-grid {
+        grid-template-columns:1fr;
+      }
+
+      .media-gallery {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="halloween-decoration web-left">
+    🕸️
+  </div>
+
+  <div class="halloween-decoration web-right">
+    🕸️
+  </div>
+
+  <header class="topbar">
+
+    <a
+      class="brand"
+      href="index.html"
+      aria-label="LUX — Início"
+    >
+
+      <img
+        src="./logo4.png"
+        alt="LUX"
+      >
+
+    </a>
+
+    <div class="top-actions-modelo">
+
+      <a
+        class="btn-planos"
+        href="planos.html"
+      >
+        ✦ Ver Planos
+      </a>
+
+      <button
+        class="btn ghost btn-sair-top"
+        id="btnSair"
+        type="button"
+      >
+        Sair
+      </button>
+
+    </div>
+
+  </header>
+
+  <main class="container">
+
+    <section class="hero">
+
+      <div class="eyebrow">
+        🎃 ÁREA DA MODELO
+      </div>
+
+      <h1
+        class="title"
+        id="titulo"
+      >
+        Meu perfil
+      </h1>
+
+      <p
+        class="subtitle"
+        id="subtitulo"
+      >
+        Carregando...
+      </p>
+
+      <div class="plano-acesso">
+
+        <div class="plano-acesso-info">
+
+          <small>
+            Seu plano atual
+          </small>
+
+          <strong id="heroPlano">
+            ✦ LUX ESSENCE
+          </strong>
+
+        </div>
+
+        <a
+          class="plano-acesso-link"
+          href="planos.html"
+        >
+          ✦ Ver planos e assinar
+        </a>
+
+      </div>
+
+    </section>
+
+    <div
+      id="mensagem"
+      class="notice"
+      hidden
+    ></div>
+
+    <section
+      id="conteudo"
+      hidden
+    >
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <div class="profile-head">
+
+            <div
+              id="foto"
+              style="
+                width:190px;
+                height:235px;
+                border-radius:20px;
+                border:1px solid var(--line);
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:#21191e;
+                color:var(--gold2);
+                font-family:'Playfair Display',serif;
+                font-size:28px;
+                overflow:hidden;
+              "
+            >
+              LUX
+            </div>
+
+            <div>
+
+              <span class="pill">
+                🎃 MODELO LUX
+              </span>
+
+              <h2 id="nomeModelo">
+                Modelo
+              </h2>
+
+              <p
+                id="emailModelo"
+                style="color:var(--muted)"
+              ></p>
+
+              <div
+                id="seloModelo"
+                class="pill lux-plan-badge"
+                style="
+                  margin:8px 0;
+                  display:inline-flex
+                "
+              >
+                ✦ LUX ESSENCE
+              </div>
+
+              <p
+                id="statusModelo"
+                style="color:var(--gold2)"
+              ></p>
+
+            </div>
+
+            <div class="profile-photo-manager">
+
+              <h3>
+                📷 Foto de perfil
+              </h3>
+
+              <p>
+                Escolha uma das fotos que você
+                já enviou para definir como principal.
+              </p>
+
+              <div
+                id="profilePhotoOptions"
+                class="profile-photo-options"
+              >
+
+                <div class="profile-photo-empty">
+                  Carregando suas fotos...
+                </div>
+
+              </div>
+
+              <button
+                id="btnAtualizarFoto"
+                class="photo-action"
+                type="button"
+                disabled
+              >
+                ⭐ Usar foto selecionada
+              </button>
+
+              <p
+                id="profilePhotoMessage"
+                class="media-note"
+                style="
+                  margin-bottom:0;
+                  display:none;
+                "
+              ></p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <br>
+
+      <div class="grid">
+
+        <article class="card">
+
+          <div class="card-body">
+
+            <h2>
+              ✦ Informações do perfil
+            </h2>
+
+            <div class="info-list">
+
+              <div class="info">
+
+                <small>
+                  Idade
+                </small>
+
+                <span id="idade">
+                  —
+                </span>
+
+              </div>
+
+              <div class="info">
+
+                <small>
+                  Altura
+                </small>
+
+                <span id="altura">
+                  —
+                </span>
+
+              </div>
+
+              <div class="info">
+
+                <small>
+                  Cidade
+                </small>
+
+                <span id="cidade">
+                  —
+                </span>
+
+              </div>
+
+              <div class="info">
+
+                <small>
+                  Disponibilidade
+                </small>
+
+                <span id="disponivel">
+                  —
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+        <article class="card">
+
+          <div class="card-body">
+
+            <h2>
+              🕯️ Minha apresentação
+            </h2>
+
+            <p
+              id="bio"
+              style="color:var(--muted);line-height:1.7;"
+            >
+              Nenhuma apresentação cadastrada.
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      <div class="card media-manager">
+
+        <div class="card-body">
+
+          <div class="media-header">
+
+            <div>
+
+              <h2>
+                ✦ Minhas fotos e vídeos
+              </h2>
+
+              <p
+                class="media-note"
+                style="margin-top:0"
+              >
+                Gerencie o conteúdo exibido no seu perfil LUX.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            class="media-limits"
+            id="mediaLimits"
+          >
+
+            <div class="media-limit">
+
+              <small>
+                Fotos
+              </small>
+
+              <strong id="limiteFotos">
+                0 / 0
+              </strong>
+
+            </div>
+
+            <div class="media-limit">
+
+              <small>
+                Vídeos
+              </small>
+
+              <strong id="limiteVideos">
+                0 / 0
+              </strong>
+
+            </div>
+
+          </div>
+
+          <div class="upload-area">
+
+            <h3>
+              Adicionar conteúdo
+            </h3>
+
+            <p class="media-note">
+
+              Seu plano controla automaticamente
+              a quantidade de fotos e vídeos permitidos.
+
+            </p>
+
+            <div class="upload-grid">
+
+              <div class="upload-box">
+
+                <strong>
+                  📷 Foto de perfil
+                </strong>
+
+                <p class="media-note">
+
+                  Escolha uma das suas fotos
+                  para aparecer como foto principal.
+
+                </p>
+
+                <input
+                  id="inputFotoPerfil"
+                  type="file"
+                  accept="image/*"
+                >
+
+              </div>
+
+              <div class="upload-box">
+
+                <strong>
+                  🖼️ Fotos da galeria
+                </strong>
+
+                <p class="media-note">
+
+                  Você pode selecionar várias fotos
+                  de uma vez.
+
+                </p>
+
+                <input
+                  id="inputFotos"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                >
+
+              </div>
+
+              <div class="upload-box">
+
+                <strong>
+                  🎬 Vídeos
+                </strong>
+
+                <p class="media-note">
+
+                  Adicione vídeos para complementar
+                  seu perfil.
+
+                </p>
+
+                <input
+                  id="inputVideos"
+                  type="file"
+                  accept="video/*"
+                  multiple
+                >
+
+              </div>
+
+            </div>
+
+            <div
+              id="progressBox"
+              class="progress-box"
+            >
+
+              <div
+                style="
+                  display:flex;
+                  justify-content:space-between;
+                  gap:10px;
+                  margin-bottom:7px;
+                  color:#a99ca1;
+                  font-size:13px;
+                "
+              >
+
+                <span id="progressText">
+                  Enviando...
+                </span>
+
+                <span id="progressPercent">
+                  0%
+                </span>
+
+              </div>
+
+              <div class="progress-bar">
+
+                <div
+                  id="progressFill"
+                  class="progress-fill"
+                ></div>
+
+              </div>
+
+            </div>
+
+            <p
+              id="mediaMessage"
+              class="notice section-message"
+              hidden
+            ></p>
+
+          </div>
+
+          <div
+            id="mediaGallery"
+            class="media-gallery"
+          >
+
+            <div class="empty-media">
+              Carregando suas fotos e vídeos...
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <br>
+
+      <div class="actions">
+
+        <a
+          class="btn"
+          href="planos.html"
+        >
+          ✦ Ver planos e assinar
+        </a>
+
+        <a
+          class="btn"
+          href="index.html"
+        >
+          ✦ Voltar ao LUX
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    LUX — Sensualidade & Sofisticação · Halloween Edition 🎃
+  </footer>
+
+
+  <!-- =========================================
+       SUPABASE
+       IMPORTANTE:
+       1. Biblioteca Supabase
+       2. config.js
+       3. auth.js
+       4. Código do painel
+       ========================================= -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="./config.js?v=5"></script>
+
+  <script src="./auth.js?v=10"></script>
+
+
+  <script>
+
+    /* =========================================
+       VERIFICAÇÃO DO SUPABASE
+       ========================================= */
+
+    if (!window.supabase) {
+
+      console.error(
+        "[LUX] Biblioteca Supabase não carregou."
+      );
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+          const mensagem =
+            document.getElementById("mensagem");
+
+          if (mensagem) {
+
+            mensagem.hidden = false;
+
+            mensagem.className =
+              "notice error";
+
+            mensagem.textContent =
+              "A biblioteca do sistema não foi carregada. Verifique sua conexão e atualize a página.";
+
+          }
+
+        }
+      );
+
+      throw new Error(
+        "Biblioteca Supabase não carregou."
+      );
+
+    }
+
+
+    if (!window.luxSupabase) {
+
+      console.error(
+        "[LUX] Supabase não foi inicializado.",
+        {
+          supabaseGlobal:
+            !!window.supabase,
+
+          luxSupabase:
+            !!window.luxSupabase
+        }
+      );
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+          const mensagem =
+            document.getElementById("mensagem");
+
+          if (mensagem) {
+
+            mensagem.hidden = false;
+
+            mensagem.className =
+              "notice error";
+
+            mensagem.textContent =
+              "O Supabase não foi inicializado. Verifique o arquivo config.js.";
+
+          }
+
+        }
+      );
+
+      throw new Error(
+        "Supabase não foi inicializado."
+      );
+
+    }
+
+
+    console.log(
+      "[LUX] Supabase inicializado corretamente."
+    );
+
+    console.log(
+      "[LUX] auth.js:",
+      window.LUX_AUTH_VERSION ||
+      "versão não identificada"
+    );
+
+
+    /* =========================================
+       ESTADO
+       ========================================= */
+
+    let usuarioLogado = null;
+    let perfilAtual = null;
+    let modeloAtual = null;
+    let planoAtual = "ESSENCE";
+    let midiasAtuais = [];
+
+    let fotoSelecionadaPerfil = null;
+
+
+    /* =========================================
+       LIMITES DOS PLANOS
+       ========================================= */
+
+    const LIMITES_PLANOS = {
+
+      ESSENCE: {
+        fotos: 2,
+        videos: 1
+      },
+
+      DESFIRE: {
+        fotos: 5,
+        videos: 3
+      },
+
+      ELITE: {
+        fotos: 5,
+        videos: 3
+      },
+
+      ROYAL: {
+        fotos: 5,
+        videos: 3
+      },
+
+      DIAMOND: {
+        fotos: 10,
+        videos: 5
+      }
+
+    };
+
+
+    /* =========================================
+       TIMEOUT
+       ========================================= */
+
+    function comTimeout(
+      promessa,
+      milissegundos = 15000
+    ) {
+
+      return Promise.race([
+
+        promessa,
+
+        new Promise(
+          (_, reject) => {
+
+            setTimeout(
+              () => reject(
+                new Error(
+                  "O servidor demorou demais para responder."
+                )
+              ),
+              milissegundos
+            );
+
+          }
+        )
+
+      ]);
+
+    }
+
+
+    /* =========================================
+       PLANO
+       ========================================= */
+
+    function normalizarPlano(
+      modelo
+    ) {
+
+      const plano =
+        String(
+          modelo?.plano ||
+          modelo?.plano_codigo ||
+          modelo?.selo_codigo ||
+          "ESSENCE"
+        ).toUpperCase();
+
+
+      if (
+        LIMITES_PLANOS[plano]
+      ) {
+
+        return plano;
+
+      }
+
+
+      return "ESSENCE";
+
+    }
+
+
+    /* =========================================
+       ELEMENTOS
+       ========================================= */
+
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
+
+
+    const mediaMessage =
+      document.getElementById(
+        "mediaMessage"
+      );
+
+
+    const mediaGallery =
+      document.getElementById(
+        "mediaGallery"
+      );
+
+
+    const profilePhotoOptions =
+      document.getElementById(
+        "profilePhotoOptions"
+      );
+
+
+    const btnAtualizarFoto =
+      document.getElementById(
+        "btnAtualizarFoto"
+      );
+
+
+    const profilePhotoMessage =
+      document.getElementById(
+        "profilePhotoMessage"
+      );
+
+
+    /* =========================================
+       MENSAGENS
+       ========================================= */
+
+    function mostrarMensagemMidia(
+      texto,
+      erro = false
+    ) {
+
+      mediaMessage.hidden =
+        false;
+
+      mediaMessage.className =
+        erro
+          ? "notice error section-message"
+          : "notice section-message";
+
+      mediaMessage.textContent =
+        texto;
+
+    }
+
+
+    function esconderMensagemMidia() {
+
+      mediaMessage.hidden =
+        true;
+
+      mediaMessage.textContent =
+        "";
+
+    }
+
+
+    function mostrarMensagemFotoPerfil(
+      texto,
+      erro = false
+    ) {
+
+      profilePhotoMessage.style.display =
+        "block";
+
+      profilePhotoMessage.textContent =
+        texto;
+
+      profilePhotoMessage.style.color =
+        erro
+          ? "#ff9b9b"
+          : "#f0d878";
+
+    }
+
+
+    function esconderMensagemFotoPerfil() {
+
+      profilePhotoMessage.style.display =
+        "none";
+
+      profilePhotoMessage.textContent =
+        "";
+
+    }
+
+
+    /* =========================================
+       PROGRESSO
+       ========================================= */
+
+    function iniciarProgresso(
+      texto = "Enviando..."
+    ) {
+
+      const box =
+        document.getElementById(
+          "progressBox"
+        );
+
+      const fill =
+        document.getElementById(
+          "progressFill"
+        );
+
+      const text =
+        document.getElementById(
+          "progressText"
+        );
+
+      const percent =
+        document.getElementById(
+          "progressPercent"
+        );
+
+
+      box.classList.add(
+        "active"
+      );
+
+      text.textContent =
+        texto;
+
+      percent.textContent =
+        "0%";
+
+      fill.style.width =
+        "0%";
+
+    }
+
+
+    function atualizarProgresso(
+      percentual,
+      texto
+    ) {
+
+      const fill =
+        document.getElementById(
+          "progressFill"
+        );
+
+      const percent =
+        document.getElementById(
+          "progressPercent"
+        );
+
+      const text =
+        document.getElementById(
+          "progressText"
+        );
+
+
+      fill.style.width =
+        Math.max(
+          0,
+          Math.min(
+            100,
+            percentual
+          )
+        ) + "%";
+
+
+      percent.textContent =
+        Math.round(
+          percentual
+        ) + "%";
+
+
+      if (texto) {
+
+        text.textContent =
+          texto;
+
+      }
+
+    }
+
+
+    function finalizarProgresso() {
+
+      const box =
+        document.getElementById(
+          "progressBox"
+        );
+
+
+      box.classList.remove(
+        "active"
+      );
+
+    }
+
+
+    /* =========================================
+       FOTO DE PERFIL PRINCIPAL
+       ========================================= */
+
+    function mostrarFotoPerfil(
+      url,
+      nome
+    ) {
+
+      const container =
+        document.getElementById(
+          "foto"
+        );
+
+
+      if (!url) {
+
+        container.innerHTML =
+          "LUX";
+
+        return;
+
+      }
+
+
+      container.innerHTML =
+        "";
+
+
+      const img =
+        document.createElement(
+          "img"
+        );
+
+
+      img.src =
+        url;
+
+      img.alt =
+        nome ||
+        "Modelo LUX";
+
+      img.loading =
+        "lazy";
+
+      img.style.width =
+        "190px";
+
+      img.style.height =
+        "235px";
+
+      img.style.objectFit =
+        "cover";
+
+      img.style.borderRadius =
+        "20px";
+
+      img.style.display =
+        "block";
+
+
+      container.appendChild(
+        img
+      );
+
+    }
+
+
+    /* =========================================
+       ATUALIZAR LIMITES
+       ========================================= */
+
+    function atualizarLimites() {
+
+      const limite =
+        LIMITES_PLANOS[
+          planoAtual
+        ];
+
+
+      const fotos =
+        midiasAtuais.filter(
+          item =>
+            item.tipo === "foto"
+        ).length;
+
+
+      const videos =
+        midiasAtuais.filter(
+          item =>
+            item.tipo === "video"
+        ).length;
+
+
+      document
+        .getElementById(
+          "limiteFotos"
+        )
+        .textContent =
+        fotos +
+        " / " +
+        limite.fotos;
+
+
+      document
+        .getElementById(
+          "limiteVideos"
+        )
+        .textContent =
+        videos +
+        " / " +
+        limite.videos;
+
+    }
+
+
+    /* =========================================
+       RENDERIZAR FOTOS PARA ESCOLHA
+       ========================================= */
+
+    function renderizarOpcoesFotoPerfil() {
+
+      profilePhotoOptions.innerHTML =
+        "";
+
+      fotoSelecionadaPerfil =
+        null;
+
+      btnAtualizarFoto.disabled =
+        true;
+
+
+      const fotos =
+        midiasAtuais.filter(
+          item =>
+            item.tipo === "foto"
+        );
+
+
+      if (
+        fotos.length === 0
+      ) {
+
+        profilePhotoOptions.innerHTML = `
+
+          <div class="profile-photo-empty">
+
+            Você ainda não possui fotos
+            cadastradas na sua galeria.
+
+            <br>
+
+            Adicione uma foto abaixo
+            para poder escolhê-la como principal.
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      const fotoPrincipal =
+        modeloAtual?.foto_url ||
+        null;
+
+
+      fotos.forEach(
+        midia => {
+
+          const botao =
+            document.createElement(
+              "button"
+            );
+
+
+          botao.type =
+            "button";
+
+          botao.className =
+            "profile-photo-option";
+
+
+          if (
+            fotoPrincipal &&
+            fotoPrincipal ===
+            midia.url
+          ) {
+
+            botao.classList.add(
+              "selected"
+            );
+
+          }
+
+
+          const img =
+            document.createElement(
+              "img"
+            );
+
+
+          img.src =
+            midia.url;
+
+          img.alt =
+            "Foto disponível para perfil";
+
+          img.loading =
+            "lazy";
+
+
+          botao.appendChild(
+            img
+          );
+
+
+          botao.addEventListener(
+            "click",
+            function() {
+
+              document
+                .querySelectorAll(
+                  ".profile-photo-option"
+                )
+                .forEach(
+                  elemento =>
+                    elemento.classList.remove(
+                      "selected"
+                    )
+                );
+
+
+              botao.classList.add(
+                "selected"
+              );
+
+
+              fotoSelecionadaPerfil =
+                midia;
+
+
+              btnAtualizarFoto.disabled =
+                false;
+
+
+              esconderMensagemFotoPerfil();
+
+            }
+          );
+
+
+          profilePhotoOptions.appendChild(
+            botao
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================================
+       DEFINIR FOTO ESCOLHIDA
+       ========================================= */
+
+    async function atualizarFotoSelecionada() {
+
+      if (!fotoSelecionadaPerfil) {
+
+        mostrarMensagemFotoPerfil(
+          "Selecione uma foto primeiro.",
+          true
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        btnAtualizarFoto.disabled =
+          true;
+
+        btnAtualizarFoto.textContent =
+          "Atualizando...";
+
+
+        esconderMensagemFotoPerfil();
+
+
+        const {
+          error
+        } =
+          await window.luxSupabase
+            .from("modelo_perfis")
+            .update({
+              foto_url:
+                fotoSelecionadaPerfil.url,
+
+              atualizado_em:
+                new Date().toISOString()
+            })
+            .eq(
+              "id",
+              usuarioLogado.id
+            );
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        modeloAtual.foto_url =
+          fotoSelecionadaPerfil.url;
+
+
+        mostrarFotoPerfil(
+          fotoSelecionadaPerfil.url,
+          modeloAtual.nome_exibicao
+        );
+
+
+        renderizarOpcoesFotoPerfil();
+
+
+        mostrarMensagemFotoPerfil(
+          "Foto de perfil atualizada com sucesso."
+        );
+
+
+        setTimeout(
+          esconderMensagemFotoPerfil,
+          3000
+        );
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro ao atualizar foto de perfil:",
+          erro
+        );
+
+
+        mostrarMensagemFotoPerfil(
+          erro.message ||
+          "Não foi possível atualizar a foto de perfil.",
+          true
+        );
+
+
+      } finally {
+
+        btnAtualizarFoto.disabled =
+          false;
+
+        btnAtualizarFoto.textContent =
+          "⭐ Usar foto selecionada";
+
+      }
+
+    }
+
+
+    btnAtualizarFoto.addEventListener(
+      "click",
+      atualizarFotoSelecionada
+    );
+
+
+    /* =========================================
+       CARREGAR MÍDIAS
+       ========================================= */
+
+    async function carregarMidias() {
+
+      if (!usuarioLogado) {
+
+        return;
+
+      }
+
+
+      mediaGallery.innerHTML = `
+        <div class="empty-media">
+          Carregando suas fotos e vídeos...
+        </div>
+      `;
+
+
+      const {
+        data,
+        error
+      } =
+        await window.luxSupabase
+          .from("modelo_midias")
+          .select(
+            "id, modelo_id, tipo, url, storage_path, criado_em"
+          )
+          .eq(
+            "modelo_id",
+            usuarioLogado.id
+          )
+          .order(
+            "criado_em",
+            {
+              ascending:false
+            }
+          );
+
+
+      if (error) {
+
+        throw error;
+
+      }
+
+
+      midiasAtuais =
+        Array.isArray(data)
+          ? data
+          : [];
+
+
+      atualizarLimites();
+
+      renderizarOpcoesFotoPerfil();
+
+      renderizarMidias();
+
+    }
+
+
+    /* =========================================
+       RENDERIZAR MÍDIAS
+       ========================================= */
+
+    function renderizarMidias() {
+
+      mediaGallery.innerHTML = "";
+
+
+      if (midiasAtuais.length === 0) {
+
+        mediaGallery.innerHTML = `
+          <div class="empty-media">
+            Nenhuma foto ou vídeo cadastrado ainda.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      midiasAtuais.forEach(
+        midia => {
+
+          const item =
+            document.createElement("div");
+
+
+          item.className =
+            "media-item";
+
+
+          if (midia.tipo === "foto") {
+
+            const img =
+              document.createElement("img");
+
+
+            img.src =
+              midia.url;
+
+            img.alt =
+              "Foto do perfil LUX";
+
+            img.loading =
+              "lazy";
+
+
+            item.appendChild(img);
+
+          } else {
+
+            const video =
+              document.createElement("video");
+
+
+            video.src =
+              midia.url;
+
+            video.controls =
+              true;
+
+            video.preload =
+              "metadata";
+
+
+            item.appendChild(video);
+
+          }
+
+
+          const info =
+            document.createElement("div");
+
+
+          info.className =
+            "media-item-info";
+
+
+          info.textContent =
+            midia.tipo === "foto"
+              ? "📷 Foto"
+              : "🎬 Vídeo";
+
+
+          item.appendChild(info);
+
+
+          const actions =
+            document.createElement("div");
+
+
+          actions.className =
+            "media-actions";
+
+
+          if (midia.tipo === "foto") {
+
+            const btnPerfil =
+              document.createElement("button");
+
+
+            btnPerfil.type =
+              "button";
+
+            btnPerfil.className =
+              "media-btn profile";
+
+            btnPerfil.textContent =
+              "⭐ Perfil";
+
+
+            btnPerfil.addEventListener(
+              "click",
+              () =>
+                definirFotoPerfil(midia)
+            );
+
+
+            actions.appendChild(btnPerfil);
+
+          }
+
+
+          const btnExcluir =
+            document.createElement("button");
+
+
+          btnExcluir.type =
+            "button";
+
+          btnExcluir.className =
+            "media-btn delete";
+
+          btnExcluir.textContent =
+            "Excluir";
+
+
+          btnExcluir.addEventListener(
+            "click",
+            () =>
+              excluirMidia(midia)
+          );
+
+
+          actions.appendChild(btnExcluir);
+
+          item.appendChild(actions);
+
+          mediaGallery.appendChild(item);
+
+        }
+      );
+
+    }
+
+
+    /* =========================================
+       URL STORAGE
+       ========================================= */
+
+    function criarUrlPublica(path) {
+
+      const {
+        data
+      } =
+        window.luxSupabase
+          .storage
+          .from("lux-modelos")
+          .getPublicUrl(path);
+
+
+      return data?.publicUrl || "";
+
+    }
+
+
+    /* =========================================
+       EXTENSÃO
+       ========================================= */
+
+    function extensaoArquivo(
+      arquivo,
+      padrao
+    ) {
+
+      const nome =
+        arquivo?.name || "";
+
+      const partes =
+        nome.split(".");
+
+
+      if (partes.length > 1) {
+
+        return partes
+          .pop()
+          .toLowerCase();
+
+      }
+
+
+      return padrao;
+
+    }
+
+
+    /* =========================================
+       UPLOAD GENÉRICO
+       ========================================= */
+
+    async function enviarArquivo(
+      arquivo,
+      tipo,
+      prefixo
+    ) {
+
+      if (!arquivo) {
+
+        throw new Error(
+          "Arquivo não selecionado."
+        );
+
+      }
+
+
+      const extensao =
+        extensaoArquivo(
+          arquivo,
+          tipo === "video"
+            ? "mp4"
+            : "jpg"
+        );
+
+
+      const nome =
+        prefixo +
+        "-" +
+        crypto.randomUUID() +
+        "." +
+        extensao;
+
+
+      const caminho =
+        usuarioLogado.id +
+        "/" +
+        nome;
+
+
+      iniciarProgresso(
+        "Enviando " +
+        (
+          tipo === "video"
+            ? "vídeo"
+            : "foto"
+        ) +
+        "..."
+      );
+
+
+      atualizarProgresso(
+        15,
+        "Preparando arquivo..."
+      );
+
+
+      const {
+        error:
+        uploadError
+      } =
+        await window.luxSupabase
+          .storage
+          .from("lux-modelos")
+          .upload(
+            caminho,
+            arquivo,
+            {
+              cacheControl:"3600",
+              upsert:false,
+              contentType:
+                arquivo.type ||
+                undefined
+            }
+          );
+
+
+      if (uploadError) {
+
+        throw uploadError;
+
+      }
+
+
+      atualizarProgresso(
+        70,
+        "Registrando conteúdo..."
+      );
+
+
+      const url =
+        criarUrlPublica(caminho);
+
+
+      if (!url) {
+
+        throw new Error(
+          "Não foi possível gerar a URL pública do arquivo."
+        );
+
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await window.luxSupabase
+          .from("modelo_midias")
+          .insert({
+            modelo_id:
+              usuarioLogado.id,
+            tipo:
+              tipo,
+            url:
+              url,
+            storage_path:
+              caminho
+          })
+          .select(
+            "id, modelo_id, tipo, url, storage_path, criado_em"
+          )
+          .single();
+
+
+      if (error) {
+
+        await window.luxSupabase
+          .storage
+          .from("lux-modelos")
+          .remove([caminho]);
+
+
+        throw error;
+
+      }
+
+
+      atualizarProgresso(
+        100,
+        "Concluído."
+      );
+
+
+      return data;
+
+    }
+
+
+    /* =========================================
+       PROCESSAR FOTO DE PERFIL
+       ========================================= */
+
+    async function processarFotoPerfil(arquivo) {
+
+      if (!arquivo.type.startsWith("image/")) {
+
+        throw new Error(
+          "Escolha uma imagem válida."
+        );
+
+      }
+
+
+      const fotos =
+        midiasAtuais.filter(
+          item =>
+            item.tipo === "foto"
+        );
+
+
+      const limite =
+        LIMITES_PLANOS[
+          planoAtual
+        ].fotos;
+
+
+      if (fotos.length >= limite) {
+
+        throw new Error(
+          "O limite de fotos do seu plano já foi atingido. Exclua uma foto antes de adicionar outra."
+        );
+
+      }
+
+
+      const midia =
+        await enviarArquivo(
+          arquivo,
+          "foto",
+          "perfil"
+        );
+
+
+      const {
+        error
+      } =
+        await window.luxSupabase
+          .from("modelo_perfis")
+          .update({
+            foto_url:
+              midia.url,
+            atualizado_em:
+              new Date().toISOString()
+          })
+          .eq(
+            "id",
+            usuarioLogado.id
+          );
+
+
+      if (error) {
+
+        throw error;
+
+      }
+
+
+      modeloAtual.foto_url =
+        midia.url;
+
+
+      mostrarFotoPerfil(
+        midia.url,
+        modeloAtual.nome_exibicao
+      );
+
+    }
+
+
+    /* =========================================
+       PROCESSAR FOTOS
+       ========================================= */
+
+    async function processarFotos(arquivos) {
+
+      const lista =
+        Array.from(arquivos || []);
+
+
+      if (lista.length === 0) {
+
+        return;
+
+      }
+
+
+      const fotosAtuais =
+        midiasAtuais.filter(
+          item =>
+            item.tipo === "foto"
+        ).length;
+
+
+      const limite =
+        LIMITES_PLANOS[
+          planoAtual
+        ].fotos;
+
+
+      const vagas =
+        limite -
+        fotosAtuais;
+
+
+      if (vagas <= 0) {
+
+        throw new Error(
+          "O limite de fotos do seu plano já foi atingido."
+        );
+
+      }
+
+
+      if (lista.length > vagas) {
+
+        throw new Error(
+          "Você selecionou " +
+          lista.length +
+          " fotos, mas só possui " +
+          vagas +
+          " vaga(s) disponível(is) no seu plano."
+        );
+
+      }
+
+
+      for (
+        let i = 0;
+        i < lista.length;
+        i++
+      ) {
+
+        const arquivo =
+          lista[i];
+
+
+        if (!arquivo.type.startsWith("image/")) {
+
+          throw new Error(
+            "Um dos arquivos selecionados não é uma imagem válida."
+          );
+
+        }
+
+
+        await enviarArquivo(
+          arquivo,
+          "foto",
+          "foto"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================
+       PROCESSAR VÍDEOS
+       ========================================= */
+
+    async function processarVideos(arquivos) {
+
+      const lista =
+        Array.from(arquivos || []);
+
+
+      if (lista.length === 0) {
+
+        return;
+
+      }
+
+
+      const videosAtuais =
+        midiasAtuais.filter(
+          item =>
+            item.tipo === "video"
+        ).length;
+
+
+      const limite =
+        LIMITES_PLANOS[
+          planoAtual
+        ].videos;
+
+
+      const vagas =
+        limite -
+        videosAtuais;
+
+
+      if (vagas <= 0) {
+
+        throw new Error(
+          "O limite de vídeos do seu plano já foi atingido."
+        );
+
+      }
+
+
+      if (lista.length > vagas) {
+
+        throw new Error(
+          "Você selecionou " +
+          lista.length +
+          " vídeos, mas só possui " +
+          vagas +
+          " vaga(s) disponível(is) no seu plano."
+        );
+
+      }
+
+
+      for (
+        let i = 0;
+        i < lista.length;
+        i++
+      ) {
+
+        const arquivo =
+          lista[i];
+
+
+        if (!arquivo.type.startsWith("video/")) {
+
+          throw new Error(
+            "Um dos arquivos selecionados não é um vídeo válido."
+          );
+
+        }
+
+
+        await enviarArquivo(
+          arquivo,
+          "video",
+          "video"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================
+       DEFINIR FOTO DE PERFIL
+       ========================================= */
+
+    async function definirFotoPerfil(midia) {
+
+      if (
+        !midia ||
+        midia.tipo !== "foto"
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        esconderMensagemMidia();
+
+
+        const {
+          error
+        } =
+          await window.luxSupabase
+            .from("modelo_perfis")
+            .update({
+              foto_url:
+                midia.url,
+              atualizado_em:
+                new Date().toISOString()
+            })
+            .eq(
+              "id",
+              usuarioLogado.id
+            );
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        modeloAtual.foto_url =
+          midia.url;
+
+
+        mostrarFotoPerfil(
+          midia.url,
+          modeloAtual.nome_exibicao
+        );
+
+
+        renderizarOpcoesFotoPerfil();
+
+
+        mostrarMensagemMidia(
+          "Foto de perfil atualizada com sucesso."
+        );
+
+
+        setTimeout(
+          esconderMensagemMidia,
+          2500
+        );
+
+
+      } catch (erro) {
+
+        mostrarMensagemMidia(
+          erro.message ||
+          "Não foi possível definir a foto de perfil.",
+          true
+        );
+
+      }
+
+    }
+
+
+    /* =========================================
+       EXCLUIR MÍDIA
+       ========================================= */
+
+    async function excluirMidia(midia) {
+
+      if (!midia) {
+
+        return;
+
+      }
+
+
+      const confirmar =
+        window.confirm(
+          "Deseja realmente excluir este conteúdo?"
+        );
+
+
+      if (!confirmar) {
+
+        return;
+
+      }
+
+
+      try {
+
+        esconderMensagemMidia();
+
+
+        const {
+          error:
+          bancoError
+        } =
+          await window.luxSupabase
+            .from("modelo_midias")
+            .delete()
+            .eq(
+              "id",
+              midia.id
+            )
+            .eq(
+              "modelo_id",
+              usuarioLogado.id
+            );
+
+
+        if (bancoError) {
+
+          throw bancoError;
+
+        }
+
+
+        if (midia.storage_path) {
+
+          await window.luxSupabase
+            .storage
+            .from("lux-modelos")
+            .remove([
+              midia.storage_path
+            ]);
+
+        }
+
+
+        if (
+          modeloAtual?.foto_url ===
+          midia.url
+        ) {
+
+          const {
+            error:
+            fotoError
+          } =
+            await window.luxSupabase
+              .from("modelo_perfis")
+              .update({
+                foto_url:null,
+                atualizado_em:
+                  new Date().toISOString()
+              })
+              .eq(
+                "id",
+                usuarioLogado.id
+              );
+
+
+          if (fotoError) {
+
+            console.error(
+              "Erro ao limpar foto de perfil:",
+              fotoError
+            );
+
+          }
+
+
+          modeloAtual.foto_url =
+            null;
+
+
+          mostrarFotoPerfil(
+            null,
+            modeloAtual.nome_exibicao
+          );
+
+        }
+
+
+        mostrarMensagemMidia(
+          "Conteúdo excluído com sucesso."
+        );
+
+
+        await carregarMidias();
+
+
+        setTimeout(
+          esconderMensagemMidia,
+          2500
+        );
+
+
+      } catch (erro) {
+
+        mostrarMensagemMidia(
+          erro.message ||
+          "Não foi possível excluir o conteúdo.",
+          true
+        );
+
+      }
+
+    }
+
+
+    /* =========================================
+       EVENTO — FOTO DE PERFIL
+       ========================================= */
+
+    document
+      .getElementById("inputFotoPerfil")
+      .addEventListener(
+        "change",
+        async function() {
+
+          const arquivo =
+            this.files?.[0];
+
+
+          if (!arquivo) {
+            return;
+          }
+
+
+          try {
+
+            esconderMensagemMidia();
+
+            await processarFotoPerfil(
+              arquivo
+            );
+
+
+            this.value = "";
+
+            await carregarMidias();
+
+
+          } catch (erro) {
+
+            finalizarProgresso();
+
+
+            mostrarMensagemMidia(
+              erro.message ||
+              "Não foi possível enviar a foto.",
+              true
+            );
+
+          }
+
+        }
+      );
+
+
+    /* =========================================
+       EVENTO — FOTOS
+       ========================================= */
+
+    document
+      .getElementById("inputFotos")
+      .addEventListener(
+        "change",
+        async function() {
+
+          const arquivos =
+            this.files;
+
+
+          if (
+            !arquivos ||
+            arquivos.length === 0
+          ) {
+            return;
+          }
+
+
+          try {
+
+            esconderMensagemMidia();
+
+            await processarFotos(
+              arquivos
+            );
+
+
+            this.value = "";
+
+            await carregarMidias();
+
+
+          } catch (erro) {
+
+            finalizarProgresso();
+
+
+            mostrarMensagemMidia(
+              erro.message ||
+              "Não foi possível enviar as fotos.",
+              true
+            );
+
+          }
+
+        }
+      );
+
+
+    /* =========================================
+       EVENTO — VÍDEOS
+       ========================================= */
+
+    document
+      .getElementById("inputVideos")
+      .addEventListener(
+        "change",
+        async function() {
+
+          const arquivos =
+            this.files;
+
+
+          if (
+            !arquivos ||
+            arquivos.length === 0
+          ) {
+            return;
+          }
+
+
+          try {
+
+            esconderMensagemMidia();
+
+            await processarVideos(
+              arquivos
+            );
+
+
+            this.value = "";
+
+            await carregarMidias();
+
+
+          } catch (erro) {
+
+            finalizarProgresso();
+
+
+            mostrarMensagemMidia(
+              erro.message ||
+              "Não foi possível enviar os vídeos.",
+              true
+            );
+
+          }
+
+        }
+      );
+
+
+    /* =========================================
+       SAIR
+       ========================================= */
+
+    document
+      .getElementById("btnSair")
+      .addEventListener(
+        "click",
+        async function() {
+
+          try {
+
+            this.disabled =
+              true;
+
+            this.textContent =
+              "Saindo...";
+
+
+            await window.luxSupabase
+              .auth
+              .signOut();
+
+
+          } catch (erro) {
+
+            console.error(
+              "Erro ao sair:",
+              erro
+            );
+
+          } finally {
+
+            window.location.href =
+              "login.html";
+
+          }
+
+        }
+      );
+
+
+    /* =========================================
+       INICIAR PAINEL
+       ========================================= */
+
+    async function iniciar() {
+
+      try {
+
+        usuarioLogado =
+          await comTimeout(
+            usuarioAtual(),
+            15000
+          );
+
+
+        if (!usuarioLogado) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+        perfilAtual =
+          await comTimeout(
+            getPerfil(
+              usuarioLogado.id
+            ),
+            15000
+          );
+
+
+        modeloAtual = null;
+
+
+        if (
+          typeof getModeloPerfil ===
+          "function"
+        ) {
+
+          modeloAtual =
+            await comTimeout(
+              getModeloPerfil(
+                usuarioLogado.id
+              ),
+              15000
+            );
+
+        }
+
+
+        if (!modeloAtual) {
+
+          if (
+            perfilAtual?.tipo ===
+            "admin"
+          ) {
+
+            window.location.href =
+              "painel-admin.html";
+
+            return;
+
+          }
+
+
+          window.location.href =
+            "area-usuario.html";
+
+          return;
+
+        }
+
+
+        const nome =
+          modeloAtual.nome_exibicao ||
+          perfilAtual?.nome ||
+          "Modelo";
+
+
+        document
+          .getElementById("nomeModelo")
+          .textContent =
+          nome;
+
+
+        document
+          .getElementById("titulo")
+          .textContent =
+          "Olá, " + nome;
+
+
+        document
+          .getElementById("emailModelo")
+          .textContent =
+          usuarioLogado.email ||
+          "";
+
+
+        document
+          .getElementById("idade")
+          .textContent =
+          modeloAtual.idade ||
+          "—";
+
+
+        document
+          .getElementById("altura")
+          .textContent =
+          modeloAtual.altura_cm
+            ? modeloAtual.altura_cm + " cm"
+            : "—";
+
+
+        document
+          .getElementById("cidade")
+          .textContent =
+          modeloAtual.cidade ||
+          "—";
+
+
+        document
+          .getElementById("bio")
+          .textContent =
+          modeloAtual.descricao ||
+          "Nenhuma apresentação cadastrada.";
+
+
+        const disponibilidade =
+          modeloAtual.disponivel;
+
+
+        document
+          .getElementById("disponivel")
+          .textContent =
+          disponibilidade === false
+            ? "Indisponível"
+            : "Disponível";
+
+
+        const status =
+          perfilAtual?.status ||
+          modeloAtual.verificacao_status ||
+          "pendente";
+
+
+        document
+          .getElementById("statusModelo")
+          .textContent =
+          "Status: " + status;
+
+
+        mostrarFotoPerfil(
+          modeloAtual.foto_url ||
+          modeloAtual.foto ||
+          null,
+          nome
+        );
+
+
+        planoAtual =
+          normalizarPlano(
+            modeloAtual
+          );
+
+
+        const dadosPlano =
+          LIMITES_PLANOS[
+            planoAtual
+          ];
+
+
+        const nomesSelo = {
+
+          ESSENCE:
+            "✦ LUX ESSENCE",
+
+          DESFIRE:
+            "🔥 LUX DESFIRE",
+
+          ELITE:
+            "👑 LUX ELITE",
+
+          ROYAL:
+            "♛ LUX ROYAL",
+
+          DIAMOND:
+            "💎 LUX DIAMOND"
+
+        };
+
+
+        const nomePlano =
+          nomesSelo[
+            planoAtual
+          ] ||
+          "✦ LUX ESSENCE";
+
+
+        document
+          .getElementById("seloModelo")
+          .textContent =
+          nomePlano;
+
+
+        document
+          .getElementById("heroPlano")
+          .textContent =
+          nomePlano;
+
+
+        document
+          .getElementById("subtitulo")
+          .textContent =
+          "Gerencie e acompanhe seu perfil na LUX.";
+
+
+        document
+          .getElementById("conteudo")
+          .hidden =
+          false;
+
+
+        document
+          .getElementById("mensagem")
+          .hidden =
+          true;
+
+
+        try {
+
+          await comTimeout(
+            carregarMidias(),
+            10000
+          );
+
+        } catch (erroMidia) {
+
+          console.error(
+            "Erro ao carregar mídias:",
+            erroMidia
+          );
+
+
+          mostrarMensagemMidia(
+            "O painel foi carregado, mas as fotos e vídeos não puderam ser carregados agora. " +
+            (
+              erroMidia?.message ||
+              "Tente novamente."
+            ),
+            true
+          );
+
+        }
+
+
+        console.log(
+          "LUX — Painel da modelo carregado.",
+          {
+            usuario:
+              usuarioLogado.id,
+
+            plano:
+              planoAtual,
+
+            limite:
+              dadosPlano
+          }
+        );
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro no painel da modelo:",
+          erro
+        );
+
+
+        mensagem.hidden =
+          false;
+
+
+        mensagem.className =
+          "notice error";
+
+
+        mensagem.textContent =
+          erro?.message ||
+          "Não foi possível carregar seu perfil.";
+
+
+        document
+          .getElementById("subtitulo")
+          .textContent =
+          "Não foi possível carregar o painel.";
+
+      }
+
+    }
+
+
+    /* =========================================
+       INICIAR
+       ========================================= */
+
+    iniciar();
+
+  </script>
+
+</body>
+
+</html>

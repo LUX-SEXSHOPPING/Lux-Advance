@@ -38,1057 +38,651 @@
         #080607;
     }
 
-
-    /* =========================================
-       CABEÇALHO
-       ========================================= */
-
     .topbar {
       border-bottom: 1px solid rgba(255, 140, 0, .25);
-      box-shadow:
-        0 4px 25px rgba(0,0,0,.55);
-
+      box-shadow: 0 4px 25px rgba(0,0,0,.55);
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:20px;
-
       padding:10px 20px;
     }
 
-
     .brand {
       color: #f0d878 !important;
-      text-shadow:
-        0 0 12px rgba(240,216,120,.25);
-
+      text-shadow: 0 0 12px rgba(240,216,120,.25);
       letter-spacing: 5px;
-
       display:flex;
       align-items:center;
-
       text-decoration:none;
-
       height:116px;
-
       flex-shrink:0;
     }
 
-
     .brand img {
-
       display:block;
-
       width:auto;
-
       height:116px;
-
       max-width:260px;
-
       object-fit:contain;
-
     }
-
 
     .top-actions-modelo {
-
       display:flex;
-
       align-items:center;
-
       justify-content:flex-end;
-
       gap:10px;
-
       flex-wrap:wrap;
-
     }
-
 
     .btn-planos {
-
       display:inline-flex;
-
       align-items:center;
-
       justify-content:center;
-
       min-height:44px;
-
       padding:11px 18px;
-
       border-radius:28px;
-
       text-decoration:none;
-
       font-family:"Cinzel",serif;
-
       font-size:11px;
-
       letter-spacing:1.3px;
-
       text-transform:uppercase;
-
       color:#130b08;
-
-      background:
-        linear-gradient(
-          135deg,
-          #f0d878,
-          #d88916
-        );
-
-      border:1px solid
-        rgba(240,216,120,.65);
-
-      box-shadow:
-        0 7px 25px
-        rgba(216,137,22,.20);
-
+      background:linear-gradient(135deg,#f0d878,#d88916);
+      border:1px solid rgba(240,216,120,.65);
+      box-shadow:0 7px 25px rgba(216,137,22,.20);
       transition:.3s;
-
       white-space:nowrap;
-
     }
-
 
     .btn-planos:hover {
-
       transform:translateY(-2px);
-
-      box-shadow:
-        0 10px 32px
-        rgba(240,216,120,.28);
-
+      box-shadow:0 10px 32px rgba(240,216,120,.28);
     }
-
 
     .btn-sair-top {
-
       white-space:nowrap;
-
     }
-
-
-    /* =========================================
-       HERO
-       ========================================= */
 
     .hero {
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(255,140,0,.18);
-      background:
-        linear-gradient(
-          135deg,
-          rgba(30,18,15,.96),
-          rgba(12,8,9,.98)
-        );
-      box-shadow:
-        0 15px 45px rgba(0,0,0,.45),
-        inset 0 1px rgba(255,255,255,.03);
+      background:linear-gradient(135deg,rgba(30,18,15,.96),rgba(12,8,9,.98));
+      box-shadow:0 15px 45px rgba(0,0,0,.45),inset 0 1px rgba(255,255,255,.03);
     }
 
     .hero::before {
-      content: "🎃";
-      position: absolute;
-      right: 25px;
-      top: 18px;
-      font-size: 55px;
-      opacity: .12;
-      filter: grayscale(.3);
+      content:"🎃";
+      position:absolute;
+      right:25px;
+      top:18px;
+      font-size:55px;
+      opacity:.12;
+      filter:grayscale(.3);
     }
 
     .hero::after {
-      content: "✦";
-      position: absolute;
-      right: 95px;
-      bottom: 20px;
-      font-size: 22px;
-      color: #ff8c00;
-      opacity: .35;
+      content:"✦";
+      position:absolute;
+      right:95px;
+      bottom:20px;
+      font-size:22px;
+      color:#ff8c00;
+      opacity:.35;
     }
 
     .eyebrow {
-      color: #ff9d32 !important;
-      letter-spacing: 3px;
+      color:#ff9d32 !important;
+      letter-spacing:3px;
     }
 
     .title {
-      text-shadow:
-        0 0 25px rgba(255,110,0,.12);
+      text-shadow:0 0 25px rgba(255,110,0,.12);
     }
 
     .subtitle {
-      color: #bdb0b5 !important;
+      color:#bdb0b5 !important;
     }
-
-
-    /* =========================================
-       CARD DO PLANO
-       ========================================= */
 
     .plano-acesso {
-
       margin-top:18px;
-
       display:flex;
-
       align-items:center;
-
       justify-content:space-between;
-
       gap:18px;
-
       padding:16px 18px;
-
       border-radius:18px;
-
-      border:1px solid
-        rgba(240,216,120,.22);
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(240,216,120,.08),
-          rgba(110,15,46,.10)
-        );
-
-      box-shadow:
-        inset 0 1px
-        rgba(255,255,255,.025);
-
+      border:1px solid rgba(240,216,120,.22);
+      background:linear-gradient(135deg,rgba(240,216,120,.08),rgba(110,15,46,.10));
+      box-shadow:inset 0 1px rgba(255,255,255,.025);
     }
-
 
     .plano-acesso-info {
-
       min-width:0;
-
     }
-
 
     .plano-acesso-info small {
-
       display:block;
-
       color:#8f8589;
-
       font-size:11px;
-
       letter-spacing:1px;
-
       text-transform:uppercase;
-
       margin-bottom:5px;
-
     }
-
 
     .plano-acesso-info strong {
-
       color:#f0d878;
-
       font-family:"Cinzel",serif;
-
       font-size:15px;
-
       letter-spacing:.8px;
-
     }
-
 
     .plano-acesso-link {
-
       flex-shrink:0;
-
       display:inline-flex;
-
       align-items:center;
-
       justify-content:center;
-
       padding:9px 14px;
-
       border-radius:22px;
-
-      border:1px solid
-        rgba(240,216,120,.28);
-
-      background:
-        rgba(255,255,255,.035);
-
+      border:1px solid rgba(240,216,120,.28);
+      background:rgba(255,255,255,.035);
       color:#f0d878;
-
       text-decoration:none;
-
       font-family:"Cinzel",serif;
-
       font-size:10px;
-
       letter-spacing:1px;
-
       text-transform:uppercase;
-
       transition:.3s;
-
     }
-
 
     .plano-acesso-link:hover {
-
-      background:
-        rgba(240,216,120,.10);
-
-      border-color:
-        rgba(240,216,120,.55);
-
+      background:rgba(240,216,120,.10);
+      border-color:rgba(240,216,120,.55);
       transform:translateY(-1px);
-
     }
 
-
-    /* =========================================
-       CARD PADRÃO
-       ========================================= */
-
     .card {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255,140,0,.16) !important;
-      background:
-        linear-gradient(
-          145deg,
-          rgba(25,17,19,.98),
-          rgba(13,9,10,.98)
-        ) !important;
-      box-shadow:
-        0 15px 40px rgba(0,0,0,.42),
-        inset 0 1px rgba(255,255,255,.025);
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,140,0,.16) !important;
+      background:linear-gradient(145deg,rgba(25,17,19,.98),rgba(13,9,10,.98)) !important;
+      box-shadow:0 15px 40px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.025);
     }
 
     .card::after {
-      content: "";
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      right: -60px;
-      bottom: -60px;
-      border-radius: 50%;
-      background: rgba(255,102,0,.07);
-      filter: blur(5px);
-      pointer-events: none;
+      content:"";
+      position:absolute;
+      width:120px;
+      height:120px;
+      right:-60px;
+      bottom:-60px;
+      border-radius:50%;
+      background:rgba(255,102,0,.07);
+      filter:blur(5px);
+      pointer-events:none;
     }
-
-
-    /* =========================================
-       CABEÇALHO DO PERFIL
-       ========================================= */
 
     .profile-head {
-      position: relative;
-      z-index: 2;
-
+      position:relative;
+      z-index:2;
       display:grid;
-
-      grid-template-columns:
-        auto minmax(0,1fr)
-        minmax(230px,280px);
-
+      grid-template-columns:auto minmax(0,1fr) minmax(230px,280px);
       align-items:start;
-
       gap:22px;
-
     }
-
 
     #foto {
-      background:
-        radial-gradient(
-          circle at center,
-          rgba(255,110,0,.10),
-          #171012 70%
-        ) !important;
-
-      border-color:
-        rgba(255,140,0,.28) !important;
-
-      box-shadow:
-        0 0 30px rgba(255,100,0,.08),
-        inset 0 0 25px rgba(0,0,0,.5);
+      background:radial-gradient(circle at center,rgba(255,110,0,.10),#171012 70%) !important;
+      border-color:rgba(255,140,0,.28) !important;
+      box-shadow:0 0 30px rgba(255,100,0,.08),inset 0 0 25px rgba(0,0,0,.5);
     }
-
-
-    /* =========================================
-       ATUALIZAR FOTO DE PERFIL
-       ========================================= */
 
     .profile-photo-manager {
-
       min-width:0;
-
       padding:16px;
-
       border-radius:18px;
-
-      border:1px solid
-        rgba(240,216,120,.22);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(240,216,120,.06),
-          rgba(255,102,0,.035)
-        );
-
-      box-shadow:
-        inset 0 1px
-        rgba(255,255,255,.025);
-
+      border:1px solid rgba(240,216,120,.22);
+      background:linear-gradient(145deg,rgba(240,216,120,.06),rgba(255,102,0,.035));
+      box-shadow:inset 0 1px rgba(255,255,255,.025);
     }
-
 
     .profile-photo-manager h3 {
-
       margin:0 0 5px;
-
       color:#f0d878;
-
       font-family:"Cinzel",serif;
-
       font-size:13px;
-
       letter-spacing:.7px;
-
     }
-
 
     .profile-photo-manager p {
-
       margin:0;
-
       color:#8f8589;
-
       font-size:12px;
-
       line-height:1.55;
-
     }
-
 
     .profile-photo-options {
-
       display:grid;
-
-      grid-template-columns:
-        repeat(3,minmax(0,1fr));
-
+      grid-template-columns:repeat(3,minmax(0,1fr));
       gap:8px;
-
       margin-top:13px;
-
       max-height:180px;
-
       overflow:auto;
-
       padding-right:2px;
-
     }
-
 
     .profile-photo-option {
-
       position:relative;
-
       width:100%;
-
       aspect-ratio:1 / 1;
-
       padding:0;
-
       border-radius:12px;
-
       overflow:hidden;
-
       cursor:pointer;
-
-      border:1px solid
-        rgba(240,216,120,.18);
-
+      border:1px solid rgba(240,216,120,.18);
       background:#100b0d;
-
       transition:.25s;
-
     }
-
 
     .profile-photo-option:hover {
-
       transform:translateY(-2px);
-
-      border-color:
-        rgba(240,216,120,.65);
-
-      box-shadow:
-        0 6px 18px
-        rgba(0,0,0,.35);
-
+      border-color:rgba(240,216,120,.65);
+      box-shadow:0 6px 18px rgba(0,0,0,.35);
     }
-
 
     .profile-photo-option img {
-
       display:block;
-
       width:100%;
-
       height:100%;
-
       object-fit:cover;
-
     }
-
 
     .profile-photo-option.selected {
-
-      border:
-        2px solid #f0d878;
-
-      box-shadow:
-        0 0 18px
-        rgba(240,216,120,.20);
-
+      border:2px solid #f0d878;
+      box-shadow:0 0 18px rgba(240,216,120,.20);
     }
-
 
     .profile-photo-option.selected::after {
-
       content:"✓";
-
       position:absolute;
-
       top:5px;
-
       right:5px;
-
       width:22px;
-
       height:22px;
-
       border-radius:50%;
-
       display:flex;
-
       align-items:center;
-
       justify-content:center;
-
       background:#f0d878;
-
       color:#120b08;
-
       font-weight:bold;
-
       font-size:13px;
-
     }
-
 
     .profile-photo-empty {
-
       grid-column:1 / -1;
-
       padding:15px 10px;
-
       text-align:center;
-
-      border:1px dashed
-        rgba(240,216,120,.18);
-
+      border:1px dashed rgba(240,216,120,.18);
       border-radius:12px;
-
       color:#8f8589;
-
       font-size:12px;
-
       line-height:1.5;
-
     }
-
 
     .profile-photo-manager .photo-action {
-
       width:100%;
-
       margin-top:11px;
-
       min-height:38px;
-
       border-radius:20px;
-
       cursor:pointer;
-
-      border:1px solid
-        rgba(240,216,120,.28);
-
-      background:
-        rgba(240,216,120,.07);
-
+      border:1px solid rgba(240,216,120,.28);
+      background:rgba(240,216,120,.07);
       color:#f0d878;
-
       font-family:"Cinzel",serif;
-
       font-size:10px;
-
       letter-spacing:1px;
-
       text-transform:uppercase;
-
       transition:.3s;
-
     }
-
 
     .profile-photo-manager .photo-action:hover {
-
-      background:
-        rgba(240,216,120,.13);
-
-      border-color:
-        rgba(240,216,120,.55);
-
+      background:rgba(240,216,120,.13);
+      border-color:rgba(240,216,120,.55);
     }
-
 
     .profile-photo-manager .photo-action:disabled {
-
       opacity:.45;
-
       cursor:not-allowed;
-
     }
 
-
     .pill {
-      border-color:
-        rgba(255,140,0,.3) !important;
-
-      background:
-        rgba(255,100,0,.08) !important;
-
-      color:
-        #f0d878 !important;
+      border-color:rgba(255,140,0,.3) !important;
+      background:rgba(255,100,0,.08) !important;
+      color:#f0d878 !important;
     }
 
     #seloModelo {
-      background:
-        linear-gradient(
-          135deg,
-          rgba(255,140,0,.14),
-          rgba(110,15,46,.18)
-        ) !important;
-
-      border-color:
-        rgba(240,216,120,.35) !important;
-
-      box-shadow:
-        0 0 18px rgba(255,120,0,.08);
+      background:linear-gradient(135deg,rgba(255,140,0,.14),rgba(110,15,46,.18)) !important;
+      border-color:rgba(240,216,120,.35) !important;
+      box-shadow:0 0 18px rgba(255,120,0,.08);
     }
 
     #statusModelo {
-      color: #ffad5c !important;
+      color:#ffad5c !important;
     }
 
     .info {
-      border-bottom:
-        1px solid rgba(255,140,0,.10);
+      border-bottom:1px solid rgba(255,140,0,.10);
     }
 
     .info small {
-      color: #8f8589 !important;
+      color:#8f8589 !important;
     }
 
     .info span {
-      color: #f0e8e2 !important;
+      color:#f0e8e2 !important;
     }
 
     .btn {
-      background:
-        linear-gradient(
-          135deg,
-          #d88916,
-          #b96808
-        ) !important;
-
-      color: #120b08 !important;
-
-      border: 0 !important;
-
-      box-shadow:
-        0 8px 25px rgba(210,100,0,.18);
+      background:linear-gradient(135deg,#d88916,#b96808) !important;
+      color:#120b08 !important;
+      border:0 !important;
+      box-shadow:0 8px 25px rgba(210,100,0,.18);
     }
 
     .btn:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 10px 30px rgba(255,120,0,.25);
+      transform:translateY(-1px);
+      box-shadow:0 10px 30px rgba(255,120,0,.25);
     }
 
     .btn.ghost {
-      background:
-        rgba(255,255,255,.035) !important;
-
-      color:
-        #f0d878 !important;
-
-      border:
-        1px solid rgba(240,216,120,.25) !important;
-
-      box-shadow: none;
+      background:rgba(255,255,255,.035) !important;
+      color:#f0d878 !important;
+      border:1px solid rgba(240,216,120,.25) !important;
+      box-shadow:none;
     }
 
     .footer {
-      border-top:
-        1px solid rgba(255,140,0,.12);
-
-      color: #756b70 !important;
+      border-top:1px solid rgba(255,140,0,.12);
+      color:#756b70 !important;
     }
 
-
-    /* =========================================
-       GERENCIAMENTO DE MÍDIAS
-       ========================================= */
-
     .media-manager {
-      margin-top: 25px;
+      margin-top:25px;
     }
 
     .media-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      flex-wrap: wrap;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      flex-wrap:wrap;
     }
 
     .media-limits {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 20px;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:20px;
     }
 
     .media-limit {
-      padding: 15px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,140,0,.15);
-      background: rgba(255,255,255,.025);
+      padding:15px;
+      border-radius:14px;
+      border:1px solid rgba(255,140,0,.15);
+      background:rgba(255,255,255,.025);
     }
 
     .media-limit small {
-      display: block;
-      color: #8f8589;
-      margin-bottom: 5px;
+      display:block;
+      color:#8f8589;
+      margin-bottom:5px;
     }
 
     .media-limit strong {
-      color: #f0d878;
-      font-size: 20px;
+      color:#f0d878;
+      font-size:20px;
     }
 
     .upload-area {
-      margin-top: 20px;
-      padding: 18px;
-      border: 1px dashed rgba(240,216,120,.25);
-      border-radius: 16px;
-      background: rgba(255,255,255,.02);
+      margin-top:20px;
+      padding:18px;
+      border:1px dashed rgba(240,216,120,.25);
+      border-radius:16px;
+      background:rgba(255,255,255,.02);
     }
 
     .upload-area h3 {
-      margin-top: 0;
+      margin-top:0;
     }
 
     .upload-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 15px;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:15px;
     }
 
     .upload-box {
-      padding: 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,140,0,.14);
-      background: rgba(0,0,0,.15);
+      padding:16px;
+      border-radius:14px;
+      border:1px solid rgba(255,140,0,.14);
+      background:rgba(0,0,0,.15);
     }
 
     .upload-box input {
-      width: 100%;
-      margin-top: 10px;
-      box-sizing: border-box;
+      width:100%;
+      margin-top:10px;
+      box-sizing:border-box;
     }
 
     .media-gallery {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fill, minmax(145px, 1fr));
-      gap: 14px;
-      margin-top: 20px;
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(145px,1fr));
+      gap:14px;
+      margin-top:20px;
     }
 
     .media-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 15px;
-      border: 1px solid rgba(255,140,0,.18);
-      background: #110c0e;
-      min-height: 150px;
+      position:relative;
+      overflow:hidden;
+      border-radius:15px;
+      border:1px solid rgba(255,140,0,.18);
+      background:#110c0e;
+      min-height:150px;
     }
 
     .media-item img,
     .media-item video {
-      display: block;
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-      background: #080607;
+      display:block;
+      width:100%;
+      height:190px;
+      object-fit:cover;
+      background:#080607;
     }
 
     .media-item-info {
-      padding: 9px;
-      font-size: 12px;
-      color: #a99ca1;
+      padding:9px;
+      font-size:12px;
+      color:#a99ca1;
     }
 
     .media-actions {
-      display: flex;
-      gap: 6px;
-      padding: 8px;
-      flex-wrap: wrap;
+      display:flex;
+      gap:6px;
+      padding:8px;
+      flex-wrap:wrap;
     }
 
     .media-btn {
-      flex: 1;
-      min-width: 70px;
-      border-radius: 9px;
-      padding: 8px 7px;
-      cursor: pointer;
-      border: 1px solid rgba(240,216,120,.22);
-      background: rgba(255,255,255,.04);
-      color: #f0d878;
-      font-size: 12px;
+      flex:1;
+      min-width:70px;
+      border-radius:9px;
+      padding:8px 7px;
+      cursor:pointer;
+      border:1px solid rgba(240,216,120,.22);
+      background:rgba(255,255,255,.04);
+      color:#f0d878;
+      font-size:12px;
     }
 
     .media-btn:hover {
-      background: rgba(255,140,0,.10);
+      background:rgba(255,140,0,.10);
     }
 
     .media-btn.delete {
-      color: #ff9b9b;
-      border-color: rgba(255,80,80,.20);
+      color:#ff9b9b;
+      border-color:rgba(255,80,80,.20);
     }
 
     .media-btn.profile {
-      color: #f0d878;
+      color:#f0d878;
     }
 
     .empty-media {
-      padding: 30px 15px;
-      text-align: center;
-      color: #8f8589;
-      border: 1px dashed rgba(255,140,0,.14);
-      border-radius: 14px;
-      grid-column: 1 / -1;
+      padding:30px 15px;
+      text-align:center;
+      color:#8f8589;
+      border:1px dashed rgba(255,140,0,.14);
+      border-radius:14px;
+      grid-column:1 / -1;
     }
 
     .progress-box {
-      margin-top: 15px;
-      display: none;
+      margin-top:15px;
+      display:none;
     }
 
     .progress-box.active {
-      display: block;
+      display:block;
     }
 
     .progress-bar {
-      width: 100%;
-      height: 8px;
-      overflow: hidden;
-      border-radius: 20px;
-      background: rgba(255,255,255,.06);
+      width:100%;
+      height:8px;
+      overflow:hidden;
+      border-radius:20px;
+      background:rgba(255,255,255,.06);
     }
 
     .progress-fill {
-      width: 0%;
-      height: 100%;
-      border-radius: 20px;
-      background: linear-gradient(
-        90deg,
-        #d88916,
-        #f0d878
-      );
-      transition: width .2s ease;
+      width:0%;
+      height:100%;
+      border-radius:20px;
+      background:linear-gradient(90deg,#d88916,#f0d878);
+      transition:width .2s ease;
     }
 
     .media-note {
-      color: #8f8589;
-      font-size: 13px;
-      line-height: 1.6;
-      margin-top: 12px;
+      color:#8f8589;
+      font-size:13px;
+      line-height:1.6;
+      margin-top:12px;
     }
 
     .current-profile-photo {
-      position: relative;
-      display: inline-block;
+      position:relative;
+      display:inline-block;
     }
 
     .current-profile-photo img {
-      width: 190px;
-      height: 235px;
-      object-fit: cover;
-      border-radius: 20px;
+      width:190px;
+      height:235px;
+      object-fit:cover;
+      border-radius:20px;
     }
 
     .photo-badge {
-      position: absolute;
-      left: 8px;
-      bottom: 8px;
-      padding: 5px 8px;
-      border-radius: 8px;
-      background: rgba(0,0,0,.72);
-      color: #f0d878;
-      font-size: 11px;
+      position:absolute;
+      left:8px;
+      bottom:8px;
+      padding:5px 8px;
+      border-radius:8px;
+      background:rgba(0,0,0,.72);
+      color:#f0d878;
+      font-size:11px;
     }
 
     .section-message {
-      margin-top: 15px;
+      margin-top:15px;
     }
 
-
-    /* =========================================
-       RESPONSIVO
-       ========================================= */
-
-    @media (max-width: 900px) {
+    @media (max-width:900px) {
 
       .profile-head {
-
-        grid-template-columns:
-          auto minmax(0,1fr);
-
+        grid-template-columns:auto minmax(0,1fr);
       }
 
       .profile-photo-manager {
-
         grid-column:1 / -1;
-
       }
 
     }
 
-
-    @media (max-width: 650px) {
+    @media (max-width:650px) {
 
       .topbar {
-
         padding:8px 10px;
-
         align-items:center;
-
       }
-
 
       .brand {
-
         height:78px;
-
       }
-
 
       .brand img {
-
         height:78px;
-
         max-width:170px;
-
       }
-
 
       .top-actions-modelo {
-
         gap:7px;
-
       }
-
 
       .btn-planos {
-
         padding:9px 11px;
-
         font-size:9px;
-
         letter-spacing:.7px;
-
       }
-
 
       .btn-sair-top {
-
         padding:9px 11px;
-
         font-size:9px;
-
       }
-
 
       .profile-head {
-
         grid-template-columns:1fr;
-
       }
-
 
       #foto {
-
         margin:auto;
-
       }
-
 
       .profile-photo-manager {
-
         grid-column:auto;
-
       }
-
 
       .plano-acesso {
-
         align-items:flex-start;
-
         flex-direction:column;
-
       }
-
 
       .plano-acesso-link {
-
         width:100%;
-
       }
 
-
       .media-limits {
-        grid-template-columns: 1fr;
+        grid-template-columns:1fr;
       }
 
       .upload-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns:1fr;
       }
 
       .media-gallery {
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+        grid-template-columns:repeat(2,minmax(0,1fr));
       }
 
     }
@@ -1096,7 +690,6 @@
   </style>
 
 </head>
-
 
 <body>
 
@@ -1108,13 +701,7 @@
     🕸️
   </div>
 
-
-  <!-- =========================================
-       CABEÇALHO
-       ========================================= -->
-
   <header class="topbar">
-
 
     <a
       class="brand"
@@ -1129,9 +716,7 @@
 
     </a>
 
-
     <div class="top-actions-modelo">
-
 
       <a
         class="btn-planos"
@@ -1139,7 +724,6 @@
       >
         ✦ Ver Planos
       </a>
-
 
       <button
         class="btn ghost btn-sair-top"
@@ -1149,18 +733,11 @@
         Sair
       </button>
 
-
     </div>
 
   </header>
 
-
   <main class="container">
-
-
-    <!-- =====================================
-         HERO
-         ===================================== -->
 
     <section class="hero">
 
@@ -1182,9 +759,6 @@
         Carregando...
       </p>
 
-
-      <!-- ACESSO AOS PLANOS -->
-
       <div class="plano-acesso">
 
         <div class="plano-acesso-info">
@@ -1199,7 +773,6 @@
 
         </div>
 
-
         <a
           class="plano-acesso-link"
           href="planos.html"
@@ -1211,33 +784,22 @@
 
     </section>
 
-
     <div
       id="mensagem"
       class="notice"
       hidden
     ></div>
 
-
     <section
       id="conteudo"
       hidden
     >
 
-
-      <!-- =====================================
-           PERFIL
-           ===================================== -->
-
       <div class="card">
 
         <div class="card-body">
 
-
           <div class="profile-head">
-
-
-            <!-- FOTO PRINCIPAL -->
 
             <div
               id="foto"
@@ -1259,9 +821,6 @@
               LUX
             </div>
 
-
-            <!-- INFORMAÇÕES -->
-
             <div>
 
               <span class="pill">
@@ -1277,7 +836,6 @@
                 style="color:var(--muted)"
               ></p>
 
-
               <div
                 id="seloModelo"
                 class="pill lux-plan-badge"
@@ -1289,7 +847,6 @@
                 ✦ LUX ESSENCE
               </div>
 
-
               <p
                 id="statusModelo"
                 style="color:var(--gold2)"
@@ -1297,14 +854,7 @@
 
             </div>
 
-
-            <!-- =================================
-                 CARD ATUALIZAR FOTO
-                 ================================= -->
-
-            <div
-              class="profile-photo-manager"
-            >
+            <div class="profile-photo-manager">
 
               <h3>
                 📷 Foto de perfil
@@ -1314,7 +864,6 @@
                 Escolha uma das fotos que você
                 já enviou para definir como principal.
               </p>
-
 
               <div
                 id="profilePhotoOptions"
@@ -1327,7 +876,6 @@
 
               </div>
 
-
               <button
                 id="btnAtualizarFoto"
                 class="photo-action"
@@ -1336,7 +884,6 @@
               >
                 ⭐ Usar foto selecionada
               </button>
-
 
               <p
                 id="profilePhotoMessage"
@@ -1349,23 +896,15 @@
 
             </div>
 
-
           </div>
 
         </div>
 
       </div>
 
-
       <br>
 
-
-      <!-- =====================================
-           INFORMAÇÕES
-           ===================================== -->
-
       <div class="grid">
-
 
         <article class="card">
 
@@ -1375,9 +914,7 @@
               ✦ Informações do perfil
             </h2>
 
-
             <div class="info-list">
-
 
               <div class="info">
 
@@ -1391,7 +928,6 @@
 
               </div>
 
-
               <div class="info">
 
                 <small>
@@ -1403,7 +939,6 @@
                 </span>
 
               </div>
-
 
               <div class="info">
 
@@ -1417,7 +952,6 @@
 
               </div>
 
-
               <div class="info">
 
                 <small>
@@ -1430,14 +964,11 @@
 
               </div>
 
-
             </div>
 
           </div>
 
         </article>
-
-
 
         <article class="card">
 
@@ -1449,10 +980,7 @@
 
             <p
               id="bio"
-              style="
-                color:var(--muted);
-                line-height:1.7;
-              "
+              style="color:var(--muted);line-height:1.7;"
             >
               Nenhuma apresentação cadastrada.
             </p>
@@ -1461,17 +989,9 @@
 
         </article>
 
-
       </div>
 
-
-      <!-- =====================================
-           GERENCIAMENTO DE MÍDIAS
-           ===================================== -->
-
-      <div
-        class="card media-manager"
-      >
+      <div class="card media-manager">
 
         <div class="card-body">
 
@@ -1494,9 +1014,6 @@
 
           </div>
 
-
-          <!-- LIMITES -->
-
           <div
             class="media-limits"
             id="mediaLimits"
@@ -1514,7 +1031,6 @@
 
             </div>
 
-
             <div class="media-limit">
 
               <small>
@@ -1529,9 +1045,6 @@
 
           </div>
 
-
-          <!-- UPLOAD -->
-
           <div class="upload-area">
 
             <h3>
@@ -1545,9 +1058,7 @@
 
             </p>
 
-
             <div class="upload-grid">
-
 
               <div class="upload-box">
 
@@ -1569,7 +1080,6 @@
                 >
 
               </div>
-
 
               <div class="upload-box">
 
@@ -1593,7 +1103,6 @@
 
               </div>
 
-
               <div class="upload-box">
 
                 <strong>
@@ -1616,9 +1125,7 @@
 
               </div>
 
-
             </div>
-
 
             <div
               id="progressBox"
@@ -1657,7 +1164,6 @@
 
             </div>
 
-
             <p
               id="mediaMessage"
               class="notice section-message"
@@ -1666,18 +1172,13 @@
 
           </div>
 
-
-          <!-- GALERIA -->
-
           <div
             id="mediaGallery"
             class="media-gallery"
           >
 
             <div class="empty-media">
-
               Carregando suas fotos e vídeos...
-
             </div>
 
           </div>
@@ -1686,9 +1187,7 @@
 
       </div>
 
-
       <br>
-
 
       <div class="actions">
 
@@ -1699,7 +1198,6 @@
           ✦ Ver planos e assinar
         </a>
 
-
         <a
           class="btn"
           href="index.html"
@@ -1709,27 +1207,124 @@
 
       </div>
 
-
     </section>
 
   </main>
 
-
   <footer class="footer">
-
     LUX — Sensualidade & Sofisticação · Halloween Edition 🎃
-
   </footer>
 
 
+  <!-- =========================================
+       SUPABASE
+       IMPORTANTE:
+       1. Biblioteca Supabase
+       2. config.js
+       3. auth.js
+       4. Código do painel
+       ========================================= -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script src="config.js"></script>
+  <script src="./config.js?v=3"></script>
 
-  <script src="auth.js"></script>
+  <script src="./auth.js?v=9"></script>
 
 
   <script>
+
+    /* =========================================
+       VERIFICAÇÃO DO SUPABASE
+       ========================================= */
+
+    if (!window.supabase) {
+
+      console.error(
+        "[LUX] Biblioteca Supabase não carregou."
+      );
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+          const mensagem =
+            document.getElementById("mensagem");
+
+          if (mensagem) {
+
+            mensagem.hidden = false;
+
+            mensagem.className =
+              "notice error";
+
+            mensagem.textContent =
+              "A biblioteca do sistema não foi carregada. Verifique sua conexão e atualize a página.";
+
+          }
+
+        }
+      );
+
+      throw new Error(
+        "Biblioteca Supabase não carregou."
+      );
+
+    }
+
+
+    if (!window.luxSupabase) {
+
+      console.error(
+        "[LUX] Supabase não foi inicializado.",
+        {
+          supabaseGlobal:
+            !!window.supabase,
+
+          luxSupabase:
+            !!window.luxSupabase
+        }
+      );
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+          const mensagem =
+            document.getElementById("mensagem");
+
+          if (mensagem) {
+
+            mensagem.hidden = false;
+
+            mensagem.className =
+              "notice error";
+
+            mensagem.textContent =
+              "O Supabase não foi inicializado. Verifique o arquivo config.js.";
+
+          }
+
+        }
+      );
+
+      throw new Error(
+        "Supabase não foi inicializado."
+      );
+
+    }
+
+
+    console.log(
+      "[LUX] Supabase inicializado corretamente."
+    );
+
+    console.log(
+      "[LUX] auth.js:",
+      window.LUX_AUTH_VERSION ||
+      "versão não identificada"
+    );
+
 
     /* =========================================
        ESTADO
@@ -1916,10 +1511,6 @@
     }
 
 
-    /* =========================================
-       MENSAGEM FOTO DE PERFIL
-       ========================================= */
-
     function mostrarMensagemFotoPerfil(
       texto,
       erro = false
@@ -2101,7 +1692,6 @@
 
       img.loading =
         "lazy";
-
 
       img.style.width =
         "190px";
@@ -2323,14 +1913,12 @@
 
 
     /* =========================================
-       DEFINIR FOTO ESCOLHIDA NO CARD
+       DEFINIR FOTO ESCOLHIDA
        ========================================= */
 
     async function atualizarFotoSelecionada() {
 
-      if (
-        !fotoSelecionadaPerfil
-      ) {
+      if (!fotoSelecionadaPerfil) {
 
         mostrarMensagemFotoPerfil(
           "Selecione uma foto primeiro.",
@@ -2358,9 +1946,7 @@
           error
         } =
           await window.luxSupabase
-            .from(
-              "modelo_perfis"
-            )
+            .from("modelo_perfis")
             .update({
               foto_url:
                 fotoSelecionadaPerfil.url,
@@ -2445,9 +2031,7 @@
 
     async function carregarMidias() {
 
-      if (
-        !usuarioLogado
-      ) {
+      if (!usuarioLogado) {
 
         return;
 
@@ -2455,13 +2039,9 @@
 
 
       mediaGallery.innerHTML = `
-
         <div class="empty-media">
-
           Carregando suas fotos e vídeos...
-
         </div>
-
       `;
 
 
@@ -2481,7 +2061,7 @@
           .order(
             "criado_em",
             {
-              ascending: false
+              ascending:false
             }
           );
 
@@ -2501,9 +2081,7 @@
 
       atualizarLimites();
 
-
       renderizarOpcoesFotoPerfil();
-
 
       renderizarMidias();
 
@@ -2516,22 +2094,15 @@
 
     function renderizarMidias() {
 
-      mediaGallery.innerHTML =
-        "";
+      mediaGallery.innerHTML = "";
 
 
-      if (
-        midiasAtuais.length === 0
-      ) {
+      if (midiasAtuais.length === 0) {
 
         mediaGallery.innerHTML = `
-
           <div class="empty-media">
-
             Nenhuma foto ou vídeo cadastrado ainda.
-
           </div>
-
         `;
 
         return;
@@ -2543,24 +2114,17 @@
         midia => {
 
           const item =
-            document.createElement(
-              "div"
-            );
+            document.createElement("div");
 
 
           item.className =
             "media-item";
 
 
-          if (
-            midia.tipo ===
-            "foto"
-          ) {
+          if (midia.tipo === "foto") {
 
             const img =
-              document.createElement(
-                "img"
-              );
+              document.createElement("img");
 
 
             img.src =
@@ -2573,16 +2137,12 @@
               "lazy";
 
 
-            item.appendChild(
-              img
-            );
+            item.appendChild(img);
 
           } else {
 
             const video =
-              document.createElement(
-                "video"
-              );
+              document.createElement("video");
 
 
             video.src =
@@ -2595,17 +2155,13 @@
               "metadata";
 
 
-            item.appendChild(
-              video
-            );
+            item.appendChild(video);
 
           }
 
 
           const info =
-            document.createElement(
-              "div"
-            );
+            document.createElement("div");
 
 
           info.className =
@@ -2618,30 +2174,21 @@
               : "🎬 Vídeo";
 
 
-          item.appendChild(
-            info
-          );
+          item.appendChild(info);
 
 
           const actions =
-            document.createElement(
-              "div"
-            );
+            document.createElement("div");
 
 
           actions.className =
             "media-actions";
 
 
-          if (
-            midia.tipo ===
-            "foto"
-          ) {
+          if (midia.tipo === "foto") {
 
             const btnPerfil =
-              document.createElement(
-                "button"
-              );
+              document.createElement("button");
 
 
             btnPerfil.type =
@@ -2657,23 +2204,17 @@
             btnPerfil.addEventListener(
               "click",
               () =>
-                definirFotoPerfil(
-                  midia
-                )
+                definirFotoPerfil(midia)
             );
 
 
-            actions.appendChild(
-              btnPerfil
-            );
+            actions.appendChild(btnPerfil);
 
           }
 
 
           const btnExcluir =
-            document.createElement(
-              "button"
-            );
+            document.createElement("button");
 
 
           btnExcluir.type =
@@ -2689,25 +2230,15 @@
           btnExcluir.addEventListener(
             "click",
             () =>
-              excluirMidia(
-                midia
-              )
+              excluirMidia(midia)
           );
 
 
-          actions.appendChild(
-            btnExcluir
-          );
+          actions.appendChild(btnExcluir);
 
+          item.appendChild(actions);
 
-          item.appendChild(
-            actions
-          );
-
-
-          mediaGallery.appendChild(
-            item
-          );
+          mediaGallery.appendChild(item);
 
         }
       );
@@ -2719,25 +2250,18 @@
        URL STORAGE
        ========================================= */
 
-    function criarUrlPublica(
-      path
-    ) {
+    function criarUrlPublica(path) {
 
       const {
         data
       } =
         window.luxSupabase
           .storage
-          .from(
-            "lux-modelos"
-          )
-          .getPublicUrl(
-            path
-          );
+          .from("lux-modelos")
+          .getPublicUrl(path);
 
 
-      return data?.publicUrl ||
-        "";
+      return data?.publicUrl || "";
 
     }
 
@@ -2752,17 +2276,13 @@
     ) {
 
       const nome =
-        arquivo?.name ||
-        "";
-
+        arquivo?.name || "";
 
       const partes =
         nome.split(".");
 
 
-      if (
-        partes.length > 1
-      ) {
+      if (partes.length > 1) {
 
         return partes
           .pop()
@@ -2841,17 +2361,13 @@
       } =
         await window.luxSupabase
           .storage
-          .from(
-            "lux-modelos"
-          )
+          .from("lux-modelos")
           .upload(
             caminho,
             arquivo,
             {
-              cacheControl:
-                "3600",
-              upsert:
-                false,
+              cacheControl:"3600",
+              upsert:false,
               contentType:
                 arquivo.type ||
                 undefined
@@ -2859,9 +2375,7 @@
           );
 
 
-      if (
-        uploadError
-      ) {
+      if (uploadError) {
 
         throw uploadError;
 
@@ -2875,9 +2389,7 @@
 
 
       const url =
-        criarUrlPublica(
-          caminho
-        );
+        criarUrlPublica(caminho);
 
 
       if (!url) {
@@ -2894,9 +2406,7 @@
         error
       } =
         await window.luxSupabase
-          .from(
-            "modelo_midias"
-          )
+          .from("modelo_midias")
           .insert({
             modelo_id:
               usuarioLogado.id,
@@ -2917,12 +2427,8 @@
 
         await window.luxSupabase
           .storage
-          .from(
-            "lux-modelos"
-          )
-          .remove([
-            caminho
-          ]);
+          .from("lux-modelos")
+          .remove([caminho]);
 
 
         throw error;
@@ -2945,15 +2451,9 @@
        PROCESSAR FOTO DE PERFIL
        ========================================= */
 
-    async function processarFotoPerfil(
-      arquivo
-    ) {
+    async function processarFotoPerfil(arquivo) {
 
-      if (
-        !arquivo.type.startsWith(
-          "image/"
-        )
-      ) {
+      if (!arquivo.type.startsWith("image/")) {
 
         throw new Error(
           "Escolha uma imagem válida."
@@ -2975,9 +2475,7 @@
         ].fotos;
 
 
-      if (
-        fotos.length >= limite
-      ) {
+      if (fotos.length >= limite) {
 
         throw new Error(
           "O limite de fotos do seu plano já foi atingido. Exclua uma foto antes de adicionar outra."
@@ -2998,9 +2496,7 @@
         error
       } =
         await window.luxSupabase
-          .from(
-            "modelo_perfis"
-          )
+          .from("modelo_perfis")
           .update({
             foto_url:
               midia.url,
@@ -3036,19 +2532,13 @@
        PROCESSAR FOTOS
        ========================================= */
 
-    async function processarFotos(
-      arquivos
-    ) {
+    async function processarFotos(arquivos) {
 
       const lista =
-        Array.from(
-          arquivos || []
-        );
+        Array.from(arquivos || []);
 
 
-      if (
-        lista.length === 0
-      ) {
+      if (lista.length === 0) {
 
         return;
 
@@ -3073,9 +2563,7 @@
         fotosAtuais;
 
 
-      if (
-        vagas <= 0
-      ) {
+      if (vagas <= 0) {
 
         throw new Error(
           "O limite de fotos do seu plano já foi atingido."
@@ -3084,10 +2572,7 @@
       }
 
 
-      if (
-        lista.length >
-        vagas
-      ) {
+      if (lista.length > vagas) {
 
         throw new Error(
           "Você selecionou " +
@@ -3110,11 +2595,7 @@
           lista[i];
 
 
-        if (
-          !arquivo.type.startsWith(
-            "image/"
-          )
-        ) {
+        if (!arquivo.type.startsWith("image/")) {
 
           throw new Error(
             "Um dos arquivos selecionados não é uma imagem válida."
@@ -3138,19 +2619,13 @@
        PROCESSAR VÍDEOS
        ========================================= */
 
-    async function processarVideos(
-      arquivos
-    ) {
+    async function processarVideos(arquivos) {
 
       const lista =
-        Array.from(
-          arquivos || []
-        );
+        Array.from(arquivos || []);
 
 
-      if (
-        lista.length === 0
-      ) {
+      if (lista.length === 0) {
 
         return;
 
@@ -3175,9 +2650,7 @@
         videosAtuais;
 
 
-      if (
-        vagas <= 0
-      ) {
+      if (vagas <= 0) {
 
         throw new Error(
           "O limite de vídeos do seu plano já foi atingido."
@@ -3186,10 +2659,7 @@
       }
 
 
-      if (
-        lista.length >
-        vagas
-      ) {
+      if (lista.length > vagas) {
 
         throw new Error(
           "Você selecionou " +
@@ -3212,11 +2682,7 @@
           lista[i];
 
 
-        if (
-          !arquivo.type.startsWith(
-            "video/"
-          )
-        ) {
+        if (!arquivo.type.startsWith("video/")) {
 
           throw new Error(
             "Um dos arquivos selecionados não é um vídeo válido."
@@ -3240,9 +2706,7 @@
        DEFINIR FOTO DE PERFIL
        ========================================= */
 
-    async function definirFotoPerfil(
-      midia
-    ) {
+    async function definirFotoPerfil(midia) {
 
       if (
         !midia ||
@@ -3263,13 +2727,10 @@
           error
         } =
           await window.luxSupabase
-            .from(
-              "modelo_perfis"
-            )
+            .from("modelo_perfis")
             .update({
               foto_url:
                 midia.url,
-
               atualizado_em:
                 new Date().toISOString()
             })
@@ -3327,13 +2788,9 @@
        EXCLUIR MÍDIA
        ========================================= */
 
-    async function excluirMidia(
-      midia
-    ) {
+    async function excluirMidia(midia) {
 
-      if (
-        !midia
-      ) {
+      if (!midia) {
 
         return;
 
@@ -3346,9 +2803,7 @@
         );
 
 
-      if (
-        !confirmar
-      ) {
+      if (!confirmar) {
 
         return;
 
@@ -3365,9 +2820,7 @@
           bancoError
         } =
           await window.luxSupabase
-            .from(
-              "modelo_midias"
-            )
+            .from("modelo_midias")
             .delete()
             .eq(
               "id",
@@ -3386,15 +2839,11 @@
         }
 
 
-        if (
-          midia.storage_path
-        ) {
+        if (midia.storage_path) {
 
           await window.luxSupabase
             .storage
-            .from(
-              "lux-modelos"
-            )
+            .from("lux-modelos")
             .remove([
               midia.storage_path
             ]);
@@ -3412,13 +2861,9 @@
             fotoError
           } =
             await window.luxSupabase
-              .from(
-                "modelo_perfis"
-              )
+              .from("modelo_perfis")
               .update({
-                foto_url:
-                  null,
-
+                foto_url:null,
                 atualizado_em:
                   new Date().toISOString()
               })
@@ -3482,9 +2927,7 @@
        ========================================= */
 
     document
-      .getElementById(
-        "inputFotoPerfil"
-      )
+      .getElementById("inputFotoPerfil")
       .addEventListener(
         "change",
         async function() {
@@ -3508,7 +2951,6 @@
 
 
             this.value = "";
-
 
             await carregarMidias();
 
@@ -3535,9 +2977,7 @@
        ========================================= */
 
     document
-      .getElementById(
-        "inputFotos"
-      )
+      .getElementById("inputFotos")
       .addEventListener(
         "change",
         async function() {
@@ -3565,7 +3005,6 @@
 
             this.value = "";
 
-
             await carregarMidias();
 
 
@@ -3591,9 +3030,7 @@
        ========================================= */
 
     document
-      .getElementById(
-        "inputVideos"
-      )
+      .getElementById("inputVideos")
       .addEventListener(
         "change",
         async function() {
@@ -3621,7 +3058,6 @@
 
             this.value = "";
 
-
             await carregarMidias();
 
 
@@ -3647,9 +3083,7 @@
        ========================================= */
 
     document
-      .getElementById(
-        "btnSair"
-      )
+      .getElementById("btnSair")
       .addEventListener(
         "click",
         async function() {
@@ -3694,10 +3128,6 @@
 
       try {
 
-        /*
-         * SESSÃO
-         */
-
         usuarioLogado =
           await comTimeout(
             usuarioAtual(),
@@ -3715,10 +3145,6 @@
         }
 
 
-        /*
-         * PERFIL PRINCIPAL
-         */
-
         perfilAtual =
           await comTimeout(
             getPerfil(
@@ -3727,10 +3153,6 @@
             15000
           );
 
-
-        /*
-         * PERFIL DE MODELO
-         */
 
         modeloAtual = null;
 
@@ -3774,10 +3196,6 @@
         }
 
 
-        /*
-         * NOME
-         */
-
         const nome =
           modeloAtual.nome_exibicao ||
           perfilAtual?.nome ||
@@ -3785,97 +3203,64 @@
 
 
         document
-          .getElementById(
-            "nomeModelo"
-          )
+          .getElementById("nomeModelo")
           .textContent =
           nome;
 
 
         document
-          .getElementById(
-            "titulo"
-          )
+          .getElementById("titulo")
           .textContent =
           "Olá, " + nome;
 
 
-        /*
-         * E-MAIL
-         */
-
         document
-          .getElementById(
-            "emailModelo"
-          )
+          .getElementById("emailModelo")
           .textContent =
           usuarioLogado.email ||
           "";
 
 
-        /*
-         * DADOS
-         */
-
         document
-          .getElementById(
-            "idade"
-          )
+          .getElementById("idade")
           .textContent =
           modeloAtual.idade ||
           "—";
 
 
         document
-          .getElementById(
-            "altura"
-          )
+          .getElementById("altura")
           .textContent =
           modeloAtual.altura_cm
-            ? modeloAtual.altura_cm +
-              " cm"
+            ? modeloAtual.altura_cm + " cm"
             : "—";
 
 
         document
-          .getElementById(
-            "cidade"
-          )
+          .getElementById("cidade")
           .textContent =
           modeloAtual.cidade ||
           "—";
 
 
         document
-          .getElementById(
-            "bio"
-          )
+          .getElementById("bio")
           .textContent =
           modeloAtual.descricao ||
           "Nenhuma apresentação cadastrada.";
 
-
-        /*
-         * DISPONIBILIDADE
-         */
 
         const disponibilidade =
           modeloAtual.disponivel;
 
 
         document
-          .getElementById(
-            "disponivel"
-          )
+          .getElementById("disponivel")
           .textContent =
           disponibilidade === false
             ? "Indisponível"
             : "Disponível";
 
-
-        /*
-         * STATUS
-         */
 
         const status =
           perfilAtual?.status ||
@@ -3884,17 +3269,10 @@
 
 
         document
-          .getElementById(
-            "statusModelo"
-          )
+          .getElementById("statusModelo")
           .textContent =
-          "Status: " +
-          status;
+          "Status: " + status;
 
-
-        /*
-         * FOTO
-         */
 
         mostrarFotoPerfil(
           modeloAtual.foto_url ||
@@ -3903,10 +3281,6 @@
           nome
         );
 
-
-        /*
-         * PLANO
-         */
 
         planoAtual =
           normalizarPlano(
@@ -3948,56 +3322,34 @@
 
 
         document
-          .getElementById(
-            "seloModelo"
-          )
+          .getElementById("seloModelo")
           .textContent =
           nomePlano;
 
 
         document
-          .getElementById(
-            "heroPlano"
-          )
+          .getElementById("heroPlano")
           .textContent =
           nomePlano;
 
 
-        /*
-         * SUBTÍTULO
-         */
-
         document
-          .getElementById(
-            "subtitulo"
-          )
+          .getElementById("subtitulo")
           .textContent =
           "Gerencie e acompanhe seu perfil na LUX.";
 
 
-        /*
-         * LIBERAR PAINEL
-         */
-
         document
-          .getElementById(
-            "conteudo"
-          )
+          .getElementById("conteudo")
           .hidden =
           false;
 
 
         document
-          .getElementById(
-            "mensagem"
-          )
+          .getElementById("mensagem")
           .hidden =
           true;
 
-
-        /*
-         * CARREGAR MÍDIAS
-         */
 
         try {
 
@@ -4015,15 +3367,12 @@
 
 
           mostrarMensagemMidia(
-
             "O painel foi carregado, mas as fotos e vídeos não puderam ser carregados agora. " +
             (
               erroMidia?.message ||
               "Tente novamente."
             ),
-
             true
-
           );
 
         }
@@ -4040,7 +3389,6 @@
 
             limite:
               dadosPlano
-
           }
         );
 
@@ -4067,9 +3415,7 @@
 
 
         document
-          .getElementById(
-            "subtitulo"
-          )
+          .getElementById("subtitulo")
           .textContent =
           "Não foi possível carregar o painel.";
 

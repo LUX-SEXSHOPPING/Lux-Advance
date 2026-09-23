@@ -1,16 +1,16 @@
 /* =========================================================
    LUX — CONFIGURAÇÃO SUPABASE
-   VERSÃO 4 — INICIALIZAÇÃO FORÇADA
+   V5 — CONFIGURAÇÃO CENTRAL
    ========================================================= */
 
 (function () {
 
   "use strict";
 
-  console.log("[LUX CONFIG V4] Iniciando config.js...");
+  console.log("[LUX CONFIG V5] Iniciando...");
 
   /* =======================================================
-     DADOS DO SUPABASE
+     CONFIGURAÇÃO DO SUPABASE
      ======================================================= */
 
   const LUX_SUPABASE_URL =
@@ -19,15 +19,38 @@
   const LUX_SUPABASE_ANON_KEY =
     "sb_publishable_U_Kpn40EXhDrj3Ju9By_Xg_elyY7iB2";
 
+  const LUX_ADMIN_EMAIL =
+    "luxcdam@gmail.com";
+
 
   /* =======================================================
-     VERIFICAR BIBLIOTECA
+     CONFIGURAÇÕES GLOBAIS
+     ======================================================= */
+
+  window.LUX_SUPABASE_URL =
+    LUX_SUPABASE_URL;
+
+  window.LUX_SUPABASE_ANON_KEY =
+    LUX_SUPABASE_ANON_KEY;
+
+  window.LUX_ADMIN_EMAIL =
+    LUX_ADMIN_EMAIL;
+
+  window.LUX_CONFIG_VERSION =
+    "V5";
+
+  window.LUX_CONFIG_ERRO =
+    null;
+
+
+  /* =======================================================
+     VERIFICAÇÃO DA BIBLIOTECA
      ======================================================= */
 
   if (!window.supabase) {
 
     console.error(
-      "[LUX CONFIG V4] Biblioteca Supabase NÃO foi carregada."
+      "[LUX CONFIG V5] Biblioteca Supabase não carregada."
     );
 
     window.luxSupabase = null;
@@ -40,7 +63,7 @@
 
 
   /* =======================================================
-     CRIAR CLIENTE
+     INICIALIZAÇÃO
      ======================================================= */
 
   try {
@@ -53,64 +76,54 @@
           auth: {
             persistSession: true,
             autoRefreshToken: true,
-            detectSessionInUrl: true
+            detectSessionInUrl: true,
+            flowType: "pkce"
           }
         }
       );
 
 
+    window.luxSupabase =
+      cliente;
+
+
     /* =====================================================
-       DISPONIBILIZAR GLOBALMENTE
+       URL DE RETORNO DO LOGIN
        ===================================================== */
 
-    window.luxSupabase = cliente;
-
-    window.LUX_SUPABASE_URL =
-      LUX_SUPABASE_URL;
-
-
-    window.LUX_SUPABASE_ANON_KEY =
-      LUX_SUPABASE_ANON_KEY;
-
-
-    window.LUX_CONFIG_ERRO =
-      null;
+    window.LUX_AUTH_REDIRECT_URL =
+      new URL(
+        "./login.html",
+        window.location.href
+      ).href;
 
 
     console.log(
-      "[LUX CONFIG V4] Supabase inicializado com sucesso."
+      "[LUX CONFIG V5] Supabase inicializado com sucesso."
+    );
+
+    console.log(
+      "[LUX CONFIG V5] Redirect:",
+      window.LUX_AUTH_REDIRECT_URL
     );
 
 
   } catch (erro) {
 
     console.error(
-      "[LUX CONFIG V4] Erro ao criar cliente Supabase:",
+      "[LUX CONFIG V5] Erro ao criar cliente:",
       erro
     );
 
-    window.luxSupabase = null;
+    window.luxSupabase =
+      null;
 
     window.LUX_CONFIG_ERRO =
-      erro.message || "Erro desconhecido.";
-
+      erro &&
+      erro.message
+        ? erro.message
+        : "Erro desconhecido ao inicializar o Supabase.";
   }
-
-
-  /* =======================================================
-     ADMINISTRADOR
-     ======================================================= */
-
-  window.LUX_ADMIN_EMAIL =
-    "luxcdam@gmail.com";
-
-
-  /* =======================================================
-     MARCADOR DE VERSÃO
-     ======================================================= */
-
-  window.LUX_CONFIG_VERSION =
-    "V4";
 
 
 })();

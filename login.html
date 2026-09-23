@@ -32,7 +32,6 @@ body{
   margin:0;
   min-height:100vh;
   font-family:Arial,Helvetica,sans-serif;
-
   background:
     radial-gradient(
       circle at top,
@@ -45,35 +44,27 @@ body{
       #180b10 55%,
       #090507
     );
-
   color:#fff;
 }
 
 .lux-login-page{
   min-height:100vh;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   padding:25px 15px;
 }
 
 .lux-login-card{
   width:100%;
   max-width:470px;
-
   padding:30px 24px;
-
   border:1px solid rgba(248,213,138,.35);
   border-radius:24px;
-
   background:rgba(10,6,8,.92);
-
   box-shadow:
     0 20px 60px rgba(0,0,0,.65),
     0 0 35px rgba(248,213,138,.08);
-
   backdrop-filter:blur(12px);
 }
 
@@ -84,21 +75,16 @@ body{
 
 .lux-logo h1{
   margin:0;
-
   font-size:42px;
   letter-spacing:7px;
-
   color:#f8d58a;
-
   text-shadow:
     0 0 20px rgba(248,213,138,.25);
 }
 
 .lux-logo p{
   margin:8px 0 0;
-
   color:#d7c6a2;
-
   font-size:12px;
   letter-spacing:3px;
   text-transform:uppercase;
@@ -114,21 +100,15 @@ body{
 
 h2{
   text-align:center;
-
   color:#f8d58a;
-
   margin:0 0 12px;
 }
 
 .subtitulo{
   text-align:center;
-
   color:#cfc5c8;
-
   line-height:1.5;
-
   margin:0 0 22px;
-
   font-size:14px;
 }
 
@@ -139,39 +119,24 @@ h2{
 
 button{
   width:100%;
-
-  border:
-    1px solid
-    rgba(248,213,138,.55);
-
+  border:1px solid rgba(248,213,138,.55);
   border-radius:12px;
-
   padding:14px 16px;
-
   background:
     linear-gradient(
       135deg,
       #f8d58a,
       #c99b43
     );
-
   color:#140b08;
-
   font-weight:700;
-
   cursor:pointer;
-
   font-size:15px;
 }
 
 button.secundario{
   background:transparent;
   color:#f8d58a;
-}
-
-button:disabled{
-  opacity:.65;
-  cursor:not-allowed;
 }
 
 .formulario{
@@ -191,63 +156,33 @@ label{
 
 input{
   width:100%;
-
-  border:
-    1px solid
-    rgba(248,213,138,.22);
-
+  border:1px solid rgba(248,213,138,.22);
   border-radius:10px;
-
   padding:13px;
-
   background:#12090d;
-
   color:#fff;
-
   outline:none;
-
   font-size:14px;
 }
 
 input:focus{
   border-color:#f8d58a;
-
   box-shadow:
-    0 0 0 2px
-    rgba(248,213,138,.08);
+    0 0 0 2px rgba(248,213,138,.08);
 }
 
 .mensagem{
   min-height:22px;
-
   margin:8px 0;
-
   text-align:center;
-
   font-size:13px;
-
   line-height:1.45;
-}
-
-.mensagem.sucesso{
-  color:#9ff2ba;
-}
-
-.mensagem.erro{
-  color:#ff9eae;
-}
-
-.mensagem.info{
-  color:#f8d58a;
 }
 
 .rodape{
   margin-top:25px;
-
   text-align:center;
-
   color:#8f8387;
-
   font-size:11px;
 }
 
@@ -268,315 +203,314 @@ input:focus{
 
 </head>
 
+
 <body>
+
 
 <main class="lux-login-page">
 
 <div class="lux-login-card">
 
 
-<!-- =========================================================
-     LOGO
-     ========================================================= -->
-
 <div class="lux-logo">
 
-  <h1>LUX</h1>
+<h1>LUX</h1>
 
-  <p>
-    Lux Advance
-  </p>
+<p>Lux Advance</p>
 
 </div>
 
 
-<!-- =========================================================
+<!-- =====================================================
      TELA INICIAL
-     ========================================================= -->
+     ===================================================== -->
 
 <section
   id="telaInicial"
   class="tela ativa"
 >
 
-  <h2>
-    Acesso exclusivo
-  </h2>
+<h2>Acesso exclusivo</h2>
 
-  <p class="subtitulo">
-    Entre como usuário ou modelo.<br>
-    Cada conta recebe uma área própria.
-  </p>
+<p class="subtitulo">
 
-  <div class="botoes">
+Entre como usuário ou modelo.
+<br>
 
-    <button
-      type="button"
-      id="btnJaTenho"
-    >
-      Já tenho cadastro
-    </button>
+Cada conta recebe uma área própria.
 
-    <button
-      type="button"
-      id="btnNaoTenho"
-      class="secundario"
-    >
-      Ainda não tenho cadastro
-    </button>
+</p>
 
-  </div>
+
+<div class="botoes">
+
+<button
+  type="button"
+  id="btnJaTenho"
+>
+  Já tenho cadastro
+</button>
+
+
+<button
+  type="button"
+  id="btnNaoTenho"
+  class="secundario"
+>
+  Ainda não tenho cadastro
+</button>
+
+</div>
 
 </section>
 
 
-<!-- =========================================================
-     TELA DE LOGIN
-     ========================================================= -->
+
+<!-- =====================================================
+     LOGIN
+     ===================================================== -->
 
 <section
   id="telaLogin"
   class="tela"
 >
 
-  <h2>
-    Entrar
-  </h2>
+<h2>Entrar</h2>
 
-  <p class="subtitulo">
-    Acesse sua conta LUX.
-  </p>
-
-  <form
-    id="formLogin"
-    class="formulario"
-  >
-
-    <div class="campo">
-
-      <label for="loginEmail">
-        E-mail
-      </label>
-
-      <input
-        id="loginEmail"
-        type="email"
-        autocomplete="email"
-        required
-      >
-
-    </div>
+<p class="subtitulo">
+Acesse sua conta LUX.
+</p>
 
 
-    <div class="campo">
+<form
+  id="formLogin"
+  class="formulario"
+>
 
-      <label for="loginSenha">
-        Senha
-      </label>
+<div class="campo">
 
-      <input
-        id="loginSenha"
-        type="password"
-        autocomplete="current-password"
-        required
-      >
+<label for="loginEmail">
+E-mail
+</label>
 
-    </div>
+<input
+  id="loginEmail"
+  type="email"
+  autocomplete="email"
+  required
+>
 
-
-    <div
-      id="msgLogin"
-      class="mensagem"
-    ></div>
-
-
-    <button
-      type="submit"
-      id="btnEntrar"
-    >
-      Entrar
-    </button>
+</div>
 
 
-    <button
-      type="button"
-      id="btnVoltarLogin"
-      class="secundario"
-    >
-      Voltar
-    </button>
+<div class="campo">
 
-  </form>
+<label for="loginSenha">
+Senha
+</label>
+
+<input
+  id="loginSenha"
+  type="password"
+  autocomplete="current-password"
+  required
+>
+
+</div>
+
+
+<div
+  id="msgLogin"
+  class="mensagem"
+></div>
+
+
+<button type="submit">
+Entrar
+</button>
+
+
+<button
+  type="button"
+  id="btnVoltarLogin"
+  class="secundario"
+>
+Voltar
+</button>
+
+
+</form>
 
 </section>
 
 
-<!-- =========================================================
-     ESCOLHA DE CADASTRO
-     ========================================================= -->
+
+<!-- =====================================================
+     ESCOLHA DO CADASTRO
+     ===================================================== -->
 
 <section
   id="telaEscolha"
   class="tela"
 >
 
-  <h2>
-    Criar cadastro
-  </h2>
+<h2>Criar cadastro</h2>
 
-  <p class="subtitulo">
-    Escolha como deseja utilizar a LUX.
-  </p>
-
-  <div class="botoes">
-
-    <button
-      type="button"
-      id="btnUsuario"
-    >
-      Sou Usuário
-    </button>
+<p class="subtitulo">
+Escolha como deseja utilizar a LUX.
+</p>
 
 
-    <button
-      type="button"
-      id="btnModelo"
-    >
-      Sou Modelo
-    </button>
+<div class="botoes">
 
 
-    <button
-      type="button"
-      id="btnVoltarEscolha"
-      class="secundario"
-    >
-      Voltar
-    </button>
+<button
+  type="button"
+  id="btnUsuario"
+>
+Sou Usuário
+</button>
 
-  </div>
+
+<button
+  type="button"
+  id="btnModelo"
+>
+Sou Modelo
+</button>
+
+
+<button
+  type="button"
+  id="btnVoltarEscolha"
+  class="secundario"
+>
+Voltar
+</button>
+
+
+</div>
 
 </section>
 
 
-<!-- =========================================================
-     CADASTRO USUÁRIO
-     ========================================================= -->
+
+<!-- =====================================================
+     CADASTRO DE USUÁRIO
+     ===================================================== -->
 
 <section
   id="telaUsuario"
   class="tela"
 >
 
-  <h2>
-    Cadastro de Usuário
-  </h2>
+<h2>Cadastro de Usuário</h2>
 
-  <p class="subtitulo">
-    Crie sua conta para acessar a área exclusiva.
-  </p>
-
-  <form
-    id="formUsuario"
-    class="formulario"
-  >
-
-    <div class="campo">
-
-      <label for="usuarioNome">
-        Nome
-      </label>
-
-      <input
-        id="usuarioNome"
-        type="text"
-        autocomplete="name"
-        required
-      >
-
-    </div>
+<p class="subtitulo">
+Crie sua conta para acessar a área exclusiva.
+</p>
 
 
-    <div class="campo">
-
-      <label for="usuarioEmail">
-        E-mail
-      </label>
-
-      <input
-        id="usuarioEmail"
-        type="email"
-        autocomplete="email"
-        required
-      >
-
-    </div>
+<form
+  id="formUsuario"
+  class="formulario"
+>
 
 
-    <div class="campo">
+<div class="campo">
 
-      <label for="usuarioSenha">
-        Senha
-      </label>
+<label for="usuarioNome">
+Nome
+</label>
 
-      <input
-        id="usuarioSenha"
-        type="password"
-        autocomplete="new-password"
-        minlength="6"
-        required
-      >
+<input
+  id="usuarioNome"
+  type="text"
+  autocomplete="name"
+  required
+>
 
-    </div>
-
-
-    <div class="campo">
-
-      <label for="usuarioSenhaConfirmacao">
-        Confirmar senha
-      </label>
-
-      <input
-        id="usuarioSenhaConfirmacao"
-        type="password"
-        autocomplete="new-password"
-        minlength="6"
-        required
-      >
-
-    </div>
+</div>
 
 
-    <div
-      id="msgUsuario"
-      class="mensagem"
-    ></div>
+<div class="campo">
+
+<label for="usuarioEmail">
+E-mail
+</label>
+
+<input
+  id="usuarioEmail"
+  type="email"
+  autocomplete="email"
+  required
+>
+
+</div>
 
 
-    <button
-      type="submit"
-      id="btnCriarUsuario"
-    >
-      Criar cadastro
-    </button>
+<div class="campo">
+
+<label for="usuarioSenha">
+Senha
+</label>
+
+<input
+  id="usuarioSenha"
+  type="password"
+  autocomplete="new-password"
+  minlength="6"
+  required
+>
+
+</div>
 
 
-    <button
-      type="button"
-      id="btnVoltarUsuario"
-      class="secundario"
-    >
-      Voltar
-    </button>
+<div class="campo">
 
-  </form>
+<label for="usuarioSenhaConfirmacao">
+Confirmar senha
+</label>
+
+<input
+  id="usuarioSenhaConfirmacao"
+  type="password"
+  autocomplete="new-password"
+  minlength="6"
+  required
+>
+
+</div>
+
+
+<div
+  id="msgUsuario"
+  class="mensagem"
+></div>
+
+
+<button type="submit">
+Criar cadastro
+</button>
+
+
+<button
+  type="button"
+  id="btnVoltarUsuario"
+  class="secundario"
+>
+Voltar
+</button>
+
+
+</form>
 
 </section>
 
 
 <div class="rodape">
 
-  LUX — Sensualidade &amp; Sofisticação
+LUX — Sensualidade &amp; Sofisticação
 
 </div>
 
@@ -586,31 +520,26 @@ input:focus{
 </main>
 
 
-<!-- =========================================================
-     ORDEM CORRETA DOS SCRIPTS
-     
-     1. Biblioteca Supabase
-     2. config.js
-     3. auth.js
-     4. lógica da página
-     ========================================================= -->
+
+<!-- =====================================================
+     SUPABASE
+     ===================================================== -->
 
 <script
   src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
 ></script>
 
-<script
-  src="./config.js?v=4"
-></script>
 
 <script
-  src="./auth.js?v=9"
+  src="./config.js?v=5"
 ></script>
 
 
-<!-- =========================================================
-     FLUXO LUX
-     ========================================================= -->
+<script
+  src="./auth.js?v=10"
+></script>
+
+
 
 <script>
 
@@ -618,38 +547,18 @@ input:focus{
 
 
 /* =========================================================
-   VERIFICAÇÃO DO SUPABASE
+   VERIFICAÇÃO DO SISTEMA
    ========================================================= */
 
 console.log(
-  "[LUX LOGIN] Iniciando sistema de acesso..."
-);
-
-console.log(
-  "[LUX LOGIN] Biblioteca Supabase:",
-  !!window.supabase
-);
-
-console.log(
-  "[LUX LOGIN] Cliente LUX:",
-  !!window.luxSupabase
-);
-
-console.log(
-  "[LUX LOGIN] Configuração:",
-  window.LUX_CONFIG_VERSION || "não informada"
-);
-
-console.log(
-  "[LUX LOGIN] Auth:",
-  window.LUX_AUTH_VERSION || "não informada"
+  "[LUX LOGIN] Inicializando página de acesso..."
 );
 
 
 if (!window.supabase) {
 
   console.error(
-    "[LUX LOGIN] Biblioteca Supabase não carregada."
+    "[LUX LOGIN] Biblioteca Supabase não carregou."
   );
 
 }
@@ -658,14 +567,15 @@ if (!window.supabase) {
 if (!window.luxSupabase) {
 
   console.error(
-    "[LUX LOGIN] Cliente Supabase não inicializado."
+    "[LUX LOGIN] Supabase não foi inicializado.",
+    window.LUX_CONFIG_ERRO || ""
   );
 
 }
 
 
 /* =========================================================
-   CONTROLE DE TELAS
+   TROCA DE TELAS
    ========================================================= */
 
 function mostrarTela(nome){
@@ -679,15 +589,17 @@ function mostrarTela(nome){
     });
 
 
+  var id =
+    "tela" +
+    nome.charAt(0).toUpperCase() +
+    nome.slice(1);
+
+
   var tela =
-    document.getElementById(
-      "tela" +
-      nome.charAt(0).toUpperCase() +
-      nome.slice(1)
-    );
+    document.getElementById(id);
 
 
-  if (tela){
+  if(tela){
 
     tela.classList.add("ativa");
 
@@ -702,303 +614,23 @@ function mostrarTela(nome){
 
 function limparMensagem(elemento){
 
-  if (!elemento){
+  if(elemento){
 
-    return;
+    elemento.textContent = "";
 
   }
-
-  elemento.textContent = "";
-
-  elemento.className =
-    "mensagem";
 
 }
 
 
-function mostrarMensagem(
-  elemento,
-  texto,
-  tipo
-){
+function mensagem(elemento,texto){
 
-  if (!elemento){
+  if(elemento){
 
-    return;
+    elemento.textContent =
+      texto || "";
 
   }
-
-  elemento.textContent =
-    texto || "";
-
-  elemento.className =
-    "mensagem " +
-    (tipo || "info");
-
-}
-
-
-/* =========================================================
-   CONVERTER ERROS DO SUPABASE
-   ========================================================= */
-
-function mensagemErroSupabase(erro){
-
-  if (!erro){
-
-    return "Não foi possível entrar.";
-
-  }
-
-
-  var texto =
-    String(
-      erro.message ||
-      erro.error_description ||
-      erro.msg ||
-      ""
-    ).trim();
-
-
-  var lower =
-    texto.toLowerCase();
-
-
-  if (
-    lower.includes(
-      "invalid login credentials"
-    )
-  ){
-
-    return "E-mail ou senha incorretos.";
-
-  }
-
-
-  if (
-    lower.includes(
-      "email not confirmed"
-    )
-  ){
-
-    return "Seu e-mail ainda não foi confirmado.";
-
-  }
-
-
-  if (
-    lower.includes(
-      "too many requests"
-    )
-  ){
-
-    return "Muitas tentativas. Aguarde alguns instantes e tente novamente.";
-
-  }
-
-
-  if (!texto){
-
-    return "Não foi possível entrar.";
-
-  }
-
-
-  return texto;
-
-}
-
-
-/* =========================================================
-   IDENTIFICAR TIPO DA CONTA
-   ========================================================= */
-
-async function identificarTipoConta(usuario){
-
-  if (!usuario || !usuario.id){
-
-    return null;
-
-  }
-
-
-  var id =
-    usuario.id;
-
-
-  /*
-   * PRIMEIRA FONTE:
-   * tabela perfis
-   */
-
-  if (window.luxSupabase){
-
-    try{
-
-      var respostaPerfil =
-        await window.luxSupabase
-          .from("perfis")
-          .select(
-            "id,nome,tipo,status"
-          )
-          .eq(
-            "id",
-            id
-          )
-          .maybeSingle();
-
-
-      if (
-        !respostaPerfil.error &&
-        respostaPerfil.data &&
-        respostaPerfil.data.tipo
-      ){
-
-        return String(
-          respostaPerfil.data.tipo
-        )
-        .toLowerCase()
-        .trim();
-
-      }
-
-
-      if (respostaPerfil.error){
-
-        console.warn(
-          "[LUX LOGIN] Não foi possível consultar perfis:",
-          respostaPerfil.error
-        );
-
-      }
-
-    }catch(erro){
-
-      console.warn(
-        "[LUX LOGIN] Erro consultando perfis:",
-        erro
-      );
-
-    }
-
-  }
-
-
-  /*
-   * SEGUNDA FONTE:
-   * tabela modelo_perfis
-   */
-
-  if (window.luxSupabase){
-
-    try{
-
-      var respostaModelo =
-        await window.luxSupabase
-          .from("modelo_perfis")
-          .select("id")
-          .eq(
-            "id",
-            id
-          )
-          .maybeSingle();
-
-
-      if (
-        !respostaModelo.error &&
-        respostaModelo.data
-      ){
-
-        return "modelo";
-
-      }
-
-    }catch(erro){
-
-      console.warn(
-        "[LUX LOGIN] Erro consultando modelo_perfis:",
-        erro
-      );
-
-    }
-
-  }
-
-
-  /*
-   * TERCEIRA FONTE:
-   * metadados do Auth
-   */
-
-  var metadata =
-    usuario.user_metadata || {};
-
-
-  if (metadata.tipo){
-
-    return String(
-      metadata.tipo
-    )
-    .toLowerCase()
-    .trim();
-
-  }
-
-
-  /*
-   * padrão:
-   * usuário
-   */
-
-  return "usuario";
-
-}
-
-
-/* =========================================================
-   REDIRECIONAMENTO
-   ========================================================= */
-
-function redirecionarPorTipo(tipo){
-
-  var valor =
-    String(
-      tipo || "usuario"
-    )
-    .toLowerCase()
-    .trim();
-
-
-  console.log(
-    "[LUX LOGIN] Tipo identificado:",
-    valor
-  );
-
-
-  /*
-   * MODELO
-   */
-
-  if (
-    valor === "modelo"
-  ){
-
-    window.location.replace(
-      "./painel-modelo.html"
-    );
-
-    return;
-
-  }
-
-
-  /*
-   * USUÁRIO
-   */
-
-  window.location.replace(
-    "./painel-usuario.html"
-  );
 
 }
 
@@ -1008,9 +640,7 @@ function redirecionarPorTipo(tipo){
    ========================================================= */
 
 document
-  .getElementById(
-    "btnJaTenho"
-  )
+  .getElementById("btnJaTenho")
   .addEventListener(
     "click",
     function(){
@@ -1021,55 +651,34 @@ document
         )
       );
 
-      mostrarTela(
-        "login"
-      );
-
-      setTimeout(
-        function(){
-
-          document
-            .getElementById(
-              "loginEmail"
-            )
-            .focus();
-
-        },
-        100
-      );
+      mostrarTela("login");
 
     }
   );
 
 
 /* =========================================================
-   BOTÃO — AINDA NÃO TENHO
+   BOTÃO — NÃO TENHO CADASTRO
    ========================================================= */
 
 document
-  .getElementById(
-    "btnNaoTenho"
-  )
+  .getElementById("btnNaoTenho")
   .addEventListener(
     "click",
     function(){
 
-      mostrarTela(
-        "escolha"
-      );
+      mostrarTela("escolha");
 
     }
   );
 
 
 /* =========================================================
-   BOTÃO — USUÁRIO
+   CADASTRO DE USUÁRIO
    ========================================================= */
 
 document
-  .getElementById(
-    "btnUsuario"
-  )
+  .getElementById("btnUsuario")
   .addEventListener(
     "click",
     function(){
@@ -1080,22 +689,18 @@ document
         )
       );
 
-      mostrarTela(
-        "usuario"
-      );
+      mostrarTela("usuario");
 
     }
   );
 
 
 /* =========================================================
-   BOTÃO — MODELO
+   CADASTRO DE MODELO
    ========================================================= */
 
 document
-  .getElementById(
-    "btnModelo"
-  )
+  .getElementById("btnModelo")
   .addEventListener(
     "click",
     function(){
@@ -1112,16 +717,12 @@ document
    ========================================================= */
 
 document
-  .getElementById(
-    "btnVoltarEscolha"
-  )
+  .getElementById("btnVoltarEscolha")
   .addEventListener(
     "click",
     function(){
 
-      mostrarTela(
-        "inicial"
-      );
+      mostrarTela("inicial");
 
     }
   );
@@ -1132,9 +733,7 @@ document
    ========================================================= */
 
 document
-  .getElementById(
-    "btnVoltarLogin"
-  )
+  .getElementById("btnVoltarLogin")
   .addEventListener(
     "click",
     function(){
@@ -1145,9 +744,7 @@ document
         )
       );
 
-      mostrarTela(
-        "inicial"
-      );
+      mostrarTela("inicial");
 
     }
   );
@@ -1158,9 +755,7 @@ document
    ========================================================= */
 
 document
-  .getElementById(
-    "btnVoltarUsuario"
-  )
+  .getElementById("btnVoltarUsuario")
   .addEventListener(
     "click",
     function(){
@@ -1171,22 +766,18 @@ document
         )
       );
 
-      mostrarTela(
-        "escolha"
-      );
+      mostrarTela("escolha");
 
     }
   );
 
 
 /* =========================================================
-   LOGIN PRINCIPAL
+   LOGIN
    ========================================================= */
 
 document
-  .getElementById(
-    "formLogin"
-  )
+  .getElementById("formLogin")
   .addEventListener(
     "submit",
     async function(event){
@@ -1200,8 +791,7 @@ document
             "loginEmail"
           )
           .value
-          .trim()
-          .toLowerCase();
+          .trim();
 
 
       var senha =
@@ -1213,108 +803,68 @@ document
 
 
       var msg =
-        document
-          .getElementById(
-            "msgLogin"
-          );
-
-
-      var botao =
-        document
-          .getElementById(
-            "btnEntrar"
-          );
-
-
-      limparMensagem(
-        msg
-      );
-
-
-      if (!email || !senha){
-
-        mostrarMensagem(
-          msg,
-          "Informe o e-mail e a senha.",
-          "erro"
-        );
-
-        return;
-
-      }
-
-
-      /*
-       * VERIFICAR SUPABASE
-       */
-
-      if (!window.luxSupabase){
-
-        console.error(
-          "[LUX LOGIN] window.luxSupabase não existe."
+        document.getElementById(
+          "msgLogin"
         );
 
 
-        mostrarMensagem(
-          msg,
-          "O sistema de acesso não foi inicializado. Atualize a página e tente novamente.",
-          "erro"
-        );
-
-        return;
-
-      }
+      limparMensagem(msg);
 
 
       try{
 
-        botao.disabled =
-          true;
+
+        if(
+          !window.luxSupabase
+        ){
+
+          mensagem(
+            msg,
+            "O sistema não conseguiu inicializar o Supabase. Atualize a página e tente novamente."
+          );
+
+          return;
+
+        }
 
 
-        botao.textContent =
-          "ENTRANDO...";
+        if(
+          typeof window.entrar !==
+          "function"
+        ){
+
+          mensagem(
+            msg,
+            "Sistema de autenticação não carregado. Verifique o auth.js."
+          );
+
+          return;
+
+        }
 
 
-        mostrarMensagem(
+        mensagem(
           msg,
-          "Autenticando sua conta...",
-          "info"
+          "Entrando..."
         );
 
 
-        /*
-         * LOGIN DIRETO NO SUPABASE
-         */
-
-        var resposta =
-          await window.luxSupabase.auth.signInWithPassword({
-
-            email:
-              email,
-
-            password:
-              senha
-
-          });
-
-
-        if (resposta.error){
-
-          console.error(
-            "[LUX LOGIN] Erro de autenticação:",
-            resposta.error
+        var resultado =
+          await window.entrar(
+            email,
+            senha
           );
 
 
-          mostrarMensagem(
+        if(
+          !resultado ||
+          !resultado.user
+        ){
+
+          mensagem(
             msg,
-            mensagemErroSupabase(
-              resposta.error
-            ),
-            "erro"
+            "Não foi possível identificar sua conta."
           );
-
 
           return;
 
@@ -1322,111 +872,133 @@ document
 
 
         var usuario =
-          resposta.data &&
-          resposta.data.user
-            ? resposta.data.user
-            : null;
+          resultado.user;
 
 
-        if (!usuario){
+        var perfil =
+          resultado.perfil ||
+          null;
 
-          mostrarMensagem(
+
+        var modeloPerfil =
+          resultado.modeloPerfil ||
+          null;
+
+
+        var tipo =
+          perfil &&
+          perfil.tipo
+            ? String(
+                perfil.tipo
+              )
+              .trim()
+              .toLowerCase()
+            : "";
+
+
+        /*
+          Fallback para contas de modelo.
+        */
+
+        if(
+          !tipo &&
+          modeloPerfil
+        ){
+
+          tipo =
+            "modelo";
+
+        }
+
+
+        if(
+          !tipo &&
+          usuario.user_metadata &&
+          usuario.user_metadata.tipo
+        ){
+
+          tipo =
+            String(
+              usuario.user_metadata.tipo
+            )
+            .trim()
+            .toLowerCase();
+
+        }
+
+
+        console.log(
+          "[LUX LOGIN] Tipo identificado:",
+          tipo
+        );
+
+
+        /* =================================================
+           MODELO
+           ================================================= */
+
+        if(
+          tipo === "modelo"
+        ){
+
+          mensagem(
             msg,
-            "A autenticação não retornou uma conta válida.",
-            "erro"
+            "Login realizado. Abrindo sua área..."
           );
+
+
+          setTimeout(
+            function(){
+
+              window.location.href =
+                "./painel-modelo.html";
+
+            },
+            300
+          );
+
 
           return;
 
         }
 
 
-        console.log(
-          "[LUX LOGIN] Usuário autenticado:",
-          usuario.id
-        );
+        /* =================================================
+           USUÁRIO
+           ================================================= */
 
-
-        /*
-         * DAR UM PEQUENO INTERVALO
-         * PARA GARANTIR A SESSÃO LOCAL
-         */
-
-        await new Promise(
-          function(resolve){
-
-            setTimeout(
-              resolve,
-              150
-            );
-
-          }
-        );
-
-
-        /*
-         * IDENTIFICAR MODELO OU USUÁRIO
-         */
-
-        var tipo =
-          await identificarTipoConta(
-            usuario
-          );
-
-
-        console.log(
-          "[LUX LOGIN] Fluxo detectado:",
-          tipo
-        );
-
-
-        mostrarMensagem(
+        mensagem(
           msg,
-          "Login realizado. Abrindo sua área...",
-          "sucesso"
+          "Login realizado. Abrindo sua área..."
         );
 
-
-        /*
-         * REDIRECIONAMENTO
-         */
 
         setTimeout(
           function(){
 
-            redirecionarPorTipo(
-              tipo
-            );
+            window.location.href =
+              "./painel-usuario.html";
 
           },
-          250
+          300
         );
 
 
       }catch(erro){
 
         console.error(
-          "[LUX LOGIN] Erro inesperado:",
+          "[LUX LOGIN] Erro:",
           erro
         );
 
 
-        mostrarMensagem(
+        mensagem(
           msg,
-          mensagemErroSupabase(
-            erro
-          ),
-          "erro"
+          erro &&
+          erro.message
+            ? erro.message
+            : "Não foi possível entrar. Verifique seus dados."
         );
-
-
-      }finally{
-
-        botao.disabled =
-          false;
-
-        botao.textContent =
-          "Entrar";
 
       }
 
@@ -1439,9 +1011,7 @@ document
    ========================================================= */
 
 document
-  .getElementById(
-    "formUsuario"
-  )
+  .getElementById("formUsuario")
   .addEventListener(
     "submit",
     async function(event){
@@ -1464,8 +1034,7 @@ document
             "usuarioEmail"
           )
           .value
-          .trim()
-          .toLowerCase();
+          .trim();
 
 
       var senha =
@@ -1485,62 +1054,26 @@ document
 
 
       var msg =
-        document
-          .getElementById(
-            "msgUsuario"
-          );
-
-
-      var botao =
-        document
-          .getElementById(
-            "btnCriarUsuario"
-          );
-
-
-      limparMensagem(
-        msg
-      );
-
-
-      if (
-        senha !== confirmacao
-      ){
-
-        mostrarMensagem(
-          msg,
-          "As senhas não conferem.",
-          "erro"
+        document.getElementById(
+          "msgUsuario"
         );
 
-        return;
 
-      }
+      limparMensagem(msg);
 
 
-      if (
-        senha.length < 6
+      /* ===================================================
+         CONFIRMAÇÃO DAS SENHAS
+         =================================================== */
+
+      if(
+        senha !==
+        confirmacao
       ){
 
-        mostrarMensagem(
+        mensagem(
           msg,
-          "A senha precisa ter pelo menos 6 caracteres.",
-          "erro"
-        );
-
-        return;
-
-      }
-
-
-      if (
-        !window.luxSupabase
-      ){
-
-        mostrarMensagem(
-          msg,
-          "O sistema não foi inicializado. Atualize a página.",
-          "erro"
+          "As senhas não conferem."
         );
 
         return;
@@ -1550,80 +1083,98 @@ document
 
       try{
 
-        botao.disabled =
-          true;
+
+        if(
+          !window.luxSupabase
+        ){
+
+          mensagem(
+            msg,
+            "O sistema não conseguiu inicializar o Supabase. Atualize a página e tente novamente."
+          );
+
+          return;
+
+        }
 
 
-        botao.textContent =
-          "CRIANDO...";
-
-
-        mostrarMensagem(
-          msg,
-          "Criando sua conta...",
-          "info"
-        );
-
-
-        /*
-         * USAR A FUNÇÃO EXISTENTE DO AUTH.JS
-         */
-
-        if (
+        if(
           typeof window.cadastrar !==
           "function"
         ){
 
-          mostrarMensagem(
+          mensagem(
             msg,
-            "Sistema de cadastro não carregado. Verifique o auth.js.",
-            "erro"
+            "Sistema de cadastro não carregado. Verifique o auth.js."
           );
 
           return;
 
         }
+
+
+        mensagem(
+          msg,
+          "Criando cadastro..."
+        );
 
 
         var resultado =
           await window.cadastrar(
-
             "usuario",
-
             nome,
-
             email,
-
             senha,
-
             {}
-
           );
 
 
-        if (
+        /* =================================================
+           CONFIRMAÇÃO DE E-MAIL
+           ================================================= */
+
+        if(
           resultado &&
-          resultado.erro
+          resultado.confirmationRequired
         ){
 
-          mostrarMensagem(
+          mensagem(
             msg,
-            resultado.erro,
-            "erro"
+            "Cadastro realizado. Enviamos um e-mail de confirmação para " +
+            email +
+            ". Confirme seu e-mail e depois volte para entrar."
           );
+
+
+          document
+            .getElementById(
+              "usuarioSenha"
+            )
+            .value = "";
+
+
+          document
+            .getElementById(
+              "usuarioSenhaConfirmacao"
+            )
+            .value = "";
+
 
           return;
 
         }
 
 
-        mostrarMensagem(
+        /* =================================================
+           CADASTRO COM SESSÃO
+           ================================================= */
+
+        mensagem(
           msg,
           resultado &&
           resultado.mensagem
             ? resultado.mensagem
-            : "Cadastro realizado com sucesso.",
-          "sucesso"
+            : "Cadastro realizado com sucesso."
         );
 
 
@@ -1634,7 +1185,6 @@ document
               "login"
             );
 
-
             document
               .getElementById(
                 "loginEmail"
@@ -1642,43 +1192,26 @@ document
               .value =
               email;
 
-
-            document
-              .getElementById(
-                "loginSenha"
-              )
-              .focus();
-
-
           },
-          2500
+          2000
         );
 
 
       }catch(erro){
 
         console.error(
-          "[LUX CADASTRO] Erro:",
+          "[LUX LOGIN] Erro no cadastro:",
           erro
         );
 
 
-        mostrarMensagem(
+        mensagem(
           msg,
-          mensagemErroSupabase(
-            erro
-          ),
-          "erro"
+          erro &&
+          erro.message
+            ? erro.message
+            : "Não foi possível criar o cadastro."
         );
-
-
-      }finally{
-
-        botao.disabled =
-          false;
-
-        botao.textContent =
-          "Criar cadastro";
 
       }
 
@@ -1687,11 +1220,191 @@ document
 
 
 /* =========================================================
-   FINALIZAÇÃO
+   RETORNO DE CONFIRMAÇÃO DE E-MAIL
    ========================================================= */
 
+(function verificarRetornoEmail(){
+
+  try{
+
+    var url =
+      new URL(
+        window.location.href
+      );
+
+
+    var hash =
+      window.location.hash ||
+      "";
+
+
+    var search =
+      url.searchParams;
+
+
+    var tipoErro =
+      search.get(
+        "error"
+      );
+
+
+    var descricaoErro =
+      search.get(
+        "error_description"
+      );
+
+
+    var codigo =
+      search.get(
+        "code"
+      );
+
+
+    /*
+      O Supabase pode devolver um erro
+      diretamente no link de confirmação.
+    */
+
+    if(
+      tipoErro
+    ){
+
+      var mensagemErro =
+        descricaoErro
+          ? decodeURIComponent(
+              descricaoErro.replace(
+                /\+/g,
+                " "
+              )
+            )
+          : "Não foi possível confirmar o e-mail.";
+
+
+      var msgLogin =
+        document.getElementById(
+          "msgLogin"
+        );
+
+
+      mostrarTela(
+        "login"
+      );
+
+
+      mensagem(
+        msgLogin,
+        mensagemErro
+      );
+
+
+      return;
+
+    }
+
+
+    /*
+      Quando há código de confirmação,
+      deixamos o Supabase processar a sessão.
+    */
+
+    if(
+      codigo
+    ){
+
+      var msg =
+        document.getElementById(
+          "msgLogin"
+        );
+
+
+      mostrarTela(
+        "login"
+      );
+
+
+      mensagem(
+        msg,
+        "E-mail confirmado. Agora você pode entrar na sua conta."
+      );
+
+
+      /*
+        Removemos apenas os parâmetros
+        de confirmação da barra de endereço.
+      */
+
+      try{
+
+        window.history.replaceState(
+          {},
+          document.title,
+          "./login.html"
+        );
+
+      }catch(e){
+
+        console.warn(
+          "[LUX LOGIN] Não foi possível limpar a URL.",
+          e
+        );
+
+      }
+
+
+      return;
+
+    }
+
+
+    /*
+      Compatibilidade com o fluxo antigo
+      do Supabase baseado em hash.
+    */
+
+    if(
+      hash &&
+      (
+        hash.includes(
+          "access_token="
+        ) ||
+        hash.includes(
+          "type=signup"
+        )
+      )
+    ){
+
+      mostrarTela(
+        "login"
+      );
+
+
+      var msgHash =
+        document.getElementById(
+          "msgLogin"
+        );
+
+
+      mensagem(
+        msgHash,
+        "E-mail confirmado. Agora você pode entrar na sua conta."
+      );
+
+    }
+
+  }catch(erro){
+
+    console.warn(
+      "[LUX LOGIN] Erro ao processar retorno do e-mail:",
+      erro
+    );
+
+  }
+
+})();
+
+
 console.log(
-  "[LUX LOGIN] Sistema carregado."
+  "[LUX LOGIN] Página de acesso pronta."
 );
 
 </script>

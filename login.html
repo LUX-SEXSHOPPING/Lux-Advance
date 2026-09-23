@@ -1,547 +1,812 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
 
-<head>
+«»
 
-<meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<title>LUX — Acesso</title>
-
-<link
+<title>LUX — Acesso</title><link
   rel="stylesheet"
   href="./app.css"
->
-
-<link
+><link
   rel="stylesheet"
   href="./login.css"
->
+><style>
 
-<style>
+/* =========================================================
+   SOMENTE VISUAL — LUX HALLOWEEN
+   ========================================================= */
 
 *{
   box-sizing:border-box;
 }
 
+html,
 body{
   margin:0;
+  min-height:100%;
+}
+
+body{
+
   min-height:100vh;
+
   font-family:Arial,Helvetica,sans-serif;
+
+  color:#fff;
+
+  position:relative;
+
   background:
+
     radial-gradient(
-      circle at top,
-      rgba(248,213,138,.12),
+      circle at 15% 10%,
+      rgba(255,100,0,.18),
+      transparent 28%
+    ),
+
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(115,15,55,.20),
+      transparent 32%
+    ),
+
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(248,213,138,.08),
       transparent 35%
     ),
+
     linear-gradient(
       145deg,
-      #0b0608,
-      #180b10 55%,
-      #090507
+      #050405 0%,
+      #0b0608 42%,
+      #180b10 72%,
+      #050405 100%
     );
-  color:#fff;
+
+  overflow-x:hidden;
+
 }
+
+
+/* FUNDO DECORATIVO */
+
+body::before{
+
+  content:"";
+
+  position:fixed;
+
+  inset:0;
+
+  pointer-events:none;
+
+  z-index:0;
+
+  background:
+
+    radial-gradient(
+      circle at center,
+      transparent 15%,
+      rgba(0,0,0,.18) 60%,
+      rgba(0,0,0,.72) 100%
+    );
+
+}
+
+
+body::after{
+
+  content:"";
+
+  position:fixed;
+
+  width:380px;
+  height:380px;
+
+  right:-170px;
+  bottom:-150px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,90,0,.07);
+
+  filter:blur(70px);
+
+  pointer-events:none;
+
+  z-index:0;
+
+}
+
+
+/* DECORAÇÕES HALLOWEEN */
+
+.halloween-decoration{
+
+  position:fixed;
+
+  pointer-events:none;
+
+  z-index:1;
+
+  opacity:.08;
+
+  font-size:90px;
+
+  user-select:none;
+
+}
+
+
+.web-left{
+
+  left:-20px;
+
+  top:12%;
+
+  transform:rotate(-12deg);
+
+}
+
+
+.web-right{
+
+  right:-18px;
+
+  bottom:13%;
+
+  transform:rotate(170deg);
+
+}
+
+
+.pumpkin-decoration{
+
+  position:fixed;
+
+  right:22px;
+
+  top:20px;
+
+  font-size:58px;
+
+  opacity:.07;
+
+  pointer-events:none;
+
+  z-index:1;
+
+}
+
+
+/* PÁGINA */
 
 .lux-login-page{
+
   min-height:100vh;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   padding:25px 15px;
+
+  position:relative;
+
+  z-index:2;
+
 }
+
+
+/* CARTÃO */
 
 .lux-login-card{
+
   width:100%;
+
   max-width:470px;
+
   padding:30px 24px;
-  border:1px solid rgba(248,213,138,.35);
+
+  border:
+    1px solid
+    rgba(248,213,138,.32);
+
   border-radius:24px;
-  background:rgba(10,6,8,.92);
+
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(24,14,17,.96),
+      rgba(7,5,7,.97)
+    );
+
   box-shadow:
-    0 20px 60px rgba(0,0,0,.65),
-    0 0 35px rgba(248,213,138,.08);
+
+    0 25px 70px
+    rgba(0,0,0,.70),
+
+    0 0 35px
+    rgba(248,213,138,.08),
+
+    inset 0 1px
+    rgba(255,255,255,.025);
+
   backdrop-filter:blur(12px);
+
+  position:relative;
+
+  overflow:hidden;
+
 }
+
+
+.lux-login-card::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:160px;
+
+  height:160px;
+
+  right:-90px;
+
+  top:-90px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,100,0,.08);
+
+  filter:blur(8px);
+
+  pointer-events:none;
+
+}
+
+
+/* LOGO */
 
 .lux-logo{
+
   text-align:center;
+
   margin-bottom:25px;
+
+  position:relative;
+
+  z-index:2;
+
 }
+
+
+.lux-logo img{
+
+  display:block;
+
+  width:
+    min(190px,65vw);
+
+  max-height:115px;
+
+  object-fit:contain;
+
+  margin:
+    0 auto 7px;
+
+  filter:
+
+    drop-shadow(
+      0 0 18px
+      rgba(248,213,138,.22)
+    );
+
+}
+
 
 .lux-logo h1{
+
   margin:0;
+
   font-size:42px;
+
   letter-spacing:7px;
+
   color:#f8d58a;
+
   text-shadow:
-    0 0 20px rgba(248,213,138,.25);
+
+    0 0 20px
+    rgba(248,213,138,.25);
+
 }
+
 
 .lux-logo p{
+
   margin:8px 0 0;
+
   color:#d7c6a2;
+
   font-size:12px;
+
   letter-spacing:3px;
+
   text-transform:uppercase;
+
 }
 
+
+/* TELAS */
+
 .tela{
+
   display:none;
+
 }
 
 .tela.ativa{
+
   display:block;
+
 }
+
+
+/* TÍTULOS */
 
 h2{
+
   text-align:center;
+
   color:#f8d58a;
+
   margin:0 0 12px;
+
+  text-shadow:
+    0 0 18px
+    rgba(248,213,138,.10);
+
 }
+
 
 .subtitulo{
+
   text-align:center;
+
   color:#cfc5c8;
+
   line-height:1.5;
+
   margin:0 0 22px;
+
   font-size:14px;
+
 }
+
+
+/* BOTÕES */
 
 .botoes{
+
   display:grid;
+
   gap:12px;
+
 }
 
+
 button{
+
   width:100%;
-  border:1px solid rgba(248,213,138,.55);
+
+  border:
+    1px solid
+    rgba(248,213,138,.55);
+
   border-radius:12px;
+
   padding:14px 16px;
+
   background:
+
     linear-gradient(
       135deg,
       #f8d58a,
       #c99b43
     );
+
   color:#140b08;
+
   font-weight:700;
+
   cursor:pointer;
+
   font-size:15px;
+
+  box-shadow:
+
+    0 8px 25px
+    rgba(210,100,0,.15);
+
+  transition:
+    .2s ease;
+
 }
+
+
+button:hover{
+
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+
+    0 10px 30px
+    rgba(255,120,0,.25);
+
+}
+
 
 button.secundario{
-  background:transparent;
+
+  background:
+    rgba(255,255,255,.025);
+
   color:#f8d58a;
+
+  border:
+    1px solid
+    rgba(248,213,138,.25);
+
 }
+
+
+/* FORMULÁRIO */
 
 .formulario{
+
   display:grid;
+
   gap:13px;
+
 }
+
 
 .campo{
+
   display:grid;
+
   gap:6px;
+
 }
+
 
 label{
+
   color:#eadfce;
+
   font-size:13px;
+
 }
+
 
 input{
+
   width:100%;
-  border:1px solid rgba(248,213,138,.22);
+
+  border:
+    1px solid
+    rgba(248,213,138,.22);
+
   border-radius:10px;
+
   padding:13px;
+
   background:#12090d;
+
   color:#fff;
+
   outline:none;
+
   font-size:14px;
+
 }
+
 
 input:focus{
+
   border-color:#f8d58a;
+
   box-shadow:
-    0 0 0 2px rgba(248,213,138,.08);
+
+    0 0 0 2px
+    rgba(248,213,138,.08);
+
 }
+
+
+/* MENSAGENS */
 
 .mensagem{
+
   min-height:22px;
+
   margin:8px 0;
+
   text-align:center;
+
   font-size:13px;
+
   line-height:1.45;
+
 }
 
+
+/* RODAPÉ */
+
 .rodape{
+
   margin-top:25px;
+
   text-align:center;
+
   color:#8f8387;
+
   font-size:11px;
+
 }
+
+
+/* CELULAR */
 
 @media(max-width:480px){
 
   .lux-login-card{
+
     padding:25px 17px;
+
     border-radius:18px;
+
+  }
+
+  .lux-logo img{
+
+    width:
+      min(170px,62vw);
+
+    max-height:100px;
+
   }
 
   .lux-logo h1{
+
     font-size:36px;
+
+  }
+
+  .web-left,
+  .web-right{
+
+    font-size:70px;
+
+  }
+
+  .pumpkin-decoration{
+
+    font-size:45px;
+
+    right:10px;
+
   }
 
 }
 
-</style>
+</style></head><body><!-- DECORAÇÕES HALLOWEEN --><div class="halloween-decoration web-left">
+  🕸️
+</div><div class="halloween-decoration web-right">
+  🕸️
+</div><div class="pumpkin-decoration">
+  🎃
+</div><main class="lux-login-page"><div class="lux-login-card"><div class="lux-logo"><img
+src="./logo4.png"
+alt="LUX — Lux Advance"
 
-</head>
+«»
 
-
-<body>
-
-
-<main class="lux-login-page">
-
-<div class="lux-login-card">
-
-
-<div class="lux-logo">
-
-<h1>LUX</h1>
-
-<p>Lux Advance</p>
-
-</div>
-
-
-<!-- =====================================================
+<p>Lux Advance</p></div><!-- =====================================================
      TELA INICIAL
-     ===================================================== -->
-
-<section
+     ===================================================== --><section
   id="telaInicial"
   class="tela ativa"
->
-
-<h2>Acesso exclusivo</h2>
-
-<p class="subtitulo">
-
-Entre como usuário ou modelo.
+><h2>Acesso exclusivo</h2><p class="subtitulo">Entre como usuário ou modelo.
 <br>
 
 Cada conta recebe uma área própria.
 
-</p>
+</p><div class="botoes"><button
+type="button"
+id="btnJaTenho"
 
+«»
 
-<div class="botoes">
-
-<button
-  type="button"
-  id="btnJaTenho"
->
-  Já tenho cadastro
+Já tenho cadastro
 </button>
 
-
 <button
-  type="button"
-  id="btnNaoTenho"
-  class="secundario"
->
-  Ainda não tenho cadastro
+type="button"
+id="btnNaoTenho"
+class="secundario"
+
+«»
+
+Ainda não tenho cadastro
 </button>
 
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
+</div></section><!-- =====================================================
      LOGIN
-     ===================================================== -->
-
-<section
+     ===================================================== --><section
   id="telaLogin"
   class="tela"
->
-
-<h2>Entrar</h2>
-
-<p class="subtitulo">
+><h2>Entrar</h2><p class="subtitulo">
 Acesse sua conta LUX.
-</p>
-
-
-<form
+</p><form
   id="formLogin"
   class="formulario"
->
-
-<div class="campo">
-
-<label for="loginEmail">
+><div class="campo"><label for="loginEmail">
 E-mail
-</label>
+</label><input
+id="loginEmail"
+type="email"
+autocomplete="email"
+required
 
-<input
-  id="loginEmail"
-  type="email"
-  autocomplete="email"
-  required
->
+«»
 
-</div>
-
-
-<div class="campo">
-
-<label for="loginSenha">
+</div><div class="campo"><label for="loginSenha">
 Senha
-</label>
+</label><input
+id="loginSenha"
+type="password"
+autocomplete="current-password"
+required
 
-<input
-  id="loginSenha"
-  type="password"
-  autocomplete="current-password"
-  required
->
+«»
 
-</div>
-
-
-<div
+</div><div
   id="msgLogin"
   class="mensagem"
-></div>
-
-
-<button type="submit">
+></div><button type="submit">
 Entrar
-</button>
+</button><button
+type="button"
+id="btnVoltarLogin"
+class="secundario"
 
+«»
 
-<button
-  type="button"
-  id="btnVoltarLogin"
-  class="secundario"
->
 Voltar
 </button>
 
-
-</form>
-
-</section>
-
-
-
-<!-- =====================================================
+</form></section><!-- =====================================================
      ESCOLHA DO CADASTRO
-     ===================================================== -->
-
-<section
+     ===================================================== --><section
   id="telaEscolha"
   class="tela"
->
-
-<h2>Criar cadastro</h2>
-
-<p class="subtitulo">
+><h2>Criar cadastro</h2><p class="subtitulo">
 Escolha como deseja utilizar a LUX.
-</p>
+</p><div class="botoes"><button
+type="button"
+id="btnUsuario"
 
+«»
 
-<div class="botoes">
-
-
-<button
-  type="button"
-  id="btnUsuario"
->
 Sou Usuário
 </button>
 
-
 <button
-  type="button"
-  id="btnModelo"
->
+type="button"
+id="btnModelo"
+
+«»
+
 Sou Modelo
 </button>
 
-
 <button
-  type="button"
-  id="btnVoltarEscolha"
-  class="secundario"
->
+type="button"
+id="btnVoltarEscolha"
+class="secundario"
+
+«»
+
 Voltar
 </button>
 
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================================
+</div></section><!-- =====================================================
      CADASTRO DE USUÁRIO
-     ===================================================== -->
-
-<section
+     ===================================================== --><section
   id="telaUsuario"
   class="tela"
->
-
-<h2>Cadastro de Usuário</h2>
-
-<p class="subtitulo">
+><h2>Cadastro de Usuário</h2><p class="subtitulo">
 Crie sua conta para acessar a área exclusiva.
-</p>
-
-
-<form
+</p><form
   id="formUsuario"
   class="formulario"
->
-
-
-<div class="campo">
-
-<label for="usuarioNome">
+><div class="campo"><label for="usuarioNome">
 Nome
-</label>
+</label><input
+id="usuarioNome"
+type="text"
+autocomplete="name"
+required
 
-<input
-  id="usuarioNome"
-  type="text"
-  autocomplete="name"
-  required
->
+«»
 
-</div>
-
-
-<div class="campo">
-
-<label for="usuarioEmail">
+</div><div class="campo"><label for="usuarioEmail">
 E-mail
-</label>
+</label><input
+id="usuarioEmail"
+type="email"
+autocomplete="email"
+required
 
-<input
-  id="usuarioEmail"
-  type="email"
-  autocomplete="email"
-  required
->
+«»
 
-</div>
-
-
-<div class="campo">
-
-<label for="usuarioSenha">
+</div><div class="campo"><label for="usuarioSenha">
 Senha
-</label>
+</label><input
+id="usuarioSenha"
+type="password"
+autocomplete="new-password"
+minlength="6"
+required
 
-<input
-  id="usuarioSenha"
-  type="password"
-  autocomplete="new-password"
-  minlength="6"
-  required
->
+«»
 
-</div>
-
-
-<div class="campo">
-
-<label for="usuarioSenhaConfirmacao">
+</div><div class="campo"><label for="usuarioSenhaConfirmacao">
 Confirmar senha
-</label>
+</label><input
+id="usuarioSenhaConfirmacao"
+type="password"
+autocomplete="new-password"
+minlength="6"
+required
 
-<input
-  id="usuarioSenhaConfirmacao"
-  type="password"
-  autocomplete="new-password"
-  minlength="6"
-  required
->
+«»
 
-</div>
-
-
-<div
+</div><div
   id="msgUsuario"
   class="mensagem"
-></div>
-
-
-<button type="submit">
+></div><button type="submit">
 Criar cadastro
-</button>
+</button><button
+type="button"
+id="btnVoltarUsuario"
+class="secundario"
 
+«»
 
-<button
-  type="button"
-  id="btnVoltarUsuario"
-  class="secundario"
->
 Voltar
 </button>
 
+</form></section><div class="rodape">LUX — Sensualidade & Sofisticação
 
-</form>
-
-</section>
-
-
-<div class="rodape">
-
-LUX — Sensualidade &amp; Sofisticação
-
-</div>
-
-
-</div>
-
-</main>
-
-
-
-<!-- =====================================================
+</div></div></main><!-- =====================================================
      SUPABASE
-     ===================================================== -->
-
-<script
+     ===================================================== --><script
   src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
-
-<script
+></script><script
   src="./config.js?v=5"
-></script>
-
-
-<script
+></script><script
   src="./auth.js?v=10"
-></script>
-
-
-
-<script>
+></script><script>
 
 "use strict";
 
@@ -1407,8 +1672,4 @@ console.log(
   "[LUX LOGIN] Página de acesso pronta."
 );
 
-</script>
-
-</body>
-
-</html>
+</script></body></html>

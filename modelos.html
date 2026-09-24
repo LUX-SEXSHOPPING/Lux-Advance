@@ -3,2438 +3,2281 @@
 
 <head>
 
-<meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1"
->
-
-<title>LUX — Modelos</title>
-
-<link
-  rel="stylesheet"
-  href="app.css"
->
-
-<style>
-
-/* =========================================================
-   LUX ADVANCE — HALLOWEEN
-========================================================= */
-
-:root{
-  --lux-gold:#f8d58a;
-  --lux-pink:#ff4da6;
-  --lux-bg:#080509;
-  --lux-card:#110b10;
-  --lux-text:#f7f2f4;
-  --lux-muted:#b9afb4;
-}
-
-body{
-  min-height:100vh;
-  background:
-    radial-gradient(
-      circle at 50% -10%,
-      rgba(255,77,166,.10),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 100% 50%,
-      rgba(248,213,138,.07),
-      transparent 35%
-    ),
-    linear-gradient(
-      145deg,
-      #050305,
-      #0b0608 45%,
-      #050305
-    );
-  color:var(--lux-text);
-}
-
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.12;
-  background:
-    radial-gradient(
-      circle at 15% 20%,
-      #ff4da6 0 1px,
-      transparent 2px
-    ),
-    radial-gradient(
-      circle at 80% 70%,
-      #f8d58a 0 1px,
-      transparent 2px
-    );
-  background-size:120px 120px,180px 180px;
-  z-index:0;
-}
-
-.topbar,
-.container,
-.footer{
-  position:relative;
-  z-index:1;
-}
-
-
-/* =========================================================
-   CABEÇALHO
-========================================================= */
-
-.topbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  padding:16px 18px;
-  border-bottom:1px solid rgba(248,213,138,.10);
-  background:rgba(5,3,5,.78);
-  backdrop-filter:blur(14px);
-}
-
-.brand{
-  font-family:
-    "Playfair Display",
-    Georgia,
-    serif;
-  font-size:31px;
-  font-weight:700;
-  letter-spacing:6px;
-  text-decoration:none;
-  color:var(--lux-gold);
-}
-
-
-/* =========================================================
-   BOTÃO MINHA ÁREA
-========================================================= */
-
-.btn-voltar-area{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  min-height:42px;
-  padding:0 16px;
-  border-radius:13px;
-  border:1px solid rgba(248,213,138,.24);
-  background:
-    linear-gradient(
-      145deg,
-      rgba(248,213,138,.10),
-      rgba(255,255,255,.025)
-    );
-  color:#f8d58a;
-  text-decoration:none;
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.8px;
-  box-shadow:
-    0 8px 25px rgba(0,0,0,.25);
-  transition:.22s ease;
-  white-space:nowrap;
-}
-
-.btn-voltar-area:hover{
-  transform:translateY(-2px);
-  border-color:rgba(248,213,138,.55);
-  background:
-    linear-gradient(
-      145deg,
-      rgba(248,213,138,.18),
-      rgba(255,255,255,.04)
-    );
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-  text-align:center;
-  max-width:850px;
-  margin:0 auto 25px;
-  padding:30px 12px 10px;
-}
-
-.hero .eyebrow{
-  color:var(--lux-gold);
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:4px;
-  margin-bottom:13px;
-}
-
-.hero .title{
-  font-family:
-    "Playfair Display",
-    Georgia,
-    serif;
-  font-size:
-    clamp(40px,8vw,68px);
-  line-height:1;
-  margin:0 0 16px;
-}
-
-.hero .subtitle{
-  max-width:650px;
-  margin:auto;
-  color:var(--lux-muted);
-  line-height:1.7;
-}
-
-
-/* =========================================================
-   CATEGORIAS
-========================================================= */
-
-.seletor-categorias{
-  display:grid;
-  grid-template-columns:
-    repeat(4,1fr);
-  gap:10px;
-  max-width:900px;
-  margin:15px auto 20px;
-}
-
-.categoria-btn{
-  min-height:52px;
-  border-radius:15px;
-  border:1px solid rgba(248,213,138,.16);
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.055),
-      rgba(255,255,255,.018)
-    );
-  color:#cfc5ca;
-  font-weight:800;
-  font-size:11px;
-  letter-spacing:.8px;
-  cursor:pointer;
-  transition:.22s ease;
-}
-
-.categoria-btn:hover{
-  border-color:rgba(248,213,138,.4);
-  transform:translateY(-2px);
-}
-
-.categoria-btn.ativo{
-  color:#160d10;
-  background:
-    linear-gradient(
-      135deg,
-      #f8d58a,
-      #d4a94e
-    );
-  border-color:#f8d58a;
-}
-
-
-/* =========================================================
-   FILTROS DE LOCALIZAÇÃO
-========================================================= */
-
-.filtros-localizacao{
-  max-width:900px;
-  margin:0 auto 25px;
-  display:grid;
-  grid-template-columns:
-    repeat(3,1fr);
-  gap:10px;
-}
-
-.filtro-local{
-  width:100%;
-  min-height:48px;
-  padding:0 13px;
-  border-radius:13px;
-  border:1px solid rgba(248,213,138,.18);
-  background:rgba(255,255,255,.035);
-  color:#f2e9ec;
-  outline:none;
-  font-size:12px;
-  font-weight:700;
-}
-
-.filtro-local:focus{
-  border-color:rgba(248,213,138,.55);
-  box-shadow:
-    0 0 0 2px
-    rgba(248,213,138,.07);
-}
-
-.filtro-local option{
-  background:#110b10;
-  color:#fff;
-}
-
-
-/* =========================================================
-   CONTADOR
-========================================================= */
-
-.contador-modelos{
-  text-align:center;
-  color:#8f858a;
-  font-size:11px;
-  letter-spacing:1px;
-  margin:-5px 0 22px;
-}
-
-
-/* =========================================================
-   CARD
-========================================================= */
-
-.modelo-card{
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  height:100%;
-  min-width:0;
-  border-radius:23px;
-  background:#110b10;
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:
-    0 18px 50px rgba(0,0,0,.42);
-  transition:.25s ease;
-}
-
-.modelo-card:hover{
-  transform:translateY(-5px);
-}
-
-
-/* =========================================================
-   PLANOS
-========================================================= */
-
-.plano-essence{
-  border-color:rgba(255,255,255,.13);
-}
-
-.plano-essence .plano-topo{
-  background:
-    linear-gradient(
-      135deg,
-      #21151e,
-      #0e090d
-    );
-}
-
-.plano-essence .plano-nome{
-  color:#e6dce0;
-}
-
-
-.plano-desfire{
-  border-color:rgba(255,77,166,.30);
-  box-shadow:
-    0 18px 55px
-    rgba(255,77,166,.08);
-}
-
-.plano-desfire .plano-topo{
-  background:
-    linear-gradient(
-      135deg,
-      #321025,
-      #12070f
-    );
-}
-
-.plano-desfire .plano-nome{
-  color:#ff76bd;
-}
-
-
-.plano-elite{
-  border-color:rgba(248,213,138,.34);
-  box-shadow:
-    0 18px 55px
-    rgba(248,213,138,.10);
-}
-
-.plano-elite .plano-topo{
-  background:
-    linear-gradient(
-      135deg,
-      #352716,
-      #120d08
-    );
-}
-
-.plano-elite .plano-nome{
-  color:#f8d58a;
-}
-
-
-.plano-royal{
-  border-color:rgba(190,130,255,.38);
-  box-shadow:
-    0 18px 60px
-    rgba(145,70,220,.12);
-}
-
-.plano-royal .plano-topo{
-  background:
-    linear-gradient(
-      135deg,
-      #28152f,
-      #0e0712
-    );
-}
-
-.plano-royal .plano-nome{
-  color:#dca7ff;
-}
-
-
-/* DIAMOND */
-
-.plano-diamond{
-  border-color:
-    rgba(126,224,255,.48);
-  box-shadow:
-    0 18px 65px
-    rgba(74,190,255,.13);
-}
-
-.plano-diamond .plano-topo{
-  background:
-    linear-gradient(
-      135deg,
-      #102b36,
-      #071116 55%,
-      #0b1720
-    );
-}
-
-.plano-diamond .plano-nome{
-  color:#9eeaff;
-  text-shadow:
-    0 0 14px
-    rgba(126,224,255,.25);
-}
-
-
-/* =========================================================
-   FOTO
-========================================================= */
-
-.modelo-foto-area{
-  position:relative;
-  width:100%;
-  aspect-ratio:4/4.7;
-  overflow:hidden;
-  background:#0b070a;
-}
-
-.modelo-foto{
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-  transition:transform .4s ease;
-}
-
-.modelo-card:hover
-.modelo-foto{
-  transform:scale(1.035);
-}
-
-.modelo-sem-foto{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--lux-gold);
-  font-family:Georgia,serif;
-  font-size:34px;
-  letter-spacing:6px;
-  background:
-    radial-gradient(
-      circle,
-      rgba(248,213,138,.10),
-      transparent 55%
-    ),
-    #090609;
-}
-
-
-/* =========================================================
-   PLANO TOPO
-========================================================= */
-
-.plano-topo{
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  z-index:2;
-  padding:10px 13px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(0,0,0,.65);
-  backdrop-filter:blur(8px);
-}
-
-.plano-nome{
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:1.4px;
-}
-
-.plano-icone{
-  font-size:13px;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.modelo-status{
-  position:absolute;
-  left:13px;
-  bottom:13px;
-  padding:7px 10px;
-  border-radius:999px;
-  background:rgba(5,3,5,.82);
-  border:1px solid rgba(248,213,138,.20);
-  color:#f8d58a;
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:1px;
-}
-
-
-/* =========================================================
-   CONTEÚDO
-========================================================= */
-
-.modelo-conteudo{
-  display:flex;
-  flex-direction:column;
-  flex:1;
-  padding:18px;
-}
-
-.modelo-etiquetas{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-bottom:11px;
-}
-
-.modelo-etiqueta{
-  padding:5px 8px;
-  border-radius:999px;
-  background:rgba(248,213,138,.06);
-  border:1px solid rgba(248,213,138,.14);
-  color:#c9bfc4;
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:.7px;
-}
-
-.modelo-nome{
-  margin:0;
-  font-family:
-    "Playfair Display",
-    Georgia,
-    serif;
-  font-size:25px;
-  line-height:1.15;
-}
-
-.modelo-local{
-  margin:7px 0 12px;
-  color:#a69ca1;
-  font-size:12px;
-}
-
-
-/* =========================================================
-   AVALIAÇÕES
-========================================================= */
-
-.avaliacao{
-  margin:4px 0 17px;
-  padding:12px 0;
-  border-top:1px solid rgba(255,255,255,.06);
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.avaliacao-titulo{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:7px;
-  color:#91878c;
-  font-size:10px;
-  letter-spacing:.7px;
-}
-
-.estrelas{
-  display:flex;
-  gap:3px;
-}
-
-.estrela{
-  border:0;
-  padding:1px;
-  background:transparent;
-  color:#514950;
-  font-size:25px;
-  line-height:1;
-  cursor:pointer;
-  transition:.15s ease;
-}
-
-.estrela:hover{
-  transform:scale(1.15);
-}
-
-.estrela.ativa{
-  color:#f8d58a;
-  text-shadow:
-    0 0 10px
-    rgba(248,213,138,.35);
-}
-
-.nota-info{
-  color:#8e858a;
-  font-size:9px;
-  margin-top:5px;
-}
-
-
-/* =========================================================
-   WHATSAPP
-========================================================= */
-
-.modelo-acoes{
-  margin-top:auto;
-}
-
-.btn-chamar-modelo{
-  width:100%;
-  min-height:46px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  border:0;
-  border-radius:12px;
-  background:
-    linear-gradient(
-      135deg,
-      #f8d58a,
-      #d6ab55
-    );
-  color:#160d10;
-  font-weight:900;
-  font-size:11px;
-  letter-spacing:.8px;
-  cursor:pointer;
-  transition:.2s ease;
-}
-
-.btn-chamar-modelo:hover{
-  transform:translateY(-2px);
-  filter:brightness(1.07);
-}
-
-.btn-chamar-modelo.indisponivel{
-  background:rgba(255,255,255,.04);
-  color:#777077;
-  border:1px solid rgba(255,255,255,.07);
-  cursor:default;
-}
-
-
-/* =========================================================
-   MENSAGEM
-========================================================= */
-
-.mensagem-vazia{
-  width:100%;
-  padding:50px 20px;
-  text-align:center;
-  border-radius:20px;
-  border:1px solid rgba(248,213,138,.12);
-  background:rgba(255,255,255,.025);
-  color:#a69ca1;
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:700px){
-
-  .seletor-categorias{
-    grid-template-columns:
-      repeat(2,1fr);
-  }
-
-  .filtros-localizacao{
-    grid-template-columns:1fr;
-  }
-
-}
-
-@media(max-width:520px){
-
-  .topbar{
-    padding:13px 12px;
-  }
-
-  .brand{
-    font-size:27px;
-  }
-
-  .btn-voltar-area{
-    font-size:9px;
-    padding:0 11px;
-  }
-
-}
-
-@media(max-width:430px){
-
-  .seletor-categorias{
-    grid-template-columns:1fr;
-  }
-
-  .hero .title{
-    font-size:43px;
-  }
-
-}
-
-</style>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0b0608"
+  >
+
+  <meta
+    name="description"
+    content="LUX Advance — Modelos"
+  >
+
+  <title>LUX — Modelos</title>
+
+  <link
+    rel="stylesheet"
+    href="./app.css"
+  >
+
+  <style>
+
+    /* =========================================================
+       LUX — MODELOS
+       Interface visual aprimorada
+       ========================================================= */
+
+    :root {
+      --lux-bg: #0b0608;
+      --lux-bg-2: #12090d;
+      --lux-card: rgba(25, 13, 18, .94);
+      --lux-card-2: rgba(18, 9, 13, .98);
+      --lux-gold: #f5d58c;
+      --lux-gold-2: #c9a227;
+      --lux-text: #f7f0f2;
+      --lux-muted: #b9afb4;
+      --lux-border: rgba(245, 213, 140, .18);
+      --lux-pink: #ff4da6;
+      --lux-green: #25d366;
+      --lux-shadow: 0 18px 50px rgba(0,0,0,.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(201,162,39,.13),
+          transparent 38%
+        ),
+        radial-gradient(
+          circle at 0% 40%,
+          rgba(255,77,166,.05),
+          transparent 28%
+        ),
+        var(--lux-bg);
+
+      color: var(--lux-text);
+    }
+
+    /* =========================================================
+       CABEÇALHO
+       ========================================================= */
+
+    .lux-modelos-topbar {
+      width: 100%;
+      padding: 14px 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(11,6,8,.98),
+          rgba(11,6,8,.90)
+        );
+
+      border-bottom: 1px solid var(--lux-border);
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .lux-brand {
+      text-decoration: none;
+      color: var(--lux-gold);
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: 4px;
+
+      text-shadow:
+        0 0 18px rgba(245,213,140,.16);
+    }
+
+    .lux-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lux-top-button {
+      min-height: 40px;
+      padding: 9px 14px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 999px;
+
+      border: 1px solid var(--lux-border);
+
+      background: rgba(255,255,255,.035);
+
+      color: var(--lux-text);
+
+      text-decoration: none;
+
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .7px;
+
+      transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+    }
+
+    .lux-top-button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(245,213,140,.45);
+      background: rgba(245,213,140,.08);
+    }
+
+    .lux-top-button.gold {
+      color: #130b0e;
+      background: linear-gradient(
+        135deg,
+        #f8d98f,
+        #c9a227
+      );
+      border-color: #f5d58c;
+    }
+
+    /* =========================================================
+       CONTEÚDO
+       ========================================================= */
+
+    .lux-modelos-container {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 34px 0 50px;
+    }
+
+    .lux-modelos-hero {
+      text-align: center;
+      padding: 15px 8px 28px;
+    }
+
+    .lux-eyebrow {
+      color: var(--lux-gold);
+
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 4px;
+
+      margin-bottom: 9px;
+
+      text-transform: uppercase;
+    }
+
+    .lux-modelos-title {
+      margin: 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: clamp(34px, 7vw, 58px);
+
+      line-height: 1.05;
+
+      color: #fff;
+
+      letter-spacing: 1px;
+    }
+
+    .lux-modelos-subtitle {
+      max-width: 650px;
+
+      margin: 13px auto 0;
+
+      color: var(--lux-muted);
+
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       PAINEL DE FILTROS
+       ========================================================= */
+
+    .lux-filter-panel {
+      margin-bottom: 25px;
+
+      padding: 18px;
+
+      border: 1px solid var(--lux-border);
+
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.045),
+          rgba(255,255,255,.015)
+        );
+
+      box-shadow: var(--lux-shadow);
+    }
+
+    .lux-filter-title {
+      margin: 0 0 13px;
+
+      color: var(--lux-gold);
+
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+    }
+
+    .lux-filter-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(180px, 1.5fr)
+        repeat(3, minmax(140px, 1fr));
+
+      gap: 10px;
+    }
+
+    .lux-input,
+    .lux-select {
+      width: 100%;
+
+      min-height: 45px;
+
+      padding: 11px 13px;
+
+      border-radius: 12px;
+
+      border: 1px solid rgba(245,213,140,.14);
+
+      outline: none;
+
+      background: #10080b;
+
+      color: #f5eef1;
+
+      font-size: 13px;
+    }
+
+    .lux-input::placeholder {
+      color: #766b71;
+    }
+
+    .lux-input:focus,
+    .lux-select:focus {
+      border-color: rgba(245,213,140,.48);
+
+      box-shadow:
+        0 0 0 3px rgba(245,213,140,.06);
+    }
+
+    .lux-select option {
+      background: #10080b;
+      color: #fff;
+    }
+
+    .lux-results-info {
+      margin-top: 12px;
+
+      color: #887c82;
+
+      font-size: 11px;
+    }
+
+    .lux-results-info strong {
+      color: var(--lux-gold);
+    }
+
+    /* =========================================================
+       LISTA
+       ========================================================= */
+
+    .lux-modelos-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fill, minmax(245px, 1fr));
+
+      gap: 20px;
+    }
+
+    /* =========================================================
+       CARD DA MODELO
+       ========================================================= */
+
+    .lux-model-card {
+      position: relative;
+
+      overflow: hidden;
+
+      border-radius: 20px;
+
+      border: 1px solid var(--lux-border);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(31,16,22,.98),
+          rgba(15,8,11,.99)
+        );
+
+      box-shadow: var(--lux-shadow);
+
+      transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+    }
+
+    .lux-model-card:hover {
+      transform: translateY(-5px);
+
+      border-color:
+        rgba(245,213,140,.42);
+
+      box-shadow:
+        0 24px 60px rgba(0,0,0,.56);
+    }
+
+    /* =========================================================
+       FOTO
+       ========================================================= */
+
+    .lux-photo-wrap {
+      position: relative;
+
+      width: 100%;
+      height: 315px;
+
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(245,213,140,.10),
+          transparent 60%
+        ),
+        #10080b;
+    }
+
+    .lux-model-photo {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+
+      object-position: center;
+
+      transition:
+        transform .45s ease;
+    }
+
+    .lux-model-card:hover .lux-model-photo {
+      transform: scale(1.035);
+    }
+
+    .lux-photo-fallback {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: var(--lux-gold);
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 40px;
+
+      letter-spacing: 6px;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(245,213,140,.12),
+          transparent 55%
+        );
+    }
+
+    /* =========================================================
+       SELO — MANTO SOBRE A FOTO
+       Fica no canto superior direito sem cobrir a modelo.
+       ========================================================= */
+
+    .lux-selo-manto {
+      position: absolute;
+
+      top: 15px;
+      right: -35px;
+
+      z-index: 4;
+
+      width: 150px;
+
+      padding: 8px 8px;
+
+      text-align: center;
+
+      color: #130b0d;
+
+      font-size: 10px;
+      font-weight: 900;
+
+      letter-spacing: 1.2px;
+
+      text-transform: uppercase;
+
+      background:
+        linear-gradient(
+          135deg,
+          #fff0bb 0%,
+          #f5d58c 38%,
+          #c9a227 100%
+        );
+
+      border-top: 1px solid rgba(255,255,255,.65);
+      border-bottom: 1px solid rgba(72,49,0,.4);
+
+      box-shadow:
+        0 5px 18px rgba(0,0,0,.35);
+
+      transform: rotate(38deg);
+
+      white-space: nowrap;
+
+      pointer-events: none;
+    }
+
+    .lux-selo-manto::before,
+    .lux-selo-manto::after {
+      content: "";
+
+      position: absolute;
+
+      width: 7px;
+      height: 7px;
+
+      top: 50%;
+
+      transform: translateY(-50%) rotate(45deg);
+
+      background: #8e7118;
+    }
+
+    .lux-selo-manto::before {
+      left: 9px;
+    }
+
+    .lux-selo-manto::after {
+      right: 9px;
+    }
+
+    /* =========================================================
+       CORPO DO CARD
+       ========================================================= */
+
+    .lux-card-body {
+      padding: 16px 16px 17px;
+    }
+
+    .lux-card-top {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 8px;
+
+      margin-bottom: 9px;
+    }
+
+    .lux-plan {
+      display: inline-flex;
+
+      align-items: center;
+
+      min-height: 27px;
+
+      padding: 5px 9px;
+
+      border-radius: 999px;
+
+      border: 1px solid rgba(245,213,140,.25);
+
+      background: rgba(245,213,140,.07);
+
+      color: var(--lux-gold);
+
+      font-size: 9px;
+      font-weight: 900;
+
+      letter-spacing: .8px;
+    }
+
+    .lux-verified {
+      color: #f8d58a;
+
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .lux-model-name {
+      margin: 0;
+
+      color: #fff;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 25px;
+
+      line-height: 1.1;
+    }
+
+    .lux-location {
+      display: flex;
+
+      align-items: center;
+
+      gap: 6px;
+
+      margin: 9px 0 0;
+
+      color: var(--lux-muted);
+
+      font-size: 12px;
+
+      line-height: 1.5;
+    }
+
+    .lux-location-icon {
+      color: var(--lux-gold);
+    }
+
+    .lux-stars {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 8px;
+
+      margin-top: 14px;
+
+      padding-top: 12px;
+
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .lux-stars-count {
+      color: #d8cbd0;
+
+      font-size: 12px;
+    }
+
+    .lux-stars-count strong {
+      color: var(--lux-gold);
+
+      font-size: 14px;
+    }
+
+    .lux-rate-button {
+      min-height: 34px;
+
+      padding: 7px 11px;
+
+      border-radius: 999px;
+
+      border: 1px solid rgba(245,213,140,.28);
+
+      background: rgba(245,213,140,.06);
+
+      color: var(--lux-gold);
+
+      cursor: pointer;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      transition:
+        background .2s ease,
+        transform .2s ease;
+    }
+
+    .lux-rate-button:hover {
+      background: rgba(245,213,140,.13);
+      transform: translateY(-1px);
+    }
+
+    .lux-rate-button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    /* =========================================================
+       WHATSAPP
+       ========================================================= */
+
+    .lux-whatsapp {
+      width: 100%;
+
+      min-height: 43px;
+
+      margin-top: 13px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      border-radius: 12px;
+
+      border: 1px solid rgba(37,211,102,.25);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(37,211,102,.14),
+          rgba(37,211,102,.05)
+        );
+
+      color: #baf5cf;
+
+      text-decoration: none;
+
+      font-size: 11px;
+
+      font-weight: 900;
+
+      letter-spacing: .8px;
+
+      transition:
+        transform .2s ease,
+        background .2s ease;
+    }
+
+    .lux-whatsapp:hover {
+      transform: translateY(-1px);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(37,211,102,.22),
+          rgba(37,211,102,.08)
+        );
+    }
+
+    /* =========================================================
+       ESTADOS
+       ========================================================= */
+
+    .lux-status-box {
+      grid-column: 1 / -1;
+
+      padding: 48px 20px;
+
+      text-align: center;
+
+      border-radius: 20px;
+
+      border: 1px dashed rgba(245,213,140,.18);
+
+      background: rgba(255,255,255,.018);
+
+      color: var(--lux-muted);
+    }
+
+    .lux-status-icon {
+      margin-bottom: 12px;
+
+      color: var(--lux-gold);
+
+      font-size: 31px;
+    }
+
+    .lux-status-title {
+      color: #fff;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 21px;
+    }
+
+    .lux-status-text {
+      margin-top: 7px;
+
+      color: #8f8389;
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+    .lux-notice {
+      margin-bottom: 18px;
+
+      padding: 12px 15px;
+
+      border-radius: 12px;
+
+      border: 1px solid rgba(245,213,140,.18);
+
+      background: rgba(245,213,140,.05);
+
+      color: #e8d9c0;
+
+      font-size: 12px;
+
+      line-height: 1.5;
+    }
+
+    .lux-notice.error {
+      border-color: rgba(255,77,166,.22);
+      background: rgba(255,77,166,.05);
+    }
+
+    /* =========================================================
+       RODAPÉ
+       ========================================================= */
+
+    .lux-footer {
+      padding: 30px 18px 45px;
+
+      text-align: center;
+
+      color: #665b61;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 12px;
+
+      letter-spacing: 1px;
+    }
+
+    /* =========================================================
+       CELULAR
+       ========================================================= */
+
+    @media (max-width: 760px) {
+
+      .lux-filter-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .lux-filter-grid .lux-input {
+        grid-column: 1 / -1;
+      }
+
+      .lux-photo-wrap {
+        height: 330px;
+      }
+
+      .lux-modelos-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+
+        gap: 12px;
+      }
+
+      .lux-card-body {
+        padding: 13px;
+      }
+
+      .lux-model-name {
+        font-size: 20px;
+      }
+
+      .lux-stars {
+        display: block;
+      }
+
+      .lux-rate-button {
+        width: 100%;
+        margin-top: 9px;
+      }
+
+    }
+
+    @media (max-width: 470px) {
+
+      .lux-modelos-container {
+        width: min(100% - 20px, 1180px);
+        padding-top: 22px;
+      }
+
+      .lux-modelos-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lux-photo-wrap {
+        height: 390px;
+      }
+
+      .lux-filter-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lux-filter-grid .lux-input {
+        grid-column: auto;
+      }
+
+      .lux-top-button {
+        padding: 8px 10px;
+        font-size: 9px;
+      }
+
+      .lux-brand {
+        font-size: 21px;
+      }
+
+    }
+
+  </style>
 
 </head>
 
 
 <body>
 
-
-<header class="topbar">
-
-  <a
-    class="brand"
-    href="index.html"
-  >
-    LUX
-  </a>
-
-
-  <a
-    class="btn-voltar-area"
-    href="painel-usuario.html"
-  >
-    ← MINHA ÁREA
-  </a>
-
-</header>
-
-
-<main class="container">
-
-
-<section class="hero">
-
-  <div class="eyebrow">
-    LUX — HALLOWEEN EDITION
-  </div>
-
-  <h1 class="title">
-    Modelos
-  </h1>
-
-  <p class="subtitle">
-    Explore os perfis disponíveis na LUX,
-    escolha uma categoria e encontre
-    sua conexão.
-  </p>
-
-</section>
-
-
-<section
-  class="seletor-categorias"
-  aria-label="Categorias"
->
-
-  <button
-    type="button"
-    class="categoria-btn ativo"
-    data-categoria="todos"
-  >
-    ✦ TODOS
-  </button>
-
-  <button
-    type="button"
-    class="categoria-btn"
-    data-categoria="feminino"
-  >
-    ♀ FEMININAS
-  </button>
-
-  <button
-    type="button"
-    class="categoria-btn"
-    data-categoria="masculino"
-  >
-    ♂ MASCULINOS
-  </button>
-
-  <button
-    type="button"
-    class="categoria-btn"
-    data-categoria="lgbtq"
-  >
-    ♡ LGBTQ+
-  </button>
-
-</section>
-
-
-<!-- =====================================================
-     FILTROS
-===================================================== -->
-
-<section
-  class="filtros-localizacao"
-  aria-label="Filtros de localização"
->
-
-  <select
-    id="filtroPais"
-    class="filtro-local"
-  >
-
-    <option value="">
-      🌎 TODOS OS PAÍSES
-    </option>
-
-  </select>
-
-
-  <select
-    id="filtroEstado"
-    class="filtro-local"
-  >
-
-    <option value="">
-      📍 TODOS OS ESTADOS
-    </option>
-
-  </select>
-
-
-  <select
-    id="filtroCidade"
-    class="filtro-local"
-  >
-
-    <option value="">
-      🏙️ TODAS AS CIDADES
-    </option>
-
-  </select>
-
-</section>
-
-
-<div
-  id="contadorModelos"
-  class="contador-modelos"
->
-  CARREGANDO MODELOS...
-</div>
-
-
-<section
-  id="listaModelos"
-  class="grid"
->
-
-  <div class="empty">
-    Carregando modelos...
-  </div>
-
-</section>
-
-
-</main>
-
-
-<footer class="footer">
-
-  LUX — SENSUALIDADE &amp; SOFISTICAÇÃO
-
-</footer>
-
-
-<!-- =====================================================
-     SUPABASE
-===================================================== -->
-
-<script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
-
-<script
-  src="./config.js?v=5"
-></script>
-
-
-<script
-  src="./auth.js?v=10"
-></script>
-
-
-<script>
-
-/* =========================================================
-   VARIÁVEIS
-========================================================= */
-
-let modelosLUX = [];
-
-let categoriaAtual = "todos";
-
-
-/* =========================================================
-   SEGURANÇA HTML
-========================================================= */
-
-function escapeHTML(valor){
-
-  return String(valor ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-/* =========================================================
-   CATEGORIA
-========================================================= */
-
-function normalizarCategoria(valor){
-
-  const texto =
-    String(valor || "")
-      .toLowerCase()
-      .trim()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g,"");
-
-
-  if(
-    texto.includes("lgbt") ||
-    texto.includes("gay") ||
-    texto.includes("trans") ||
-    texto.includes("queer")
-  ){
-
-    return "lgbtq";
-
-  }
-
-
-  if(
-    texto.includes("mascul") ||
-    texto === "homem"
-  ){
-
-    return "masculino";
-
-  }
-
-
-  if(
-    texto.includes("feminin") ||
-    texto === "mulher"
-  ){
-
-    return "feminino";
-
-  }
-
-
-  return texto || "feminino";
-
-}
-
-
-/* =========================================================
-   PLANO
-========================================================= */
-
-function obterPlano(modelo){
-
-  const plano =
-    String(
-      modelo.plano ||
-      modelo.plano_atual ||
-      modelo.nome_plano ||
-      modelo.assinatura ||
-      modelo.plano_codigo ||
-      modelo.selo_codigo ||
-      "ESSENCE"
-    )
-    .toLowerCase()
-    .trim();
-
-
-  if(plano.includes("diamond"))
-    return "DIAMOND";
-
-
-  if(plano.includes("royal"))
-    return "ROYAL";
-
-
-  if(plano.includes("elite"))
-    return "ELITE";
-
-
-  if(plano.includes("desfire"))
-    return "DESFIRE";
-
-
-  return "ESSENCE";
-
-}
-
-
-/* =========================================================
-   WHATSAPP
-========================================================= */
-
-function numeroWhatsApp(valor){
-
-  return String(valor || "")
-    .replace(/\D/g,"");
-
-}
-
-
-function chamarModelo(modelo){
-
-  const numero =
-    numeroWhatsApp(
-
-      modelo.whatsapp ||
-
-      modelo.telefone ||
-
-      modelo.celular
-
-    );
-
-
-  if(!numero){
-
-    alert(
-      "Esta modelo ainda não possui um número de WhatsApp disponível."
-    );
-
-    return;
-
-  }
-
-
-  const mensagem =
-    "Olá! Encontrei seu perfil na LUX e gostaria de falar com você.";
-
-
-  const url =
-    "https://wa.me/" +
-    numero +
-    "?text=" +
-    encodeURIComponent(
-      mensagem
-    );
-
-
-  window.open(
-    url,
-    "_blank",
-    "noopener,noreferrer"
-  );
-
-}
-
-
-/* =========================================================
-   USUÁRIO LOGADO
-========================================================= */
-
-async function obterUsuario(){
-
-  try{
-
-    if(!window.luxSupabase){
-
-      return null;
-
-    }
-
-
-    const resposta =
-      await window.luxSupabase
-        .auth
-        .getUser();
-
-
-    if(resposta.error){
-
-      console.error(
-        "[LUX USUÁRIO]",
-        resposta.error
-      );
-
-      return null;
-
-    }
-
-
-    return
-      resposta.data?.user ||
-      null;
-
-  }
-  catch(erro){
-
-    console.error(
-      "[LUX USUÁRIO]",
-      erro
-    );
-
-    return null;
-
-  }
-
-}
-
-
-/* =========================================================
-   AVALIAÇÃO
-   1 ESTRELINHA POR USUÁRIO / MODELO
-========================================================= */
-
-async function avaliarModelo(
-  modeloId
-){
-
-  const usuario =
-    await obterUsuario();
-
-
-  if(!usuario){
-
-    alert(
-      "Sua sessão não foi encontrada. Entre novamente na sua área para avaliar."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    /*
-     * Verifica se o usuário
-     * já avaliou esta modelo.
-     */
-
-    const {
-      data:existente,
-      error:erroBusca
-    } =
-      await window.luxSupabase
-
-        .from("avaliacoes_modelos")
-
-        .select("id")
-
-        .eq(
-          "modelo_id",
-          modeloId
-        )
-
-        .eq(
-          "usuario_id",
-          usuario.id
-        )
-
-        .maybeSingle();
-
-
-    if(erroBusca){
-
-      throw erroBusca;
-
-    }
-
-
-    if(existente){
-
-      alert(
-        "Você já avaliou este perfil. Cada usuário pode dar uma avaliação por modelo."
-      );
-
-      return;
-
-    }
-
-
-    /*
-     * A tabela do seu sistema
-     * usa valor = 1.
-     */
-
-    const {
-      error
-    } =
-      await window.luxSupabase
-
-        .from("avaliacoes_modelos")
-
-        .insert({
-
-          modelo_id:
-            modeloId,
-
-          usuario_id:
-            usuario.id,
-
-          valor:
-            1
-
-        });
-
-
-    if(error){
-
-      console.error(
-        "[LUX AVALIAÇÃO]",
-        error
-      );
-
-      throw error;
-
-    }
-
-
-    /*
-     * Recarrega os modelos para
-     * atualizar a quantidade.
-     */
-
-    await carregarModelos();
-
-
-    alert(
-      "Sua avaliação foi registrada com sucesso. ⭐"
-    );
-
-
-  }
-  catch(erro){
-
-    console.error(
-      "[LUX AVALIAÇÃO]",
-      erro
-    );
-
-
-    alert(
-      erro?.message ||
-      "Não foi possível registrar sua avaliação."
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   ESTRELA
-========================================================= */
-
-function htmlEstrelas(modelo){
-
-  const total =
-    Number(
-      modelo.estrelas_total ||
-      modelo.avaliacoes_total ||
-      0
-    );
-
-
-  return `
-
-    <div class="estrelas">
-
-      <button
-        type="button"
-        class="estrela ativa"
-        data-avaliar-id="${escapeHTML(modelo.id)}"
-        aria-label="Avaliar modelo com uma estrela"
-        title="Avaliar com 1 estrela"
+  <!-- =======================================================
+       CABEÇALHO
+       ======================================================= -->
+
+  <header class="lux-modelos-topbar">
+
+    <a
+      class="lux-brand"
+      href="index.html"
+      aria-label="LUX"
+    >
+      LUX
+    </a>
+
+    <div class="lux-top-actions">
+
+      <a
+        class="lux-top-button gold"
+        href="painel-usuario.html"
       >
-        ★
-      </button>
+        ← MINHA ÁREA
+      </a>
 
     </div>
 
-
-    <div class="nota-info">
-
-      ${
-        total > 0
-
-        ? total +
-          (
-            total === 1
-              ? " avaliação"
-              : " avaliações"
-          )
-
-        : "Ainda não avaliada"
-      }
-
-      • 1 estrelinha por usuário
-
-    </div>
-
-  `;
-
-}
+  </header>
 
 
-/* =========================================================
-   RENDER
-========================================================= */
+  <!-- =======================================================
+       CONTEÚDO
+       ======================================================= -->
 
-function renderModelos(){
+  <main class="lux-modelos-container">
 
-  const lista =
-    document.getElementById(
-      "listaModelos"
-    );
+    <section class="lux-modelos-hero">
 
+      <div class="lux-eyebrow">
+        LUX ADVANCE
+      </div>
 
-  const contador =
-    document.getElementById(
-      "contadorModelos"
-    );
+      <h1 class="lux-modelos-title">
+        Modelos
+      </h1>
 
+      <p class="lux-modelos-subtitle">
+        Conheça os perfis disponíveis na LUX e encontre sua experiência.
+      </p>
 
-  const paisFiltro =
-    document.getElementById(
-      "filtroPais"
-    )?.value || "";
-
-
-  const estadoFiltro =
-    document.getElementById(
-      "filtroEstado"
-    )?.value || "";
+    </section>
 
 
-  const cidadeFiltro =
-    document.getElementById(
-      "filtroCidade"
-    )?.value || "";
+    <!-- =====================================================
+         AVISO
+         ===================================================== -->
+
+    <div
+      id="mensagem"
+      class="lux-notice"
+      hidden
+    ></div>
 
 
-  const filtrados =
-    modelosLUX.filter(
-      modelo => {
+    <!-- =====================================================
+         FILTROS
+         ===================================================== -->
 
+    <section class="lux-filter-panel">
 
-        /*
-         * CATEGORIA
-         */
+      <h2 class="lux-filter-title">
+        Encontrar uma modelo
+      </h2>
 
-        if(
-          categoriaAtual !==
-          "todos"
-        ){
+      <div class="lux-filter-grid">
 
-          if(
-            normalizarCategoria(
-              modelo.categoria_catalogo
-            ) !==
-            categoriaAtual
-          ){
+        <input
+          id="filtroBusca"
+          class="lux-input"
+          type="search"
+          placeholder="Pesquisar por nome..."
+          autocomplete="off"
+        >
 
-            return false;
+        <select
+          id="filtroPais"
+          class="lux-select"
+        >
+          <option value="">
+            Todos os países
+          </option>
+        </select>
 
-          }
+        <select
+          id="filtroEstado"
+          class="lux-select"
+        >
+          <option value="">
+            Todos os estados
+          </option>
+        </select>
 
-        }
-
-
-        /*
-         * LOCALIZAÇÃO
-         */
-
-        const paisModelo =
-          String(
-            modelo.pais ||
-            "Brasil"
-          ).trim();
-
-
-        const estadoModelo =
-          String(
-            modelo.estado ||
-            ""
-          ).trim();
-
-
-        const cidadeModelo =
-          String(
-            modelo.cidade ||
-            ""
-          ).trim();
-
-
-        if(
-          paisFiltro &&
-          paisModelo.toLowerCase() !==
-          paisFiltro.toLowerCase()
-        ){
-
-          return false;
-
-        }
-
-
-        if(
-          estadoFiltro &&
-          estadoModelo.toLowerCase() !==
-          estadoFiltro.toLowerCase()
-        ){
-
-          return false;
-
-        }
-
-
-        if(
-          cidadeFiltro &&
-          cidadeModelo.toLowerCase() !==
-          cidadeFiltro.toLowerCase()
-        ){
-
-          return false;
-
-        }
-
-
-        return true;
-
-      }
-    );
-
-
-  contador.textContent =
-    filtrados.length +
-    (
-      filtrados.length === 1
-        ? " MODELO DISPONÍVEL"
-        : " MODELOS DISPONÍVEIS"
-    );
-
-
-  if(!filtrados.length){
-
-    lista.innerHTML = `
-
-      <div
-        class="mensagem-vazia"
-      >
-
-        Nenhum modelo aprovado
-        encontrado com os filtros selecionados.
+        <select
+          id="filtroCidade"
+          class="lux-select"
+        >
+          <option value="">
+            Todas as cidades
+          </option>
+        </select>
 
       </div>
 
-    `;
+      <div
+        id="resultadoInfo"
+        class="lux-results-info"
+      >
+        Carregando modelos...
+      </div>
 
-    return;
-
-  }
-
-
-  lista.innerHTML =
-    filtrados.map(
-      modelo => {
+    </section>
 
 
-        const nome =
-          escapeHTML(
-            modelo.nome_exibicao ||
-            "Modelo"
-          );
+    <!-- =====================================================
+         MODELOS
+         ===================================================== -->
+
+    <section
+      id="listaModelos"
+      class="lux-modelos-grid"
+    >
+
+      <div class="lux-status-box">
+
+        <div class="lux-status-icon">
+          ◇
+        </div>
+
+        <div class="lux-status-title">
+          Carregando modelos
+        </div>
+
+        <div class="lux-status-text">
+          Aguarde enquanto buscamos os perfis disponíveis.
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
 
 
-        const cidade =
-          escapeHTML(
-            modelo.cidade ||
-            "Disponível na LUX"
-          );
+  <!-- =======================================================
+       RODAPÉ
+       ======================================================= -->
+
+  <footer class="lux-footer">
+    LUX — Sensualidade & Sofisticação
+  </footer>
 
 
-        const estado =
-          escapeHTML(
-            modelo.estado ||
-            ""
-          );
+  <!-- =======================================================
+       SUPABASE
+       ======================================================= -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="./config.js?v=5"></script>
+
+  <script src="./auth.js?v=10"></script>
 
 
-        const pais =
-          escapeHTML(
-            modelo.pais ||
-            "Brasil"
-          );
+  <script>
+
+    /* =========================================================
+       CONFIGURAÇÕES
+       ========================================================= */
+
+    const WHATSAPP_LUX = "5551980612941";
+
+    let todosModelos = [];
+
+    let usuarioAtual = null;
 
 
-        const foto =
-          modelo.foto_url ||
-          "";
+    /* =========================================================
+       SEGURANÇA HTML
+       ========================================================= */
+
+    function escapeHTML(valor) {
+
+      return String(valor ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
 
 
-        const plano =
-          obterPlano(
-            modelo
-          );
+    /* =========================================================
+       NORMALIZAÇÃO
+       ========================================================= */
+
+    function textoNormalizado(valor) {
+
+      return String(valor ?? "")
+        .trim()
+        .toLowerCase();
+
+    }
 
 
-        const categoria =
-          normalizarCategoria(
-            modelo.categoria_catalogo
-          );
+    function valorLocalizacao(modelo, campo) {
+
+      return String(modelo?.[campo] ?? "").trim();
+
+    }
 
 
-        const numero =
-          numeroWhatsApp(
+    /* =========================================================
+       MENSAGENS
+       ========================================================= */
 
-            modelo.whatsapp ||
+    function mostrarMensagem(texto, erro = false) {
 
-            modelo.telefone ||
+      const elemento =
+        document.getElementById("mensagem");
 
-            modelo.celular
+      if (!elemento) return;
 
-          );
+      elemento.textContent = texto;
+
+      elemento.hidden = false;
+
+      elemento.classList.toggle(
+        "error",
+        erro
+      );
+
+    }
 
 
-        const classePlano =
-          "plano-" +
-          plano.toLowerCase();
+    function esconderMensagem() {
+
+      const elemento =
+        document.getElementById("mensagem");
+
+      if (!elemento) return;
+
+      elemento.hidden = true;
+
+    }
 
 
-        let iconePlano =
-          "✦";
+    /* =========================================================
+       SESSÃO
+       ========================================================= */
 
+    async function obterUsuarioAtual() {
 
-        if(
-          plano === "DESFIRE"
-        ){
+      try {
 
-          iconePlano =
-            "🔥";
-
+        if (!window.luxSupabase) {
+          return null;
         }
 
+        const {
+          data: sessaoData
+        } =
+          await window.luxSupabase.auth.getSession();
 
-        if(
-          plano === "ELITE"
-        ){
+        const sessao =
+          sessaoData?.session;
 
-          iconePlano =
-            "♛";
-
+        if (!sessao?.user) {
+          return null;
         }
 
+        const {
+          data,
+          error
+        } =
+          await window.luxSupabase.auth.getUser();
 
-        if(
-          plano === "ROYAL"
-        ){
+        if (error) {
+          console.warn(
+            "[LUX] getUser:",
+            error.message
+          );
 
-          iconePlano =
-            "♕";
-
+          return sessao.user;
         }
 
+        return data?.user || sessao.user;
 
-        if(
-          plano === "DIAMOND"
-        ){
+      } catch (erro) {
 
-          iconePlano =
-            "💎";
-
-        }
-
-
-        const fotoHTML =
-          foto
-
-          ? `
-
-            <img
-              class="modelo-foto"
-              src="${escapeHTML(foto)}"
-              alt="${nome}"
-              loading="lazy"
-            >
-
-          `
-
-          : `
-
-            <div
-              class="modelo-sem-foto"
-            >
-              LUX
-            </div>
-
-          `;
-
-
-        const whatsappHTML =
-          numero
-
-          ? `
-
-            <button
-              type="button"
-              class="btn-chamar-modelo"
-              data-whatsapp-id="${escapeHTML(modelo.id)}"
-            >
-              📱 CHAMAR NO WHATSAPP
-            </button>
-
-          `
-
-          : `
-
-            <div
-              class="btn-chamar-modelo indisponivel"
-            >
-              WhatsApp indisponível
-            </div>
-
-          `;
-
-
-        return `
-
-          <article
-            class="
-              modelo-card
-              ${classePlano}
-            "
-          >
-
-
-            <div
-              class="modelo-foto-area"
-            >
-
-
-              <div
-                class="plano-topo"
-              >
-
-                <span
-                  class="plano-nome"
-                >
-
-                  ${iconePlano}
-
-                  LUX ${plano}
-
-                </span>
-
-
-                <span
-                  class="plano-icone"
-                >
-                  🎃
-                </span>
-
-              </div>
-
-
-              ${fotoHTML}
-
-
-              <div
-                class="modelo-status"
-              >
-                ✓ PERFIL APROVADO
-              </div>
-
-
-            </div>
-
-
-            <div
-              class="modelo-conteudo"
-            >
-
-
-              <div
-                class="modelo-etiquetas"
-              >
-
-                <span
-                  class="modelo-etiqueta"
-                >
-
-                  ${
-                    categoria ===
-                    "feminino"
-
-                    ? "♀ FEMININA"
-
-                    : categoria ===
-                    "masculino"
-
-                    ? "♂ MASCULINO"
-
-                    : "♡ LGBTQ+"
-                  }
-
-                </span>
-
-
-                <span
-                  class="modelo-etiqueta"
-                >
-
-                  LUX ${plano}
-
-                </span>
-
-              </div>
-
-
-              <h2
-                class="modelo-nome"
-              >
-                ${nome}
-              </h2>
-
-
-              <p
-                class="modelo-local"
-              >
-
-                📍 ${cidade}
-
-                ${
-                  estado
-                    ? " • " + estado
-                    : ""
-                }
-
-                ${
-                  pais
-                    ? " • " + pais
-                    : ""
-                }
-
-              </p>
-
-
-              <div
-                class="avaliacao"
-              >
-
-                <div
-                  class="avaliacao-titulo"
-                >
-
-                  <span>
-                    AVALIE ESTE PERFIL
-                  </span>
-
-
-                  <span>
-                    ⭐
-                    ${Number(
-                      modelo.estrelas_total ||
-                      modelo.avaliacoes_total ||
-                      0
-                    )}
-                  </span>
-
-                </div>
-
-
-                ${htmlEstrelas(modelo)}
-
-              </div>
-
-
-              <div
-                class="modelo-acoes"
-              >
-
-                ${whatsappHTML}
-
-              </div>
-
-
-            </div>
-
-
-          </article>
-
-        `;
-
-      }
-    ).join("");
-
-
-  /*
-   * WHATSAPP
-   */
-
-  lista
-    .querySelectorAll(
-      "[data-whatsapp-id]"
-    )
-    .forEach(
-      botao => {
-
-        botao.addEventListener(
-          "click",
-          () => {
-
-
-            const modelo =
-              modelosLUX.find(
-                item =>
-                  String(item.id) ===
-                  String(
-                    botao.dataset
-                      .whatsappId
-                  )
-              );
-
-
-            if(modelo){
-
-              chamarModelo(
-                modelo
-              );
-
-            }
-
-          }
+        console.error(
+          "[LUX] sessão:",
+          erro
         );
 
+        return null;
+
       }
-    );
+
+    }
 
 
-  /*
-   * AVALIAÇÃO
-   */
+    /* =========================================================
+       WHATSAPP
+       ========================================================= */
 
-  lista
-    .querySelectorAll(
-      "[data-avaliar-id]"
-    )
-    .forEach(
-      botao => {
+    function gerarWhatsApp(modelo) {
 
-        botao.addEventListener(
-          "click",
-          () => {
+      const nome =
+        modelo?.nome_exibicao ||
+        "uma modelo LUX";
 
-            avaliarModelo(
-              botao.dataset
-                .avaliarId
+      const mensagem =
+        `Olá, LUX. Tenho interesse em conhecer o perfil de ${nome}.`;
+
+      return (
+        "https://wa.me/" +
+        WHATSAPP_LUX +
+        "?text=" +
+        encodeURIComponent(mensagem)
+      );
+
+    }
+
+
+    /* =========================================================
+       SELOS
+       ========================================================= */
+
+    function obterSelo(modelo) {
+
+      const selo =
+        modelo?.selo_codigo ||
+        modelo?.plano_codigo ||
+        "ESSENCE";
+
+      return String(selo)
+        .replace("LUX-", "")
+        .trim()
+        .toUpperCase();
+
+    }
+
+
+    /* =========================================================
+       LOCALIZAÇÃO
+       ========================================================= */
+
+    function textoLocalizacao(modelo) {
+
+      const partes = [];
+
+      const cidade =
+        valorLocalizacao(modelo, "cidade");
+
+      const estado =
+        valorLocalizacao(modelo, "estado");
+
+      const pais =
+        valorLocalizacao(modelo, "pais");
+
+      if (cidade) {
+        partes.push(cidade);
+      }
+
+      if (estado) {
+        partes.push(estado);
+      }
+
+      if (pais) {
+        partes.push(pais);
+      }
+
+      if (!partes.length) {
+        return "Disponível na LUX";
+      }
+
+      return partes.join(" • ");
+
+    }
+
+
+    /* =========================================================
+       LISTAS DOS FILTROS
+       ========================================================= */
+
+    function preencherSelect(
+      id,
+      valores,
+      textoPadrao
+    ) {
+
+      const select =
+        document.getElementById(id);
+
+      if (!select) return;
+
+      const atual =
+        select.value;
+
+      const unicos = [
+        ...new Set(
+          valores
+            .map(valor => String(valor ?? "").trim())
+            .filter(Boolean)
+        )
+      ].sort(
+        (a, b) =>
+          a.localeCompare(
+            b,
+            "pt-BR"
+          )
+      );
+
+      select.innerHTML =
+        `<option value="">${escapeHTML(textoPadrao)}</option>` +
+        unicos
+          .map(valor =>
+            `<option value="${escapeHTML(valor)}">${escapeHTML(valor)}</option>`
+          )
+          .join("");
+
+      if (
+        unicos.includes(atual)
+      ) {
+        select.value = atual;
+      }
+
+    }
+
+
+    function atualizarFiltros() {
+
+      const pais =
+        document.getElementById("filtroPais")?.value || "";
+
+      const estado =
+        document.getElementById("filtroEstado")?.value || "";
+
+      const paisNormalizado =
+        textoNormalizado(pais);
+
+      const estadoNormalizado =
+        textoNormalizado(estado);
+
+      const modelosPais =
+        pais
+          ? todosModelos.filter(
+              modelo =>
+                textoNormalizado(
+                  modelo.pais
+                ) === paisNormalizado
+            )
+          : todosModelos;
+
+      const estados =
+        modelosPais.map(
+          modelo => modelo.estado
+        );
+
+      preencherSelect(
+        "filtroEstado",
+        estados,
+        "Todos os estados"
+      );
+
+      const modelosEstado =
+        estado
+          ? modelosPais.filter(
+              modelo =>
+                textoNormalizado(
+                  modelo.estado
+                ) === estadoNormalizado
+            )
+          : modelosPais;
+
+      const cidades =
+        modelosEstado.map(
+          modelo => modelo.cidade
+        );
+
+      preencherSelect(
+        "filtroCidade",
+        cidades,
+        "Todas as cidades"
+      );
+
+    }
+
+
+    function preencherFiltrosIniciais() {
+
+      preencherSelect(
+        "filtroPais",
+        todosModelos.map(
+          modelo => modelo.pais
+        ),
+        "Todos os países"
+      );
+
+      atualizarFiltros();
+
+    }
+
+
+    /* =========================================================
+       FILTROS
+       ========================================================= */
+
+    function aplicarFiltros() {
+
+      const busca =
+        textoNormalizado(
+          document.getElementById("filtroBusca")?.value
+        );
+
+      const pais =
+        textoNormalizado(
+          document.getElementById("filtroPais")?.value
+        );
+
+      const estado =
+        textoNormalizado(
+          document.getElementById("filtroEstado")?.value
+        );
+
+      const cidade =
+        textoNormalizado(
+          document.getElementById("filtroCidade")?.value
+        );
+
+      const filtrados =
+        todosModelos.filter(
+          modelo => {
+
+            const nome =
+              textoNormalizado(
+                modelo.nome_exibicao
+              );
+
+            const apelido =
+              textoNormalizado(
+                modelo.apelido
+              );
+
+            const cidadeModelo =
+              textoNormalizado(
+                modelo.cidade
+              );
+
+            const estadoModelo =
+              textoNormalizado(
+                modelo.estado
+              );
+
+            const paisModelo =
+              textoNormalizado(
+                modelo.pais
+              );
+
+            const correspondeBusca =
+              !busca ||
+              nome.includes(busca) ||
+              apelido.includes(busca) ||
+              cidadeModelo.includes(busca) ||
+              estadoModelo.includes(busca) ||
+              paisModelo.includes(busca);
+
+            const correspondePais =
+              !pais ||
+              paisModelo === pais;
+
+            const correspondeEstado =
+              !estado ||
+              estadoModelo === estado;
+
+            const correspondeCidade =
+              !cidade ||
+              cidadeModelo === cidade;
+
+            return (
+              correspondeBusca &&
+              correspondePais &&
+              correspondeEstado &&
+              correspondeCidade
             );
 
           }
         );
 
+      renderizarModelos(
+        filtrados
+      );
+
+    }
+
+
+    /* =========================================================
+       EVENTOS DOS FILTROS
+       ========================================================= */
+
+    function configurarFiltros() {
+
+      const busca =
+        document.getElementById("filtroBusca");
+
+      const pais =
+        document.getElementById("filtroPais");
+
+      const estado =
+        document.getElementById("filtroEstado");
+
+      const cidade =
+        document.getElementById("filtroCidade");
+
+
+      if (busca) {
+
+        busca.addEventListener(
+          "input",
+          aplicarFiltros
+        );
+
       }
-    );
-
-}
 
 
-/* =========================================================
-   FILTROS DE LOCALIZAÇÃO
-========================================================= */
+      if (pais) {
 
-function preencherFiltrosLocalizacao(){
+        pais.addEventListener(
+          "change",
+          () => {
 
-  const paisSelect =
-    document.getElementById(
-      "filtroPais"
-    );
+            const estadoAnterior =
+              estado?.value || "";
 
+            atualizarFiltros();
 
-  const estadoSelect =
-    document.getElementById(
-      "filtroEstado"
-    );
-
-
-  const cidadeSelect =
-    document.getElementById(
-      "filtroCidade"
-    );
-
-
-  if(
-    !paisSelect ||
-    !estadoSelect ||
-    !cidadeSelect
-  ){
-
-    return;
-
-  }
-
-
-  const valorAtualPais =
-    paisSelect.value;
-
-
-  const valorAtualEstado =
-    estadoSelect.value;
-
-
-  const valorAtualCidade =
-    cidadeSelect.value;
-
-
-  /*
-   * PAÍSES
-   */
-
-  const paises =
-    [
-      ...new Set(
-
-        modelosLUX
-
-          .map(
-            modelo =>
-              String(
-                modelo.pais ||
-                "Brasil"
-              ).trim()
-          )
-
-          .filter(Boolean)
-
-      )
-    ]
-    .sort(
-      (a,b) =>
-        a.localeCompare(
-          b,
-          "pt-BR"
-        )
-    );
-
-
-  /*
-   * ESTADOS
-   */
-
-  const estados =
-    [
-      ...new Set(
-
-        modelosLUX
-
-          .filter(
-            modelo => {
-
-              if(!valorAtualPais){
-
-                return true;
-
-              }
-
-
-              return (
-
-                String(
-                  modelo.pais ||
-                  "Brasil"
-                )
-                .trim()
-                .toLowerCase()
-
-                ===
-
-                valorAtualPais
-                  .toLowerCase()
-
-              );
-
+            if (estado) {
+              estado.value =
+                estadoAnterior;
             }
-          )
 
-          .map(
-            modelo =>
-              String(
-                modelo.estado ||
-                ""
-              ).trim()
-          )
+            aplicarFiltros();
 
-          .filter(Boolean)
+          }
+        );
 
-      )
-    ]
-    .sort(
-      (a,b) =>
-        a.localeCompare(
-          b,
-          "pt-BR"
-        )
-    );
+      }
 
 
-  /*
-   * CIDADES
-   */
+      if (estado) {
 
-  const cidades =
-    [
-      ...new Set(
+        estado.addEventListener(
+          "change",
+          () => {
 
-        modelosLUX
+            const cidadeAnterior =
+              cidade?.value || "";
 
-          .filter(
-            modelo => {
+            atualizarFiltros();
 
-              const paisOk =
-                !valorAtualPais ||
-
-                String(
-                  modelo.pais ||
-                  "Brasil"
-                )
-                .trim()
-                .toLowerCase()
-
-                ===
-
-                valorAtualPais
-                  .toLowerCase();
-
-
-              const estadoOk =
-                !valorAtualEstado ||
-
-                String(
-                  modelo.estado ||
-                  ""
-                )
-                .trim()
-                .toLowerCase()
-
-                ===
-
-                valorAtualEstado
-                  .toLowerCase();
-
-
-              return (
-                paisOk &&
-                estadoOk
-              );
-
+            if (cidade) {
+              cidade.value =
+                cidadeAnterior;
             }
-          )
 
-          .map(
-            modelo =>
-              String(
-                modelo.cidade ||
-                ""
-              ).trim()
-          )
+            aplicarFiltros();
 
-          .filter(Boolean)
+          }
+        );
 
-      )
-    ]
-    .sort(
-      (a,b) =>
-        a.localeCompare(
-          b,
-          "pt-BR"
-        )
-    );
+      }
 
 
-  /*
-   * MONTA PAÍSES
-   */
+      if (cidade) {
 
-  paisSelect.innerHTML =
-    `
-      <option value="">
-        🌎 TODOS OS PAÍSES
-      </option>
-    `
+        cidade.addEventListener(
+          "change",
+          aplicarFiltros
+        );
 
-    +
+      }
 
-    paises
-      .map(
-        valor => `
-
-          <option
-            value="${escapeHTML(valor)}"
-          >
-            ${escapeHTML(valor)}
-          </option>
-
-        `
-      )
-      .join("");
+    }
 
 
-  /*
-   * MONTA ESTADOS
-   */
+    /* =========================================================
+       CARD
+       ========================================================= */
 
-  estadoSelect.innerHTML =
-    `
-      <option value="">
-        📍 TODOS OS ESTADOS
-      </option>
-    `
+    function criarCard(modelo) {
 
-    +
+      const nome =
+        escapeHTML(
+          modelo.nome_exibicao ||
+          "Modelo"
+        );
 
-    estados
-      .map(
-        valor => `
+      const foto =
+        modelo.foto_url
+          ? escapeHTML(modelo.foto_url)
+          : "";
 
-          <option
-            value="${escapeHTML(valor)}"
-          >
-            ${escapeHTML(valor)}
-          </option>
+      const cidade =
+        escapeHTML(
+          textoLocalizacao(modelo)
+        );
 
-        `
-      )
-      .join("");
+      const selo =
+        escapeHTML(
+          obterSelo(modelo)
+        );
 
+      const estrelas =
+        Number(
+          modelo.estrelas_total || 0
+        );
 
-  /*
-   * MONTA CIDADES
-   */
+      const modeloId =
+        escapeHTML(
+          modelo.id
+        );
 
-  cidadeSelect.innerHTML =
-    `
-      <option value="">
-        🏙️ TODAS AS CIDADES
-      </option>
-    `
+      const whatsapp =
+        gerarWhatsApp(modelo);
 
-    +
+      const idade =
+        Number(modelo.idade || 0);
 
-    cidades
-      .map(
-        valor => `
+      const plano =
+        escapeHTML(
+          modelo.plano_nome ||
+          modelo.plano_codigo ||
+          "LUX-ESSENCE"
+        );
 
-          <option
-            value="${escapeHTML(valor)}"
-          >
-            ${escapeHTML(valor)}
-          </option>
-
-        `
-      )
-      .join("");
-
-
-  /*
-   * RESTAURA SELEÇÕES
-   */
-
-  if(
-    paises.includes(
-      valorAtualPais
-    )
-  ){
-
-    paisSelect.value =
-      valorAtualPais;
-
-  }
-
-
-  if(
-    estados.includes(
-      valorAtualEstado
-    )
-  ){
-
-    estadoSelect.value =
-      valorAtualEstado;
-
-  }
-
-
-  if(
-    cidades.includes(
-      valorAtualCidade
-    )
-  ){
-
-    cidadeSelect.value =
-      valorAtualCidade;
-
-  }
-
-}
-
-
-/* =========================================================
-   EVENTOS DOS FILTROS
-========================================================= */
-
-function instalarFiltrosLocalizacao(){
-
-  [
-    "filtroPais",
-    "filtroEstado",
-    "filtroCidade"
-
-  ]
-  .forEach(
-    id => {
-
-      const elemento =
-        document.getElementById(
-          id
+      const categoria =
+        escapeHTML(
+          modelo.categoria_catalogo ||
+          "LUX"
         );
 
 
-      if(!elemento){
+      return `
+
+        <article
+          class="lux-model-card"
+          data-modelo-id="${modeloId}"
+        >
+
+          <div class="lux-photo-wrap">
+
+            ${
+              foto
+
+              ?
+
+              `
+              <img
+                class="lux-model-photo"
+                src="${foto}"
+                alt="${nome}"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              >
+
+              <div
+                class="lux-photo-fallback"
+                style="display:none;"
+              >
+                LUX
+              </div>
+              `
+
+              :
+
+              `
+              <div class="lux-photo-fallback">
+                LUX
+              </div>
+              `
+            }
+
+
+            <!-- SELO / MANTO -->
+
+            <div
+              class="lux-selo-manto"
+              aria-label="Selo ${selo}"
+            >
+              ✦ LUX ${selo}
+            </div>
+
+          </div>
+
+
+          <div class="lux-card-body">
+
+            <div class="lux-card-top">
+
+              <span class="lux-plan">
+                ${plano}
+              </span>
+
+              <span
+                class="lux-verified"
+                title="Perfil disponível na LUX"
+              >
+                ✦ VERIFICADA
+              </span>
+
+            </div>
+
+
+            <h2 class="lux-model-name">
+              ${nome}
+            </h2>
+
+
+            ${
+              idade >= 18
+
+              ?
+
+              `
+              <p
+                class="lux-location"
+              >
+                <span class="lux-location-icon">
+                  ♢
+                </span>
+
+                ${idade} anos
+              </p>
+              `
+
+              :
+
+              ""
+            }
+
+
+            <p class="lux-location">
+
+              <span class="lux-location-icon">
+                ◉
+              </span>
+
+              ${cidade}
+
+            </p>
+
+
+            <p
+              class="lux-location"
+              style="margin-top:5px;"
+            >
+
+              <span class="lux-location-icon">
+                ✦
+              </span>
+
+              ${categoria}
+
+            </p>
+
+
+            <div class="lux-stars">
+
+              <div class="lux-stars-count">
+
+                ⭐
+
+                <strong>
+                  ${estrelas}
+                </strong>
+
+                ${
+                  estrelas === 1
+                    ? " estrela recebida"
+                    : " estrelas recebidas"
+                }
+
+              </div>
+
+
+              <button
+                type="button"
+                class="lux-rate-button"
+                data-rate-id="${modeloId}"
+                onclick="avaliarModelo('${modeloId}')"
+              >
+                ⭐ DAR 1 ESTRELA
+              </button>
+
+            </div>
+
+
+            <a
+              class="lux-whatsapp"
+              href="${whatsapp}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+
+              <span>
+                ☎
+              </span>
+
+              FALAR NO WHATSAPP
+
+            </a>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       RENDERIZAÇÃO
+       ========================================================= */
+
+    function renderizarModelos(modelos) {
+
+      const lista =
+        document.getElementById(
+          "listaModelos"
+        );
+
+      const info =
+        document.getElementById(
+          "resultadoInfo"
+        );
+
+
+      if (!lista) return;
+
+
+      if (info) {
+
+        info.innerHTML =
+          `<strong>${modelos.length}</strong> ` +
+          (
+            modelos.length === 1
+              ? "modelo encontrada"
+              : "modelos encontrados"
+          );
+
+      }
+
+
+      if (!modelos.length) {
+
+        lista.innerHTML = `
+
+          <div class="lux-status-box">
+
+            <div class="lux-status-icon">
+              ◇
+            </div>
+
+            <div class="lux-status-title">
+              Nenhum perfil encontrado
+            </div>
+
+            <div class="lux-status-text">
+              Tente alterar os filtros ou a pesquisa.
+            </div>
+
+          </div>
+
+        `;
 
         return;
 
       }
 
 
-      elemento.addEventListener(
-        "change",
-        () => {
-
-          preencherFiltrosLocalizacao();
-
-          renderModelos();
-
-        }
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   CARREGAR MODELOS
-========================================================= */
-
-async function carregarModelos(){
-
-  const lista =
-    document.getElementById(
-      "listaModelos"
-    );
-
-
-  try{
-
-    if(!window.luxSupabase){
-
-      throw new Error(
-        "Supabase não foi inicializado."
-      );
+      lista.innerHTML =
+        modelos
+          .map(
+            modelo =>
+              criarCard(modelo)
+          )
+          .join("");
 
     }
 
 
-    const {
-      data,
-      error
-    } =
-      await window.luxSupabase
+    /* =========================================================
+       CARREGAMENTO DO SUPABASE
+       ========================================================= */
 
-        .from(
-          "modelo_perfis"
-        )
+    async function carregarModelos() {
 
-        .select("*")
-
-        .in(
-          "verificacao_status",
-          [
-            "aprovado",
-            "verificada"
-          ]
+      const lista =
+        document.getElementById(
+          "listaModelos"
         );
 
 
-    if(error){
+      try {
 
-      throw error;
-
-    }
+        esconderMensagem();
 
 
-    modelosLUX =
-      data || [];
+        if (!window.luxSupabase) {
+
+          throw new Error(
+            "Supabase não foi inicializado."
+          );
+
+        }
 
 
-    preencherFiltrosLocalizacao();
-
-
-    renderModelos();
-
-
-  }
-  catch(erro){
-
-    console.error(
-      "[LUX MODELOS]",
-      erro
-    );
-
-
-    lista.innerHTML = `
-
-      <div
-        class="mensagem-vazia"
-      >
-
-        Não foi possível carregar
-        os modelos aprovados.
-
-      </div>
-
-    `;
-
-
-    document
-      .getElementById(
-        "contadorModelos"
-      )
-      .textContent =
-        "ERRO AO CARREGAR MODELOS";
-
-  }
-
-}
-
-
-/* =========================================================
-   CATEGORIAS
-========================================================= */
-
-document
-  .querySelectorAll(
-    ".categoria-btn"
-  )
-  .forEach(
-    botao => {
-
-      botao.addEventListener(
-        "click",
-        () => {
-
-
-          document
-            .querySelectorAll(
-              ".categoria-btn"
+        const {
+          data,
+          error
+        } =
+          await window.luxSupabase
+            .from("modelo_perfis")
+            .select("*")
+            .in(
+              "verificacao_status",
+              [
+                "aprovado",
+                "verificada"
+              ]
             )
-            .forEach(
-              item =>
-                item.classList.remove(
-                  "ativo"
-                )
+            .order(
+              "estrelas_total",
+              {
+                ascending: false
+              }
+            )
+            .order(
+              "nome_exibicao",
+              {
+                ascending: true
+              }
             );
 
 
-          botao.classList.add(
-            "ativo"
+        if (error) {
+          throw error;
+        }
+
+
+        todosModelos =
+          Array.isArray(data)
+            ? data
+            : [];
+
+
+        if (!todosModelos.length) {
+
+          lista.innerHTML = `
+
+            <div class="lux-status-box">
+
+              <div class="lux-status-icon">
+                ◇
+              </div>
+
+              <div class="lux-status-title">
+                Nenhum modelo disponível
+              </div>
+
+              <div class="lux-status-text">
+                Ainda não existem modelos aprovados
+                disponíveis para exibição.
+              </div>
+
+            </div>
+
+          `;
+
+          document.getElementById(
+            "resultadoInfo"
+          ).textContent =
+            "0 modelos encontrados";
+
+          return;
+
+        }
+
+
+        preencherFiltrosIniciais();
+
+        renderizarModelos(
+          todosModelos
+        );
+
+
+      } catch (erro) {
+
+        console.error(
+          "[LUX MODELOS]",
+          erro
+        );
+
+
+        mostrarMensagem(
+          "Não foi possível carregar os modelos. Verifique a conexão com o Supabase.",
+          true
+        );
+
+
+        lista.innerHTML = `
+
+          <div class="lux-status-box">
+
+            <div class="lux-status-icon">
+              !
+            </div>
+
+            <div class="lux-status-title">
+              Não foi possível carregar
+            </div>
+
+            <div class="lux-status-text">
+              O sistema não conseguiu consultar
+              os modelos neste momento.
+            </div>
+
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       AVALIAÇÃO — 1 ESTRELA POR USUÁRIO
+       ========================================================= */
+
+    async function avaliarModelo(modeloId) {
+
+      const botao =
+        document.querySelector(
+          `[data-rate-id="${modeloId}"]`
+        );
+
+
+      try {
+
+        if (botao) {
+          botao.disabled = true;
+        }
+
+
+        const usuario =
+          await obterUsuarioAtual();
+
+
+        if (!usuario) {
+
+          alert(
+            "Sua sessão não foi encontrada. Entre novamente na sua área para avaliar."
+          );
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+        const modelo =
+          todosModelos.find(
+            item =>
+              String(item.id) ===
+              String(modeloId)
           );
 
 
-          categoriaAtual =
-            botao.dataset.categoria;
+        if (!modelo) {
 
-
-          renderModelos();
+          throw new Error(
+            "Modelo não encontrada."
+          );
 
         }
-      );
+
+
+        /*
+         * O banco exige que a modelo esteja
+         * verificada para receber avaliação.
+         */
+
+        if (
+          modelo.verificacao_status !==
+          "verificada"
+        ) {
+
+          alert(
+            "Esta modelo ainda não está disponível para receber avaliações."
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Confirma se o usuário já avaliou.
+         */
+
+        const {
+          data: avaliacaoExistente,
+          error: erroConsulta
+        } =
+          await window.luxSupabase
+            .from(
+              "avaliacoes_modelos"
+            )
+            .select("id")
+            .eq(
+              "modelo_id",
+              modeloId
+            )
+            .eq(
+              "usuario_id",
+              usuario.id
+            )
+            .maybeSingle();
+
+
+        if (erroConsulta) {
+          throw erroConsulta;
+        }
+
+
+        if (avaliacaoExistente) {
+
+          alert(
+            "Você já deu sua estrela para esta modelo."
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Uma única estrela.
+         */
+
+        const {
+          error: erroInsert
+        } =
+          await window.luxSupabase
+            .from(
+              "avaliacoes_modelos"
+            )
+            .insert({
+
+              modelo_id:
+                modeloId,
+
+              usuario_id:
+                usuario.id,
+
+              valor: 1
+
+            });
+
+
+        if (erroInsert) {
+
+          /*
+           * Se outra tentativa simultânea
+           * já criou a avaliação, o UNIQUE
+           * do banco impede duplicação.
+           */
+
+          if (
+            erroInsert.code ===
+            "23505"
+          ) {
+
+            alert(
+              "Você já deu sua estrela para esta modelo."
+            );
+
+            return;
+
+          }
+
+          throw erroInsert;
+
+        }
+
+
+        /*
+         * O trigger do banco atualiza
+         * modelo_perfis.estrelas_total.
+         */
+
+        alert(
+          "Sua estrela foi registrada com sucesso. ⭐"
+        );
+
+
+        /*
+         * Atualiza a lista diretamente
+         * sem recarregar a página inteira.
+         */
+
+        const modeloLocal =
+          todosModelos.find(
+            item =>
+              String(item.id) ===
+              String(modeloId)
+          );
+
+
+        if (modeloLocal) {
+
+          modeloLocal.estrelas_total =
+            Number(
+              modeloLocal.estrelas_total || 0
+            ) + 1;
+
+        }
+
+
+        aplicarFiltros();
+
+
+      } catch (erro) {
+
+        console.error(
+          "[LUX AVALIAÇÃO]",
+          erro
+        );
+
+
+        alert(
+          "Não foi possível registrar sua estrela. Tente novamente."
+        );
+
+
+      } finally {
+
+        if (botao) {
+          botao.disabled = false;
+        }
+
+      }
 
     }
-  );
 
 
-/* =========================================================
-   INICIALIZAÇÃO
-========================================================= */
+    /* =========================================================
+       INICIALIZAÇÃO
+       ========================================================= */
 
-instalarFiltrosLocalizacao();
+    async function iniciarPagina() {
 
-carregarModelos();
+      configurarFiltros();
 
-</script>
+      await carregarModelos();
+
+    }
+
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      iniciarPagina
+    );
+
+  </script>
 
 
 </body>

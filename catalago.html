@@ -10,7 +10,17 @@
   content="width=device-width, initial-scale=1.0"
 >
 
-<title>LUX — Catálogo</title>
+<meta
+  name="theme-color"
+  content="#050207"
+>
+
+<meta
+  name="description"
+  content="LUX-ADVANCE — Catálogo de perfis"
+>
+
+<title>LUX-ADVANCE — Catálogo</title>
 
 <link rel="stylesheet" href="app.css">
 
@@ -20,6 +30,10 @@
 >
 
 <style>
+
+/* =====================================================
+   BASE
+===================================================== */
 
 *{
   box-sizing:border-box;
@@ -90,7 +104,7 @@ body::before{
 
 
 /* =====================================================
-   TOPO — LUX
+   TOPO
 ===================================================== */
 
 .topbar{
@@ -118,7 +132,7 @@ body::before{
 
 
 /* =====================================================
-   LOGO — GRANDE E VISÍVEL
+   LOGO
 ===================================================== */
 
 .logo{
@@ -358,6 +372,8 @@ body::before{
     repeat(3,1fr);
 
   gap:22px;
+
+  margin-bottom:55px;
 }
 
 .category{
@@ -435,7 +451,7 @@ body::before{
 
 
 /* =====================================================
-   CARD FEMININO
+   FEMININA
 ===================================================== */
 
 .category.feminina{
@@ -524,7 +540,7 @@ body::before{
 
 
 /* =====================================================
-   CARD MASCULINO
+   MASCULINO
 ===================================================== */
 
 .category.masculina{
@@ -613,7 +629,7 @@ body::before{
 
 
 /* =====================================================
-   CARD LGBTQ+
+   LGBTQ+
 ===================================================== */
 
 .category.lgbtq{
@@ -724,7 +740,7 @@ body::before{
 
 
 /* =====================================================
-   ÍCONE DOS CARDS
+   ÍCONE
 ===================================================== */
 
 .category-icon{
@@ -792,11 +808,6 @@ body::before{
   max-width:310px;
 }
 
-
-/* =====================================================
-   PEQUENO DETALHE DECORATIVO
-===================================================== */
-
 .category-content::before{
 
   content:"";
@@ -842,6 +853,769 @@ body::before{
 
 
 /* =====================================================
+   NOVA ÁREA — PERFIS DO CATÁLOGO
+===================================================== */
+
+.catalogo-modelos-section{
+
+  margin-top:10px;
+
+  padding-top:10px;
+}
+
+.catalogo-heading{
+
+  text-align:center;
+
+  margin-bottom:28px;
+}
+
+.catalogo-eyebrow{
+
+  color:#f8d58a;
+
+  font-family:"Cinzel",serif;
+
+  font-size:10px;
+
+  letter-spacing:4px;
+
+  margin-bottom:10px;
+
+  text-transform:uppercase;
+}
+
+.catalogo-heading h2{
+
+  margin:0;
+
+  font-size:
+    clamp(30px,5vw,48px);
+
+  font-weight:500;
+
+  font-style:italic;
+}
+
+.catalogo-heading p{
+
+  max-width:650px;
+
+  margin:12px auto 0;
+
+  color:rgba(255,255,255,.66);
+
+  line-height:1.7;
+
+  font-size:14px;
+}
+
+
+/* =====================================================
+   INFORMAÇÃO DO CATÁLOGO
+===================================================== */
+
+.catalogo-notice{
+
+  max-width:760px;
+
+  margin:0 auto 28px;
+
+  padding:15px 18px;
+
+  border-radius:16px;
+
+  border:1px solid
+    rgba(248,213,138,.22);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(248,213,138,.08),
+      rgba(255,70,160,.035)
+    );
+
+  color:rgba(255,255,255,.76);
+
+  text-align:center;
+
+  font-size:12px;
+
+  line-height:1.7;
+
+  box-shadow:
+    0 15px 40px
+    rgba(0,0,0,.25);
+}
+
+.catalogo-notice strong{
+
+  color:#f8d58a;
+}
+
+
+/* =====================================================
+   CONTAGEM
+===================================================== */
+
+.catalogo-contagem{
+
+  margin-bottom:18px;
+
+  color:rgba(255,255,255,.48);
+
+  font-family:"Cinzel",serif;
+
+  font-size:10px;
+
+  letter-spacing:1.5px;
+
+  text-align:center;
+
+  text-transform:uppercase;
+}
+
+.catalogo-contagem strong{
+
+  color:#f8d58a;
+}
+
+
+/* =====================================================
+   GRID DAS MODELOS
+===================================================== */
+
+.catalogo-modelos-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
+  gap:20px;
+}
+
+
+/* =====================================================
+   CARD DE MODELO
+===================================================== */
+
+.catalogo-modelo-card{
+
+  position:relative;
+
+  overflow:hidden;
+
+  min-height:390px;
+
+  border-radius:24px;
+
+  border:1px solid
+    rgba(248,213,138,.20);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(35,13,24,.96),
+      rgba(8,3,8,.98)
+    );
+
+  box-shadow:
+    0 22px 60px
+    rgba(0,0,0,.50);
+
+  cursor:pointer;
+
+  transition:
+    transform .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease;
+}
+
+.catalogo-modelo-card:hover{
+
+  transform:translateY(-7px);
+
+  border-color:
+    rgba(248,213,138,.55);
+
+  box-shadow:
+    0 30px 75px
+    rgba(0,0,0,.72),
+    0 0 28px
+    rgba(248,213,138,.08);
+}
+
+.catalogo-modelo-photo-wrap{
+
+  position:relative;
+
+  width:100%;
+
+  height:330px;
+
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(248,213,138,.12),
+      transparent 58%
+    ),
+    #0c0509;
+}
+
+.catalogo-modelo-photo{
+
+  width:100%;
+
+  height:100%;
+
+  display:block;
+
+  object-fit:cover;
+
+  object-position:center;
+
+  transition:
+    transform .5s ease,
+    filter .5s ease;
+}
+
+.catalogo-modelo-card:hover
+.catalogo-modelo-photo{
+
+  transform:scale(1.045);
+
+  filter:brightness(1.06);
+}
+
+
+/* =====================================================
+   SELO DO CATÁLOGO
+===================================================== */
+
+.catalogo-selo{
+
+  position:absolute;
+
+  top:14px;
+
+  left:14px;
+
+  z-index:4;
+
+  padding:7px 10px;
+
+  border-radius:999px;
+
+  border:1px solid
+    rgba(248,213,138,.38);
+
+  background:
+    rgba(7,3,7,.78);
+
+  color:#f8d58a;
+
+  font-family:"Cinzel",serif;
+
+  font-size:8px;
+
+  font-weight:700;
+
+  letter-spacing:1px;
+
+  backdrop-filter:blur(10px);
+
+  text-transform:uppercase;
+}
+
+
+/* =====================================================
+   SOBREPOSIÇÃO AO PASSAR
+===================================================== */
+
+.catalogo-modelo-overlay{
+
+  position:absolute;
+
+  inset:0;
+
+  display:flex;
+
+  align-items:flex-end;
+
+  padding:20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent 35%,
+      rgba(0,0,0,.12) 50%,
+      rgba(0,0,0,.88) 100%
+    );
+
+  opacity:.95;
+}
+
+.catalogo-modelo-overlay-text{
+
+  color:#fff;
+
+  font-family:"Cinzel",serif;
+
+  font-size:9px;
+
+  letter-spacing:1.4px;
+
+  text-transform:uppercase;
+
+  text-shadow:
+    0 2px 10px
+    rgba(0,0,0,.8);
+}
+
+
+/* =====================================================
+   CORPO DO CARD
+===================================================== */
+
+.catalogo-modelo-info{
+
+  padding:14px 15px 17px;
+}
+
+.catalogo-modelo-nome{
+
+  margin:0;
+
+  color:#fff;
+
+  font-size:21px;
+
+  font-weight:500;
+}
+
+.catalogo-modelo-local{
+
+  margin:7px 0 0;
+
+  color:rgba(255,255,255,.55);
+
+  font-size:11px;
+
+  line-height:1.5;
+}
+
+.catalogo-modelo-local span{
+
+  color:#f8d58a;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.catalogo-status{
+
+  grid-column:1 / -1;
+
+  padding:55px 20px;
+
+  text-align:center;
+
+  border-radius:24px;
+
+  border:1px dashed
+    rgba(248,213,138,.22);
+
+  background:
+    rgba(255,255,255,.018);
+
+  color:rgba(255,255,255,.60);
+}
+
+.catalogo-status-icon{
+
+  color:#f8d58a;
+
+  font-size:34px;
+
+  margin-bottom:12px;
+}
+
+.catalogo-status-title{
+
+  color:#fff;
+
+  font-size:22px;
+
+  font-style:italic;
+}
+
+.catalogo-status-text{
+
+  max-width:560px;
+
+  margin:9px auto 0;
+
+  color:rgba(255,255,255,.43);
+
+  font-size:12px;
+
+  line-height:1.7;
+}
+
+
+/* =====================================================
+   MODAL DO PERFIL
+===================================================== */
+
+.catalogo-modal{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:9999;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:20px;
+
+  background:
+    rgba(2,1,4,.86);
+
+  backdrop-filter:blur(14px);
+
+  -webkit-backdrop-filter:blur(14px);
+}
+
+.catalogo-modal[hidden]{
+
+  display:none;
+}
+
+.catalogo-modal-backdrop{
+
+  position:absolute;
+
+  inset:0;
+
+  cursor:pointer;
+}
+
+.catalogo-modal-box{
+
+  position:relative;
+
+  z-index:2;
+
+  width:min(960px,100%);
+
+  max-height:92vh;
+
+  overflow:auto;
+
+  border-radius:26px;
+
+  border:1px solid
+    rgba(248,213,138,.28);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(24,8,16,.98),
+      rgba(7,3,8,.99)
+    );
+
+  box-shadow:
+    0 35px 100px
+    rgba(0,0,0,.80);
+
+  padding:24px;
+}
+
+.catalogo-modal-close{
+
+  position:absolute;
+
+  top:12px;
+
+  right:12px;
+
+  z-index:10;
+
+  width:42px;
+
+  height:42px;
+
+  border-radius:50%;
+
+  border:1px solid
+    rgba(248,213,138,.28);
+
+  background:
+    rgba(0,0,0,.60);
+
+  color:#f8d58a;
+
+  font-size:25px;
+
+  cursor:pointer;
+
+  line-height:1;
+
+  transition:.25s;
+}
+
+.catalogo-modal-close:hover{
+
+  background:#f8d58a;
+
+  color:#10090d;
+
+  transform:rotate(90deg);
+}
+
+.catalogo-modal-header{
+
+  padding-right:45px;
+
+  margin-bottom:20px;
+}
+
+.catalogo-modal-eyebrow{
+
+  color:#f8d58a;
+
+  font-family:"Cinzel",serif;
+
+  font-size:9px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  margin-bottom:7px;
+}
+
+.catalogo-modal-title{
+
+  margin:0;
+
+  color:#fff;
+
+  font-size:30px;
+
+  font-style:italic;
+
+  font-weight:500;
+}
+
+.catalogo-modal-location{
+
+  margin:8px 0 0;
+
+  color:rgba(255,255,255,.58);
+
+  font-size:12px;
+}
+
+
+/* =====================================================
+   MÍDIA DO MODAL
+===================================================== */
+
+.catalogo-media-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+
+  gap:12px;
+
+  margin-top:20px;
+}
+
+.catalogo-media-item{
+
+  position:relative;
+
+  overflow:hidden;
+
+  min-height:190px;
+
+  border-radius:16px;
+
+  border:1px solid
+    rgba(248,213,138,.14);
+
+  background:#090409;
+}
+
+.catalogo-media-item img{
+
+  width:100%;
+
+  height:100%;
+
+  min-height:190px;
+
+  display:block;
+
+  object-fit:cover;
+}
+
+.catalogo-media-item video{
+
+  width:100%;
+
+  height:100%;
+
+  min-height:190px;
+
+  display:block;
+
+  object-fit:cover;
+
+  background:#000;
+}
+
+.catalogo-media-type{
+
+  position:absolute;
+
+  top:8px;
+
+  left:8px;
+
+  z-index:3;
+
+  padding:5px 8px;
+
+  border-radius:999px;
+
+  background:
+    rgba(0,0,0,.72);
+
+  color:#f8d58a;
+
+  font-family:"Cinzel",serif;
+
+  font-size:8px;
+
+  letter-spacing:1px;
+}
+
+
+/* =====================================================
+   AVISO DO MODAL
+===================================================== */
+
+.catalogo-modal-notice{
+
+  margin-top:22px;
+
+  padding:17px;
+
+  border-radius:16px;
+
+  border:1px solid
+    rgba(248,213,138,.20);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(248,213,138,.07),
+      rgba(255,70,160,.035)
+    );
+
+  text-align:center;
+
+  color:rgba(255,255,255,.70);
+
+  font-size:12px;
+
+  line-height:1.7;
+}
+
+.catalogo-modal-notice strong{
+
+  color:#f8d58a;
+
+  display:block;
+
+  margin-bottom:4px;
+
+  font-family:"Cinzel",serif;
+
+  font-size:11px;
+
+  letter-spacing:1px;
+
+  text-transform:uppercase;
+}
+
+.catalogo-cadastro-button{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  min-height:43px;
+
+  margin-top:14px;
+
+  padding:11px 24px;
+
+  border-radius:30px;
+
+  border:1px solid #f8d58a;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8d58a,
+      #c9a227
+    );
+
+  color:#120a0d;
+
+  text-decoration:none;
+
+  font-family:"Cinzel",serif;
+
+  font-size:10px;
+
+  font-weight:700;
+
+  letter-spacing:1.4px;
+
+  text-transform:uppercase;
+
+  transition:.3s;
+}
+
+.catalogo-cadastro-button:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 10px 28px
+    rgba(248,213,138,.20);
+}
+
+
+/* =====================================================
    RODAPÉ
 ===================================================== */
 
@@ -868,12 +1642,28 @@ footer{
    RESPONSIVO
 ===================================================== */
 
+@media(max-width:1050px){
+
+  .catalogo-modelos-grid{
+
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+  }
+
+}
+
 @media(max-width:900px){
 
   .categories{
 
     grid-template-columns:
       1fr 1fr;
+  }
+
+  .catalogo-modelos-grid{
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
   }
 
 }
@@ -956,6 +1746,40 @@ footer{
     min-height:300px;
   }
 
+  .catalogo-modelos-grid{
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+  }
+
+  .catalogo-modelo-photo-wrap{
+
+    height:260px;
+  }
+
+  .catalogo-modelo-card{
+
+    min-height:330px;
+  }
+
+  .catalogo-modelo-nome{
+
+    font-size:18px;
+  }
+
+  .catalogo-media-grid{
+
+    grid-template-columns:1fr 1fr;
+  }
+
+  .catalogo-modal-box{
+
+    padding:18px;
+
+    max-height:94vh;
+  }
+
 }
 
 @media(max-width:390px){
@@ -993,40 +1817,49 @@ footer{
     font-size:8px;
   }
 
+  .catalogo-modelos-grid{
+
+    grid-template-columns:1fr;
+  }
+
+  .catalogo-modelo-photo-wrap{
+
+    height:360px;
+  }
+
+  .catalogo-media-grid{
+
+    grid-template-columns:1fr;
+  }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
 
 <main class="page">
 
+
 <header class="topbar">
 
-
-<!-- =====================================================
-     LOGO LUX
-===================================================== -->
 
 <a
   class="logo"
   href="index.html"
-  aria-label="LUX — Início"
+  aria-label="LUX-ADVANCE — Início"
 >
 
 <img
   src="./logo4.png"
-  alt="LUX"
+  alt="LUX-ADVANCE"
 >
 
 </a>
 
-
-<!-- =====================================================
-     OPÇÕES EXISTENTES
-===================================================== -->
 
 <div class="top-actions">
 
@@ -1049,12 +1882,13 @@ ENTRAR
 </header>
 
 
+
 <section class="hero">
 
 <div class="hero-content">
 
 <div class="eyebrow">
-LUX — CATÁLOGO
+LUX-ADVANCE — CATÁLOGO
 </div>
 
 <h1>
@@ -1062,9 +1896,9 @@ Escolha sua experiência.
 </h1>
 
 <p>
-Explore as categorias disponíveis na plataforma LUX
-e encontre perfis que combinam com sua experiência,
-seu estilo e sua preferência.
+Explore as categorias disponíveis na plataforma
+LUX-ADVANCE e conheça alguns dos perfis
+que já fazem parte da nossa plataforma.
 </p>
 
 </div>
@@ -1072,12 +1906,9 @@ seu estilo e sua preferência.
 </section>
 
 
+
 <section class="categories">
 
-
-<!-- =====================================================
-     FEMININO
-===================================================== -->
 
 <a
   class="category feminina"
@@ -1096,7 +1927,7 @@ Feminina
 
 <p>
 Explore os perfis femininos
-disponíveis na plataforma LUX.
+disponíveis na plataforma LUX-ADVANCE.
 </p>
 
 </div>
@@ -1104,9 +1935,6 @@ disponíveis na plataforma LUX.
 </a>
 
 
-<!-- =====================================================
-     MASCULINO
-===================================================== -->
 
 <a
   class="category masculina"
@@ -1125,7 +1953,7 @@ Masculina
 
 <p>
 Conheça os perfis masculinos
-disponíveis na plataforma LUX.
+disponíveis na plataforma LUX-ADVANCE.
 </p>
 
 </div>
@@ -1133,9 +1961,6 @@ disponíveis na plataforma LUX.
 </a>
 
 
-<!-- =====================================================
-     LGBTQ+
-===================================================== -->
 
 <a
   class="category lgbtq"
@@ -1165,13 +1990,1246 @@ respeito, personalidade e conexão.
 </section>
 
 
+
+<!-- =====================================================
+     VITRINE DE MODELOS
+===================================================== -->
+
+<section class="catalogo-modelos-section">
+
+
+<div class="catalogo-heading">
+
+<div class="catalogo-eyebrow">
+LUX-ADVANCE — VITRINE
+</div>
+
+<h2>
+Conheça alguns perfis.
+</h2>
+
+<p>
+Uma pequena amostra das modelos que já fazem parte
+da LUX-ADVANCE. Clique em um perfil para conhecer
+as fotos e mídias disponíveis.
+</p>
+
+</div>
+
+
+<div class="catalogo-notice">
+
+<strong>
+✦ QUER TER ACESSO COMPLETO?
+</strong>
+
+Gostou de algum perfil?
+<strong>
+Cadastre-se na LUX-ADVANCE
+</strong>
+para acessar as opções disponíveis para usuários.
+Os contatos não são exibidos no catálogo público.
+
+</div>
+
+
+<div
+  id="catalogoContagem"
+  class="catalogo-contagem"
+>
+Carregando perfis...
+</div>
+
+
+<div
+  id="catalogoModelos"
+  class="catalogo-modelos-grid"
+>
+
+<div class="catalogo-status">
+
+<div class="catalogo-status-icon">
+◇
+</div>
+
+<div class="catalogo-status-title">
+Carregando modelos
+</div>
+
+<div class="catalogo-status-text">
+Aguarde enquanto a LUX-ADVANCE
+sincroniza os perfis aprovados.
+</div>
+
+</div>
+
+</div>
+
+
+</section>
+
+
+
 <footer>
 
-LUX — Sensualidade &amp; Sofisticação
+LUX-ADVANCE — Sensualidade &amp; Sofisticação
 
 </footer>
 
 </main>
+
+
+
+<!-- =====================================================
+     MODAL DO PERFIL
+===================================================== -->
+
+<div
+  id="catalogoModal"
+  class="catalogo-modal"
+  hidden
+>
+
+<div
+  class="catalogo-modal-backdrop"
+  onclick="fecharCatalogoModal()"
+></div>
+
+
+<div
+  class="catalogo-modal-box"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="catalogoModalNome"
+>
+
+
+<button
+  type="button"
+  class="catalogo-modal-close"
+  onclick="fecharCatalogoModal()"
+  aria-label="Fechar"
+>
+×
+</button>
+
+
+<div
+  id="catalogoModalConteudo"
+>
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="./config.js?v=5"></script>
+
+<script src="./auth.js?v=10"></script>
+
+
+
+<script>
+
+/* =====================================================
+   LUX-ADVANCE — CATÁLOGO PÚBLICO
+   =====================================================
+
+   Este catálogo:
+
+   - consulta modelo_perfis
+   - mostra somente modelos aprovadas/verificadas
+   - não mostra WhatsApp
+   - não mostra botão de estrela
+   - permite visualizar fotos e vídeos
+   - direciona o visitante para cadastro
+
+===================================================== */
+
+
+let catalogoModelos = [];
+
+
+/* =====================================================
+   SEGURANÇA HTML
+===================================================== */
+
+function escapeHTML(valor){
+
+  return String(valor ?? "")
+
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+   NORMALIZA TEXTO
+===================================================== */
+
+function textoNormalizado(valor){
+
+  return String(valor ?? "")
+    .trim()
+    .toLowerCase();
+
+}
+
+
+/* =====================================================
+   LOCALIZAÇÃO
+===================================================== */
+
+function textoLocalizacao(modelo){
+
+  const partes = [];
+
+  const cidade =
+    String(
+      modelo?.cidade ?? ""
+    ).trim();
+
+  const estado =
+    String(
+      modelo?.estado ?? ""
+    ).trim();
+
+  const pais =
+    String(
+      modelo?.pais ?? ""
+    ).trim();
+
+
+  if(cidade){
+
+    partes.push(cidade);
+
+  }
+
+
+  if(estado){
+
+    partes.push(estado);
+
+  }
+
+
+  if(pais){
+
+    partes.push(pais);
+
+  }
+
+
+  if(!partes.length){
+
+    return "Perfil disponível na LUX-ADVANCE";
+
+  }
+
+
+  return partes.join(" • ");
+
+}
+
+
+/* =====================================================
+   SELO
+===================================================== */
+
+function obterSelo(modelo){
+
+  const selo =
+    modelo?.selo_codigo ||
+    modelo?.plano_codigo ||
+    modelo?.plano ||
+    "ESSENCE";
+
+
+  return String(selo)
+
+    .replace(/^LUX[-_\s]*/i,"")
+
+    .trim()
+
+    .toUpperCase();
+
+}
+
+
+/* =====================================================
+   GALERIA
+===================================================== */
+
+function obterMidias(modelo){
+
+  const midias = [];
+
+
+  /*
+   * Foto principal
+   */
+
+  if(modelo?.foto_url){
+
+    midias.push({
+
+      url:String(
+        modelo.foto_url
+      ).trim(),
+
+      tipo:"imagem"
+
+    });
+
+  }
+
+
+  /*
+   * Galeria adicional
+   */
+
+  let galeria =
+    modelo?.galeria_urls;
+
+
+  if(!galeria){
+
+    return removerMidiasDuplicadas(
+      midias
+    );
+
+  }
+
+
+  /*
+   * Caso seja JSON salvo como texto
+   */
+
+  if(typeof galeria === "string"){
+
+    try{
+
+      galeria =
+        JSON.parse(galeria);
+
+    }catch{
+
+      galeria =
+        galeria
+          .split(/\s*,\s*|\s*\n\s*/)
+          .filter(Boolean);
+
+    }
+
+  }
+
+
+  /*
+   * Caso venha como objeto
+   */
+
+  if(!Array.isArray(galeria)){
+
+    if(
+      typeof galeria === "object"
+    ){
+
+      galeria =
+        Object.values(galeria);
+
+    }else{
+
+      galeria = [galeria];
+
+    }
+
+  }
+
+
+  galeria.forEach(
+    item => {
+
+      let url = "";
+      let tipo = "";
+
+
+      if(
+        typeof item === "string"
+      ){
+
+        url =
+          item.trim();
+
+      }else if(
+        item &&
+        typeof item === "object"
+      ){
+
+        url =
+          item.url ||
+          item.src ||
+          item.path ||
+          item.publicUrl ||
+          "";
+
+        tipo =
+          item.tipo ||
+          item.type ||
+          item.mime ||
+          item.mime_type ||
+          "";
+
+      }
+
+
+      if(!url) return;
+
+
+      if(
+        /video|mp4|webm|ogg|mov|m4v/i.test(
+          String(tipo)
+        )
+      ){
+
+        tipo = "video";
+
+      }else if(
+        /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(
+          url
+        )
+      ){
+
+        tipo = "video";
+
+      }else{
+
+        tipo = "imagem";
+
+      }
+
+
+      midias.push({
+
+        url:String(url).trim(),
+
+        tipo
+
+      });
+
+    }
+  );
+
+
+  return removerMidiasDuplicadas(
+    midias
+  );
+
+}
+
+
+/* =====================================================
+   REMOVE DUPLICADOS
+===================================================== */
+
+function removerMidiasDuplicadas(midias){
+
+  const vistos =
+    new Set();
+
+  return midias.filter(
+    midia => {
+
+      const chave =
+        String(
+          midia?.url || ""
+        ).trim();
+
+
+      if(!chave){
+
+        return false;
+
+      }
+
+
+      if(vistos.has(chave)){
+
+        return false;
+
+      }
+
+
+      vistos.add(chave);
+
+      return true;
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+function criarCardCatalogo(modelo){
+
+  const nome =
+    escapeHTML(
+      modelo?.nome_exibicao ||
+      modelo?.apelido ||
+      "Modelo"
+    );
+
+
+  const foto =
+    modelo?.foto_url
+      ? escapeHTML(
+          modelo.foto_url
+        )
+      : "";
+
+
+  const localizacao =
+    escapeHTML(
+      textoLocalizacao(
+        modelo
+      )
+    );
+
+
+  const selo =
+    escapeHTML(
+      obterSelo(
+        modelo
+      )
+    );
+
+
+  const id =
+    escapeHTML(
+      modelo?.id
+    );
+
+
+  /*
+   * Se não houver foto principal,
+   * ainda mostramos o card.
+   */
+
+  const imagem = foto
+
+    ?
+
+`
+<img
+  class="catalogo-modelo-photo"
+  src="${foto}"
+  alt="${nome}"
+  loading="lazy"
+  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+>
+
+<div
+  class="catalogo-photo-fallback"
+  style="
+    display:none;
+    width:100%;
+    height:100%;
+    align-items:center;
+    justify-content:center;
+    color:#f8d58a;
+    font-family:Georgia,serif;
+    font-size:38px;
+    letter-spacing:5px;
+  "
+>
+LUX
+</div>
+`
+
+    :
+
+`
+<div
+  class="catalogo-photo-fallback"
+  style="
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#f8d58a;
+    font-family:Georgia,serif;
+    font-size:38px;
+    letter-spacing:5px;
+  "
+>
+LUX
+</div>
+`;
+
+
+  return `
+
+<article
+  class="catalogo-modelo-card"
+  data-modelo-id="${id}"
+  tabindex="0"
+  role="button"
+  aria-label="Conhecer perfil de ${nome}"
+  onclick="abrirCatalogoModelo('${id}')"
+  onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirCatalogoModelo('${id}');}"
+>
+
+
+<div class="catalogo-modelo-photo-wrap">
+
+
+${imagem}
+
+
+<div class="catalogo-selo">
+
+✦ ${selo}
+
+</div>
+
+
+<div class="catalogo-modelo-overlay">
+
+<div class="catalogo-modelo-overlay-text">
+
+TOQUE PARA CONHECER
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="catalogo-modelo-info">
+
+<h3 class="catalogo-modelo-nome">
+
+${nome}
+
+</h3>
+
+
+<p class="catalogo-modelo-local">
+
+<span>◉</span>
+
+${localizacao}
+
+</p>
+
+
+</div>
+
+
+</article>
+
+`;
+
+}
+
+
+/* =====================================================
+   RENDERIZAÇÃO
+===================================================== */
+
+function renderizarCatalogo(){
+
+  const container =
+    document.getElementById(
+      "catalogoModelos"
+    );
+
+
+  const contador =
+    document.getElementById(
+      "catalogoContagem"
+    );
+
+
+  if(!container){
+
+    return;
+
+  }
+
+
+  if(contador){
+
+    contador.innerHTML =
+      `<strong>${catalogoModelos.length}</strong> perfil${catalogoModelos.length === 1 ? "" : "s"} disponível${catalogoModelos.length === 1 ? "" : "e"} no catálogo`;
+
+  }
+
+
+  if(!catalogoModelos.length){
+
+    container.innerHTML = `
+
+<div class="catalogo-status">
+
+<div class="catalogo-status-icon">
+◇
+</div>
+
+<div class="catalogo-status-title">
+O catálogo está sendo preparado
+</div>
+
+<div class="catalogo-status-text">
+No momento ainda não existem modelos aprovadas
+ou verificadas disponíveis para apresentação.
+</div>
+
+</div>
+
+`;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    catalogoModelos
+      .map(
+        modelo =>
+          criarCardCatalogo(
+            modelo
+          )
+      )
+      .join("");
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+function abrirCatalogoModelo(
+  modeloId
+){
+
+  const modelo =
+    catalogoModelos.find(
+      item =>
+        String(item.id) ===
+        String(modeloId)
+    );
+
+
+  if(!modelo){
+
+    return;
+
+  }
+
+
+  const modal =
+    document.getElementById(
+      "catalogoModal"
+    );
+
+
+  const conteudo =
+    document.getElementById(
+      "catalogoModalConteudo"
+    );
+
+
+  if(!modal || !conteudo){
+
+    return;
+
+  }
+
+
+  const nome =
+    escapeHTML(
+      modelo?.nome_exibicao ||
+      modelo?.apelido ||
+      "Modelo"
+    );
+
+
+  const localizacao =
+    escapeHTML(
+      textoLocalizacao(
+        modelo
+      )
+    );
+
+
+  const selo =
+    escapeHTML(
+      obterSelo(
+        modelo
+      )
+    );
+
+
+  const midias =
+    obterMidias(
+      modelo
+    );
+
+
+  let midiasHTML = "";
+
+
+  if(!midias.length){
+
+    midiasHTML = `
+
+<div class="catalogo-status">
+
+<div class="catalogo-status-icon">
+◇
+</div>
+
+<div class="catalogo-status-title">
+Perfil sem mídias adicionais
+</div>
+
+<div class="catalogo-status-text">
+Este perfil ainda não possui fotos ou vídeos
+disponíveis para visualização no catálogo.
+</div>
+
+</div>
+
+`;
+
+  }else{
+
+    midiasHTML =
+      midias
+        .map(
+          (midia,index) => {
+
+            const url =
+              escapeHTML(
+                midia.url
+              );
+
+
+            if(
+              midia.tipo ===
+              "video"
+            ){
+
+              return `
+
+<div class="catalogo-media-item">
+
+<div class="catalogo-media-type">
+VÍDEO
+</div>
+
+<video
+  controls
+  playsinline
+  preload="metadata"
+>
+  <source
+    src="${url}"
+  >
+</video>
+
+</div>
+
+`;
+
+            }
+
+
+            return `
+
+<div class="catalogo-media-item">
+
+<div class="catalogo-media-type">
+FOTO
+</div>
+
+<img
+  src="${url}"
+  alt="${nome} — mídia ${index + 1}"
+  loading="lazy"
+>
+
+</div>
+
+`;
+
+          }
+        )
+        .join("");
+
+  }
+
+
+  conteudo.innerHTML = `
+
+<div class="catalogo-modal-header">
+
+<div class="catalogo-modal-eyebrow">
+LUX-ADVANCE • ${selo}
+</div>
+
+<h2
+  id="catalogoModalNome"
+  class="catalogo-modal-title"
+>
+${nome}
+</h2>
+
+<p class="catalogo-modal-location">
+◉ ${localizacao}
+</p>
+
+</div>
+
+
+<div class="catalogo-media-grid">
+
+${midiasHTML}
+
+</div>
+
+
+<div class="catalogo-modal-notice">
+
+<strong>
+✦ Gostou deste perfil?
+</strong>
+
+Para acessar as opções de contato e
+conhecer melhor a experiência da
+LUX-ADVANCE, faça seu cadastro.
+
+<br>
+
+<a
+  class="catalogo-cadastro-button"
+  href="cadastro-usuario.html"
+>
+CADASTRE-SE NA LUX-ADVANCE
+</a>
+
+</div>
+
+`;
+
+
+  modal.hidden = false;
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+/* =====================================================
+   FECHAR MODAL
+===================================================== */
+
+function fecharCatalogoModal(){
+
+  const modal =
+    document.getElementById(
+      "catalogoModal"
+    );
+
+
+  if(!modal){
+
+    return;
+
+  }
+
+
+  modal.hidden = true;
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* =====================================================
+   ESC FECHA O MODAL
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if(
+      event.key === "Escape"
+    ){
+
+      fecharCatalogoModal();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   CARREGAR MODELOS
+===================================================== */
+
+async function carregarCatalogo(){
+
+  const container =
+    document.getElementById(
+      "catalogoModelos"
+    );
+
+
+  const contador =
+    document.getElementById(
+      "catalogoContagem"
+    );
+
+
+  try{
+
+
+    /*
+     * Confere se o Supabase
+     * foi inicializado.
+     */
+
+    if(
+      !window.luxSupabase
+    ){
+
+      throw new Error(
+        "Supabase não foi inicializado."
+      );
+
+    }
+
+
+    /*
+     * Busca os cadastros.
+     *
+     * Não filtramos por status diretamente
+     * na consulta para manter o mesmo
+     * comportamento tolerante usado
+     * na página modelos.html.
+     */
+
+    const {
+      data,
+      error
+    } =
+      await window.luxSupabase
+
+        .from(
+          "modelo_perfis"
+        )
+
+        .select("*");
+
+
+    if(error){
+
+      console.error(
+        "[LUX-ADVANCE CATÁLOGO]",
+        error
+      );
+
+      throw error;
+
+    }
+
+
+    /*
+     * Somente modelos aprovadas/verificadas
+     * entram na vitrine pública.
+     */
+
+    const statusPermitidos = [
+
+      "aprovado",
+
+      "aprovada",
+
+      "verificada",
+
+      "verificado"
+
+    ];
+
+
+    catalogoModelos =
+      (
+        Array.isArray(data)
+          ? data
+          : []
+      )
+
+      .filter(
+        modelo => {
+
+          const status =
+            textoNormalizado(
+              modelo?.verificacao_status
+            );
+
+
+          return statusPermitidos.includes(
+            status
+          );
+
+        }
+      );
+
+
+    /*
+     * Ordenação:
+     *
+     * primeiro as modelos com foto;
+     * depois pelo nome.
+     */
+
+    catalogoModelos.sort(
+      (a,b) => {
+
+        const fotoA =
+          a?.foto_url
+            ? 1
+            : 0;
+
+        const fotoB =
+          b?.foto_url
+            ? 1
+            : 0;
+
+
+        if(
+          fotoA !==
+          fotoB
+        ){
+
+          return (
+            fotoB -
+            fotoA
+          );
+
+        }
+
+
+        return String(
+          a?.nome_exibicao ||
+          a?.apelido ||
+          ""
+        ).localeCompare(
+          String(
+            b?.nome_exibicao ||
+            b?.apelido ||
+            ""
+          ),
+          "pt-BR"
+        );
+
+      }
+    );
+
+
+    renderizarCatalogo();
+
+
+  }catch(erro){
+
+    console.error(
+      "[LUX-ADVANCE CATÁLOGO]",
+      erro
+    );
+
+
+    if(contador){
+
+      contador.textContent =
+        "Não foi possível sincronizar o catálogo.";
+
+    }
+
+
+    if(container){
+
+      container.innerHTML = `
+
+<div class="catalogo-status">
+
+<div class="catalogo-status-icon">
+!
+</div>
+
+<div class="catalogo-status-title">
+Não foi possível carregar o catálogo
+</div>
+
+<div class="catalogo-status-text">
+A LUX-ADVANCE não conseguiu consultar
+os perfis neste momento.
+Atualize a página e tente novamente.
+</div>
+
+</div>
+
+`;
+
+    }
+
+  }
+
+}
+
+
+/* =====================================================
+   INICIALIZAÇÃO
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    carregarCatalogo();
+
+  }
+);
+
+</script>
+
 
 </body>
 

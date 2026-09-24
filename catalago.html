@@ -17,10 +17,10 @@
 
 <meta
   name="description"
-  content="LUX-ADVANCE — Catálogo de perfis"
+  content="LUX-ADVANCE — Vitrine exclusiva de perfis"
 >
 
-<title>LUX-ADVANCE — Catálogo</title>
+<title>LUX-ADVANCE — Vitrine</title>
 
 <link rel="stylesheet" href="app.css">
 
@@ -54,12 +54,25 @@ body{
   font-family:"Playfair Display",Georgia,serif;
 
   background:
-    linear-gradient(
-      rgba(5,2,7,.58),
-      rgba(3,2,5,.97)
+
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(248,213,138,.12),
+      transparent 30%
     ),
-    url("./Halloween-feminina.jpg")
-    center top / cover fixed no-repeat;
+
+    radial-gradient(
+      circle at 10% 40%,
+      rgba(255,60,150,.08),
+      transparent 30%
+    ),
+
+    linear-gradient(
+      145deg,
+      #050207,
+      #0d050b 48%,
+      #030204
+    );
 
   overflow-x:hidden;
 }
@@ -77,15 +90,33 @@ body::before{
   z-index:0;
 
   background:
-    radial-gradient(
-      circle at 12% 15%,
-      rgba(255,60,150,.16),
-      transparent 25%
+    linear-gradient(
+      rgba(0,0,0,.15),
+      rgba(0,0,0,.35)
     ),
+    url("./Halloween-feminina.jpg")
+    center top / cover fixed no-repeat;
+
+  opacity:.16;
+}
+
+body::after{
+
+  content:"";
+
+  position:fixed;
+
+  inset:0;
+
+  pointer-events:none;
+
+  z-index:0;
+
+  background:
     radial-gradient(
-      circle at 88% 20%,
-      rgba(248,213,138,.10),
-      transparent 25%
+      circle at center,
+      transparent 35%,
+      rgba(0,0,0,.68) 100%
     );
 }
 
@@ -95,11 +126,11 @@ body::before{
 
   z-index:2;
 
-  width:min(1250px,92%);
+  width:min(1380px,94%);
 
   margin:auto;
 
-  padding:22px 0 70px;
+  padding:18px 0 70px;
 }
 
 
@@ -109,7 +140,7 @@ body::before{
 
 .topbar{
 
-  position:relative;
+  min-height:100px;
 
   display:flex;
 
@@ -117,23 +148,16 @@ body::before{
 
   justify-content:space-between;
 
-  min-height:105px;
+  gap:25px;
 
-  padding:10px 4px 18px;
+  padding:5px 0 18px;
 
   border-bottom:
     1px solid
     rgba(248,213,138,.20);
 
-  margin-bottom:45px;
-
-  gap:30px;
+  margin-bottom:35px;
 }
-
-
-/* =====================================================
-   LOGO
-===================================================== */
 
 .logo{
 
@@ -141,46 +165,32 @@ body::before{
 
   align-items:center;
 
-  justify-content:flex-start;
-
-  flex-shrink:0;
-
-  width:auto;
-
-  height:105px;
-
-  padding:4px 0;
+  height:90px;
 
   text-decoration:none;
 
-  transition:
-    transform .35s ease,
-    filter .35s ease;
+  transition:.35s;
 }
 
 .logo img{
 
   display:block;
 
+  height:90px;
+
+  max-width:250px;
+
   width:auto;
-
-  height:105px;
-
-  max-width:260px;
 
   object-fit:contain;
 
-  object-position:left center;
-
   filter:
     drop-shadow(
-      0 0 10px
-      rgba(248,213,138,.18)
+      0 0 14px
+      rgba(248,213,138,.20)
     );
 
-  transition:
-    transform .35s ease,
-    filter .35s ease;
+  transition:.35s;
 }
 
 .logo:hover{
@@ -192,14 +202,14 @@ body::before{
 
   filter:
     drop-shadow(
-      0 0 18px
-      rgba(248,213,138,.38)
+      0 0 24px
+      rgba(248,213,138,.40)
     );
 }
 
 
 /* =====================================================
-   BOTÕES DO TOPO
+   BOTÕES
 ===================================================== */
 
 .top-actions{
@@ -208,14 +218,12 @@ body::before{
 
   align-items:center;
 
-  justify-content:flex-end;
-
-  gap:12px;
-
-  flex-shrink:0;
+  gap:10px;
 }
 
 .btn{
+
+  min-height:42px;
 
   display:inline-flex;
 
@@ -223,17 +231,16 @@ body::before{
 
   justify-content:center;
 
-  min-height:42px;
-
-  padding:11px 22px;
-
-  border:1px solid
-    rgba(248,213,138,.58);
+  padding:10px 21px;
 
   border-radius:30px;
 
+  border:
+    1px solid
+    rgba(248,213,138,.55);
+
   background:
-    rgba(5,3,8,.78);
+    rgba(5,2,7,.78);
 
   color:#f8d58a;
 
@@ -247,15 +254,9 @@ body::before{
 
   text-transform:uppercase;
 
-  white-space:nowrap;
+  backdrop-filter:blur(12px);
 
   transition:.3s;
-
-  backdrop-filter:blur(10px);
-
-  box-shadow:
-    0 8px 25px
-    rgba(0,0,0,.25);
 }
 
 .btn:hover{
@@ -265,10 +266,6 @@ body::before{
   color:#10090d;
 
   transform:translateY(-2px);
-
-  box-shadow:
-    0 10px 28px
-    rgba(248,213,138,.18);
 }
 
 
@@ -280,34 +277,54 @@ body::before{
 
   position:relative;
 
-  min-height:360px;
+  min-height:410px;
+
+  overflow:hidden;
 
   display:flex;
 
   align-items:center;
 
-  overflow:hidden;
+  border-radius:34px;
 
-  border-radius:30px;
-
-  border:1px solid
-    rgba(255,110,180,.38);
-
-  margin-bottom:35px;
+  border:
+    1px solid
+    rgba(248,213,138,.30);
 
   background:
+
     linear-gradient(
       90deg,
-      rgba(15,3,12,.96),
-      rgba(25,5,17,.62),
-      rgba(5,2,7,.25)
+      rgba(4,2,6,.97),
+      rgba(12,4,10,.82),
+      rgba(5,2,7,.42)
     ),
+
     url("./Halloween-feminina.jpg")
     center / cover;
 
   box-shadow:
-    0 25px 70px
-    rgba(0,0,0,.60);
+    0 30px 100px
+    rgba(0,0,0,.72);
+}
+
+.hero::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(248,213,138,.06),
+      transparent 65%
+    );
 }
 
 .hero-content{
@@ -316,12 +333,14 @@ body::before{
 
   z-index:2;
 
-  max-width:720px;
+  max-width:780px;
 
-  padding:42px;
+  padding:55px;
 }
 
 .eyebrow{
+
+  margin-bottom:14px;
 
   color:#f8d58a;
 
@@ -329,9 +348,9 @@ body::before{
 
   font-size:10px;
 
-  letter-spacing:4px;
+  letter-spacing:5px;
 
-  margin-bottom:12px;
+  text-transform:uppercase;
 }
 
 .hero h1{
@@ -339,733 +358,267 @@ body::before{
   margin:0;
 
   font-size:
-    clamp(38px,6vw,68px);
+    clamp(42px,7vw,78px);
+
+  line-height:1;
 
   font-weight:500;
 
   font-style:italic;
+}
 
-  line-height:1.05;
+.hero h1 span{
+
+  color:#f8d58a;
+
+  text-shadow:
+    0 0 25px
+    rgba(248,213,138,.18);
 }
 
 .hero p{
 
-  margin:18px 0 0;
+  max-width:650px;
 
-  color:rgba(255,255,255,.76);
+  margin:22px 0 0;
 
-  line-height:1.7;
-
-  max-width:600px;
-}
-
-
-/* =====================================================
-   CATEGORIAS
-===================================================== */
-
-.categories{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:22px;
-
-  margin-bottom:55px;
-}
-
-.category{
-
-  position:relative;
-
-  min-height:330px;
-
-  overflow:hidden;
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:flex-end;
-
-  padding:30px;
-
-  border-radius:28px;
-
-  text-decoration:none;
-
-  color:#fff;
-
-  transition:
-    transform .45s ease,
-    box-shadow .45s ease,
-    border-color .45s ease;
-
-  backdrop-filter:blur(12px);
-
-  isolation:isolate;
-}
-
-.category::before{
-
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:-2;
-
-  pointer-events:none;
-}
-
-.category::after{
-
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:-1;
-
-  pointer-events:none;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.02) 5%,
-      rgba(0,0,0,.18) 35%,
-      rgba(0,0,0,.94) 100%
-    );
-}
-
-.category:hover{
-
-  transform:
-    translateY(-10px)
-    scale(1.015);
-}
-
-
-/* =====================================================
-   FEMININA
-===================================================== */
-
-.category.feminina{
-
-  border:
-    1px solid
-    rgba(255,94,174,.65);
-
-  background:
-
-    radial-gradient(
-      circle at 80% 18%,
-      rgba(255,105,180,.40),
-      transparent 30%
-    ),
-
-    linear-gradient(
-      145deg,
-      rgba(70,7,43,.96),
-      rgba(27,3,20,.94)
-    );
-
-  box-shadow:
-    0 22px 60px
-    rgba(0,0,0,.55),
-    inset 0 0 55px
-    rgba(255,58,157,.10);
-}
-
-.category.feminina::before{
-
-  background:
-
-    radial-gradient(
-      circle at 82% 18%,
-      rgba(255,80,170,.28),
-      transparent 23%
-    ),
-
-    radial-gradient(
-      circle at 15% 80%,
-      rgba(191,36,119,.18),
-      transparent 30%
-    );
-}
-
-.category.feminina:hover{
-
-  border-color:
-    rgba(255,140,205,.95);
-
-  box-shadow:
-    0 32px 80px
-    rgba(0,0,0,.75),
-    0 0 35px
-    rgba(255,65,164,.22);
-}
-
-.category.feminina .category-icon{
-
-  color:#ff9bd0;
-
-  border-color:
-    rgba(255,125,195,.65);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(91,9,56,.85),
-      rgba(29,4,23,.92)
-    );
-
-  box-shadow:
-    0 0 25px
-    rgba(255,68,169,.22);
-}
-
-.category.feminina h2{
-
-  color:#ffd0e8;
-
-  text-shadow:
-    0 0 20px
-    rgba(255,74,171,.28);
-}
-
-
-/* =====================================================
-   MASCULINO
-===================================================== */
-
-.category.masculina{
-
-  border:
-    1px solid
-    rgba(78,156,255,.60);
-
-  background:
-
-    radial-gradient(
-      circle at 82% 17%,
-      rgba(61,145,255,.32),
-      transparent 30%
-    ),
-
-    linear-gradient(
-      145deg,
-      rgba(5,25,58,.97),
-      rgba(3,8,20,.96)
-    );
-
-  box-shadow:
-    0 22px 60px
-    rgba(0,0,0,.58),
-    inset 0 0 55px
-    rgba(36,116,221,.12);
-}
-
-.category.masculina::before{
-
-  background:
-
-    radial-gradient(
-      circle at 82% 18%,
-      rgba(53,145,255,.30),
-      transparent 24%
-    ),
-
-    radial-gradient(
-      circle at 12% 78%,
-      rgba(31,81,155,.18),
-      transparent 32%
-    );
-}
-
-.category.masculina:hover{
-
-  border-color:
-    rgba(105,181,255,.95);
-
-  box-shadow:
-    0 32px 80px
-    rgba(0,0,0,.78),
-    0 0 35px
-    rgba(45,130,255,.22);
-}
-
-.category.masculina .category-icon{
-
-  color:#8bc8ff;
-
-  border-color:
-    rgba(93,166,255,.65);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(7,38,82,.88),
-      rgba(3,9,24,.94)
-    );
-
-  box-shadow:
-    0 0 25px
-    rgba(42,126,255,.20);
-}
-
-.category.masculina h2{
-
-  color:#c5e5ff;
-
-  text-shadow:
-    0 0 20px
-    rgba(69,153,255,.25);
-}
-
-
-/* =====================================================
-   LGBTQ+
-===================================================== */
-
-.category.lgbtq{
-
-  position:relative;
-
-  border:
-    1px solid
-    rgba(255,255,255,.52);
-
-  background:
-
-    linear-gradient(
-      145deg,
-      rgba(25,4,28,.96),
-      rgba(5,2,10,.96)
-    );
-
-  box-shadow:
-    0 22px 60px
-    rgba(0,0,0,.58),
-    inset 0 0 65px
-    rgba(255,255,255,.07);
-}
-
-.category.lgbtq::before{
-
-  background:
-
-    linear-gradient(
-      135deg,
-      rgba(255,40,80,.30),
-      rgba(255,150,40,.24),
-      rgba(255,235,55,.20),
-      rgba(60,220,125,.24),
-      rgba(50,145,255,.28),
-      rgba(150,70,255,.30),
-      rgba(240,60,180,.28)
-    );
-
-  opacity:.90;
-
-  filter:
-    blur(1px)
-    saturate(1.25);
-}
-
-.category.lgbtq::after{
-
-  background:
-
-    linear-gradient(
-      180deg,
-      rgba(5,2,10,.12) 0%,
-      rgba(5,2,10,.35) 38%,
-      rgba(4,2,8,.96) 100%
-    );
-}
-
-.category.lgbtq:hover{
-
-  border-color:
-    rgba(255,255,255,.90);
-
-  box-shadow:
-    0 32px 80px
-    rgba(0,0,0,.78),
-    0 0 38px
-    rgba(190,90,255,.24);
-}
-
-.category.lgbtq .category-icon{
-
-  color:#fff;
-
-  border-color:
-    rgba(255,255,255,.72);
-
-  background:
-
-    linear-gradient(
-      135deg,
-      rgba(255,60,100,.60),
-      rgba(255,180,50,.52),
-      rgba(50,210,130,.48),
-      rgba(65,135,255,.56),
-      rgba(175,65,255,.60)
-    );
-
-  box-shadow:
-    0 0 28px
-    rgba(255,255,255,.15);
-
-  text-shadow:
-    0 0 10px
+  color:
     rgba(255,255,255,.70);
-}
 
-.category.lgbtq h2{
+  font-size:15px;
 
-  color:#fff;
-
-  text-shadow:
-    0 0 12px rgba(255,60,100,.35),
-    0 0 20px rgba(80,150,255,.28),
-    0 0 28px rgba(190,70,255,.25);
+  line-height:1.8;
 }
 
 
 /* =====================================================
-   ÍCONE
+   LINHA DECORATIVA
 ===================================================== */
 
-.category-icon{
+.lux-line{
 
-  position:absolute;
-
-  top:25px;
-
-  right:25px;
-
-  width:62px;
-
-  height:62px;
-
-  border-radius:50%;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-size:29px;
-
-  font-family:Georgia,serif;
-
-  transition:.4s;
-}
-
-.category:hover .category-icon{
-
-  transform:
-    rotate(8deg)
-    scale(1.08);
-}
-
-.category-content{
-
-  position:relative;
-
-  z-index:2;
-}
-
-.category h2{
-
-  margin:0 0 10px;
-
-  font-size:30px;
-
-  font-weight:500;
-
-  letter-spacing:.3px;
-}
-
-.category p{
-
-  margin:0;
-
-  color:rgba(255,255,255,.72);
-
-  line-height:1.7;
-
-  font-size:14px;
-
-  max-width:310px;
-}
-
-.category-content::before{
-
-  content:"";
-
-  display:block;
-
-  width:48px;
+  width:110px;
 
   height:1px;
 
-  margin-bottom:16px;
-
-  background:
-    rgba(248,213,138,.75);
-}
-
-.category.masculina .category-content::before{
-
-  background:
-    rgba(91,169,255,.80);
-}
-
-.category.feminina .category-content::before{
-
-  background:
-    rgba(255,113,188,.85);
-}
-
-.category.lgbtq .category-content::before{
+  margin:26px 0;
 
   background:
     linear-gradient(
       90deg,
-      #ff3d62,
-      #ff9f32,
-      #ffe14b,
-      #42d77c,
-      #4e9cff,
-      #a75cff,
-      #f04cc9
+      transparent,
+      #f8d58a,
+      transparent
     );
 }
 
 
 /* =====================================================
-   NOVA ÁREA — PERFIS DO CATÁLOGO
+   TÍTULO DA VITRINE
 ===================================================== */
 
-.catalogo-modelos-section{
+.vitrine{
 
-  margin-top:10px;
-
-  padding-top:10px;
+  padding-top:65px;
 }
 
-.catalogo-heading{
+.vitrine-header{
 
   text-align:center;
 
-  margin-bottom:28px;
+  margin-bottom:35px;
 }
 
-.catalogo-eyebrow{
-
-  color:#f8d58a;
-
-  font-family:"Cinzel",serif;
-
-  font-size:10px;
-
-  letter-spacing:4px;
+.vitrine-header .eyebrow{
 
   margin-bottom:10px;
-
-  text-transform:uppercase;
 }
 
-.catalogo-heading h2{
+.vitrine-header h2{
 
   margin:0;
 
   font-size:
-    clamp(30px,5vw,48px);
+    clamp(32px,5vw,52px);
 
   font-weight:500;
 
   font-style:italic;
 }
 
-.catalogo-heading p{
+.vitrine-header p{
 
-  max-width:650px;
+  max-width:680px;
 
   margin:12px auto 0;
 
-  color:rgba(255,255,255,.66);
+  color:
+    rgba(255,255,255,.55);
+
+  font-size:13px;
 
   line-height:1.7;
-
-  font-size:14px;
 }
 
 
 /* =====================================================
-   INFORMAÇÃO DO CATÁLOGO
+   AVISO
 ===================================================== */
 
-.catalogo-notice{
+.notice{
 
-  max-width:760px;
+  max-width:850px;
 
-  margin:0 auto 28px;
+  margin:0 auto 35px;
 
-  padding:15px 18px;
+  padding:16px 22px;
 
-  border-radius:16px;
+  border-radius:18px;
 
-  border:1px solid
-    rgba(248,213,138,.22);
+  border:
+    1px solid
+    rgba(248,213,138,.18);
 
   background:
-    linear-gradient(
-      135deg,
-      rgba(248,213,138,.08),
-      rgba(255,70,160,.035)
-    );
+    rgba(248,213,138,.035);
 
-  color:rgba(255,255,255,.76);
+  color:
+    rgba(255,255,255,.60);
 
   text-align:center;
 
   font-size:12px;
 
   line-height:1.7;
-
-  box-shadow:
-    0 15px 40px
-    rgba(0,0,0,.25);
 }
 
-.catalogo-notice strong{
+.notice strong{
 
   color:#f8d58a;
 }
 
 
 /* =====================================================
-   CONTAGEM
+   CONTADOR
 ===================================================== */
 
-.catalogo-contagem{
+.contador{
 
-  margin-bottom:18px;
+  margin-bottom:20px;
 
-  color:rgba(255,255,255,.48);
+  color:
+    rgba(255,255,255,.42);
+
+  text-align:center;
 
   font-family:"Cinzel",serif;
 
-  font-size:10px;
+  font-size:9px;
 
-  letter-spacing:1.5px;
-
-  text-align:center;
+  letter-spacing:2px;
 
   text-transform:uppercase;
 }
 
-.catalogo-contagem strong{
+.contador strong{
 
   color:#f8d58a;
+
+  font-size:12px;
 }
 
 
 /* =====================================================
-   GRID DAS MODELOS
+   VITRINE UNIVERSAL
 ===================================================== */
 
-.catalogo-modelos-grid{
+.vitrine-grid{
 
   display:grid;
 
   grid-template-columns:
     repeat(4,minmax(0,1fr));
 
-  gap:20px;
+  gap:22px;
 }
 
 
 /* =====================================================
-   CARD DE MODELO
+   CARD
 ===================================================== */
 
-.catalogo-modelo-card{
+.modelo-card{
 
   position:relative;
 
   overflow:hidden;
 
-  min-height:390px;
+  min-height:450px;
 
-  border-radius:24px;
+  border-radius:25px;
 
-  border:1px solid
-    rgba(248,213,138,.20);
+  border:
+    1px solid
+    rgba(248,213,138,.18);
 
   background:
     linear-gradient(
       180deg,
-      rgba(35,13,24,.96),
-      rgba(8,3,8,.98)
+      rgba(28,11,20,.96),
+      rgba(5,2,7,.99)
     );
 
   box-shadow:
-    0 22px 60px
-    rgba(0,0,0,.50);
+    0 25px 65px
+    rgba(0,0,0,.55);
 
   cursor:pointer;
 
   transition:
-    transform .35s ease,
-    border-color .35s ease,
-    box-shadow .35s ease;
+
+    transform .45s ease,
+
+    border-color .45s ease,
+
+    box-shadow .45s ease;
 }
 
-.catalogo-modelo-card:hover{
+.modelo-card:hover{
 
-  transform:translateY(-7px);
+  transform:
+    translateY(-9px);
 
   border-color:
-    rgba(248,213,138,.55);
+    rgba(248,213,138,.58);
 
   box-shadow:
-    0 30px 75px
-    rgba(0,0,0,.72),
-    0 0 28px
-    rgba(248,213,138,.08);
+
+    0 35px 90px
+    rgba(0,0,0,.80),
+
+    0 0 30px
+    rgba(248,213,138,.09);
 }
 
-.catalogo-modelo-photo-wrap{
+
+/* =====================================================
+   FOTO
+===================================================== */
+
+.modelo-photo{
 
   position:relative;
 
   width:100%;
 
-  height:330px;
+  height:390px;
 
   overflow:hidden;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(248,213,138,.12),
-      transparent 58%
-    ),
-    #0c0509;
+  background:#090409;
 }
 
-.catalogo-modelo-photo{
+.modelo-photo img{
 
   width:100%;
 
@@ -1078,42 +631,70 @@ body::before{
   object-position:center;
 
   transition:
-    transform .5s ease,
+
+    transform .7s ease,
+
     filter .5s ease;
 }
 
-.catalogo-modelo-card:hover
-.catalogo-modelo-photo{
+.modelo-card:hover
+.modelo-photo img{
 
-  transform:scale(1.045);
+  transform:scale(1.055);
 
-  filter:brightness(1.06);
+  filter:brightness(1.08);
 }
 
 
 /* =====================================================
-   SELO DO CATÁLOGO
+   GRADIENTE SOBRE FOTO
 ===================================================== */
 
-.catalogo-selo{
+.modelo-photo::after{
+
+  content:"";
 
   position:absolute;
 
-  top:14px;
+  inset:0;
 
-  left:14px;
+  background:
+
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.02) 35%,
+      rgba(0,0,0,.10) 50%,
+      rgba(0,0,0,.88) 100%
+    );
+
+  pointer-events:none;
+}
+
+
+/* =====================================================
+   SELO
+===================================================== */
+
+.modelo-selo{
+
+  position:absolute;
+
+  top:15px;
+
+  left:15px;
 
   z-index:4;
 
-  padding:7px 10px;
+  padding:7px 12px;
 
-  border-radius:999px;
+  border-radius:30px;
 
-  border:1px solid
-    rgba(248,213,138,.38);
+  border:
+    1px solid
+    rgba(248,213,138,.42);
 
   background:
-    rgba(7,3,7,.78);
+    rgba(4,2,6,.72);
 
   color:#f8d58a;
 
@@ -1123,56 +704,85 @@ body::before{
 
   font-weight:700;
 
-  letter-spacing:1px;
+  letter-spacing:1.5px;
 
-  backdrop-filter:blur(10px);
-
-  text-transform:uppercase;
+  backdrop-filter:blur(12px);
 }
 
 
 /* =====================================================
-   SOBREPOSIÇÃO AO PASSAR
+   INDICADOR DE MÍDIA
 ===================================================== */
 
-.catalogo-modelo-overlay{
+.modelo-media-count{
 
   position:absolute;
 
-  inset:0;
+  right:15px;
 
-  display:flex;
+  top:15px;
 
-  align-items:flex-end;
+  z-index:4;
 
-  padding:20px;
+  padding:7px 10px;
+
+  border-radius:30px;
 
   background:
-    linear-gradient(
-      180deg,
-      transparent 35%,
-      rgba(0,0,0,.12) 50%,
-      rgba(0,0,0,.88) 100%
-    );
-
-  opacity:.95;
-}
-
-.catalogo-modelo-overlay-text{
+    rgba(0,0,0,.65);
 
   color:#fff;
 
   font-family:"Cinzel",serif;
 
-  font-size:9px;
+  font-size:8px;
 
-  letter-spacing:1.4px;
+  letter-spacing:1px;
 
-  text-transform:uppercase;
+  backdrop-filter:blur(10px);
+}
+
+
+/* =====================================================
+   TEXTO SOBRE FOTO
+===================================================== */
+
+.modelo-photo-title{
+
+  position:absolute;
+
+  left:20px;
+
+  right:20px;
+
+  bottom:18px;
+
+  z-index:4;
+}
+
+.modelo-photo-title h3{
+
+  margin:0;
+
+  color:#fff;
+
+  font-size:25px;
+
+  font-weight:500;
 
   text-shadow:
-    0 2px 10px
-    rgba(0,0,0,.8);
+    0 3px 20px
+    rgba(0,0,0,.90);
+}
+
+.modelo-photo-title p{
+
+  margin:6px 0 0;
+
+  color:
+    rgba(255,255,255,.65);
+
+  font-size:11px;
 }
 
 
@@ -1180,36 +790,86 @@ body::before{
    CORPO DO CARD
 ===================================================== */
 
-.catalogo-modelo-info{
+.modelo-info{
 
-  padding:14px 15px 17px;
+  padding:14px 18px 17px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:12px;
 }
 
-.catalogo-modelo-nome{
+.modelo-info-left{
 
-  margin:0;
+  min-width:0;
+}
+
+.modelo-nome{
 
   color:#fff;
 
-  font-size:21px;
-
-  font-weight:500;
+  font-size:18px;
 }
 
-.catalogo-modelo-local{
+.modelo-local{
 
-  margin:7px 0 0;
+  margin-top:4px;
 
-  color:rgba(255,255,255,.55);
+  color:
+    rgba(255,255,255,.42);
 
-  font-size:11px;
+  font-size:10px;
 
-  line-height:1.5;
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
 }
 
-.catalogo-modelo-local span{
+.modelo-local span{
 
   color:#f8d58a;
+}
+
+.modelo-open{
+
+  flex-shrink:0;
+
+  width:35px;
+
+  height:35px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(248,213,138,.30);
+
+  color:#f8d58a;
+
+  font-size:15px;
+
+  transition:.3s;
+}
+
+.modelo-card:hover .modelo-open{
+
+  background:#f8d58a;
+
+  color:#10090d;
+
+  transform:translateX(3px);
 }
 
 
@@ -1217,50 +877,50 @@ body::before{
    STATUS
 ===================================================== */
 
-.catalogo-status{
+.status{
 
-  grid-column:1 / -1;
+  grid-column:1/-1;
 
-  padding:55px 20px;
+  padding:65px 25px;
 
-  text-align:center;
+  border-radius:25px;
 
-  border-radius:24px;
-
-  border:1px dashed
-    rgba(248,213,138,.22);
+  border:
+    1px dashed
+    rgba(248,213,138,.20);
 
   background:
-    rgba(255,255,255,.018);
+    rgba(255,255,255,.015);
 
-  color:rgba(255,255,255,.60);
+  text-align:center;
 }
 
-.catalogo-status-icon{
+.status-icon{
 
   color:#f8d58a;
 
-  font-size:34px;
+  font-size:38px;
 
   margin-bottom:12px;
 }
 
-.catalogo-status-title{
+.status-title{
 
   color:#fff;
 
-  font-size:22px;
+  font-size:23px;
 
   font-style:italic;
 }
 
-.catalogo-status-text{
+.status-text{
 
-  max-width:560px;
+  max-width:600px;
 
-  margin:9px auto 0;
+  margin:10px auto 0;
 
-  color:rgba(255,255,255,.43);
+  color:
+    rgba(255,255,255,.42);
 
   font-size:12px;
 
@@ -1269,10 +929,10 @@ body::before{
 
 
 /* =====================================================
-   MODAL DO PERFIL
+   MODAL
 ===================================================== */
 
-.catalogo-modal{
+.modal{
 
   position:fixed;
 
@@ -1286,22 +946,20 @@ body::before{
 
   justify-content:center;
 
-  padding:20px;
+  padding:18px;
 
   background:
-    rgba(2,1,4,.86);
+    rgba(1,1,3,.88);
 
-  backdrop-filter:blur(14px);
-
-  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(16px);
 }
 
-.catalogo-modal[hidden]{
+.modal[hidden]{
 
   display:none;
 }
 
-.catalogo-modal-backdrop{
+.modal-backdrop{
 
   position:absolute;
 
@@ -1310,38 +968,39 @@ body::before{
   cursor:pointer;
 }
 
-.catalogo-modal-box{
+.modal-box{
 
   position:relative;
 
   z-index:2;
 
-  width:min(960px,100%);
+  width:min(1050px,100%);
 
-  max-height:92vh;
+  max-height:94vh;
 
   overflow:auto;
 
-  border-radius:26px;
+  padding:25px;
 
-  border:1px solid
+  border-radius:28px;
+
+  border:
+    1px solid
     rgba(248,213,138,.28);
 
   background:
     linear-gradient(
       145deg,
-      rgba(24,8,16,.98),
-      rgba(7,3,8,.99)
+      rgba(26,9,18,.99),
+      rgba(5,2,7,.99)
     );
 
   box-shadow:
-    0 35px 100px
-    rgba(0,0,0,.80);
-
-  padding:24px;
+    0 40px 120px
+    rgba(0,0,0,.90);
 }
 
-.catalogo-modal-close{
+.modal-close{
 
   position:absolute;
 
@@ -1349,7 +1008,7 @@ body::before{
 
   right:12px;
 
-  z-index:10;
+  z-index:20;
 
   width:42px;
 
@@ -1357,11 +1016,12 @@ body::before{
 
   border-radius:50%;
 
-  border:1px solid
-    rgba(248,213,138,.28);
+  border:
+    1px solid
+    rgba(248,213,138,.30);
 
   background:
-    rgba(0,0,0,.60);
+    rgba(0,0,0,.65);
 
   color:#f8d58a;
 
@@ -1369,12 +1029,10 @@ body::before{
 
   cursor:pointer;
 
-  line-height:1;
-
-  transition:.25s;
+  transition:.3s;
 }
 
-.catalogo-modal-close:hover{
+.modal-close:hover{
 
   background:#f8d58a;
 
@@ -1383,14 +1041,14 @@ body::before{
   transform:rotate(90deg);
 }
 
-.catalogo-modal-header{
+.modal-header{
 
-  padding-right:45px;
+  padding-right:55px;
 
   margin-bottom:20px;
 }
 
-.catalogo-modal-eyebrow{
+.modal-eyebrow{
 
   color:#f8d58a;
 
@@ -1401,85 +1059,84 @@ body::before{
   letter-spacing:3px;
 
   text-transform:uppercase;
-
-  margin-bottom:7px;
 }
 
-.catalogo-modal-title{
+.modal-title{
 
-  margin:0;
+  margin:6px 0 0;
 
   color:#fff;
 
-  font-size:30px;
-
-  font-style:italic;
+  font-size:
+    clamp(28px,5vw,42px);
 
   font-weight:500;
+
+  font-style:italic;
 }
 
-.catalogo-modal-location{
+.modal-location{
 
   margin:8px 0 0;
 
-  color:rgba(255,255,255,.58);
+  color:
+    rgba(255,255,255,.50);
 
   font-size:12px;
 }
 
 
 /* =====================================================
-   MÍDIA DO MODAL
+   MÍDIAS
 ===================================================== */
 
-.catalogo-media-grid{
+.media-grid{
 
   display:grid;
 
   grid-template-columns:
     repeat(3,minmax(0,1fr));
 
-  gap:12px;
-
-  margin-top:20px;
+  gap:13px;
 }
 
-.catalogo-media-item{
+.media-item{
 
   position:relative;
 
   overflow:hidden;
 
-  min-height:190px;
+  min-height:210px;
 
-  border-radius:16px;
+  border-radius:17px;
 
-  border:1px solid
-    rgba(248,213,138,.14);
+  border:
+    1px solid
+    rgba(248,213,138,.13);
 
-  background:#090409;
+  background:#030204;
 }
 
-.catalogo-media-item img{
+.media-item img{
 
   width:100%;
 
   height:100%;
 
-  min-height:190px;
+  min-height:210px;
 
   display:block;
 
   object-fit:cover;
 }
 
-.catalogo-media-item video{
+.media-item video{
 
   width:100%;
 
-  height:100%;
+  min-height:210px;
 
-  min-height:190px;
+  height:100%;
 
   display:block;
 
@@ -1488,7 +1145,7 @@ body::before{
   background:#000;
 }
 
-.catalogo-media-type{
+.media-label{
 
   position:absolute;
 
@@ -1496,14 +1153,14 @@ body::before{
 
   left:8px;
 
-  z-index:3;
+  z-index:4;
 
   padding:5px 8px;
 
-  border-radius:999px;
+  border-radius:20px;
 
   background:
-    rgba(0,0,0,.72);
+    rgba(0,0,0,.70);
 
   color:#f8d58a;
 
@@ -1516,54 +1173,56 @@ body::before{
 
 
 /* =====================================================
-   AVISO DO MODAL
+   CTA
 ===================================================== */
 
-.catalogo-modal-notice{
+.modal-cta{
 
   margin-top:22px;
 
-  padding:17px;
+  padding:20px;
 
-  border-radius:16px;
+  border-radius:18px;
 
-  border:1px solid
+  border:
+    1px solid
     rgba(248,213,138,.20);
 
   background:
     linear-gradient(
       135deg,
       rgba(248,213,138,.07),
-      rgba(255,70,160,.035)
+      rgba(255,60,150,.035)
     );
 
   text-align:center;
 
-  color:rgba(255,255,255,.70);
+  color:
+    rgba(255,255,255,.67);
 
   font-size:12px;
 
   line-height:1.7;
 }
 
-.catalogo-modal-notice strong{
-
-  color:#f8d58a;
+.modal-cta strong{
 
   display:block;
 
-  margin-bottom:4px;
+  margin-bottom:5px;
+
+  color:#f8d58a;
 
   font-family:"Cinzel",serif;
 
   font-size:11px;
 
-  letter-spacing:1px;
+  letter-spacing:1.5px;
 
   text-transform:uppercase;
 }
 
-.catalogo-cadastro-button{
+.cadastro{
 
   display:inline-flex;
 
@@ -1571,11 +1230,11 @@ body::before{
 
   justify-content:center;
 
-  min-height:43px;
+  margin-top:13px;
 
-  margin-top:14px;
+  min-height:44px;
 
-  padding:11px 24px;
+  padding:11px 25px;
 
   border-radius:30px;
 
@@ -1600,39 +1259,39 @@ body::before{
 
   letter-spacing:1.4px;
 
-  text-transform:uppercase;
-
   transition:.3s;
 }
 
-.catalogo-cadastro-button:hover{
+.cadastro:hover{
 
   transform:translateY(-2px);
 
   box-shadow:
-    0 10px 28px
+    0 12px 30px
     rgba(248,213,138,.20);
 }
 
 
 /* =====================================================
-   RODAPÉ
+   FOOTER
 ===================================================== */
 
 footer{
 
-  text-align:center;
-
-  margin-top:60px;
+  margin-top:70px;
 
   padding-top:25px;
 
-  border-top:1px solid
-    rgba(248,213,138,.15);
+  border-top:
+    1px solid
+    rgba(248,213,138,.14);
 
-  color:rgba(255,255,255,.42);
+  text-align:center;
 
-  font-size:12px;
+  color:
+    rgba(255,255,255,.38);
+
+  font-size:11px;
 
   letter-spacing:1px;
 }
@@ -1642,9 +1301,9 @@ footer{
    RESPONSIVO
 ===================================================== */
 
-@media(max-width:1050px){
+@media(max-width:1100px){
 
-  .catalogo-modelos-grid{
+  .vitrine-grid{
 
     grid-template-columns:
       repeat(3,minmax(0,1fr));
@@ -1652,15 +1311,15 @@ footer{
 
 }
 
-@media(max-width:900px){
+@media(max-width:800px){
 
-  .categories{
+  .vitrine-grid{
 
     grid-template-columns:
-      1fr 1fr;
+      repeat(2,minmax(0,1fr));
   }
 
-  .catalogo-modelos-grid{
+  .media-grid{
 
     grid-template-columns:
       repeat(2,minmax(0,1fr));
@@ -1677,58 +1336,47 @@ footer{
 
   .topbar{
 
-    min-height:90px;
+    min-height:82px;
 
-    padding:
-      8px
-      0
-      16px;
-
-    margin-bottom:28px;
-
-    gap:14px;
+    margin-bottom:25px;
   }
 
   .logo{
 
-    height:82px;
-
-    max-width:170px;
+    height:72px;
   }
 
   .logo img{
 
-    height:82px;
+    height:72px;
 
-    max-width:170px;
+    max-width:160px;
   }
 
   .top-actions{
 
-    gap:7px;
+    gap:6px;
   }
 
   .btn{
 
-    min-height:38px;
+    min-height:37px;
 
-    padding:
-      9px
-      13px;
+    padding:8px 12px;
 
-    font-size:9px;
-
-    letter-spacing:1px;
+    font-size:8px;
   }
 
   .hero{
 
-    min-height:380px;
+    min-height:370px;
+
+    border-radius:26px;
   }
 
   .hero-content{
 
-    padding:28px;
+    padding:30px;
   }
 
   .hero h1{
@@ -1736,100 +1384,101 @@ footer{
     font-size:43px;
   }
 
-  .categories{
+  .vitrine{
 
-    grid-template-columns:1fr;
+    padding-top:45px;
   }
 
-  .category{
+  .vitrine-grid{
 
-    min-height:300px;
-  }
-
-  .catalogo-modelos-grid{
-
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
 
     gap:12px;
   }
 
-  .catalogo-modelo-photo-wrap{
-
-    height:260px;
-  }
-
-  .catalogo-modelo-card{
+  .modelo-card{
 
     min-height:330px;
+
+    border-radius:18px;
   }
 
-  .catalogo-modelo-nome{
+  .modelo-photo{
+
+    height:270px;
+  }
+
+  .modelo-photo-title{
+
+    left:13px;
+
+    right:13px;
+
+    bottom:12px;
+  }
+
+  .modelo-photo-title h3{
 
     font-size:18px;
   }
 
-  .catalogo-media-grid{
+  .modelo-info{
 
-    grid-template-columns:1fr 1fr;
+    padding:10px 12px 12px;
   }
 
-  .catalogo-modal-box{
+  .modelo-nome{
+
+    font-size:15px;
+  }
+
+  .modelo-open{
+
+    width:30px;
+
+    height:30px;
+  }
+
+  .media-grid{
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:9px;
+  }
+
+  .modal-box{
 
     padding:18px;
 
-    max-height:94vh;
+    border-radius:22px;
   }
 
 }
 
 @media(max-width:390px){
 
-  .topbar{
+  .vitrine-grid{
 
-    align-items:center;
+    grid-template-columns:1fr;
   }
 
-  .logo{
+  .media-grid{
 
-    height:70px;
-
-    max-width:135px;
+    grid-template-columns:1fr;
   }
 
   .logo img{
 
-    height:70px;
-
     max-width:135px;
-  }
-
-  .top-actions{
-
-    gap:5px;
   }
 
   .btn{
 
-    padding:
-      8px
-      10px;
+    padding:8px 9px;
 
-    font-size:8px;
-  }
-
-  .catalogo-modelos-grid{
-
-    grid-template-columns:1fr;
-  }
-
-  .catalogo-modelo-photo-wrap{
-
-    height:360px;
-  }
-
-  .catalogo-media-grid{
-
-    grid-template-columns:1fr;
+    font-size:7px;
   }
 
 }
@@ -1841,11 +1490,15 @@ footer{
 
 <body>
 
+
 <main class="page">
 
 
-<header class="topbar">
+<!-- =====================================================
+     TOPO
+===================================================== -->
 
+<header class="topbar">
 
 <a
   class="logo"
@@ -1883,182 +1536,103 @@ ENTRAR
 
 
 
+<!-- =====================================================
+     HERO
+===================================================== -->
+
 <section class="hero">
 
 <div class="hero-content">
 
 <div class="eyebrow">
-LUX-ADVANCE — CATÁLOGO
+LUX-ADVANCE • VITRINE EXCLUSIVA
 </div>
 
 <h1>
-Escolha sua experiência.
+Uma vitrine.<br>
+<span>Inúmeras experiências.</span>
 </h1>
 
+<div class="lux-line"></div>
+
 <p>
-Explore as categorias disponíveis na plataforma
-LUX-ADVANCE e conheça alguns dos perfis
-que já fazem parte da nossa plataforma.
+Conheça os perfis que fazem parte da
+LUX-ADVANCE em uma experiência única.
+Todos reunidos em uma vitrine exclusiva,
+sem distinção de categoria.
 </p>
 
 </div>
-
-</section>
-
-
-
-<section class="categories">
-
-
-<a
-  class="category feminina"
-  href="modelos-femininos.html"
->
-
-<div class="category-icon">
-♀
-</div>
-
-<div class="category-content">
-
-<h2>
-Feminina
-</h2>
-
-<p>
-Explore os perfis femininos
-disponíveis na plataforma LUX-ADVANCE.
-</p>
-
-</div>
-
-</a>
-
-
-
-<a
-  class="category masculina"
-  href="modelos-masculinos.html"
->
-
-<div class="category-icon">
-♂
-</div>
-
-<div class="category-content">
-
-<h2>
-Masculina
-</h2>
-
-<p>
-Conheça os perfis masculinos
-disponíveis na plataforma LUX-ADVANCE.
-</p>
-
-</div>
-
-</a>
-
-
-
-<a
-  class="category lgbtq"
-  href="modelos-lgbtq.html"
->
-
-<div class="category-icon">
-♡
-</div>
-
-<div class="category-content">
-
-<h2>
-LGBTQ+
-</h2>
-
-<p>
-Explore perfis LGBTQ+ com liberdade,
-respeito, personalidade e conexão.
-</p>
-
-</div>
-
-</a>
-
 
 </section>
 
 
 
 <!-- =====================================================
-     VITRINE DE MODELOS
+     VITRINE UNIVERSAL
 ===================================================== -->
 
-<section class="catalogo-modelos-section">
+<section class="vitrine">
 
 
-<div class="catalogo-heading">
+<div class="vitrine-header">
 
-<div class="catalogo-eyebrow">
-LUX-ADVANCE — VITRINE
+<div class="eyebrow">
+LUX-ADVANCE
 </div>
 
 <h2>
-Conheça alguns perfis.
+Perfis em destaque
 </h2>
 
 <p>
-Uma pequena amostra das modelos que já fazem parte
-da LUX-ADVANCE. Clique em um perfil para conhecer
-as fotos e mídias disponíveis.
+Uma seleção dos perfis aprovados que já fazem parte
+da plataforma. Toque em uma foto para conhecer
+as mídias disponíveis.
 </p>
 
 </div>
 
 
-<div class="catalogo-notice">
 
-<strong>
-✦ QUER TER ACESSO COMPLETO?
-</strong>
+<div class="notice">
 
-Gostou de algum perfil?
-<strong>
-Cadastre-se na LUX-ADVANCE
-</strong>
-para acessar as opções disponíveis para usuários.
-Os contatos não são exibidos no catálogo público.
+<strong>✦ VITRINE PÚBLICA</strong><br>
+
+Aqui você encontra somente perfis que passaram
+pelo processo de aprovação da LUX-ADVANCE.
+Para acessar recursos de contato, faça seu cadastro.
 
 </div>
 
 
+
 <div
-  id="catalogoContagem"
-  class="catalogo-contagem"
+  id="contador"
+  class="contador"
 >
-Carregando perfis...
+Sincronizando vitrine...
 </div>
 
 
+
 <div
-  id="catalogoModelos"
-  class="catalogo-modelos-grid"
+  id="vitrineGrid"
+  class="vitrine-grid"
 >
 
-<div class="catalogo-status">
+<div class="status">
 
-<div class="catalogo-status-icon">
+<div class="status-icon">
 ◇
 </div>
 
-<div class="catalogo-status-title">
-Carregando modelos
+<div class="status-title">
+Preparando a vitrine
 </div>
 
-<div class="catalogo-status-text">
-Aguarde enquanto a LUX-ADVANCE
-sincroniza os perfis aprovados.
+<div class="status-text">
+A LUX-ADVANCE está sincronizando os perfis aprovados.
 </div>
 
 </div>
@@ -2076,38 +1650,39 @@ LUX-ADVANCE — Sensualidade &amp; Sofisticação
 
 </footer>
 
+
 </main>
 
 
 
 <!-- =====================================================
-     MODAL DO PERFIL
+     MODAL
 ===================================================== -->
 
 <div
-  id="catalogoModal"
-  class="catalogo-modal"
+  id="modal"
+  class="modal"
   hidden
 >
 
 <div
-  class="catalogo-modal-backdrop"
-  onclick="fecharCatalogoModal()"
+  class="modal-backdrop"
+  onclick="fecharModal()"
 ></div>
 
 
 <div
-  class="catalogo-modal-box"
+  class="modal-box"
   role="dialog"
   aria-modal="true"
-  aria-labelledby="catalogoModalNome"
+  aria-labelledby="modalNome"
 >
 
 
 <button
   type="button"
-  class="catalogo-modal-close"
-  onclick="fecharCatalogoModal()"
+  class="modal-close"
+  onclick="fecharModal()"
   aria-label="Fechar"
 >
 ×
@@ -2115,7 +1690,7 @@ LUX-ADVANCE — Sensualidade &amp; Sofisticação
 
 
 <div
-  id="catalogoModalConteudo"
+  id="modalConteudo"
 >
 </div>
 
@@ -2137,30 +1712,18 @@ LUX-ADVANCE — Sensualidade &amp; Sofisticação
 <script src="./auth.js?v=10"></script>
 
 
-
 <script>
 
 /* =====================================================
-   LUX-ADVANCE — CATÁLOGO PÚBLICO
-   =====================================================
-
-   Este catálogo:
-
-   - consulta modelo_perfis
-   - mostra somente modelos aprovadas/verificadas
-   - não mostra WhatsApp
-   - não mostra botão de estrela
-   - permite visualizar fotos e vídeos
-   - direciona o visitante para cadastro
-
+   LUX-ADVANCE
+   CATÁLOGO UNIVERSAL
 ===================================================== */
 
-
-let catalogoModelos = [];
+let perfis = [];
 
 
 /* =====================================================
-   SEGURANÇA HTML
+   ESCAPE
 ===================================================== */
 
 function escapeHTML(valor){
@@ -2168,23 +1731,59 @@ function escapeHTML(valor){
   return String(valor ?? "")
 
     .replaceAll("&","&amp;")
+
     .replaceAll("<","&lt;")
+
     .replaceAll(">","&gt;")
+
     .replaceAll('"',"&quot;")
+
     .replaceAll("'","&#039;");
 
 }
 
 
 /* =====================================================
-   NORMALIZA TEXTO
+   NORMALIZA STATUS
 ===================================================== */
 
-function textoNormalizado(valor){
+function normalizarStatus(valor){
 
   return String(valor ?? "")
+
     .trim()
-    .toLowerCase();
+
+    .toLowerCase()
+
+    .normalize("NFD")
+
+    .replace(/[\u0300-\u036f]/g,"");
+}
+
+
+/* =====================================================
+   VERIFICA APROVAÇÃO
+===================================================== */
+
+function perfilAprovado(modelo){
+
+  const status =
+    normalizarStatus(
+      modelo?.verificacao_status
+    );
+
+
+  return [
+
+    "aprovado",
+
+    "aprovada",
+
+    "verificado",
+
+    "verificada"
+
+  ].includes(status);
 
 }
 
@@ -2193,24 +1792,18 @@ function textoNormalizado(valor){
    LOCALIZAÇÃO
 ===================================================== */
 
-function textoLocalizacao(modelo){
+function localizacao(modelo){
 
   const partes = [];
 
   const cidade =
-    String(
-      modelo?.cidade ?? ""
-    ).trim();
+    String(modelo?.cidade ?? "").trim();
 
   const estado =
-    String(
-      modelo?.estado ?? ""
-    ).trim();
+    String(modelo?.estado ?? "").trim();
 
   const pais =
-    String(
-      modelo?.pais ?? ""
-    ).trim();
+    String(modelo?.pais ?? "").trim();
 
 
   if(cidade){
@@ -2219,13 +1812,11 @@ function textoLocalizacao(modelo){
 
   }
 
-
   if(estado){
 
     partes.push(estado);
 
   }
-
 
   if(pais){
 
@@ -2234,15 +1825,11 @@ function textoLocalizacao(modelo){
   }
 
 
-  if(!partes.length){
+  return partes.length
 
-    return "Perfil disponível na LUX-ADVANCE";
+    ? partes.join(" • ")
 
-  }
-
-
-  return partes.join(" • ");
-
+    : "LUX-ADVANCE";
 }
 
 
@@ -2252,14 +1839,18 @@ function textoLocalizacao(modelo){
 
 function obterSelo(modelo){
 
-  const selo =
+  const valor =
+
     modelo?.selo_codigo ||
+
     modelo?.plano_codigo ||
+
     modelo?.plano ||
+
     "ESSENCE";
 
 
-  return String(selo)
+  return String(valor)
 
     .replace(/^LUX[-_\s]*/i,"")
 
@@ -2271,7 +1862,7 @@ function obterSelo(modelo){
 
 
 /* =====================================================
-   GALERIA
+   NORMALIZA GALERIA
 ===================================================== */
 
 function obterMidias(modelo){
@@ -2279,17 +1870,14 @@ function obterMidias(modelo){
   const midias = [];
 
 
-  /*
-   * Foto principal
-   */
-
   if(modelo?.foto_url){
 
     midias.push({
 
-      url:String(
-        modelo.foto_url
-      ).trim(),
+      url:
+        String(
+          modelo.foto_url
+        ).trim(),
 
       tipo:"imagem"
 
@@ -2298,26 +1886,16 @@ function obterMidias(modelo){
   }
 
 
-  /*
-   * Galeria adicional
-   */
-
   let galeria =
     modelo?.galeria_urls;
 
 
   if(!galeria){
 
-    return removerMidiasDuplicadas(
-      midias
-    );
+    return removerDuplicados(midias);
 
   }
 
-
-  /*
-   * Caso seja JSON salvo como texto
-   */
 
   if(typeof galeria === "string"){
 
@@ -2338,10 +1916,6 @@ function obterMidias(modelo){
   }
 
 
-  /*
-   * Caso venha como objeto
-   */
-
   if(!Array.isArray(galeria)){
 
     if(
@@ -2360,83 +1934,76 @@ function obterMidias(modelo){
   }
 
 
-  galeria.forEach(
-    item => {
+  galeria.forEach(item => {
 
-      let url = "";
-      let tipo = "";
+    let url = "";
 
-
-      if(
-        typeof item === "string"
-      ){
-
-        url =
-          item.trim();
-
-      }else if(
-        item &&
-        typeof item === "object"
-      ){
-
-        url =
-          item.url ||
-          item.src ||
-          item.path ||
-          item.publicUrl ||
-          "";
-
-        tipo =
-          item.tipo ||
-          item.type ||
-          item.mime ||
-          item.mime_type ||
-          "";
-
-      }
+    let tipo = "";
 
 
-      if(!url) return;
+    if(
+      typeof item === "string"
+    ){
 
+      url =
+        item.trim();
 
-      if(
-        /video|mp4|webm|ogg|mov|m4v/i.test(
-          String(tipo)
-        )
-      ){
+    }else if(
+      item &&
+      typeof item === "object"
+    ){
 
-        tipo = "video";
+      url =
+        item.url ||
+        item.src ||
+        item.path ||
+        item.publicUrl ||
+        "";
 
-      }else if(
-        /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(
-          url
-        )
-      ){
-
-        tipo = "video";
-
-      }else{
-
-        tipo = "imagem";
-
-      }
-
-
-      midias.push({
-
-        url:String(url).trim(),
-
-        tipo
-
-      });
+      tipo =
+        item.tipo ||
+        item.type ||
+        item.mime ||
+        item.mime_type ||
+        "";
 
     }
-  );
 
 
-  return removerMidiasDuplicadas(
-    midias
-  );
+    if(!url){
+
+      return;
+
+    }
+
+
+    if(
+      /video/i.test(String(tipo)) ||
+
+      /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i.test(url)
+    ){
+
+      tipo = "video";
+
+    }else{
+
+      tipo = "imagem";
+
+    }
+
+
+    midias.push({
+
+      url:String(url).trim(),
+
+      tipo
+
+    });
+
+  });
+
+
+  return removerDuplicados(midias);
 
 }
 
@@ -2445,108 +2012,112 @@ function obterMidias(modelo){
    REMOVE DUPLICADOS
 ===================================================== */
 
-function removerMidiasDuplicadas(midias){
+function removerDuplicados(lista){
 
   const vistos =
     new Set();
 
-  return midias.filter(
-    midia => {
 
-      const chave =
-        String(
-          midia?.url || ""
-        ).trim();
+  return lista.filter(item => {
+
+    const url =
+      String(item?.url || "").trim();
 
 
-      if(!chave){
+    if(!url){
 
-        return false;
-
-      }
-
-
-      if(vistos.has(chave)){
-
-        return false;
-
-      }
-
-
-      vistos.add(chave);
-
-      return true;
+      return false;
 
     }
-  );
+
+
+    if(vistos.has(url)){
+
+      return false;
+
+    }
+
+
+    vistos.add(url);
+
+    return true;
+
+  });
 
 }
 
 
 /* =====================================================
-   CARD
+   CRIA CARD
 ===================================================== */
 
-function criarCardCatalogo(modelo){
+function criarCard(modelo){
 
   const nome =
+
     escapeHTML(
+
       modelo?.nome_exibicao ||
+
       modelo?.apelido ||
-      "Modelo"
+
+      "Perfil LUX-ADVANCE"
+
     );
 
 
   const foto =
+
     modelo?.foto_url
+
       ? escapeHTML(
           modelo.foto_url
         )
+
       : "";
 
 
-  const localizacao =
+  const local =
+
     escapeHTML(
-      textoLocalizacao(
-        modelo
-      )
+      localizacao(modelo)
     );
 
 
   const selo =
+
     escapeHTML(
-      obterSelo(
-        modelo
-      )
+      obterSelo(modelo)
     );
+
+
+  const midias =
+    obterMidias(modelo);
+
+
+  const quantidade =
+    midias.length;
 
 
   const id =
-    escapeHTML(
-      modelo?.id
-    );
+    String(modelo?.id || "");
 
-
-  /*
-   * Se não houver foto principal,
-   * ainda mostramos o card.
-   */
 
   const imagem = foto
 
-    ?
+    ? `
 
-`
 <img
-  class="catalogo-modelo-photo"
   src="${foto}"
   alt="${nome}"
   loading="lazy"
-  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+  onerror="
+    this.style.display='none';
+    this.nextElementSibling.style.display='flex';
+  "
 >
 
 <div
-  class="catalogo-photo-fallback"
   style="
     display:none;
     width:100%;
@@ -2555,19 +2126,18 @@ function criarCardCatalogo(modelo){
     justify-content:center;
     color:#f8d58a;
     font-family:Georgia,serif;
-    font-size:38px;
-    letter-spacing:5px;
+    font-size:42px;
+    letter-spacing:6px;
   "
 >
 LUX
 </div>
-`
-
-    :
 
 `
+
+    : `
+
 <div
-  class="catalogo-photo-fallback"
   style="
     width:100%;
     height:100%;
@@ -2576,71 +2146,101 @@ LUX
     justify-content:center;
     color:#f8d58a;
     font-family:Georgia,serif;
-    font-size:38px;
-    letter-spacing:5px;
+    font-size:42px;
+    letter-spacing:6px;
   "
 >
 LUX
 </div>
+
 `;
 
 
   return `
 
 <article
-  class="catalogo-modelo-card"
-  data-modelo-id="${id}"
+
+  class="modelo-card"
+
   tabindex="0"
+
   role="button"
-  aria-label="Conhecer perfil de ${nome}"
-  onclick="abrirCatalogoModelo('${id}')"
-  onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirCatalogoModelo('${id}');}"
+
+  data-id="${escapeHTML(id)}"
+
+  aria-label="Abrir perfil ${nome}"
+
+  onclick="abrirModal('${escapeHTML(id)}')"
+
+  onkeydown="
+    if(event.key==='Enter'||event.key===' '){
+      event.preventDefault();
+      abrirModal('${escapeHTML(id)}');
+    }
+  "
+
 >
 
 
-<div class="catalogo-modelo-photo-wrap">
+<div class="modelo-photo">
 
 
 ${imagem}
 
 
-<div class="catalogo-selo">
+<div class="modelo-selo">
 
 ✦ ${selo}
 
 </div>
 
 
-<div class="catalogo-modelo-overlay">
+<div class="modelo-media-count">
 
-<div class="catalogo-modelo-overlay-text">
-
-TOQUE PARA CONHECER
-
-</div>
+✧ ${quantidade} mídia${quantidade === 1 ? "" : "s"}
 
 </div>
 
 
-</div>
+<div class="modelo-photo-title">
 
-
-<div class="catalogo-modelo-info">
-
-<h3 class="catalogo-modelo-nome">
-
+<h3>
 ${nome}
-
 </h3>
 
+<p>
+${local}
+</p>
 
-<p class="catalogo-modelo-local">
+</div>
+
+
+</div>
+
+
+<div class="modelo-info">
+
+<div class="modelo-info-left">
+
+<div class="modelo-nome">
+${nome}
+</div>
+
+<div class="modelo-local">
 
 <span>◉</span>
+${local}
 
-${localizacao}
+</div>
 
-</p>
+</div>
+
+
+<div class="modelo-open">
+
+›
+
+</div>
 
 
 </div>
@@ -2654,24 +2254,24 @@ ${localizacao}
 
 
 /* =====================================================
-   RENDERIZAÇÃO
+   RENDERIZA
 ===================================================== */
 
-function renderizarCatalogo(){
+function renderizar(){
 
-  const container =
+  const grid =
     document.getElementById(
-      "catalogoModelos"
+      "vitrineGrid"
     );
 
 
   const contador =
     document.getElementById(
-      "catalogoContagem"
+      "contador"
     );
 
 
-  if(!container){
+  if(!grid){
 
     return;
 
@@ -2681,28 +2281,31 @@ function renderizarCatalogo(){
   if(contador){
 
     contador.innerHTML =
-      `<strong>${catalogoModelos.length}</strong> perfil${catalogoModelos.length === 1 ? "" : "s"} disponível${catalogoModelos.length === 1 ? "" : "e"} no catálogo`;
 
+      `<strong>${perfis.length}</strong>
+       perfil${perfis.length === 1 ? "" : "s"}
+       aprovado${perfis.length === 1 ? "" : "s"}
+       disponível${perfis.length === 1 ? "" : "e"}`
   }
 
 
-  if(!catalogoModelos.length){
+  if(!perfis.length){
 
-    container.innerHTML = `
+    grid.innerHTML = `
 
-<div class="catalogo-status">
+<div class="status">
 
-<div class="catalogo-status-icon">
+<div class="status-icon">
 ◇
 </div>
 
-<div class="catalogo-status-title">
-O catálogo está sendo preparado
+<div class="status-title">
+A vitrine está sendo preparada
 </div>
 
-<div class="catalogo-status-text">
-No momento ainda não existem modelos aprovadas
-ou verificadas disponíveis para apresentação.
+<div class="status-text">
+Ainda não existem perfis aprovados disponíveis
+para apresentação pública.
 </div>
 
 </div>
@@ -2714,32 +2317,26 @@ ou verificadas disponíveis para apresentação.
   }
 
 
-  container.innerHTML =
-    catalogoModelos
-      .map(
-        modelo =>
-          criarCardCatalogo(
-            modelo
-          )
-      )
+  grid.innerHTML =
+
+    perfis
+      .map(criarCard)
       .join("");
 
 }
 
 
 /* =====================================================
-   MODAL
+   ABRIR MODAL
 ===================================================== */
 
-function abrirCatalogoModelo(
-  modeloId
-){
+function abrirModal(id){
 
   const modelo =
-    catalogoModelos.find(
+    perfis.find(
       item =>
         String(item.id) ===
-        String(modeloId)
+        String(id)
     );
 
 
@@ -2752,13 +2349,13 @@ function abrirCatalogoModelo(
 
   const modal =
     document.getElementById(
-      "catalogoModal"
+      "modal"
     );
 
 
   const conteudo =
     document.getElementById(
-      "catalogoModalConteudo"
+      "modalConteudo"
     );
 
 
@@ -2770,33 +2367,34 @@ function abrirCatalogoModelo(
 
 
   const nome =
+
     escapeHTML(
+
       modelo?.nome_exibicao ||
+
       modelo?.apelido ||
-      "Modelo"
+
+      "Perfil LUX-ADVANCE"
+
     );
 
 
-  const localizacao =
+  const local =
+
     escapeHTML(
-      textoLocalizacao(
-        modelo
-      )
+      localizacao(modelo)
     );
 
 
   const selo =
+
     escapeHTML(
-      obterSelo(
-        modelo
-      )
+      obterSelo(modelo)
     );
 
 
   const midias =
-    obterMidias(
-      modelo
-    );
+    obterMidias(modelo);
 
 
   let midiasHTML = "";
@@ -2806,19 +2404,19 @@ function abrirCatalogoModelo(
 
     midiasHTML = `
 
-<div class="catalogo-status">
+<div class="status">
 
-<div class="catalogo-status-icon">
+<div class="status-icon">
 ◇
 </div>
 
-<div class="catalogo-status-title">
-Perfil sem mídias adicionais
+<div class="status-title">
+Nenhuma mídia disponível
 </div>
 
-<div class="catalogo-status-text">
+<div class="status-text">
 Este perfil ainda não possui fotos ou vídeos
-disponíveis para visualização no catálogo.
+disponíveis para visualização.
 </div>
 
 </div>
@@ -2828,26 +2426,26 @@ disponíveis para visualização no catálogo.
   }else{
 
     midiasHTML =
-      midias
-        .map(
-          (midia,index) => {
 
-            const url =
-              escapeHTML(
-                midia.url
-              );
+      midias.map(
+        (midia,index) => {
+
+          const url =
+            escapeHTML(
+              midia.url
+            );
 
 
-            if(
-              midia.tipo ===
-              "video"
-            ){
+          if(
+            midia.tipo ===
+            "video"
+          ){
 
-              return `
+            return `
 
-<div class="catalogo-media-item">
+<div class="media-item">
 
-<div class="catalogo-media-type">
+<div class="media-label">
 VÍDEO
 </div>
 
@@ -2856,23 +2454,25 @@ VÍDEO
   playsinline
   preload="metadata"
 >
-  <source
-    src="${url}"
-  >
+
+<source
+  src="${url}"
+>
+
 </video>
 
 </div>
 
 `;
 
-            }
+          }
 
 
-            return `
+          return `
 
-<div class="catalogo-media-item">
+<div class="media-item">
 
-<div class="catalogo-media-type">
+<div class="media-label">
 FOTO
 </div>
 
@@ -2886,56 +2486,54 @@ FOTO
 
 `;
 
-          }
-        )
-        .join("");
+        }
+      ).join("");
 
   }
 
 
   conteudo.innerHTML = `
 
-<div class="catalogo-modal-header">
+<div class="modal-header">
 
-<div class="catalogo-modal-eyebrow">
+<div class="modal-eyebrow">
 LUX-ADVANCE • ${selo}
 </div>
 
 <h2
-  id="catalogoModalNome"
-  class="catalogo-modal-title"
+  id="modalNome"
+  class="modal-title"
 >
 ${nome}
 </h2>
 
-<p class="catalogo-modal-location">
-◉ ${localizacao}
+<p class="modal-location">
+◉ ${local}
 </p>
 
 </div>
 
 
-<div class="catalogo-media-grid">
+<div class="media-grid">
 
 ${midiasHTML}
 
 </div>
 
 
-<div class="catalogo-modal-notice">
+<div class="modal-cta">
 
 <strong>
-✦ Gostou deste perfil?
+✦ Quer conhecer melhor este perfil?
 </strong>
 
-Para acessar as opções de contato e
-conhecer melhor a experiência da
-LUX-ADVANCE, faça seu cadastro.
+Cadastre-se na LUX-ADVANCE para acessar
+as opções disponíveis para usuários.
 
 <br>
 
 <a
-  class="catalogo-cadastro-button"
+  class="cadastro"
   href="cadastro-usuario.html"
 >
 CADASTRE-SE NA LUX-ADVANCE
@@ -2958,11 +2556,11 @@ CADASTRE-SE NA LUX-ADVANCE
    FECHAR MODAL
 ===================================================== */
 
-function fecharCatalogoModal(){
+function fecharModal(){
 
   const modal =
     document.getElementById(
-      "catalogoModal"
+      "modal"
     );
 
 
@@ -2982,7 +2580,7 @@ function fecharCatalogoModal(){
 
 
 /* =====================================================
-   ESC FECHA O MODAL
+   ESC
 ===================================================== */
 
 document.addEventListener(
@@ -2993,7 +2591,7 @@ document.addEventListener(
       event.key === "Escape"
     ){
 
-      fecharCatalogoModal();
+      fecharModal();
 
     }
 
@@ -3002,30 +2600,24 @@ document.addEventListener(
 
 
 /* =====================================================
-   CARREGAR MODELOS
+   CARREGAR PERFIS
 ===================================================== */
 
-async function carregarCatalogo(){
+async function carregarPerfis(){
 
-  const container =
+  const grid =
     document.getElementById(
-      "catalogoModelos"
+      "vitrineGrid"
     );
 
 
   const contador =
     document.getElementById(
-      "catalogoContagem"
+      "contador"
     );
 
 
   try{
-
-
-    /*
-     * Confere se o Supabase
-     * foi inicializado.
-     */
 
     if(
       !window.luxSupabase
@@ -3039,33 +2631,37 @@ async function carregarCatalogo(){
 
 
     /*
-     * Busca os cadastros.
-     *
-     * Não filtramos por status diretamente
-     * na consulta para manter o mesmo
-     * comportamento tolerante usado
-     * na página modelos.html.
+     * Consulta somente registros
+     * cujo status é oficialmente aprovado.
      */
 
-    const {
-      data,
-      error
-    } =
+    const resposta =
+
       await window.luxSupabase
 
-        .from(
-          "modelo_perfis"
-        )
+        .from("modelo_perfis")
 
-        .select("*");
+        .select("*")
+
+        .in(
+          "verificacao_status",
+          [
+            "aprovado",
+            "aprovada",
+            "verificado",
+            "verificada"
+          ]
+        );
+
+
+    const data =
+      resposta.data;
+
+    const error =
+      resposta.error;
 
 
     if(error){
-
-      console.error(
-        "[LUX-ADVANCE CATÁLOGO]",
-        error
-      );
 
       throw error;
 
@@ -3073,24 +2669,12 @@ async function carregarCatalogo(){
 
 
     /*
-     * Somente modelos aprovadas/verificadas
-     * entram na vitrine pública.
+     * Segunda camada de segurança:
+     * valida novamente o status recebido.
      */
 
-    const statusPermitidos = [
+    perfis =
 
-      "aprovado",
-
-      "aprovada",
-
-      "verificada",
-
-      "verificado"
-
-    ];
-
-
-    catalogoModelos =
       (
         Array.isArray(data)
           ? data
@@ -3098,110 +2682,97 @@ async function carregarCatalogo(){
       )
 
       .filter(
-        modelo => {
-
-          const status =
-            textoNormalizado(
-              modelo?.verificacao_status
-            );
-
-
-          return statusPermitidos.includes(
-            status
-          );
-
-        }
+        perfilAprovado
       );
 
 
     /*
-     * Ordenação:
-     *
-     * primeiro as modelos com foto;
-     * depois pelo nome.
+     * Perfis com foto aparecem primeiro.
      */
 
-    catalogoModelos.sort(
+    perfis.sort(
       (a,b) => {
 
         const fotoA =
-          a?.foto_url
-            ? 1
-            : 0;
+          a?.foto_url ? 1 : 0;
 
         const fotoB =
-          b?.foto_url
-            ? 1
-            : 0;
+          b?.foto_url ? 1 : 0;
 
 
         if(
-          fotoA !==
-          fotoB
+          fotoA !== fotoB
         ){
 
-          return (
-            fotoB -
-            fotoA
-          );
+          return fotoB - fotoA;
 
         }
 
 
         return String(
+
           a?.nome_exibicao ||
+
           a?.apelido ||
+
           ""
+
         ).localeCompare(
+
           String(
+
             b?.nome_exibicao ||
+
             b?.apelido ||
+
             ""
+
           ),
+
           "pt-BR"
+
         );
 
       }
     );
 
 
-    renderizarCatalogo();
+    renderizar();
 
 
-  }catch(erro){
+  }catch(error){
 
     console.error(
-      "[LUX-ADVANCE CATÁLOGO]",
-      erro
+      "[LUX-ADVANCE]",
+      error
     );
 
 
     if(contador){
 
       contador.textContent =
-        "Não foi possível sincronizar o catálogo.";
+        "Não foi possível sincronizar a vitrine.";
 
     }
 
 
-    if(container){
+    if(grid){
 
-      container.innerHTML = `
+      grid.innerHTML = `
 
-<div class="catalogo-status">
+<div class="status">
 
-<div class="catalogo-status-icon">
+<div class="status-icon">
 !
 </div>
 
-<div class="catalogo-status-title">
-Não foi possível carregar o catálogo
+<div class="status-title">
+Vitrine temporariamente indisponível
 </div>
 
-<div class="catalogo-status-text">
-A LUX-ADVANCE não conseguiu consultar
-os perfis neste momento.
-Atualize a página e tente novamente.
+<div class="status-text">
+Não foi possível consultar os perfis aprovados
+neste momento. Atualize a página e tente novamente.
 </div>
 
 </div>
@@ -3223,7 +2794,7 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
 
-    carregarCatalogo();
+    carregarPerfis();
 
   }
 );

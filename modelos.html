@@ -112,7 +112,7 @@ body::before{
 
 
 /* =========================================================
-   BOTÃO VOLTAR
+   BOTÃO MINHA ÁREA
 ========================================================= */
 
 .btn-voltar-area{
@@ -138,6 +138,7 @@ body::before{
   box-shadow:
     0 8px 25px rgba(0,0,0,.25);
   transition:.22s ease;
+  white-space:nowrap;
 }
 
 .btn-voltar-area:hover{
@@ -200,7 +201,7 @@ body::before{
     repeat(4,1fr);
   gap:10px;
   max-width:900px;
-  margin:15px auto 32px;
+  margin:15px auto 20px;
 }
 
 .categoria-btn{
@@ -239,6 +240,45 @@ body::before{
 
 
 /* =========================================================
+   FILTROS DE LOCALIZAÇÃO
+========================================================= */
+
+.filtros-localizacao{
+  max-width:900px;
+  margin:0 auto 25px;
+  display:grid;
+  grid-template-columns:
+    repeat(3,1fr);
+  gap:10px;
+}
+
+.filtro-local{
+  width:100%;
+  min-height:48px;
+  padding:0 13px;
+  border-radius:13px;
+  border:1px solid rgba(248,213,138,.18);
+  background:rgba(255,255,255,.035);
+  color:#f2e9ec;
+  outline:none;
+  font-size:12px;
+  font-weight:700;
+}
+
+.filtro-local:focus{
+  border-color:rgba(248,213,138,.55);
+  box-shadow:
+    0 0 0 2px
+    rgba(248,213,138,.07);
+}
+
+.filtro-local option{
+  background:#110b10;
+  color:#fff;
+}
+
+
+/* =========================================================
    CONTADOR
 ========================================================= */
 
@@ -247,7 +287,7 @@ body::before{
   color:#8f858a;
   font-size:11px;
   letter-spacing:1px;
-  margin:-15px 0 22px;
+  margin:-5px 0 22px;
 }
 
 
@@ -558,7 +598,7 @@ body::before{
   padding:1px;
   background:transparent;
   color:#514950;
-  font-size:23px;
+  font-size:25px;
   line-height:1;
   cursor:pointer;
   transition:.15s ease;
@@ -652,6 +692,10 @@ body::before{
       repeat(2,1fr);
   }
 
+  .filtros-localizacao{
+    grid-template-columns:1fr;
+  }
+
 }
 
 @media(max-width:520px){
@@ -703,7 +747,7 @@ body::before{
 
   <a
     class="btn-voltar-area"
-    href="area-usuario.html"
+    href="painel-usuario.html"
   >
     ← MINHA ÁREA
   </a>
@@ -773,6 +817,53 @@ body::before{
 </section>
 
 
+<!-- =====================================================
+     FILTROS
+===================================================== -->
+
+<section
+  class="filtros-localizacao"
+  aria-label="Filtros de localização"
+>
+
+  <select
+    id="filtroPais"
+    class="filtro-local"
+  >
+
+    <option value="">
+      🌎 TODOS OS PAÍSES
+    </option>
+
+  </select>
+
+
+  <select
+    id="filtroEstado"
+    class="filtro-local"
+  >
+
+    <option value="">
+      📍 TODOS OS ESTADOS
+    </option>
+
+  </select>
+
+
+  <select
+    id="filtroCidade"
+    class="filtro-local"
+  >
+
+    <option value="">
+      🏙️ TODAS AS CIDADES
+    </option>
+
+  </select>
+
+</section>
+
+
 <div
   id="contadorModelos"
   class="contador-modelos"
@@ -803,19 +894,39 @@ body::before{
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
 
-<script src="./config.js?v=5"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
 
-<script src="./auth.js?v=10"></script>
+
+<script
+  src="./config.js?v=5"
+></script>
+
+
+<script
+  src="./auth.js?v=10"
+></script>
 
 
 <script>
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
 
 let modelosLUX = [];
 
 let categoriaAtual = "todos";
 
+
+/* =========================================================
+   SEGURANÇA HTML
+========================================================= */
 
 function escapeHTML(valor){
 
@@ -849,7 +960,9 @@ function normalizarCategoria(valor){
     texto.includes("trans") ||
     texto.includes("queer")
   ){
+
     return "lgbtq";
+
   }
 
 
@@ -857,7 +970,9 @@ function normalizarCategoria(valor){
     texto.includes("mascul") ||
     texto === "homem"
   ){
+
     return "masculino";
+
   }
 
 
@@ -865,7 +980,9 @@ function normalizarCategoria(valor){
     texto.includes("feminin") ||
     texto === "mulher"
   ){
+
     return "feminino";
+
   }
 
 
@@ -931,12 +1048,25 @@ function chamarModelo(modelo){
 
   const numero =
     numeroWhatsApp(
-      modelo.whatsapp
+
+      modelo.whatsapp ||
+
+      modelo.telefone ||
+
+      modelo.celular
+
     );
 
 
-  if(!numero)
+  if(!numero){
+
+    alert(
+      "Esta modelo ainda não possui um número de WhatsApp disponível."
+    );
+
     return;
+
+  }
 
 
   const mensagem =
@@ -962,15 +1092,18 @@ function chamarModelo(modelo){
 
 
 /* =========================================================
-   USUÁRIO
+   USUÁRIO LOGADO
 ========================================================= */
 
 async function obterUsuario(){
 
   try{
 
-    if(!window.luxSupabase)
+    if(!window.luxSupabase){
+
       return null;
+
+    }
 
 
     const resposta =
@@ -979,15 +1112,29 @@ async function obterUsuario(){
         .getUser();
 
 
-    if(resposta.error)
+    if(resposta.error){
+
+      console.error(
+        "[LUX USUÁRIO]",
+        resposta.error
+      );
+
       return null;
+
+    }
 
 
     return
       resposta.data?.user ||
       null;
 
-  }catch{
+  }
+  catch(erro){
+
+    console.error(
+      "[LUX USUÁRIO]",
+      erro
+    );
 
     return null;
 
@@ -998,12 +1145,11 @@ async function obterUsuario(){
 
 /* =========================================================
    AVALIAÇÃO
-   UMA AVALIAÇÃO POR USUÁRIO / MODELO
+   1 ESTRELINHA POR USUÁRIO / MODELO
 ========================================================= */
 
 async function avaliarModelo(
-  modeloId,
-  nota
+  modeloId
 ){
 
   const usuario =
@@ -1021,24 +1167,57 @@ async function avaliarModelo(
   }
 
 
-  if(
-    nota < 1 ||
-    nota > 5
-  ){
-
-    return;
-
-  }
-
-
   try{
 
     /*
-     * UPSERT:
-     * se já existir avaliação,
-     * altera a nota.
-     * se não existir,
-     * cria uma nova.
+     * Verifica se o usuário
+     * já avaliou esta modelo.
+     */
+
+    const {
+      data:existente,
+      error:erroBusca
+    } =
+      await window.luxSupabase
+
+        .from("avaliacoes_modelos")
+
+        .select("id")
+
+        .eq(
+          "modelo_id",
+          modeloId
+        )
+
+        .eq(
+          "usuario_id",
+          usuario.id
+        )
+
+        .maybeSingle();
+
+
+    if(erroBusca){
+
+      throw erroBusca;
+
+    }
+
+
+    if(existente){
+
+      alert(
+        "Você já avaliou este perfil. Cada usuário pode dar uma avaliação por modelo."
+      );
+
+      return;
+
+    }
+
+
+    /*
+     * A tabela do seu sistema
+     * usa valor = 1.
      */
 
     const {
@@ -1046,25 +1225,20 @@ async function avaliarModelo(
     } =
       await window.luxSupabase
 
-        .from("avaliacoes")
+        .from("avaliacoes_modelos")
 
-        .upsert(
-          {
-            usuario_id:
-              usuario.id,
+        .insert({
 
-            modelo_id:
-              modeloId,
+          modelo_id:
+            modeloId,
 
-            estrelas:
-              nota
+          usuario_id:
+            usuario.id,
 
-          },
-          {
-            onConflict:
-              "modelo_id,usuario_id"
-          }
-        );
+          valor:
+            1
+
+        });
 
 
     if(error){
@@ -1074,21 +1248,14 @@ async function avaliarModelo(
         error
       );
 
-
-      alert(
-        "O Supabase não permitiu registrar a avaliação.\n\n" +
-        error.message
-      );
-
-
-      return;
+      throw error;
 
     }
 
 
     /*
-     * Recarrega a média verdadeira
-     * depois da avaliação.
+     * Recarrega os modelos para
+     * atualizar a quantidade.
      */
 
     await carregarModelos();
@@ -1099,7 +1266,8 @@ async function avaliarModelo(
     );
 
 
-  }catch(erro){
+  }
+  catch(erro){
 
     console.error(
       "[LUX AVALIAÇÃO]",
@@ -1108,6 +1276,7 @@ async function avaliarModelo(
 
 
     alert(
+      erro?.message ||
       "Não foi possível registrar sua avaliação."
     );
 
@@ -1117,60 +1286,32 @@ async function avaliarModelo(
 
 
 /* =========================================================
-   ESTRELAS
+   ESTRELA
 ========================================================= */
 
 function htmlEstrelas(modelo){
 
-  const media =
-    Number(
-      modelo.media_estrelas || 0
-    );
-
-
   const total =
     Number(
-      modelo.avaliacoes_total || 0
+      modelo.estrelas_total ||
+      modelo.avaliacoes_total ||
+      0
     );
-
-
-  let estrelas = "";
-
-
-  for(
-    let i=1;
-    i<=5;
-    i++
-  ){
-
-    const ativa =
-      i <= Math.round(media)
-        ? "ativa"
-        : "";
-
-
-    estrelas += `
-
-      <button
-        type="button"
-        class="estrela ${ativa}"
-        data-avaliar-id="${escapeHTML(modelo.id)}"
-        data-nota="${i}"
-        aria-label="Dar ${i} estrelas"
-      >
-        ★
-      </button>
-
-    `;
-
-  }
 
 
   return `
 
     <div class="estrelas">
 
-      ${estrelas}
+      <button
+        type="button"
+        class="estrela ativa"
+        data-avaliar-id="${escapeHTML(modelo.id)}"
+        aria-label="Avaliar modelo com uma estrela"
+        title="Avaliar com 1 estrela"
+      >
+        ★
+      </button>
 
     </div>
 
@@ -1179,18 +1320,18 @@ function htmlEstrelas(modelo){
 
       ${
         total > 0
-          ? media.toFixed(1) +
-            " / 5 • " +
-            total +
-            (
-              total === 1
-                ? " avaliação"
-                : " avaliações"
-            )
-          : "Ainda não avaliada"
+
+        ? total +
+          (
+            total === 1
+              ? " avaliação"
+              : " avaliações"
+          )
+
+        : "Ainda não avaliada"
       }
 
-      • Toque para avaliar
+      • 1 estrelinha por usuário
 
     </div>
 
@@ -1217,26 +1358,111 @@ function renderModelos(){
     );
 
 
+  const paisFiltro =
+    document.getElementById(
+      "filtroPais"
+    )?.value || "";
+
+
+  const estadoFiltro =
+    document.getElementById(
+      "filtroEstado"
+    )?.value || "";
+
+
+  const cidadeFiltro =
+    document.getElementById(
+      "filtroCidade"
+    )?.value || "";
+
+
   const filtrados =
     modelosLUX.filter(
       modelo => {
 
+
+        /*
+         * CATEGORIA
+         */
+
         if(
-          categoriaAtual ===
+          categoriaAtual !==
           "todos"
         ){
 
-          return true;
+          if(
+            normalizarCategoria(
+              modelo.categoria_catalogo
+            ) !==
+            categoriaAtual
+          ){
+
+            return false;
+
+          }
 
         }
 
 
-        return (
-          normalizarCategoria(
-            modelo.categoria_catalogo
-          ) ===
-          categoriaAtual
-        );
+        /*
+         * LOCALIZAÇÃO
+         */
+
+        const paisModelo =
+          String(
+            modelo.pais ||
+            "Brasil"
+          ).trim();
+
+
+        const estadoModelo =
+          String(
+            modelo.estado ||
+            ""
+          ).trim();
+
+
+        const cidadeModelo =
+          String(
+            modelo.cidade ||
+            ""
+          ).trim();
+
+
+        if(
+          paisFiltro &&
+          paisModelo.toLowerCase() !==
+          paisFiltro.toLowerCase()
+        ){
+
+          return false;
+
+        }
+
+
+        if(
+          estadoFiltro &&
+          estadoModelo.toLowerCase() !==
+          estadoFiltro.toLowerCase()
+        ){
+
+          return false;
+
+        }
+
+
+        if(
+          cidadeFiltro &&
+          cidadeModelo.toLowerCase() !==
+          cidadeFiltro.toLowerCase()
+        ){
+
+          return false;
+
+        }
+
+
+        return true;
 
       }
     );
@@ -1260,7 +1486,7 @@ function renderModelos(){
       >
 
         Nenhum modelo aprovado
-        encontrado nesta categoria.
+        encontrado com os filtros selecionados.
 
       </div>
 
@@ -1274,6 +1500,7 @@ function renderModelos(){
   lista.innerHTML =
     filtrados.map(
       modelo => {
+
 
         const nome =
           escapeHTML(
@@ -1289,13 +1516,29 @@ function renderModelos(){
           );
 
 
+        const estado =
+          escapeHTML(
+            modelo.estado ||
+            ""
+          );
+
+
+        const pais =
+          escapeHTML(
+            modelo.pais ||
+            "Brasil"
+          );
+
+
         const foto =
           modelo.foto_url ||
           "";
 
 
         const plano =
-          obterPlano(modelo);
+          obterPlano(
+            modelo
+          );
 
 
         const categoria =
@@ -1306,7 +1549,13 @@ function renderModelos(){
 
         const numero =
           numeroWhatsApp(
-            modelo.whatsapp
+
+            modelo.whatsapp ||
+
+            modelo.telefone ||
+
+            modelo.celular
+
           );
 
 
@@ -1315,23 +1564,48 @@ function renderModelos(){
           plano.toLowerCase();
 
 
-        let iconePlano = "✦";
+        let iconePlano =
+          "✦";
 
 
-        if(plano === "DESFIRE")
-          iconePlano = "🔥";
+        if(
+          plano === "DESFIRE"
+        ){
+
+          iconePlano =
+            "🔥";
+
+        }
 
 
-        if(plano === "ELITE")
-          iconePlano = "♛";
+        if(
+          plano === "ELITE"
+        ){
+
+          iconePlano =
+            "♛";
+
+        }
 
 
-        if(plano === "ROYAL")
-          iconePlano = "♕";
+        if(
+          plano === "ROYAL"
+        ){
+
+          iconePlano =
+            "♕";
+
+        }
 
 
-        if(plano === "DIAMOND")
-          iconePlano = "💎";
+        if(
+          plano === "DIAMOND"
+        ){
+
+          iconePlano =
+            "💎";
+
+        }
 
 
         const fotoHTML =
@@ -1369,7 +1643,7 @@ function renderModelos(){
               class="btn-chamar-modelo"
               data-whatsapp-id="${escapeHTML(modelo.id)}"
             >
-              📞 CHAMAR MODELO
+              📱 CHAMAR NO WHATSAPP
             </button>
 
           `
@@ -1407,8 +1681,11 @@ function renderModelos(){
                 <span
                   class="plano-nome"
                 >
+
                   ${iconePlano}
+
                   LUX ${plano}
+
                 </span>
 
 
@@ -1485,7 +1762,21 @@ function renderModelos(){
               <p
                 class="modelo-local"
               >
+
                 📍 ${cidade}
+
+                ${
+                  estado
+                    ? " • " + estado
+                    : ""
+                }
+
+                ${
+                  pais
+                    ? " • " + pais
+                    : ""
+                }
+
               </p>
 
 
@@ -1505,8 +1796,10 @@ function renderModelos(){
                   <span>
                     ⭐
                     ${Number(
-                      modelo.media_estrelas || 0
-                    ).toFixed(1)}
+                      modelo.estrelas_total ||
+                      modelo.avaliacoes_total ||
+                      0
+                    )}
                   </span>
 
                 </div>
@@ -1538,7 +1831,7 @@ function renderModelos(){
 
 
   /*
-   * WhatsApp
+   * WHATSAPP
    */
 
   lista
@@ -1552,18 +1845,25 @@ function renderModelos(){
           "click",
           () => {
 
+
             const modelo =
               modelosLUX.find(
                 item =>
                   String(item.id) ===
                   String(
-                    botao.dataset.whatsappId
+                    botao.dataset
+                      .whatsappId
                   )
               );
 
 
-            if(modelo)
-              chamarModelo(modelo);
+            if(modelo){
+
+              chamarModelo(
+                modelo
+              );
+
+            }
 
           }
         );
@@ -1573,7 +1873,7 @@ function renderModelos(){
 
 
   /*
-   * Estrelas
+   * AVALIAÇÃO
    */
 
   lista
@@ -1588,13 +1888,8 @@ function renderModelos(){
           () => {
 
             avaliarModelo(
-
-              botao.dataset.avaliarId,
-
-              Number(
-                botao.dataset.nota
-              )
-
+              botao.dataset
+                .avaliarId
             );
 
           }
@@ -1602,6 +1897,389 @@ function renderModelos(){
 
       }
     );
+
+}
+
+
+/* =========================================================
+   FILTROS DE LOCALIZAÇÃO
+========================================================= */
+
+function preencherFiltrosLocalizacao(){
+
+  const paisSelect =
+    document.getElementById(
+      "filtroPais"
+    );
+
+
+  const estadoSelect =
+    document.getElementById(
+      "filtroEstado"
+    );
+
+
+  const cidadeSelect =
+    document.getElementById(
+      "filtroCidade"
+    );
+
+
+  if(
+    !paisSelect ||
+    !estadoSelect ||
+    !cidadeSelect
+  ){
+
+    return;
+
+  }
+
+
+  const valorAtualPais =
+    paisSelect.value;
+
+
+  const valorAtualEstado =
+    estadoSelect.value;
+
+
+  const valorAtualCidade =
+    cidadeSelect.value;
+
+
+  /*
+   * PAÍSES
+   */
+
+  const paises =
+    [
+      ...new Set(
+
+        modelosLUX
+
+          .map(
+            modelo =>
+              String(
+                modelo.pais ||
+                "Brasil"
+              ).trim()
+          )
+
+          .filter(Boolean)
+
+      )
+    ]
+    .sort(
+      (a,b) =>
+        a.localeCompare(
+          b,
+          "pt-BR"
+        )
+    );
+
+
+  /*
+   * ESTADOS
+   */
+
+  const estados =
+    [
+      ...new Set(
+
+        modelosLUX
+
+          .filter(
+            modelo => {
+
+              if(!valorAtualPais){
+
+                return true;
+
+              }
+
+
+              return (
+
+                String(
+                  modelo.pais ||
+                  "Brasil"
+                )
+                .trim()
+                .toLowerCase()
+
+                ===
+
+                valorAtualPais
+                  .toLowerCase()
+
+              );
+
+            }
+          )
+
+          .map(
+            modelo =>
+              String(
+                modelo.estado ||
+                ""
+              ).trim()
+          )
+
+          .filter(Boolean)
+
+      )
+    ]
+    .sort(
+      (a,b) =>
+        a.localeCompare(
+          b,
+          "pt-BR"
+        )
+    );
+
+
+  /*
+   * CIDADES
+   */
+
+  const cidades =
+    [
+      ...new Set(
+
+        modelosLUX
+
+          .filter(
+            modelo => {
+
+              const paisOk =
+                !valorAtualPais ||
+
+                String(
+                  modelo.pais ||
+                  "Brasil"
+                )
+                .trim()
+                .toLowerCase()
+
+                ===
+
+                valorAtualPais
+                  .toLowerCase();
+
+
+              const estadoOk =
+                !valorAtualEstado ||
+
+                String(
+                  modelo.estado ||
+                  ""
+                )
+                .trim()
+                .toLowerCase()
+
+                ===
+
+                valorAtualEstado
+                  .toLowerCase();
+
+
+              return (
+                paisOk &&
+                estadoOk
+              );
+
+            }
+          )
+
+          .map(
+            modelo =>
+              String(
+                modelo.cidade ||
+                ""
+              ).trim()
+          )
+
+          .filter(Boolean)
+
+      )
+    ]
+    .sort(
+      (a,b) =>
+        a.localeCompare(
+          b,
+          "pt-BR"
+        )
+    );
+
+
+  /*
+   * MONTA PAÍSES
+   */
+
+  paisSelect.innerHTML =
+    `
+      <option value="">
+        🌎 TODOS OS PAÍSES
+      </option>
+    `
+
+    +
+
+    paises
+      .map(
+        valor => `
+
+          <option
+            value="${escapeHTML(valor)}"
+          >
+            ${escapeHTML(valor)}
+          </option>
+
+        `
+      )
+      .join("");
+
+
+  /*
+   * MONTA ESTADOS
+   */
+
+  estadoSelect.innerHTML =
+    `
+      <option value="">
+        📍 TODOS OS ESTADOS
+      </option>
+    `
+
+    +
+
+    estados
+      .map(
+        valor => `
+
+          <option
+            value="${escapeHTML(valor)}"
+          >
+            ${escapeHTML(valor)}
+          </option>
+
+        `
+      )
+      .join("");
+
+
+  /*
+   * MONTA CIDADES
+   */
+
+  cidadeSelect.innerHTML =
+    `
+      <option value="">
+        🏙️ TODAS AS CIDADES
+      </option>
+    `
+
+    +
+
+    cidades
+      .map(
+        valor => `
+
+          <option
+            value="${escapeHTML(valor)}"
+          >
+            ${escapeHTML(valor)}
+          </option>
+
+        `
+      )
+      .join("");
+
+
+  /*
+   * RESTAURA SELEÇÕES
+   */
+
+  if(
+    paises.includes(
+      valorAtualPais
+    )
+  ){
+
+    paisSelect.value =
+      valorAtualPais;
+
+  }
+
+
+  if(
+    estados.includes(
+      valorAtualEstado
+    )
+  ){
+
+    estadoSelect.value =
+      valorAtualEstado;
+
+  }
+
+
+  if(
+    cidades.includes(
+      valorAtualCidade
+    )
+  ){
+
+    cidadeSelect.value =
+      valorAtualCidade;
+
+  }
+
+}
+
+
+/* =========================================================
+   EVENTOS DOS FILTROS
+========================================================= */
+
+function instalarFiltrosLocalizacao(){
+
+  [
+    "filtroPais",
+    "filtroEstado",
+    "filtroCidade"
+
+  ]
+  .forEach(
+    id => {
+
+      const elemento =
+        document.getElementById(
+          id
+        );
+
+
+      if(!elemento){
+
+        return;
+
+      }
+
+
+      elemento.addEventListener(
+        "change",
+        () => {
+
+          preencherFiltrosLocalizacao();
+
+          renderModelos();
+
+        }
+      );
+
+    }
+  );
 
 }
 
@@ -1635,7 +2313,9 @@ async function carregarModelos(){
     } =
       await window.luxSupabase
 
-        .from("modelo_perfis")
+        .from(
+          "modelo_perfis"
+        )
 
         .select("*")
 
@@ -1648,18 +2328,25 @@ async function carregarModelos(){
         );
 
 
-    if(error)
+    if(error){
+
       throw error;
+
+    }
 
 
     modelosLUX =
       data || [];
 
 
+    preencherFiltrosLocalizacao();
+
+
     renderModelos();
 
 
-  }catch(erro){
+  }
+  catch(erro){
 
     console.error(
       "[LUX MODELOS]",
@@ -1694,7 +2381,7 @@ async function carregarModelos(){
 
 
 /* =========================================================
-   FILTROS
+   CATEGORIAS
 ========================================================= */
 
 document
@@ -1707,6 +2394,7 @@ document
       botao.addEventListener(
         "click",
         () => {
+
 
           document
             .querySelectorAll(
@@ -1741,6 +2429,8 @@ document
 /* =========================================================
    INICIALIZAÇÃO
 ========================================================= */
+
+instalarFiltrosLocalizacao();
 
 carregarModelos();
 

@@ -29,11 +29,6 @@
 
   <style>
 
-    /* =========================================================
-       LUX — MODELOS
-       Interface visual aprimorada
-       ========================================================= */
-
     :root {
       --lux-bg: #0b0608;
       --lux-bg-2: #12090d;
@@ -60,6 +55,7 @@
     body {
       margin: 0;
       min-height: 100vh;
+
       background:
         radial-gradient(
           circle at 50% -10%,
@@ -75,10 +71,6 @@
 
       color: var(--lux-text);
     }
-
-    /* =========================================================
-       CABEÇALHO
-       ========================================================= */
 
     .lux-modelos-topbar {
       width: 100%;
@@ -165,17 +157,16 @@
 
     .lux-top-button.gold {
       color: #130b0e;
-      background: linear-gradient(
-        135deg,
-        #f8d98f,
-        #c9a227
-      );
+
+      background:
+        linear-gradient(
+          135deg,
+          #f8d98f,
+          #c9a227
+        );
+
       border-color: #f5d58c;
     }
-
-    /* =========================================================
-       CONTEÚDO
-       ========================================================= */
 
     .lux-modelos-container {
       width: min(1180px, calc(100% - 28px));
@@ -227,10 +218,6 @@
       font-size: 14px;
       line-height: 1.7;
     }
-
-    /* =========================================================
-       PAINEL DE FILTROS
-       ========================================================= */
 
     .lux-filter-panel {
       margin-bottom: 25px;
@@ -322,10 +309,6 @@
       color: var(--lux-gold);
     }
 
-    /* =========================================================
-       LISTA
-       ========================================================= */
-
     .lux-modelos-grid {
       display: grid;
 
@@ -334,10 +317,6 @@
 
       gap: 20px;
     }
-
-    /* =========================================================
-       CARD DA MODELO
-       ========================================================= */
 
     .lux-model-card {
       position: relative;
@@ -372,10 +351,6 @@
       box-shadow:
         0 24px 60px rgba(0,0,0,.56);
     }
-
-    /* =========================================================
-       FOTO
-       ========================================================= */
 
     .lux-photo-wrap {
       position: relative;
@@ -439,11 +414,6 @@
         );
     }
 
-    /* =========================================================
-       SELO — MANTO SOBRE A FOTO
-       Fica no canto superior direito sem cobrir a modelo.
-       ========================================================= */
-
     .lux-selo-manto {
       position: absolute;
 
@@ -454,7 +424,7 @@
 
       width: 150px;
 
-      padding: 8px 8px;
+      padding: 8px;
 
       text-align: center;
 
@@ -499,7 +469,9 @@
 
       top: 50%;
 
-      transform: translateY(-50%) rotate(45deg);
+      transform:
+        translateY(-50%)
+        rotate(45deg);
 
       background: #8e7118;
     }
@@ -511,10 +483,6 @@
     .lux-selo-manto::after {
       right: 9px;
     }
-
-    /* =========================================================
-       CORPO DO CARD
-       ========================================================= */
 
     .lux-card-body {
       padding: 16px 16px 17px;
@@ -657,10 +625,6 @@
       cursor: wait;
     }
 
-    /* =========================================================
-       WHATSAPP
-       ========================================================= */
-
     .lux-whatsapp {
       width: 100%;
 
@@ -711,10 +675,6 @@
           rgba(37,211,102,.08)
         );
     }
-
-    /* =========================================================
-       ESTADOS
-       ========================================================= */
 
     .lux-status-box {
       grid-column: 1 / -1;
@@ -784,10 +744,6 @@
       background: rgba(255,77,166,.05);
     }
 
-    /* =========================================================
-       RODAPÉ
-       ========================================================= */
-
     .lux-footer {
       padding: 30px 18px 45px;
 
@@ -804,10 +760,6 @@
 
       letter-spacing: 1px;
     }
-
-    /* =========================================================
-       CELULAR
-       ========================================================= */
 
     @media (max-width: 760px) {
 
@@ -890,10 +842,6 @@
 
 <body>
 
-  <!-- =======================================================
-       CABEÇALHO
-       ======================================================= -->
-
   <header class="lux-modelos-topbar">
 
     <a
@@ -918,10 +866,6 @@
   </header>
 
 
-  <!-- =======================================================
-       CONTEÚDO
-       ======================================================= -->
-
   <main class="lux-modelos-container">
 
     <section class="lux-modelos-hero">
@@ -941,20 +885,12 @@
     </section>
 
 
-    <!-- =====================================================
-         AVISO
-         ===================================================== -->
-
     <div
       id="mensagem"
       class="lux-notice"
       hidden
     ></div>
 
-
-    <!-- =====================================================
-         FILTROS
-         ===================================================== -->
 
     <section class="lux-filter-panel">
 
@@ -1011,10 +947,6 @@
     </section>
 
 
-    <!-- =====================================================
-         MODELOS
-         ===================================================== -->
-
     <section
       id="listaModelos"
       class="lux-modelos-grid"
@@ -1041,18 +973,10 @@
   </main>
 
 
-  <!-- =======================================================
-       RODAPÉ
-       ======================================================= -->
-
   <footer class="lux-footer">
     LUX-ADVANCE Sensualidade & Sofisticação
   </footer>
 
-
-  <!-- =======================================================
-       SUPABASE
-       ======================================================= -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1067,7 +991,7 @@
        CONFIGURAÇÕES
        ========================================================= */
 
-    const WHATSAPP_LUX = "+5551980612941";
+    const WHATSAPP_LUX = "5551980612941";
 
     let todosModelos = [];
 
@@ -1090,10 +1014,6 @@
     }
 
 
-    /* =========================================================
-       NORMALIZAÇÃO
-       ========================================================= */
-
     function textoNormalizado(valor) {
 
       return String(valor ?? "")
@@ -1105,7 +1025,9 @@
 
     function valorLocalizacao(modelo, campo) {
 
-      return String(modelo?.[campo] ?? "").trim();
+      return String(
+        modelo?.[campo] ?? ""
+      ).trim();
 
     }
 
@@ -1114,10 +1036,15 @@
        MENSAGENS
        ========================================================= */
 
-    function mostrarMensagem(texto, erro = false) {
+    function mostrarMensagem(
+      texto,
+      erro = false
+    ) {
 
       const elemento =
-        document.getElementById("mensagem");
+        document.getElementById(
+          "mensagem"
+        );
 
       if (!elemento) return;
 
@@ -1136,7 +1063,9 @@
     function esconderMensagem() {
 
       const elemento =
-        document.getElementById("mensagem");
+        document.getElementById(
+          "mensagem"
+        );
 
       if (!elemento) return;
 
@@ -1176,15 +1105,20 @@
           await window.luxSupabase.auth.getUser();
 
         if (error) {
+
           console.warn(
             "[LUX] getUser:",
             error.message
           );
 
           return sessao.user;
+
         }
 
-        return data?.user || sessao.user;
+        return (
+          data?.user ||
+          sessao.user
+        );
 
       } catch (erro) {
 
@@ -1215,9 +1149,11 @@
 
       return (
         "https://wa.me/" +
-        WHATSAPP_LUX-ADVANCE +
+        WHATSAPP_LUX +
         "?text=" +
-        encodeURIComponent(mensagem)
+        encodeURIComponent(
+          mensagem
+        )
       );
 
     }
@@ -1251,13 +1187,22 @@
       const partes = [];
 
       const cidade =
-        valorLocalizacao(modelo, "cidade");
+        valorLocalizacao(
+          modelo,
+          "cidade"
+        );
 
       const estado =
-        valorLocalizacao(modelo, "estado");
+        valorLocalizacao(
+          modelo,
+          "estado"
+        );
 
       const pais =
-        valorLocalizacao(modelo, "pais");
+        valorLocalizacao(
+          modelo,
+          "pais"
+        );
 
       if (cidade) {
         partes.push(cidade);
@@ -1281,7 +1226,7 @@
 
 
     /* =========================================================
-       LISTAS DOS FILTROS
+       FILTROS
        ========================================================= */
 
     function preencherSelect(
@@ -1301,7 +1246,12 @@
       const unicos = [
         ...new Set(
           valores
-            .map(valor => String(valor ?? "").trim())
+            .map(
+              valor =>
+                String(
+                  valor ?? ""
+                ).trim()
+            )
             .filter(Boolean)
         )
       ].sort(
@@ -1315,8 +1265,9 @@
       select.innerHTML =
         `<option value="">${escapeHTML(textoPadrao)}</option>` +
         unicos
-          .map(valor =>
-            `<option value="${escapeHTML(valor)}">${escapeHTML(valor)}</option>`
+          .map(
+            valor =>
+              `<option value="${escapeHTML(valor)}">${escapeHTML(valor)}</option>`
           )
           .join("");
 
@@ -1332,10 +1283,14 @@
     function atualizarFiltros() {
 
       const pais =
-        document.getElementById("filtroPais")?.value || "";
+        document.getElementById(
+          "filtroPais"
+        )?.value || "";
 
       const estado =
-        document.getElementById("filtroEstado")?.value || "";
+        document.getElementById(
+          "filtroEstado"
+        )?.value || "";
 
       const paisNormalizado =
         textoNormalizado(pais);
@@ -1345,43 +1300,46 @@
 
       const modelosPais =
         pais
+
           ? todosModelos.filter(
               modelo =>
                 textoNormalizado(
                   modelo.pais
                 ) === paisNormalizado
             )
+
           : todosModelos;
 
-      const estados =
-        modelosPais.map(
-          modelo => modelo.estado
-        );
 
       preencherSelect(
         "filtroEstado",
-        estados,
+        modelosPais.map(
+          modelo =>
+            modelo.estado
+        ),
         "Todos os estados"
       );
 
+
       const modelosEstado =
         estado
+
           ? modelosPais.filter(
               modelo =>
                 textoNormalizado(
                   modelo.estado
                 ) === estadoNormalizado
             )
+
           : modelosPais;
 
-      const cidades =
-        modelosEstado.map(
-          modelo => modelo.cidade
-        );
 
       preencherSelect(
         "filtroCidade",
-        cidades,
+        modelosEstado.map(
+          modelo =>
+            modelo.cidade
+        ),
         "Todas as cidades"
       );
 
@@ -1393,7 +1351,8 @@
       preencherSelect(
         "filtroPais",
         todosModelos.map(
-          modelo => modelo.pais
+          modelo =>
+            modelo.pais
         ),
         "Todos os países"
       );
@@ -1403,31 +1362,36 @@
     }
 
 
-    /* =========================================================
-       FILTROS
-       ========================================================= */
-
     function aplicarFiltros() {
 
       const busca =
         textoNormalizado(
-          document.getElementById("filtroBusca")?.value
+          document.getElementById(
+            "filtroBusca"
+          )?.value
         );
 
       const pais =
         textoNormalizado(
-          document.getElementById("filtroPais")?.value
+          document.getElementById(
+            "filtroPais"
+          )?.value
         );
 
       const estado =
         textoNormalizado(
-          document.getElementById("filtroEstado")?.value
+          document.getElementById(
+            "filtroEstado"
+          )?.value
         );
 
       const cidade =
         textoNormalizado(
-          document.getElementById("filtroCidade")?.value
+          document.getElementById(
+            "filtroCidade"
+          )?.value
         );
+
 
       const filtrados =
         todosModelos.filter(
@@ -1458,6 +1422,7 @@
                 modelo.pais
               );
 
+
             const correspondeBusca =
               !busca ||
               nome.includes(busca) ||
@@ -1466,17 +1431,21 @@
               estadoModelo.includes(busca) ||
               paisModelo.includes(busca);
 
+
             const correspondePais =
               !pais ||
               paisModelo === pais;
+
 
             const correspondeEstado =
               !estado ||
               estadoModelo === estado;
 
+
             const correspondeCidade =
               !cidade ||
               cidadeModelo === cidade;
+
 
             return (
               correspondeBusca &&
@@ -1488,6 +1457,7 @@
           }
         );
 
+
       renderizarModelos(
         filtrados
       );
@@ -1496,22 +1466,30 @@
 
 
     /* =========================================================
-       EVENTOS DOS FILTROS
+       EVENTOS
        ========================================================= */
 
     function configurarFiltros() {
 
       const busca =
-        document.getElementById("filtroBusca");
+        document.getElementById(
+          "filtroBusca"
+        );
 
       const pais =
-        document.getElementById("filtroPais");
+        document.getElementById(
+          "filtroPais"
+        );
 
       const estado =
-        document.getElementById("filtroEstado");
+        document.getElementById(
+          "filtroEstado"
+        );
 
       const cidade =
-        document.getElementById("filtroCidade");
+        document.getElementById(
+          "filtroCidade"
+        );
 
 
       if (busca) {
@@ -1530,15 +1508,7 @@
           "change",
           () => {
 
-            const estadoAnterior =
-              estado?.value || "";
-
             atualizarFiltros();
-
-            if (estado) {
-              estado.value =
-                estadoAnterior;
-            }
 
             aplicarFiltros();
 
@@ -1554,15 +1524,7 @@
           "change",
           () => {
 
-            const cidadeAnterior =
-              cidade?.value || "";
-
             atualizarFiltros();
-
-            if (cidade) {
-              cidade.value =
-                cidadeAnterior;
-            }
 
             aplicarFiltros();
 
@@ -1593,46 +1555,67 @@
       const nome =
         escapeHTML(
           modelo.nome_exibicao ||
+          modelo.apelido ||
           "Modelo"
         );
 
+
       const foto =
         modelo.foto_url
-          ? escapeHTML(modelo.foto_url)
+          ? escapeHTML(
+              modelo.foto_url
+            )
           : "";
 
-      const cidade =
+
+      const localizacao =
         escapeHTML(
-          textoLocalizacao(modelo)
+          textoLocalizacao(
+            modelo
+          )
         );
+
 
       const selo =
         escapeHTML(
-          obterSelo(modelo)
+          obterSelo(
+            modelo
+          )
         );
+
 
       const estrelas =
         Number(
           modelo.estrelas_total || 0
         );
 
+
       const modeloId =
         escapeHTML(
           modelo.id
         );
 
+
       const whatsapp =
-        gerarWhatsApp(modelo);
+        gerarWhatsApp(
+          modelo
+        );
+
 
       const idade =
-        Number(modelo.idade || 0);
+        Number(
+          modelo.idade || 0
+        );
+
 
       const plano =
         escapeHTML(
           modelo.plano_nome ||
           modelo.plano_codigo ||
+          modelo.plano ||
           "LUX-ESSENCE"
         );
+
 
       const categoria =
         escapeHTML(
@@ -1656,33 +1639,31 @@
               ?
 
               `
-              <img
-                class="lux-model-photo"
-                src="${foto}"
-                alt="${nome}"
-                loading="lazy"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-              >
+                <img
+                  class="lux-model-photo"
+                  src="${foto}"
+                  alt="${nome}"
+                  loading="lazy"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
 
-              <div
-                class="lux-photo-fallback"
-                style="display:none;"
-              >
-                LUX
-              </div>
+                <div
+                  class="lux-photo-fallback"
+                  style="display:none;"
+                >
+                  LUX
+                </div>
               `
 
               :
 
               `
-              <div class="lux-photo-fallback">
-                LUX
-              </div>
+                <div class="lux-photo-fallback">
+                  LUX
+                </div>
               `
             }
 
-
-            <!-- SELO / MANTO -->
 
             <div
               class="lux-selo-manto"
@@ -1723,15 +1704,15 @@
               ?
 
               `
-              <p
-                class="lux-location"
-              >
-                <span class="lux-location-icon">
-                  ♢
-                </span>
+                <p class="lux-location">
 
-                ${idade} anos
-              </p>
+                  <span class="lux-location-icon">
+                    ♢
+                  </span>
+
+                  ${idade} anos
+
+                </p>
               `
 
               :
@@ -1746,7 +1727,7 @@
                 ◉
               </span>
 
-              ${cidade}
+              ${localizacao}
 
             </p>
 
@@ -1824,7 +1805,9 @@
        RENDERIZAÇÃO
        ========================================================= */
 
-    function renderizarModelos(modelos) {
+    function renderizarModelos(
+      modelos
+    ) {
 
       const lista =
         document.getElementById(
@@ -1884,7 +1867,9 @@
         modelos
           .map(
             modelo =>
-              criarCard(modelo)
+              criarCard(
+                modelo
+              )
           )
           .join("");
 
@@ -1892,7 +1877,7 @@
 
 
     /* =========================================================
-       CARREGAMENTO DO SUPABASE
+       CARREGAMENTO DOS MODELOS
        ========================================================= */
 
     async function carregarModelos() {
@@ -1900,6 +1885,11 @@
       const lista =
         document.getElementById(
           "listaModelos"
+        );
+
+      const info =
+        document.getElementById(
+          "resultadoInfo"
         );
 
 
@@ -1917,44 +1907,124 @@
         }
 
 
+        /*
+         * IMPORTANTE:
+         *
+         * Não usamos mais .in("verificacao_status", ...)
+         * diretamente na consulta.
+         *
+         * Primeiro buscamos os perfis permitidos pelo
+         * Supabase. Depois verificamos o status aqui.
+         *
+         * Isso mantém o sistema mais tolerante a pequenas
+         * diferenças no valor salvo no campo.
+         */
+
         const {
           data,
           error
         } =
           await window.luxSupabase
             .from("modelo_perfis")
-            .select("*")
-            .in(
-              "verificacao_status",
-              [
-                "aprovado",
-                "verificada"
-              ]
-            )
-            .order(
-              "estrelas_total",
-              {
-                ascending: false
-              }
-            )
-            .order(
-              "nome_exibicao",
-              {
-                ascending: true
-              }
-            );
+            .select("*");
 
 
         if (error) {
+
+          console.error(
+            "[LUX SUPABASE]",
+            error
+          );
+
           throw error;
+
         }
 
 
-        todosModelos =
-          Array.isArray(data)
-            ? data
-            : [];
+        /*
+         * Aceita os status utilizados pelo sistema.
+         */
 
+        const statusPermitidos = [
+          "aprovado",
+          "aprovada",
+          "verificada",
+          "verificado"
+        ];
+
+
+        todosModelos =
+          (Array.isArray(data)
+            ? data
+            : []
+          ).filter(
+            modelo => {
+
+              const status =
+                textoNormalizado(
+                  modelo.verificacao_status
+                );
+
+              return statusPermitidos.includes(
+                status
+              );
+
+            }
+          );
+
+
+        /*
+         * Ordena primeiro pelas modelos
+         * com mais estrelas.
+         */
+
+        todosModelos.sort(
+          (a, b) => {
+
+            const estrelasA =
+              Number(
+                a.estrelas_total || 0
+              );
+
+            const estrelasB =
+              Number(
+                b.estrelas_total || 0
+              );
+
+
+            if (
+              estrelasA !==
+              estrelasB
+            ) {
+
+              return (
+                estrelasB -
+                estrelasA
+              );
+
+            }
+
+
+            return String(
+              a.nome_exibicao ||
+              a.apelido ||
+              ""
+            ).localeCompare(
+              String(
+                b.nome_exibicao ||
+                b.apelido ||
+                ""
+              ),
+              "pt-BR"
+            );
+
+          }
+        );
+
+
+        /*
+         * Nenhum modelo aprovado/verificado.
+         */
 
         if (!todosModelos.length) {
 
@@ -1972,24 +2042,38 @@
 
               <div class="lux-status-text">
                 Ainda não existem modelos aprovados
-                disponíveis para exibição.
+                ou verificados disponíveis para os usuários.
               </div>
 
             </div>
 
           `;
 
-          document.getElementById(
-            "resultadoInfo"
-          ).textContent =
-            "0 modelos encontrados";
+
+          if (info) {
+
+            info.textContent =
+              "0 modelos encontrados";
+
+          }
+
 
           return;
 
         }
 
 
+        /*
+         * Monta os filtros com os modelos
+         * encontrados.
+         */
+
         preencherFiltrosIniciais();
+
+
+        /*
+         * Mostra os modelos para o usuário.
+         */
 
         renderizarModelos(
           todosModelos
@@ -2008,6 +2092,14 @@
           "Não foi possível carregar os modelos. Verifique a conexão com o Supabase.",
           true
         );
+
+
+        if (info) {
+
+          info.textContent =
+            "Não foi possível carregar os modelos.";
+
+        }
 
 
         lista.innerHTML = `
@@ -2040,7 +2132,9 @@
        AVALIAÇÃO — 1 ESTRELA POR USUÁRIO
        ========================================================= */
 
-    async function avaliarModelo(modeloId) {
+    async function avaliarModelo(
+      modeloId
+    ) {
 
       const botao =
         document.querySelector(
@@ -2090,14 +2184,19 @@
         }
 
 
-        /*
-         * O banco exige que a modelo esteja
-         * verificada para receber avaliação.
-         */
+        const status =
+          textoNormalizado(
+            modelo.verificacao_status
+          );
+
 
         if (
-          modelo.verificacao_status !==
-          "verificada"
+          ![
+            "verificada",
+            "verificado",
+            "aprovado",
+            "aprovada"
+          ].includes(status)
         ) {
 
           alert(
@@ -2108,10 +2207,6 @@
 
         }
 
-
-        /*
-         * Confirma se o usuário já avaliou.
-         */
 
         const {
           data: avaliacaoExistente,
@@ -2149,10 +2244,6 @@
         }
 
 
-        /*
-         * Uma única estrela.
-         */
-
         const {
           error: erroInsert
         } =
@@ -2175,12 +2266,6 @@
 
         if (erroInsert) {
 
-          /*
-           * Se outra tentativa simultânea
-           * já criou a avaliação, o UNIQUE
-           * do banco impede duplicação.
-           */
-
           if (
             erroInsert.code ===
             "23505"
@@ -2199,20 +2284,10 @@
         }
 
 
-        /*
-         * O trigger do banco atualiza
-         * modelo_perfis.estrelas_total.
-         */
-
         alert(
           "Sua estrela foi registrada com sucesso. ⭐"
         );
 
-
-        /*
-         * Atualiza a lista diretamente
-         * sem recarregar a página inteira.
-         */
 
         const modeloLocal =
           todosModelos.find(

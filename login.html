@@ -1069,14 +1069,18 @@ LUX — Sensualidade &amp; Sofisticação
 
 
 <!-- =====================================================
-     SCRIPTS ORIGINAIS DO SISTEMA
+     SCRIPTS
+     ORDEM CORRETA — NÃO ALTERAR
      ===================================================== -->
 
-<script src="./config.js"></script>
-
+<!-- 1. BIBLIOTECA SUPABASE PRIMEIRO -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="./auth.js"></script>
+<!-- 2. CONFIGURAÇÃO DO SUPABASE -->
+<script src="./config.js?v=5"></script>
+
+<!-- 3. SISTEMA DE AUTENTICAÇÃO -->
+<script src="./auth.js?v=10"></script>
 
 
 <script>
@@ -1085,7 +1089,8 @@ LUX — Sensualidade &amp; Sofisticação
    CONTROLE DAS TELAS
    ========================================================= */
 
-const telas = document.querySelectorAll(".tela");
+const telas =
+  document.querySelectorAll(".tela");
 
 
 function mostrarTela(id){
@@ -1096,7 +1101,10 @@ function mostrarTela(id){
 
   });
 
-  const tela = document.getElementById(id);
+
+  const tela =
+    document.getElementById(id);
+
 
   if(tela){
 
@@ -1113,6 +1121,7 @@ function mostrarTela(id){
 
 const btnJaTenho =
   document.getElementById("btnJaTenho");
+
 
 if(btnJaTenho){
 
@@ -1135,6 +1144,7 @@ if(btnJaTenho){
 const btnNaoTenho =
   document.getElementById("btnNaoTenho");
 
+
 if(btnNaoTenho){
 
   btnNaoTenho.addEventListener(
@@ -1150,11 +1160,12 @@ if(btnNaoTenho){
 
 
 /* =========================================================
-   BOTÃO — USUÁRIO
+   BOTÃO — CADASTRO DE USUÁRIO
    ========================================================= */
 
 const btnUsuario =
   document.getElementById("btnUsuario");
+
 
 if(btnUsuario){
 
@@ -1172,11 +1183,12 @@ if(btnUsuario){
 
 
 /* =========================================================
-   BOTÃO — MODELO
+   BOTÃO — CADASTRO DE MODELO
    ========================================================= */
 
 const btnModelo =
   document.getElementById("btnModelo");
+
 
 if(btnModelo){
 
@@ -1200,6 +1212,7 @@ if(btnModelo){
 const btnVoltarLogin =
   document.getElementById("btnVoltarLogin");
 
+
 if(btnVoltarLogin){
 
   btnVoltarLogin.addEventListener(
@@ -1220,6 +1233,7 @@ if(btnVoltarLogin){
 
 const btnVoltarEscolha =
   document.getElementById("btnVoltarEscolha");
+
 
 if(btnVoltarEscolha){
 
@@ -1242,6 +1256,7 @@ if(btnVoltarEscolha){
 const btnVoltarUsuario =
   document.getElementById("btnVoltarUsuario");
 
+
 if(btnVoltarUsuario){
 
   btnVoltarUsuario.addEventListener(
@@ -1257,11 +1272,13 @@ if(btnVoltarUsuario){
 
 
 /* =========================================================
-   LOGIN SUPABASE
+   LOGIN
+   USA O AUTH.JS EXISTENTE
    ========================================================= */
 
 const formLogin =
   document.getElementById("formLogin");
+
 
 if(formLogin){
 
@@ -1271,19 +1288,23 @@ if(formLogin){
 
       event.preventDefault();
 
+
       const email =
         document
           .getElementById("loginEmail")
           .value
           .trim();
 
+
       const senha =
         document
           .getElementById("loginSenha")
           .value;
 
+
       const mensagem =
         document.getElementById("msgLogin");
+
 
       if(mensagem){
 
@@ -1295,29 +1316,38 @@ if(formLogin){
 
       try{
 
-        if(!window.luxSupabase){
+        /*
+         * O auth.js original do LUX
+         * fornece window.entrar().
+         */
+
+        if(
+          typeof window.entrar !==
+          "function"
+        ){
 
           throw new Error(
-            "Supabase não foi inicializado. Verifique o config.js."
+            "Sistema de autenticação não foi carregado. Verifique auth.js."
           );
 
         }
 
 
-        const {
-          data,
-          error
-        } =
-          await window.luxSupabase.auth
-            .signInWithPassword({
-              email:email,
-              password:senha
-            });
+        const resultado =
+          await window.entrar(
+            email,
+            senha
+          );
 
 
-        if(error){
+        if(
+          !resultado ||
+          !resultado.user
+        ){
 
-          throw error;
+          throw new Error(
+            "Não foi possível realizar o login."
+          );
 
         }
 
@@ -1331,20 +1361,59 @@ if(formLogin){
 
 
         /*
-         * O auth.js existente continua responsável
-         * pelo restante do fluxo de autenticação.
+         * Determina o tipo de conta.
+         */
+
+        let tipo =
+          resultado.tipo ||
+          resultado.perfil?.tipo ||
+          resultado.user?.user_metadata?.tipo ||
+          "";
+
+
+        tipo =
+          String(tipo)
+            .toLowerCase()
+            .trim();
+
+
+        /*
+         * Se o auth.js não informar diretamente
+         * o tipo, verifica o modelo.
          */
 
         if(
-          typeof window.processarLogin ===
-          "function"
+          !tipo &&
+          resultado.modeloPerfil
         ){
 
-          await window.processarLogin(
-            data.user
-          );
+          tipo = "modelo";
 
         }
+
+
+        /*
+         * REDIRECIONAMENTO
+         */
+
+        if(
+          tipo === "modelo"
+        ){
+
+          window.location.href =
+            "./painel-modelo.html";
+
+          return;
+
+        }
+
+
+        /*
+         * Usuário padrão.
+         */
+
+        window.location.href =
+          "./painel-usuario.html";
 
       }
       catch(error){
@@ -1353,6 +1422,7 @@ if(formLogin){
           "Erro no login:",
           error
         );
+
 
         if(mensagem){
 
@@ -1393,16 +1463,19 @@ if(formUsuario){
           .value
           .trim();
 
+
       const email =
         document
           .getElementById("usuarioEmail")
           .value
           .trim();
 
+
       const senha =
         document
           .getElementById("usuarioSenha")
           .value;
+
 
       const confirmacao =
         document
@@ -1410,6 +1483,7 @@ if(formUsuario){
             "usuarioSenhaConfirmacao"
           )
           .value;
+
 
       const mensagem =
         document.getElementById(
@@ -1441,43 +1515,38 @@ if(formUsuario){
 
       try{
 
-        if(!window.luxSupabase){
+        /*
+         * Usa o cadastro existente do auth.js.
+         */
+
+        if(
+          typeof window.cadastrar !==
+          "function"
+        ){
 
           throw new Error(
-            "Supabase não foi inicializado."
+            "Sistema de cadastro não foi carregado. Verifique auth.js."
           );
 
         }
 
 
-        const {
-          data,
-          error
-        } =
-          await window.luxSupabase.auth.signUp({
-
-            email:email,
-
-            password:senha,
-
-            options:{
-
-              data:{
-
-                nome:nome,
-
-                tipo:"usuario"
-
-              }
-
-            }
-
-          });
+        const resultado =
+          await window.cadastrar(
+            "usuario",
+            nome,
+            email,
+            senha,
+            {}
+          );
 
 
-        if(error){
+        if(
+          resultado &&
+          resultado.error
+        ){
 
-          throw error;
+          throw resultado.error;
 
         }
 
@@ -1497,6 +1566,7 @@ if(formUsuario){
           error
         );
 
+
         if(mensagem){
 
           mensagem.textContent =
@@ -1511,6 +1581,80 @@ if(formUsuario){
   );
 
 }
+
+
+/* =========================================================
+   RETORNO DE CONFIRMAÇÃO DE E-MAIL
+   ========================================================= */
+
+(function verificarConfirmacao(){
+
+  try{
+
+    const url =
+      new URL(
+        window.location.href
+      );
+
+
+    const erro =
+      url.searchParams.get(
+        "error_description"
+      );
+
+
+    if(erro){
+
+      const mensagem =
+        document.getElementById(
+          "msgLogin"
+        );
+
+
+      if(mensagem){
+
+        mensagem.textContent =
+          decodeURIComponent(
+            erro.replace(/\+/g, " ")
+          );
+
+      }
+
+
+      mostrarTela(
+        "telaLogin"
+      );
+
+      return;
+
+    }
+
+
+    const code =
+      url.searchParams.get(
+        "code"
+      );
+
+
+    if(code){
+
+      mostrarTela(
+        "telaLogin"
+      );
+
+    }
+
+  }
+  catch(error){
+
+    console.error(
+      "Erro ao verificar confirmação:",
+      error
+    );
+
+  }
+
+})();
 
 </script>
 

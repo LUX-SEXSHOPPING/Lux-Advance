@@ -17,10 +17,10 @@
 
   <meta
     name="description"
-    content="LUX Advance — Modelos"
+    content="LUX-ADVANCE — Modelos"
   >
 
-  <title>LUX — Modelos</title>
+  <title>LUX-ADVANCE — Modelos</title>
 
   <link
     rel="stylesheet"
@@ -340,6 +340,8 @@
         transform .25s ease,
         border-color .25s ease,
         box-shadow .25s ease;
+
+      cursor: pointer;
     }
 
     .lux-model-card:hover {
@@ -761,6 +763,364 @@
       letter-spacing: 1px;
     }
 
+
+    /* =========================================================
+       MODAL DO PERFIL
+       ========================================================= */
+
+    .lux-modal {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 5000;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px;
+
+      background: rgba(0,0,0,.82);
+
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+
+      overflow-y: auto;
+    }
+
+    .lux-modal[hidden] {
+      display: none;
+    }
+
+    .lux-modal-backdrop {
+      position: fixed;
+
+      inset: 0;
+
+      cursor: pointer;
+    }
+
+    .lux-modal-dialog {
+      position: relative;
+
+      z-index: 2;
+
+      width: min(920px, 100%);
+
+      max-height: calc(100vh - 36px);
+
+      overflow-y: auto;
+
+      border-radius: 24px;
+
+      border: 1px solid rgba(245,213,140,.28);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(31,16,22,.99),
+          rgba(10,5,8,.99)
+        );
+
+      box-shadow:
+        0 30px 100px rgba(0,0,0,.72);
+
+      padding: 22px;
+    }
+
+    .lux-modal-close {
+      position: sticky;
+
+      top: 0;
+
+      z-index: 20;
+
+      float: right;
+
+      width: 42px;
+      height: 42px;
+
+      border-radius: 50%;
+
+      border: 1px solid rgba(245,213,140,.28);
+
+      background: rgba(11,6,8,.88);
+
+      color: var(--lux-gold);
+
+      font-size: 27px;
+
+      line-height: 1;
+
+      cursor: pointer;
+    }
+
+    .lux-modal-close:hover {
+      background: rgba(245,213,140,.12);
+    }
+
+    .lux-modal-header {
+      padding-right: 52px;
+
+      margin-bottom: 18px;
+    }
+
+    .lux-modal-selo {
+      display: inline-flex;
+
+      align-items: center;
+
+      min-height: 28px;
+
+      padding: 6px 11px;
+
+      margin-bottom: 10px;
+
+      border-radius: 999px;
+
+      border: 1px solid rgba(245,213,140,.28);
+
+      background: rgba(245,213,140,.08);
+
+      color: var(--lux-gold);
+
+      font-size: 10px;
+
+      font-weight: 900;
+
+      letter-spacing: 1.2px;
+
+      text-transform: uppercase;
+    }
+
+    .lux-modal-name {
+      margin: 0;
+
+      color: #fff;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: clamp(30px, 6vw, 48px);
+
+      line-height: 1.05;
+    }
+
+    .lux-modal-info {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 13px;
+    }
+
+    .lux-modal-info-item {
+      padding: 7px 10px;
+
+      border-radius: 999px;
+
+      border: 1px solid rgba(245,213,140,.15);
+
+      background: rgba(255,255,255,.035);
+
+      color: #d5c9ce;
+
+      font-size: 11px;
+    }
+
+    .lux-modal-info-item strong {
+      color: var(--lux-gold);
+    }
+
+    .lux-modal-main-photo {
+      width: 100%;
+
+      max-height: 560px;
+
+      display: block;
+
+      object-fit: contain;
+
+      border-radius: 18px;
+
+      border: 1px solid rgba(245,213,140,.16);
+
+      background: #080407;
+
+      margin-bottom: 18px;
+    }
+
+    .lux-media-title {
+      margin: 22px 0 12px;
+
+      color: var(--lux-gold);
+
+      font-size: 12px;
+
+      font-weight: 900;
+
+      letter-spacing: 1.5px;
+
+      text-transform: uppercase;
+    }
+
+    .lux-media-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fill, minmax(145px, 1fr));
+
+      gap: 12px;
+    }
+
+    .lux-media-item {
+      position: relative;
+
+      min-height: 145px;
+
+      overflow: hidden;
+
+      border-radius: 15px;
+
+      border: 1px solid rgba(245,213,140,.14);
+
+      background: #080407;
+    }
+
+    .lux-media-item img,
+    .lux-media-item video {
+      width: 100%;
+
+      height: 100%;
+
+      min-height: 145px;
+
+      display: block;
+
+      object-fit: cover;
+    }
+
+    .lux-media-video {
+      object-fit: contain !important;
+    }
+
+    .lux-media-label {
+      position: absolute;
+
+      left: 8px;
+      bottom: 8px;
+
+      padding: 5px 8px;
+
+      border-radius: 999px;
+
+      background: rgba(0,0,0,.72);
+
+      color: #fff;
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      letter-spacing: .8px;
+    }
+
+    .lux-modal-description {
+      margin-top: 20px;
+
+      padding: 15px;
+
+      border-radius: 15px;
+
+      border: 1px solid rgba(245,213,140,.12);
+
+      background: rgba(255,255,255,.025);
+
+      color: #cfc2c8;
+
+      font-size: 13px;
+
+      line-height: 1.7;
+
+      white-space: pre-line;
+    }
+
+    .lux-modal-actions {
+      display: flex;
+
+      gap: 10px;
+
+      margin-top: 20px;
+    }
+
+    .lux-modal-action {
+      flex: 1;
+
+      min-height: 46px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 13px;
+
+      text-decoration: none;
+
+      font-size: 11px;
+
+      font-weight: 900;
+
+      letter-spacing: .7px;
+
+      cursor: pointer;
+    }
+
+    .lux-modal-action.gold {
+      color: #130b0e;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f8d98f,
+          #c9a227
+        );
+    }
+
+    .lux-modal-action.green {
+      color: #c6f7d5;
+
+      border: 1px solid rgba(37,211,102,.25);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(37,211,102,.16),
+          rgba(37,211,102,.05)
+        );
+    }
+
+    .lux-empty-media {
+      padding: 22px;
+
+      border-radius: 15px;
+
+      border: 1px dashed rgba(245,213,140,.15);
+
+      color: #84777d;
+
+      font-size: 12px;
+
+      text-align: center;
+    }
+
+
     @media (max-width: 760px) {
 
       .lux-filter-grid {
@@ -799,7 +1159,18 @@
         margin-top: 9px;
       }
 
+      .lux-modal-dialog {
+        padding: 15px;
+        border-radius: 18px;
+      }
+
+      .lux-media-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
     }
+
 
     @media (max-width: 470px) {
 
@@ -833,6 +1204,10 @@
         font-size: 21px;
       }
 
+      .lux-modal-actions {
+        flex-direction: column;
+      }
+
     }
 
   </style>
@@ -847,7 +1222,7 @@
     <a
       class="lux-brand"
       href="index.html"
-      aria-label="LUX"
+      aria-label="LUX-ADVANCE"
     >
       LUX
     </a>
@@ -871,7 +1246,7 @@
     <section class="lux-modelos-hero">
 
       <div class="lux-eyebrow">
-        LUX ADVANCE
+        LUX-ADVANCE
       </div>
 
       <h1 class="lux-modelos-title">
@@ -879,7 +1254,7 @@
       </h1>
 
       <p class="lux-modelos-subtitle">
-        Conheça os perfis disponíveis na LUX e encontre sua experiência.
+        Conheça os perfis disponíveis na LUX-ADVANCE e encontre sua experiência.
       </p>
 
     </section>
@@ -976,6 +1351,46 @@
   <footer class="lux-footer">
     LUX-ADVANCE Sensualidade & Sofisticação
   </footer>
+
+
+  <!-- =======================================================
+       MODAL DO PERFIL DA MODELO
+       ======================================================= -->
+
+  <div
+    id="luxModalModelo"
+    class="lux-modal"
+    hidden
+  >
+
+    <div
+      class="lux-modal-backdrop"
+      onclick="fecharPerfilModelo()"
+    ></div>
+
+
+    <div
+      class="lux-modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="luxModalNome"
+    >
+
+      <button
+        type="button"
+        class="lux-modal-close"
+        onclick="fecharPerfilModelo()"
+        aria-label="Fechar"
+      >
+        ×
+      </button>
+
+
+      <div id="luxModalConteudo"></div>
+
+    </div>
+
+  </div>
 
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1107,7 +1522,7 @@
         if (error) {
 
           console.warn(
-            "[LUX] getUser:",
+            "[LUX-ADVANCE] getUser:",
             error.message
           );
 
@@ -1123,7 +1538,7 @@
       } catch (erro) {
 
         console.error(
-          "[LUX] sessão:",
+          "[LUX-ADVANCE] sessão:",
           erro
         );
 
@@ -1142,7 +1557,7 @@
 
       const nome =
         modelo?.nome_exibicao ||
-        "uma modelo LUX";
+        "uma modelo LUX-ADVANCE";
 
       const mensagem =
         `Olá, LUX-ADVANCE. Tenho interesse em conhecer o perfil de ${nome}.`;
@@ -1168,12 +1583,228 @@
       const selo =
         modelo?.selo_codigo ||
         modelo?.plano_codigo ||
+        modelo?.plano ||
         "ESSENCE";
 
       return String(selo)
-        .replace("LUX-", "")
+        .replace(/^LUX[-_\s]*/i, "")
         .trim()
         .toUpperCase();
+
+    }
+
+
+    /* =========================================================
+       GALERIA / ANEXOS
+       ========================================================= */
+
+    function obterGaleria(modelo) {
+
+      let galeria =
+        modelo?.galeria_urls;
+
+      if (!galeria) {
+        return [];
+      }
+
+
+      if (typeof galeria === "string") {
+
+        try {
+
+          galeria =
+            JSON.parse(galeria);
+
+        } catch {
+
+          galeria =
+            galeria
+              .split(/\s*,\s*|\s*\n\s*/)
+              .filter(Boolean);
+
+        }
+
+      }
+
+
+      if (!Array.isArray(galeria)) {
+
+        if (
+          typeof galeria ===
+          "object"
+        ) {
+
+          galeria =
+            Object.values(
+              galeria
+            );
+
+        } else {
+
+          galeria = [galeria];
+
+        }
+
+      }
+
+
+      return galeria
+        .map(item => {
+
+          if (
+            typeof item ===
+            "string"
+          ) {
+
+            return {
+              url: item,
+              tipo: ""
+            };
+
+          }
+
+
+          if (
+            item &&
+            typeof item ===
+            "object"
+          ) {
+
+            return {
+
+              url:
+                item.url ||
+                item.src ||
+                item.path ||
+                item.publicUrl ||
+                item.public_url ||
+                "",
+
+              tipo:
+                item.tipo ||
+                item.type ||
+                item.mime ||
+                item.mime_type ||
+                ""
+
+            };
+
+          }
+
+
+          return null;
+
+        })
+
+        .filter(
+          item =>
+            item &&
+            item.url
+        );
+
+    }
+
+
+    function ehVideo(media) {
+
+      const url =
+        String(
+          media?.url || ""
+        );
+
+      const tipo =
+        String(
+          media?.tipo || ""
+        ).toLowerCase();
+
+
+      if (
+        tipo.includes("video")
+      ) {
+        return true;
+      }
+
+
+      return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i
+        .test(url);
+
+    }
+
+
+    function obterMidiasModelo(modelo) {
+
+      const midias = [];
+
+      const fotoPrincipal =
+        String(
+          modelo?.foto_url || ""
+        ).trim();
+
+
+      if (fotoPrincipal) {
+
+        midias.push({
+
+          url: fotoPrincipal,
+
+          tipo: "image",
+
+          principal: true
+
+        });
+
+      }
+
+
+      const galeria =
+        obterGaleria(
+          modelo
+        );
+
+
+      galeria.forEach(
+        media => {
+
+          const url =
+            String(
+              media.url || ""
+            ).trim();
+
+          if (!url) return;
+
+
+          const jaExiste =
+            midias.some(
+              item =>
+                item.url === url
+            );
+
+
+          if (
+            jaExiste
+          ) {
+            return;
+          }
+
+
+          midias.push({
+
+            url,
+
+            tipo:
+              ehVideo(media)
+                ? "video"
+                : "image",
+
+            principal: false
+
+          });
+
+        }
+      );
+
+
+      return midias;
 
     }
 
@@ -1217,7 +1848,7 @@
       }
 
       if (!partes.length) {
-        return "Disponível na LUX";
+        return "Disponível na LUX-ADVANCE";
       }
 
       return partes.join(" • ");
@@ -1629,6 +2260,9 @@
         <article
           class="lux-model-card"
           data-modelo-id="${modeloId}"
+          tabindex="0"
+          role="button"
+          aria-label="Abrir perfil de ${nome}"
         >
 
           <div class="lux-photo-wrap">
@@ -1669,7 +2303,7 @@
               class="lux-selo-manto"
               aria-label="Selo ${selo}"
             >
-              ✦ LUX-ADVANCE ${selo}
+              ✦ ${selo}
             </div>
 
           </div>
@@ -1685,7 +2319,7 @@
 
               <span
                 class="lux-verified"
-                title="Perfil disponível na LUX"
+                title="Perfil disponível na LUX-ADVANCE"
               >
                 ✦ VERIFICADA
               </span>
@@ -1769,7 +2403,6 @@
                 type="button"
                 class="lux-rate-button"
                 data-rate-id="${modeloId}"
-                onclick="avaliarModelo('${modeloId}')"
               >
                 ⭐ DAR 1 ESTRELA
               </button>
@@ -1799,6 +2432,522 @@
       `;
 
     }
+
+
+    /* =========================================================
+       CLIQUES DOS CARDS
+       ========================================================= */
+
+    function configurarCliquesCards() {
+
+      const cards =
+        document.querySelectorAll(
+          ".lux-model-card"
+        );
+
+
+      cards.forEach(
+        card => {
+
+          card.addEventListener(
+            "click",
+            evento => {
+
+              /*
+               * Botões e WhatsApp possuem
+               * suas próprias funções.
+               */
+
+              if (
+                evento.target.closest(
+                  "button, a"
+                )
+              ) {
+                return;
+              }
+
+
+              const modeloId =
+                card.dataset.modeloId;
+
+
+              abrirPerfilModelo(
+                modeloId
+              );
+
+            }
+          );
+
+
+          card.addEventListener(
+            "keydown",
+            evento => {
+
+              if (
+                evento.key !==
+                  "Enter" &&
+                evento.key !==
+                  " "
+              ) {
+                return;
+              }
+
+
+              if (
+                evento.target.closest(
+                  "button, a"
+                )
+              ) {
+                return;
+              }
+
+
+              evento.preventDefault();
+
+
+              abrirPerfilModelo(
+                card.dataset.modeloId
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+      document
+        .querySelectorAll(
+          ".lux-rate-button"
+        )
+        .forEach(
+          botao => {
+
+            botao.addEventListener(
+              "click",
+              evento => {
+
+                evento.stopPropagation();
+
+                const modeloId =
+                  botao.dataset.rateId;
+
+                avaliarModelo(
+                  modeloId
+                );
+
+              }
+            );
+
+          }
+        );
+
+    }
+
+
+    /* =========================================================
+       MODAL — PERFIL COMPLETO
+       ========================================================= */
+
+    function abrirPerfilModelo(
+      modeloId
+    ) {
+
+      const modelo =
+        todosModelos.find(
+          item =>
+            String(item.id) ===
+            String(modeloId)
+        );
+
+
+      if (!modelo) {
+        return;
+      }
+
+
+      const modal =
+        document.getElementById(
+          "luxModalModelo"
+        );
+
+      const conteudo =
+        document.getElementById(
+          "luxModalConteudo"
+        );
+
+
+      if (
+        !modal ||
+        !conteudo
+      ) {
+        return;
+      }
+
+
+      const nome =
+        escapeHTML(
+          modelo.nome_exibicao ||
+          modelo.apelido ||
+          "Modelo"
+        );
+
+
+      const selo =
+        escapeHTML(
+          obterSelo(
+            modelo
+          )
+        );
+
+
+      const localizacao =
+        escapeHTML(
+          textoLocalizacao(
+            modelo
+          )
+        );
+
+
+      const estrelas =
+        Number(
+          modelo.estrelas_total || 0
+        );
+
+
+      const idade =
+        Number(
+          modelo.idade || 0
+        );
+
+
+      const categoria =
+        escapeHTML(
+          modelo.categoria_catalogo ||
+          "LUX-ADVANCE"
+        );
+
+
+      const plano =
+        escapeHTML(
+          modelo.plano_nome ||
+          modelo.plano_codigo ||
+          modelo.plano ||
+          selo
+        );
+
+
+      const descricao =
+        escapeHTML(
+          modelo.descricao ||
+          ""
+        );
+
+
+      const whatsapp =
+        gerarWhatsApp(
+          modelo
+        );
+
+
+      const midias =
+        obterMidiasModelo(
+          modelo
+        );
+
+
+      const fotoPrincipal =
+        midias.find(
+          media =>
+            media.principal &&
+            media.tipo ===
+              "image"
+        );
+
+
+      let html = `
+
+        <div class="lux-modal-header">
+
+          <div class="lux-modal-selo">
+            ✦ ${selo}
+          </div>
+
+          <h2
+            id="luxModalNome"
+            class="lux-modal-name"
+          >
+            ${nome}
+          </h2>
+
+
+          <div class="lux-modal-info">
+
+            <span class="lux-modal-info-item">
+              <strong>Assinatura:</strong>
+              ${plano}
+            </span>
+
+            <span class="lux-modal-info-item">
+              <strong>Local:</strong>
+              ${localizacao}
+            </span>
+
+            ${
+              idade >= 18
+                ? `
+                  <span class="lux-modal-info-item">
+                    <strong>Idade:</strong>
+                    ${idade} anos
+                  </span>
+                `
+                : ""
+            }
+
+            <span class="lux-modal-info-item">
+              <strong>Categoria:</strong>
+              ${categoria}
+            </span>
+
+            <span class="lux-modal-info-item">
+              ⭐ <strong>${estrelas}</strong>
+              ${
+                estrelas === 1
+                  ? "estrela recebida"
+                  : "estrelas recebidas"
+              }
+            </span>
+
+          </div>
+
+        </div>
+
+      `;
+
+
+      if (fotoPrincipal) {
+
+        html += `
+
+          <img
+            class="lux-modal-main-photo"
+            src="${escapeHTML(fotoPrincipal.url)}"
+            alt="${nome}"
+          >
+
+        `;
+
+      }
+
+
+      const anexos =
+        midias.filter(
+          media =>
+            !(
+              media.principal &&
+              media.tipo === "image"
+            )
+        );
+
+
+      html += `
+
+        <div class="lux-media-title">
+          FOTOS E VÍDEOS DO PERFIL
+        </div>
+
+      `;
+
+
+      if (!anexos.length) {
+
+        html += `
+
+          <div class="lux-empty-media">
+            Este perfil ainda não possui fotos ou vídeos adicionais.
+          </div>
+
+        `;
+
+      } else {
+
+        html += `
+
+          <div class="lux-media-grid">
+
+        `;
+
+
+        anexos.forEach(
+          media => {
+
+            const url =
+              escapeHTML(
+                media.url
+              );
+
+
+            if (
+              media.tipo ===
+              "video"
+            ) {
+
+              html += `
+
+                <div class="lux-media-item">
+
+                  <video
+                    class="lux-media-video"
+                    controls
+                    playsinline
+                    preload="metadata"
+                  >
+                    <source
+                      src="${url}"
+                    >
+                  </video>
+
+                  <span class="lux-media-label">
+                    ▶ VÍDEO
+                  </span>
+
+                </div>
+
+              `;
+
+            } else {
+
+              html += `
+
+                <div class="lux-media-item">
+
+                  <img
+                    src="${url}"
+                    alt="Foto de ${nome}"
+                    loading="lazy"
+                  >
+
+                  <span class="lux-media-label">
+                    FOTO
+                  </span>
+
+                </div>
+
+              `;
+
+            }
+
+          }
+        );
+
+
+        html += `
+
+          </div>
+
+        `;
+
+      }
+
+
+      if (descricao) {
+
+        html += `
+
+          <div class="lux-modal-description">
+            ${descricao}
+          </div>
+
+        `;
+
+      }
+
+
+      html += `
+
+        <div class="lux-modal-actions">
+
+          <button
+            type="button"
+            class="lux-modal-action gold"
+            onclick="fecharPerfilModelo(); avaliarModelo('${escapeHTML(modelo.id)}')"
+          >
+            ⭐ DAR 1 ESTRELA
+          </button>
+
+
+          <a
+            class="lux-modal-action green"
+            href="${whatsapp}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ☎ FALAR NO WHATSAPP
+          </a>
+
+        </div>
+
+      `;
+
+
+      conteudo.innerHTML =
+        html;
+
+
+      modal.hidden = false;
+
+      document.body.style.overflow =
+        "hidden";
+
+    }
+
+
+    function fecharPerfilModelo() {
+
+      const modal =
+        document.getElementById(
+          "luxModalModelo"
+        );
+
+
+      if (!modal) {
+        return;
+      }
+
+
+      modal.hidden = true;
+
+      document.body.style.overflow =
+        "";
+
+      const conteudo =
+        document.getElementById(
+          "luxModalConteudo"
+        );
+
+
+      if (conteudo) {
+        conteudo.innerHTML = "";
+      }
+
+    }
+
+
+    document.addEventListener(
+      "keydown",
+      evento => {
+
+        if (
+          evento.key ===
+          "Escape"
+        ) {
+
+          fecharPerfilModelo();
+
+        }
+
+      }
+    );
 
 
     /* =========================================================
@@ -1873,6 +3022,9 @@
           )
           .join("");
 
+
+      configurarCliquesCards();
+
     }
 
 
@@ -1907,19 +3059,6 @@
         }
 
 
-        /*
-         * IMPORTANTE:
-         *
-         * Não usamos mais .in("verificacao_status", ...)
-         * diretamente na consulta.
-         *
-         * Primeiro buscamos os perfis permitidos pelo
-         * Supabase. Depois verificamos o status aqui.
-         *
-         * Isso mantém o sistema mais tolerante a pequenas
-         * diferenças no valor salvo no campo.
-         */
-
         const {
           data,
           error
@@ -1940,10 +3079,6 @@
 
         }
 
-
-        /*
-         * Aceita os status utilizados pelo sistema.
-         */
 
         const statusPermitidos = [
           "aprovado",
@@ -1972,11 +3107,6 @@
             }
           );
 
-
-        /*
-         * Ordena primeiro pelas modelos
-         * com mais estrelas.
-         */
 
         todosModelos.sort(
           (a, b) => {
@@ -2022,10 +3152,6 @@
         );
 
 
-        /*
-         * Nenhum modelo aprovado/verificado.
-         */
-
         if (!todosModelos.length) {
 
           lista.innerHTML = `
@@ -2063,17 +3189,8 @@
         }
 
 
-        /*
-         * Monta os filtros com os modelos
-         * encontrados.
-         */
-
         preencherFiltrosIniciais();
 
-
-        /*
-         * Mostra os modelos para o usuário.
-         */
 
         renderizarModelos(
           todosModelos
@@ -2083,7 +3200,7 @@
       } catch (erro) {
 
         console.error(
-          "[LUX MODELOS]",
+          "[LUX-ADVANCE MODELOS]",
           erro
         );
 
@@ -2313,7 +3430,7 @@
       } catch (erro) {
 
         console.error(
-          "[LUX AVALIAÇÃO]",
+          "[LUX-ADVANCE AVALIAÇÃO]",
           erro
         );
 

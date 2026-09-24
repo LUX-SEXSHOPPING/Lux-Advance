@@ -10,7 +10,17 @@
     content="width=device-width, initial-scale=1"
   >
 
-  <title>LUX — Área da Modelo</title>
+  <meta
+    name="theme-color"
+    content="#080607"
+  >
+
+  <meta
+    name="description"
+    content="LUX-ADVANCE — Área exclusiva da modelo."
+  >
+
+  <title>LUX-ADVANCE — Área da Modelo</title>
 
   <link
     rel="stylesheet"
@@ -19,670 +29,1595 @@
 
   <style>
 
-    /* =========================================
-       LUX HALLOWEEN — PAINEL DA MODELO
-       ========================================= */
+    /* =====================================================
+       LUX-ADVANCE — PAINEL DA MODELO
+       VISUAL MELHORADO
+       SISTEMA ORIGINAL PRESERVADO
+       ===================================================== */
 
     body {
+
       background:
         radial-gradient(
-          circle at 15% 10%,
-          rgba(255, 102, 0, .12),
-          transparent 30%
+          circle at 12% 8%,
+          rgba(240,216,120,.08),
+          transparent 28%
         ),
         radial-gradient(
-          circle at 85% 80%,
-          rgba(110, 15, 46, .18),
-          transparent 35%
+          circle at 88% 72%,
+          rgba(110,15,46,.16),
+          transparent 36%
+        ),
+        radial-gradient(
+          circle at 50% 100%,
+          rgba(255,140,0,.055),
+          transparent 30%
         ),
         #080607;
+
     }
+
+
+    /* =====================================================
+       TOPO
+       ===================================================== */
 
     .topbar {
-      border-bottom: 1px solid rgba(255, 140, 0, .25);
-      box-shadow: 0 4px 25px rgba(0,0,0,.55);
+
+      border-bottom:
+        1px solid rgba(240,216,120,.16);
+
+      box-shadow:
+        0 8px 30px rgba(0,0,0,.55);
+
       display:flex;
       align-items:center;
       justify-content:space-between;
+
       gap:20px;
-      padding:10px 20px;
+
+      padding:
+        10px 20px;
+
+      background:
+        rgba(8,6,7,.96);
+
+      backdrop-filter:
+        blur(12px);
+
+      position:sticky;
+      top:0;
+      z-index:100;
+
     }
+
 
     .brand {
-      color: #f0d878 !important;
-      text-shadow: 0 0 12px rgba(240,216,120,.25);
-      letter-spacing: 5px;
+
+      color:#f0d878 !important;
+
+      text-shadow:
+        0 0 15px rgba(240,216,120,.20);
+
+      letter-spacing:5px;
+
       display:flex;
       align-items:center;
+
       text-decoration:none;
+
       height:116px;
+
       flex-shrink:0;
+
     }
+
 
     .brand img {
+
       display:block;
+
       width:auto;
+
       height:116px;
+
       max-width:260px;
+
       object-fit:contain;
+
     }
+
 
     .top-actions-modelo {
+
       display:flex;
+
       align-items:center;
+
       justify-content:flex-end;
+
       gap:10px;
+
       flex-wrap:wrap;
+
     }
+
 
     .btn-planos {
+
       display:inline-flex;
+
       align-items:center;
+
       justify-content:center;
+
       min-height:44px;
-      padding:11px 18px;
+
+      padding:
+        11px 18px;
+
       border-radius:28px;
+
       text-decoration:none;
+
       font-family:"Cinzel",serif;
+
       font-size:11px;
+
       letter-spacing:1.3px;
+
       text-transform:uppercase;
+
       color:#130b08;
-      background:linear-gradient(135deg,#f0d878,#d88916);
-      border:1px solid rgba(240,216,120,.65);
-      box-shadow:0 7px 25px rgba(216,137,22,.20);
+
+      background:
+        linear-gradient(
+          135deg,
+          #f0d878,
+          #d88916
+        );
+
+      border:
+        1px solid rgba(240,216,120,.65);
+
+      box-shadow:
+        0 7px 25px rgba(216,137,22,.20);
+
       transition:.3s;
+
       white-space:nowrap;
+
     }
+
 
     .btn-planos:hover {
-      transform:translateY(-2px);
-      box-shadow:0 10px 32px rgba(240,216,120,.28);
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 10px 32px rgba(240,216,120,.28);
+
     }
+
 
     .btn-sair-top {
+
       white-space:nowrap;
+
     }
+
+
+    /* =====================================================
+       HERO
+       ===================================================== */
 
     .hero {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255,140,0,.18);
-      background:linear-gradient(135deg,rgba(30,18,15,.96),rgba(12,8,9,.98));
-      box-shadow:0 15px 45px rgba(0,0,0,.45),inset 0 1px rgba(255,255,255,.03);
+
+      position:relative;
+
+      overflow:hidden;
+
+      border:
+        1px solid rgba(240,216,120,.14);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(30,18,15,.97),
+          rgba(12,8,9,.99)
+        );
+
+      box-shadow:
+        0 18px 55px rgba(0,0,0,.45),
+        inset 0 1px rgba(255,255,255,.035);
+
     }
+
 
     .hero::before {
-      content:"🎃";
+
+      content:"LUX-ADVANCE";
+
       position:absolute;
-      right:25px;
-      top:18px;
-      font-size:55px;
-      opacity:.12;
-      filter:grayscale(.3);
+
+      right:-20px;
+      top:22px;
+
+      font-family:
+        "Playfair Display",
+        serif;
+
+      font-size:50px;
+
+      letter-spacing:6px;
+
+      color:#f0d878;
+
+      opacity:.035;
+
+      transform:
+        rotate(-8deg);
+
+      pointer-events:none;
+
     }
+
 
     .hero::after {
+
       content:"✦";
+
       position:absolute;
-      right:95px;
-      bottom:20px;
-      font-size:22px;
-      color:#ff8c00;
-      opacity:.35;
+
+      right:55px;
+      bottom:25px;
+
+      font-size:25px;
+
+      color:#f0d878;
+
+      opacity:.22;
+
     }
+
 
     .eyebrow {
-      color:#ff9d32 !important;
+
+      color:#f0d878 !important;
+
       letter-spacing:3px;
+
     }
+
 
     .title {
-      text-shadow:0 0 25px rgba(255,110,0,.12);
+
+      text-shadow:
+        0 0 25px rgba(240,216,120,.12);
+
     }
+
 
     .subtitle {
+
       color:#bdb0b5 !important;
+
     }
+
+
+    /* =====================================================
+       PLANO
+       ===================================================== */
 
     .plano-acesso {
+
       margin-top:18px;
+
       display:flex;
+
       align-items:center;
+
       justify-content:space-between;
+
       gap:18px;
+
       padding:16px 18px;
+
       border-radius:18px;
-      border:1px solid rgba(240,216,120,.22);
-      background:linear-gradient(135deg,rgba(240,216,120,.08),rgba(110,15,46,.10));
-      box-shadow:inset 0 1px rgba(255,255,255,.025);
+
+      border:
+        1px solid rgba(240,216,120,.22);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(240,216,120,.08),
+          rgba(110,15,46,.10)
+        );
+
+      box-shadow:
+        inset 0 1px rgba(255,255,255,.025);
+
     }
+
 
     .plano-acesso-info {
+
       min-width:0;
+
     }
+
 
     .plano-acesso-info small {
+
       display:block;
+
       color:#8f8589;
+
       font-size:11px;
+
       letter-spacing:1px;
+
       text-transform:uppercase;
+
       margin-bottom:5px;
+
     }
+
 
     .plano-acesso-info strong {
+
       color:#f0d878;
+
       font-family:"Cinzel",serif;
+
       font-size:15px;
+
       letter-spacing:.8px;
+
     }
+
 
     .plano-acesso-link {
+
       flex-shrink:0;
+
       display:inline-flex;
+
       align-items:center;
+
       justify-content:center;
+
       padding:9px 14px;
+
       border-radius:22px;
-      border:1px solid rgba(240,216,120,.28);
-      background:rgba(255,255,255,.035);
+
+      border:
+        1px solid rgba(240,216,120,.28);
+
+      background:
+        rgba(255,255,255,.035);
+
       color:#f0d878;
+
       text-decoration:none;
+
       font-family:"Cinzel",serif;
+
       font-size:10px;
+
       letter-spacing:1px;
+
       text-transform:uppercase;
+
       transition:.3s;
+
     }
+
 
     .plano-acesso-link:hover {
-      background:rgba(240,216,120,.10);
-      border-color:rgba(240,216,120,.55);
-      transform:translateY(-1px);
+
+      background:
+        rgba(240,216,120,.10);
+
+      border-color:
+        rgba(240,216,120,.55);
+
+      transform:
+        translateY(-1px);
+
     }
+
+
+    /* =====================================================
+       CARDS
+       ===================================================== */
 
     .card {
+
       position:relative;
+
       overflow:hidden;
-      border:1px solid rgba(255,140,0,.16) !important;
-      background:linear-gradient(145deg,rgba(25,17,19,.98),rgba(13,9,10,.98)) !important;
-      box-shadow:0 15px 40px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.025);
+
+      border:
+        1px solid rgba(240,216,120,.14) !important;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(25,17,19,.98),
+          rgba(13,9,10,.98)
+        ) !important;
+
+      box-shadow:
+        0 15px 40px rgba(0,0,0,.42),
+        inset 0 1px rgba(255,255,255,.025);
+
     }
+
 
     .card::after {
+
       content:"";
+
       position:absolute;
-      width:120px;
-      height:120px;
-      right:-60px;
-      bottom:-60px;
+
+      width:160px;
+      height:160px;
+
+      right:-80px;
+      bottom:-80px;
+
       border-radius:50%;
-      background:rgba(255,102,0,.07);
-      filter:blur(5px);
+
+      background:
+        rgba(240,216,120,.035);
+
+      filter:
+        blur(8px);
+
       pointer-events:none;
+
     }
+
+
+    /* =====================================================
+       PERFIL
+       ===================================================== */
 
     .profile-head {
+
       position:relative;
+
       z-index:2;
+
       display:grid;
-      grid-template-columns:auto minmax(0,1fr) minmax(230px,280px);
+
+      grid-template-columns:
+        auto
+        minmax(0,1fr)
+        minmax(230px,280px);
+
       align-items:start;
-      gap:22px;
+
+      gap:24px;
+
     }
+
 
     #foto {
-      background:radial-gradient(circle at center,rgba(255,110,0,.10),#171012 70%) !important;
-      border-color:rgba(255,140,0,.28) !important;
-      box-shadow:0 0 30px rgba(255,100,0,.08),inset 0 0 25px rgba(0,0,0,.5);
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(240,216,120,.10),
+          #171012 70%
+        ) !important;
+
+      border-color:
+        rgba(240,216,120,.28) !important;
+
+      box-shadow:
+        0 0 30px rgba(240,216,120,.08),
+        inset 0 0 25px rgba(0,0,0,.5);
+
     }
+
+
+    #foto img {
+
+      transition:
+        transform .35s ease;
+
+    }
+
+
+    #foto:hover img {
+
+      transform:
+        scale(1.025);
+
+    }
+
 
     .profile-photo-manager {
+
       min-width:0;
+
       padding:16px;
+
       border-radius:18px;
-      border:1px solid rgba(240,216,120,.22);
-      background:linear-gradient(145deg,rgba(240,216,120,.06),rgba(255,102,0,.035));
-      box-shadow:inset 0 1px rgba(255,255,255,.025);
+
+      border:
+        1px solid rgba(240,216,120,.22);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(240,216,120,.06),
+          rgba(110,15,46,.05)
+        );
+
+      box-shadow:
+        inset 0 1px rgba(255,255,255,.025);
+
     }
+
 
     .profile-photo-manager h3 {
-      margin:0 0 5px;
+
+      margin:
+        0 0 5px;
+
       color:#f0d878;
+
       font-family:"Cinzel",serif;
+
       font-size:13px;
+
       letter-spacing:.7px;
+
     }
+
 
     .profile-photo-manager p {
+
       margin:0;
+
       color:#8f8589;
+
       font-size:12px;
+
       line-height:1.55;
+
     }
+
+
+    /* =====================================================
+       ESTRELAS
+       ===================================================== */
+
+    .profile-stats {
+
+      margin-top:20px;
+
+      display:grid;
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+      gap:12px;
+
+    }
+
+
+    .profile-stat {
+
+      position:relative;
+
+      overflow:hidden;
+
+      padding:
+        16px;
+
+      border-radius:16px;
+
+      border:
+        1px solid rgba(240,216,120,.17);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(240,216,120,.065),
+          rgba(255,255,255,.018)
+        );
+
+      box-shadow:
+        inset 0 1px rgba(255,255,255,.025);
+
+    }
+
+
+    .profile-stat::before {
+
+      content:"";
+
+      position:absolute;
+
+      width:60px;
+      height:60px;
+
+      right:-25px;
+      top:-25px;
+
+      border-radius:50%;
+
+      background:
+        rgba(240,216,120,.06);
+
+    }
+
+
+    .profile-stat-icon {
+
+      display:block;
+
+      font-size:20px;
+
+      margin-bottom:7px;
+
+    }
+
+
+    .profile-stat small {
+
+      display:block;
+
+      color:#8f8589;
+
+      font-size:10px;
+
+      letter-spacing:1px;
+
+      text-transform:uppercase;
+
+      margin-bottom:4px;
+
+    }
+
+
+    .profile-stat strong {
+
+      display:block;
+
+      color:#f0d878;
+
+      font-family:
+        "Cinzel",
+        serif;
+
+      font-size:22px;
+
+      line-height:1.2;
+
+    }
+
+
+    .profile-stat span {
+
+      display:block;
+
+      margin-top:4px;
+
+      color:#a99ca1;
+
+      font-size:11px;
+
+    }
+
+
+    .stars-number {
+
+      color:#f0d878;
+
+      text-shadow:
+        0 0 12px rgba(240,216,120,.20);
+
+    }
+
+
+    /* =====================================================
+       FOTOS DE PERFIL
+       ===================================================== */
 
     .profile-photo-options {
+
       display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
+
+      grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
       gap:8px;
+
       margin-top:13px;
+
       max-height:180px;
+
       overflow:auto;
+
       padding-right:2px;
+
     }
+
 
     .profile-photo-option {
+
       position:relative;
+
       width:100%;
+
       aspect-ratio:1 / 1;
+
       padding:0;
+
       border-radius:12px;
+
       overflow:hidden;
+
       cursor:pointer;
-      border:1px solid rgba(240,216,120,.18);
+
+      border:
+        1px solid rgba(240,216,120,.18);
+
       background:#100b0d;
+
       transition:.25s;
+
     }
+
 
     .profile-photo-option:hover {
-      transform:translateY(-2px);
-      border-color:rgba(240,216,120,.65);
-      box-shadow:0 6px 18px rgba(0,0,0,.35);
+
+      transform:
+        translateY(-2px);
+
+      border-color:
+        rgba(240,216,120,.65);
+
+      box-shadow:
+        0 6px 18px rgba(0,0,0,.35);
+
     }
+
 
     .profile-photo-option img {
+
       display:block;
+
       width:100%;
       height:100%;
+
       object-fit:cover;
+
     }
+
 
     .profile-photo-option.selected {
-      border:2px solid #f0d878;
-      box-shadow:0 0 18px rgba(240,216,120,.20);
+
+      border:
+        2px solid #f0d878;
+
+      box-shadow:
+        0 0 18px rgba(240,216,120,.20);
+
     }
+
 
     .profile-photo-option.selected::after {
+
       content:"✓";
+
       position:absolute;
+
       top:5px;
       right:5px;
+
       width:22px;
       height:22px;
+
       border-radius:50%;
+
       display:flex;
+
       align-items:center;
       justify-content:center;
+
       background:#f0d878;
+
       color:#120b08;
+
       font-weight:bold;
+
       font-size:13px;
+
     }
+
 
     .profile-photo-empty {
-      grid-column:1 / -1;
-      padding:15px 10px;
+
+      grid-column:
+        1 / -1;
+
+      padding:
+        15px 10px;
+
       text-align:center;
-      border:1px dashed rgba(240,216,120,.18);
+
+      border:
+        1px dashed rgba(240,216,120,.18);
+
       border-radius:12px;
+
       color:#8f8589;
+
       font-size:12px;
+
       line-height:1.5;
+
     }
+
 
     .profile-photo-manager .photo-action {
+
       width:100%;
+
       margin-top:11px;
+
       min-height:38px;
+
       border-radius:20px;
+
       cursor:pointer;
-      border:1px solid rgba(240,216,120,.28);
-      background:rgba(240,216,120,.07);
+
+      border:
+        1px solid rgba(240,216,120,.28);
+
+      background:
+        rgba(240,216,120,.07);
+
       color:#f0d878;
+
       font-family:"Cinzel",serif;
+
       font-size:10px;
+
       letter-spacing:1px;
+
       text-transform:uppercase;
+
       transition:.3s;
+
     }
+
 
     .profile-photo-manager .photo-action:hover {
-      background:rgba(240,216,120,.13);
-      border-color:rgba(240,216,120,.55);
+
+      background:
+        rgba(240,216,120,.13);
+
+      border-color:
+        rgba(240,216,120,.55);
+
     }
+
 
     .profile-photo-manager .photo-action:disabled {
+
       opacity:.45;
+
       cursor:not-allowed;
+
     }
+
+
+    /* =====================================================
+       PLANO / SELO
+       ===================================================== */
 
     .pill {
-      border-color:rgba(255,140,0,.3) !important;
-      background:rgba(255,100,0,.08) !important;
+
+      border-color:
+        rgba(240,216,120,.30) !important;
+
+      background:
+        rgba(240,216,120,.055) !important;
+
       color:#f0d878 !important;
+
     }
+
 
     #seloModelo {
-      background:linear-gradient(135deg,rgba(255,140,0,.14),rgba(110,15,46,.18)) !important;
-      border-color:rgba(240,216,120,.35) !important;
-      box-shadow:0 0 18px rgba(255,120,0,.08);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(240,216,120,.14),
+          rgba(110,15,46,.18)
+        ) !important;
+
+      border-color:
+        rgba(240,216,120,.35) !important;
+
+      box-shadow:
+        0 0 18px rgba(240,216,120,.08);
+
     }
+
 
     #statusModelo {
-      color:#ffad5c !important;
+
+      color:#e8c967 !important;
+
     }
+
+
+    /* =====================================================
+       INFORMAÇÕES
+       ===================================================== */
 
     .info {
-      border-bottom:1px solid rgba(255,140,0,.10);
+
+      border-bottom:
+        1px solid rgba(240,216,120,.10);
+
     }
+
 
     .info small {
+
       color:#8f8589 !important;
+
     }
+
 
     .info span {
+
       color:#f0e8e2 !important;
+
     }
+
+
+    /* =====================================================
+       BOTÕES
+       ===================================================== */
 
     .btn {
-      background:linear-gradient(135deg,#d88916,#b96808) !important;
+
+      background:
+        linear-gradient(
+          135deg,
+          #d88916,
+          #b96808
+        ) !important;
+
       color:#120b08 !important;
+
       border:0 !important;
-      box-shadow:0 8px 25px rgba(210,100,0,.18);
+
+      box-shadow:
+        0 8px 25px rgba(210,100,0,.18);
+
     }
+
 
     .btn:hover {
-      transform:translateY(-1px);
-      box-shadow:0 10px 30px rgba(255,120,0,.25);
+
+      transform:
+        translateY(-1px);
+
+      box-shadow:
+        0 10px 30px rgba(240,216,120,.20);
+
     }
+
 
     .btn.ghost {
-      background:rgba(255,255,255,.035) !important;
+
+      background:
+        rgba(255,255,255,.035) !important;
+
       color:#f0d878 !important;
-      border:1px solid rgba(240,216,120,.25) !important;
+
+      border:
+        1px solid rgba(240,216,120,.25) !important;
+
       box-shadow:none;
+
     }
 
-    .footer {
-      border-top:1px solid rgba(255,140,0,.12);
-      color:#756b70 !important;
-    }
+
+    /* =====================================================
+       MÍDIAS
+       ===================================================== */
 
     .media-manager {
+
       margin-top:25px;
+
     }
+
 
     .media-header {
+
       display:flex;
+
       justify-content:space-between;
+
       align-items:center;
+
       gap:15px;
+
       flex-wrap:wrap;
+
     }
+
 
     .media-limits {
+
       display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
       gap:12px;
+
       margin-top:20px;
+
     }
+
 
     .media-limit {
+
       padding:15px;
+
       border-radius:14px;
-      border:1px solid rgba(255,140,0,.15);
-      background:rgba(255,255,255,.025);
+
+      border:
+        1px solid rgba(240,216,120,.15);
+
+      background:
+        rgba(255,255,255,.025);
+
     }
+
 
     .media-limit small {
+
       display:block;
+
       color:#8f8589;
+
       margin-bottom:5px;
+
     }
+
 
     .media-limit strong {
+
       color:#f0d878;
+
       font-size:20px;
+
     }
+
 
     .upload-area {
+
       margin-top:20px;
+
       padding:18px;
-      border:1px dashed rgba(240,216,120,.25);
+
+      border:
+        1px dashed rgba(240,216,120,.25);
+
       border-radius:16px;
-      background:rgba(255,255,255,.02);
+
+      background:
+        rgba(255,255,255,.02);
+
     }
+
 
     .upload-area h3 {
+
       margin-top:0;
+
     }
+
 
     .upload-grid {
+
       display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
       gap:12px;
+
       margin-top:15px;
+
     }
+
 
     .upload-box {
+
       padding:16px;
+
       border-radius:14px;
-      border:1px solid rgba(255,140,0,.14);
-      background:rgba(0,0,0,.15);
+
+      border:
+        1px solid rgba(240,216,120,.14);
+
+      background:
+        rgba(0,0,0,.15);
+
     }
+
 
     .upload-box input {
+
       width:100%;
+
       margin-top:10px;
+
       box-sizing:border-box;
+
     }
+
 
     .media-gallery {
+
       display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(145px,1fr));
+
+      grid-template-columns:
+        repeat(auto-fill,minmax(145px,1fr));
+
       gap:14px;
+
       margin-top:20px;
+
     }
 
+
     .media-item {
+
       position:relative;
+
       overflow:hidden;
+
       border-radius:15px;
-      border:1px solid rgba(255,140,0,.18);
+
+      border:
+        1px solid rgba(240,216,120,.18);
+
       background:#110c0e;
+
       min-height:150px;
+
     }
+
 
     .media-item img,
     .media-item video {
+
       display:block;
+
       width:100%;
+
       height:190px;
+
       object-fit:cover;
+
       background:#080607;
+
     }
+
 
     .media-item-info {
+
       padding:9px;
+
       font-size:12px;
+
       color:#a99ca1;
+
     }
+
 
     .media-actions {
+
       display:flex;
+
       gap:6px;
+
       padding:8px;
+
       flex-wrap:wrap;
+
     }
+
 
     .media-btn {
+
       flex:1;
+
       min-width:70px;
+
       border-radius:9px;
+
       padding:8px 7px;
+
       cursor:pointer;
-      border:1px solid rgba(240,216,120,.22);
-      background:rgba(255,255,255,.04);
+
+      border:
+        1px solid rgba(240,216,120,.22);
+
+      background:
+        rgba(255,255,255,.04);
+
       color:#f0d878;
+
       font-size:12px;
+
     }
+
 
     .media-btn:hover {
-      background:rgba(255,140,0,.10);
+
+      background:
+        rgba(240,216,120,.10);
+
     }
+
 
     .media-btn.delete {
+
       color:#ff9b9b;
-      border-color:rgba(255,80,80,.20);
+
+      border-color:
+        rgba(255,80,80,.20);
+
     }
+
 
     .media-btn.profile {
+
       color:#f0d878;
+
     }
+
 
     .empty-media {
+
       padding:30px 15px;
+
       text-align:center;
+
       color:#8f8589;
-      border:1px dashed rgba(255,140,0,.14);
+
+      border:
+        1px dashed rgba(240,216,120,.14);
+
       border-radius:14px;
-      grid-column:1 / -1;
+
+      grid-column:
+        1 / -1;
+
     }
+
+
+    /* =====================================================
+       PROGRESSO
+       ===================================================== */
 
     .progress-box {
+
       margin-top:15px;
+
       display:none;
+
     }
+
 
     .progress-box.active {
+
       display:block;
+
     }
+
 
     .progress-bar {
+
       width:100%;
+
       height:8px;
+
       overflow:hidden;
+
       border-radius:20px;
-      background:rgba(255,255,255,.06);
+
+      background:
+        rgba(255,255,255,.06);
+
     }
+
 
     .progress-fill {
+
       width:0%;
+
       height:100%;
+
       border-radius:20px;
-      background:linear-gradient(90deg,#d88916,#f0d878);
-      transition:width .2s ease;
+
+      background:
+        linear-gradient(
+          90deg,
+          #d88916,
+          #f0d878
+        );
+
+      transition:
+        width .2s ease;
+
     }
+
 
     .media-note {
+
       color:#8f8589;
+
       font-size:13px;
+
       line-height:1.6;
+
       margin-top:12px;
+
     }
+
+
+    /* =====================================================
+       FOTO PRINCIPAL
+       ===================================================== */
 
     .current-profile-photo {
+
       position:relative;
+
       display:inline-block;
+
     }
+
 
     .current-profile-photo img {
+
       width:190px;
+
       height:235px;
+
       object-fit:cover;
+
       border-radius:20px;
+
     }
+
 
     .photo-badge {
+
       position:absolute;
+
       left:8px;
+
       bottom:8px;
+
       padding:5px 8px;
+
       border-radius:8px;
-      background:rgba(0,0,0,.72);
+
+      background:
+        rgba(0,0,0,.72);
+
       color:#f0d878;
+
       font-size:11px;
+
     }
 
+
     .section-message {
+
       margin-top:15px;
+
     }
+
+
+    /* =====================================================
+       RODAPÉ
+       ===================================================== */
+
+    .footer {
+
+      border-top:
+        1px solid rgba(240,216,120,.12);
+
+      color:#756b70 !important;
+
+    }
+
+
+    /* =====================================================
+       MOBILE
+       ===================================================== */
 
     @media (max-width:900px) {
 
       .profile-head {
-        grid-template-columns:auto minmax(0,1fr);
+
+        grid-template-columns:
+          auto
+          minmax(0,1fr);
+
       }
 
+
       .profile-photo-manager {
-        grid-column:1 / -1;
+
+        grid-column:
+          1 / -1;
+
       }
 
     }
 
+
     @media (max-width:650px) {
 
       .topbar {
-        padding:8px 10px;
+
+        padding:
+          8px 10px;
+
         align-items:center;
+
       }
+
 
       .brand {
+
         height:78px;
+
       }
+
 
       .brand img {
+
         height:78px;
+
         max-width:170px;
+
       }
+
 
       .top-actions-modelo {
+
         gap:7px;
+
       }
+
 
       .btn-planos {
-        padding:9px 11px;
+
+        padding:
+          9px 11px;
+
         font-size:9px;
+
         letter-spacing:.7px;
+
       }
+
 
       .btn-sair-top {
-        padding:9px 11px;
+
+        padding:
+          9px 11px;
+
         font-size:9px;
+
       }
+
 
       .profile-head {
-        grid-template-columns:1fr;
+
+        grid-template-columns:
+          1fr;
+
       }
+
 
       #foto {
+
         margin:auto;
+
       }
+
 
       .profile-photo-manager {
+
         grid-column:auto;
+
       }
+
+
+      .profile-stats {
+
+        grid-template-columns:
+          1fr 1fr;
+
+      }
+
 
       .plano-acesso {
+
         align-items:flex-start;
+
         flex-direction:column;
+
       }
+
 
       .plano-acesso-link {
+
         width:100%;
+
       }
+
 
       .media-limits {
-        grid-template-columns:1fr;
+
+        grid-template-columns:
+          1fr;
+
       }
+
 
       .upload-grid {
-        grid-template-columns:1fr;
+
+        grid-template-columns:
+          1fr;
+
       }
 
+
       .media-gallery {
-        grid-template-columns:repeat(2,minmax(0,1fr));
+
+        grid-template-columns:
+          repeat(2,minmax(0,1fr));
+
+      }
+
+    }
+
+
+    @media (max-width:430px) {
+
+      .profile-stats {
+
+        grid-template-columns:
+          1fr;
+
       }
 
     }
@@ -691,30 +1626,30 @@
 
 </head>
 
+
 <body>
 
-  <div class="halloween-decoration web-left">
-    🕸️
-  </div>
 
-  <div class="halloween-decoration web-right">
-    🕸️
-  </div>
+  <!-- =====================================================
+       TOPO
+       As duas teias antigas foram removidas.
+       ===================================================== -->
 
   <header class="topbar">
 
     <a
       class="brand"
       href="index.html"
-      aria-label="LUX — Início"
+      aria-label="LUX-ADVANCE — Início"
     >
 
       <img
         src="./logo4.png"
-        alt="LUX"
+        alt="LUX-ADVANCE"
       >
 
     </a>
+
 
     <div class="top-actions-modelo">
 
@@ -724,6 +1659,7 @@
       >
         ✦ Ver Planos
       </a>
+
 
       <button
         class="btn ghost btn-sair-top"
@@ -737,13 +1673,20 @@
 
   </header>
 
+
   <main class="container">
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
 
     <section class="hero">
 
       <div class="eyebrow">
-        🎃 ÁREA DA MODELO
+        ✦ LUX-ADVANCE · ÁREA DA MODELO
       </div>
+
 
       <h1
         class="title"
@@ -752,12 +1695,14 @@
         Meu perfil
       </h1>
 
+
       <p
         class="subtitle"
         id="subtitulo"
       >
         Carregando...
       </p>
+
 
       <div class="plano-acesso">
 
@@ -767,11 +1712,13 @@
             Seu plano atual
           </small>
 
+
           <strong id="heroPlano">
             ✦ LUX ESSENCE
           </strong>
 
         </div>
+
 
         <a
           class="plano-acesso-link"
@@ -784,22 +1731,32 @@
 
     </section>
 
+
     <div
       id="mensagem"
       class="notice"
       hidden
     ></div>
 
+
     <section
       id="conteudo"
       hidden
     >
+
+
+      <!-- ===================================================
+           PERFIL
+           =================================================== -->
 
       <div class="card">
 
         <div class="card-body">
 
           <div class="profile-head">
+
+
+            <!-- FOTO -->
 
             <div
               id="foto"
@@ -818,23 +1775,29 @@
                 overflow:hidden;
               "
             >
-              LUX
+              LUX-ADVANCE
             </div>
+
+
+            <!-- DADOS -->
 
             <div>
 
               <span class="pill">
-                🎃 MODELO LUX
+                ✦ MODELO LUX-ADVANCE
               </span>
+
 
               <h2 id="nomeModelo">
                 Modelo
               </h2>
 
+
               <p
                 id="emailModelo"
                 style="color:var(--muted)"
               ></p>
+
 
               <div
                 id="seloModelo"
@@ -847,12 +1810,73 @@
                 ✦ LUX ESSENCE
               </div>
 
+
               <p
                 id="statusModelo"
                 style="color:var(--gold2)"
               ></p>
 
+
+              <!-- =========================================
+                   ESTATÍSTICAS DA MODELO
+                   ========================================= -->
+
+              <div class="profile-stats">
+
+
+                <div class="profile-stat">
+
+                  <span class="profile-stat-icon">
+                    ⭐
+                  </span>
+
+                  <small>
+                    Estrelas recebidas
+                  </small>
+
+                  <strong
+                    id="estrelasRecebidas"
+                    class="stars-number"
+                  >
+                    0
+                  </strong>
+
+                  <span>
+                    avaliações recebidas
+                  </span>
+
+                </div>
+
+
+                <div class="profile-stat">
+
+                  <span class="profile-stat-icon">
+                    ✦
+                  </span>
+
+                  <small>
+                    Plano atual
+                  </small>
+
+                  <strong
+                    id="planoResumo"
+                  >
+                    ESSENCE
+                  </strong>
+
+                  <span>
+                    seu nível LUX-ADVANCE
+                  </span>
+
+                </div>
+
+
+              </div>
+
             </div>
+
+
+            <!-- FOTO DE PERFIL -->
 
             <div class="profile-photo-manager">
 
@@ -860,10 +1884,12 @@
                 📷 Foto de perfil
               </h3>
 
+
               <p>
                 Escolha uma das fotos que você
                 já enviou para definir como principal.
               </p>
+
 
               <div
                 id="profilePhotoOptions"
@@ -876,6 +1902,7 @@
 
               </div>
 
+
               <button
                 id="btnAtualizarFoto"
                 class="photo-action"
@@ -884,6 +1911,7 @@
               >
                 ⭐ Usar foto selecionada
               </button>
+
 
               <p
                 id="profilePhotoMessage"
@@ -902,9 +1930,16 @@
 
       </div>
 
+
       <br>
 
+
+      <!-- ===================================================
+           INFORMAÇÕES
+           =================================================== -->
+
       <div class="grid">
+
 
         <article class="card">
 
@@ -914,7 +1949,9 @@
               ✦ Informações do perfil
             </h2>
 
+
             <div class="info-list">
+
 
               <div class="info">
 
@@ -928,6 +1965,7 @@
 
               </div>
 
+
               <div class="info">
 
                 <small>
@@ -939,6 +1977,7 @@
                 </span>
 
               </div>
+
 
               <div class="info">
 
@@ -952,6 +1991,7 @@
 
               </div>
 
+
               <div class="info">
 
                 <small>
@@ -964,11 +2004,31 @@
 
               </div>
 
+
+              <div class="info">
+
+                <small>
+                  Estrelas recebidas
+                </small>
+
+                <span
+                  id="estrelasInfo"
+                  style="
+                    color:#f0d878 !important;
+                    font-weight:bold;
+                  "
+                >
+                  ⭐ 0
+                </span>
+
+              </div>
+
             </div>
 
           </div>
 
         </article>
+
 
         <article class="card">
 
@@ -980,7 +2040,10 @@
 
             <p
               id="bio"
-              style="color:var(--muted);line-height:1.7;"
+              style="
+                color:var(--muted);
+                line-height:1.7;
+              "
             >
               Nenhuma apresentação cadastrada.
             </p>
@@ -991,9 +2054,15 @@
 
       </div>
 
+
+      <!-- ===================================================
+           MÍDIAS
+           =================================================== -->
+
       <div class="card media-manager">
 
         <div class="card-body">
+
 
           <div class="media-header">
 
@@ -1007,17 +2076,20 @@
                 class="media-note"
                 style="margin-top:0"
               >
-                Gerencie o conteúdo exibido no seu perfil LUX.
+                Gerencie o conteúdo exibido no seu
+                perfil LUX-ADVANCE.
               </p>
 
             </div>
 
           </div>
 
+
           <div
             class="media-limits"
             id="mediaLimits"
           >
+
 
             <div class="media-limit">
 
@@ -1030,6 +2102,7 @@
               </strong>
 
             </div>
+
 
             <div class="media-limit">
 
@@ -1045,11 +2118,13 @@
 
           </div>
 
+
           <div class="upload-area">
 
             <h3>
               Adicionar conteúdo
             </h3>
+
 
             <p class="media-note">
 
@@ -1058,7 +2133,9 @@
 
             </p>
 
+
             <div class="upload-grid">
+
 
               <div class="upload-box">
 
@@ -1081,6 +2158,7 @@
 
               </div>
 
+
               <div class="upload-box">
 
                 <strong>
@@ -1102,6 +2180,7 @@
                 >
 
               </div>
+
 
               <div class="upload-box">
 
@@ -1126,6 +2205,7 @@
               </div>
 
             </div>
+
 
             <div
               id="progressBox"
@@ -1153,6 +2233,7 @@
 
               </div>
 
+
               <div class="progress-bar">
 
                 <div
@@ -1164,6 +2245,7 @@
 
             </div>
 
+
             <p
               id="mediaMessage"
               class="notice section-message"
@@ -1171,6 +2253,7 @@
             ></p>
 
           </div>
+
 
           <div
             id="mediaGallery"
@@ -1187,7 +2270,9 @@
 
       </div>
 
+
       <br>
+
 
       <div class="actions">
 
@@ -1198,32 +2283,34 @@
           ✦ Ver planos e assinar
         </a>
 
+
         <a
           class="btn"
           href="index.html"
         >
-          ✦ Voltar ao LUX
+          ✦ Voltar ao LUX-ADVANCE
         </a>
 
       </div>
+
 
     </section>
 
   </main>
 
+
   <footer class="footer">
-    LUX — Sensualidade & Sofisticação · Halloween Edition 🎃
+
+    LUX-ADVANCE —
+    Sensualidade & Sofisticação ·
+    Halloween Edition 🎃
+
   </footer>
 
 
-  <!-- =========================================
+  <!-- =====================================================
        SUPABASE
-       IMPORTANTE:
-       1. Biblioteca Supabase
-       2. config.js
-       3. auth.js
-       4. Código do painel
-       ========================================= -->
+       ===================================================== -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1234,14 +2321,15 @@
 
   <script>
 
-    /* =========================================
-       VERIFICAÇÃO DO SUPABASE
-       ========================================= */
+
+    /* =====================================================
+       VERIFICAÇÃO SUPABASE
+       ===================================================== */
 
     if (!window.supabase) {
 
       console.error(
-        "[LUX] Biblioteca Supabase não carregou."
+        "[LUX-ADVANCE] Biblioteca Supabase não carregou."
       );
 
       document.addEventListener(
@@ -1276,7 +2364,7 @@
     if (!window.luxSupabase) {
 
       console.error(
-        "[LUX] Supabase não foi inicializado.",
+        "[LUX-ADVANCE] Supabase não foi inicializado.",
         {
           supabaseGlobal:
             !!window.supabase,
@@ -1316,66 +2404,71 @@
 
 
     console.log(
-      "[LUX] Supabase inicializado corretamente."
+      "[LUX-ADVANCE] Supabase inicializado corretamente."
     );
 
+
     console.log(
-      "[LUX] auth.js:",
+      "[LUX-ADVANCE] auth.js:",
       window.LUX_AUTH_VERSION ||
       "versão não identificada"
     );
 
 
-    /* =========================================
+    /* =====================================================
        ESTADO
-       ========================================= */
+       ===================================================== */
 
     let usuarioLogado = null;
+
     let perfilAtual = null;
+
     let modeloAtual = null;
+
     let planoAtual = "ESSENCE";
+
     let midiasAtuais = [];
 
     let fotoSelecionadaPerfil = null;
 
 
-    /* =========================================
-       LIMITES DOS PLANOS
-       ========================================= */
+    /* =====================================================
+       LIMITES
+       ===================================================== */
 
     const LIMITES_PLANOS = {
 
       ESSENCE: {
-        fotos: 2,
-        videos: 1
+        fotos:2,
+        videos:1
       },
 
       DESFIRE: {
-        fotos: 5,
-        videos: 3
+        fotos:5,
+        videos:3
       },
 
       ELITE: {
-        fotos: 5,
-        videos: 3
+        fotos:5,
+        videos:3
       },
 
       ROYAL: {
-        fotos: 5,
-        videos: 3
+        fotos:5,
+        videos:3
       },
 
       DIAMOND: {
-        fotos: 10,
-        videos: 5
+        fotos:10,
+        videos:5
       }
 
     };
 
 
-    /* =========================================
+    /* =====================================================
        TIMEOUT
-       ========================================= */
+       ===================================================== */
 
     function comTimeout(
       promessa,
@@ -1406,9 +2499,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        PLANO
-       ========================================= */
+       ===================================================== */
 
     function normalizarPlano(
       modelo
@@ -1437,9 +2530,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        ELEMENTOS
-       ========================================= */
+       ===================================================== */
 
     const mensagem =
       document.getElementById(
@@ -1477,9 +2570,9 @@
       );
 
 
-    /* =========================================
+    /* =====================================================
        MENSAGENS
-       ========================================= */
+       ===================================================== */
 
     function mostrarMensagemMidia(
       texto,
@@ -1541,9 +2634,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        PROGRESSO
-       ========================================= */
+       ===================================================== */
 
     function iniciarProgresso(
       texto = "Enviando..."
@@ -1648,9 +2741,9 @@
     }
 
 
-    /* =========================================
-       FOTO DE PERFIL PRINCIPAL
-       ========================================= */
+    /* =====================================================
+       FOTO PRINCIPAL
+       ===================================================== */
 
     function mostrarFotoPerfil(
       url,
@@ -1666,7 +2759,7 @@
       if (!url) {
 
         container.innerHTML =
-          "LUX";
+          "LUX-ADVANCE";
 
         return;
 
@@ -1688,7 +2781,7 @@
 
       img.alt =
         nome ||
-        "Modelo LUX";
+        "Modelo LUX-ADVANCE";
 
       img.loading =
         "lazy";
@@ -1716,9 +2809,52 @@
     }
 
 
-    /* =========================================
-       ATUALIZAR LIMITES
-       ========================================= */
+    /* =====================================================
+       ATUALIZAR ESTRELAS
+       ===================================================== */
+
+    function atualizarEstrelasRecebidas() {
+
+      const total =
+        Number(
+          modeloAtual?.estrelas_total || 0
+        );
+
+
+      const elementoPrincipal =
+        document.getElementById(
+          "estrelasRecebidas"
+        );
+
+
+      const elementoInfo =
+        document.getElementById(
+          "estrelasInfo"
+        );
+
+
+      if (elementoPrincipal) {
+
+        elementoPrincipal.textContent =
+          total;
+
+      }
+
+
+      if (elementoInfo) {
+
+        elementoInfo.textContent =
+          "⭐ " +
+          total;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       LIMITES
+       ===================================================== */
 
     function atualizarLimites() {
 
@@ -1764,9 +2900,9 @@
     }
 
 
-    /* =========================================
-       RENDERIZAR FOTOS PARA ESCOLHA
-       ========================================= */
+    /* =====================================================
+       OPÇÕES DE FOTO
+       ===================================================== */
 
     function renderizarOpcoesFotoPerfil() {
 
@@ -1912,9 +3048,9 @@
     }
 
 
-    /* =========================================
-       DEFINIR FOTO ESCOLHIDA
-       ========================================= */
+    /* =====================================================
+       ATUALIZAR FOTO SELECIONADA
+       ===================================================== */
 
     async function atualizarFotoSelecionada() {
 
@@ -1948,11 +3084,13 @@
           await window.luxSupabase
             .from("modelo_perfis")
             .update({
+
               foto_url:
                 fotoSelecionadaPerfil.url,
 
               atualizado_em:
                 new Date().toISOString()
+
             })
             .eq(
               "id",
@@ -2025,9 +3163,9 @@
     );
 
 
-    /* =========================================
+    /* =====================================================
        CARREGAR MÍDIAS
-       ========================================= */
+       ===================================================== */
 
     async function carregarMidias() {
 
@@ -2088,16 +3226,19 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        RENDERIZAR MÍDIAS
-       ========================================= */
+       ===================================================== */
 
     function renderizarMidias() {
 
-      mediaGallery.innerHTML = "";
+      mediaGallery.innerHTML =
+        "";
 
 
-      if (midiasAtuais.length === 0) {
+      if (
+        midiasAtuais.length === 0
+      ) {
 
         mediaGallery.innerHTML = `
           <div class="empty-media">
@@ -2114,35 +3255,45 @@
         midia => {
 
           const item =
-            document.createElement("div");
+            document.createElement(
+              "div"
+            );
 
 
           item.className =
             "media-item";
 
 
-          if (midia.tipo === "foto") {
+          if (
+            midia.tipo === "foto"
+          ) {
 
             const img =
-              document.createElement("img");
+              document.createElement(
+                "img"
+              );
 
 
             img.src =
               midia.url;
 
             img.alt =
-              "Foto do perfil LUX";
+              "Foto do perfil LUX-ADVANCE";
 
             img.loading =
               "lazy";
 
 
-            item.appendChild(img);
+            item.appendChild(
+              img
+            );
 
           } else {
 
             const video =
-              document.createElement("video");
+              document.createElement(
+                "video"
+              );
 
 
             video.src =
@@ -2155,13 +3306,17 @@
               "metadata";
 
 
-            item.appendChild(video);
+            item.appendChild(
+              video
+            );
 
           }
 
 
           const info =
-            document.createElement("div");
+            document.createElement(
+              "div"
+            );
 
 
           info.className =
@@ -2174,21 +3329,29 @@
               : "🎬 Vídeo";
 
 
-          item.appendChild(info);
+          item.appendChild(
+            info
+          );
 
 
           const actions =
-            document.createElement("div");
+            document.createElement(
+              "div"
+            );
 
 
           actions.className =
             "media-actions";
 
 
-          if (midia.tipo === "foto") {
+          if (
+            midia.tipo === "foto"
+          ) {
 
             const btnPerfil =
-              document.createElement("button");
+              document.createElement(
+                "button"
+              );
 
 
             btnPerfil.type =
@@ -2208,13 +3371,17 @@
             );
 
 
-            actions.appendChild(btnPerfil);
+            actions.appendChild(
+              btnPerfil
+            );
 
           }
 
 
           const btnExcluir =
-            document.createElement("button");
+            document.createElement(
+              "button"
+            );
 
 
           btnExcluir.type =
@@ -2234,11 +3401,19 @@
           );
 
 
-          actions.appendChild(btnExcluir);
+          actions.appendChild(
+            btnExcluir
+          );
 
-          item.appendChild(actions);
 
-          mediaGallery.appendChild(item);
+          item.appendChild(
+            actions
+          );
+
+
+          mediaGallery.appendChild(
+            item
+          );
 
         }
       );
@@ -2246,11 +3421,13 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        URL STORAGE
-       ========================================= */
+       ===================================================== */
 
-    function criarUrlPublica(path) {
+    function criarUrlPublica(
+      path
+    ) {
 
       const {
         data
@@ -2258,7 +3435,9 @@
         window.luxSupabase
           .storage
           .from("lux-modelos")
-          .getPublicUrl(path);
+          .getPublicUrl(
+            path
+          );
 
 
       return data?.publicUrl || "";
@@ -2266,9 +3445,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        EXTENSÃO
-       ========================================= */
+       ===================================================== */
 
     function extensaoArquivo(
       arquivo,
@@ -2278,11 +3457,14 @@
       const nome =
         arquivo?.name || "";
 
+
       const partes =
         nome.split(".");
 
 
-      if (partes.length > 1) {
+      if (
+        partes.length > 1
+      ) {
 
         return partes
           .pop()
@@ -2296,9 +3478,9 @@
     }
 
 
-    /* =========================================
-       UPLOAD GENÉRICO
-       ========================================= */
+    /* =====================================================
+       UPLOAD
+       ===================================================== */
 
     async function enviarArquivo(
       arquivo,
@@ -2389,7 +3571,9 @@
 
 
       const url =
-        criarUrlPublica(caminho);
+        criarUrlPublica(
+          caminho
+        );
 
 
       if (!url) {
@@ -2408,14 +3592,19 @@
         await window.luxSupabase
           .from("modelo_midias")
           .insert({
+
             modelo_id:
               usuarioLogado.id,
+
             tipo:
               tipo,
+
             url:
               url,
+
             storage_path:
               caminho
+
           })
           .select(
             "id, modelo_id, tipo, url, storage_path, criado_em"
@@ -2428,8 +3617,9 @@
         await window.luxSupabase
           .storage
           .from("lux-modelos")
-          .remove([caminho]);
-
+          .remove([
+            caminho
+          ]);
 
         throw error;
 
@@ -2447,13 +3637,19 @@
     }
 
 
-    /* =========================================
-       PROCESSAR FOTO DE PERFIL
-       ========================================= */
+    /* =====================================================
+       FOTO DE PERFIL
+       ===================================================== */
 
-    async function processarFotoPerfil(arquivo) {
+    async function processarFotoPerfil(
+      arquivo
+    ) {
 
-      if (!arquivo.type.startsWith("image/")) {
+      if (
+        !arquivo.type.startsWith(
+          "image/"
+        )
+      ) {
 
         throw new Error(
           "Escolha uma imagem válida."
@@ -2475,7 +3671,9 @@
         ].fotos;
 
 
-      if (fotos.length >= limite) {
+      if (
+        fotos.length >= limite
+      ) {
 
         throw new Error(
           "O limite de fotos do seu plano já foi atingido. Exclua uma foto antes de adicionar outra."
@@ -2498,10 +3696,13 @@
         await window.luxSupabase
           .from("modelo_perfis")
           .update({
+
             foto_url:
               midia.url,
+
             atualizado_em:
               new Date().toISOString()
+
           })
           .eq(
             "id",
@@ -2528,17 +3729,23 @@
     }
 
 
-    /* =========================================
-       PROCESSAR FOTOS
-       ========================================= */
+    /* =====================================================
+       FOTOS
+       ===================================================== */
 
-    async function processarFotos(arquivos) {
+    async function processarFotos(
+      arquivos
+    ) {
 
       const lista =
-        Array.from(arquivos || []);
+        Array.from(
+          arquivos || []
+        );
 
 
-      if (lista.length === 0) {
+      if (
+        lista.length === 0
+      ) {
 
         return;
 
@@ -2563,7 +3770,9 @@
         fotosAtuais;
 
 
-      if (vagas <= 0) {
+      if (
+        vagas <= 0
+      ) {
 
         throw new Error(
           "O limite de fotos do seu plano já foi atingido."
@@ -2572,7 +3781,9 @@
       }
 
 
-      if (lista.length > vagas) {
+      if (
+        lista.length > vagas
+      ) {
 
         throw new Error(
           "Você selecionou " +
@@ -2595,7 +3806,11 @@
           lista[i];
 
 
-        if (!arquivo.type.startsWith("image/")) {
+        if (
+          !arquivo.type.startsWith(
+            "image/"
+          )
+        ) {
 
           throw new Error(
             "Um dos arquivos selecionados não é uma imagem válida."
@@ -2615,17 +3830,23 @@
     }
 
 
-    /* =========================================
-       PROCESSAR VÍDEOS
-       ========================================= */
+    /* =====================================================
+       VÍDEOS
+       ===================================================== */
 
-    async function processarVideos(arquivos) {
+    async function processarVideos(
+      arquivos
+    ) {
 
       const lista =
-        Array.from(arquivos || []);
+        Array.from(
+          arquivos || []
+        );
 
 
-      if (lista.length === 0) {
+      if (
+        lista.length === 0
+      ) {
 
         return;
 
@@ -2650,7 +3871,9 @@
         videosAtuais;
 
 
-      if (vagas <= 0) {
+      if (
+        vagas <= 0
+      ) {
 
         throw new Error(
           "O limite de vídeos do seu plano já foi atingido."
@@ -2659,7 +3882,9 @@
       }
 
 
-      if (lista.length > vagas) {
+      if (
+        lista.length > vagas
+      ) {
 
         throw new Error(
           "Você selecionou " +
@@ -2682,7 +3907,11 @@
           lista[i];
 
 
-        if (!arquivo.type.startsWith("video/")) {
+        if (
+          !arquivo.type.startsWith(
+            "video/"
+          )
+        ) {
 
           throw new Error(
             "Um dos arquivos selecionados não é um vídeo válido."
@@ -2702,11 +3931,13 @@
     }
 
 
-    /* =========================================
-       DEFINIR FOTO DE PERFIL
-       ========================================= */
+    /* =====================================================
+       DEFINIR FOTO
+       ===================================================== */
 
-    async function definirFotoPerfil(midia) {
+    async function definirFotoPerfil(
+      midia
+    ) {
 
       if (
         !midia ||
@@ -2729,10 +3960,13 @@
           await window.luxSupabase
             .from("modelo_perfis")
             .update({
+
               foto_url:
                 midia.url,
+
               atualizado_em:
                 new Date().toISOString()
+
             })
             .eq(
               "id",
@@ -2784,11 +4018,13 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        EXCLUIR MÍDIA
-       ========================================= */
+       ===================================================== */
 
-    async function excluirMidia(midia) {
+    async function excluirMidia(
+      midia
+    ) {
 
       if (!midia) {
 
@@ -2839,7 +4075,9 @@
         }
 
 
-        if (midia.storage_path) {
+        if (
+          midia.storage_path
+        ) {
 
           await window.luxSupabase
             .storage
@@ -2863,9 +4101,12 @@
             await window.luxSupabase
               .from("modelo_perfis")
               .update({
+
                 foto_url:null,
+
                 atualizado_em:
                   new Date().toISOString()
+
               })
               .eq(
                 "id",
@@ -2922,12 +4163,14 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        EVENTO — FOTO DE PERFIL
-       ========================================= */
+       ===================================================== */
 
     document
-      .getElementById("inputFotoPerfil")
+      .getElementById(
+        "inputFotoPerfil"
+      )
       .addEventListener(
         "change",
         async function() {
@@ -2937,7 +4180,9 @@
 
 
           if (!arquivo) {
+
             return;
+
           }
 
 
@@ -2945,12 +4190,15 @@
 
             esconderMensagemMidia();
 
+
             await processarFotoPerfil(
               arquivo
             );
 
 
-            this.value = "";
+            this.value =
+              "";
+
 
             await carregarMidias();
 
@@ -2972,12 +4220,14 @@
       );
 
 
-    /* =========================================
+    /* =====================================================
        EVENTO — FOTOS
-       ========================================= */
+       ===================================================== */
 
     document
-      .getElementById("inputFotos")
+      .getElementById(
+        "inputFotos"
+      )
       .addEventListener(
         "change",
         async function() {
@@ -2990,7 +4240,9 @@
             !arquivos ||
             arquivos.length === 0
           ) {
+
             return;
+
           }
 
 
@@ -2998,12 +4250,15 @@
 
             esconderMensagemMidia();
 
+
             await processarFotos(
               arquivos
             );
 
 
-            this.value = "";
+            this.value =
+              "";
+
 
             await carregarMidias();
 
@@ -3025,12 +4280,14 @@
       );
 
 
-    /* =========================================
+    /* =====================================================
        EVENTO — VÍDEOS
-       ========================================= */
+       ===================================================== */
 
     document
-      .getElementById("inputVideos")
+      .getElementById(
+        "inputVideos"
+      )
       .addEventListener(
         "change",
         async function() {
@@ -3043,7 +4300,9 @@
             !arquivos ||
             arquivos.length === 0
           ) {
+
             return;
+
           }
 
 
@@ -3051,12 +4310,15 @@
 
             esconderMensagemMidia();
 
+
             await processarVideos(
               arquivos
             );
 
 
-            this.value = "";
+            this.value =
+              "";
+
 
             await carregarMidias();
 
@@ -3078,12 +4340,14 @@
       );
 
 
-    /* =========================================
+    /* =====================================================
        SAIR
-       ========================================= */
+       ===================================================== */
 
     document
-      .getElementById("btnSair")
+      .getElementById(
+        "btnSair"
+      )
       .addEventListener(
         "click",
         async function() {
@@ -3120,9 +4384,9 @@
       );
 
 
-    /* =========================================
+    /* =====================================================
        INICIAR PAINEL
-       ========================================= */
+       ===================================================== */
 
     async function iniciar() {
 
@@ -3154,7 +4418,8 @@
           );
 
 
-        modeloAtual = null;
+        modeloAtual =
+          null;
 
 
         if (
@@ -3196,6 +4461,10 @@
         }
 
 
+        /* =================================================
+           NOME
+           ================================================= */
+
         const nome =
           modeloAtual.nome_exibicao ||
           perfilAtual?.nome ||
@@ -3203,33 +4472,47 @@
 
 
         document
-          .getElementById("nomeModelo")
+          .getElementById(
+            "nomeModelo"
+          )
           .textContent =
           nome;
 
 
         document
-          .getElementById("titulo")
+          .getElementById(
+            "titulo"
+          )
           .textContent =
           "Olá, " + nome;
 
 
         document
-          .getElementById("emailModelo")
+          .getElementById(
+            "emailModelo"
+          )
           .textContent =
           usuarioLogado.email ||
           "";
 
 
+        /* =================================================
+           INFORMAÇÕES
+           ================================================= */
+
         document
-          .getElementById("idade")
+          .getElementById(
+            "idade"
+          )
           .textContent =
           modeloAtual.idade ||
           "—";
 
 
         document
-          .getElementById("altura")
+          .getElementById(
+            "altura"
+          )
           .textContent =
           modeloAtual.altura_cm
             ? modeloAtual.altura_cm + " cm"
@@ -3237,14 +4520,18 @@
 
 
         document
-          .getElementById("cidade")
+          .getElementById(
+            "cidade"
+          )
           .textContent =
           modeloAtual.cidade ||
           "—";
 
 
         document
-          .getElementById("bio")
+          .getElementById(
+            "bio"
+          )
           .textContent =
           modeloAtual.descricao ||
           "Nenhuma apresentação cadastrada.";
@@ -3255,12 +4542,18 @@
 
 
         document
-          .getElementById("disponivel")
+          .getElementById(
+            "disponivel"
+          )
           .textContent =
           disponibilidade === false
             ? "Indisponível"
             : "Disponível";
 
+
+        /* =================================================
+           STATUS
+           ================================================= */
 
         const status =
           perfilAtual?.status ||
@@ -3269,10 +4562,16 @@
 
 
         document
-          .getElementById("statusModelo")
+          .getElementById(
+            "statusModelo"
+          )
           .textContent =
           "Status: " + status;
 
+
+        /* =================================================
+           FOTO
+           ================================================= */
 
         mostrarFotoPerfil(
           modeloAtual.foto_url ||
@@ -3281,6 +4580,10 @@
           nome
         );
 
+
+        /* =================================================
+           PLANO
+           ================================================= */
 
         planoAtual =
           normalizarPlano(
@@ -3322,34 +4625,63 @@
 
 
         document
-          .getElementById("seloModelo")
+          .getElementById(
+            "seloModelo"
+          )
           .textContent =
           nomePlano;
 
 
         document
-          .getElementById("heroPlano")
+          .getElementById(
+            "heroPlano"
+          )
           .textContent =
           nomePlano;
 
 
         document
-          .getElementById("subtitulo")
+          .getElementById(
+            "planoResumo"
+          )
           .textContent =
-          "Gerencie e acompanhe seu perfil na LUX.";
+          planoAtual;
+
+
+        /* =================================================
+           ESTRELAS RECEBIDAS
+           ================================================= */
+
+        atualizarEstrelasRecebidas();
 
 
         document
-          .getElementById("conteudo")
+          .getElementById(
+            "subtitulo"
+          )
+          .textContent =
+          "Gerencie e acompanhe seu perfil no LUX-ADVANCE.";
+
+
+        document
+          .getElementById(
+            "conteudo"
+          )
           .hidden =
           false;
 
 
         document
-          .getElementById("mensagem")
+          .getElementById(
+            "mensagem"
+          )
           .hidden =
           true;
 
+
+        /* =================================================
+           MÍDIAS
+           ================================================= */
 
         try {
 
@@ -3379,7 +4711,7 @@
 
 
         console.log(
-          "LUX — Painel da modelo carregado.",
+          "LUX-ADVANCE — Painel da modelo carregado.",
           {
             usuario:
               usuarioLogado.id,
@@ -3387,8 +4719,14 @@
             plano:
               planoAtual,
 
+            estrelas:
+              Number(
+                modeloAtual?.estrelas_total || 0
+              ),
+
             limite:
               dadosPlano
+
           }
         );
 
@@ -3415,7 +4753,9 @@
 
 
         document
-          .getElementById("subtitulo")
+          .getElementById(
+            "subtitulo"
+          )
           .textContent =
           "Não foi possível carregar o painel.";
 
@@ -3424,9 +4764,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        INICIAR
-       ========================================= */
+       ===================================================== */
 
     iniciar();
 

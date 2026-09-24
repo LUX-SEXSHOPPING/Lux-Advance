@@ -10,17 +10,36 @@
     content="width=device-width, initial-scale=1"
   >
 
-  <title>LUX — Agendamento</title>
+  <meta
+    name="theme-color"
+    content="#0b0608"
+  >
+
+  <meta
+    name="description"
+    content="LUX-ADVANCE — Agendamento"
+  >
+
+  <title>LUX-ADVANCE — Agendamento</title>
+
+
+  <!-- FONTE -->
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
     rel="stylesheet"
   >
+
 
   <style>
 
     * {
       box-sizing: border-box;
+    }
+
+
+    html {
+      scroll-behavior: smooth;
     }
 
 
@@ -35,22 +54,32 @@
       color: #fff;
 
       background:
+
         linear-gradient(
-          rgba(7,3,6,.72),
-          rgba(7,3,6,.9)
+          rgba(5,2,5,.78),
+          rgba(5,2,5,.94)
         ),
+
         url("./lux-halloween.jpg")
+
         center / cover fixed no-repeat;
 
-      padding: 25px;
+      padding: 20px;
+
     }
 
 
+    /* =========================
+       TOPO
+    ========================= */
+
     .topo {
 
-      max-width: 1100px;
+      width: 100%;
 
-      margin: auto;
+      max-width: 1150px;
+
+      margin: 0 auto 30px;
 
       display: flex;
 
@@ -60,7 +89,6 @@
 
       gap: 15px;
 
-      margin-bottom: 35px;
     }
 
 
@@ -77,6 +105,31 @@
       font-style: italic;
 
       color: #f8d58a;
+
+      text-shadow:
+        0 0 20px rgba(248,213,138,.18);
+
+    }
+
+
+    .marca span {
+
+      display: block;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 9px;
+
+      font-style: normal;
+
+      letter-spacing: 4px;
+
+      color: #aaa;
+
+      margin-top: -3px;
+
     }
 
 
@@ -86,39 +139,140 @@
 
       color: #f8d58a;
 
-      border: 1px solid rgba(248,213,138,.45);
+      border:
 
-      padding: 10px 17px;
+        1px solid
+        rgba(248,213,138,.35);
 
-      border-radius: 25px;
+      padding: 10px 18px;
 
-      background: rgba(10,5,8,.7);
+      border-radius: 30px;
+
+      background:
+        rgba(10,5,8,.72);
+
+      transition: .25s;
+
     }
 
+
+    .voltar:hover {
+
+      background:
+        rgba(248,213,138,.12);
+
+      border-color:
+        #f8d58a;
+
+      transform:
+        translateY(-2px);
+
+    }
+
+
+    /* =========================
+       CONTAINER
+    ========================= */
 
     .container {
 
       width: 100%;
 
-      max-width: 650px;
+      max-width: 760px;
 
       margin: auto;
 
-      padding: 35px;
+      padding: 38px;
 
-      border-radius: 25px;
+      border-radius: 28px;
 
       background:
+
         linear-gradient(
           145deg,
-          rgba(20,8,14,.96),
-          rgba(7,3,7,.96)
+          rgba(20,8,14,.97),
+          rgba(6,3,7,.97)
         );
 
-      border: 1px solid rgba(248,213,138,.4);
+      border:
+
+        1px solid
+        rgba(248,213,138,.35);
 
       box-shadow:
-        0 25px 70px rgba(0,0,0,.65);
+
+        0 30px 90px
+        rgba(0,0,0,.72),
+
+        inset 0 0 60px
+        rgba(248,213,138,.025);
+
+      position: relative;
+
+      overflow: hidden;
+
+    }
+
+
+    .container::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 180px;
+
+      height: 180px;
+
+      right: -90px;
+
+      top: -90px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(248,213,138,.07);
+
+      filter: blur(20px);
+
+    }
+
+
+    /* =========================
+       CABEÇALHO
+    ========================= */
+
+    .simbolo {
+
+      width: 58px;
+
+      height: 58px;
+
+      margin: 0 auto 15px;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border:
+
+        1px solid
+        rgba(248,213,138,.45);
+
+      color: #f8d58a;
+
+      font-size: 25px;
+
+      background:
+        rgba(248,213,138,.06);
+
+      box-shadow:
+        0 0 30px rgba(248,213,138,.08);
+
     }
 
 
@@ -130,11 +284,12 @@
         "Playfair Display",
         serif;
 
-      font-size: 35px;
+      font-size: 39px;
 
       color: #f8d58a;
 
       margin: 0;
+
     }
 
 
@@ -142,20 +297,279 @@
 
       text-align: center;
 
-      color: #bbb;
+      color: #aaa;
 
       margin:
-        10px
-        0
-        30px;
 
-      line-height: 1.5;
+        10px auto 32px;
+
+      max-width: 560px;
+
+      line-height: 1.6;
+
+    }
+
+
+    /* =========================
+       BLOQUE LOGIN
+    ========================= */
+
+    .bloque-login {
+
+      display: none;
+
+      text-align: center;
+
+      padding: 35px 25px;
+
+      border-radius: 22px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(248,213,138,.08),
+          rgba(255,255,255,.025)
+        );
+
+      border:
+
+        1px solid
+        rgba(248,213,138,.25);
+
+    }
+
+
+    .bloque-login.ativo {
+
+      display: block;
+
+    }
+
+
+    .login-icone {
+
+      font-size: 42px;
+
+      margin-bottom: 12px;
+
+    }
+
+
+    .login-titulo {
+
+      font-family:
+        "Playfair Display",
+        serif;
+
+      font-size: 28px;
+
+      color: #f8d58a;
+
+      margin: 0 0 10px;
+
+    }
+
+
+    .login-texto {
+
+      color: #aaa;
+
+      line-height: 1.6;
+
+      margin-bottom: 25px;
+
+    }
+
+
+    .botoes-login {
+
+      display: flex;
+
+      justify-content: center;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    .btn-login,
+    .btn-cadastro {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      min-width: 170px;
+
+      padding: 13px 20px;
+
+      border-radius: 30px;
+
+      text-decoration: none;
+
+      font-weight: bold;
+
+      transition: .25s;
+
+    }
+
+
+    .btn-cadastro {
+
+      color: #160a0e;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f8d58a,
+          #c9a227
+        );
+
+    }
+
+
+    .btn-login {
+
+      color: #f8d58a;
+
+      border:
+        1px solid
+        rgba(248,213,138,.4);
+
+      background:
+        rgba(255,255,255,.04);
+
+    }
+
+
+    .btn-login:hover,
+    .btn-cadastro:hover {
+
+      transform:
+        translateY(-2px);
+
+    }
+
+
+    /* =========================
+       FORMULÁRIO
+    ========================= */
+
+    #areaAgendamento {
+
+      display: none;
+
+    }
+
+
+    #areaAgendamento.ativo {
+
+      display: block;
+
+    }
+
+
+    .usuario-logado {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 13px 16px;
+
+      margin-bottom: 25px;
+
+      border-radius: 16px;
+
+      background:
+        rgba(248,213,138,.06);
+
+      border:
+        1px solid
+        rgba(248,213,138,.18);
+
+    }
+
+
+    .usuario-icone {
+
+      width: 40px;
+
+      height: 40px;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background:
+        rgba(248,213,138,.1);
+
+      color: #f8d58a;
+
+    }
+
+
+    .usuario-info {
+
+      flex: 1;
+
+    }
+
+
+    .usuario-label {
+
+      display: block;
+
+      font-size: 11px;
+
+      color: #888;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+
+    }
+
+
+    .usuario-nome {
+
+      display: block;
+
+      color: #f8d58a;
+
+      font-weight: bold;
+
+      margin-top: 3px;
+
     }
 
 
     .campo {
 
-      margin-bottom: 18px;
+      margin-bottom: 19px;
+
+    }
+
+
+    .linha {
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 15px;
+
     }
 
 
@@ -167,7 +581,10 @@
 
       font-size: 13px;
 
-      margin-bottom: 7px;
+      margin-bottom: 8px;
+
+      letter-spacing: .2px;
+
     }
 
 
@@ -177,19 +594,34 @@
 
       width: 100%;
 
-      padding: 14px;
+      padding: 14px 15px;
 
-      border-radius: 12px;
+      border-radius: 13px;
 
-      border: 1px solid rgba(248,213,138,.28);
+      border:
 
-      background: rgba(255,255,255,.06);
+        1px solid
+        rgba(248,213,138,.23);
+
+      background:
+        rgba(255,255,255,.055);
 
       color: #fff;
 
       outline: none;
 
       font-size: 15px;
+
+      transition: .2s;
+
+    }
+
+
+    input::placeholder,
+    textarea::placeholder {
+
+      color: #777;
+
     }
 
 
@@ -198,14 +630,16 @@
       color: #111;
 
       background: #fff;
+
     }
 
 
     textarea {
 
-      min-height: 110px;
+      min-height: 115px;
 
       resize: vertical;
+
     }
 
 
@@ -213,11 +647,44 @@
     select:focus,
     textarea:focus {
 
-      border-color: #f8d58a;
+      border-color:
+        #f8d58a;
 
-      background: rgba(255,255,255,.1);
+      background:
+        rgba(255,255,255,.085);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(248,213,138,.05);
+
     }
 
+
+    /* =========================
+       MODELO
+    ========================= */
+
+    .modelo-box {
+
+      position: relative;
+
+    }
+
+
+    .modelo-ajuda {
+
+      color: #777;
+
+      font-size: 11px;
+
+      margin-top: 6px;
+
+    }
+
+
+    /* =========================
+       BOTÃO
+    ========================= */
 
     .btn {
 
@@ -225,9 +692,9 @@
 
       border: none;
 
-      border-radius: 13px;
+      border-radius: 14px;
 
-      padding: 16px;
+      padding: 17px;
 
       font-size: 16px;
 
@@ -238,56 +705,209 @@
       color: #160a0e;
 
       background:
+
         linear-gradient(
           135deg,
           #f8d58a,
           #c9a227
         );
+
+      box-shadow:
+
+        0 10px 30px
+        rgba(201,162,39,.18);
+
+      transition: .25s;
+
     }
 
+
+    .btn:hover {
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+
+        0 15px 35px
+        rgba(201,162,39,.28);
+
+    }
+
+
+    .btn:active {
+
+      transform:
+        translateY(0);
+
+    }
+
+
+    /* =========================
+       AVISO
+    ========================= */
 
     .aviso {
 
-      margin-top: 22px;
+      margin-top: 23px;
 
-      padding: 15px;
+      padding: 16px;
 
-      border-radius: 12px;
+      border-radius: 14px;
 
-      background: rgba(248,213,138,.07);
+      background:
+        rgba(248,213,138,.045);
 
-      border: 1px solid rgba(248,213,138,.18);
+      border:
+        1px solid
+        rgba(248,213,138,.13);
 
-      color: #bbb;
+      color: #999;
 
-      font-size: 13px;
+      font-size: 12px;
 
-      line-height: 1.5;
+      line-height: 1.6;
 
       text-align: center;
+
     }
 
 
-    @media (max-width: 600px) {
+    /* =========================
+       MENSAGEM
+    ========================= */
+
+    #mensagem {
+
+      display: none;
+
+      margin-bottom: 20px;
+
+      padding: 13px 15px;
+
+      border-radius: 12px;
+
+      text-align: center;
+
+      font-size: 13px;
+
+    }
+
+
+    #mensagem.erro {
+
+      display: block;
+
+      color: #ffb5b5;
+
+      background:
+        rgba(180,40,40,.12);
+
+      border:
+        1px solid
+        rgba(255,100,100,.18);
+
+    }
+
+
+    #mensagem.sucesso {
+
+      display: block;
+
+      color: #dfffdc;
+
+      background:
+        rgba(60,150,70,.12);
+
+      border:
+        1px solid
+        rgba(100,220,100,.18);
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 650px) {
 
       body {
-        padding: 15px;
+        padding: 14px;
       }
 
-      .container {
-        padding: 25px 20px;
-      }
 
       .topo {
-        margin-bottom: 25px;
+
+        margin-bottom: 22px;
+
       }
+
 
       .marca {
+
         font-size: 25px;
+
       }
 
+
+      .marca span {
+
+        font-size: 7px;
+
+        letter-spacing: 3px;
+
+      }
+
+
+      .voltar {
+
+        padding:
+          9px 13px;
+
+        font-size: 13px;
+
+      }
+
+
+      .container {
+
+        padding:
+          27px 19px;
+
+        border-radius: 22px;
+
+      }
+
+
       .titulo {
-        font-size: 29px;
+
+        font-size: 31px;
+
+      }
+
+
+      .linha {
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+
+      }
+
+
+      .botoes-login {
+
+        flex-direction: column;
+
+      }
+
+
+      .btn-login,
+      .btn-cadastro {
+
+        width: 100%;
+
       }
 
     }
@@ -302,9 +922,17 @@
 
 <header class="topo">
 
+
   <div class="marca">
-    LUX Advance
+
+    LUX-ADVANCE
+
+    <span>
+      EXPERIÊNCIA • SOFISTICAÇÃO • EXCLUSIVIDADE
+    </span>
+
   </div>
+
 
   <a
     href="./index.html"
@@ -313,10 +941,17 @@
     ← Voltar
   </a>
 
+
 </header>
 
 
+
 <main class="container">
+
+
+  <div class="simbolo">
+    ✦
+  </div>
 
 
   <h1 class="titulo">
@@ -325,144 +960,330 @@
 
 
   <p class="subtitulo">
-    Solicite seu atendimento e informe
-    os detalhes da experiência que deseja.
+    Escolha o modelo, informe a data e o horário
+    desejados e envie sua solicitação para a
+    equipe LUX-ADVANCE.
   </p>
 
 
-  <form id="formAgendamento">
+
+  <div
+    id="mensagem"
+  ></div>
 
 
-    <div class="campo">
 
-      <label for="nome">
-        Nome
-      </label>
+  <!-- ÁREA PARA QUEM NÃO ESTÁ LOGADO -->
 
-      <input
-        id="nome"
-        type="text"
-        placeholder="Seu nome"
-        required
+  <section
+    id="bloqueioLogin"
+    class="bloqueio-login"
+  >
+
+    <div class="login-icone">
+      🔐
+    </div>
+
+
+    <h2 class="login-titulo">
+      Cadastro necessário
+    </h2>
+
+
+    <p class="login-texto">
+
+      Para realizar um agendamento,
+      você precisa ter uma conta de usuário
+      na LUX-ADVANCE.
+
+      <br><br>
+
+      Faça seu cadastro gratuitamente
+      ou entre na sua conta para continuar.
+
+    </p>
+
+
+    <div class="botoes-login">
+
+
+      <a
+        href="./cadastro-usuario.html"
+        class="btn-cadastro"
       >
+        ✦ FAZER CADASTRO
+      </a>
 
-    </div>
 
-
-    <div class="campo">
-
-      <label for="whatsapp">
-        WhatsApp
-      </label>
-
-      <input
-        id="whatsapp"
-        type="tel"
-        placeholder="(51) 99999-9999"
-        required
+      <a
+        href="./login.html"
+        class="btn-login"
       >
+        ENTRAR NA CONTA
+      </a>
+
 
     </div>
 
-
-    <div class="campo">
-
-      <label for="data">
-        Data desejada
-      </label>
-
-      <input
-        id="data"
-        type="date"
-        required
-      >
-
-    </div>
+  </section>
 
 
-    <div class="campo">
 
-      <label for="horario">
-        Horário desejado
-      </label>
+  <!-- ÁREA DO AGENDAMENTO -->
 
-      <input
-        id="horario"
-        type="time"
-        required
-      >
-
-    </div>
+  <section
+    id="areaAgendamento"
+  >
 
 
-    <div class="campo">
-
-      <label for="tipo">
-        Tipo de atendimento
-      </label>
-
-      <select
-        id="tipo"
-        required
-      >
-
-        <option value="">
-          Selecione
-        </option>
-
-        <option value="Atendimento">
-          Atendimento
-        </option>
-
-        <option value="Experiência personalizada">
-          Experiência personalizada
-        </option>
-
-        <option value="Outro">
-          Outro
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="campo">
-
-      <label for="observacoes">
-        Observações
-      </label>
-
-      <textarea
-        id="observacoes"
-        placeholder="Informe alguma preferência ou detalhe importante."
-      ></textarea>
-
-    </div>
-
-
-    <button
-      type="submit"
-      class="btn"
+    <div
+      class="usuario-logado"
     >
-      Solicitar Agendamento
-    </button>
+
+      <div class="usuario-icone">
+        👤
+      </div>
+
+      <div class="usuario-info">
+
+        <span class="usuario-label">
+          Usuário conectado
+        </span>
+
+        <span
+          id="usuarioNome"
+          class="usuario-nome"
+        >
+          Carregando...
+        </span>
+
+      </div>
+
+    </div>
 
 
-  </form>
+
+    <form
+      id="formAgendamento"
+    >
 
 
-  <div class="aviso">
+      <!-- NOME -->
 
-    Seu pedido será encaminhado para o
-    WhatsApp da LUX para confirmação.
-    O horário somente será considerado
-    confirmado após o retorno da equipe.
+      <div class="campo">
 
-  </div>
+        <label for="nome">
+          Seu nome
+        </label>
+
+        <input
+          id="nome"
+          type="text"
+          placeholder="Nome completo"
+          autocomplete="name"
+          required
+        >
+
+      </div>
+
+
+
+      <!-- MODELO -->
+
+      <div class="campo modelo-box">
+
+        <label for="modelo">
+          Modelo desejado
+        </label>
+
+        <select
+          id="modelo"
+          required
+        >
+
+          <option value="">
+            Carregando modelos...
+          </option>
+
+        </select>
+
+
+        <div class="modelo-ajuda">
+
+          Selecione a modelo que deseja
+          incluir na sua solicitação.
+
+        </div>
+
+      </div>
+
+
+
+      <!-- WHATSAPP -->
+
+      <div class="campo">
+
+        <label for="whatsapp">
+          Seu WhatsApp
+        </label>
+
+        <input
+          id="whatsapp"
+          type="tel"
+          placeholder="(51) 99999-9999"
+          autocomplete="tel"
+          required
+        >
+
+      </div>
+
+
+
+      <!-- DATA E HORÁRIO -->
+
+      <div class="linha">
+
+
+        <div class="campo">
+
+          <label for="data">
+            Data desejada
+          </label>
+
+          <input
+            id="data"
+            type="date"
+            required
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="horario">
+            Horário desejado
+          </label>
+
+          <input
+            id="horario"
+            type="time"
+            required
+          >
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- TIPO -->
+
+      <div class="campo">
+
+        <label for="tipo">
+          Tipo de atendimento
+        </label>
+
+        <select
+          id="tipo"
+          required
+        >
+
+          <option value="">
+            Selecione
+          </option>
+
+          <option value="Atendimento">
+            Atendimento
+          </option>
+
+          <option value="Experiência personalizada">
+            Experiência personalizada
+          </option>
+
+          <option value="Outro">
+            Outro
+          </option>
+
+        </select>
+
+      </div>
+
+
+
+      <!-- OBSERVAÇÕES -->
+
+      <div class="campo">
+
+        <label for="observacoes">
+          Observações
+        </label>
+
+        <textarea
+          id="observacoes"
+          placeholder="Informe alguma preferência ou detalhe importante."
+        ></textarea>
+
+      </div>
+
+
+
+      <button
+        type="submit"
+        class="btn"
+      >
+        ✦ SOLICITAR AGENDAMENTO
+      </button>
+
+
+    </form>
+
+
+
+    <div class="aviso">
+
+      🔒 Seu cadastro é utilizado para
+      identificar sua solicitação.
+
+      <br>
+
+      💬 Ao enviar, sua solicitação será
+      encaminhada para o WhatsApp oficial
+      da LUX-ADVANCE para confirmação.
+
+      <br>
+
+      O horário somente será considerado
+      confirmado após o retorno da equipe.
+
+    </div>
+
+
+  </section>
 
 
 </main>
+
+
+
+<!-- SUPABASE -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
+<script
+  src="./config.js?v=5"
+></script>
+
+
+<script
+  src="./auth.js?v=10"
+></script>
+
 
 
 <script>
@@ -471,100 +1292,714 @@ const NUMERO_WHATSAPP =
   "5551980612941";
 
 
+const bloqueioLogin =
+  document.getElementById(
+    "bloqueioLogin"
+  );
+
+
+const areaAgendamento =
+  document.getElementById(
+    "areaAgendamento"
+  );
+
+
+const mensagem =
+  document.getElementById(
+    "mensagem"
+  );
+
+
+const usuarioNome =
+  document.getElementById(
+    "usuarioNome"
+  );
+
+
+const nome =
+  document.getElementById(
+    "nome"
+  );
+
+
+const whatsapp =
+  document.getElementById(
+    "whatsapp"
+  );
+
+
+const modelo =
+  document.getElementById(
+    "modelo"
+  );
+
+
+const data =
+  document.getElementById(
+    "data"
+  );
+
+
+const horario =
+  document.getElementById(
+    "horario"
+  );
+
+
+const tipo =
+  document.getElementById(
+    "tipo"
+  );
+
+
+const observacoes =
+  document.getElementById(
+    "observacoes"
+  );
+
+
 const form =
   document.getElementById(
     "formAgendamento"
   );
 
 
+
+/* =========================
+   STATUS
+========================= */
+
+function mostrarMensagem(
+  texto,
+  tipoMensagem = "erro"
+) {
+
+  mensagem.textContent =
+    texto;
+
+  mensagem.className =
+    tipoMensagem;
+
+}
+
+
+
+/* =========================
+   NORMALIZAR STATUS
+========================= */
+
+function normalizarStatus(
+  valor
+) {
+
+  return String(
+    valor ?? ""
+  )
+    .normalize("NFD")
+    .replace(
+      /[\u0300-\u036f]/g,
+      ""
+    )
+    .trim()
+    .toLowerCase();
+
+}
+
+
+
+const STATUS_APROVADOS =
+  new Set([
+    "aprovado",
+    "aprovada",
+    "verificado",
+    "verificada"
+  ]);
+
+
+
+/* =========================
+   INICIAR
+========================= */
+
+async function iniciarPagina() {
+
+  try {
+
+    if (
+      !window.luxSupabase
+    ) {
+
+      mostrarMensagem(
+        "Sistema de acesso não inicializado. Verifique o config.js."
+      );
+
+      return;
+
+    }
+
+
+
+    let usuario = null;
+
+
+
+    /*
+      Primeiro tenta usar a função
+      existente do sistema.
+    */
+
+    if (
+      typeof window.usuarioAtual ===
+      "function"
+    ) {
+
+      usuario =
+        await window.usuarioAtual();
+
+    } else {
+
+      const resposta =
+        await window.luxSupabase
+          .auth
+          .getUser();
+
+      usuario =
+        resposta?.data?.user || null;
+
+    }
+
+
+
+    /*
+      NÃO ESTÁ LOGADO
+    */
+
+    if (!usuario) {
+
+      bloqueioLogin
+        .classList
+        .add("ativo");
+
+      areaAgendamento
+        .classList
+        .remove("ativo");
+
+      return;
+
+    }
+
+
+
+    /*
+      ESTÁ LOGADO
+    */
+
+    bloqueioLogin
+      .classList
+      .remove("ativo");
+
+
+    areaAgendamento
+      .classList
+      .add("ativo");
+
+
+
+    /*
+      Nome do usuário
+    */
+
+    let nomeUsuario =
+      usuario?.user_metadata?.nome ||
+      usuario?.user_metadata?.nome_completo ||
+      usuario?.user_metadata?.name ||
+      usuario?.email ||
+      "Usuário LUX";
+
+
+    usuarioNome.textContent =
+      nomeUsuario;
+
+
+    nome.value =
+      nomeUsuario;
+
+
+
+    /*
+      WhatsApp salvo no cadastro
+    */
+
+    const telefoneSalvo =
+      usuario?.user_metadata?.whatsapp ||
+      usuario?.user_metadata?.telefone ||
+      "";
+
+
+    if (telefoneSalvo) {
+
+      whatsapp.value =
+        telefoneSalvo;
+
+    }
+
+
+
+    /*
+      Carrega modelos
+    */
+
+    await carregarModelos();
+
+  } catch (erro) {
+
+    console.error(
+      "Erro ao iniciar agendamento:",
+      erro
+    );
+
+    mostrarMensagem(
+      "Não foi possível carregar o sistema de agendamento."
+    );
+
+  }
+
+}
+
+
+
+/* =========================
+   CARREGAR MODELOS
+========================= */
+
+async function carregarModelos() {
+
+  modelo.innerHTML = `
+    <option value="">
+      Carregando modelos...
+    </option>
+  `;
+
+
+  const {
+    data,
+    error
+  } =
+    await window.luxSupabase
+
+      .from(
+        "modelo_perfis"
+      )
+
+      .select(
+        "id,nome_exibicao,apelido,cidade,estado,pais,verificacao_status"
+      )
+
+      .order(
+        "criado_em",
+        {
+          ascending: false
+        }
+      );
+
+
+
+  if (error) {
+
+    console.error(
+      "Erro ao carregar modelos:",
+      error
+    );
+
+
+    modelo.innerHTML = `
+      <option value="">
+        Não foi possível carregar os modelos
+      </option>
+    `;
+
+    return;
+
+  }
+
+
+
+  const modelos =
+    (Array.isArray(data)
+      ? data
+      : []
+    ).filter(
+      function(item) {
+
+        const status =
+          normalizarStatus(
+            item?.verificacao_status
+          );
+
+        return (
+          item?.id &&
+          STATUS_APROVADOS.has(
+            status
+          )
+        );
+
+      }
+    );
+
+
+
+  modelo.innerHTML = `
+    <option value="">
+      Selecione a modelo
+    </option>
+  `;
+
+
+
+  if (!modelos.length) {
+
+    modelo.innerHTML = `
+      <option value="">
+        Nenhuma modelo disponível
+      </option>
+    `;
+
+    return;
+
+  }
+
+
+
+  modelos.forEach(
+    function(item) {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        item.id;
+
+
+      const nomeModelo =
+        item.nome_exibicao ||
+        item.apelido ||
+        "Modelo LUX";
+
+
+      const cidade =
+        item.cidade ||
+        "";
+
+
+      const estado =
+        item.estado ||
+        "";
+
+
+      let local = "";
+
+
+      if (
+        cidade &&
+        estado
+      ) {
+
+        local =
+          ` — ${cidade}/${estado}`;
+
+      } else if (cidade) {
+
+        local =
+          ` — ${cidade}`;
+
+      }
+
+
+
+      option.textContent =
+        nomeModelo +
+        local;
+
+
+      modelo.appendChild(
+        option
+      );
+
+    }
+
+  );
+
+}
+
+
+
+/* =========================
+   FORMULÁRIO
+========================= */
+
 form.addEventListener(
   "submit",
-  function(event) {
+  async function(event) {
 
     event.preventDefault();
 
 
-    const nome =
-      document.getElementById("nome").value.trim();
 
-    const whatsapp =
-      document.getElementById("whatsapp").value.trim();
+    /*
+      Confirma novamente
+      que existe usuário logado.
+    */
 
-    const data =
-      document.getElementById("data").value;
+    let usuario = null;
 
-    const horario =
-      document.getElementById("horario").value;
 
-    const tipo =
-      document.getElementById("tipo").value;
+    try {
 
-    const observacoes =
-      document
-        .getElementById("observacoes")
-        .value
-        .trim();
+      if (
+        typeof window.usuarioAtual ===
+        "function"
+      ) {
+
+        usuario =
+          await window.usuarioAtual();
+
+      } else {
+
+        const resposta =
+          await window.luxSupabase
+            .auth
+            .getUser();
+
+        usuario =
+          resposta?.data?.user ||
+          null;
+
+      }
+
+    } catch (erro) {
+
+      console.error(
+        erro
+      );
+
+    }
+
+
+
+    if (!usuario) {
+
+      bloqueioLogin
+        .classList
+        .add("ativo");
+
+      areaAgendamento
+        .classList
+        .remove("ativo");
+
+      mostrarMensagem(
+        "Faça seu cadastro ou entre na sua conta para realizar um agendamento."
+      );
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+      return;
+
+    }
+
+
+
+    const nomeValor =
+      nome.value.trim();
+
+
+    const whatsappValor =
+      whatsapp.value.trim();
+
+
+    const dataValor =
+      data.value;
+
+
+    const horarioValor =
+      horario.value;
+
+
+    const modeloId =
+      modelo.value;
+
+
+    const modeloTexto =
+      modelo.options[
+        modelo.selectedIndex
+      ]?.text || "";
+
+
+    const tipoValor =
+      tipo.value;
+
+
+    const observacoesValor =
+      observacoes.value.trim();
+
 
 
     if (
-      !nome ||
-      !whatsapp ||
-      !data ||
-      !horario ||
-      !tipo
+      !nomeValor ||
+      !whatsappValor ||
+      !dataValor ||
+      !horarioValor ||
+      !modeloId ||
+      !tipoValor
     ) {
 
-      alert(
+      mostrarMensagem(
         "Preencha todos os campos obrigatórios."
       );
 
       return;
+
     }
 
 
+
+    /*
+      Formata data
+    */
+
+    const partesData =
+      dataValor.split("-");
+
+
     const dataFormatada =
-      data.split("-").reverse().join("/");
+      partesData.length === 3
+        ? `${partesData[2]}/${partesData[1]}/${partesData[0]}`
+        : dataValor;
 
 
-    const mensagem =
 
-      "Olá, LUX Advance.%0A%0A" +
+    /*
+      Mensagem WhatsApp
+    */
 
-      "*SOLICITAÇÃO DE AGENDAMENTO*%0A%0A" +
+    const mensagemWhatsApp =
 
-      "*Nome:* " +
-      encodeURIComponent(nome) +
+      `Olá, LUX-ADVANCE.
 
-      "%0A*WhatsApp:* " +
-      encodeURIComponent(whatsapp) +
+*SOLICITAÇÃO DE AGENDAMENTO*
 
-      "%0A*Data:* " +
-      encodeURIComponent(dataFormatada) +
+*Usuário:* ${nomeValor}
 
-      "%0A*Horário:* " +
-      encodeURIComponent(horario) +
+*E-mail:* ${usuario.email || "Não informado"}
 
-      "%0A*Tipo:* " +
-      encodeURIComponent(tipo) +
+*WhatsApp:* ${whatsappValor}
 
-      "%0A*Observações:* " +
+*Modelo desejado:* ${modeloTexto}
+
+*Data:* ${dataFormatada}
+
+*Horário:* ${horarioValor}
+
+*Tipo de atendimento:* ${tipoValor}
+
+*Observações:* ${
+        observacoesValor ||
+        "Nenhuma"
+      }
+
+*ID do usuário:* ${usuario.id}
+
+Aguardo a confirmação da equipe LUX-ADVANCE.`;
+
+
+
+    /*
+      Abre WhatsApp
+    */
+
+    const url =
+
+      "https://wa.me/" +
+
+      NUMERO_WHATSAPP +
+
+      "?text=" +
+
       encodeURIComponent(
-        observacoes || "Nenhuma"
+        mensagemWhatsApp
       );
 
 
+
     window.open(
-
-      "https://wa.me/" +
-      NUMERO_WHATSAPP +
-      "?text=" +
-      mensagem,
-
+      url,
       "_blank"
+    );
 
+
+
+    mostrarMensagem(
+      "Solicitação preparada. Confirme o envio pelo WhatsApp da LUX-ADVANCE.",
+      "sucesso"
     );
 
   }
+
+);
+
+
+
+/* =========================
+   DATA MÍNIMA
+========================= */
+
+(function definirDataMinima() {
+
+  const hoje =
+    new Date();
+
+
+  const ano =
+    hoje.getFullYear();
+
+
+  const mes =
+    String(
+      hoje.getMonth() + 1
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  const dia =
+    String(
+      hoje.getDate()
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  data.min =
+    `${ano}-${mes}-${dia}`;
+
+})();
+
+
+
+/* =========================
+   INICIAR
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  iniciarPagina
 );
 
 </script>

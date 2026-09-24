@@ -74,6 +74,11 @@
     }
 
 
+    input {
+      font-family: inherit;
+    }
+
+
     .topbar {
 
       position: sticky;
@@ -477,6 +482,34 @@
         rgba(248, 213, 138, 0.12);
 
       color: #f8d58a;
+    }
+
+
+    /* NOVO CARD DE VALIDAÇÃO */
+
+    .admin-card.validacao-card {
+
+      border-color:
+        rgba(83, 216, 138, 0.22);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(83, 216, 138, 0.055),
+          rgba(255, 255, 255, 0.018)
+        );
+    }
+
+
+    .admin-card.validacao-card .icon {
+
+      background:
+        rgba(83, 216, 138, 0.10);
+
+      border-color:
+        rgba(83, 216, 138, 0.18);
+
+      color: #78e5a3;
     }
 
 
@@ -955,6 +988,171 @@
     }
 
 
+    /* ÁREA DE VALIDAÇÃO */
+
+    .validacao-box {
+
+      margin-top: 20px;
+
+      padding: 18px;
+
+      border-radius: 15px;
+
+      border:
+        1px solid rgba(83, 216, 138, 0.18);
+
+      background:
+        rgba(83, 216, 138, 0.035);
+    }
+
+
+    .validacao-box label {
+
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: #f8d58a;
+
+      font-size: 12px;
+
+      font-weight: 700;
+    }
+
+
+    .validacao-box input {
+
+      width: 100%;
+
+      padding: 13px 14px;
+
+      border-radius: 10px;
+
+      border:
+        1px solid rgba(248, 213, 138, 0.20);
+
+      background: #090507;
+
+      color: #fff;
+
+      outline: none;
+
+      font-size: 14px;
+
+      transition: 0.2s;
+    }
+
+
+    .validacao-box input:focus {
+
+      border-color:
+        rgba(248, 213, 138, 0.55);
+
+      box-shadow:
+        0 0 0 3px rgba(248, 213, 138, 0.05);
+    }
+
+
+    .btn-validacao {
+
+      width: 100%;
+
+      margin-top: 12px;
+
+      padding: 13px;
+
+      border: 0;
+
+      border-radius: 10px;
+
+      background: #f8d58a;
+
+      color: #160b0e;
+
+      cursor: pointer;
+
+      font-weight: 800;
+
+      font-size: 12px;
+
+      transition: 0.2s;
+    }
+
+
+    .btn-validacao:hover {
+
+      filter: brightness(1.08);
+
+      transform: translateY(-1px);
+    }
+
+
+    .btn-validacao:disabled {
+
+      opacity: 0.55;
+
+      cursor: not-allowed;
+
+      transform: none;
+    }
+
+
+    .resultado-validacao {
+
+      display: none;
+
+      margin-top: 12px;
+
+      padding: 12px;
+
+      border-radius: 10px;
+
+      font-size: 12px;
+
+      line-height: 1.55;
+    }
+
+
+    .resultado-validacao.sucesso {
+
+      display: block;
+
+      background:
+        rgba(83, 216, 138, 0.10);
+
+      border:
+        1px solid rgba(83, 216, 138, 0.30);
+
+      color: #9af0b9;
+    }
+
+
+    .resultado-validacao.erro {
+
+      display: block;
+
+      background:
+        rgba(255, 77, 166, 0.08);
+
+      border:
+        1px solid rgba(255, 77, 166, 0.25);
+
+      color: #ff9ac9;
+    }
+
+
+    .validacao-info {
+
+      margin-top: 12px;
+
+      color: #80757b;
+
+      font-size: 11px;
+
+      line-height: 1.6;
+    }
+
+
     @media (max-width: 900px) {
 
       .admin-grid {
@@ -1184,6 +1382,29 @@
         <span>
           Cadastro, aprovação,
           reprovação e fichas cadastrais.
+        </span>
+
+      </div>
+
+
+      <!-- NOVO: VALIDAÇÃO DE E-MAIL -->
+
+      <div
+        class="admin-card validacao-card"
+        data-modulo="validacao-email"
+      >
+
+        <div class="icon">
+          ✉
+        </div>
+
+        <h3>
+          Validação de E-mail
+        </h3>
+
+        <span>
+          Reenvie o link de confirmação
+          para uma conta de modelo.
         </span>
 
       </div>
@@ -1572,6 +1793,105 @@
   </div>
 
 
+  <!-- =====================================================
+       MODAL DE REENVIO DE VALIDAÇÃO
+       ===================================================== -->
+
+  <div
+    id="modal-validacao-email"
+    class="modal"
+  >
+
+    <div
+      class="modal-conteudo"
+      style="width:min(520px,100%);"
+    >
+
+      <div class="modal-header">
+
+        <h3>
+          Validação de E-mail
+        </h3>
+
+        <button
+          class="fechar"
+          id="fechar-modal-validacao"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div
+        style="
+          padding:22px;
+        "
+      >
+
+        <p
+          style="
+            margin-top:0;
+            color:#b9adb3;
+            line-height:1.7;
+            font-size:13px;
+          "
+        >
+          Reenvie o link de confirmação para
+          uma conta cadastrada no LUX ADVANCE.
+        </p>
+
+
+        <div class="validacao-box">
+
+          <label for="email-validacao">
+            E-mail da modelo
+          </label>
+
+
+          <input
+            id="email-validacao"
+            type="email"
+            value="cesarhenry0421@gmail.com"
+            placeholder="Digite o e-mail da modelo"
+            autocomplete="email"
+          >
+
+
+          <button
+            id="btn-reenviar-validacao"
+            class="btn-validacao"
+            type="button"
+          >
+            REENVIAR LINK DE VALIDAÇÃO
+          </button>
+
+
+          <div
+            id="resultado-validacao"
+            class="resultado-validacao"
+          ></div>
+
+
+          <div class="validacao-info">
+
+            O sistema apenas solicita o envio de
+            um novo link de confirmação. Ele não
+            altera manualmente a confirmação da
+            conta e não cria uma nova conta.
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
   <script>
 
     document.addEventListener(
@@ -1702,6 +2022,11 @@
 
       }
     );
+
+
+    /* =====================================================
+       MÓDULOS ADMINISTRATIVOS
+       ===================================================== */
 
 
     const modulos = {
@@ -1922,6 +2247,11 @@
     }
 
 
+    /* =====================================================
+       CLIQUE NOS CARDS
+       ===================================================== */
+
+
     document
       .querySelectorAll(
         ".admin-card"
@@ -1937,6 +2267,31 @@
 
               const modulo =
                 card.dataset.modulo;
+
+
+              /* NOVO SISTEMA DE VALIDAÇÃO */
+
+              if (
+                modulo === "validacao-email"
+              ) {
+
+                const modal =
+                  document.getElementById(
+                    "modal-validacao-email"
+                  );
+
+
+                if (modal) {
+
+                  modal.classList.add(
+                    "aberto"
+                  );
+
+                }
+
+                return;
+
+              }
 
 
               if (
@@ -1985,7 +2340,28 @@
             "touchend",
             function () {
 
-              card.click();
+              /*
+               * Evita executar novamente
+               * em alguns navegadores móveis.
+               */
+
+              if (
+                !card.dataset.touchExecutado
+              ) {
+
+                card.dataset.touchExecutado =
+                  "true";
+
+                setTimeout(
+                  function () {
+
+                    delete card.dataset.touchExecutado;
+
+                  },
+                  500
+                );
+
+              }
 
             },
             {
@@ -1996,6 +2372,11 @@
 
         }
       );
+
+
+    /* =====================================================
+       FILTROS
+       ===================================================== */
 
 
     document
@@ -2035,8 +2416,277 @@
       );
 
 
+    /* =====================================================
+       FECHAR MODAL DE VALIDAÇÃO
+       ===================================================== */
+
+
+    const modalValidacao =
+      document.getElementById(
+        "modal-validacao-email"
+      );
+
+
+    const fecharValidacao =
+      document.getElementById(
+        "fechar-modal-validacao"
+      );
+
+
+    if (fecharValidacao) {
+
+      fecharValidacao.addEventListener(
+        "click",
+        function () {
+
+          modalValidacao.classList.remove(
+            "aberto"
+          );
+
+        }
+      );
+
+    }
+
+
+    if (modalValidacao) {
+
+      modalValidacao.addEventListener(
+        "click",
+        function (event) {
+
+          if (
+            event.target === modalValidacao
+          ) {
+
+            modalValidacao.classList.remove(
+              "aberto"
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       REENVIO DO LINK DE VALIDAÇÃO
+       ===================================================== */
+
+
+    const btnReenviarValidacao =
+      document.getElementById(
+        "btn-reenviar-validacao"
+      );
+
+
+    const emailValidacao =
+      document.getElementById(
+        "email-validacao"
+      );
+
+
+    const resultadoValidacao =
+      document.getElementById(
+        "resultado-validacao"
+      );
+
+
+    function mostrarResultadoValidacao(
+      mensagem,
+      sucesso
+    ) {
+
+      resultadoValidacao.textContent =
+        mensagem;
+
+
+      if (sucesso) {
+
+        resultadoValidacao.className =
+          "resultado-validacao sucesso";
+
+      } else {
+
+        resultadoValidacao.className =
+          "resultado-validacao erro";
+
+      }
+
+    }
+
+
+    if (
+      btnReenviarValidacao
+    ) {
+
+      btnReenviarValidacao.addEventListener(
+        "click",
+        async function () {
+
+
+          const email =
+            emailValidacao.value
+              .trim()
+              .toLowerCase();
+
+
+          if (!email) {
+
+            mostrarResultadoValidacao(
+              "Digite o e-mail da modelo.",
+              false
+            );
+
+            return;
+
+          }
+
+
+          if (
+            !email.includes("@") ||
+            !email.includes(".")
+          ) {
+
+            mostrarResultadoValidacao(
+              "Digite um endereço de e-mail válido.",
+              false
+            );
+
+            return;
+
+          }
+
+
+          if (
+            !window.luxSupabase ||
+            !window.luxSupabase.auth
+          ) {
+
+            mostrarResultadoValidacao(
+              "Supabase não foi inicializado. Verifique o config.js.",
+              false
+            );
+
+            return;
+
+          }
+
+
+          btnReenviarValidacao.disabled =
+            true;
+
+
+          btnReenviarValidacao.textContent =
+            "ENVIANDO...";
+
+
+          resultadoValidacao.className =
+            "resultado-validacao";
+
+
+          resultadoValidacao.style.display =
+            "none";
+
+
+          try {
+
+
+            /*
+             * Reenvia o e-mail de confirmação
+             * através do Supabase Auth.
+             */
+
+            const {
+              data,
+              error
+            } =
+              await window.luxSupabase.auth.resend({
+
+                type: "signup",
+
+                email: email
+
+              });
+
+
+            if (error) {
+
+              console.error(
+                "Erro Supabase:",
+                error
+              );
+
+
+              mostrarResultadoValidacao(
+                "Não foi possível reenviar o link: " +
+                error.message,
+                false
+              );
+
+
+              return;
+
+            }
+
+
+            console.log(
+              "Reenvio realizado:",
+              data
+            );
+
+
+            mostrarResultadoValidacao(
+              "Link de validação solicitado com sucesso para " +
+              email +
+              ". Verifique a caixa de entrada e também a pasta de spam.",
+              true
+            );
+
+
+          } catch (erro) {
+
+
+            console.error(
+              "Erro inesperado:",
+              erro
+            );
+
+
+            mostrarResultadoValidacao(
+              "Ocorreu um erro inesperado ao tentar reenviar o link.",
+              false
+            );
+
+
+          } finally {
+
+
+            btnReenviarValidacao.disabled =
+              false;
+
+
+            btnReenviarValidacao.textContent =
+              "REENVIAR LINK DE VALIDAÇÃO";
+
+
+          }
+
+        }
+      );
+
+    }
+
   </script>
 
+
+  <!--
+    SEU ARQUIVO ORIGINAL CONTINUA SENDO CARREGADO.
+    Ele permanece responsável pela gestão dos modelos,
+    fichas, aprovação, reprovação e demais funções.
+  -->
 
   <script src="./painel-admin.js"></script>
 

@@ -3,1788 +3,1388 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <title>LUX — Central Administrativa</title>
+<meta
+  name="theme-color"
+  content="#c9a227"
+>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
+<title>LUX ADVANCE — Painel Administrativo</title>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
-    rel="stylesheet"
-  >
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+  rel="stylesheet"
+>
 
-  <script src="./config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script src="./config.js"></script>
 
-  <style>
+<style>
 
-    * {
-      box-sizing: border-box;
-    }
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
+html,
+body{
+  min-height:100%;
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+body{
+  background:
+    linear-gradient(
+      rgba(5,5,5,.88),
+      rgba(5,5,5,.95)
+    ),
+    url("./lux-halloween.jpg");
 
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
 
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
+  color:#f5f5f5;
 
-      background:
-        radial-gradient(
-          circle at top right,
-          rgba(255, 77, 166, 0.10),
-          transparent 35%
-        ),
-        radial-gradient(
-          circle at bottom left,
-          rgba(248, 213, 138, 0.08),
-          transparent 35%
-        ),
-        #0b0608;
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+}
 
-      color: #f8f5f2;
+/* =========================
+   TOPO
+========================= */
 
-      font-family: "Inter", sans-serif;
-    }
+.topbar{
 
+  min-height:90px;
 
-    button {
-      font-family: inherit;
-    }
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 
+  gap:20px;
 
-    input {
-      font-family: inherit;
-    }
+  padding:18px 28px;
 
+  border-bottom:
+    1px solid rgba(201,162,39,.35);
 
-    .topbar {
+  background:
+    rgba(0,0,0,.82);
 
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+  backdrop-filter:blur(10px);
 
-      width: 100%;
+  position:sticky;
+  top:0;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+  z-index:1000;
+}
 
-      padding: 14px 20px;
+.logo-area{
 
-      background:
-        linear-gradient(
-          90deg,
-          rgba(11, 6, 8, 0.98),
-          rgba(25, 10, 18, 0.98)
-        );
+  display:flex;
+  align-items:center;
 
-      border-bottom: 1px solid rgba(248, 213, 138, 0.20);
+  gap:14px;
+}
 
-      backdrop-filter: blur(14px);
-    }
+.logo{
 
+  width:54px;
+  height:54px;
 
-    .brand {
+  border-radius:50%;
 
-      display: flex;
-      align-items: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-      gap: 12px;
-    }
+  border:
+    1px solid #c9a227;
 
+  color:#c9a227;
 
-    .brand-logo {
+  font-family:
+    "Playfair Display",
+    serif;
 
-      width: 48px;
-      height: 48px;
+  font-size:21px;
+  font-weight:700;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  box-shadow:
+    0 0 20px rgba(201,162,39,.16);
+}
 
-      border-radius: 50%;
+.logo-text h1{
 
-      border: 1px solid rgba(248, 213, 138, 0.55);
+  font-family:
+    "Playfair Display",
+    serif;
 
-      background:
-        radial-gradient(
-          circle,
-          #26111b,
-          #0b0608
-        );
+  font-size:22px;
 
-      color: #f8d58a;
+  color:#f5d982;
 
-      font-family: "Playfair Display", serif;
+  letter-spacing:2px;
+}
 
-      font-size: 20px;
-      font-weight: 700;
+.logo-text span{
 
-      box-shadow:
-        0 0 20px rgba(248, 213, 138, 0.08);
-    }
+  display:block;
 
+  color:#aaa;
 
-    .brand-text strong {
+  font-size:13px;
 
-      display: block;
+  letter-spacing:1px;
+}
 
-      color: #f8d58a;
+.admin-info{
 
-      font-family: "Playfair Display", serif;
+  text-align:right;
+}
 
-      font-size: 20px;
-      letter-spacing: 2px;
-    }
+.admin-info strong{
 
+  display:block;
 
-    .brand-text span {
+  color:#f5d982;
 
-      display: block;
+  font-size:15px;
+}
 
-      margin-top: 2px;
+.admin-info span{
 
-      color: #c7bdc2;
+  color:#999;
 
-      font-size: 10px;
+  font-size:12px;
+}
 
-      letter-spacing: 2px;
+/* =========================
+   HERO
+========================= */
 
-      text-transform: uppercase;
-    }
+.hero{
 
+  padding:
+    65px
+    20px
+    45px;
 
-    .admin-actions {
+  text-align:center;
 
-      display: flex;
-      align-items: center;
+  background:
+    linear-gradient(
+      rgba(0,0,0,.25),
+      rgba(0,0,0,.55)
+    );
+}
 
-      gap: 10px;
-    }
+.hero h2{
 
+  font-family:
+    "Playfair Display",
+    serif;
 
-    .status-online {
+  font-size:
+    clamp(30px,5vw,48px);
 
-      display: flex;
-      align-items: center;
+  color:#f5d982;
 
-      gap: 7px;
+  letter-spacing:2px;
 
-      color: #cfc5ca;
+  margin-bottom:10px;
+}
 
-      font-size: 12px;
-    }
+.hero p{
 
+  color:#bbb;
 
-    .status-online::before {
+  font-size:18px;
 
-      content: "";
+  max-width:700px;
 
-      width: 8px;
-      height: 8px;
+  margin:auto;
 
-      border-radius: 50%;
+  line-height:1.5;
+}
 
-      background: #53d88a;
+/* =========================
+   BARRA DO SISTEMA
+========================= */
 
-      box-shadow:
-        0 0 10px rgba(83, 216, 138, 0.65);
-    }
+.system-bar{
 
+  max-width:1200px;
 
-    .btn-sair {
+  margin:
+    0 auto
+    30px;
 
-      border: 1px solid rgba(255, 77, 166, 0.35);
+  padding:
+    13px
+    18px;
 
-      background: rgba(255, 77, 166, 0.08);
+  border:
+    1px solid rgba(201,162,39,.25);
 
-      color: #ff8cc6;
+  border-radius:10px;
 
-      border-radius: 10px;
+  background:
+    rgba(0,0,0,.55);
 
-      padding: 9px 13px;
+  display:flex;
 
-      cursor: pointer;
+  align-items:center;
 
-      font-size: 12px;
-      font-weight: 700;
+  justify-content:space-between;
 
-      transition: 0.2s;
-    }
+  gap:15px;
 
+  flex-wrap:wrap;
+}
 
-    .btn-sair:hover {
+.system-status{
 
-      background: rgba(255, 77, 166, 0.16);
+  display:flex;
 
-      transform: translateY(-1px);
-    }
+  align-items:center;
 
+  gap:8px;
 
-    .container {
+  color:#aaa;
 
-      width: min(1180px, calc(100% - 28px));
+  font-size:14px;
+}
 
-      margin: 0 auto;
+.status-dot{
 
-      padding: 32px 0 60px;
-    }
+  width:9px;
+  height:9px;
 
+  border-radius:50%;
 
-    .hero {
+  background:#6fe0a1;
 
-      position: relative;
+  box-shadow:
+    0 0 10px rgba(111,224,161,.5);
+}
 
-      overflow: hidden;
+.logout-button{
 
-      padding: 34px 28px;
+  border:
+    1px solid rgba(255,90,130,.45);
 
-      border-radius: 22px;
+  background:
+    rgba(255,60,100,.08);
 
-      border: 1px solid rgba(248, 213, 138, 0.16);
+  color:#ff719e;
 
-      background:
-        linear-gradient(
-          135deg,
-          rgba(44, 15, 30, 0.88),
-          rgba(15, 8, 11, 0.94)
-        );
+  padding:
+    9px 15px;
 
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.28);
+  border-radius:7px;
 
-      margin-bottom: 24px;
-    }
+  cursor:pointer;
 
+  font-family:inherit;
 
-    .hero::after {
+  font-size:13px;
+}
 
-      content: "";
+.logout-button:hover{
 
-      position: absolute;
+  background:
+    rgba(255,60,100,.15);
+}
 
-      width: 260px;
-      height: 260px;
+/* =========================
+   GRID
+========================= */
 
-      right: -80px;
-      top: -100px;
+.admin-grid{
 
-      border-radius: 50%;
+  max-width:1200px;
 
-      background:
-        radial-gradient(
-          circle,
-          rgba(255, 77, 166, 0.14),
-          transparent 70%
-        );
+  margin:0 auto;
 
-      pointer-events: none;
-    }
+  padding:
+    0 20px
+    40px;
 
+  display:grid;
 
-    .hero h1 {
+  grid-template-columns:
+    repeat(4,1fr);
 
-      margin: 0 0 8px;
+  gap:18px;
+}
 
-      color: #f8d58a;
+.admin-card{
 
-      font-family: "Playfair Display", serif;
+  min-height:165px;
 
-      font-size: clamp(30px, 6vw, 48px);
+  padding:25px 20px;
 
-      line-height: 1.1;
-    }
+  border:
+    1px solid rgba(201,162,39,.25);
 
+  border-radius:14px;
 
-    .hero p {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25,25,25,.92),
+      rgba(5,5,5,.92)
+    );
 
-      max-width: 720px;
+  cursor:pointer;
 
-      margin: 0;
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
 
-      color: #c9bec4;
+  display:flex;
 
-      line-height: 1.7;
+  flex-direction:column;
 
-      font-size: 14px;
-    }
+  justify-content:center;
 
+  align-items:center;
 
-    .system-bar {
+  text-align:center;
+}
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+.admin-card:hover{
 
-      gap: 15px;
+  transform:
+    translateY(-4px);
 
-      padding: 13px 16px;
+  border-color:
+    rgba(201,162,39,.65);
 
-      margin-bottom: 22px;
+  box-shadow:
+    0 12px 35px
+    rgba(0,0,0,.35);
+}
 
-      border-radius: 14px;
+.admin-card .icon{
 
-      border: 1px solid rgba(248, 213, 138, 0.12);
+  width:48px;
+  height:48px;
 
-      background: rgba(255, 255, 255, 0.025);
+  border-radius:50%;
 
-      color: #aaa0a6;
+  display:flex;
 
-      font-size: 12px;
-    }
+  align-items:center;
+  justify-content:center;
 
+  border:
+    1px solid rgba(201,162,39,.45);
 
-    .system-bar strong {
+  color:#f5d982;
 
-      color: #f8d58a;
-    }
+  font-size:23px;
 
+  margin-bottom:13px;
+}
 
-    .admin-grid {
+.admin-card h3{
 
-      display: grid;
+  color:#f5d982;
 
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+  font-family:
+    "Playfair Display",
+    serif;
 
-      gap: 14px;
+  font-size:19px;
 
-      margin-bottom: 28px;
-    }
+  margin-bottom:6px;
+}
 
+.admin-card span{
 
-    .admin-card {
+  color:#999;
 
-      position: relative;
+  font-size:13px;
 
-      min-height: 155px;
+  line-height:1.4;
+}
 
-      padding: 20px;
+/* =========================
+   DASHBOARD
+========================= */
 
-      border-radius: 18px;
+.dashboard{
 
-      border: 1px solid rgba(248, 213, 138, 0.13);
+  max-width:1200px;
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.045),
-          rgba(255, 255, 255, 0.018)
-        );
+  margin:
+    0 auto
+    30px;
 
-      cursor: pointer;
+  padding:
+    0 20px;
+}
 
-      transition:
-        transform 0.22s ease,
-        border-color 0.22s ease,
-        box-shadow 0.22s ease;
-    }
+.dashboard-box{
 
+  border:
+    1px solid rgba(201,162,39,.25);
 
-    .admin-card:hover {
+  border-radius:14px;
 
-      transform: translateY(-3px);
+  background:
+    rgba(0,0,0,.72);
 
-      border-color:
-        rgba(248, 213, 138, 0.34);
+  padding:25px;
+}
 
-      box-shadow:
-        0 14px 35px rgba(0, 0, 0, 0.22);
-    }
+.dashboard-title{
 
+  display:flex;
 
-    .admin-card .icon {
+  justify-content:space-between;
 
-      width: 42px;
-      height: 42px;
+  align-items:center;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  gap:15px;
 
-      margin-bottom: 15px;
+  flex-wrap:wrap;
 
-      border-radius: 12px;
+  margin-bottom:20px;
+}
 
-      background:
-        rgba(248, 213, 138, 0.08);
+.dashboard-title h2{
 
-      border:
-        1px solid rgba(248, 213, 138, 0.15);
+  color:#f5d982;
 
-      color: #f8d58a;
+  font-family:
+    "Playfair Display",
+    serif;
 
-      font-size: 19px;
-    }
+  font-size:24px;
+}
 
+.dashboard-title span{
 
-    .admin-card h3 {
+  color:#888;
 
-      margin: 0 0 7px;
+  font-size:13px;
+}
 
-      color: #f5edf0;
+.filtros{
 
-      font-size: 15px;
-    }
+  display:flex;
 
+  gap:10px;
 
-    .admin-card span {
+  flex-wrap:wrap;
 
-      display: block;
+  margin-bottom:20px;
+}
 
-      color: #948990;
+.filtros input,
+.filtros select{
 
-      font-size: 11px;
+  flex:1;
 
-      line-height: 1.55;
-    }
+  min-width:180px;
 
+  padding:12px 14px;
 
-    .admin-card.planos-card {
+  border:
+    1px solid rgba(201,162,39,.25);
 
-      border-color:
-        rgba(248, 213, 138, 0.22);
+  border-radius:8px;
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(248, 213, 138, 0.065),
-          rgba(255, 77, 166, 0.025)
-        );
-    }
+  background:#111;
 
+  color:#eee;
 
-    .admin-card.planos-card .icon {
+  outline:none;
 
-      background:
-        rgba(248, 213, 138, 0.12);
+  font-family:inherit;
+}
 
-      color: #f8d58a;
-    }
+.filtros input:focus,
+.filtros select:focus{
 
+  border-color:#c9a227;
+}
 
-    /* NOVO CARD DE VALIDAÇÃO */
+.lista-modelos{
 
-    .admin-card.validacao-card {
+  display:grid;
 
-      border-color:
-        rgba(83, 216, 138, 0.22);
+  gap:10px;
+}
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(83, 216, 138, 0.055),
-          rgba(255, 255, 255, 0.018)
-        );
-    }
+.modelo-item{
 
+  padding:15px;
 
-    .admin-card.validacao-card .icon {
+  border:
+    1px solid rgba(255,255,255,.08);
 
-      background:
-        rgba(83, 216, 138, 0.10);
+  border-radius:9px;
 
-      border-color:
-        rgba(83, 216, 138, 0.18);
+  background:
+    rgba(255,255,255,.025);
 
-      color: #78e5a3;
-    }
+  color:#bbb;
+}
 
+/* =========================
+   MODAL
+========================= */
 
-    .dashboard {
+.modal{
 
-      margin-top: 12px;
+  position:fixed;
 
-      padding: 24px;
+  inset:0;
 
-      border-radius: 20px;
+  background:
+    rgba(0,0,0,.82);
 
-      border:
-        1px solid rgba(248, 213, 138, 0.13);
+  display:none;
 
-      background:
-        rgba(255, 255, 255, 0.025);
-    }
+  align-items:center;
+  justify-content:center;
 
+  padding:20px;
 
-    .dashboard-header {
+  z-index:5000;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+  backdrop-filter:blur(8px);
+}
 
-      gap: 15px;
+.modal.aberto{
 
-      margin-bottom: 18px;
-    }
+  display:flex;
+}
 
+.modal-conteudo{
 
-    .dashboard-header h2 {
+  width:100%;
 
-      margin: 0;
+  max-width:650px;
 
-      color: #f8d58a;
+  max-height:90vh;
 
-      font-family: "Playfair Display", serif;
+  overflow:auto;
 
-      font-size: 24px;
-    }
+  background:
+    linear-gradient(
+      145deg,
+      #171717,
+      #080808
+    );
 
+  border:
+    1px solid rgba(201,162,39,.4);
 
-    .dashboard-header p {
+  border-radius:15px;
 
-      margin: 4px 0 0;
+  padding:25px;
 
-      color: #8e8389;
+  box-shadow:
+    0 25px 70px
+    rgba(0,0,0,.7);
+}
 
-      font-size: 12px;
-    }
+.modal-cabecalho{
 
+  display:flex;
 
-    .resumo-grid {
+  align-items:center;
 
-      display: grid;
+  justify-content:space-between;
 
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+  gap:15px;
 
-      gap: 12px;
+  margin-bottom:20px;
+}
 
-      margin-bottom: 24px;
-    }
+.modal-cabecalho h2{
 
+  color:#f5d982;
 
-    .resumo {
+  font-family:
+    "Playfair Display",
+    serif;
+}
 
-      padding: 18px;
+.fechar-modal{
 
-      border-radius: 15px;
+  width:38px;
+  height:38px;
 
-      background:
-        rgba(255, 255, 255, 0.025);
+  border-radius:50%;
 
-      border:
-        1px solid rgba(255, 255, 255, 0.055);
-    }
+  border:
+    1px solid rgba(255,255,255,.15);
 
+  background:#111;
 
-    .resumo span {
+  color:#ddd;
 
-      display: block;
+  cursor:pointer;
 
-      color: #8e8389;
+  font-size:18px;
+}
 
-      font-size: 11px;
+.fechar-modal:hover{
 
-      margin-bottom: 7px;
-    }
+  border-color:#c9a227;
 
+  color:#f5d982;
+}
 
-    .resumo strong {
+/* =========================
+   VALIDAÇÃO
+========================= */
 
-      color: #f8f3f0;
+.validacao-box{
 
-      font-size: 28px;
-    }
+  margin-top:5px;
+}
 
+.validacao-descricao{
 
-    .resumo.pendente strong {
+  color:#aaa;
 
-      color: #f8d58a;
-    }
+  font-size:15px;
 
+  line-height:1.5;
 
-    .resumo.aprovado strong {
+  margin-bottom:22px;
+}
 
-      color: #6fe0a1;
-    }
+.campo-validacao{
 
+  margin-bottom:16px;
+}
 
-    .resumo.rejeitado strong {
+.campo-validacao label{
 
-      color: #ff719e;
-    }
+  display:block;
 
+  color:#d9c47b;
 
-    .gestao {
+  font-size:14px;
 
-      border-top:
-        1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom:7px;
+}
 
-      padding-top: 24px;
-    }
+.campo-validacao input{
 
+  width:100%;
 
-    .gestao-header {
+  padding:13px 14px;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+  border:
+    1px solid rgba(201,162,39,.35);
 
-      gap: 15px;
+  border-radius:8px;
 
-      margin-bottom: 18px;
-    }
+  background:#0d0d0d;
 
+  color:#fff;
 
-    .gestao-header h3 {
+  outline:none;
 
-      margin: 0;
+  font-family:Arial,sans-serif;
 
-      color: #f3eaed;
+  font-size:15px;
+}
 
-      font-size: 17px;
-    }
+.campo-validacao input:focus{
 
+  border-color:#c9a227;
 
-    .filtros {
+  box-shadow:
+    0 0 0 2px
+    rgba(201,162,39,.08);
+}
 
-      display: flex;
-      flex-wrap: wrap;
+.botao-validacao{
 
-      gap: 8px;
-    }
+  width:100%;
 
+  padding:14px;
 
-    .filtro {
+  border:none;
 
-      border:
-        1px solid rgba(248, 213, 138, 0.12);
+  border-radius:8px;
 
-      background:
-        rgba(255, 255, 255, 0.025);
+  background:
+    linear-gradient(
+      135deg,
+      #c9a227,
+      #e6c86e
+    );
 
-      color: #a99da3;
+  color:#080808;
 
-      padding: 8px 12px;
+  font-family:
+    "Playfair Display",
+    serif;
 
-      border-radius: 9px;
+  font-weight:700;
 
-      cursor: pointer;
+  letter-spacing:.5px;
 
-      font-size: 11px;
+  cursor:pointer;
 
-      transition: 0.2s;
-    }
+  transition:.2s;
+}
 
+.botao-validacao:hover{
 
-    .filtro:hover,
-    .filtro.ativo {
+  filter:brightness(1.08);
+}
 
-      color: #f8d58a;
+.botao-validacao:disabled{
 
-      border-color:
-        rgba(248, 213, 138, 0.35);
+  opacity:.55;
 
-      background:
-        rgba(248, 213, 138, 0.07);
-    }
+  cursor:not-allowed;
+}
 
+.status-validacao{
 
-    #lista-precadastros {
+  min-height:24px;
 
-      display: grid;
+  margin-top:15px;
 
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+  padding:12px;
 
-      gap: 12px;
-    }
+  border-radius:8px;
 
+  display:none;
 
-    .vazio {
+  font-family:Arial,sans-serif;
 
-      grid-column: 1 / -1;
+  font-size:13px;
 
-      padding: 35px 20px;
+  line-height:1.5;
+}
 
-      text-align: center;
+.status-validacao.visivel{
 
-      border-radius: 14px;
+  display:block;
+}
 
-      border:
-        1px dashed rgba(248, 213, 138, 0.15);
+.status-validacao.enviando{
 
-      color: #8e8389;
+  color:#f5d982;
 
-      font-size: 13px;
-    }
+  background:
+    rgba(201,162,39,.08);
 
+  border:
+    1px solid rgba(201,162,39,.2);
+}
 
-    .modal {
+.status-validacao.sucesso{
 
-      position: fixed;
+  color:#6fe0a1;
 
-      inset: 0;
+  background:
+    rgba(111,224,161,.08);
 
-      z-index: 2000;
+  border:
+    1px solid rgba(111,224,161,.2);
+}
 
-      display: none;
+.status-validacao.erro{
 
-      align-items: center;
-      justify-content: center;
+  color:#ff719e;
 
-      padding: 18px;
+  background:
+    rgba(255,60,100,.08);
 
-      background:
-        rgba(0, 0, 0, 0.78);
+  border:
+    1px solid rgba(255,60,100,.2);
+}
 
-      backdrop-filter: blur(8px);
-    }
+.aviso-validacao{
 
+  margin-top:15px;
 
-    .modal.aberto {
+  color:#777;
 
-      display: flex;
-    }
+  font-size:12px;
 
+  line-height:1.5;
+}
 
-    .modal-conteudo {
+/* =========================
+   RESPONSIVO
+========================= */
 
-      width: min(760px, 100%);
+@media(max-width:1000px){
 
-      max-height: 90vh;
+  .admin-grid{
 
-      overflow-y: auto;
+    grid-template-columns:
+      repeat(2,1fr);
+  }
 
-      border-radius: 20px;
+}
 
-      border:
-        1px solid rgba(248, 213, 138, 0.20);
+@media(max-width:600px){
 
-      background:
-        linear-gradient(
-          145deg,
-          #1b0d14,
-          #0d0709
-        );
+  .topbar{
 
-      box-shadow:
-        0 30px 100px rgba(0, 0, 0, 0.55);
-    }
+    padding:15px;
 
+    align-items:flex-start;
+  }
 
-    .modal-header {
+  .admin-info{
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    display:none;
+  }
 
-      gap: 15px;
+  .hero{
 
-      padding: 20px 22px;
+    padding:
+      45px
+      20px
+      35px;
+  }
 
-      border-bottom:
-        1px solid rgba(255, 255, 255, 0.06);
-    }
+  .admin-grid{
 
+    grid-template-columns:1fr;
 
-    .modal-header h3 {
+    padding:
+      0 15px
+      30px;
+  }
 
-      margin: 0;
+  .dashboard{
 
-      color: #f8d58a;
+    padding:0 15px;
+  }
 
-      font-family: "Playfair Display", serif;
+  .dashboard-box{
 
-      font-size: 22px;
-    }
+    padding:18px;
+  }
 
+}
 
-    .fechar {
+/* =========================
+   MENSAGEM DE ACESSO
+========================= */
 
-      width: 36px;
-      height: 36px;
+#mensagem-acesso{
 
-      border-radius: 10px;
+  position:fixed;
 
-      border:
-        1px solid rgba(255, 255, 255, 0.08);
+  inset:0;
 
-      background:
-        rgba(255, 255, 255, 0.035);
+  background:#050505;
 
-      color: #b7abb1;
+  display:flex;
 
-      cursor: pointer;
+  align-items:center;
 
-      font-size: 18px;
-    }
+  justify-content:center;
 
+  z-index:99999;
 
-    #corpo-ficha {
+  color:#f5d982;
 
-      padding: 22px;
-    }
+  font-family:
+    "Playfair Display",
+    serif;
 
+  font-size:20px;
 
-    .modal-footer {
+  text-align:center;
 
-      display: flex;
-      flex-wrap: wrap;
+  padding:20px;
+}
 
-      justify-content: flex-end;
-
-      gap: 9px;
-
-      padding: 16px 22px;
-
-      border-top:
-        1px solid rgba(255, 255, 255, 0.06);
-    }
-
-
-    .btn {
-
-      border: 0;
-
-      border-radius: 10px;
-
-      padding: 10px 14px;
-
-      cursor: pointer;
-
-      font-weight: 700;
-
-      font-size: 12px;
-    }
-
-
-    .btn-aprovar {
-
-      background: #53d88a;
-
-      color: #08130d;
-    }
-
-
-    .btn-rejeitar {
-
-      background: #ff5d8f;
-
-      color: #19050d;
-    }
-
-
-    .btn-imprimir {
-
-      background:
-        rgba(248, 213, 138, 0.10);
-
-      border:
-        1px solid rgba(248, 213, 138, 0.25);
-
-      color: #f8d58a;
-    }
-
-
-    .btn-fechar {
-
-      background:
-        rgba(255, 255, 255, 0.05);
-
-      border:
-        1px solid rgba(255, 255, 255, 0.08);
-
-      color: #c2b7bc;
-    }
-
-
-    .modulo-modal {
-
-      width: min(700px, 100%);
-
-      max-height: 88vh;
-
-      overflow-y: auto;
-
-      padding: 24px;
-    }
-
-
-    .modulo-modal h3 {
-
-      margin-top: 0;
-
-      color: #f8d58a;
-
-      font-family: "Playfair Display", serif;
-
-      font-size: 25px;
-    }
-
-
-    .modulo-modal p {
-
-      color: #b9adb3;
-
-      line-height: 1.7;
-
-      font-size: 13px;
-    }
-
-
-    .diamond-destaque {
-
-      margin-top: 18px;
-
-      padding: 18px;
-
-      border-radius: 15px;
-
-      border:
-        1px solid rgba(248, 213, 138, 0.24);
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(248, 213, 138, 0.08),
-          rgba(255, 255, 255, 0.02)
-        );
-    }
-
-
-    .diamond-destaque strong {
-
-      display: block;
-
-      margin-bottom: 8px;
-
-      color: #f8d58a;
-
-      font-size: 16px;
-    }
-
-
-    .diamond-destaque span {
-
-      color: #b9adb3;
-
-      font-size: 12px;
-
-      line-height: 1.7;
-    }
-
-
-    /* ÁREA DE VALIDAÇÃO */
-
-    .validacao-box {
-
-      margin-top: 20px;
-
-      padding: 18px;
-
-      border-radius: 15px;
-
-      border:
-        1px solid rgba(83, 216, 138, 0.18);
-
-      background:
-        rgba(83, 216, 138, 0.035);
-    }
-
-
-    .validacao-box label {
-
-      display: block;
-
-      margin-bottom: 8px;
-
-      color: #f8d58a;
-
-      font-size: 12px;
-
-      font-weight: 700;
-    }
-
-
-    .validacao-box input {
-
-      width: 100%;
-
-      padding: 13px 14px;
-
-      border-radius: 10px;
-
-      border:
-        1px solid rgba(248, 213, 138, 0.20);
-
-      background: #090507;
-
-      color: #fff;
-
-      outline: none;
-
-      font-size: 14px;
-
-      transition: 0.2s;
-    }
-
-
-    .validacao-box input:focus {
-
-      border-color:
-        rgba(248, 213, 138, 0.55);
-
-      box-shadow:
-        0 0 0 3px rgba(248, 213, 138, 0.05);
-    }
-
-
-    .btn-validacao {
-
-      width: 100%;
-
-      margin-top: 12px;
-
-      padding: 13px;
-
-      border: 0;
-
-      border-radius: 10px;
-
-      background: #f8d58a;
-
-      color: #160b0e;
-
-      cursor: pointer;
-
-      font-weight: 800;
-
-      font-size: 12px;
-
-      transition: 0.2s;
-    }
-
-
-    .btn-validacao:hover {
-
-      filter: brightness(1.08);
-
-      transform: translateY(-1px);
-    }
-
-
-    .btn-validacao:disabled {
-
-      opacity: 0.55;
-
-      cursor: not-allowed;
-
-      transform: none;
-    }
-
-
-    .resultado-validacao {
-
-      display: none;
-
-      margin-top: 12px;
-
-      padding: 12px;
-
-      border-radius: 10px;
-
-      font-size: 12px;
-
-      line-height: 1.55;
-    }
-
-
-    .resultado-validacao.sucesso {
-
-      display: block;
-
-      background:
-        rgba(83, 216, 138, 0.10);
-
-      border:
-        1px solid rgba(83, 216, 138, 0.30);
-
-      color: #9af0b9;
-    }
-
-
-    .resultado-validacao.erro {
-
-      display: block;
-
-      background:
-        rgba(255, 77, 166, 0.08);
-
-      border:
-        1px solid rgba(255, 77, 166, 0.25);
-
-      color: #ff9ac9;
-    }
-
-
-    .validacao-info {
-
-      margin-top: 12px;
-
-      color: #80757b;
-
-      font-size: 11px;
-
-      line-height: 1.6;
-    }
-
-
-    @media (max-width: 900px) {
-
-      .admin-grid {
-
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-      }
-
-      .resumo-grid {
-
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-      }
-
-      #lista-precadastros {
-
-        grid-template-columns:
-          1fr;
-      }
-
-    }
-
-
-    @media (max-width: 600px) {
-
-      .topbar {
-
-        padding: 12px 14px;
-      }
-
-
-      .brand-text span {
-
-        display: none;
-      }
-
-
-      .status-online {
-
-        display: none;
-      }
-
-
-      .container {
-
-        width: min(100% - 18px, 1180px);
-
-        padding-top: 18px;
-      }
-
-
-      .hero {
-
-        padding: 26px 20px;
-
-        border-radius: 18px;
-      }
-
-
-      .admin-grid {
-
-        grid-template-columns:
-          1fr 1fr;
-
-        gap: 10px;
-      }
-
-
-      .admin-card {
-
-        min-height: 145px;
-
-        padding: 15px;
-      }
-
-
-      .admin-card h3 {
-
-        font-size: 13px;
-      }
-
-
-      .admin-card span {
-
-        font-size: 10px;
-      }
-
-
-      .dashboard {
-
-        padding: 17px;
-      }
-
-
-      .dashboard-header {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-      }
-
-
-      .resumo-grid {
-
-        grid-template-columns:
-          1fr 1fr;
-      }
-
-
-      .gestao-header {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-      }
-
-
-      .system-bar {
-
-        flex-direction: column;
-
-        align-items: flex-start;
-      }
-
-    }
-
-  </style>
+</style>
 
 </head>
 
-
 <body>
 
+<div id="mensagem-acesso">
+  Verificando acesso administrativo...
+</div>
 
-  <header class="topbar">
+<header class="topbar">
 
-    <div class="brand">
+  <div class="logo-area">
 
-      <div class="brand-logo">
-        LUX
-      </div>
+    <div class="logo">
+      LUX
+    </div>
 
-      <div class="brand-text">
+    <div class="logo-text">
 
-        <strong>LUX ADVANCE</strong>
+      <h1>LUX ADVANCE</h1>
 
-        <span>
-          Central Administrativa
-        </span>
+      <span>Central Administrativa</span>
 
-      </div>
+    </div>
+
+  </div>
+
+  <div class="admin-info">
+
+    <strong id="admin-email">
+      Administrador
+    </strong>
+
+    <span>
+      Acesso protegido
+    </span>
+
+  </div>
+
+</header>
+
+
+<section class="hero">
+
+  <h2>
+    Painel Administrativo
+  </h2>
+
+  <p>
+    Gestão central da plataforma LUX ADVANCE.
+    Controle modelos, usuários, pagamentos,
+    reclamações, avaliações e recursos do sistema.
+  </p>
+
+</section>
+
+
+<div class="system-bar">
+
+  <div class="system-status">
+
+    <span class="status-dot"></span>
+
+    <span>
+      Sistema administrativo conectado
+    </span>
+
+  </div>
+
+  <button
+    type="button"
+    class="logout-button"
+    id="btn-logout"
+  >
+    SAIR DO PAINEL
+  </button>
+
+</div>
+
+
+<section class="admin-grid">
+
+  <div
+    class="admin-card"
+    data-modulo="modelos"
+  >
+
+    <div class="icon">
+      ♀
+    </div>
+
+    <h3>
+      Modelos
+    </h3>
+
+    <span>
+      Gerenciar cadastros,
+      aprovações e perfis.
+    </span>
+
+  </div>
+
+
+  <div
+    class="admin-card"
+    data-modulo="usuarios"
+  >
+
+    <div class="icon">
+      ◉
+    </div>
+
+    <h3>
+      Usuários
+    </h3>
+
+    <span>
+      Visualizar e administrar
+      contas de usuários.
+    </span>
+
+  </div>
+
+
+  <div
+    class="admin-card"
+    data-modulo="reclamacoes"
+  >
+
+    <div class="icon">
+      !
+    </div>
+
+    <h3>
+      Reclamações
+    </h3>
+
+    <span>
+      Consultar e acompanhar
+      reclamações recebidas.
+    </span>
+
+  </div>
+
+
+  <div
+    class="admin-card"
+    data-modulo="planos"
+  >
+
+    <div class="icon">
+      ◆
+    </div>
+
+    <h3>
+      Planos
+    </h3>
+
+    <span>
+      Gerenciar recursos
+      e planos da plataforma.
+    </span>
+
+  </div>
+
+
+  <div
+    class="admin-card"
+    data-modulo="pagamentos"
+  >
+
+    <div class="icon">
+      $
+    </div>
+
+    <h3>
+      Pagamentos
+    </h3>
+
+    <span>
+      Acompanhar pagamentos
+      realizados.
+    </span>
+
+  </div>
+
+
+  <div
+    class="admin-card"
+    data-modulo="assinaturas"
+  >
+
+    <div class="icon">
+      ♢
+    </div>
+
+    <h3>
+      Assinaturas
+    </h3>
+
+    <span>
+      Controle das assinaturas
+      ativas da plataforma.
+    </span>
+
+  </div>
+
+
+  <div
+    class="admin-card"
+    data-modulo="avaliacoes"
+  >
+
+    <div class="icon">
+      ★
+    </div>
+
+    <h3>
+      Avaliações
+    </h3>
+
+    <span>
+      Acompanhar avaliações
+      e classificações.
+    </span>
+
+  </div>
+
+
+  <div
+    class="admin-card"
+    data-modulo="doacoes"
+  >
+
+    <div class="icon">
+      ♡
+    </div>
+
+    <h3>
+      Doações
+    </h3>
+
+    <span>
+      Consultar registros
+      de doações.
+    </span>
+
+  </div>
+
+
+  <!-- NOVO SISTEMA DE VALIDAÇÃO -->
+
+  <div
+    class="admin-card"
+    data-modulo="validacao-email"
+  >
+
+    <div class="icon">
+      ✉
+    </div>
+
+    <h3>
+      Validação de E-mail
+    </h3>
+
+    <span>
+      Reenviar o link de confirmação
+      para uma conta.
+    </span>
+
+  </div>
+
+</section>
+
+
+<section class="dashboard">
+
+  <div class="dashboard-box">
+
+    <div class="dashboard-title">
+
+      <h2>
+        Gestão de Modelos
+      </h2>
+
+      <span>
+        Área administrativa
+      </span>
 
     </div>
 
 
-    <div class="admin-actions">
+    <div class="filtros">
 
-      <div
-        id="statusOnline"
-        class="status-online"
+      <input
+        type="text"
+        id="filtro-modelo"
+        placeholder="Pesquisar modelo..."
       >
-        Verificando acesso...
+
+      <select id="filtro-status">
+
+        <option value="">
+          Todos os status
+        </option>
+
+        <option value="pendente">
+          Pendentes
+        </option>
+
+        <option value="aprovado">
+          Aprovadas
+        </option>
+
+        <option value="reprovado">
+          Reprovadas
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div
+      class="lista-modelos"
+      id="lista-modelos"
+    >
+
+      <div class="modelo-item">
+        Carregando modelos...
       </div>
 
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- MODAL DOS MÓDULOS -->
+
+<div
+  class="modal"
+  id="modal-modulo"
+>
+
+  <div class="modal-conteudo">
+
+    <div class="modal-cabecalho">
+
+      <h2 id="modal-titulo">
+        Módulo
+      </h2>
+
       <button
-        id="btnSair"
-        class="btn-sair"
         type="button"
+        class="fechar-modal"
+        id="fechar-modal"
       >
-        Sair
+        ×
       </button>
 
     </div>
 
-  </header>
+    <div id="modal-corpo">
 
-
-  <main class="container">
-
-
-    <section class="hero">
-
-      <h1>
-        Central Administrativa
-      </h1>
-
-      <p>
-        Gerencie modelos, usuários, planos,
-        pagamentos, assinaturas, avaliações,
-        reclamações e doações da plataforma
-        LUX ADVANCE.
+      <p style="color:#aaa;">
+        Selecione um módulo administrativo.
       </p>
 
-    </section>
+    </div>
+
+  </div>
+
+</div>
 
 
-    <div class="system-bar">
+<!-- MODAL DE VALIDAÇÃO -->
 
-      <div>
-        Sistema:
-        <strong>LUX ADVANCE</strong>
-      </div>
+<div
+  class="modal"
+  id="modal-validacao"
+>
 
-      <div>
-        Ambiente administrativo protegido
-      </div>
+  <div class="modal-conteudo">
+
+    <div class="modal-cabecalho">
+
+      <h2>
+        Validação de E-mail
+      </h2>
+
+      <button
+        type="button"
+        class="fechar-modal"
+        id="fechar-validacao"
+      >
+        ×
+      </button>
 
     </div>
 
 
-    <section class="admin-grid">
+    <div class="validacao-box">
 
+      <p class="validacao-descricao">
 
-      <div
-        class="admin-card"
-        data-modulo="modelos"
-      >
+        Reenvie o link de confirmação da conta
+        diretamente pelo sistema de autenticação
+        do Supabase.
 
-        <div class="icon">
-          ♀
-        </div>
+      </p>
 
-        <h3>
-          Modelos
-        </h3>
 
-        <span>
-          Cadastro, aprovação,
-          reprovação e fichas cadastrais.
-        </span>
+      <div class="campo-validacao">
 
-      </div>
+        <label for="email-validacao">
+          E-mail da conta
+        </label>
 
-
-      <!-- NOVO: VALIDAÇÃO DE E-MAIL -->
-
-      <div
-        class="admin-card validacao-card"
-        data-modulo="validacao-email"
-      >
-
-        <div class="icon">
-          ✉
-        </div>
-
-        <h3>
-          Validação de E-mail
-        </h3>
-
-        <span>
-          Reenvie o link de confirmação
-          para uma conta de modelo.
-        </span>
-
-      </div>
-
-
-      <div
-        class="admin-card"
-        data-modulo="usuarios"
-      >
-
-        <div class="icon">
-          ◉
-        </div>
-
-        <h3>
-          Usuários
-        </h3>
-
-        <span>
-          Gerenciamento dos usuários
-          cadastrados na plataforma.
-        </span>
-
-      </div>
-
-
-      <div
-        class="admin-card"
-        data-modulo="reclamacoes"
-      >
-
-        <div class="icon">
-          !
-        </div>
-
-        <h3>
-          Reclamações
-        </h3>
-
-        <span>
-          Visualização e acompanhamento
-          das reclamações.
-        </span>
-
-      </div>
-
-
-      <div
-        class="admin-card planos-card"
-        data-modulo="planos"
-      >
-
-        <div class="icon">
-          ◆
-        </div>
-
-        <h3>
-          Planos
-        </h3>
-
-        <span>
-          ESSENCE · DESFIRE · ELITE · ROYAL · DIAMOND
-        </span>
-
-      </div>
-
-
-      <div
-        class="admin-card"
-        data-modulo="pagamentos"
-      >
-
-        <div class="icon">
-          $
-        </div>
-
-        <h3>
-          Pagamentos
-        </h3>
-
-        <span>
-          Controle e acompanhamento
-          dos pagamentos.
-        </span>
-
-      </div>
-
-
-      <div
-        class="admin-card"
-        data-modulo="assinaturas"
-      >
-
-        <div class="icon">
-          ◇
-        </div>
-
-        <h3>
-          Assinaturas
-        </h3>
-
-        <span>
-          Assinaturas ativas,
-          pendentes e canceladas.
-        </span>
-
-      </div>
-
-
-      <div
-        class="admin-card"
-        data-modulo="avaliacoes"
-      >
-
-        <div class="icon">
-          ★
-        </div>
-
-        <h3>
-          Avaliações
-        </h3>
-
-        <span>
-          Avaliações e classificações
-          recebidas pelos modelos.
-        </span>
-
-      </div>
-
-
-      <div
-        class="admin-card"
-        data-modulo="doacoes"
-      >
-
-        <div class="icon">
-          ♥
-        </div>
-
-        <h3>
-          Doações
-        </h3>
-
-        <span>
-          Acompanhamento das doações
-          realizadas na plataforma.
-        </span>
-
-      </div>
-
-
-    </section>
-
-
-    <section class="dashboard">
-
-
-      <div class="dashboard-header">
-
-        <div>
-
-          <h2>
-            Gestão de Modelos
-          </h2>
-
-          <p>
-            Controle de aprovação e situação
-            dos cadastros recebidos.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="resumo-grid">
-
-
-        <div class="resumo">
-
-          <span>
-            Total
-          </span>
-
-          <strong id="resumoTotal">
-            0
-          </strong>
-
-        </div>
-
-
-        <div class="resumo pendente">
-
-          <span>
-            Pendentes
-          </span>
-
-          <strong id="resumoPendentes">
-            0
-          </strong>
-
-        </div>
-
-
-        <div class="resumo aprovado">
-
-          <span>
-            Aprovados
-          </span>
-
-          <strong id="resumoAprovados">
-            0
-          </strong>
-
-        </div>
-
-
-        <div class="resumo rejeitado">
-
-          <span>
-            Rejeitados
-          </span>
-
-          <strong id="resumoRejeitados">
-            0
-          </strong>
-
-        </div>
-
-
-      </div>
-
-
-      <div
-        id="gestao-modelos"
-        class="gestao"
-      >
-
-
-        <div class="gestao-header">
-
-          <h3>
-            Cadastros recebidos
-          </h3>
-
-
-          <div class="filtros">
-
-
-            <button
-              class="filtro ativo"
-              data-filtro="todos"
-              type="button"
-            >
-              Todos
-            </button>
-
-
-            <button
-              class="filtro"
-              data-filtro="pendente"
-              type="button"
-            >
-              Pendentes
-            </button>
-
-
-            <button
-              class="filtro"
-              data-filtro="aprovado"
-              type="button"
-            >
-              Aprovados
-            </button>
-
-
-            <button
-              class="filtro"
-              data-filtro="rejeitado"
-              type="button"
-            >
-              Rejeitados
-            </button>
-
-
-          </div>
-
-        </div>
-
-
-        <div id="lista-precadastros">
-
-          <div class="vazio">
-            Carregando modelos...
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-  </main>
-
-
-  <div
-    id="modal-ver-ficha"
-    class="modal"
-  >
-
-    <div class="modal-conteudo">
-
-
-      <div class="modal-header">
-
-        <h3>
-          Ficha da Modelo
-        </h3>
-
-
-        <button
-          class="fechar"
-          id="fechar-modal-ficha"
-          type="button"
+        <input
+          type="email"
+          id="email-validacao"
+          value="cesarhenry0421@gmail.com"
+          autocomplete="email"
+          placeholder="Digite o e-mail"
         >
-          ×
-        </button>
 
       </div>
 
 
-      <div id="corpo-ficha">
-
-        <div class="vazio">
-          Carregando ficha...
-        </div>
-
-      </div>
-
-
-      <div class="modal-footer">
+      <button
+        type="button"
+        class="botao-validacao"
+        id="btn-reenviar-validacao"
+      >
+        REENVIAR LINK DE VALIDAÇÃO
+      </button>
 
 
-        <button
-          id="botao-rejeitar"
-          class="btn btn-rejeitar"
-          type="button"
-        >
-          REPROVAR
-        </button>
+      <div
+        class="status-validacao"
+        id="status-validacao"
+      ></div>
 
 
-        <button
-          id="botao-aprovar"
-          class="btn btn-aprovar"
-          type="button"
-        >
-          APROVAR
-        </button>
+      <div class="aviso-validacao">
 
-
-        <button
-          id="botao-imprimir"
-          class="btn btn-imprimir"
-          type="button"
-        >
-          IMPRIMIR
-        </button>
-
-
-        <button
-          id="botao-fechar-ficha"
-          class="btn btn-fechar"
-          type="button"
-        >
-          FECHAR
-        </button>
-
+        Depois de clicar, aguarde a mensagem de
+        confirmação do sistema. Verifique também
+        a pasta de spam/lixo eletrônico.
 
       </div>
 
@@ -1792,904 +1392,887 @@
 
   </div>
 
+</div>
 
-  <!-- =====================================================
-       MODAL DE REENVIO DE VALIDAÇÃO
-       ===================================================== -->
 
-  <div
-    id="modal-validacao-email"
-    class="modal"
-  >
+<script>
 
-    <div
-      class="modal-conteudo"
-      style="width:min(520px,100%);"
-    >
+/* =====================================================
+   VERIFICAÇÃO DO SUPABASE
+===================================================== */
 
-      <div class="modal-header">
+document.addEventListener(
+  "DOMContentLoaded",
+  async function(){
 
-        <h3>
-          Validação de E-mail
-        </h3>
+    const mensagem =
+      document.getElementById(
+        "mensagem-acesso"
+      );
 
-        <button
-          class="fechar"
-          id="fechar-modal-validacao"
-          type="button"
-        >
-          ×
-        </button>
+    try{
 
-      </div>
+      if(
+        !window.luxSupabase
+      ){
 
-
-      <div
-        style="
-          padding:22px;
-        "
-      >
-
-        <p
-          style="
-            margin-top:0;
-            color:#b9adb3;
-            line-height:1.7;
-            font-size:13px;
-          "
-        >
-          Reenvie o link de confirmação para
-          uma conta cadastrada no LUX ADVANCE.
-        </p>
-
-
-        <div class="validacao-box">
-
-          <label for="email-validacao">
-            E-mail da modelo
-          </label>
-
-
-          <input
-            id="email-validacao"
-            type="email"
-            value="cesarhenry0421@gmail.com"
-            placeholder="Digite o e-mail da modelo"
-            autocomplete="email"
-          >
-
-
-          <button
-            id="btn-reenviar-validacao"
-            class="btn-validacao"
-            type="button"
-          >
-            REENVIAR LINK DE VALIDAÇÃO
-          </button>
-
-
-          <div
-            id="resultado-validacao"
-            class="resultado-validacao"
-          ></div>
-
-
-          <div class="validacao-info">
-
-            O sistema apenas solicita o envio de
-            um novo link de confirmação. Ele não
-            altera manualmente a confirmação da
-            conta e não cria uma nova conta.
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <script>
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      async function () {
-
-
-        const supabase =
-          window.luxSupabase;
-
-
-        const statusOnline =
-          document.getElementById(
-            "statusOnline"
-          );
-
-
-        const btnSair =
-          document.getElementById(
-            "btnSair"
-          );
-
-
-        if (!supabase) {
-
-          console.error(
-            "Supabase não foi inicializado."
-          );
-
-          statusOnline.textContent =
-            "Sistema indisponível";
-
-          return;
-
-        }
-
-
-        try {
-
-          const {
-            data,
-            error
-          } =
-            await supabase.auth.getSession();
-
-
-          if (
-            error ||
-            !data ||
-            !data.session
-          ) {
-
-            window.location.href =
-              "./acesso-admin.html";
-
-            return;
-
-          }
-
-
-          const session =
-            data.session;
-
-
-          const email =
-            session.user &&
-            session.user.email
-              ? session.user.email
-              : "";
-
-
-          if (
-            !window.LUX_ADMIN_EMAIL ||
-            email.toLowerCase() !==
-              window.LUX_ADMIN_EMAIL.toLowerCase()
-          ) {
-
-            await supabase.auth.signOut();
-
-            window.location.href =
-              "./acesso-admin.html";
-
-            return;
-
-          }
-
-
-          statusOnline.textContent =
-            "Administrador conectado";
-
-
-        } catch (erro) {
-
-          console.error(
-            "Erro na autenticação administrativa:",
-            erro
-          );
-
-          window.location.href =
-            "./acesso-admin.html";
-
-        }
-
-
-        btnSair.addEventListener(
-          "click",
-          async function () {
-
-            try {
-
-              await supabase.auth.signOut();
-
-            } catch (erro) {
-
-              console.error(
-                "Erro ao sair:",
-                erro
-              );
-
-            }
-
-            window.location.href =
-              "./acesso-admin.html";
-
-          }
+        throw new Error(
+          "Supabase não foi inicializado. Verifique o config.js."
         );
 
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await window.luxSupabase.auth.getSession();
+
+
+      if(error){
+
+        throw error;
+
+      }
+
+
+      if(
+        !data ||
+        !data.session
+      ){
+
+        window.location.href =
+          "./acesso-admin.html";
+
+        return;
+
+      }
+
+
+      const usuario =
+        data.session.user;
+
+
+      document.getElementById(
+        "admin-email"
+      ).textContent =
+        usuario.email ||
+        "Administrador";
+
+
+      mensagem.style.display =
+        "none";
+
+
+    }catch(error){
+
+      console.error(
+        "Erro de autenticação:",
+        error
+      );
+
+
+      mensagem.innerHTML =
+        "Não foi possível verificar o acesso administrativo.<br><br>" +
+        "<small style='color:#888;'>" +
+        (error.message || "Erro desconhecido") +
+        "</small>";
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+document
+  .getElementById("btn-logout")
+  .addEventListener(
+    "click",
+    async function(){
+
+      try{
+
+        await window.luxSupabase.auth.signOut();
+
+      }catch(error){
+
+        console.error(
+          "Erro ao sair:",
+          error
+        );
+
+      }
+
+      window.location.href =
+        "./acesso-admin.html";
+
+    }
+  );
+
+
+/* =====================================================
+   MODAIS DOS MÓDULOS
+===================================================== */
+
+const modalModulo =
+  document.getElementById(
+    "modal-modulo"
+  );
+
+const modalTitulo =
+  document.getElementById(
+    "modal-titulo"
+  );
+
+const modalCorpo =
+  document.getElementById(
+    "modal-corpo"
+  );
+
+
+const modulos = {
+
+  modelos: {
+
+    titulo:"Gestão de Modelos",
+
+    texto:
+      "Área destinada ao gerenciamento " +
+      "dos cadastros, aprovações e perfis " +
+      "das modelos."
+
+  },
+
+  usuarios: {
+
+    titulo:"Gestão de Usuários",
+
+    texto:
+      "Área destinada ao gerenciamento " +
+      "das contas dos usuários."
+
+  },
+
+  reclamacoes: {
+
+    titulo:"Reclamações",
+
+    texto:
+      "Área destinada à consulta e " +
+      "acompanhamento das reclamações."
+
+  },
+
+  planos: {
+
+    titulo:"Planos",
+
+    texto:
+      "Área destinada ao gerenciamento " +
+      "dos planos e recursos da plataforma."
+
+  },
+
+  pagamentos: {
+
+    titulo:"Pagamentos",
+
+    texto:
+      "Área destinada ao acompanhamento " +
+      "dos pagamentos realizados."
+
+  },
+
+  assinaturas: {
+
+    titulo:"Assinaturas",
+
+    texto:
+      "Área destinada ao controle das " +
+      "assinaturas da plataforma."
+
+  },
+
+  avaliacoes: {
+
+    titulo:"Avaliações",
+
+    texto:
+      "Área destinada ao gerenciamento " +
+      "das avaliações."
+
+  },
+
+  doacoes: {
+
+    titulo:"Doações",
+
+    texto:
+      "Área destinada ao acompanhamento " +
+      "das doações realizadas."
+
+  }
+
+};
+
+
+/* =====================================================
+   ABRIR MÓDULO
+===================================================== */
+
+function abrirModuloAdmin(
+  modulo
+){
+
+  if(
+    modulo ===
+    "validacao-email"
+  ){
+
+    abrirModalValidacao();
+
+    return;
+
+  }
+
+
+  const dados =
+    modulos[modulo];
+
+  if(!dados){
+
+    return;
+
+  }
+
+
+  modalTitulo.textContent =
+    dados.titulo;
+
+
+  modalCorpo.innerHTML =
+
+    "<p style='color:#aaa;line-height:1.6;'>" +
+    dados.texto +
+    "</p>";
+
+
+  modalModulo.classList.add(
+    "aberto"
+  );
+
+}
+
+
+/* =====================================================
+   CLIQUES DOS CARDS
+===================================================== */
+
+document
+  .querySelectorAll(
+    ".admin-card"
+  )
+  .forEach(
+    function(card){
+
+      card.addEventListener(
+        "click",
+        function(){
+
+          abrirModuloAdmin(
+            card.dataset.modulo
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+/* =====================================================
+   FECHAR MODAL PRINCIPAL
+===================================================== */
+
+document
+  .getElementById(
+    "fechar-modal"
+  )
+  .addEventListener(
+    "click",
+    function(){
+
+      modalModulo.classList.remove(
+        "aberto"
+      );
+
+    }
+  );
+
+
+modalModulo.addEventListener(
+  "click",
+  function(event){
+
+    if(
+      event.target ===
+      modalModulo
+    ){
+
+      modalModulo.classList.remove(
+        "aberto"
+      );
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   SISTEMA DE VALIDAÇÃO DE E-MAIL
+===================================================== */
+
+const modalValidacao =
+  document.getElementById(
+    "modal-validacao"
+  );
+
+
+const emailValidacao =
+  document.getElementById(
+    "email-validacao"
+  );
+
+
+const botaoValidacao =
+  document.getElementById(
+    "btn-reenviar-validacao"
+  );
+
+
+const statusValidacao =
+  document.getElementById(
+    "status-validacao"
+  );
+
+
+function abrirModalValidacao(){
+
+  modalValidacao.classList.add(
+    "aberto"
+  );
+
+
+  statusValidacao.className =
+    "status-validacao";
+
+
+  statusValidacao.textContent =
+    "";
+
+
+  emailValidacao.focus();
+
+}
+
+
+/* =====================================================
+   MOSTRAR STATUS
+===================================================== */
+
+function mostrarStatusValidacao(
+  mensagem,
+  tipo
+){
+
+  statusValidacao.textContent =
+    mensagem;
+
+
+  statusValidacao.className =
+    "status-validacao " +
+    "visivel " +
+    tipo;
+
+}
+
+
+/* =====================================================
+   INTERPRETAR ERROS DO SUPABASE
+===================================================== */
+
+function explicarErroValidacao(
+  error
+){
+
+  if(!error){
+
+    return "O Supabase não retornou uma resposta de erro.";
+
+  }
+
+
+  const mensagem =
+    String(
+      error.message ||
+      error.error_description ||
+      error.msg ||
+      "Erro desconhecido."
+    );
+
+
+  const texto =
+    mensagem.toLowerCase();
+
+
+  if(
+    texto.includes(
+      "rate limit"
+    ) ||
+    texto.includes(
+      "too many requests"
+    ) ||
+    texto.includes(
+      "email rate limit"
+    )
+  ){
+
+    return (
+      "O Supabase bloqueou temporariamente novos " +
+      "envios por limite de mensagens. Aguarde " +
+      "alguns minutos e tente novamente. " +
+      "Detalhe: " +
+      mensagem
+    );
+
+  }
+
+
+  if(
+    texto.includes(
+      "already confirmed"
+    ) ||
+    texto.includes(
+      "already verified"
+    )
+  ){
+
+    return (
+      "Esta conta já está com o e-mail confirmado. " +
+      "O Supabase não precisa enviar outro link. " +
+      "Detalhe: " +
+      mensagem
+    );
+
+  }
+
+
+  if(
+    texto.includes(
+      "invalid email"
+    )
+  ){
+
+    return (
+      "O endereço de e-mail informado é inválido. " +
+      "Confira o endereço e tente novamente. " +
+      "Detalhe: " +
+      mensagem
+    );
+
+  }
+
+
+  if(
+    texto.includes(
+      "email not found"
+    )
+  ){
+
+    return (
+      "O Supabase não encontrou uma conta para " +
+      "esse endereço de e-mail. Confira se o " +
+      "cadastro foi realmente criado. " +
+      "Detalhe: " +
+      mensagem
+    );
+
+  }
+
+
+  if(
+    texto.includes(
+      "signup"
+    ) &&
+    texto.includes(
+      "disabled"
+    )
+  ){
+
+    return (
+      "O cadastro/validação por e-mail pode estar " +
+      "desativado nas configurações de autenticação " +
+      "do Supabase. Detalhe: " +
+      mensagem
+    );
+
+  }
+
+
+  return (
+    "O Supabase recusou o envio. " +
+    "Detalhe: " +
+    mensagem
+  );
+
+}
+
+
+/* =====================================================
+   REENVIAR VALIDAÇÃO
+===================================================== */
+
+async function reenviarValidacao(){
+
+  const email =
+    emailValidacao.value
+      .trim()
+      .toLowerCase();
+
+
+  if(!email){
+
+    mostrarStatusValidacao(
+      "Digite um endereço de e-mail.",
+      "erro"
+    );
+
+    emailValidacao.focus();
+
+    return;
+
+  }
+
+
+  if(
+    !email.includes("@") ||
+    !email.includes(".")
+  ){
+
+    mostrarStatusValidacao(
+      "Digite um endereço de e-mail válido.",
+      "erro"
+    );
+
+    emailValidacao.focus();
+
+    return;
+
+  }
+
+
+  if(
+    !window.luxSupabase
+  ){
+
+    mostrarStatusValidacao(
+      "Supabase não foi inicializado. Verifique o config.js.",
+      "erro"
+    );
+
+    return;
+
+  }
+
+
+  botaoValidacao.disabled =
+    true;
+
+
+  botaoValidacao.textContent =
+    "ENVIANDO...";
+
+
+  mostrarStatusValidacao(
+    "Enviando o link de validação para " +
+    email +
+    "...",
+    "enviando"
+  );
+
+
+  try{
+
+    console.log(
+      "Iniciando reenvio de validação:",
+      email
+    );
+
+
+    const resultado =
+      await window.luxSupabase.auth.resend({
+
+        type:"signup",
+
+        email:email
+
+      });
+
+
+    console.log(
+      "Resposta do Supabase:",
+      resultado
+    );
+
+
+    if(
+      resultado.error
+    ){
+
+      throw resultado.error;
+
+    }
+
+
+    mostrarStatusValidacao(
+
+      "✓ E-mail de validação aceito pelo Supabase." +
+      " O link foi solicitado para " +
+      email +
+      ". Verifique também a pasta de spam/lixo eletrônico.",
+
+      "sucesso"
+
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Falha ao reenviar validação:",
+      error
+    );
+
+
+    mostrarStatusValidacao(
+
+      "✕ O e-mail NÃO foi enviado. " +
+      explicarErroValidacao(error),
+
+      "erro"
+
+    );
+
+
+  }finally{
+
+    botaoValidacao.disabled =
+      false;
+
+
+    botaoValidacao.textContent =
+      "REENVIAR LINK DE VALIDAÇÃO";
+
+  }
+
+}
+
+
+/* =====================================================
+   BOTÃO DE REENVIO
+===================================================== */
+
+botaoValidacao.addEventListener(
+  "click",
+  reenviarValidacao
+);
+
+
+/* =====================================================
+   ENTER NO CAMPO DE E-MAIL
+===================================================== */
+
+emailValidacao.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key ===
+      "Enter"
+    ){
+
+      event.preventDefault();
+
+      reenviarValidacao();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   FECHAR MODAL DE VALIDAÇÃO
+===================================================== */
+
+document
+  .getElementById(
+    "fechar-validacao"
+  )
+  .addEventListener(
+    "click",
+    function(){
+
+      modalValidacao.classList.remove(
+        "aberto"
+      );
+
+    }
+  );
+
+
+modalValidacao.addEventListener(
+  "click",
+  function(event){
+
+    if(
+      event.target ===
+      modalValidacao
+    ){
+
+      modalValidacao.classList.remove(
+        "aberto"
+      );
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   FILTRO DE MODELOS
+===================================================== */
+
+const filtroModelo =
+  document.getElementById(
+    "filtro-modelo"
+  );
+
+
+const filtroStatus =
+  document.getElementById(
+    "filtro-status"
+  );
+
+
+function aplicarFiltros(){
+
+  const termo =
+    filtroModelo.value
+      .trim()
+      .toLowerCase();
+
+
+  const status =
+    filtroStatus.value
+      .trim()
+      .toLowerCase();
+
+
+  document
+    .querySelectorAll(
+      ".modelo-item"
+    )
+    .forEach(
+      function(item){
+
+        const texto =
+          item.textContent
+            .toLowerCase();
+
+
+        const correspondeTexto =
+          !termo ||
+          texto.includes(termo);
+
+
+        const correspondeStatus =
+          !status ||
+          texto.includes(status);
+
+
+        item.style.display =
+          correspondeTexto &&
+          correspondeStatus
+            ? ""
+            : "none";
 
       }
     );
 
+}
 
-    /* =====================================================
-       MÓDULOS ADMINISTRATIVOS
-       ===================================================== */
 
+filtroModelo.addEventListener(
+  "input",
+  aplicarFiltros
+);
 
-    const modulos = {
 
-      modelos: {
+filtroStatus.addEventListener(
+  "change",
+  aplicarFiltros
+);
 
-        titulo:
-          "Gestão de Modelos",
 
-        texto:
-          "Área destinada ao gerenciamento dos cadastros, aprovação, reprovação e fichas das modelos."
+/* =====================================================
+   SEGURANÇA EXTRA:
+   FECHAR MODAIS COM ESC
+===================================================== */
 
-      },
+document.addEventListener(
+  "keydown",
+  function(event){
 
+    if(
+      event.key !==
+      "Escape"
+    ){
 
-      usuarios: {
-
-        titulo:
-          "Gestão de Usuários",
-
-        texto:
-          "Área de gerenciamento dos usuários cadastrados na plataforma LUX ADVANCE."
-
-      },
-
-
-      reclamacoes: {
-
-        titulo:
-          "Reclamações",
-
-        texto:
-          "Área destinada à visualização, análise e acompanhamento das reclamações registradas por usuários e modelos."
-
-      },
-
-
-      planos: {
-
-        titulo:
-          "Planos LUX ADVANCE",
-
-        texto:
-          "Área de gerenciamento dos planos LUX-ESSENCE, LUX-DESFIRE, LUX-ELITE, LUX-ROYAL e LUX-DIAMOND."
-
-      },
-
-
-      pagamentos: {
-
-        titulo:
-          "Pagamentos",
-
-        texto:
-          "Área destinada ao acompanhamento dos pagamentos realizados dentro da plataforma."
-
-      },
-
-
-      assinaturas: {
-
-        titulo:
-          "Assinaturas",
-
-        texto:
-          "Área destinada ao controle das assinaturas dos planos LUX ADVANCE."
-
-      },
-
-
-      avaliacoes: {
-
-        titulo:
-          "Avaliações",
-
-        texto:
-          "Área destinada ao acompanhamento das avaliações realizadas pelos usuários."
-
-      },
-
-
-      doacoes: {
-
-        titulo:
-          "Doações",
-
-        texto:
-          "Área destinada ao acompanhamento das doações realizadas através da plataforma."
-
-      }
-
-    };
-
-
-    function abrirModuloAdmin(
-      titulo,
-      texto
-    ) {
-
-
-      const modal =
-        document.createElement(
-          "div"
-        );
-
-
-      modal.className =
-        "modal aberto";
-
-
-      modal.innerHTML = `
-
-        <div
-          class="modal-conteudo modulo-modal"
-        >
-
-          <div
-            style="
-              display:flex;
-              justify-content:space-between;
-              align-items:flex-start;
-              gap:15px;
-            "
-          >
-
-            <div>
-
-              <h3>
-                ${titulo}
-              </h3>
-
-            </div>
-
-            <button
-              class="fechar"
-              type="button"
-              aria-label="Fechar"
-            >
-              ×
-            </button>
-
-          </div>
-
-          <p>
-            ${texto}
-          </p>
-
-          ${
-            titulo === "Planos LUX ADVANCE"
-              ? `
-                <div class="diamond-destaque">
-
-                  <strong>
-                    LUX-DIAMOND · R$ 149,90/mês
-                  </strong>
-
-                  <span>
-                    Inclui os benefícios do LUX-ROYAL,
-                    acompanhamento presencial durante
-                    agendamentos para segurança,
-                    transporte e logística,
-                    selo Diamond, destaque máximo,
-                    prioridade e suporte prioritário,
-                    além de benefícios exclusivos.
-                    Limite de mídia:
-                    10 fotos e 5 vídeos.
-                  </span>
-
-                </div>
-              `
-              : ""
-          }
-
-        </div>
-
-      `;
-
-
-      document.body.appendChild(
-        modal
-      );
-
-
-      const fechar =
-        modal.querySelector(
-          ".fechar"
-        );
-
-
-      function fecharModal() {
-
-        modal.remove();
-
-      }
-
-
-      fechar.addEventListener(
-        "click",
-        fecharModal
-      );
-
-
-      modal.addEventListener(
-        "click",
-        function (event) {
-
-          if (
-            event.target === modal
-          ) {
-
-            fecharModal();
-
-          }
-
-        }
-      );
+      return;
 
     }
 
 
-    /* =====================================================
-       CLIQUE NOS CARDS
-       ===================================================== */
+    modalModulo.classList.remove(
+      "aberto"
+    );
 
 
-    document
-      .querySelectorAll(
-        ".admin-card"
-      )
-      .forEach(
-        function (card) {
+    modalValidacao.classList.remove(
+      "aberto"
+    );
 
+  }
+);
 
-          card.addEventListener(
-            "click",
-            function () {
+</script>
 
 
-              const modulo =
-                card.dataset.modulo;
+<!--
+  MÓDULO EXISTENTE DO PAINEL.
+  Mantido para não alterar o sistema
+  de gestão de modelos.
+-->
 
-
-              /* NOVO SISTEMA DE VALIDAÇÃO */
-
-              if (
-                modulo === "validacao-email"
-              ) {
-
-                const modal =
-                  document.getElementById(
-                    "modal-validacao-email"
-                  );
-
-
-                if (modal) {
-
-                  modal.classList.add(
-                    "aberto"
-                  );
-
-                }
-
-                return;
-
-              }
-
-
-              if (
-                modulo === "modelos"
-              ) {
-
-                const alvo =
-                  document.getElementById(
-                    "gestao-modelos"
-                  );
-
-
-                if (alvo) {
-
-                  alvo.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                  });
-
-                }
-
-                return;
-
-              }
-
-
-              const dados =
-                modulos[modulo];
-
-
-              if (!dados) {
-                return;
-              }
-
-
-              abrirModuloAdmin(
-                dados.titulo,
-                dados.texto
-              );
-
-            }
-          );
-
-
-          card.addEventListener(
-            "touchend",
-            function () {
-
-              /*
-               * Evita executar novamente
-               * em alguns navegadores móveis.
-               */
-
-              if (
-                !card.dataset.touchExecutado
-              ) {
-
-                card.dataset.touchExecutado =
-                  "true";
-
-                setTimeout(
-                  function () {
-
-                    delete card.dataset.touchExecutado;
-
-                  },
-                  500
-                );
-
-              }
-
-            },
-            {
-              passive: true
-            }
-          );
-
-
-        }
-      );
-
-
-    /* =====================================================
-       FILTROS
-       ===================================================== */
-
-
-    document
-      .querySelectorAll(
-        ".filtro"
-      )
-      .forEach(
-        function (botao) {
-
-          botao.addEventListener(
-            "click",
-            function () {
-
-              document
-                .querySelectorAll(
-                  ".filtro"
-                )
-                .forEach(
-                  function (item) {
-
-                    item.classList.remove(
-                      "ativo"
-                    );
-
-                  }
-                );
-
-
-              botao.classList.add(
-                "ativo"
-              );
-
-            }
-          );
-
-        }
-      );
-
-
-    /* =====================================================
-       FECHAR MODAL DE VALIDAÇÃO
-       ===================================================== */
-
-
-    const modalValidacao =
-      document.getElementById(
-        "modal-validacao-email"
-      );
-
-
-    const fecharValidacao =
-      document.getElementById(
-        "fechar-modal-validacao"
-      );
-
-
-    if (fecharValidacao) {
-
-      fecharValidacao.addEventListener(
-        "click",
-        function () {
-
-          modalValidacao.classList.remove(
-            "aberto"
-          );
-
-        }
-      );
-
-    }
-
-
-    if (modalValidacao) {
-
-      modalValidacao.addEventListener(
-        "click",
-        function (event) {
-
-          if (
-            event.target === modalValidacao
-          ) {
-
-            modalValidacao.classList.remove(
-              "aberto"
-            );
-
-          }
-
-        }
-      );
-
-    }
-
-
-    /* =====================================================
-       REENVIO DO LINK DE VALIDAÇÃO
-       ===================================================== */
-
-
-    const btnReenviarValidacao =
-      document.getElementById(
-        "btn-reenviar-validacao"
-      );
-
-
-    const emailValidacao =
-      document.getElementById(
-        "email-validacao"
-      );
-
-
-    const resultadoValidacao =
-      document.getElementById(
-        "resultado-validacao"
-      );
-
-
-    function mostrarResultadoValidacao(
-      mensagem,
-      sucesso
-    ) {
-
-      resultadoValidacao.textContent =
-        mensagem;
-
-
-      if (sucesso) {
-
-        resultadoValidacao.className =
-          "resultado-validacao sucesso";
-
-      } else {
-
-        resultadoValidacao.className =
-          "resultado-validacao erro";
-
-      }
-
-    }
-
-
-    if (
-      btnReenviarValidacao
-    ) {
-
-      btnReenviarValidacao.addEventListener(
-        "click",
-        async function () {
-
-
-          const email =
-            emailValidacao.value
-              .trim()
-              .toLowerCase();
-
-
-          if (!email) {
-
-            mostrarResultadoValidacao(
-              "Digite o e-mail da modelo.",
-              false
-            );
-
-            return;
-
-          }
-
-
-          if (
-            !email.includes("@") ||
-            !email.includes(".")
-          ) {
-
-            mostrarResultadoValidacao(
-              "Digite um endereço de e-mail válido.",
-              false
-            );
-
-            return;
-
-          }
-
-
-          if (
-            !window.luxSupabase ||
-            !window.luxSupabase.auth
-          ) {
-
-            mostrarResultadoValidacao(
-              "Supabase não foi inicializado. Verifique o config.js.",
-              false
-            );
-
-            return;
-
-          }
-
-
-          btnReenviarValidacao.disabled =
-            true;
-
-
-          btnReenviarValidacao.textContent =
-            "ENVIANDO...";
-
-
-          resultadoValidacao.className =
-            "resultado-validacao";
-
-
-          resultadoValidacao.style.display =
-            "none";
-
-
-          try {
-
-
-            /*
-             * Reenvia o e-mail de confirmação
-             * através do Supabase Auth.
-             */
-
-            const {
-              data,
-              error
-            } =
-              await window.luxSupabase.auth.resend({
-
-                type: "signup",
-
-                email: email
-
-              });
-
-
-            if (error) {
-
-              console.error(
-                "Erro Supabase:",
-                error
-              );
-
-
-              mostrarResultadoValidacao(
-                "Não foi possível reenviar o link: " +
-                error.message,
-                false
-              );
-
-
-              return;
-
-            }
-
-
-            console.log(
-              "Reenvio realizado:",
-              data
-            );
-
-
-            mostrarResultadoValidacao(
-              "Link de validação solicitado com sucesso para " +
-              email +
-              ". Verifique a caixa de entrada e também a pasta de spam.",
-              true
-            );
-
-
-          } catch (erro) {
-
-
-            console.error(
-              "Erro inesperado:",
-              erro
-            );
-
-
-            mostrarResultadoValidacao(
-              "Ocorreu um erro inesperado ao tentar reenviar o link.",
-              false
-            );
-
-
-          } finally {
-
-
-            btnReenviarValidacao.disabled =
-              false;
-
-
-            btnReenviarValidacao.textContent =
-              "REENVIAR LINK DE VALIDAÇÃO";
-
-
-          }
-
-        }
-      );
-
-    }
-
-  </script>
-
-
-  <!--
-    SEU ARQUIVO ORIGINAL CONTINUA SENDO CARREGADO.
-    Ele permanece responsável pela gestão dos modelos,
-    fichas, aprovação, reprovação e demais funções.
-  -->
-
-  <script src="./painel-admin.js"></script>
-
+<script src="./painel-admin.js"></script>
 
 </body>
 
